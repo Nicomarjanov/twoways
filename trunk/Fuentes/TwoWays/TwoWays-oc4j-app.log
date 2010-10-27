@@ -1,0 +1,371 @@
+10/10/27 13:06:03.78 10.1.3.4.0 Started
+10/10/27 13:08:05.625 10.1.3.4.0 Started
+10/10/27 13:30:16.109 10.1.3.4.0 Started
+10/10/27 13:37:15.437 10.1.3.4.0 Started
+10/10/27 13:38:08.843 10.1.3.4.0 Started
+10/10/27 13:38:12.140 TwoWays: 10.1.3.4.0 Started
+10/10/27 13:39:26.343 TwoWays: 10.1.3.4.0 Stopped
+10/10/27 13:39:27.125 10.1.3.4.0 Started
+10/10/27 13:39:30.437 TwoWays: 10.1.3.4.0 Started
+10/10/27 13:40:29.812 TwoWays: 10.1.3.4.0 Stopped
+10/10/27 13:40:30.359 10.1.3.4.0 Started
+10/10/27 13:40:33.687 TwoWays: 10.1.3.4.0 Started
+10/10/27 14:06:08.46 TwoWays: 10.1.3.4.0 Stopped
+10/10/27 14:06:08.750 10.1.3.4.0 Started
+10/10/27 14:06:11.890 TwoWays: 10.1.3.4.0 Started
+10/10/27 14:06:24.937 TwoWays: Servlet error
+oracle.classloader.util.AnnotatedNoClassDefFoundError: 
+
+	  Falta la clase: org.apache.commons.logging.LogFactory
+
+	Clase Dependiente: org.springframework.beans.factory.access.SingletonBeanFactoryLocator
+	         Cargador: current-workspace-app.root:0.0.0
+	    Origen de Código: /C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/spring-1.2.8.jar
+	  Configuración: <library> in /C:/TwoWays/TwoWays-oc4j-app.xml
+
+La clase que falta está disponible en las siguientes ubicaciones:
+
+	1. Origen de Código: /C:/jdevstudio10134/webservices/lib/commons-logging.jar (from <code-source> (ignore manifest Class-Path) in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar)
+ 	   Este origen de código está disponible en el cargador apache.commons.logging:1.0.4. Esta biblioteca compartida se puede importar con la aplicación  "current-workspace-app".
+
+
+	2. Origen de Código: /C:/jdevstudio10134/jakarta-taglibs/commons-logging-1.0.3/commons-logging.jar (from <classpath> in C:\TwoWays\viewcontroller\public_html)
+ 	   Este origen de código está disponible en el cargador current-workspace-app.web.TwoWays:0.0.0. Es un secundario del cargador dependiente current-workspace-app.root:0.0.0.
+
+
+	3. Origen de Código: /C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/commons-logging.jar (from WEB-INF/lib/ directory in C:\TwoWays\viewcontroller\public_html\WEB-INF\lib)
+ 	   Este origen de código está disponible en el cargador current-workspace-app.web.TwoWays:0.0.0. Es un secundario del cargador dependiente current-workspace-app.root:0.0.0.
+
+
+	4. Origen de Código: /C:/jdevstudio10134/jakarta-taglibs/commons-logging-1.0.3/commons-logging-api.jar (from <classpath> in C:\TwoWays\viewcontroller\public_html)
+ 	   Este origen de código está disponible en el cargador current-workspace-app.web.TwoWays:0.0.0. Es un secundario del cargador dependiente current-workspace-app.root:0.0.0.
+
+
+	at oracle.classloader.PolicyClassLoader.handleClassNotFound (PolicyClassLoader.java:2068) [/C:/jdevstudio10134/j2ee/home/lib/pcl.jar (from system property java.class.path), by sun.misc.Launcher$AppClassLoader@14916158]
+	at oracle.classloader.PolicyClassLoader.internalLoadClass (PolicyClassLoader.java:1679) [/C:/jdevstudio10134/j2ee/home/lib/pcl.jar (from system property java.class.path), by sun.misc.Launcher$AppClassLoader@14916158]
+	at oracle.classloader.PolicyClassLoader.loadClass (PolicyClassLoader.java:1635) [/C:/jdevstudio10134/j2ee/home/lib/pcl.jar (from system property java.class.path), by sun.misc.Launcher$AppClassLoader@14916158]
+	at oracle.classloader.PolicyClassLoader.loadClass (PolicyClassLoader.java:1620) [/C:/jdevstudio10134/j2ee/home/lib/pcl.jar (from system property java.class.path), by sun.misc.Launcher$AppClassLoader@14916158]
+	at java.lang.ClassLoader.loadClassInternal (ClassLoader.java:319) [jre bootstrap, by jre.bootstrap:1.5.0_06]
+	at org.springframework.beans.factory.access.SingletonBeanFactoryLocator.<clinit> (SingletonBeanFactoryLocator.java:279) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/spring-1.2.8.jar (from <library> in /C:/TwoWays/TwoWays-oc4j-app.xml), by current-workspace-app.root:0.0.0]
+	at com.twoways.core.bdl.TwoWaysBDL.<init> (TwoWaysBDL.java:23) [/C:/TwoWays/model/classes/ (from <ejb> in unknown), by current-workspace-app.root:0.0.0]
+	at com.twoways.view.service.ServiceTW_System.<init> (ServiceTW_System.java:17) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/classes/ (from WEB-INF/classes/ in C:\TwoWays\viewcontroller\public_html\WEB-INF\classes), by current-workspace-app.web.TwoWays:0.0.0]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0 (Native method) [unknown, by unknown]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance (NativeConstructorAccessorImpl.java:39) [unknown, by unknown]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance (DelegatingConstructorAccessorImpl.java:27) [unknown, by unknown]
+	at java.lang.reflect.Constructor.newInstance (Constructor.java:494) [unknown, by unknown]
+	at java.lang.Class.newInstance0 (Class.java:350) [jre bootstrap, by jre.bootstrap:1.5.0_06]
+	at java.lang.Class.newInstance (Class.java:303) [jre bootstrap, by jre.bootstrap:1.5.0_06]
+	at org.directwebremoting.create.NewCreator.getInstance (NewCreator.java:65) [jre bootstrap, by jre.bootstrap:1.5.0_06]
+	at org.directwebremoting.impl.DefaultRemoter.execute (DefaultRemoter.java:348) [jre bootstrap, by jre.bootstrap:1.5.0_06]
+	at org.directwebremoting.impl.DefaultRemoter.execute (DefaultRemoter.java:283) [jre bootstrap, by jre.bootstrap:1.5.0_06]
+	at org.directwebremoting.servlet.PlainCallHandler.handle (PlainCallHandler.java:52) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/dwr.jar (from WEB-INF/lib/ directory in C:\TwoWays\viewcontroller\public_html\WEB-INF\lib), by current-workspace-app.web.TwoWays:0.0.0]
+	at org.directwebremoting.servlet.UrlProcessor.handle (UrlProcessor.java:101) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/dwr.jar (from WEB-INF/lib/ directory in C:\TwoWays\viewcontroller\public_html\WEB-INF\lib), by current-workspace-app.web.TwoWays:0.0.0]
+	at org.directwebremoting.servlet.DwrServlet.doPost (DwrServlet.java:146) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/dwr.jar (from WEB-INF/lib/ directory in C:\TwoWays\viewcontroller\public_html\WEB-INF\lib), by current-workspace-app.web.TwoWays:0.0.0]
+	at javax.servlet.http.HttpServlet.service (HttpServlet.java:763) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/dwr.jar (from WEB-INF/lib/ directory in C:\TwoWays\viewcontroller\public_html\WEB-INF\lib), by current-workspace-app.web.TwoWays:0.0.0]
+	at javax.servlet.http.HttpServlet.service (HttpServlet.java:856) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/dwr.jar (from WEB-INF/lib/ directory in C:\TwoWays\viewcontroller\public_html\WEB-INF\lib), by current-workspace-app.web.TwoWays:0.0.0]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.ServletRequestDispatcher.invoke (ServletRequestDispatcher.java:713) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/dwr.jar (from WEB-INF/lib/ directory in C:\TwoWays\viewcontroller\public_html\WEB-INF\lib), by current-workspace-app.web.TwoWays:0.0.0]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.ServletRequestDispatcher.forwardInternal (ServletRequestDispatcher.java:370) [/C:/jdevstudio10134/j2ee/home/lib/servlet.jar (from <code-source> (ignore manifest Class-Path) in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by api:1.4.0]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.doProcessRequest (HttpRequestHandler.java:871) [/C:/jdevstudio10134/j2ee/home/lib/servlet.jar (from <code-source> (ignore manifest Class-Path) in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by api:1.4.0]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.processRequest (HttpRequestHandler.java:453) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.serveOneRequest (HttpRequestHandler.java:221) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.run (HttpRequestHandler.java:122) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.run (HttpRequestHandler.java:111) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+	at oracle.oc4j.network.ServerSocketReadHandler$SafeRunnable.run (ServerSocketReadHandler.java:260) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].util.ReleasableResourcePooledExecutor$MyWorker.run (ReleasableResourcePooledExecutor.java:303) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+	at java.lang.Thread.run (Thread.java:595) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+
+10/10/27 14:06:33.453 TwoWays: Servlet error
+java.lang.NoClassDefFoundError
+	at com.twoways.core.bdl.TwoWaysBDL.<init>(TwoWaysBDL.java:23)
+	at com.twoways.view.service.ServiceTW_System.<init>(ServiceTW_System.java:17)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:39)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:27)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:494)
+	at java.lang.Class.newInstance0(Class.java:350)
+	at java.lang.Class.newInstance(Class.java:303)
+	at org.directwebremoting.create.NewCreator.getInstance(NewCreator.java:65)
+	at org.directwebremoting.impl.DefaultRemoter.execute(DefaultRemoter.java:348)
+	at org.directwebremoting.impl.DefaultRemoter.execute(DefaultRemoter.java:283)
+	at org.directwebremoting.servlet.PlainCallHandler.handle(PlainCallHandler.java:52)
+	at org.directwebremoting.servlet.UrlProcessor.handle(UrlProcessor.java:101)
+	at org.directwebremoting.servlet.DwrServlet.doPost(DwrServlet.java:146)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:763)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:856)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.ServletRequestDispatcher.invoke(ServletRequestDispatcher.java:713)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.ServletRequestDispatcher.forwardInternal(ServletRequestDispatcher.java:370)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.doProcessRequest(HttpRequestHandler.java:871)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.processRequest(HttpRequestHandler.java:453)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.serveOneRequest(HttpRequestHandler.java:221)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.run(HttpRequestHandler.java:122)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.run(HttpRequestHandler.java:111)
+	at oracle.oc4j.network.ServerSocketReadHandler$SafeRunnable.run(ServerSocketReadHandler.java:260)
+	at oracle.oc4j.network.ServerSocketAcceptHandler.procClientSocket(ServerSocketAcceptHandler.java:234)
+	at oracle.oc4j.network.ServerSocketAcceptHandler.access$700(ServerSocketAcceptHandler.java:29)
+	at oracle.oc4j.network.ServerSocketAcceptHandler$AcceptHandlerHorse.run(ServerSocketAcceptHandler.java:879)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].util.ReleasableResourcePooledExecutor$MyWorker.run(ReleasableResourcePooledExecutor.java:303)
+	at java.lang.Thread.run(Thread.java:595)
+10/10/27 14:08:44.468 10.1.3.4.0 Started
+10/10/27 14:08:48.609 TwoWays: 10.1.3.4.0 Started
+10/10/27 14:09:00.625 TwoWays: Servlet error
+oracle.classloader.util.AnnotatedNoClassDefFoundError: 
+
+	  Falta la clase: org.apache.commons.logging.LogFactory
+
+	Clase Dependiente: org.springframework.beans.factory.access.SingletonBeanFactoryLocator
+	         Cargador: current-workspace-app.root:0.0.0
+	    Origen de Código: /C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/spring-1.2.8.jar
+	  Configuración: <library> in /C:/TwoWays/TwoWays-oc4j-app.xml
+
+La clase que falta está disponible en las siguientes ubicaciones:
+
+	1. Origen de Código: /C:/jdevstudio10134/jakarta-taglibs/commons-logging-1.0.3/commons-logging.jar (from <classpath> in C:\TwoWays\viewcontroller\public_html)
+ 	   Este origen de código está disponible en el cargador current-workspace-app.web.TwoWays:0.0.0. Es un secundario del cargador dependiente current-workspace-app.root:0.0.0.
+
+
+	2. Origen de Código: /C:/jdevstudio10134/webservices/lib/commons-logging.jar (from <code-source> (ignore manifest Class-Path) in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar)
+ 	   Este origen de código está disponible en el cargador apache.commons.logging:1.0.4. Esta biblioteca compartida se puede importar con la aplicación  "current-workspace-app".
+
+
+	3. Origen de Código: /C:/jdevstudio10134/jakarta-taglibs/commons-logging-1.0.3/commons-logging-api.jar (from <classpath> in C:\TwoWays\viewcontroller\public_html)
+ 	   Este origen de código está disponible en el cargador current-workspace-app.web.TwoWays:0.0.0. Es un secundario del cargador dependiente current-workspace-app.root:0.0.0.
+
+
+	4. Origen de Código: /C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/commons-logging.jar (from WEB-INF/lib/ directory in C:\TwoWays\viewcontroller\public_html\WEB-INF\lib)
+ 	   Este origen de código está disponible en el cargador current-workspace-app.web.TwoWays:0.0.0. Es un secundario del cargador dependiente current-workspace-app.root:0.0.0.
+
+
+	at oracle.classloader.PolicyClassLoader.handleClassNotFound (PolicyClassLoader.java:2068) [/C:/jdevstudio10134/j2ee/home/lib/pcl.jar (from system property java.class.path), by sun.misc.Launcher$AppClassLoader@14916158]
+	at oracle.classloader.PolicyClassLoader.internalLoadClass (PolicyClassLoader.java:1679) [/C:/jdevstudio10134/j2ee/home/lib/pcl.jar (from system property java.class.path), by sun.misc.Launcher$AppClassLoader@14916158]
+	at oracle.classloader.PolicyClassLoader.loadClass (PolicyClassLoader.java:1635) [/C:/jdevstudio10134/j2ee/home/lib/pcl.jar (from system property java.class.path), by sun.misc.Launcher$AppClassLoader@14916158]
+	at oracle.classloader.PolicyClassLoader.loadClass (PolicyClassLoader.java:1620) [/C:/jdevstudio10134/j2ee/home/lib/pcl.jar (from system property java.class.path), by sun.misc.Launcher$AppClassLoader@14916158]
+	at java.lang.ClassLoader.loadClassInternal (ClassLoader.java:319) [jre bootstrap, by jre.bootstrap:1.5.0_06]
+	at org.springframework.beans.factory.access.SingletonBeanFactoryLocator.<clinit> (SingletonBeanFactoryLocator.java:279) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/spring-1.2.8.jar (from <library> in /C:/TwoWays/TwoWays-oc4j-app.xml), by current-workspace-app.root:0.0.0]
+	at com.twoways.core.bdl.TwoWaysBDL.<init> (TwoWaysBDL.java:23) [/C:/TwoWays/model/classes/ (from <ejb> in unknown), by current-workspace-app.root:0.0.0]
+	at com.twoways.view.service.ServiceTW_System.<init> (ServiceTW_System.java:17) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/classes/ (from WEB-INF/classes/ in C:\TwoWays\viewcontroller\public_html\WEB-INF\classes), by current-workspace-app.web.TwoWays:0.0.0]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0 (Native method) [unknown, by unknown]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance (NativeConstructorAccessorImpl.java:39) [unknown, by unknown]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance (DelegatingConstructorAccessorImpl.java:27) [unknown, by unknown]
+	at java.lang.reflect.Constructor.newInstance (Constructor.java:494) [unknown, by unknown]
+	at java.lang.Class.newInstance0 (Class.java:350) [jre bootstrap, by jre.bootstrap:1.5.0_06]
+	at java.lang.Class.newInstance (Class.java:303) [jre bootstrap, by jre.bootstrap:1.5.0_06]
+	at org.directwebremoting.create.NewCreator.getInstance (NewCreator.java:65) [jre bootstrap, by jre.bootstrap:1.5.0_06]
+	at org.directwebremoting.impl.DefaultRemoter.execute (DefaultRemoter.java:348) [jre bootstrap, by jre.bootstrap:1.5.0_06]
+	at org.directwebremoting.impl.DefaultRemoter.execute (DefaultRemoter.java:283) [jre bootstrap, by jre.bootstrap:1.5.0_06]
+	at org.directwebremoting.servlet.PlainCallHandler.handle (PlainCallHandler.java:52) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/dwr.jar (from WEB-INF/lib/ directory in C:\TwoWays\viewcontroller\public_html\WEB-INF\lib), by current-workspace-app.web.TwoWays:0.0.0]
+	at org.directwebremoting.servlet.UrlProcessor.handle (UrlProcessor.java:101) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/dwr.jar (from WEB-INF/lib/ directory in C:\TwoWays\viewcontroller\public_html\WEB-INF\lib), by current-workspace-app.web.TwoWays:0.0.0]
+	at org.directwebremoting.servlet.DwrServlet.doPost (DwrServlet.java:146) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/dwr.jar (from WEB-INF/lib/ directory in C:\TwoWays\viewcontroller\public_html\WEB-INF\lib), by current-workspace-app.web.TwoWays:0.0.0]
+	at javax.servlet.http.HttpServlet.service (HttpServlet.java:763) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/dwr.jar (from WEB-INF/lib/ directory in C:\TwoWays\viewcontroller\public_html\WEB-INF\lib), by current-workspace-app.web.TwoWays:0.0.0]
+	at javax.servlet.http.HttpServlet.service (HttpServlet.java:856) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/dwr.jar (from WEB-INF/lib/ directory in C:\TwoWays\viewcontroller\public_html\WEB-INF\lib), by current-workspace-app.web.TwoWays:0.0.0]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.ServletRequestDispatcher.invoke (ServletRequestDispatcher.java:713) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/dwr.jar (from WEB-INF/lib/ directory in C:\TwoWays\viewcontroller\public_html\WEB-INF\lib), by current-workspace-app.web.TwoWays:0.0.0]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.ServletRequestDispatcher.forwardInternal (ServletRequestDispatcher.java:370) [/C:/jdevstudio10134/j2ee/home/lib/servlet.jar (from <code-source> (ignore manifest Class-Path) in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by api:1.4.0]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.doProcessRequest (HttpRequestHandler.java:871) [/C:/jdevstudio10134/j2ee/home/lib/servlet.jar (from <code-source> (ignore manifest Class-Path) in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by api:1.4.0]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.processRequest (HttpRequestHandler.java:453) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.serveOneRequest (HttpRequestHandler.java:221) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.run (HttpRequestHandler.java:122) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.run (HttpRequestHandler.java:111) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+	at oracle.oc4j.network.ServerSocketReadHandler$SafeRunnable.run (ServerSocketReadHandler.java:260) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].util.ReleasableResourcePooledExecutor$MyWorker.run (ReleasableResourcePooledExecutor.java:303) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+	at java.lang.Thread.run (Thread.java:595) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+
+10/10/27 14:26:31.203 10.1.3.4.0 Started
+10/10/27 14:26:35.156 TwoWays: 10.1.3.4.0 Started
+10/10/27 14:26:44.578 TwoWays: Servlet error
+oracle.classloader.util.AnnotatedNoClassDefFoundError: 
+
+	  Falta la clase: org.apache.commons.logging.LogFactory
+
+	Clase Dependiente: org.springframework.beans.factory.access.SingletonBeanFactoryLocator
+	         Cargador: current-workspace-app.root:0.0.0
+	    Origen de Código: /C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/spring-1.2.8.jar
+	  Configuración: <library> in /C:/TwoWays/TwoWays-oc4j-app.xml
+
+La clase que falta está disponible en las siguientes ubicaciones:
+
+	1. Origen de Código: /C:/jdevstudio10134/jakarta-taglibs/commons-logging-1.0.3/commons-logging.jar (from <classpath> in C:\TwoWays\viewcontroller\public_html)
+ 	   Este origen de código está disponible en el cargador current-workspace-app.web.TwoWays:0.0.0. Es un secundario del cargador dependiente current-workspace-app.root:0.0.0.
+
+
+	2. Origen de Código: /C:/jdevstudio10134/webservices/lib/commons-logging.jar (from <code-source> (ignore manifest Class-Path) in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar)
+ 	   Este origen de código está disponible en el cargador apache.commons.logging:1.0.4. Esta biblioteca compartida se puede importar con la aplicación  "current-workspace-app".
+
+
+	3. Origen de Código: /C:/jdevstudio10134/jakarta-taglibs/commons-logging-1.0.3/commons-logging-api.jar (from <classpath> in C:\TwoWays\viewcontroller\public_html)
+ 	   Este origen de código está disponible en el cargador current-workspace-app.web.TwoWays:0.0.0. Es un secundario del cargador dependiente current-workspace-app.root:0.0.0.
+
+
+	4. Origen de Código: /C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/commons-logging.jar (from WEB-INF/lib/ directory in C:\TwoWays\viewcontroller\public_html\WEB-INF\lib)
+ 	   Este origen de código está disponible en el cargador current-workspace-app.web.TwoWays:0.0.0. Es un secundario del cargador dependiente current-workspace-app.root:0.0.0.
+
+
+	at oracle.classloader.PolicyClassLoader.handleClassNotFound (PolicyClassLoader.java:2068) [/C:/jdevstudio10134/j2ee/home/lib/pcl.jar (from system property java.class.path), by sun.misc.Launcher$AppClassLoader@14916158]
+	at oracle.classloader.PolicyClassLoader.internalLoadClass (PolicyClassLoader.java:1679) [/C:/jdevstudio10134/j2ee/home/lib/pcl.jar (from system property java.class.path), by sun.misc.Launcher$AppClassLoader@14916158]
+	at oracle.classloader.PolicyClassLoader.loadClass (PolicyClassLoader.java:1635) [/C:/jdevstudio10134/j2ee/home/lib/pcl.jar (from system property java.class.path), by sun.misc.Launcher$AppClassLoader@14916158]
+	at oracle.classloader.PolicyClassLoader.loadClass (PolicyClassLoader.java:1620) [/C:/jdevstudio10134/j2ee/home/lib/pcl.jar (from system property java.class.path), by sun.misc.Launcher$AppClassLoader@14916158]
+	at java.lang.ClassLoader.loadClassInternal (ClassLoader.java:319) [jre bootstrap, by jre.bootstrap:1.5.0_06]
+	at org.springframework.beans.factory.access.SingletonBeanFactoryLocator.<clinit> (SingletonBeanFactoryLocator.java:279) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/spring-1.2.8.jar (from <library> in /C:/TwoWays/TwoWays-oc4j-app.xml), by current-workspace-app.root:0.0.0]
+	at com.twoways.core.bdl.TwoWaysBDL.<init> (TwoWaysBDL.java:23) [/C:/TwoWays/model/classes/ (from <ejb> in unknown), by current-workspace-app.root:0.0.0]
+	at com.twoways.view.service.ServiceTW_System.<init> (ServiceTW_System.java:17) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/classes/ (from WEB-INF/classes/ in C:\TwoWays\viewcontroller\public_html\WEB-INF\classes), by current-workspace-app.web.TwoWays:0.0.0]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0 (Native method) [unknown, by unknown]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance (NativeConstructorAccessorImpl.java:39) [unknown, by unknown]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance (DelegatingConstructorAccessorImpl.java:27) [unknown, by unknown]
+	at java.lang.reflect.Constructor.newInstance (Constructor.java:494) [unknown, by unknown]
+	at java.lang.Class.newInstance0 (Class.java:350) [jre bootstrap, by jre.bootstrap:1.5.0_06]
+	at java.lang.Class.newInstance (Class.java:303) [jre bootstrap, by jre.bootstrap:1.5.0_06]
+	at org.directwebremoting.create.NewCreator.getInstance (NewCreator.java:65) [jre bootstrap, by jre.bootstrap:1.5.0_06]
+	at org.directwebremoting.impl.DefaultRemoter.execute (DefaultRemoter.java:348) [jre bootstrap, by jre.bootstrap:1.5.0_06]
+	at org.directwebremoting.impl.DefaultRemoter.execute (DefaultRemoter.java:283) [jre bootstrap, by jre.bootstrap:1.5.0_06]
+	at org.directwebremoting.servlet.PlainCallHandler.handle (PlainCallHandler.java:52) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/dwr.jar (from WEB-INF/lib/ directory in C:\TwoWays\viewcontroller\public_html\WEB-INF\lib), by current-workspace-app.web.TwoWays:0.0.0]
+	at org.directwebremoting.servlet.UrlProcessor.handle (UrlProcessor.java:101) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/dwr.jar (from WEB-INF/lib/ directory in C:\TwoWays\viewcontroller\public_html\WEB-INF\lib), by current-workspace-app.web.TwoWays:0.0.0]
+	at org.directwebremoting.servlet.DwrServlet.doPost (DwrServlet.java:146) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/dwr.jar (from WEB-INF/lib/ directory in C:\TwoWays\viewcontroller\public_html\WEB-INF\lib), by current-workspace-app.web.TwoWays:0.0.0]
+	at javax.servlet.http.HttpServlet.service (HttpServlet.java:763) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/dwr.jar (from WEB-INF/lib/ directory in C:\TwoWays\viewcontroller\public_html\WEB-INF\lib), by current-workspace-app.web.TwoWays:0.0.0]
+	at javax.servlet.http.HttpServlet.service (HttpServlet.java:856) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/dwr.jar (from WEB-INF/lib/ directory in C:\TwoWays\viewcontroller\public_html\WEB-INF\lib), by current-workspace-app.web.TwoWays:0.0.0]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.ServletRequestDispatcher.invoke (ServletRequestDispatcher.java:713) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/dwr.jar (from WEB-INF/lib/ directory in C:\TwoWays\viewcontroller\public_html\WEB-INF\lib), by current-workspace-app.web.TwoWays:0.0.0]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.ServletRequestDispatcher.forwardInternal (ServletRequestDispatcher.java:370) [/C:/jdevstudio10134/j2ee/home/lib/servlet.jar (from <code-source> (ignore manifest Class-Path) in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by api:1.4.0]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.doProcessRequest (HttpRequestHandler.java:871) [/C:/jdevstudio10134/j2ee/home/lib/servlet.jar (from <code-source> (ignore manifest Class-Path) in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by api:1.4.0]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.processRequest (HttpRequestHandler.java:453) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.serveOneRequest (HttpRequestHandler.java:221) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.run (HttpRequestHandler.java:122) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.run (HttpRequestHandler.java:111) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+	at oracle.oc4j.network.ServerSocketReadHandler$SafeRunnable.run (ServerSocketReadHandler.java:260) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+	at oracle.oc4j.network.ServerSocketAcceptHandler.procClientSocket (ServerSocketAcceptHandler.java:234) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+	at oracle.oc4j.network.ServerSocketAcceptHandler.access$700 (ServerSocketAcceptHandler.java:29) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+	at oracle.oc4j.network.ServerSocketAcceptHandler$AcceptHandlerHorse.run (ServerSocketAcceptHandler.java:879) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].util.ReleasableResourcePooledExecutor$MyWorker.run (ReleasableResourcePooledExecutor.java:303) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+	at java.lang.Thread.run (Thread.java:595) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+
+10/10/27 14:28:57.500 TwoWays: Servlet error
+java.lang.NoClassDefFoundError
+	at com.twoways.core.bdl.TwoWaysBDL.<init>(TwoWaysBDL.java:23)
+	at com.twoways.view.service.ServiceTW_System.<init>(ServiceTW_System.java:17)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:39)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:27)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:494)
+	at java.lang.Class.newInstance0(Class.java:350)
+	at java.lang.Class.newInstance(Class.java:303)
+	at org.directwebremoting.create.NewCreator.getInstance(NewCreator.java:65)
+	at org.directwebremoting.impl.DefaultRemoter.execute(DefaultRemoter.java:348)
+	at org.directwebremoting.impl.DefaultRemoter.execute(DefaultRemoter.java:283)
+	at org.directwebremoting.servlet.PlainCallHandler.handle(PlainCallHandler.java:52)
+	at org.directwebremoting.servlet.UrlProcessor.handle(UrlProcessor.java:101)
+	at org.directwebremoting.servlet.DwrServlet.doPost(DwrServlet.java:146)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:763)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:856)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.ServletRequestDispatcher.invoke(ServletRequestDispatcher.java:713)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.ServletRequestDispatcher.forwardInternal(ServletRequestDispatcher.java:370)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.doProcessRequest(HttpRequestHandler.java:871)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.processRequest(HttpRequestHandler.java:453)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.serveOneRequest(HttpRequestHandler.java:221)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.run(HttpRequestHandler.java:122)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.run(HttpRequestHandler.java:111)
+	at oracle.oc4j.network.ServerSocketReadHandler$SafeRunnable.run(ServerSocketReadHandler.java:260)
+	at oracle.oc4j.network.ServerSocketAcceptHandler.procClientSocket(ServerSocketAcceptHandler.java:234)
+	at oracle.oc4j.network.ServerSocketAcceptHandler.access$700(ServerSocketAcceptHandler.java:29)
+	at oracle.oc4j.network.ServerSocketAcceptHandler$AcceptHandlerHorse.run(ServerSocketAcceptHandler.java:879)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].util.ReleasableResourcePooledExecutor$MyWorker.run(ReleasableResourcePooledExecutor.java:303)
+	at java.lang.Thread.run(Thread.java:595)
+10/10/27 14:30:02.750 10.1.3.4.0 Started
+10/10/27 14:30:06.859 TwoWays: 10.1.3.4.0 Started
+10/10/27 14:33:43.468 TwoWays: Servlet error
+oracle.classloader.util.AnnotatedNoClassDefFoundError: 
+
+	  Falta la clase: org.apache.commons.logging.LogFactory
+
+	Clase Dependiente: org.springframework.beans.factory.access.SingletonBeanFactoryLocator
+	         Cargador: current-workspace-app.root:0.0.0
+	    Origen de Código: /C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/spring-1.2.8.jar
+	  Configuración: <library> in /C:/TwoWays/TwoWays-oc4j-app.xml
+
+La clase que falta está disponible en las siguientes ubicaciones:
+
+	1. Origen de Código: /C:/jdevstudio10134/webservices/lib/commons-logging.jar (from <code-source> (ignore manifest Class-Path) in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar)
+ 	   Este origen de código está disponible en el cargador apache.commons.logging:1.0.4. Esta biblioteca compartida se puede importar con la aplicación  "current-workspace-app".
+
+
+	2. Origen de Código: /C:/jdevstudio10134/jakarta-taglibs/commons-logging-1.0.3/commons-logging.jar (from <classpath> in C:\TwoWays\viewcontroller\public_html)
+ 	   Este origen de código está disponible en el cargador current-workspace-app.web.TwoWays:0.0.0. Es un secundario del cargador dependiente current-workspace-app.root:0.0.0.
+
+
+	3. Origen de Código: /C:/jdevstudio10134/jakarta-taglibs/commons-logging-1.0.3/commons-logging-api.jar (from <classpath> in C:\TwoWays\viewcontroller\public_html)
+ 	   Este origen de código está disponible en el cargador current-workspace-app.web.TwoWays:0.0.0. Es un secundario del cargador dependiente current-workspace-app.root:0.0.0.
+
+
+	4. Origen de Código: /C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/commons-logging.jar (from WEB-INF/lib/ directory in C:\TwoWays\viewcontroller\public_html\WEB-INF\lib)
+ 	   Este origen de código está disponible en el cargador current-workspace-app.web.TwoWays:0.0.0. Es un secundario del cargador dependiente current-workspace-app.root:0.0.0.
+
+
+	at oracle.classloader.PolicyClassLoader.handleClassNotFound (PolicyClassLoader.java:2068) [/C:/jdevstudio10134/j2ee/home/lib/pcl.jar (from system property java.class.path), by sun.misc.Launcher$AppClassLoader@14916158]
+	at oracle.classloader.PolicyClassLoader.internalLoadClass (PolicyClassLoader.java:1679) [/C:/jdevstudio10134/j2ee/home/lib/pcl.jar (from system property java.class.path), by sun.misc.Launcher$AppClassLoader@14916158]
+	at oracle.classloader.PolicyClassLoader.loadClass (PolicyClassLoader.java:1635) [/C:/jdevstudio10134/j2ee/home/lib/pcl.jar (from system property java.class.path), by sun.misc.Launcher$AppClassLoader@14916158]
+	at oracle.classloader.PolicyClassLoader.loadClass (PolicyClassLoader.java:1620) [/C:/jdevstudio10134/j2ee/home/lib/pcl.jar (from system property java.class.path), by sun.misc.Launcher$AppClassLoader@14916158]
+	at java.lang.ClassLoader.loadClassInternal (ClassLoader.java:319) [jre bootstrap, by jre.bootstrap:1.5.0_06]
+	at org.springframework.beans.factory.access.SingletonBeanFactoryLocator.<clinit> (SingletonBeanFactoryLocator.java:279) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/spring-1.2.8.jar (from <library> in /C:/TwoWays/TwoWays-oc4j-app.xml), by current-workspace-app.root:0.0.0]
+	at com.twoways.core.bdl.TwoWaysBDL.<init> (TwoWaysBDL.java:23) [/C:/TwoWays/model/classes/ (from <ejb> in unknown), by current-workspace-app.root:0.0.0]
+	at com.twoways.view.service.ServiceTW_System.<init> (ServiceTW_System.java:17) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/classes/ (from WEB-INF/classes/ in C:\TwoWays\viewcontroller\public_html\WEB-INF\classes), by current-workspace-app.web.TwoWays:0.0.0]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0 (Native method) [unknown, by unknown]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance (NativeConstructorAccessorImpl.java:39) [unknown, by unknown]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance (DelegatingConstructorAccessorImpl.java:27) [unknown, by unknown]
+	at java.lang.reflect.Constructor.newInstance (Constructor.java:494) [unknown, by unknown]
+	at java.lang.Class.newInstance0 (Class.java:350) [jre bootstrap, by jre.bootstrap:1.5.0_06]
+	at java.lang.Class.newInstance (Class.java:303) [jre bootstrap, by jre.bootstrap:1.5.0_06]
+	at org.directwebremoting.create.NewCreator.getInstance (NewCreator.java:65) [jre bootstrap, by jre.bootstrap:1.5.0_06]
+	at org.directwebremoting.impl.DefaultRemoter.execute (DefaultRemoter.java:348) [jre bootstrap, by jre.bootstrap:1.5.0_06]
+	at org.directwebremoting.impl.DefaultRemoter.execute (DefaultRemoter.java:283) [jre bootstrap, by jre.bootstrap:1.5.0_06]
+	at org.directwebremoting.servlet.PlainCallHandler.handle (PlainCallHandler.java:52) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/dwr.jar (from WEB-INF/lib/ directory in C:\TwoWays\viewcontroller\public_html\WEB-INF\lib), by current-workspace-app.web.TwoWays:0.0.0]
+	at org.directwebremoting.servlet.UrlProcessor.handle (UrlProcessor.java:101) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/dwr.jar (from WEB-INF/lib/ directory in C:\TwoWays\viewcontroller\public_html\WEB-INF\lib), by current-workspace-app.web.TwoWays:0.0.0]
+	at org.directwebremoting.servlet.DwrServlet.doPost (DwrServlet.java:146) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/dwr.jar (from WEB-INF/lib/ directory in C:\TwoWays\viewcontroller\public_html\WEB-INF\lib), by current-workspace-app.web.TwoWays:0.0.0]
+	at javax.servlet.http.HttpServlet.service (HttpServlet.java:763) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/dwr.jar (from WEB-INF/lib/ directory in C:\TwoWays\viewcontroller\public_html\WEB-INF\lib), by current-workspace-app.web.TwoWays:0.0.0]
+	at javax.servlet.http.HttpServlet.service (HttpServlet.java:856) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/dwr.jar (from WEB-INF/lib/ directory in C:\TwoWays\viewcontroller\public_html\WEB-INF\lib), by current-workspace-app.web.TwoWays:0.0.0]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.ServletRequestDispatcher.invoke (ServletRequestDispatcher.java:713) [/C:/TwoWays/viewcontroller/public_html/WEB-INF/lib/dwr.jar (from WEB-INF/lib/ directory in C:\TwoWays\viewcontroller\public_html\WEB-INF\lib), by current-workspace-app.web.TwoWays:0.0.0]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.ServletRequestDispatcher.forwardInternal (ServletRequestDispatcher.java:370) [/C:/jdevstudio10134/j2ee/home/lib/servlet.jar (from <code-source> (ignore manifest Class-Path) in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by api:1.4.0]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.doProcessRequest (HttpRequestHandler.java:871) [/C:/jdevstudio10134/j2ee/home/lib/servlet.jar (from <code-source> (ignore manifest Class-Path) in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by api:1.4.0]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.processRequest (HttpRequestHandler.java:453) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.serveOneRequest (HttpRequestHandler.java:221) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.run (HttpRequestHandler.java:122) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.run (HttpRequestHandler.java:111) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+	at oracle.oc4j.network.ServerSocketReadHandler$SafeRunnable.run (ServerSocketReadHandler.java:260) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].util.ReleasableResourcePooledExecutor$MyWorker.run (ReleasableResourcePooledExecutor.java:303) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+	at java.lang.Thread.run (Thread.java:595) [/C:/jdevstudio10134/j2ee/home/lib/oc4j-internal.jar (from <code-source> in META-INF/boot.xml in C:\jdevstudio10134\j2ee\home\oc4j.jar), by oc4j:10.1.3]
+
+10/10/27 15:10:59.765 TwoWays: Servlet error
+java.lang.NoClassDefFoundError
+	at com.twoways.core.bdl.TwoWaysBDL.<init>(TwoWaysBDL.java:23)
+	at com.twoways.view.service.ServiceTW_System.<init>(ServiceTW_System.java:17)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:39)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:27)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:494)
+	at java.lang.Class.newInstance0(Class.java:350)
+	at java.lang.Class.newInstance(Class.java:303)
+	at org.directwebremoting.create.NewCreator.getInstance(NewCreator.java:65)
+	at org.directwebremoting.impl.DefaultRemoter.execute(DefaultRemoter.java:348)
+	at org.directwebremoting.impl.DefaultRemoter.execute(DefaultRemoter.java:283)
+	at org.directwebremoting.servlet.PlainCallHandler.handle(PlainCallHandler.java:52)
+	at org.directwebremoting.servlet.UrlProcessor.handle(UrlProcessor.java:101)
+	at org.directwebremoting.servlet.DwrServlet.doPost(DwrServlet.java:146)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:763)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:856)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.ServletRequestDispatcher.invoke(ServletRequestDispatcher.java:713)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.ServletRequestDispatcher.forwardInternal(ServletRequestDispatcher.java:370)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.doProcessRequest(HttpRequestHandler.java:871)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.processRequest(HttpRequestHandler.java:453)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.serveOneRequest(HttpRequestHandler.java:221)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.run(HttpRequestHandler.java:122)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.run(HttpRequestHandler.java:111)
+	at oracle.oc4j.network.ServerSocketReadHandler$SafeRunnable.run(ServerSocketReadHandler.java:260)
+	at oracle.oc4j.network.ServerSocketAcceptHandler.procClientSocket(ServerSocketAcceptHandler.java:234)
+	at oracle.oc4j.network.ServerSocketAcceptHandler.access$700(ServerSocketAcceptHandler.java:29)
+	at oracle.oc4j.network.ServerSocketAcceptHandler$AcceptHandlerHorse.run(ServerSocketAcceptHandler.java:879)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].util.ReleasableResourcePooledExecutor$MyWorker.run(ReleasableResourcePooledExecutor.java:298)
+	at java.lang.Thread.run(Thread.java:595)
+10/10/27 15:11:41.546 10.1.3.4.0 Started
+10/10/27 15:11:48.843 TwoWays: 10.1.3.4.0 Started
+10/10/27 15:19:34.640 10.1.3.4.0 Started
+10/10/27 15:19:38.953 TwoWays: 10.1.3.4.0 Started
+10/10/27 15:24:55.140 10.1.3.4.0 Started
+10/10/27 15:24:59.156 TwoWays: 10.1.3.4.0 Started
+10/10/27 15:25:51.843 10.1.3.4.0 Started
+10/10/27 15:25:58.921 TwoWays: 10.1.3.4.0 Started
+10/10/27 15:27:11.343 10.1.3.4.0 Started
+10/10/27 15:27:15.734 TwoWays: 10.1.3.4.0 Started

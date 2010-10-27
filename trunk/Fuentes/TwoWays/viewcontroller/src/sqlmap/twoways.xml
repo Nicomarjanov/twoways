@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Place filename in namespace field value without extension (.xml) -->
+<sqlMap namespace="twowaysMap">
+
+  <select id="obtenerClientes"  parameterClass="java.lang.String" resultClass="com.twoways.to.ClientsTO">
+     select 
+        CLI_ADDRESS as cliAddress,
+        CLI_COUNTRY as cliCountry,
+        CLI_DESCRIPTION as cliDescription,
+        CLI_ID as  cliId,
+        CLI_MAIL as cliMail,
+        CLI_NAME as cliName,
+        CLI_PHONE as cliPhone,
+        CLI_POSTAL_CODE as cliPostalCode  
+        
+     from 
+     Clients 
+     
+  </select>
+
+</sqlMap>
