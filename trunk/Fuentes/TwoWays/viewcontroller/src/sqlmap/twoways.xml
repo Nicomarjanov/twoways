@@ -3,7 +3,7 @@
 
 <!-- Place filename in namespace field value without extension (.xml) -->
 <sqlMap namespace="twowaysMap">
-
+  <!--- Clientes -->
   <select id="obtenerClientes"  parameterClass="java.lang.String" resultClass="com.twoways.to.ClientsTO">
      select 
         CLI_ADDRESS as cliAddress,
@@ -19,6 +19,45 @@
      Clients 
      
   </select>
+   <select id="getClientById"  parameterClass="java.lang.String" resultClass="com.twoways.to.ClientsTO">
+     select 
+        CLI_ADDRESS as cliAddress,
+        CLI_COUNTRY as cliCountry,
+        CLI_DESCRIPTION as cliDescription,
+        CLI_ID as  cliId,
+        CLI_MAIL as cliMail,
+        CLI_NAME as cliName,
+        CLI_PHONE as cliPhone,
+        CLI_POSTAL_CODE as cliPostalCode  
+        
+     from 
+     Clients 
+     where CLI_ID = #value#
+  </select>
+
+   
+  <insert id="insertClients" parameterClass="com.twoways.to.ClientsTO" >
+      insert into clients
+          (cli_id, cli_name, cli_description, cli_mail, cli_address, cli_phone, cli_country, cli_postal_code,currency_cur_id)
+        values
+          (client_seq.nextval, #cliName#, #cliDescription#, #cliMail#, #cliAddress#, #cliPhone#, #cliCountry#, #cliPostalCode#,#currencyTO.curId#)
+                            
+  </insert>
+  
+   <update  id="updateClients" parameterClass="com.twoways.to.ClientsTO">
+      UPDATE clients
+      SET     cli_name = #cliName# , 
+              cli_description = #cliDescription#,
+              cli_mail = #cliMail#,
+              cli_address = #cliAddress#  ,
+              cli_phone =  #cliPhone# ,
+              cli_country = #cliCountry# ,
+              cli_postal_code =#cliPostalCode# ,
+              currency_cur_id= #currencyTO.curId#
+              WHERE  cli_id = #cliId#                     
+  </update>
+  
+  <!--Empleados-->
 
   <select id="obtenerEmpleados"  parameterClass="java.lang.String" resultClass="com.twoways.to.EmployeesTO">
      select 
@@ -32,7 +71,7 @@
      Employees
      
   </select>
-  
+  <!--Monedas -->
     <select id="obtenerMonedas"  parameterClass="java.lang.String" resultClass="com.twoways.to.CurrencyTO">
      select 
         CUR_ID as curId,
@@ -41,5 +80,6 @@
      Currency
      
   </select>
+
 
 </sqlMap>
