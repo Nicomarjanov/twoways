@@ -1,0 +1,28 @@
+<?xml version = '1.0' encoding = 'windows-1252'?>
+<data-sources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://xmlns.oracle.com/oracleas/schema/data-sources-10_1.xsd" xmlns="http://xmlns.oracle.com/oracleas/schema">
+    <connection-pool name="jdev-connection-pool-NoCalidadDesa">
+        <connection-factory factory-class="oracle.jdbc.pool.OracleDataSource" user="bpm_Nocalidad" password="->DataBase_User_Mu8u1O1w3hXBcucGsTebcobMPp7CcG_F" url="jdbc:oracle:thin:@//dboradesa.naranja.com.ar:1521/tnprodesa.naranja.com.ar"/>
+    </connection-pool>
+    <managed-data-source name="jdev-connection-managed-NoCalidadDesa" jndi-name="jdbc/NoCalidadDesaDS" connection-pool-name="jdev-connection-pool-NoCalidadDesa"/>
+    <native-data-source name="jdev-connection-native-NoCalidadDesa" jndi-name="jdbc/NoCalidadDesaCoreDS" url="jdbc:oracle:thin:@//dboradesa.naranja.com.ar:1521/tnprodesa.naranja.com.ar" user="bpm_Nocalidad" password="->DataBase_User_clwyfBfKMRBBtprG8LMG9JQ2Jj5bmAWz" data-source-class="oracle.jdbc.pool.OracleDataSource"/>
+    <connection-pool name="jdev-connection-pool-riesgo">
+        <connection-factory factory-class="oracle.jdbc.pool.OracleDataSource" user="bpm_riesgo" password="->DataBase_User_yQKe8x0dTvqq0WoBv9Z1tn8cDPzcVQzj" url="jdbc:oracle:thin:@//dboratest.naranja.com.ar:1521/tnproABMCLI.naranja.com.ar"/>
+    </connection-pool>
+    <managed-data-source name="jdev-connection-managed-riesgo" jndi-name="jdbc/riesgoDS" connection-pool-name="jdev-connection-pool-riesgo"/>
+    <native-data-source name="jdev-connection-native-riesgo" jndi-name="jdbc/riesgoCoreDS" url="jdbc:oracle:thin:@//dboratest.naranja.com.ar:1521/tnproABMCLI.naranja.com.ar" user="bpm_riesgo" password="->DataBase_User_ahz52jQzJnMJwIepMjpRl0mIFSEROKd_" data-source-class="oracle.jdbc.pool.OracleDataSource"/>
+    <connection-pool name="jdev-connection-pool-BpmDesa">
+        <connection-factory factory-class="oracle.jdbc.pool.OracleDataSource" user="bpm" password="->DataBase_User_Z-4oOCuHyXZqNB6_Ut6MRYIF1LnEwhug" url="jdbc:oracle:thin:@//dboradesa.naranja.com.ar:1521/tnprodesa.naranja.com.ar"/>
+    </connection-pool>
+    <managed-data-source name="jdev-connection-managed-BpmDesa" jndi-name="jdbc/BpmDesaDS" connection-pool-name="jdev-connection-pool-BpmDesa"/>
+    <native-data-source name="jdev-connection-native-BpmDesa" jndi-name="jdbc/BpmDesaCoreDS" url="jdbc:oracle:thin:@//dboradesa.naranja.com.ar:1521/tnprodesa.naranja.com.ar" user="bpm" password="->DataBase_User_le3bIMFfp8mU7Krq5vaDYvYL9042LIx5" data-source-class="oracle.jdbc.pool.OracleDataSource"/>
+    <connection-pool name="jdev-connection-pool-twoways">
+        <connection-factory factory-class="oracle.jdbc.pool.OracleDataSource" user="twoways" password="->DataBase_User_Ib8wPOWvOxHNro2LnV1UJUdCZy_KAsNG" url="jdbc:oracle:thin:@localhost:1521:XE"/>
+    </connection-pool>
+    <managed-data-source name="jdev-connection-managed-twoways" jndi-name="jdbc/twowaysDS" connection-pool-name="jdev-connection-pool-twoways"/>
+    <native-data-source name="jdev-connection-native-twoways" jndi-name="jdbc/twowaysCoreDS" url="jdbc:oracle:thin:@localhost:1521:XE" user="twoways" password="->DataBase_User_Ccfwgf-LMlBMXxIK2RyI01_64RPjkpn7" data-source-class="oracle.jdbc.pool.OracleDataSource"/>
+    <connection-pool name="jdev-connection-pool-Bpm_administracion">
+        <connection-factory factory-class="oracle.jdbc.pool.OracleDataSource" user="bpm_administracion" password="->DataBase_User_8USgaV5RT5NwsxwxQ6KdEbnDRVhdG8L-" url="jdbc:oracle:thin:@//dboradesa.naranja.com.ar:1521/tnprodesa.naranja.com.ar"/>
+    </connection-pool>
+    <managed-data-source name="jdev-connection-managed-Bpm_administracion" jndi-name="jdbc/Bpm_administracionDS" connection-pool-name="jdev-connection-pool-Bpm_administracion"/>
+    <native-data-source name="jdev-connection-native-Bpm_administracion" jndi-name="jdbc/Bpm_administracionCoreDS" url="jdbc:oracle:thin:@//dboradesa.naranja.com.ar:1521/tnprodesa.naranja.com.ar" user="bpm_administracion" password="->DataBase_User_S0-9KlRDzllNx2-tNQs6df12E_kaGRud" data-source-class="oracle.jdbc.pool.OracleDataSource"/>
+</data-sources>

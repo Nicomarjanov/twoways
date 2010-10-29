@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!--
+ - Definicion del transaction context de Seguridad
+	-->
+<beans>
+
+
+    <!-- Transaction manager for a single JDBC DataSource -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--
+        - A parent bean definition which is a base definition for transaction proxies.
+        - It is markes as abstract, since it is never supposed to be instantiated itself.
+        - We set shared transaction attributes here, following our naming patterns.
+        - The attributes can still be overridden in child bean definitions.
+        -->
+    <bean id="baseTransactionProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" abstract="true">
+        <property name="transactionManager"><ref bean="transactionManager"/></property>
+        <property name="transactionAttributes">
+            <props>
+                <!--prop key="get*">PROPAGATION_SUPPORTS,readOnly</prop-->
+                <prop key="grabar*">PROPAGATION_REQUIRED,-LaSgdaException,-RuntimeException</prop>
+            </props>
+        </property>  
+    </bean>
+
+
+</beans>
