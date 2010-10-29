@@ -3,6 +3,8 @@ package com.twoways.test;
 import com.twoways.core.bdl.TwoWaysBDL;
 import com.twoways.to.ClientsTO;
 
+import com.twoways.to.EmployeesTO;
+
 import java.util.List;
 
 public class AppTest {
@@ -16,10 +18,10 @@ public class AppTest {
         try {
             twoWaysBDL = new TwoWaysBDL();
             
-            twoWaysBDL.getServiceTwoWays().obtenerClientes();
-            List<ClientsTO> clientes =  twoWaysBDL.getServiceTwoWays().obtenerClientes();
-            for(ClientsTO client : clientes){
-                System.out.println(client.getCliName());
+            twoWaysBDL.getServiceTwoWays().obtenerEmpleados();
+            List<EmployeesTO> empleados =  twoWaysBDL.getServiceTwoWays().obtenerEmpleados();
+            for(EmployeesTO employee : empleados){
+                System.out.println(employee.getEmpMail());
             }
             
         } catch (Exception e) {

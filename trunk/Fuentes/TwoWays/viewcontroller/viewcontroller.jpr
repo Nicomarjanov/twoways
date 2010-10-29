@@ -135,51 +135,23 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Log4j-1.2.8.jar"/>
+            <value n="id" v="JSTL 1.0"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Ibatis-2.3.0.677.jar"/>
+            <value n="id" v="JSTL 1.0 Tags"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Spring-1.2.8.jar"/>
+            <value n="id" v="JSTL 1.1 Tags"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Dwr.jar"/>
+            <value n="id" v="JSTL 1.1"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
             <value n="id" v="Cglib-nodep-2.1_2.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="Commons-fileupload.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="Commons Beanutils 1.6.1"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="Commons Collections 2.1"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="Commons Digester 1.5"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="Commons Logging 1.0.3"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="Jaxen-full.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="Cglib-nodep-2.1_2.jar1"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
@@ -195,7 +167,7 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Commons-fileupload.jar1"/>
+            <value n="id" v="Commons-fileupload.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
@@ -207,15 +179,19 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Dwr.jar1"/>
+            <value n="id" v="Dwr.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Ibatis-2.3.0.677.jar1"/>
+            <value n="id" v="Ibatis-2.3.0.677.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Jaxen-full.jar1"/>
+            <value n="id" v="Jaxen-1.1.1.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Jaxen-full.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
@@ -227,7 +203,7 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Log4j-1.2.8.jar1"/>
+            <value n="id" v="Log4j-1.2.8.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
@@ -235,7 +211,7 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Spring-1.2.8.jar1"/>
+            <value n="id" v="Spring-1.2.8.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
@@ -251,74 +227,11 @@
          <list n="libraryDefinitions">
             <hash>
                <list n="classPath">
-                  <url path="public_html/WEB-INF/lib/log4j-1.2.8.jar" jar-entry=""/>
-               </list>
-               <value n="deployedByDefault" v="true"/>
-               <value n="description" v="Log4j-1.2.8.jar"/>
-               <value n="id" v="Log4j-1.2.8.jar"/>
-               <value n="locked" v="true"/>
-            </hash>
-            <hash>
-               <list n="classPath">
-                  <url path="public_html/WEB-INF/lib/ibatis-2.3.0.677.jar" jar-entry=""/>
-               </list>
-               <value n="deployedByDefault" v="true"/>
-               <value n="description" v="Ibatis-2.3.0.677.jar"/>
-               <value n="id" v="Ibatis-2.3.0.677.jar"/>
-               <value n="locked" v="true"/>
-            </hash>
-            <hash>
-               <list n="classPath">
-                  <url path="public_html/WEB-INF/lib/spring-1.2.8.jar" jar-entry=""/>
-               </list>
-               <value n="deployedByDefault" v="true"/>
-               <value n="description" v="Spring-1.2.8.jar"/>
-               <value n="id" v="Spring-1.2.8.jar"/>
-               <value n="locked" v="true"/>
-            </hash>
-            <hash>
-               <list n="classPath">
-                  <url path="public_html/WEB-INF/lib/dwr.jar" jar-entry=""/>
-               </list>
-               <value n="deployedByDefault" v="true"/>
-               <value n="description" v="Dwr.jar"/>
-               <value n="id" v="Dwr.jar"/>
-               <value n="locked" v="true"/>
-            </hash>
-            <hash>
-               <list n="classPath">
                   <url path="public_html/WEB-INF/lib/cglib-nodep-2.1_2.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
                <value n="description" v="Cglib-nodep-2.1_2.jar"/>
                <value n="id" v="Cglib-nodep-2.1_2.jar"/>
-               <value n="locked" v="true"/>
-            </hash>
-            <hash>
-               <list n="classPath">
-                  <url path="public_html/WEB-INF/lib/commons-fileupload.jar" jar-entry=""/>
-               </list>
-               <value n="deployedByDefault" v="true"/>
-               <value n="description" v="Commons-fileupload.jar"/>
-               <value n="id" v="Commons-fileupload.jar"/>
-               <value n="locked" v="true"/>
-            </hash>
-            <hash>
-               <list n="classPath">
-                  <url path="public_html/WEB-INF/lib/jaxen-full.jar" jar-entry=""/>
-               </list>
-               <value n="deployedByDefault" v="true"/>
-               <value n="description" v="Jaxen-full.jar"/>
-               <value n="id" v="Jaxen-full.jar"/>
-               <value n="locked" v="true"/>
-            </hash>
-            <hash>
-               <list n="classPath">
-                  <url path="public_html/WEB-INF/lib/cglib-nodep-2.1_2.jar" jar-entry=""/>
-               </list>
-               <value n="deployedByDefault" v="true"/>
-               <value n="description" v="Cglib-nodep-2.1_2.jar1"/>
-               <value n="id" v="Cglib-nodep-2.1_2.jar1"/>
                <value n="locked" v="true"/>
             </hash>
             <hash>
@@ -353,8 +266,8 @@
                   <url path="public_html/WEB-INF/lib/commons-fileupload.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
-               <value n="description" v="Commons-fileupload.jar1"/>
-               <value n="id" v="Commons-fileupload.jar1"/>
+               <value n="description" v="Commons-fileupload.jar"/>
+               <value n="id" v="Commons-fileupload.jar"/>
                <value n="locked" v="true"/>
             </hash>
             <hash>
@@ -380,8 +293,8 @@
                   <url path="public_html/WEB-INF/lib/dwr.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
-               <value n="description" v="Dwr.jar1"/>
-               <value n="id" v="Dwr.jar1"/>
+               <value n="description" v="Dwr.jar"/>
+               <value n="id" v="Dwr.jar"/>
                <value n="locked" v="true"/>
             </hash>
             <hash>
@@ -389,8 +302,17 @@
                   <url path="public_html/WEB-INF/lib/ibatis-2.3.0.677.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
-               <value n="description" v="Ibatis-2.3.0.677.jar1"/>
-               <value n="id" v="Ibatis-2.3.0.677.jar1"/>
+               <value n="description" v="Ibatis-2.3.0.677.jar"/>
+               <value n="id" v="Ibatis-2.3.0.677.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="public_html/WEB-INF/lib/jaxen-1.1.1.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Jaxen-1.1.1.jar"/>
+               <value n="id" v="Jaxen-1.1.1.jar"/>
                <value n="locked" v="true"/>
             </hash>
             <hash>
@@ -398,8 +320,8 @@
                   <url path="public_html/WEB-INF/lib/jaxen-full.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
-               <value n="description" v="Jaxen-full.jar1"/>
-               <value n="id" v="Jaxen-full.jar1"/>
+               <value n="description" v="Jaxen-full.jar"/>
+               <value n="id" v="Jaxen-full.jar"/>
                <value n="locked" v="true"/>
             </hash>
             <hash>
@@ -425,8 +347,8 @@
                   <url path="public_html/WEB-INF/lib/log4j-1.2.8.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
-               <value n="description" v="Log4j-1.2.8.jar1"/>
-               <value n="id" v="Log4j-1.2.8.jar1"/>
+               <value n="description" v="Log4j-1.2.8.jar"/>
+               <value n="id" v="Log4j-1.2.8.jar"/>
                <value n="locked" v="true"/>
             </hash>
             <hash>
@@ -443,8 +365,8 @@
                   <url path="public_html/WEB-INF/lib/spring-1.2.8.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
-               <value n="description" v="Spring-1.2.8.jar1"/>
-               <value n="id" v="Spring-1.2.8.jar1"/>
+               <value n="description" v="Spring-1.2.8.jar"/>
+               <value n="id" v="Spring-1.2.8.jar"/>
                <value n="locked" v="true"/>
             </hash>
             <hash>
@@ -477,51 +399,23 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Log4j-1.2.8.jar"/>
+            <value n="id" v="JSTL 1.0"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Ibatis-2.3.0.677.jar"/>
+            <value n="id" v="JSTL 1.0 Tags"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Spring-1.2.8.jar"/>
+            <value n="id" v="JSTL 1.1 Tags"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Dwr.jar"/>
+            <value n="id" v="JSTL 1.1"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
             <value n="id" v="Cglib-nodep-2.1_2.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="Commons-fileupload.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="Commons Beanutils 1.6.1"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="Commons Collections 2.1"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="Commons Digester 1.5"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="Commons Logging 1.0.3"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="Jaxen-full.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="Cglib-nodep-2.1_2.jar1"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
@@ -537,7 +431,7 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Commons-fileupload.jar1"/>
+            <value n="id" v="Commons-fileupload.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
@@ -549,15 +443,19 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Dwr.jar1"/>
+            <value n="id" v="Dwr.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Ibatis-2.3.0.677.jar1"/>
+            <value n="id" v="Ibatis-2.3.0.677.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Jaxen-full.jar1"/>
+            <value n="id" v="Jaxen-1.1.1.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Jaxen-full.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
@@ -569,7 +467,7 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Log4j-1.2.8.jar1"/>
+            <value n="id" v="Log4j-1.2.8.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
@@ -577,7 +475,7 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Spring-1.2.8.jar1"/>
+            <value n="id" v="Spring-1.2.8.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
@@ -592,6 +490,120 @@
    </hash>
    <hash n="oracle.jdevimpl.config.JProjectPaths">
       <url n="outputDirectory" path="public_html/WEB-INF/classes/"/>
+   </hash>
+   <hash n="oracle.jdevimpl.webapp.jsp.libraries.model.ProjectTagLibraries">
+      <hash n="libraries">
+         <hash n="WEB-INF\lib\spring-1.2.8.jar!\META-INF\spring.tld">
+            <value n="jspVersion" v="1.2"/>
+            <value n="name" v="spring"/>
+            <value n="prefix" v="Spring"/>
+            <value n="runInEditor" v="false"/>
+            <value n="showInPalette" v="true"/>
+            <value n="tldURL" v="WEB-INF/lib/spring-1.2.8.jar!/META-INF/spring.tld"/>
+            <value n="URI" v="http://www.springframework.org/tags"/>
+            <value n="version" v="1.1.2"/>
+         </hash>
+         <hash n="WEB-INF\lib\standard.jar!\META-INF\c.tld">
+            <value n="jspVersion" v="1.2"/>
+            <value n="name" v="JSTL Core"/>
+            <value n="prefix" v="c"/>
+            <value n="runInEditor" v="true"/>
+            <value n="showInPalette" v="true"/>
+            <value n="tldURL" v="WEB-INF/lib/standard.jar!/META-INF/c.tld"/>
+            <value n="URI" v="http://java.sun.com/jstl/core"/>
+            <value n="version" v="1.0"/>
+         </hash>
+         <hash n="WEB-INF\lib\standard.jar!\META-INF\c-rt.tld">
+            <value n="jspVersion" v="1.2"/>
+            <value n="name" v="JSTL Core RT"/>
+            <value n="prefix" v="c_rt"/>
+            <value n="runInEditor" v="false"/>
+            <value n="showInPalette" v="false"/>
+            <value n="tldURL" v="WEB-INF/lib/standard.jar!/META-INF/c-rt.tld"/>
+            <value n="URI" v="http://java.sun.com/jstl/core_rt"/>
+            <value n="version" v="1.0"/>
+         </hash>
+         <hash n="WEB-INF\lib\standard.jar!\META-INF\fmt.tld">
+            <value n="jspVersion" v="1.2"/>
+            <value n="name" v="JSTL Format"/>
+            <value n="prefix" v="fmt"/>
+            <value n="runInEditor" v="false"/>
+            <value n="showInPalette" v="true"/>
+            <value n="tldURL" v="WEB-INF/lib/standard.jar!/META-INF/fmt.tld"/>
+            <value n="URI" v="http://java.sun.com/jstl/fmt"/>
+            <value n="version" v="1.0"/>
+         </hash>
+         <hash n="WEB-INF\lib\standard.jar!\META-INF\fmt-rt.tld">
+            <value n="jspVersion" v="1.2"/>
+            <value n="name" v="JSTL Format RT"/>
+            <value n="prefix" v="fmt_rt"/>
+            <value n="runInEditor" v="false"/>
+            <value n="showInPalette" v="false"/>
+            <value n="tldURL" v="WEB-INF/lib/standard.jar!/META-INF/fmt-rt.tld"/>
+            <value n="URI" v="http://java.sun.com/jstl/fmt_rt"/>
+            <value n="version" v="1.0"/>
+         </hash>
+         <hash n="WEB-INF\lib\standard.jar!\META-INF\permittedTaglibs.tld">
+            <value n="jspVersion" v="1.2"/>
+            <value n="name" v="JSTL Permitted Taglibs"/>
+            <value n="prefix" v="permittedTaglibs"/>
+            <value n="runInEditor" v="false"/>
+            <value n="showInPalette" v="false"/>
+            <value n="tldURL" v="WEB-INF/lib/standard.jar!/META-INF/permittedTaglibs.tld"/>
+            <value n="URI" v="http://jakarta.apache.org/taglibs/standard/permittedTaglibs"/>
+            <value n="version" v="1.0"/>
+         </hash>
+         <hash n="WEB-INF\lib\standard.jar!\META-INF\scriptfree.tld">
+            <value n="jspVersion" v="1.2"/>
+            <value n="name" v="JSTL Script Free"/>
+            <value n="prefix" v="scriptfree"/>
+            <value n="runInEditor" v="false"/>
+            <value n="showInPalette" v="false"/>
+            <value n="tldURL" v="WEB-INF/lib/standard.jar!/META-INF/scriptfree.tld"/>
+            <value n="URI" v="http://jakarta.apache.org/taglibs/standard/scriptfree"/>
+            <value n="version" v="1.0"/>
+         </hash>
+         <hash n="WEB-INF\lib\standard.jar!\META-INF\sql.tld">
+            <value n="jspVersion" v="1.2"/>
+            <value n="name" v="JSTL SQL"/>
+            <value n="prefix" v="sql"/>
+            <value n="runInEditor" v="false"/>
+            <value n="showInPalette" v="true"/>
+            <value n="tldURL" v="WEB-INF/lib/standard.jar!/META-INF/sql.tld"/>
+            <value n="URI" v="http://java.sun.com/jstl/sql"/>
+            <value n="version" v="1.0"/>
+         </hash>
+         <hash n="WEB-INF\lib\standard.jar!\META-INF\sql-rt.tld">
+            <value n="jspVersion" v="1.2"/>
+            <value n="name" v="JSTL SQL RT"/>
+            <value n="prefix" v="sql_rt"/>
+            <value n="runInEditor" v="false"/>
+            <value n="showInPalette" v="false"/>
+            <value n="tldURL" v="WEB-INF/lib/standard.jar!/META-INF/sql-rt.tld"/>
+            <value n="URI" v="http://java.sun.com/jstl/sql_rt"/>
+            <value n="version" v="1.0"/>
+         </hash>
+         <hash n="WEB-INF\lib\standard.jar!\META-INF\x.tld">
+            <value n="jspVersion" v="1.2"/>
+            <value n="name" v="JSTL XML"/>
+            <value n="prefix" v="x"/>
+            <value n="runInEditor" v="false"/>
+            <value n="showInPalette" v="true"/>
+            <value n="tldURL" v="WEB-INF/lib/standard.jar!/META-INF/x.tld"/>
+            <value n="URI" v="http://java.sun.com/jstl/xml"/>
+            <value n="version" v="1.0"/>
+         </hash>
+         <hash n="WEB-INF\lib\standard.jar!\META-INF\x-rt.tld">
+            <value n="jspVersion" v="1.2"/>
+            <value n="name" v="JSTL XML RT"/>
+            <value n="prefix" v="x_rt"/>
+            <value n="runInEditor" v="false"/>
+            <value n="showInPalette" v="false"/>
+            <value n="tldURL" v="WEB-INF/lib/standard.jar!/META-INF/x-rt.tld"/>
+            <value n="URI" v="http://java.sun.com/jstl/xml_rt"/>
+            <value n="version" v="1.0"/>
+         </hash>
+      </hash>
    </hash>
    <hash n="oracle.tip.tools.ide.pm.addin.PMProjectSettings">
       <hash n="Integration_Content">

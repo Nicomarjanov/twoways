@@ -3,7 +3,7 @@
 
 <beans>
    
-      <bean id="clientDAO" class="com.twoways.dao.ClientsDAOImpl">
+    <bean id="clientDAO" class="com.twoways.dao.ClientsDAOImpl">
        <property name="dataSource">
           <ref bean="dataSource"/>
       </property>
@@ -11,7 +11,22 @@
         <ref local="twowaysSqlMapConfig"/>
       </property>
     </bean>    
-
+    <bean id="employeeDAO" class="com.twoways.dao.EmployeesDAOImpl">
+       <property name="dataSource">
+          <ref bean="dataSource"/>
+      </property>
+      <property name="sqlMapClient">
+        <ref local="twowaysSqlMapConfig"/>
+      </property>
+    </bean>    
+    <bean id="currencyDAO" class="com.twoways.dao.CurrencyDAOImpl">
+       <property name="dataSource">
+          <ref bean="dataSource"/>
+      </property>
+      <property name="sqlMapClient">
+        <ref local="twowaysSqlMapConfig"/>
+      </property>
+    </bean>        
        
 	<!--  Web SqlMap setup for iBATIS Database Layer -->
 	<bean id="twowaysSqlMapConfig" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">

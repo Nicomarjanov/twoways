@@ -7,6 +7,6 @@
     <create creator="new" javascript="towaysDWR">
       <param name="class" value="com.twoways.view.service.ServiceTW_System"/>
     </create>
-     <convert converter="bean" match="com.twoways.to.ClientsTO"/>
+     <convert converter="bean" match="com.twoways.to.*"/>
   </allow>
 </dwr>

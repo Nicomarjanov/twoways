@@ -369,3 +369,418 @@ java.lang.NoClassDefFoundError
 10/10/27 15:25:58.921 TwoWays: 10.1.3.4.0 Started
 10/10/27 15:27:11.343 10.1.3.4.0 Started
 10/10/27 15:27:15.734 TwoWays: 10.1.3.4.0 Started
+10/10/28 09:12:29.937 10.1.3.4.0 Started
+10/10/28 09:12:39.796 TwoWays: 10.1.3.4.0 Started
+10/10/28 21:54:59.187 10.1.3.4.0 Started
+10/10/28 21:55:44.843 TwoWays: 10.1.3.4.0 Started
+10/10/28 23:55:09.640 10.1.3.4.0 Started
+10/10/28 23:55:14.140 TwoWays: 10.1.3.4.0 Started
+10/10/28 23:59:43.187 10.1.3.4.0 Started
+10/10/28 23:59:47.500 TwoWays: 10.1.3.4.0 Started
+10/10/29 00:06:37.0 10.1.3.4.0 Started
+10/10/29 00:06:41.328 TwoWays: 10.1.3.4.0 Started
+10/10/29 00:07:18.453 TwoWays: Servlet error
+java.lang.NumberFormatException: null
+	at java.lang.Long.parseLong(Long.java:372)
+	at java.lang.Long.parseLong(Long.java:461)
+	at com.twoways.view.servlets.AbmClientesServlet.doGet(AbmClientesServlet.java:45)
+	at com.twoways.view.servlets.AbmClientesServlet.doPost(AbmClientesServlet.java:91)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:763)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:856)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.ServletRequestDispatcher.invoke(ServletRequestDispatcher.java:713)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.ServletRequestDispatcher.forwardInternal(ServletRequestDispatcher.java:370)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.doProcessRequest(HttpRequestHandler.java:871)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.processRequest(HttpRequestHandler.java:453)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.serveOneRequest(HttpRequestHandler.java:221)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.run(HttpRequestHandler.java:122)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.run(HttpRequestHandler.java:111)
+	at oracle.oc4j.network.ServerSocketReadHandler$SafeRunnable.run(ServerSocketReadHandler.java:260)
+	at oracle.oc4j.network.ServerSocketAcceptHandler.procClientSocket(ServerSocketAcceptHandler.java:234)
+	at oracle.oc4j.network.ServerSocketAcceptHandler.access$700(ServerSocketAcceptHandler.java:29)
+	at oracle.oc4j.network.ServerSocketAcceptHandler$AcceptHandlerHorse.run(ServerSocketAcceptHandler.java:879)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].util.ReleasableResourcePooledExecutor$MyWorker.run(ReleasableResourcePooledExecutor.java:303)
+	at java.lang.Thread.run(Thread.java:595)
+10/10/29 00:08:23.31 10.1.3.4.0 Started
+10/10/29 00:08:27.421 TwoWays: 10.1.3.4.0 Started
+10/10/29 00:08:52.390 TwoWays: JspServlet: No se ha podido distribuir a la página solicitada: java.io.FileNotFoundException: C:\TwoWays\viewcontroller\public_html\clientes.jsp (El sistema no puede hallar el archivo especificado)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:106)
+	at java.io.FileInputStream.<init>(FileInputStream.java:66)
+	at oracle.jsp.provider.JspFilesystemResource.fromStream(JspFilesystemResource.java:151)
+	at oracle.jsp.parse.XMLUtil.getFromStream(XMLUtil.java:236)
+	at oracle.jsp.runtimev2.JspPageCompiler.compileBothModes(JspPageCompiler.java:449)
+	at oracle.jsp.runtimev2.JspPageCompiler.compilePage(JspPageCompiler.java:413)
+	at oracle.jsp.runtimev2.JspPageInfo.compileAndLoad(JspPageInfo.java:705)
+	at oracle.jsp.runtimev2.JspPageTable.compileAndServe(JspPageTable.java:694)
+	at oracle.jsp.runtimev2.JspPageTable.service(JspPageTable.java:414)
+	at oracle.jsp.runtimev2.JspServlet.internalService(JspServlet.java:594)
+	at oracle.jsp.runtimev2.JspServlet.service(JspServlet.java:518)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:856)
+	at com.evermind.server.http.ServletRequestDispatcher.invoke(ServletRequestDispatcher.java:713)
+	at com.evermind.server.http.ServletRequestDispatcher.forwardInternal(ServletRequestDispatcher.java:370)
+	at com.evermind.server.http.HttpRequestHandler.doProcessRequest(HttpRequestHandler.java:871)
+	at com.evermind.server.http.HttpRequestHandler.processRequest(HttpRequestHandler.java:453)
+	at com.evermind.server.http.HttpRequestHandler.serveOneRequest(HttpRequestHandler.java:221)
+	at com.evermind.server.http.HttpRequestHandler.run(HttpRequestHandler.java:122)
+	at com.evermind.server.http.HttpRequestHandler.run(HttpRequestHandler.java:111)
+	at oracle.oc4j.network.ServerSocketReadHandler$SafeRunnable.run(ServerSocketReadHandler.java:260)
+	at com.evermind.util.ReleasableResourcePooledExecutor$MyWorker.run(ReleasableResourcePooledExecutor.java:303)
+	at java.lang.Thread.run(Thread.java:595)
+
+10/10/29 00:09:09.734 TwoWays: JspServlet: No se ha podido distribuir a la página solicitada: java.io.FileNotFoundException: C:\TwoWays\viewcontroller\public_html\clientes.jsp (El sistema no puede hallar el archivo especificado)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:106)
+	at java.io.FileInputStream.<init>(FileInputStream.java:66)
+	at oracle.jsp.provider.JspFilesystemResource.fromStream(JspFilesystemResource.java:151)
+	at oracle.jsp.parse.XMLUtil.getFromStream(XMLUtil.java:236)
+	at oracle.jsp.runtimev2.JspPageCompiler.compileBothModes(JspPageCompiler.java:449)
+	at oracle.jsp.runtimev2.JspPageCompiler.compilePage(JspPageCompiler.java:413)
+	at oracle.jsp.runtimev2.JspPageInfo.compileAndLoad(JspPageInfo.java:705)
+	at oracle.jsp.runtimev2.JspPageTable.compileAndServe(JspPageTable.java:694)
+	at oracle.jsp.runtimev2.JspPageTable.service(JspPageTable.java:414)
+	at oracle.jsp.runtimev2.JspServlet.internalService(JspServlet.java:594)
+	at oracle.jsp.runtimev2.JspServlet.service(JspServlet.java:518)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:856)
+	at com.evermind.server.http.ServletRequestDispatcher.invoke(ServletRequestDispatcher.java:713)
+	at com.evermind.server.http.ServletRequestDispatcher.forwardInternal(ServletRequestDispatcher.java:370)
+	at com.evermind.server.http.HttpRequestHandler.doProcessRequest(HttpRequestHandler.java:871)
+	at com.evermind.server.http.HttpRequestHandler.processRequest(HttpRequestHandler.java:453)
+	at com.evermind.server.http.HttpRequestHandler.serveOneRequest(HttpRequestHandler.java:221)
+	at com.evermind.server.http.HttpRequestHandler.run(HttpRequestHandler.java:122)
+	at com.evermind.server.http.HttpRequestHandler.run(HttpRequestHandler.java:111)
+	at oracle.oc4j.network.ServerSocketReadHandler$SafeRunnable.run(ServerSocketReadHandler.java:260)
+	at com.evermind.util.ReleasableResourcePooledExecutor$MyWorker.run(ReleasableResourcePooledExecutor.java:303)
+	at java.lang.Thread.run(Thread.java:595)
+
+10/10/29 00:09:35.640 TwoWays: JspServlet: No se ha podido distribuir a la página solicitada: java.io.FileNotFoundException: C:\TwoWays\viewcontroller\public_html\clientes.jsp (El sistema no puede hallar el archivo especificado)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:106)
+	at java.io.FileInputStream.<init>(FileInputStream.java:66)
+	at oracle.jsp.provider.JspFilesystemResource.fromStream(JspFilesystemResource.java:151)
+	at oracle.jsp.parse.XMLUtil.getFromStream(XMLUtil.java:236)
+	at oracle.jsp.runtimev2.JspPageCompiler.compileBothModes(JspPageCompiler.java:449)
+	at oracle.jsp.runtimev2.JspPageCompiler.compilePage(JspPageCompiler.java:413)
+	at oracle.jsp.runtimev2.JspPageInfo.compileAndLoad(JspPageInfo.java:705)
+	at oracle.jsp.runtimev2.JspPageTable.compileAndServe(JspPageTable.java:694)
+	at oracle.jsp.runtimev2.JspPageTable.service(JspPageTable.java:414)
+	at oracle.jsp.runtimev2.JspServlet.internalService(JspServlet.java:594)
+	at oracle.jsp.runtimev2.JspServlet.service(JspServlet.java:518)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:856)
+	at com.evermind.server.http.ServletRequestDispatcher.invoke(ServletRequestDispatcher.java:713)
+	at com.evermind.server.http.ServletRequestDispatcher.forwardInternal(ServletRequestDispatcher.java:370)
+	at com.evermind.server.http.HttpRequestHandler.doProcessRequest(HttpRequestHandler.java:871)
+	at com.evermind.server.http.HttpRequestHandler.processRequest(HttpRequestHandler.java:453)
+	at com.evermind.server.http.HttpRequestHandler.serveOneRequest(HttpRequestHandler.java:221)
+	at com.evermind.server.http.HttpRequestHandler.run(HttpRequestHandler.java:122)
+	at com.evermind.server.http.HttpRequestHandler.run(HttpRequestHandler.java:111)
+	at oracle.oc4j.network.ServerSocketReadHandler$SafeRunnable.run(ServerSocketReadHandler.java:260)
+	at com.evermind.util.ReleasableResourcePooledExecutor$MyWorker.run(ReleasableResourcePooledExecutor.java:303)
+	at java.lang.Thread.run(Thread.java:595)
+
+10/10/29 00:09:49.281 10.1.3.4.0 Started
+10/10/29 00:09:53.703 TwoWays: 10.1.3.4.0 Started
+10/10/29 00:10:12.390 TwoWays: JspServlet: No se ha podido distribuir a la página solicitada: java.io.FileNotFoundException: C:\TwoWays\viewcontroller\public_html\clientes.jsp (El sistema no puede hallar el archivo especificado)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:106)
+	at java.io.FileInputStream.<init>(FileInputStream.java:66)
+	at oracle.jsp.provider.JspFilesystemResource.fromStream(JspFilesystemResource.java:151)
+	at oracle.jsp.parse.XMLUtil.getFromStream(XMLUtil.java:236)
+	at oracle.jsp.runtimev2.JspPageCompiler.compileBothModes(JspPageCompiler.java:449)
+	at oracle.jsp.runtimev2.JspPageCompiler.compilePage(JspPageCompiler.java:413)
+	at oracle.jsp.runtimev2.JspPageInfo.compileAndLoad(JspPageInfo.java:705)
+	at oracle.jsp.runtimev2.JspPageTable.compileAndServe(JspPageTable.java:694)
+	at oracle.jsp.runtimev2.JspPageTable.service(JspPageTable.java:414)
+	at oracle.jsp.runtimev2.JspServlet.internalService(JspServlet.java:594)
+	at oracle.jsp.runtimev2.JspServlet.service(JspServlet.java:518)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:856)
+	at com.evermind.server.http.ServletRequestDispatcher.invoke(ServletRequestDispatcher.java:713)
+	at com.evermind.server.http.ServletRequestDispatcher.forwardInternal(ServletRequestDispatcher.java:370)
+	at com.evermind.server.http.HttpRequestHandler.doProcessRequest(HttpRequestHandler.java:871)
+	at com.evermind.server.http.HttpRequestHandler.processRequest(HttpRequestHandler.java:453)
+	at com.evermind.server.http.HttpRequestHandler.serveOneRequest(HttpRequestHandler.java:221)
+	at com.evermind.server.http.HttpRequestHandler.run(HttpRequestHandler.java:122)
+	at com.evermind.server.http.HttpRequestHandler.run(HttpRequestHandler.java:111)
+	at oracle.oc4j.network.ServerSocketReadHandler$SafeRunnable.run(ServerSocketReadHandler.java:260)
+	at com.evermind.util.ReleasableResourcePooledExecutor$MyWorker.run(ReleasableResourcePooledExecutor.java:303)
+	at java.lang.Thread.run(Thread.java:595)
+
+10/10/29 00:11:38.562 10.1.3.4.0 Started
+10/10/29 00:11:43.31 TwoWays: 10.1.3.4.0 Started
+10/10/29 00:22:24.890 10.1.3.4.0 Started
+10/10/29 00:22:29.265 TwoWays: 10.1.3.4.0 Started
+10/10/29 00:22:55.15 TwoWays: JspServlet: No se ha podido distribuir a la página solicitada: java.io.FileNotFoundException: C:\TwoWays\viewcontroller\public_html\clientes.jsp (El sistema no puede hallar el archivo especificado)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:106)
+	at java.io.FileInputStream.<init>(FileInputStream.java:66)
+	at oracle.jsp.provider.JspFilesystemResource.fromStream(JspFilesystemResource.java:151)
+	at oracle.jsp.parse.XMLUtil.getFromStream(XMLUtil.java:236)
+	at oracle.jsp.runtimev2.JspPageCompiler.compileBothModes(JspPageCompiler.java:449)
+	at oracle.jsp.runtimev2.JspPageCompiler.compilePage(JspPageCompiler.java:413)
+	at oracle.jsp.runtimev2.JspPageInfo.compileAndLoad(JspPageInfo.java:705)
+	at oracle.jsp.runtimev2.JspPageTable.compileAndServe(JspPageTable.java:694)
+	at oracle.jsp.runtimev2.JspPageTable.service(JspPageTable.java:414)
+	at oracle.jsp.runtimev2.JspServlet.internalService(JspServlet.java:594)
+	at oracle.jsp.runtimev2.JspServlet.service(JspServlet.java:518)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:856)
+	at com.evermind.server.http.ServletRequestDispatcher.invoke(ServletRequestDispatcher.java:713)
+	at com.evermind.server.http.ServletRequestDispatcher.forwardInternal(ServletRequestDispatcher.java:370)
+	at com.evermind.server.http.HttpRequestHandler.doProcessRequest(HttpRequestHandler.java:871)
+	at com.evermind.server.http.HttpRequestHandler.processRequest(HttpRequestHandler.java:453)
+	at com.evermind.server.http.HttpRequestHandler.serveOneRequest(HttpRequestHandler.java:221)
+	at com.evermind.server.http.HttpRequestHandler.run(HttpRequestHandler.java:122)
+	at com.evermind.server.http.HttpRequestHandler.run(HttpRequestHandler.java:111)
+	at oracle.oc4j.network.ServerSocketReadHandler$SafeRunnable.run(ServerSocketReadHandler.java:260)
+	at com.evermind.util.ReleasableResourcePooledExecutor$MyWorker.run(ReleasableResourcePooledExecutor.java:303)
+	at java.lang.Thread.run(Thread.java:595)
+
+10/10/29 00:26:59.125 10.1.3.4.0 Started
+10/10/29 00:27:03.687 TwoWays: 10.1.3.4.0 Started
+10/10/29 00:36:29.109 10.1.3.4.0 Started
+10/10/29 00:36:33.468 TwoWays: 10.1.3.4.0 Started
+10/10/29 00:37:32.953 TwoWays: 10.1.3.4.0 Stopped
+10/10/29 00:37:33.625 10.1.3.4.0 Started
+10/10/29 00:37:37.203 TwoWays: 10.1.3.4.0 Started
+10/10/29 00:41:08.125 10.1.3.4.0 Started
+10/10/29 00:41:12.453 TwoWays: 10.1.3.4.0 Started
+10/10/29 00:53:30.250 10.1.3.4.0 Started
+10/10/29 00:53:34.671 TwoWays: 10.1.3.4.0 Started
+10/10/29 00:54:36.140 10.1.3.4.0 Started
+10/10/29 00:54:43.109 TwoWays: 10.1.3.4.0 Started
+10/10/29 00:59:13.562 10.1.3.4.0 Started
+10/10/29 00:59:18.62 TwoWays: 10.1.3.4.0 Started
+10/10/29 01:01:12.296 TwoWays: 10.1.3.4.0 Stopped
+10/10/29 01:01:13.328 10.1.3.4.0 Started
+10/10/29 01:01:17.78 TwoWays: 10.1.3.4.0 Started
+10/10/29 01:03:08.312 10.1.3.4.0 Started
+10/10/29 01:03:13.140 TwoWays: 10.1.3.4.0 Started
+10/10/29 01:07:22.62 TwoWays: Servlet error
+java.lang.NumberFormatException: null
+	at java.lang.Long.parseLong(Long.java:372)
+	at java.lang.Long.parseLong(Long.java:461)
+	at com.twoways.view.servlets.AbmClientesServlet.doGet(AbmClientesServlet.java:59)
+	at com.twoways.view.servlets.AbmClientesServlet.doPost(AbmClientesServlet.java:97)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:763)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:856)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.ServletRequestDispatcher.invoke(ServletRequestDispatcher.java:713)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.ServletRequestDispatcher.forwardInternal(ServletRequestDispatcher.java:370)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.doProcessRequest(HttpRequestHandler.java:871)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.processRequest(HttpRequestHandler.java:453)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.serveOneRequest(HttpRequestHandler.java:221)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.run(HttpRequestHandler.java:122)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.run(HttpRequestHandler.java:111)
+	at oracle.oc4j.network.ServerSocketReadHandler$SafeRunnable.run(ServerSocketReadHandler.java:260)
+	at oracle.oc4j.network.ServerSocketAcceptHandler.procClientSocket(ServerSocketAcceptHandler.java:234)
+	at oracle.oc4j.network.ServerSocketAcceptHandler.access$700(ServerSocketAcceptHandler.java:29)
+	at oracle.oc4j.network.ServerSocketAcceptHandler$AcceptHandlerHorse.run(ServerSocketAcceptHandler.java:879)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].util.ReleasableResourcePooledExecutor$MyWorker.run(ReleasableResourcePooledExecutor.java:303)
+	at java.lang.Thread.run(Thread.java:595)
+10/10/29 01:07:29.843 TwoWays: Servlet error
+java.lang.NumberFormatException: null
+	at java.lang.Long.parseLong(Long.java:372)
+	at java.lang.Long.parseLong(Long.java:461)
+	at com.twoways.view.servlets.AbmClientesServlet.doGet(AbmClientesServlet.java:59)
+	at com.twoways.view.servlets.AbmClientesServlet.doPost(AbmClientesServlet.java:97)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:763)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:856)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.ServletRequestDispatcher.invoke(ServletRequestDispatcher.java:713)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.ServletRequestDispatcher.forwardInternal(ServletRequestDispatcher.java:370)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.doProcessRequest(HttpRequestHandler.java:871)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.processRequest(HttpRequestHandler.java:453)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.serveOneRequest(HttpRequestHandler.java:221)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.run(HttpRequestHandler.java:122)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.run(HttpRequestHandler.java:111)
+	at oracle.oc4j.network.ServerSocketReadHandler$SafeRunnable.run(ServerSocketReadHandler.java:260)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].util.ReleasableResourcePooledExecutor$MyWorker.run(ReleasableResourcePooledExecutor.java:303)
+	at java.lang.Thread.run(Thread.java:595)
+10/10/29 01:08:12.140 TwoWays: 10.1.3.4.0 Stopped
+10/10/29 01:08:12.968 10.1.3.4.0 Started
+10/10/29 01:08:16.718 TwoWays: 10.1.3.4.0 Started
+10/10/29 01:08:56.437 TwoWays: Servlet error
+java.lang.NumberFormatException: null
+	at java.lang.Long.parseLong(Long.java:372)
+	at java.lang.Long.parseLong(Long.java:461)
+	at com.twoways.view.servlets.AbmClientesServlet.doGet(AbmClientesServlet.java:59)
+	at com.twoways.view.servlets.AbmClientesServlet.doPost(AbmClientesServlet.java:97)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:763)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:856)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.ServletRequestDispatcher.invoke(ServletRequestDispatcher.java:713)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.ServletRequestDispatcher.forwardInternal(ServletRequestDispatcher.java:370)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.doProcessRequest(HttpRequestHandler.java:871)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.processRequest(HttpRequestHandler.java:453)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.serveOneRequest(HttpRequestHandler.java:221)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.run(HttpRequestHandler.java:122)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.run(HttpRequestHandler.java:111)
+	at oracle.oc4j.network.ServerSocketReadHandler$SafeRunnable.run(ServerSocketReadHandler.java:260)
+	at oracle.oc4j.network.ServerSocketAcceptHandler.procClientSocket(ServerSocketAcceptHandler.java:234)
+	at oracle.oc4j.network.ServerSocketAcceptHandler.access$700(ServerSocketAcceptHandler.java:29)
+	at oracle.oc4j.network.ServerSocketAcceptHandler$AcceptHandlerHorse.run(ServerSocketAcceptHandler.java:879)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].util.ReleasableResourcePooledExecutor$MyWorker.run(ReleasableResourcePooledExecutor.java:303)
+	at java.lang.Thread.run(Thread.java:595)
+10/10/29 01:09:36.812 10.1.3.4.0 Started
+10/10/29 01:09:41.484 TwoWays: 10.1.3.4.0 Started
+10/10/29 01:29:27.531 10.1.3.4.0 Started
+10/10/29 01:29:32.265 TwoWays: 10.1.3.4.0 Started
+10/10/29 01:40:33.531 10.1.3.4.0 Started
+10/10/29 01:40:38.250 TwoWays: 10.1.3.4.0 Started
+10/10/29 01:45:22.359 TwoWays: 10.1.3.4.0 Stopped
+10/10/29 01:45:23.203 10.1.3.4.0 Started
+10/10/29 01:45:26.984 TwoWays: 10.1.3.4.0 Started
+10/10/29 01:48:06.843 10.1.3.4.0 Started
+10/10/29 01:48:11.312 TwoWays: 10.1.3.4.0 Started
+10/10/29 01:49:50.640 10.1.3.4.0 Started
+10/10/29 01:49:55.109 TwoWays: 10.1.3.4.0 Started
+10/10/29 01:54:20.640 10.1.3.4.0 Started
+10/10/29 01:54:25.328 TwoWays: 10.1.3.4.0 Started
+10/10/29 01:59:10.171 10.1.3.4.0 Started
+10/10/29 01:59:14.578 TwoWays: 10.1.3.4.0 Started
+10/10/29 02:00:48.296 TwoWays: JspServlet: No se ha podido distribuir a la página solicitada: oracle.jsp.parse.JspParseException: Número de línea /cliente.jsp:, 14 
+Error: Idioma de expresión no soportado en el atributo de tiempo de compilación value
+	at oracle.jsp.parse.JspUtils.hasELWithCreation(JspUtils.java:1295)
+	at oracle.jsp.parse.JspUtils.processELAttribute(JspUtils.java:1321)
+	at oracle.jsp.parse.OpenJspTagHandler.processAttributeValue(OpenJspTagHandler.java:344)
+	at oracle.jsp.parse.JspParseTag.parse(JspParseTag.java:1439)
+	at oracle.jsp.parse.OpenJspTagHandler.parse(OpenJspTagHandler.java:816)
+	at oracle.jsp.parse.JspParseTag.parseNextTag(JspParseTag.java:1019)
+	at oracle.jsp.parse.JspParseTagFile.parse(JspParseTagFile.java:250)
+	at oracle.jsp.parse.OracleJsp2Java.transform(OracleJsp2Java.java:479)
+	at oracle.jsp.runtimev2.JspPageCompiler.attemptCompilePage(JspPageCompiler.java:670)
+	at oracle.jsp.runtimev2.JspPageCompiler.compileBothModes(JspPageCompiler.java:456)
+	at oracle.jsp.runtimev2.JspPageCompiler.compilePage(JspPageCompiler.java:413)
+	at oracle.jsp.runtimev2.JspPageInfo.compileAndLoad(JspPageInfo.java:705)
+	at oracle.jsp.runtimev2.JspPageTable.compileAndServe(JspPageTable.java:694)
+	at oracle.jsp.runtimev2.JspPageTable.service(JspPageTable.java:414)
+	at oracle.jsp.runtimev2.JspServlet.internalService(JspServlet.java:594)
+	at oracle.jsp.runtimev2.JspServlet.service(JspServlet.java:518)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:856)
+	at com.evermind.server.http.ServletRequestDispatcher.invoke(ServletRequestDispatcher.java:713)
+	at com.evermind.server.http.ServletRequestDispatcher.forwardInternal(ServletRequestDispatcher.java:370)
+	at com.evermind.server.http.ServletRequestDispatcher.unprivileged_forward(ServletRequestDispatcher.java:259)
+	at com.evermind.server.http.ServletRequestDispatcher.access$100(ServletRequestDispatcher.java:51)
+	at com.evermind.server.http.ServletRequestDispatcher$2.oc4jRun(ServletRequestDispatcher.java:193)
+	at oracle.oc4j.security.OC4JSecurity.doPrivileged(OC4JSecurity.java:284)
+	at com.evermind.server.http.ServletRequestDispatcher.forward(ServletRequestDispatcher.java:198)
+	at com.twoways.view.servlets.AbmClientesServlet.doGet(AbmClientesServlet.java:75)
+	at com.twoways.view.servlets.AbmClientesServlet.doPost(AbmClientesServlet.java:106)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:763)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:856)
+	at com.evermind.server.http.ServletRequestDispatcher.invoke(ServletRequestDispatcher.java:713)
+	at com.evermind.server.http.ServletRequestDispatcher.forwardInternal(ServletRequestDispatcher.java:370)
+	at com.evermind.server.http.HttpRequestHandler.doProcessRequest(HttpRequestHandler.java:871)
+	at com.evermind.server.http.HttpRequestHandler.processRequest(HttpRequestHandler.java:453)
+	at com.evermind.server.http.HttpRequestHandler.serveOneRequest(HttpRequestHandler.java:221)
+	at com.evermind.server.http.HttpRequestHandler.run(HttpRequestHandler.java:122)
+	at com.evermind.server.http.HttpRequestHandler.run(HttpRequestHandler.java:111)
+	at oracle.oc4j.network.ServerSocketReadHandler$SafeRunnable.run(ServerSocketReadHandler.java:260)
+	at oracle.oc4j.network.ServerSocketAcceptHandler.procClientSocket(ServerSocketAcceptHandler.java:234)
+	at oracle.oc4j.network.ServerSocketAcceptHandler.access$700(ServerSocketAcceptHandler.java:29)
+	at oracle.oc4j.network.ServerSocketAcceptHandler$AcceptHandlerHorse.run(ServerSocketAcceptHandler.java:879)
+	at com.evermind.util.ReleasableResourcePooledExecutor$MyWorker.run(ReleasableResourcePooledExecutor.java:303)
+	at java.lang.Thread.run(Thread.java:595)
+
+10/10/29 02:01:11.78 10.1.3.4.0 Started
+10/10/29 02:01:15.671 TwoWays: 10.1.3.4.0 Started
+10/10/29 02:23:26.453 10.1.3.4.0 Started
+10/10/29 02:23:31.31 TwoWays: 10.1.3.4.0 Started
+10/10/29 02:27:20.250 TwoWays: 10.1.3.4.0 Stopped
+10/10/29 02:27:20.812 10.1.3.4.0 Started
+10/10/29 02:27:24.750 TwoWays: 10.1.3.4.0 Started
+10/10/29 02:28:36.828 10.1.3.4.0 Started
+10/10/29 02:28:44.515 TwoWays: 10.1.3.4.0 Started
+10/10/29 02:40:55.609 10.1.3.4.0 Started
+10/10/29 02:41:00.78 TwoWays: 10.1.3.4.0 Started
+10/10/29 02:48:48.15 10.1.3.4.0 Started
+10/10/29 02:48:52.625 TwoWays: 10.1.3.4.0 Started
+10/10/29 02:51:34.406 10.1.3.4.0 Started
+10/10/29 02:51:41.578 TwoWays: 10.1.3.4.0 Started
+10/10/29 03:02:45.656 10.1.3.4.0 Started
+10/10/29 03:02:50.93 TwoWays: 10.1.3.4.0 Started
+10/10/29 03:14:33.93 10.1.3.4.0 Started
+10/10/29 03:14:41.234 TwoWays: 10.1.3.4.0 Started
+10/10/29 03:15:25.359 TwoWays: Se ha forzado la interrupción de una conexión existente por el host remoto
+10/10/29 03:15:25.359 TwoWays: Se ha forzado la interrupción de una conexión existente por el host remoto
+10/10/29 03:15:25.375 TwoWays: Se ha forzado la interrupción de una conexión existente por el host remoto
+10/10/29 03:15:25.375 TwoWays: Se ha forzado la interrupción de una conexión existente por el host remoto
+10/10/29 03:15:25.375 TwoWays: Se ha forzado la interrupción de una conexión existente por el host remoto
+10/10/29 03:15:25.375 TwoWays: Se ha forzado la interrupción de una conexión existente por el host remoto
+10/10/29 03:15:25.375 TwoWays: Se ha forzado la interrupción de una conexión existente por el host remoto
+10/10/29 03:15:25.375 TwoWays: Se ha forzado la interrupción de una conexión existente por el host remoto
+10/10/29 03:17:20.0 10.1.3.4.0 Started
+10/10/29 03:17:24.625 TwoWays: 10.1.3.4.0 Started
+10/10/29 03:17:43.265 TwoWays: Servlet error
+java.lang.NullPointerException
+	at com.twoways.view.servlets.AbmClientesServlet.doGet(AbmClientesServlet.java:63)
+	at com.twoways.view.servlets.AbmClientesServlet.doPost(AbmClientesServlet.java:109)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:763)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:856)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.ServletRequestDispatcher.invoke(ServletRequestDispatcher.java:713)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.ServletRequestDispatcher.forwardInternal(ServletRequestDispatcher.java:370)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.doProcessRequest(HttpRequestHandler.java:871)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.processRequest(HttpRequestHandler.java:453)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.serveOneRequest(HttpRequestHandler.java:221)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.run(HttpRequestHandler.java:122)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.run(HttpRequestHandler.java:111)
+	at oracle.oc4j.network.ServerSocketReadHandler$SafeRunnable.run(ServerSocketReadHandler.java:260)
+	at oracle.oc4j.network.ServerSocketAcceptHandler.procClientSocket(ServerSocketAcceptHandler.java:234)
+	at oracle.oc4j.network.ServerSocketAcceptHandler.access$700(ServerSocketAcceptHandler.java:29)
+	at oracle.oc4j.network.ServerSocketAcceptHandler$AcceptHandlerHorse.run(ServerSocketAcceptHandler.java:879)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].util.ReleasableResourcePooledExecutor$MyWorker.run(ReleasableResourcePooledExecutor.java:303)
+	at java.lang.Thread.run(Thread.java:595)
+10/10/29 03:18:35.953 TwoWays: Servlet error
+java.lang.NullPointerException
+	at com.twoways.view.servlets.AbmClientesServlet.doGet(AbmClientesServlet.java:63)
+	at com.twoways.view.servlets.AbmClientesServlet.doPost(AbmClientesServlet.java:109)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:763)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:856)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.ServletRequestDispatcher.invoke(ServletRequestDispatcher.java:713)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.ServletRequestDispatcher.forwardInternal(ServletRequestDispatcher.java:370)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.doProcessRequest(HttpRequestHandler.java:871)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.processRequest(HttpRequestHandler.java:453)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.serveOneRequest(HttpRequestHandler.java:221)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.run(HttpRequestHandler.java:122)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.run(HttpRequestHandler.java:111)
+	at oracle.oc4j.network.ServerSocketReadHandler$SafeRunnable.run(ServerSocketReadHandler.java:260)
+	at oracle.oc4j.network.ServerSocketAcceptHandler.procClientSocket(ServerSocketAcceptHandler.java:234)
+	at oracle.oc4j.network.ServerSocketAcceptHandler.access$700(ServerSocketAcceptHandler.java:29)
+	at oracle.oc4j.network.ServerSocketAcceptHandler$AcceptHandlerHorse.run(ServerSocketAcceptHandler.java:879)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].util.ReleasableResourcePooledExecutor$MyWorker.run(ReleasableResourcePooledExecutor.java:303)
+	at java.lang.Thread.run(Thread.java:595)
+10/10/29 03:19:50.234 10.1.3.4.0 Started
+10/10/29 03:20:03.125 10.1.3.4.0 Started
+10/10/29 03:20:10.187 TwoWays: 10.1.3.4.0 Started
+10/10/29 03:21:24.968 10.1.3.4.0 Started
+10/10/29 03:21:29.390 TwoWays: 10.1.3.4.0 Started
+10/10/29 03:24:59.687 10.1.3.4.0 Started
+10/10/29 03:25:04.78 TwoWays: 10.1.3.4.0 Started
+10/10/29 03:25:24.46 TwoWays: Servlet error
+java.lang.NumberFormatException: For input string: "kljkljk"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:48)
+	at java.lang.Long.parseLong(Long.java:403)
+	at java.lang.Long.parseLong(Long.java:461)
+	at com.twoways.view.servlets.AbmClientesServlet.doGet(AbmClientesServlet.java:68)
+	at com.twoways.view.servlets.AbmClientesServlet.doPost(AbmClientesServlet.java:109)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:763)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:856)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.ServletRequestDispatcher.invoke(ServletRequestDispatcher.java:713)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.ServletRequestDispatcher.forwardInternal(ServletRequestDispatcher.java:370)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.doProcessRequest(HttpRequestHandler.java:871)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.processRequest(HttpRequestHandler.java:453)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.serveOneRequest(HttpRequestHandler.java:221)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.run(HttpRequestHandler.java:122)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].server.http.HttpRequestHandler.run(HttpRequestHandler.java:111)
+	at oracle.oc4j.network.ServerSocketReadHandler$SafeRunnable.run(ServerSocketReadHandler.java:260)
+	at oracle.oc4j.network.ServerSocketAcceptHandler.procClientSocket(ServerSocketAcceptHandler.java:234)
+	at oracle.oc4j.network.ServerSocketAcceptHandler.access$700(ServerSocketAcceptHandler.java:29)
+	at oracle.oc4j.network.ServerSocketAcceptHandler$AcceptHandlerHorse.run(ServerSocketAcceptHandler.java:879)
+	at com.evermind[Oracle Containers for J2EE 10g (10.1.3.4.0) ].util.ReleasableResourcePooledExecutor$MyWorker.run(ReleasableResourcePooledExecutor.java:303)
+	at java.lang.Thread.run(Thread.java:595)
+10/10/29 03:27:14.609 10.1.3.4.0 Started
+10/10/29 03:27:22.781 TwoWays: 10.1.3.4.0 Started
+10/10/29 03:31:22.921 10.1.3.4.0 Started
+10/10/29 03:31:27.390 TwoWays: 10.1.3.4.0 Started
+10/10/29 03:36:51.656 TwoWays: 10.1.3.4.0 Stopped
+10/10/29 03:36:52.453 10.1.3.4.0 Started
+10/10/29 03:36:56.218 TwoWays: 10.1.3.4.0 Started
+10/10/29 09:17:19.781 10.1.3.4.0 Started
+10/10/29 09:17:27.937 TwoWays: 10.1.3.4.0 Started
+10/10/29 09:26:27.265 10.1.3.4.0 Started
+10/10/29 09:26:31.390 TwoWays: 10.1.3.4.0 Started

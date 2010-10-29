@@ -7,8 +7,14 @@
     	<property name="clientDao">
             <ref bean="clientDAO"/>
         </property>
+    	<property name="employeeDao">
+            <ref bean="employeeDAO"/>
+        </property>        
+    	<property name="currencyDao">
+            <ref bean="currencyDAO"/>
+        </property>                
     </bean>
-    
+
     <!-- declaracion de los servicios, utilizando proxy para el manejo de transacciones -->
     <bean id="ServiceTwoWays" parent="baseTransactionProxy">
         <property name="target">

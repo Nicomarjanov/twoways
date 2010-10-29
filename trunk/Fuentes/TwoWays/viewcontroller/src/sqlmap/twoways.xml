@@ -20,4 +20,26 @@
      
   </select>
 
+  <select id="obtenerEmpleados"  parameterClass="java.lang.String" resultClass="com.twoways.to.EmployeesTO">
+     select 
+        EMP_FIRST_NAME as empFirstName,
+        EMP_LAST_NAME as empLastName,
+        EMP_MAIL as empMail,
+        EMP_PHONE_NUMBER as empPhoneNum,
+        EMP_MOBILE_NUMBER as empMobileNum,
+        EMP_MSN as empMsn        
+     from 
+     Employees
+     
+  </select>
+  
+    <select id="obtenerMonedas"  parameterClass="java.lang.String" resultClass="com.twoways.to.CurrencyTO">
+     select 
+        CUR_ID as curId,
+        CUR_NAME as curName        
+     from 
+     Currency
+     
+  </select>
+
 </sqlMap>
