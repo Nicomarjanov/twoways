@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+   
+    <bean id="clientDAO" class="com.twoways.dao.ClientsDAOImpl">
+       <property name="dataSource">
+          <ref bean="dataSource"/>
+      </property>
+      <property name="sqlMapClient">
+        <ref local="twowaysSqlMapConfig"/>
+      </property>
+    </bean>    
+    <bean id="employeeDAO" class="com.twoways.dao.EmployeesDAOImpl">
+       <property name="dataSource">
+          <ref bean="dataSource"/>
+      </property>
+      <property name="sqlMapClient">
+        <ref local="twowaysSqlMapConfig"/>
+      </property>
+    </bean>    
+    <bean id="currencyDAO" class="com.twoways.dao.CurrencyDAOImpl">
+       <property name="dataSource">
+          <ref bean="dataSource"/>
+      </property>
+      <property name="sqlMapClient">
+        <ref local="twowaysSqlMapConfig"/>
+      </property>
+    </bean>        
+       
+	<!--  Web SqlMap setup for iBATIS Database Layer -->
+	<bean id="twowaysSqlMapConfig" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation">
+			<value>classpath:sqlmap/sqlMapConfig.xml</value>
+		</property>
+	</bean>
+
+</beans>
