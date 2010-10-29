@@ -157,5 +157,3 @@ function validarCampos()
     else
         return false;
 }
-
-function 

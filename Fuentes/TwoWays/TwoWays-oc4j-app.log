@@ -784,3 +784,18 @@ java.lang.NumberFormatException: For input string: "kljkljk"
 10/10/29 09:17:27.937 TwoWays: 10.1.3.4.0 Started
 10/10/29 09:26:27.265 10.1.3.4.0 Started
 10/10/29 09:26:31.390 TwoWays: 10.1.3.4.0 Started
+10/10/29 19:15:01.406 10.1.3.4.0 Started
+10/10/29 19:15:09.140 TwoWays: 10.1.3.4.0 Started
+10/10/29 19:16:50.406 TwoWays: Se ha forzado la interrupción de una conexión existente por el host remoto
+10/10/29 19:17:26.312 TwoWays: Se ha forzado la interrupción de una conexión existente por el host remoto
+10/10/29 19:18:49.640 10.1.3.4.0 Started
+10/10/29 19:18:53.812 TwoWays: 10.1.3.4.0 Started
+10/10/29 19:20:00.203 10.1.3.4.0 Started
+10/10/29 19:20:04.62 TwoWays: 10.1.3.4.0 Started
+10/10/29 19:21:58.171 10.1.3.4.0 Started
+10/10/29 19:22:02.687 TwoWays: 10.1.3.4.0 Started
+10/10/29 19:22:26.437 TwoWays: Se ha forzado la interrupción de una conexión existente por el host remoto
+10/10/29 19:22:33.515 TwoWays: Se ha forzado la interrupción de una conexión existente por el host remoto
+10/10/29 19:22:43.921 TwoWays: Se ha anulado una conexión establecida por el software en su equipo host.
+10/10/29 19:22:49.843 TwoWays: Se ha forzado la interrupción de una conexión existente por el host remoto
+10/10/29 19:22:54.968 TwoWays: Se ha forzado la interrupción de una conexión existente por el host remoto

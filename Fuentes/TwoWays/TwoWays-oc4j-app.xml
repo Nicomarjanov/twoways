@@ -1,30 +1,30 @@
 <?xml version = '1.0' encoding = 'windows-1252'?>
 <orion-application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://xmlns.oracle.com/oracleas/schema/orion-application-10_0.xsd" default-data-source="jdbc/twowaysDS">
-    <ejb-module path="file:/C:/TwoWays/model/classes/" id="TwoWays_model_0"/>
-    <web-module id="TwoWays" path="file:/C:/TwoWays/viewcontroller/public_html/"/>
-    <library path="C:\TwoWays\viewcontroller\public_html\WEB-INF\lib\spring-1.2.8.jar">jdev-generated</library>
+    <ejb-module path="file:/C:/TP/TwoWays/Fuentes/TwoWays/model/classes/" id="TwoWays_model_0"/>
+    <web-module id="TwoWays" path="file:/C:/TP/TwoWays/Fuentes/TwoWays/viewcontroller/public_html/"/>
+    <library path="C:\TP\TwoWays\Fuentes\TwoWays\viewcontroller\public_html\WEB-INF\lib\spring-1.2.8.jar">jdev-generated</library>
     <library path="C:\jdevstudio10134\jdbc\lib\ojdbc14dms.jar">jdev-generated</library>
     <library path="C:\jdevstudio10134\jdbc\lib\orai18n.jar">jdev-generated</library>
     <library path="C:\jdevstudio10134\jdbc\lib\ocrs12.jar">jdev-generated</library>
     <library path="C:\jdevstudio10134\diagnostics\lib\ojdl.jar">jdev-generated</library>
     <library path="C:\jdevstudio10134\lib\dms.jar">jdev-generated</library>
-    <library path="C:\TwoWays\viewcontroller\public_html\WEB-INF\lib\cglib-nodep-2.1_2.jar">jdev-generated</library>
-    <library path="C:\TwoWays\viewcontroller\public_html\WEB-INF\lib\commons-beanutils.jar">jdev-generated</library>
-    <library path="C:\TwoWays\viewcontroller\public_html\WEB-INF\lib\commons-collections.jar">jdev-generated</library>
-    <library path="C:\TwoWays\viewcontroller\public_html\WEB-INF\lib\commons-digester.jar">jdev-generated</library>
-    <library path="C:\TwoWays\viewcontroller\public_html\WEB-INF\lib\commons-fileupload.jar">jdev-generated</library>
-    <library path="C:\TwoWays\viewcontroller\public_html\WEB-INF\lib\commons-lang.jar">jdev-generated</library>
-    <library path="C:\TwoWays\viewcontroller\public_html\WEB-INF\lib\commons-logging.jar">jdev-generated</library>
-    <library path="C:\TwoWays\viewcontroller\public_html\WEB-INF\lib\dwr.jar">jdev-generated</library>
-    <library path="C:\TwoWays\viewcontroller\public_html\WEB-INF\lib\ibatis-2.3.0.677.jar">jdev-generated</library>
-    <library path="C:\TwoWays\viewcontroller\public_html\WEB-INF\lib\jaxen-1.1.1.jar">jdev-generated</library>
-    <library path="C:\TwoWays\viewcontroller\public_html\WEB-INF\lib\jaxen-full.jar">jdev-generated</library>
-    <library path="C:\TwoWays\viewcontroller\public_html\WEB-INF\lib\jstl.jar">jdev-generated</library>
-    <library path="C:\TwoWays\viewcontroller\public_html\WEB-INF\lib\junit-3.8.1.jar">jdev-generated</library>
-    <library path="C:\TwoWays\viewcontroller\public_html\WEB-INF\lib\log4j-1.2.8.jar">jdev-generated</library>
-    <library path="C:\TwoWays\viewcontroller\public_html\WEB-INF\lib\saxpath.jar">jdev-generated</library>
-    <library path="C:\TwoWays\viewcontroller\public_html\WEB-INF\lib\standard.jar">jdev-generated</library>
-    <library path="C:\TwoWays\viewcontroller\public_html\WEB-INF\lib\xalan.jar">jdev-generated</library>
+    <library path="C:\TP\TwoWays\Fuentes\TwoWays\viewcontroller\public_html\WEB-INF\lib\cglib-nodep-2.1_2.jar">jdev-generated</library>
+    <library path="C:\TP\TwoWays\Fuentes\TwoWays\viewcontroller\public_html\WEB-INF\lib\commons-beanutils.jar">jdev-generated</library>
+    <library path="C:\TP\TwoWays\Fuentes\TwoWays\viewcontroller\public_html\WEB-INF\lib\commons-collections.jar">jdev-generated</library>
+    <library path="C:\TP\TwoWays\Fuentes\TwoWays\viewcontroller\public_html\WEB-INF\lib\commons-digester.jar">jdev-generated</library>
+    <library path="C:\TP\TwoWays\Fuentes\TwoWays\viewcontroller\public_html\WEB-INF\lib\commons-fileupload.jar">jdev-generated</library>
+    <library path="C:\TP\TwoWays\Fuentes\TwoWays\viewcontroller\public_html\WEB-INF\lib\commons-lang.jar">jdev-generated</library>
+    <library path="C:\TP\TwoWays\Fuentes\TwoWays\viewcontroller\public_html\WEB-INF\lib\commons-logging.jar">jdev-generated</library>
+    <library path="C:\TP\TwoWays\Fuentes\TwoWays\viewcontroller\public_html\WEB-INF\lib\dwr.jar">jdev-generated</library>
+    <library path="C:\TP\TwoWays\Fuentes\TwoWays\viewcontroller\public_html\WEB-INF\lib\ibatis-2.3.0.677.jar">jdev-generated</library>
+    <library path="C:\TP\TwoWays\Fuentes\TwoWays\viewcontroller\public_html\WEB-INF\lib\jaxen-1.1.1.jar">jdev-generated</library>
+    <library path="C:\TP\TwoWays\Fuentes\TwoWays\viewcontroller\public_html\WEB-INF\lib\jaxen-full.jar">jdev-generated</library>
+    <library path="C:\TP\TwoWays\Fuentes\TwoWays\viewcontroller\public_html\WEB-INF\lib\jstl.jar">jdev-generated</library>
+    <library path="C:\TP\TwoWays\Fuentes\TwoWays\viewcontroller\public_html\WEB-INF\lib\junit-3.8.1.jar">jdev-generated</library>
+    <library path="C:\TP\TwoWays\Fuentes\TwoWays\viewcontroller\public_html\WEB-INF\lib\log4j-1.2.8.jar">jdev-generated</library>
+    <library path="C:\TP\TwoWays\Fuentes\TwoWays\viewcontroller\public_html\WEB-INF\lib\saxpath.jar">jdev-generated</library>
+    <library path="C:\TP\TwoWays\Fuentes\TwoWays\viewcontroller\public_html\WEB-INF\lib\standard.jar">jdev-generated</library>
+    <library path="C:\TP\TwoWays\Fuentes\TwoWays\viewcontroller\public_html\WEB-INF\lib\xalan.jar">jdev-generated</library>
     <log>
         <file path="TwoWays-oc4j-app.log"/>
     </log>
