@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- Place filename in namespace field value without extension (.xml) -->
+<sqlMap namespace="twowaysMap">
+  <!--- Clientes -->
+  <select id="obtenerClientes"  parameterClass="java.lang.String" resultClass="com.twoways.to.ClientsTO">
+     select 
+        CLI_ADDRESS as cliAddress,
+        CLI_COUNTRY as cliCountry,
+        CLI_DESCRIPTION as cliDescription,
+        CLI_ID as  cliId,
+        CLI_MAIL as cliMail,
+        CLI_NAME as cliName,
+        CLI_PHONE as cliPhone,
+        CLI_POSTAL_CODE as cliPostalCode  
+        
+     from 
+     Clients 
+     
+  </select>
+ 
+  <resultMap id="select-Currency" class="com.twoways.to.CurrencyTO" >
+       
+      <result property="curId" column="cur_id" />
+      <result property="curName" column="cur_Name" />
+  </resultMap>
+  
+  <resultMap id="select-Client" class="com.twoways.to.ClientsTO" >
+      <result property="cliAddress" column="CLI_ADDRESS" />
+      <result property="cliDescription" column="CLI_DESCRIPTION"/>
+      <result property="cliCountry"   column="CLI_COUNTRY" />
+      <result property="cliId" column="CLI_ID"  />
+      <result property="cliName" column="CLI_NAME" />
+      <result property="cliPhone" column="CLI_PHONE" />
+      <result property="cliPostalCode" column="CLI_POSTAL_CODE" />  
+      <result property="currencyTO.curId" column="cur_id" />
+      <result property="currencyTO.curName" column="cur_Name" />
+    </resultMap>
+    
+    <resultMap id="select-Client-List" class="com.twoways.to.ClientsTO" >
+      <result property="cliAddress" column="CLI_ADDRESS" />
+      <result property="cliDescription" column="CLI_DESCRIPTION"/>
+      <result property="cliCountry"   column="CLI_COUNTRY" />
+      <result property="cliId" column="CLI_ID"  />
+      <result property="cliName" column="CLI_NAME" />
+      <result property="cliPhone" column="CLI_PHONE" />
+      <result property="cliPostalCode" column="CLI_POSTAL_CODE" />  
+    </resultMap>
+  
+ 
+
+
+ <statement  id="getClientById" resultMap="select-Client" parameterClass="java.lang.String" >
+     select *
+        from clients,currency 
+        where currency_cur_id = cur_id
+        and cli_id = #value#
+ </statement>
+ 
+  <statement  id="getCurrencyId" resultMap="select-Currency"  parameterClass="java.lang.Integer" >
+     select *    
+     from 
+     Currency
+     where cur_id = #value#
+  </statement>
+  
+  
+  
+  
+  
+   <statement id="buscarClientes" resultMap="select-Client-List"  parameterClass="java.lang.String" >
+     select *       
+     from clients, currency 
+     where clients.currency_cur_id = currency.cur_id
+     and upper(clients.CLI_NAME) like '%' || upper( #value#) || '%'
+     
+  </statement>
+
+   
+  <insert id="insertClients" parameterClass="com.twoways.to.ClientsTO" >
+      insert into clients
+          (cli_id, cli_name, cli_description, cli_mail, cli_address, cli_phone, cli_country, cli_postal_code,currency_cur_id)
+        values
+          (client_seq.nextval, #cliName#, #cliDescription#, #cliMail#, #cliAddress#, #cliPhone#, #cliCountry#, #cliPostalCode#,#currencyTO.curId#)
+                            
+  </insert>
+  
+   <update  id="updateClients" parameterClass="com.twoways.to.ClientsTO">
+      UPDATE clients
+      SET     cli_name = #cliName# , 
+              cli_description = #cliDescription#,
+              cli_mail = #cliMail#,
+              cli_address = #cliAddress#  ,
+              cli_phone =  #cliPhone# ,
+              cli_country = #cliCountry# ,
+              cli_postal_code =#cliPostalCode# ,
+              currency_cur_id= #currencyTO.curId#
+              WHERE  cli_id = #cliId#                     
+  </update>
+  
+  <delete id="deleteClients" parameterClass="com.twoways.to.ClientsTO">
+        DELETE Clients
+        WHERE  cli_id = #cliId#    
+ </delete>
+  
+  
+  <!--Empleados-->
+
+  <select id="obtenerEmpleados"  parameterClass="java.lang.String" resultClass="com.twoways.to.EmployeesTO">
+     select 
+        EMP_FIRST_NAME as empFirstName,
+        EMP_LAST_NAME as empLastName,
+        EMP_MAIL as empMail,
+        EMP_PHONE_NUMBER as empPhoneNum,
+        EMP_MOBILE_NUMBER as empMobileNum,
+        EMP_MSN as empMsn        
+     from 
+     Employees
+     
+  </select>
+  <!--Monedas -->
+    <statement id="obtenerMonedas"  parameterClass="java.lang.String" resultMap="select-Currency" >
+     select *    
+     from 
+     Currency
+     
+  </statement>
+
+
+
+
+<!--Tarifas-->
+
+  <select id="obtenerTarifas"  parameterClass="java.lang.String" resultClass="com.twoways.to.RatesTO">
+     select 
+        RAT_NAME as ratName,
+        RAT_TYPE as ratType,
+        RAT_DESCRIPTION as ratDescription,
+        RAT_VALUE as ratValue,
+        CUR_NAME as curName
+     from 
+     Rates r, Currency c
+     where r.currency_cur_id = c.cur_id
+     
+  </select>
+
+<insert id="insertRate" parameterClass="com.twoways.to.RatesTO" >
+      insert into rates
+          (rat_id, rat_type, rat_name, rat_description,currency_cur_id)
+        values
+          (rates_seq.nextval, #ratType#, #ratName#, #ratDescription#, #currencyTO.curId#)                        
+  </insert>
+
+<update  id="updateRate" parameterClass="com.twoways.to.RatesTO">
+      UPDATE rates
+      SET     rat_name = #ratName# , 
+              rat_description = #ratDescription#,
+              rat_type = #ratType#,
+              rat_value = #ratValue#  ,              
+              currency_cur_id= #currencyTO.curId#
+              WHERE  rat_id = #ratId#                     
+  </update>  
+  
+  
+ 
+</sqlMap> 
