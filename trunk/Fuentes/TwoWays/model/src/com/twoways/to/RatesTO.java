@@ -18,11 +18,9 @@ public class RatesTO {
     private String ratValue;
     private List<EmployeesRatesTO> employeesRatesTOList;
     private CurrencyTO currencyTO;
-    private List<ProjectsRatesTO> projectsRatesTOList;
 
     public RatesTO() {
     }
-
 
     public String getRatDescription() {
         return ratDescription;
@@ -91,24 +89,5 @@ public class RatesTO {
     public void setCurrencyTO(CurrencyTO currencyTO) {
         this.currencyTO = currencyTO;
     }
-
-    public List<ProjectsRatesTO> getProjectsRatesTOList() {
-        return projectsRatesTOList;
-    }
-
-    public void setProjectsRatesTOList(List<ProjectsRatesTO> projectsRatesTOList) {
-        this.projectsRatesTOList = projectsRatesTOList;
-    }
-
-    public ProjectsRatesTO addProjectsRatesTO(ProjectsRatesTO projectsRatesTO) {
-        getProjectsRatesTOList().add(projectsRatesTO);
-        projectsRatesTO.setRatesTO(this);
-        return projectsRatesTO;
-    }
-
-    public ProjectsRatesTO removeProjectsRatesTO(ProjectsRatesTO projectsRatesTO) {
-        getProjectsRatesTOList().remove(projectsRatesTO);
-        projectsRatesTO.setRatesTO(null);
-        return projectsRatesTO;
-    }
+   
 }

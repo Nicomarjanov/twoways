@@ -9,5 +9,6 @@ public interface ClientDAO {
     public ClientsTO getClientById(String cliId)  throws Exception;
     public void insertarCliente(ClientsTO clientsTO) throws Exception;
     public void updateCliente(ClientsTO clientsTO) throws Exception;
-    
+    public List buscarClientes(String search) throws Exception;
+    public boolean  deleteClients(ClientsTO client)  throws Exception;
 }
