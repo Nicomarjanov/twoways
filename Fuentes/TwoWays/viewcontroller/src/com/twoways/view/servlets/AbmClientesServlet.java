@@ -3,7 +3,7 @@ package com.twoways.view.servlets;
 import com.twoways.core.bdl.TwoWaysBDL;
 import com.twoways.to.ClientsTO;
 import com.twoways.to.CurrencyTO;
-import com.twoways.to.EmployeesTO;
+import com.twoways.to.RatesTO;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -29,6 +29,9 @@ public class AbmClientesServlet extends HttpServlet {
         List<CurrencyTO> monedas = null;
         ClientsTO cliente = new ClientsTO(); 
         String cliId = request.getParameter("cliId"); 
+
+        List<CurrencyTO> tarifas = null;
+        
         TwoWaysBDL twoWaysBDL=null;
         
         try {
@@ -36,6 +39,10 @@ public class AbmClientesServlet extends HttpServlet {
            twoWaysBDL.getServiceTwoWays().obtenerMonedas();
            monedas =  twoWaysBDL.getServiceTwoWays().obtenerMonedas();
            request.setAttribute("listaMoneda",monedas);
+           
+           twoWaysBDL.getServiceTwoWays().obtenerTarifas();
+           tarifas =  twoWaysBDL.getServiceTwoWays().obtenerTarifas();
+           request.setAttribute("listaTarifa",tarifas);
            
         } catch (Exception e) {
            e.printStackTrace();
@@ -54,10 +61,10 @@ public class AbmClientesServlet extends HttpServlet {
              } catch (Exception e) {
                  e.printStackTrace();
              }
-            
-          
-            
+                                
             CurrencyTO currency= new CurrencyTO(); 
+            RatesTO rate= new RatesTO();
+            rate.setRatId((request.getParameter("listaTarifa")!= null && request.getParameter("listaTarifa").length() > 0 )?Long.parseLong(request.getParameter("listTarifa")):0);
             currency.setCurId((request.getParameter("listaMoneda")!= null && request.getParameter("listaMoneda").length() > 0 )?Long.parseLong(request.getParameter("listaMoneda")):0);
             cliente.setCliAddress((request.getParameter("dirCliente")!= null )?request.getParameter("dirCliente"):"");
             cliente.setCliCountry((request.getParameter("paisCliente")!= null )?request.getParameter("paisCliente"):"");

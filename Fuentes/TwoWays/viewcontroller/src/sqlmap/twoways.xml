@@ -19,21 +19,63 @@
      Clients 
      
   </select>
-   <select id="getClientById"  parameterClass="java.lang.String" resultClass="com.twoways.to.ClientsTO">
-     select 
-        CLI_ADDRESS as cliAddress,
-        CLI_COUNTRY as cliCountry,
-        CLI_DESCRIPTION as cliDescription,
-        CLI_ID as  cliId,
-        CLI_MAIL as cliMail,
-        CLI_NAME as cliName,
-        CLI_PHONE as cliPhone,
-        CLI_POSTAL_CODE as cliPostalCode  
-        
+ 
+  <resultMap id="select-Currency" class="com.twoways.to.CurrencyTO" >
+       
+      <result property="curId" column="cur_id" />
+      <result property="curName" column="cur_Name" />
+  </resultMap>
+  
+  <resultMap id="select-Client" class="com.twoways.to.ClientsTO" >
+      <result property="cliAddress" column="CLI_ADDRESS" />
+      <result property="cliDescription" column="CLI_DESCRIPTION"/>
+      <result property="cliCountry"   column="CLI_COUNTRY" />
+      <result property="cliId" column="CLI_ID"  />
+      <result property="cliName" column="CLI_NAME" />
+      <result property="cliPhone" column="CLI_PHONE" />
+      <result property="cliPostalCode" column="CLI_POSTAL_CODE" />  
+      <result property="currencyTO.curId" column="cur_id" />
+      <result property="currencyTO.curName" column="cur_Name" />
+    </resultMap>
+    
+    <resultMap id="select-Client-List" class="com.twoways.to.ClientsTO" >
+      <result property="cliAddress" column="CLI_ADDRESS" />
+      <result property="cliDescription" column="CLI_DESCRIPTION"/>
+      <result property="cliCountry"   column="CLI_COUNTRY" />
+      <result property="cliId" column="CLI_ID"  />
+      <result property="cliName" column="CLI_NAME" />
+      <result property="cliPhone" column="CLI_PHONE" />
+      <result property="cliPostalCode" column="CLI_POSTAL_CODE" />  
+    </resultMap>
+  
+ 
+
+
+ <statement  id="getClientById" resultMap="select-Client" parameterClass="java.lang.String" >
+     select *
+        from clients,currency 
+        where currency_cur_id = cur_id
+        and cli_id = #value#
+ </statement>
+ 
+  <statement  id="getCurrencyId" resultMap="select-Currency"  parameterClass="java.lang.Integer" >
+     select *    
      from 
-     Clients 
-     where CLI_ID = #value#
-  </select>
+     Currency
+     where cur_id = #value#
+  </statement>
+  
+  
+  
+  
+  
+   <statement id="buscarClientes" resultMap="select-Client-List"  parameterClass="java.lang.String" >
+     select *       
+     from clients, currency 
+     where clients.currency_cur_id = currency.cur_id
+     and upper(clients.CLI_NAME) like '%' || upper( #value#) || '%'
+     
+  </statement>
 
    
   <insert id="insertClients" parameterClass="com.twoways.to.ClientsTO" >
@@ -57,6 +99,12 @@
               WHERE  cli_id = #cliId#                     
   </update>
   
+  <delete id="deleteClients" parameterClass="com.twoways.to.ClientsTO">
+        DELETE Clients
+        WHERE  cli_id = #cliId#    
+ </delete>
+  
+  
   <!--Empleados-->
 
   <select id="obtenerEmpleados"  parameterClass="java.lang.String" resultClass="com.twoways.to.EmployeesTO">
@@ -72,14 +120,48 @@
      
   </select>
   <!--Monedas -->
-    <select id="obtenerMonedas"  parameterClass="java.lang.String" resultClass="com.twoways.to.CurrencyTO">
-     select 
-        CUR_ID as curId,
-        CUR_NAME as curName        
+    <statement id="obtenerMonedas"  parameterClass="java.lang.String" resultMap="select-Currency" >
+     select *    
      from 
      Currency
      
+  </statement>
+
+
+
+
+<!--Tarifas-->
+
+  <select id="obtenerTarifas"  parameterClass="java.lang.String" resultClass="com.twoways.to.RatesTO">
+     select 
+        RAT_NAME as ratName,
+        RAT_TYPE as ratType,
+        RAT_DESCRIPTION as ratDescription,
+        RAT_VALUE as ratValue,
+        CUR_NAME as curName
+     from 
+     Rates r, Currency c
+     where r.currency_cur_id = c.cur_id
+     
   </select>
 
+<insert id="insertRate" parameterClass="com.twoways.to.RatesTO" >
+      insert into rates
+          (rat_id, rat_type, rat_name, rat_description,currency_cur_id)
+        values
+          (rates_seq.nextval, #ratType#, #ratName#, #ratDescription#, #currencyTO.curId#)                        
+  </insert>
 
-</sqlMap>
+<update  id="updateRate" parameterClass="com.twoways.to.RatesTO">
+      UPDATE rates
+      SET     rat_name = #ratName# , 
+              rat_description = #ratDescription#,
+              rat_type = #ratType#,
+              rat_value = #ratValue#  ,              
+              currency_cur_id= #currencyTO.curId#
+              WHERE  rat_id = #ratId#                     
+  </update>  
+  
+  
+ 
+</sqlMap> 

@@ -8,9 +8,23 @@
 /*Body*/
 body{
     font-family:Verdana, Arial, Helvetica, sans-serif;
-    font-size:12px;
+    font-size:12px; 
+
 }
 
+div.background
+  {
+    background-image:url('logo_relieve.jpg');
+    background-repeat: repeat;
+  /* for IE 
+  filter:alpha(opacity=10);
+  /* CSS3 standard 
+  opacity:0.1;*/
+  }
+div.foreground
+  {
+
+}
 /*Fuentes*/
 h1.tw{
     color:#80211D;

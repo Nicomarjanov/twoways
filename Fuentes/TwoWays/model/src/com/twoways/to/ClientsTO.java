@@ -25,6 +25,7 @@ public class ClientsTO {
     private List<OrdersTO> ordersTOList;
     private List<PaymentsTO> paymentsTOList;
     private CurrencyTO currencyTO;
+    private List<ClientsRatesTO> clientsRatesTOList;
 
     public ClientsTO() {
     }
@@ -161,4 +162,24 @@ public class ClientsTO {
     public void setCurrencyTO(CurrencyTO currencyTO) {
         this.currencyTO = currencyTO;
     }
+    
+    public List<ClientsRatesTO> getClientsRatesTOList() {
+        return clientsRatesTOList;
+    }
+
+    public void setClientsRatesTOList(List<ClientsRatesTO> clientsRatesTOList) {
+        this.clientsRatesTOList = clientsRatesTOList;
+    }
+
+    public ClientsRatesTO addClientsRatesTO(ClientsRatesTO clientsRatesTO) {
+        getClientsRatesTOList().add(clientsRatesTO);
+        clientsRatesTO.setClientsTO(this);
+        return clientsRatesTO;
+    }
+
+    public ClientsRatesTO removeClientsRatesTO(ClientsRatesTO clientsRatesTO) {
+        getClientsRatesTOList().remove(clientsRatesTO);
+        clientsRatesTO.setClientsTO(null);
+        return clientsRatesTO;
+    }    
 }

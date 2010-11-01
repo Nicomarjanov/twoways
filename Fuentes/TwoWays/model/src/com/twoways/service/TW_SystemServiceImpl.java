@@ -3,8 +3,13 @@ package com.twoways.service;
 import com.twoways.dao.ClientDAO;
 import com.twoways.dao.CurrencyDAO;
 import com.twoways.dao.EmployeeDAO;
+import com.twoways.dao.RateDAO;
 
 import com.twoways.to.ClientsTO;
+import com.twoways.to.CurrencyTO;
+import com.twoways.to.RatesTO;
+
+
 
 import java.util.Collections;
 import java.util.List;
@@ -14,7 +19,8 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     private ClientDAO clientDao;
     private EmployeeDAO employeeDao;
     private CurrencyDAO currencyDao;
-    
+    private RateDAO rateDao;
+     
     public TW_SystemServiceImpl() {
     }
 
@@ -66,7 +72,42 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     public ClientsTO getClientById(String cliId)  throws Exception{
         return  this.clientDao.getClientById(cliId);
     }
-    
-    
 
+
+    public List buscarClientes(String search) throws Exception {
+        return this.clientDao.buscarClientes(search);
+    }
+    
+    public boolean  deleteClients(ClientsTO client)  throws Exception{
+        return this.clientDao.deleteClients(client);
+    }
+
+
+    public List obtenerTarifas() throws Exception{
+        return this.rateDao.obtenerTarifas();
+    }
+
+    public void insertarTarifa(RatesTO ratesTO) throws Exception{
+        this.rateDao.insertarTarifa(ratesTO);
+    }
+    
+    public void actualizarTarifa(RatesTO ratesTO) throws Exception {
+        this.rateDao.actualizarTarifa(ratesTO);
+    }
+
+    public void setRateDao(RateDAO rateDao) {
+        this.rateDao = rateDao;
+    }
+
+    public RateDAO getRateDao() {
+        return rateDao;
+    }
+    
+    public CurrencyTO getCurrencyById(String curId)  throws Exception{
+        
+        return this.currencyDao.getCurrencyById(curId);
+        
+    }
+    
+    
 }

@@ -21,10 +21,29 @@ public class ClientsDAOImpl extends AbstractDAO  implements ClientDAO{
         return ret;
     }
     
+    public List buscarClientes(String search) throws Exception {
+        List ret= null;
+        try {
+            ret = 
+            getSqlMapClientTemplate().queryForList("buscarClientes",search);
+        } catch (DataAccessException dae) {
+
+           dae.printStackTrace();
+        }
+        return ret;
+    }
+    
+    
     public ClientsTO getClientById(String cliId)  throws Exception{
        ClientsTO cliente =  (ClientsTO)getSqlMapClientTemplate().queryForObject("getClientById",cliId);
        return cliente;
     }
+    
+    public boolean  deleteClients(ClientsTO client)  throws Exception{
+       int res =  getSqlMapClientTemplate().delete("deleteClients",client);
+       return (res > 0); 
+    }
+    
     
     
     public void insertarCliente(ClientsTO clientsTO) throws Exception {
