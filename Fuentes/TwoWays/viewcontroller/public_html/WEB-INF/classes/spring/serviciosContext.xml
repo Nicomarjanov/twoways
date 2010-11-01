@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+     <bean id="ServiceTwoWaysTarget" class="com.twoways.service.TW_SystemServiceImpl">
+    	<property name="clientDao">
+            <ref bean="clientDAO"/>
+        </property>
+    	<property name="employeeDao">
+            <ref bean="employeeDAO"/>
+        </property>        
+    	<property name="currencyDao">
+            <ref bean="currencyDAO"/>
+        </property>    
+    	<property name="rateDao">
+            <ref bean="rateDAO"/>
+        </property>             
+    </bean>
+
+    <!-- declaracion de los servicios, utilizando proxy para el manejo de transacciones -->
+    <bean id="ServiceTwoWays" parent="baseTransactionProxy">
+        <property name="target">
+            <ref bean="ServiceTwoWaysTarget"/>
+        </property>
+    </bean>
+
+</beans>
