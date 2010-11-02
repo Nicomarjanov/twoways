@@ -9,11 +9,6 @@ public interface TW_SystemService {
 
     public List obtenerClientes() throws Exception;
     
-    public List obtenerEmpleados() throws Exception;
-    
-    public List obtenerMonedas() throws Exception;
-    
-    public List obtenerTarifas() throws Exception;
     public void insertarCliente(ClientsTO clientsTO) throws Exception ;
     
     public void updateCliente(ClientsTO clientsTO) throws Exception ;
@@ -24,12 +19,22 @@ public interface TW_SystemService {
     
     public boolean  deleteClients(ClientsTO client)  throws Exception;
     
+    public List obtenerEmpleados() throws Exception;
+    
+    public List obtenerMonedas() throws Exception;
+    
+    public List obtenerTarifas() throws Exception;
+    
+    public List obtenerTipoTarifas() throws Exception;
+    
     public void insertarTarifa(RatesTO ratesTO) throws Exception ;
 
-    public void actualizarTarifa(RatesTO ratesTO) throws Exception ;   
+    public void actualizarTarifa(RatesTO ratesTO) throws Exception ;    
+
+    public RatesTO getRateById(String ratId)  throws Exception;
     
-    public List obtenerTipoTarifas() throws Exception ;
+    public boolean deleteRate(RatesTO rate)  throws Exception;
 
-
+    public List buscarTarifas(String search) throws Exception;
 
 }
