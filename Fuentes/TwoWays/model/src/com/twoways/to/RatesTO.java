@@ -11,19 +11,6 @@ public class RatesTO {
     //(name="RAT_ID", nullable = false)
     private Long ratId;
     //(name="RAT_NAME", nullable = false)
-    package com.twoways.to;
-
-import java.util.List;
-
-
-//(name = "RATES")
-public class RatesTO {
-    //(name="RAT_DESCRIPTION")
-    private String ratDescription;
-    //
-    //(name="RAT_ID", nullable = false)
-    private Long ratId;
-    //(name="RAT_NAME", nullable = false)
     private String ratName;
     //(name="RAT_TYPE", nullable = false)
     private String ratType;
