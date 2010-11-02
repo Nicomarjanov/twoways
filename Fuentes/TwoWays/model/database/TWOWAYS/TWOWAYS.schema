@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SCHEMA class="oracle.javatools.db.Schema" xmlns="http://xmlns.oracle.com/jdeveloper/10130/offlinedb">
+   <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
+      <ID>054c6faa-012c-1000-8001-0a0000059754</ID>
+      <parent/>
+      <type>SCHEMA</type>
+   </ID>
+   <name>TWOWAYS</name>
+   <properties class="java.util.HashMap">
+      <Item>
+         <Key>OfflineDBConstants.GENERATE_TARGET_CONECTION</Key>
+         <Value>XE</Value>
+      </Item>
+      <Item>
+         <Key>OfflineDBConstants.GENERATE_TARGET_SCHEMA</Key>
+         <Value>TWOWAYS</Value>
+      </Item>
+   </properties>
+</SCHEMA>

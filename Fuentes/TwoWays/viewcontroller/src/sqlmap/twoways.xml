@@ -162,6 +162,14 @@
               WHERE  rat_id = #ratId#                     
   </update>  
   
+    <select id="obtenerTipoTarifas"  parameterClass="java.lang.String" resultClass="com.twoways.to.RateTypesTO">
+     select 
+        RTY_NAME as rtyName,
+        RTY_DESCRIPTION as rtyDescription
+     from 
+     Rate_Types
+     
+  </select>
   
  
 </sqlMap> 
