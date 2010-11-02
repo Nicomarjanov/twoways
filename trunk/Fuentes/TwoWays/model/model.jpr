@@ -105,12 +105,16 @@
    <hash n="oracle.jdeveloper.offlinedb.model.OfflineDBProjectSettings">
       <hash n="offlineDBContentSet">
          <list n="pattern-filters">
+            <string v="-script1.sql"/>
+            <string v="-script_dd.sql"/>
+            <string v="-MYSCHEMA/"/>
             <string v="+**"/>
          </list>
          <list n="url-path">
             <url path="database/"/>
          </list>
       </hash>
+      <value n="offlineDBSchema" v="MYSCHEMA"/>
    </hash>
    <hash n="oracle.jdeveloper.runner.RunConfigurations">
       <hash n="runConfigurationDefinitions">
