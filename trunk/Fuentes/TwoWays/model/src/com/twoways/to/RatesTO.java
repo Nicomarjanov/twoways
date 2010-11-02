@@ -11,6 +11,19 @@ public class RatesTO {
     //(name="RAT_ID", nullable = false)
     private Long ratId;
     //(name="RAT_NAME", nullable = false)
+    package com.twoways.to;
+
+import java.util.List;
+
+
+//(name = "RATES")
+public class RatesTO {
+    //(name="RAT_DESCRIPTION")
+    private String ratDescription;
+    //
+    //(name="RAT_ID", nullable = false)
+    private Long ratId;
+    //(name="RAT_NAME", nullable = false)
     private String ratName;
     //(name="RAT_TYPE", nullable = false)
     private String ratType;
@@ -18,6 +31,7 @@ public class RatesTO {
     private String ratValue;
     private List<EmployeesRatesTO> employeesRatesTOList;
     private CurrencyTO currencyTO;
+    private RateTypesTO rateTypesTO;
 
     public RatesTO() {
     }
@@ -90,4 +104,11 @@ public class RatesTO {
         this.currencyTO = currencyTO;
     }
    
+    public RateTypesTO getRateTypesTO() {
+        return rateTypesTO;
+    }
+
+    public void setRateTypesTO(RateTypesTO rateTypesTO) {
+        this.rateTypesTO = rateTypesTO;
+    }
 }
