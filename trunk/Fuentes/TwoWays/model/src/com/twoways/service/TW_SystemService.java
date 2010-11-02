@@ -26,7 +26,9 @@ public interface TW_SystemService {
     
     public void insertarTarifa(RatesTO ratesTO) throws Exception ;
 
-    public void actualizarTarifa(RatesTO ratesTO) throws Exception ;    
+    public void actualizarTarifa(RatesTO ratesTO) throws Exception ;   
+    
+    public List obtenerTipoTarifas() throws Exception ;
 
 
 

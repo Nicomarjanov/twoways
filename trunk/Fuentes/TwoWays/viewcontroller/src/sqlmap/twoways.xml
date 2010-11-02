@@ -48,17 +48,16 @@
 
 
  <statement  id="getClientById" resultMap="select-Client" parameterClass="java.lang.String" >
-     select *
-        from clients,currency 
-        where currency_cur_id = cur_id
-        and cli_id = #value#
+     select *       
+     from clients left outer join currency on clients.currency_cur_id = currency.cur_id
+     where cli_id = #value#
  </statement>
  
   <statement id="buscarClientes" resultMap="select-Client-List"  parameterClass="java.lang.String" >
      select *       
-     from clients, currency 
-     where clients.currency_cur_id = currency.cur_id
-     and upper(clients.CLI_NAME) like '%' || upper( #value#) || '%'
+     from clients left outer join currency on clients.currency_cur_id = currency.cur_id
+     where upper(clients.CLI_NAME) like '%' || upper(#value#) || '%'
+     
      
   </statement>
 
