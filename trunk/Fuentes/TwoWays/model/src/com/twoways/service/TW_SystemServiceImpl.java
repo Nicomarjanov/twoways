@@ -4,13 +4,11 @@ import com.twoways.dao.ClientDAO;
 import com.twoways.dao.CurrencyDAO;
 import com.twoways.dao.EmployeeDAO;
 import com.twoways.dao.RateDAO;
-
 import com.twoways.dao.RateTypesDAO;
+
 import com.twoways.to.ClientsTO;
 import com.twoways.to.CurrencyTO;
 import com.twoways.to.RatesTO;
-
-
 
 import java.util.Collections;
 import java.util.List;
@@ -84,7 +82,6 @@ public class TW_SystemServiceImpl implements TW_SystemService{
         return this.clientDao.deleteClients(client);
     }
 
-
     public List obtenerTarifas() throws Exception{
         return this.rateDao.obtenerTarifas();
     }
@@ -105,14 +102,23 @@ public class TW_SystemServiceImpl implements TW_SystemService{
         return rateDao;
     }
     
-    public CurrencyTO getCurrencyById(String curId)  throws Exception{
-        
-        return this.currencyDao.getCurrencyById(curId);
-        
+    public  RatesTO getRateById(String ratId) throws Exception{
+        return  this.rateDao.getRateById(ratId);
+    }
+    
+    public boolean  deleteRate(RatesTO rate)  throws Exception{
+        return this.rateDao.deleteRate(rate);
+    }
+    
+    public List buscarTarifas(String search) throws Exception {
+        return this.rateDao.buscarTarifas(search);
+    }
+    
+    public CurrencyTO getCurrencyById(String curId)  throws Exception{        
+        return this.currencyDao.getCurrencyById(curId);        
     }
 
-
-    public List obtenerTipoTarifas() throws Exception {
+    public List obtenerTipoTarifas() throws Exception{
         return this.rateTypesDao.obtenerTipoTarifas();
     }
 
@@ -122,5 +128,6 @@ public class TW_SystemServiceImpl implements TW_SystemService{
 
     public RateTypesDAO getRateTypesDao() {
         return rateTypesDao;
-    }
+    }    
+    
 }
