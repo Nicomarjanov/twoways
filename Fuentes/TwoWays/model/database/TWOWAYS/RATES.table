@@ -44,7 +44,7 @@
             </Item>
          </properties>
       </Item>
-      <Item>
+      <Item id="5">
          <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
             <ID>b7714ad8-012b-1000-80c2-0a000005a486</ID>
             <parent idref="0"/>
@@ -295,6 +295,48 @@
             <type>CONSTRAINT</type>
          </referenceID>
       </Item>
+      <Item class="oracle.javatools.db.FKConstraint">
+         <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
+            <ID>056845f7-012c-1000-8006-0a0000059754</ID>
+            <parent idref="0"/>
+            <type>CONSTRAINT</type>
+         </ID>
+         <columns>
+            <Item idref="5"/>
+         </columns>
+         <deleteMode>0</deleteMode>
+         <enabled>true</enabled>
+         <name>RATES_TYPES_FK1</name>
+         <properties class="java.util.HashMap">
+            <Item>
+               <Key>OfflineDBConstants.GENERATE_TARGET_ID</Key>
+               <Value class="oracle.jdeveloper.offlinedb.marshal.GenericDBReferenceID">
+                  <ID/>
+                  <name>RATES_TYPES_FK1</name>
+                  <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
+                     <ID/>
+                     <connectionName>XE</connectionName>
+                     <databaseID>13649</databaseID>
+                     <name>RATES</name>
+                     <parent/>
+                     <schemaName>TWOWAYS</schemaName>
+                     <type>TABLE</type>
+                  </parent>
+                  <schemaName/>
+                  <type>CONSTRAINT</type>
+               </Value>
+            </Item>
+         </properties>
+         <referenceID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
+            <ID>0567815c-012c-1000-8005-0a0000059754</ID>
+            <parent class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
+               <ID>0567815c-012c-1000-8002-0a0000059754</ID>
+               <parent/>
+               <type>TABLE</type>
+            </parent>
+            <type>CONSTRAINT</type>
+         </referenceID>
+      </Item>
    </constraints>
    <indexes class="[Loracle.javatools.db.Index;"/>
    <name>RATES</name>
@@ -330,11 +372,20 @@
    </properties>
    <schema>
       <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-         <ID>b6e384e7-012b-1000-8004-0a000005a486</ID>
+         <ID>054c6faa-012c-1000-8001-0a0000059754</ID>
          <parent/>
          <type>SCHEMA</type>
       </ID>
-      <name>MYSCHEMA</name>
-      <properties/>
+      <name>TWOWAYS</name>
+      <properties class="java.util.HashMap">
+         <Item>
+            <Key>OfflineDBConstants.GENERATE_TARGET_CONECTION</Key>
+            <Value>XE</Value>
+         </Item>
+         <Item>
+            <Key>OfflineDBConstants.GENERATE_TARGET_SCHEMA</Key>
+            <Value>TWOWAYS</Value>
+         </Item>
+      </properties>
    </schema>
 </TABLE>
