@@ -37,6 +37,14 @@
         <servlet-name>AbmClientesServlet</servlet-name>
         <url-pattern>/clientes</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>AbmTarifasServlet</servlet-name>
+        <servlet-class>com.twoways.view.servlets.AbmTarifasServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AbmTarifasServlet</servlet-name>
+        <url-pattern>/tarifas</url-pattern>
+    </servlet-mapping>    
     <session-config>
         <session-timeout>35</session-timeout>
     </session-config>
