@@ -5,6 +5,7 @@ import com.twoways.dao.CurrencyDAO;
 import com.twoways.dao.EmployeeDAO;
 import com.twoways.dao.RateDAO;
 
+import com.twoways.dao.RateTypesDAO;
 import com.twoways.to.ClientsTO;
 import com.twoways.to.CurrencyTO;
 import com.twoways.to.RatesTO;
@@ -20,6 +21,7 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     private EmployeeDAO employeeDao;
     private CurrencyDAO currencyDao;
     private RateDAO rateDao;
+    private RateTypesDAO rateTypesDao;
      
     public TW_SystemServiceImpl() {
     }
@@ -108,6 +110,17 @@ public class TW_SystemServiceImpl implements TW_SystemService{
         return this.currencyDao.getCurrencyById(curId);
         
     }
-    
-    
+
+
+    public List obtenerTipoTarifas() throws Exception {
+        return this.rateTypesDao.obtenerTipoTarifas();
+    }
+
+    public void setRateTypesDao(RateTypesDAO rateTypesDao) {
+        this.rateTypesDao = rateTypesDao;
+    }
+
+    public RateTypesDAO getRateTypesDao() {
+        return rateTypesDao;
+    }
 }

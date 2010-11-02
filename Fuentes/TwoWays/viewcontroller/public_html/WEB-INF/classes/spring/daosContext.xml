@@ -37,7 +37,14 @@
       </property>
     </bean>       
     
-       
+    <bean id="rateTypesDAO" class="com.twoways.dao.RateTypesDAOImpl">
+       <property name="dataSource">
+          <ref bean="dataSource"/>
+      </property>
+      <property name="sqlMapClient">
+        <ref local="twowaysSqlMapConfig"/>
+      </property>
+    </bean>  
 	<!--  Web SqlMap setup for iBATIS Database Layer -->
 	<bean id="twowaysSqlMapConfig" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
 		<property name="configLocation">
