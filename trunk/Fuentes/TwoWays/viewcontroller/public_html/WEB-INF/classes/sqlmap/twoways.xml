@@ -20,11 +20,7 @@
      
   </select>
  
-  <resultMap id="select-Currency" class="com.twoways.to.CurrencyTO" >
-       
-      <result property="curId" column="cur_id" />
-      <result property="curName" column="cur_Name" />
-  </resultMap>
+  
   
   <resultMap id="select-Client" class="com.twoways.to.ClientsTO" >
       <result property="cliAddress" column="CLI_ADDRESS" />
@@ -58,18 +54,7 @@
         and cli_id = #value#
  </statement>
  
-  <statement  id="getCurrencyId" resultMap="select-Currency"  parameterClass="java.lang.Integer" >
-     select *    
-     from 
-     Currency
-     where cur_id = #value#
-  </statement>
-  
-  
-  
-  
-  
-   <statement id="buscarClientes" resultMap="select-Client-List"  parameterClass="java.lang.String" >
+  <statement id="buscarClientes" resultMap="select-Client-List"  parameterClass="java.lang.String" >
      select *       
      from clients, currency 
      where clients.currency_cur_id = currency.cur_id
@@ -120,7 +105,23 @@
      
   </select>
   <!--Monedas -->
-    <statement id="obtenerMonedas"  parameterClass="java.lang.String" resultMap="select-Currency" >
+ 
+  <resultMap id="select-Currency" class="com.twoways.to.CurrencyTO" >
+       
+      <result property="curId" column="cur_id" />
+      <result property="curName" column="cur_Name" />
+  </resultMap> 
+   
+  <statement  id="getCurrencyId" resultMap="select-Currency"  parameterClass="java.lang.Integer" >
+     select *    
+     from 
+     Currency
+     where cur_id = #value#
+  </statement>
+  
+ 
+ 
+  <statement id="obtenerMonedas"  parameterClass="java.lang.String" resultMap="select-Currency" >
      select *    
      from 
      Currency
@@ -145,14 +146,14 @@
      
   </select>
 
-<insert id="insertRate" parameterClass="com.twoways.to.RatesTO" >
+  <insert id="insertRate" parameterClass="com.twoways.to.RatesTO" >
       insert into rates
           (rat_id, rat_type, rat_name, rat_description,currency_cur_id)
         values
           (rates_seq.nextval, #ratType#, #ratName#, #ratDescription#, #currencyTO.curId#)                        
   </insert>
 
-<update  id="updateRate" parameterClass="com.twoways.to.RatesTO">
+  <update  id="updateRate" parameterClass="com.twoways.to.RatesTO">
       UPDATE rates
       SET     rat_name = #ratName# , 
               rat_description = #ratDescription#,

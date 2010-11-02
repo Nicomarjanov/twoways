@@ -158,10 +158,10 @@ function  eliminarCliente(cliId){
 
 function postEliminar(data){
   
-   
+   var tablaClientes= document.getElementById('tabla-clientes'); 
    if(data){
       alert('El cliente se elimino con exito ');
-      buscarClientes();
+      borrarFilas(tablaClientes);
    }else{
       alert('El cliente no se pudo eliminar ');
    }
