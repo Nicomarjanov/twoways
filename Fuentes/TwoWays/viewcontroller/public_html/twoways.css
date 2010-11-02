@@ -9,6 +9,7 @@
 body{
     font-family:Verdana, Arial, Helvetica, sans-serif;
     font-size:12px; 
+    background-color:#82ABC5;
 
 }
 
@@ -87,7 +88,7 @@ td.tw
 hr.tw
 {
     border-style:inset;
-    border-color:#80211F;
+    color:#80211F;
 }
 
 /*Cajas de texto*/
