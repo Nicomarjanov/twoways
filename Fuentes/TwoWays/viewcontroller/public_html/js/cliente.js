@@ -1,8 +1,5 @@
 var mensajeCampoAlert;
 
-
-
-
 function cancelar()
 {
     if(confirm('¿Desea cancelar la carga del cliente?'))
@@ -64,61 +61,12 @@ function grabar(existe)
     }
 }
 
-function grabarResultado(resultado)
-{
-    if(resultado == 'exito')
-    {
-        alert(mensajeGrabo);
-        document.getElementById("estadoEjecutar").value='buscarItem';
-        document.forms[0].submit();
-    }
-    else
-    {
-        if(resultado == 'errorSistema')
-            alert(mensajeErrorSistema);
-       destrabar(idsPantalla()); 
-    }
-}
 
 function idsPantalla()
 {
     return 'itemNombre,itemTitulo,itemToolTip,itemLink,listaBandeja,listaGrupos,btnAgregar,btnCancelar';
 }
-/******************************************************************************/
-//   metodos de validacion de campos
-/******************************************************************************/
-function validarCampos()
-{
-    var banderaMensajeFaltante=false;
-    mensajeCampoAlert='';
-    mensajeFaltanteAlert = 'Se tiene que completar los siguientes campos: \n';
-    
-    /************************************************/
-    // valido el que los campos no esten vacíos
-    /************************************************/
-    
-    if( document.getElementById("nomCliente").value == '')
-    {
-        document.getElementById("nomCliente").style.background='Red';
-        mensajeFaltanteAlert+= ' Nombre del cliente \n';
-        banderaMensajeFaltante=true;
-    }
-    
-    if(document.getElementById("listaMoneda").selectedIndex==0)
-    {
-        document.getElementById("listaMoneda").style.background='red';
-        mensajeFaltanteAlert=' Seleccionar una moneda del combo \n';    
-        banderaMensajeFaltante=true;
-    }
 
-    if(banderaMensajeFaltante)
-        mensajeCampoAlert=mensajeFaltanteAlert + '\n';    
-    
-    if (banderaMensajeFaltante)
-        return true;
-    else
-        return false;
-}
 function buscarClientes(){
      
      var cliId= document.getElementById('cliId').value;
