@@ -149,7 +149,7 @@
       insert into rates
           (rat_id, rat_type, rat_name, rat_description,currency_cur_id)
         values
-          (rates_seq.nextval, #ratType#, #ratName#, #ratDescription#, #currencyTO.curId#)                        
+          (rates_seq.nextval, #rateTypesTO.rtyName#, #ratName#, #ratDescription#, #currencyTO.curId#)                        
   </insert>
 
   <update  id="updateRate" parameterClass="com.twoways.to.RatesTO">

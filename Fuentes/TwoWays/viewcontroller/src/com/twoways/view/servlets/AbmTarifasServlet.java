@@ -58,7 +58,8 @@ public class AbmTarifasServlet extends HttpServlet {
             rateType.setRtyName((request.getParameter("tipoTarifa")!= null )?request.getParameter("tipoTarifa"):"");
             tarifa.setRatDescription((request.getParameter("descTarifa")!= null )?request.getParameter("descTarifa"):"");
             tarifa.setCurrencyTO(currency);
-
+            //tarifa.setRatName((request.getParameter("tipoTarifa")!= null )?request.getParameter("tipoTarifa"):"");
+            tarifa.setRateTypesTO(rateType);
             try {
                 
                 if(ratId != null && ratId.length() > 0 ){ 
@@ -77,8 +78,8 @@ public class AbmTarifasServlet extends HttpServlet {
             request.setAttribute("mensaje","<script>alert('La tarifa se guardo con exito')</script>");                    
             
         }
-        else          
-            request.getRequestDispatcher("tarifa.jsp").forward(request,response);
+                
+        request.getRequestDispatcher("tarifa.jsp").forward(request,response);    
     }
     
     public void doPost(HttpServletRequest request, 
