@@ -37,7 +37,7 @@
                 <option value="" >Seleccionar</option>
                 <c:forEach items="${tipoTarifa}" var="item">
                    <c:choose>
-                    <c:when test="item.rtyName == tipoTarifa.rateTypesTO.rtyName">
+                    <c:when test="${item.rtyName == tarifa.rateTypesTO.rtyName}">
                        <option value="<c:out value="${item.rtyName}" />" style="background-color:#A4BAC7;" selected="selected">
                         <c:out value="${item.rtyName}" />
                       </option> 
@@ -57,7 +57,7 @@
                 <option value="" >Seleccionar</option>
                 <c:forEach items="${listaMoneda}" var="item">
                    <c:choose>
-                    <c:when test="item.curId == tarifa.currencyTO.curId">
+                    <c:when test="${item.curId == tarifa.currencyTO.curId}">
                        <option value="<c:out value="${item.curId}" />" style="background-color:#A4BAC7;" selected="selected">
                         <c:out value="${item.curName}" />
                       </option> 
