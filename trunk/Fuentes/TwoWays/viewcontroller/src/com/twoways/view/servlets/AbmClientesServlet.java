@@ -3,6 +3,7 @@ package com.twoways.view.servlets;
 import com.twoways.core.bdl.TwoWaysBDL;
 import com.twoways.to.ClientsTO;
 import com.twoways.to.CurrencyTO;
+import com.twoways.to.RateTypesTO;
 import com.twoways.to.RatesTO;
 
 import java.io.IOException;
@@ -14,7 +15,7 @@ import java.util.List;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-public class AbmClientesServlet extends HttpServlet {
+public class AbmClientesServlet extends AutorizacionServlet {
     private static final String CONTENT_TYPE = "text/html; charset=windows-1252";
 
     public void init(ServletConfig config) throws ServletException {
@@ -24,24 +25,28 @@ public class AbmClientesServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, 
                       HttpServletResponse response) throws ServletException, IOException {
                       
+        super.doGet(request,response);
+        
         response.setContentType(CONTENT_TYPE);
         String accion=request.getParameter("accion");
         List<CurrencyTO> monedas = null;
         ClientsTO cliente = new ClientsTO(); 
         String cliId = request.getParameter("cliId"); 
 
-        List<CurrencyTO> tarifas = null;
+        List<RatesTO> tarifas = null;
         
         TwoWaysBDL twoWaysBDL=null;
         
         try {
            twoWaysBDL = new TwoWaysBDL();
-           twoWaysBDL.getServiceTwoWays().obtenerMonedas();
+           //twoWaysBDL.getServiceTwoWays().obtenerMonedas();
            monedas =  twoWaysBDL.getServiceTwoWays().obtenerMonedas();
            request.setAttribute("listaMoneda",monedas);
            
-           twoWaysBDL.getServiceTwoWays().obtenerTarifas();
-           tarifas =  twoWaysBDL.getServiceTwoWays().obtenerTarifas();
+           //twoWaysBDL.getServiceTwoWays().obtenerTarifas();
+           RateTypesTO rateType = new RateTypesTO();
+           rateType.setRtyName("Cliente");
+           tarifas =  twoWaysBDL.getServiceTwoWays().getRateByType(rateType);
            request.setAttribute("listaTarifa",tarifas);
            
         } catch (Exception e) {
@@ -56,6 +61,7 @@ public class AbmClientesServlet extends HttpServlet {
                  
                  if(cliId != null && cliId.length() > 0 ) 
                       cliente =  twoWaysBDL.getServiceTwoWays().getClientById(cliId);
+                      
                   
                  
              } catch (Exception e) {

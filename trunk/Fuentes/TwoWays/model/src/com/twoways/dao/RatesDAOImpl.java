@@ -1,6 +1,7 @@
 package com.twoways.dao;
 
 import com.twoways.to.ClientsTO;
+import com.twoways.to.RateTypesTO;
 import com.twoways.to.RatesTO;
 
 import java.util.Collections;
@@ -14,6 +15,18 @@ public class RatesDAOImpl extends AbstractDAO  implements RateDAO {
         try {
             ret = 
             getSqlMapClientTemplate().queryForList("obtenerTarifas","");
+        } catch (DataAccessException dae) {
+
+           dae.printStackTrace();
+        }
+        return ret;
+    }
+    
+    public List getRatesByType(RateTypesTO rateTypesTO) throws Exception {
+        List ret= null;
+        try {
+            ret = 
+            getSqlMapClientTemplate().queryForList("getRatesByType",rateTypesTO);
         } catch (DataAccessException dae) {
 
            dae.printStackTrace();

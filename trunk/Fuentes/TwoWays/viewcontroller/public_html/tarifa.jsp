@@ -14,6 +14,7 @@
     <title>Tarifa</title>
   </head>
   <body>
+  <jsp:include page="/WEB-INF/jspIncludes/menu.jsp" />
   <c:out value="${mensaje}" escapeXml="false"/>
   <form name="tarifa" action="tarifas" method="POST">
   <input type="hidden" id="accion" name="accion" value=""/>
@@ -53,7 +54,10 @@
     </td>
     <td>Moneda:</td>
     <td>       
+    
+       
        <select name="listaMoneda" id="listaMoneda" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">
+                
                 <option value="" >Seleccionar</option>
                 <c:forEach items="${listaMoneda}" var="item">
                    <c:choose>
