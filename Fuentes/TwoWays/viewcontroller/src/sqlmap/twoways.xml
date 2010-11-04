@@ -13,14 +13,11 @@
         CLI_MAIL as cliMail,
         CLI_NAME as cliName,
         CLI_PHONE as cliPhone,
-        CLI_POSTAL_CODE as cliPostalCode  
-        
+        CLI_POSTAL_CODE as cliPostalCode          
      from 
      Clients 
      
-  </select>
- 
-  
+  </select>  
   
   <resultMap id="select-Client" class="com.twoways.to.ClientsTO" >
       <result property="cliAddress" column="CLI_ADDRESS" />
@@ -44,9 +41,6 @@
       <result property="cliPostalCode" column="CLI_POSTAL_CODE" />  
     </resultMap>
   
- 
-
-
  <statement  id="getClientById" resultMap="select-Client" parameterClass="java.lang.String" >
      select *       
      from clients left outer join currency on clients.currency_cur_id = currency.cur_id
@@ -116,9 +110,7 @@
      from 
      Currency
      where cur_id = #value#
-  </statement>
-  
- 
+  </statement>   
  
   <statement id="obtenerMonedas"  parameterClass="java.lang.String" resultMap="select-Currency" >
      select *    
@@ -127,17 +119,21 @@
      
   </statement>
 
-
-
-
 <!--Tarifas-->
-
+  
+  <resultMap id="select-Rate-List" class="com.twoways.to.RatesTO" >
+      <result property="ratId" column="RAT_ID" />
+      <result property="ratDescription" column="RAT_DESCRIPTION"/>
+      <result property="ratName"   column="RAT_NAME" />
+      <result property="rateTypesTO.rtyName" column="RAT_TYPE"  />
+      <result property="currencyTO.curName" column="cur_Name" />      
+  </resultMap>
+  
   <select id="obtenerTarifas"  parameterClass="java.lang.String" resultClass="com.twoways.to.RatesTO">
      select 
         RAT_NAME as ratName,
         RAT_TYPE as ratType,
         RAT_DESCRIPTION as ratDescription,
-        RAT_VALUE as ratValue,
         CUR_NAME as curName
      from 
      Rates r, Currency c
@@ -156,13 +152,13 @@
       UPDATE rates
       SET     rat_name = #ratName# , 
               rat_description = #ratDescription#,
-              rat_type = #ratType#,
+              rat_type = #rateTypesTO.rtyName#,
               rat_value = #ratValue#  ,              
               currency_cur_id= #currencyTO.curId#
               WHERE  rat_id = #ratId#                     
   </update>  
   
-    <select id="obtenerTipoTarifas"  parameterClass="java.lang.String" resultClass="com.twoways.to.RateTypesTO">
+  <select id="obtenerTipoTarifas"  parameterClass="java.lang.String" resultClass="com.twoways.to.RateTypesTO">
      select 
         RTY_NAME as rtyName,
         RTY_DESCRIPTION as rtyDescription
@@ -170,6 +166,90 @@
      Rate_Types
      
   </select>
+    
+ <select  id="getRateById" parameterClass="java.lang.String" resultMap="select-Rate-List">
+     select *
+     from Rates r, Currency c
+     where r.currency_cur_id = c.cur_id
+        and rat_id = #value#
+ </select>
+
+  <delete id="deleteRates" parameterClass="com.twoways.to.RatesTO">
+        DELETE Rates
+        WHERE  rat_id = #ratId#    
+ </delete> 
+
+  <statement id="buscarTarifas" resultMap="select-Rate-List"  parameterClass="java.lang.String" >
+     select *       
+     from rates, currency 
+     where rates.currency_cur_id = currency.cur_id
+     and upper(rates.RAT_NAME) like '%' || upper( #value#) || '%'
+     order by rates.RAT_NAME
+     
+  </statement>
+
+<!--Usuarios-->
+  <resultMap id="select-User" class="com.twoways.to.UsersTO" >
+      <result property="usrFirstName" column="USR_FIRST_NAME" />
+      <result property="usrLastName" column="USR_LAST_NAME"/>
+      <result property="usrId"   column="USR_ID" />
+      <result property="usrMail" column="USR_MAIL"  />
+      <result property="usrBirth" column="USR_BIRTH" />
+      <result property="usrMobileNumber" column="USR_MOBILE_NUMBER" />
+      <result property="usrOfficeNumber" column="USR_OFFICE_NUMBER" />  
+      <result property="usrPhoneNumber" column="USR_PHONE_NUMBER" />
+      <result property="rolesTO.rolId" column="rol_id" />
+      <result property="rolesTO.rolName" column="cur_Name" />
+  </resultMap>
+
+  <select id="obtenerUsuarios"  resultMap="select-User" parameterClass="java.lang.String">
+     select * 
+       from Users , Roles
+      where roles_rol_id=rol_id
+     
+  </select>  
   
+  <statement  id="getUserById" resultMap="select-User" parameterClass="java.lang.String" >
+     select *
+       from users, Roles 
+      where usr_id = #value#
+        and roles_rol_id=rol_id
+  </statement>
  
+  <statement id="buscarUsuarios" resultMap="select-User"  parameterClass="java.lang.String" >
+     select *       
+     from users, Roles  
+     where roles_rol_id=rol_id
+     and upper(USR_NAME) like '%' || upper( #value#) || '%'
+     
+  </statement>
+
+   
+  <insert id="insertUser" parameterClass="com.twoways.to.ClientsTO" >
+      insert into users
+          (USR_ID, USR_FIRST_NAME, USR_LAST_NAME, USR_MAIL, USR_BIRTH, USR_MOBILE_NUMBER, USR_OFFICE_NUMBER, USR_PHONE_NUMBER,roles_rol_id)
+        values
+          (client_seq.nextval, #usrFirstName#, #usrLastName#, #usrMail#, #usrBirth#, #usrMobileNumber#, #usrOfficeNumber#, #usrPhoneNumber#,#rolesTO.rolId#)
+                            
+  </insert>
+  
+   <update  id="updateClients" parameterClass="com.twoways.to.ClientsTO">
+      UPDATE users
+      SET     USR_FIRST_NAME = #usrFirstName# , 
+              USR_LAST_NAME = #usrLastName#,
+              USR_MAIL = #usrMail#,
+              USR_BIRTH = #usrBirth#  ,
+              USR_MOBILE_NUMBER =  #usrMobileNumber# ,
+              USR_OFFICE_NUMBER = #usrOfficeNumber# ,
+              USR_PHONE_NUMBER =#usrPhoneNumber# ,
+              roles_rol_id= #rolesTO.rolId#
+              WHERE  usr_id = #usrId#                     
+  </update>
+  
+  <delete id="deleteUsers" parameterClass="com.twoways.to.UsersTO">
+        DELETE Users
+        WHERE  usr_id = #usrId#    
+ </delete>
+
+  
 </sqlMap> 

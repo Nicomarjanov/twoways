@@ -9,7 +9,6 @@ public class UsersTO {
     private Timestamp usrBirth;
     //(name="USR_FIRST_NAME", nullable = false)
     private String usrFirstName;
-    //
     //(name="USR_ID", nullable = false)
     private String usrId;
     //(name="USR_LAST_NAME")

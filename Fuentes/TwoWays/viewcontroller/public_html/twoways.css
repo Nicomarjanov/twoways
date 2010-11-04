@@ -1,9 +1,10 @@
 /* CSS Document 
 #80211D = rojo oscuro color primario
+#C23330 
+#EE9A98
 #005C8D = azul color secundario
 #A4BAC7 = azul alternativo
 */
-
 
 /*Body*/
 body{
@@ -54,16 +55,38 @@ p.basico{
 }
 
 /*Tablas*/
+#tabla-tarifas
+{
+width:70%;
+border-style:none;
+border-spacing: 2px;
+border-collapse:separate;
+}
+#tabla-tarifas td, #tabla-tarifas th 
+{
+text-align:left;
+font-size:1em;
+padding:2px 7px 2px 7px;
+}
+#tabla-tarifas th 
+{
+font-size:1.1em;
+padding-top:5px;
+padding-bottom:4px;
+background-color:#80211D;
+color:#ffffff;
+}
+#tabla-tarifas tr.alt td 
+{
+color:#000000;
+background-color:#EE9A98;
+}
+
 table.tw_form
 {
     
 }
 
-th.tw_form
-{
-    font-size:14px;
-    color:#80211F;
-}
 
 table.tw_in
 {
@@ -71,10 +94,18 @@ table.tw_in
     border-style:inset;
     border-color:#80211D;
 }
+
+th.tw_form
+{
+    font-size:20px;
+    color:#80211F;
+}
+
 th.tw
 {
     background-color:#80211F;
 }
+
 tr.tw
 {
     background-color:#CE8785;
@@ -84,11 +115,16 @@ td.tw
     border:solid 1px #005C8D;
 }
 
+td.tw_form
+{
+    text-align:center;
+}
+
 /*Lineas*/
 hr.tw
 {
     border-style:inset;
-    color:#80211F;
+
 }
 
 /*Cajas de texto*/
@@ -96,3 +132,5 @@ input.tw_form
 {
     border:solid 1px #005C8D;
 }
+
+

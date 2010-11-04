@@ -88,8 +88,8 @@ function cargarDatosColumna(row,data){
    row.cells[1].innerHTML=(data.cliDescription==null)?'':data.cliDescription;
    row.cells[2].innerHTML=(data.cliPhone==null)?'':data.cliPhone;
    row.cells[3].innerHTML=(data.cliMail==null)?'':data.cliMail;
-   var editar = '<img src="img/Edit-Contact.png"  height="25" width="25"  alt="Editar" onclick="javascript:window.location.href=\'clientes?cliId='+data.cliId+'\'"  /> ';
-   var eliminar = '<img  src="img/Rem_Contact.png" height="25" width="25"  alt="Eliminar" onclick="eliminarCliente('+data.cliId+')"  />'
+   var editar = '<img src="img/Edit-Contact.png"  height="25" width="25"  alt="Editar" onclick="javascript:window.location.href=\'clientes?cliId='+data.cliId+'\'" onmouseover="this.style.cursor=\'hand\';" /> ';
+   var eliminar = '<img  src="img/Rem_Contact.png" height="25" width="25"  alt="Eliminar" onclick="eliminarCliente('+data.cliId+')" onmouseover="this.style.cursor=\'hand\';" />'
    //row.cells[3].innerHTML='<a href="clientes?cliId='+data.cliId+'" ><img src="img/Edit-Contact.png" height="25" width="25"  alt="Editar" /></a>';
    row.cells[4].innerHTML= editar + ' ' + eliminar;
 }

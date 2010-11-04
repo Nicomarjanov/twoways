@@ -3,6 +3,8 @@ package com.twoways.service;
 import com.twoways.to.ClientsTO;
 import com.twoways.to.RatesTO;
 
+import com.twoways.to.UsersTO;
+
 import java.util.List;
 
 public interface TW_SystemService {
@@ -37,4 +39,17 @@ public interface TW_SystemService {
 
     public List buscarTarifas(String search) throws Exception;
 
+    public List obtenerUsuarios() throws Exception;
+    
+    public void insertarUsuario(UsersTO usersTO) throws Exception ;
+    
+    public void updateUsuario(UsersTO usersTO) throws Exception ;
+    
+    public UsersTO getUserById(String usrId)  throws Exception;
+    
+    public List buscarUsuario(String search) throws Exception;
+    
+    public boolean  deleteUsers(UsersTO user)  throws Exception;
+    
+    public List obtenerRoles() throws Exception;
 }

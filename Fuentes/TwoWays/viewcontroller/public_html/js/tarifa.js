@@ -101,7 +101,7 @@ function buscarTarifas(){
      
      
      if(ratId== '' &&  nomTarifa.length >2 ){ 
-        
+        document.getElementById('div-tarifas').style.display='';
         towaysDWR.buscarTarifas(nomTarifa,buscarTarifasCallBack); 
      } 
     
@@ -115,8 +115,8 @@ function cargarDatosColumna(row,data){
    row.cells[2].innerHTML=(data.currencyTO.curName==null)?'':data.currencyTO.curName;      
    row.cells[3].innerHTML=(data.ratDescription==null)?'':data.ratDescription;
 
-   var editar = '<img src="img/Edit-Contact.png"  height="25" width="25" alt="Editar" onclick="javascript:window.location.href=\'tarifas?ratId='+data.ratId+'\'"/> ';
-   var eliminar = '<img  src="img/Rem_Contact.png" height="25" width="25" alt="Eliminar" onclick="eliminarTarifa('+data.ratId+')"/>'
+   var editar = '<img src="img/edit.png"  height="25" width="25" alt="Editar" onclick="javascript:window.location.href=\'tarifas?ratId='+data.ratId+'\'" onmouseover="this.style.cursor=\'hand\';"/> ';
+   var eliminar = '<img  src="img/Delete.png" height="25" width="25" alt="Eliminar" onclick="eliminarTarifa('+data.ratId+')" onmouseover="this.style.cursor=\'hand\';"/>'
    //row.cells[3].innerHTML='<a href="clientes?cliId='+data.cliId+'" ><img src="img/Edit-Contact.png" height="25" width="25"  alt="Editar" /></a>';
    row.cells[4].innerHTML= editar + ' ' + eliminar;
 }

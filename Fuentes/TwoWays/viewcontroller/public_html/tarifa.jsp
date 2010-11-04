@@ -82,8 +82,11 @@
   </tr>
   </table>
   
-  <div id="div-tarifas"  >
-  <table id ="tabla-tarifas" >
+  <div id="div-tarifas" style="display:none" align="center">
+  <br>
+  <hr class="tw_hr">
+  <h2 class="tw">Opciones encontradas</h2>
+  <table id ="tabla-tarifas">
     <tr><th>Nombre Tarifa</th><th>Tipo de Tarifa</th><th>Moneda</th><th>Descripción</th><th>&nbsp;</th></tr>
   </table>
   </div>
