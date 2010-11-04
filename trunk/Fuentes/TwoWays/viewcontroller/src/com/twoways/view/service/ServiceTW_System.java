@@ -1,5 +1,7 @@
 package com.twoways.view.service;
 
+import com.twoways.to.RatesTO;
+
 import org.apache.log4j.Logger;
 
 import com.twoways.core.bdl.TwoWaysBDL;
@@ -59,8 +61,39 @@ public class ServiceTW_System {
          return false;
      }
 
+     
+    public List  obtenerTarifas(){
+         try {
+             return twoWaysBDL.getServiceTwoWays().obtenerTarifas();
+         } catch (Exception e) {
+             e.printStackTrace(); log.error(e,e);
+         }
+         return null;
+     }     
+     
+     public boolean deleterTarifa(Long ratId){
+          try {
+          
+              RatesTO tarifaDelete= new RatesTO();
+              tarifaDelete.setRatId(ratId); 
+              return twoWaysBDL.getServiceTwoWays().deleteRate(tarifaDelete);
+          } catch (Exception e) {
+              
+              e.printStackTrace(); log.error(e,e);
+          }
+          return false;
+      }
 
-
+    public List buscarTarifas(String search)  {
+        try {
+            return twoWaysBDL.getServiceTwoWays().buscarTarifas(search);
+        } catch (Exception e) {
+            e.printStackTrace(); log.error(e,e);
+        }
+        return null;
+    
+    }
+    
     public void setTwoWaysBDL(TwoWaysBDL twoWaysBDL) {
         this.twoWaysBDL = twoWaysBDL;
     }

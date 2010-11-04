@@ -19,6 +19,13 @@
     	<property name="rateTypesDao">
             <ref bean="rateTypesDAO"/>
         </property> 
+        <property name="usersDao">
+            <ref bean="usersDAO"/>
+        </property> 
+        <property name="rolesDao">
+            <ref bean="rolesDAO"/>
+        </property> 
+        
     </bean>
 
     <!-- declaracion de los servicios, utilizando proxy para el manejo de transacciones -->

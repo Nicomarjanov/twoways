@@ -50,7 +50,6 @@ public class AbmTarifasServlet extends HttpServlet {
         if (accion!=null && accion.equalsIgnoreCase("guardar")){
                                 
             CurrencyTO currency= new CurrencyTO(); 
-            RatesTO rate= new RatesTO();
             RateTypesTO rateType = new RateTypesTO();
 //            rate.setRatId((request.getParameter("listaTarifa")!= null && request.getParameter("listaTarifa").length() > 0 )?Long.parseLong(request.getParameter("listTarifa")):0);
             currency.setCurId((request.getParameter("listaMoneda")!= null && request.getParameter("listaMoneda").length() > 0 )?Long.parseLong(request.getParameter("listaMoneda")):0);
@@ -58,8 +57,8 @@ public class AbmTarifasServlet extends HttpServlet {
             rateType.setRtyName((request.getParameter("tipoTarifa")!= null )?request.getParameter("tipoTarifa"):"");
             tarifa.setRatDescription((request.getParameter("descTarifa")!= null )?request.getParameter("descTarifa"):"");
             tarifa.setCurrencyTO(currency);
-            //tarifa.setRatName((request.getParameter("tipoTarifa")!= null )?request.getParameter("tipoTarifa"):"");
             tarifa.setRateTypesTO(rateType);
+
             try {
                 
                 if(ratId != null && ratId.length() > 0 ){ 
@@ -78,8 +77,22 @@ public class AbmTarifasServlet extends HttpServlet {
             request.setAttribute("mensaje","<script>alert('La tarifa se guardo con exito')</script>");                    
             
         }
-                
-        request.getRequestDispatcher("tarifa.jsp").forward(request,response);    
+            else  if(ratId != null && ratId.length() > 0  && (accion == null || (accion!=null && !accion.equalsIgnoreCase("cancelar")) )){
+              
+            
+                 try {
+                         tarifa =  twoWaysBDL.getServiceTwoWays().getRateById(ratId);
+                         request.setAttribute("tarifa",tarifa);
+                         if(tarifa == null){
+                             request.setAttribute("mensaje","<script>alert('La tarifa no existe')</script>"); 
+                         }
+                     
+                 } catch (Exception e) {
+                     request.setAttribute("mensaje","<script>alert('Error al cargar la tarifa')</script>"); 
+                     e.printStackTrace();
+                 }
+            }          
+            request.getRequestDispatcher("tarifa.jsp").forward(request,response);
     }
     
     public void doPost(HttpServletRequest request, 

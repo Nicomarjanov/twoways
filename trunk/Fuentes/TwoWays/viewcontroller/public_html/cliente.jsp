@@ -12,7 +12,7 @@
     <script type='text/javascript' src='/twoways/dwr/engine.js'></script>
     <script type='text/javascript' src='/twoways/dwr/util.js'></script>
     
-    <title>cliente</title>
+    <title>Cliente</title>
     
   </head>
  

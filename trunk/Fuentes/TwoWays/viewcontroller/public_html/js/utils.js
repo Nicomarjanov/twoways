@@ -50,8 +50,10 @@ function borrarFilas(tabla){
 }
 
 function insertarFila(tabla,data){
-   var index =tabla.rows.length;
-   tabla.insertRow(index); 
+   var index = tabla.rows.length;
+   var newRow = tabla.insertRow(index); 
+   if (index % 2 !=0)newRow.bgColor = "#FCEEED";
+   else newRow.bgColor = "#E8B6B5";
    insertarColumnas(tabla.rows[index],tabla.rows[0].cells.length); 
    cargarDatosColumna(tabla.rows[index],data);
 }

@@ -5,10 +5,13 @@ import com.twoways.dao.CurrencyDAO;
 import com.twoways.dao.EmployeeDAO;
 import com.twoways.dao.RateDAO;
 import com.twoways.dao.RateTypesDAO;
+import com.twoways.dao.UserDAO;
+import com.twoways.dao.RolesDAO;
 
 import com.twoways.to.ClientsTO;
 import com.twoways.to.CurrencyTO;
 import com.twoways.to.RatesTO;
+import com.twoways.to.UsersTO;
 
 import java.util.Collections;
 import java.util.List;
@@ -20,6 +23,8 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     private CurrencyDAO currencyDao;
     private RateDAO rateDao;
     private RateTypesDAO rateTypesDao;
+    private UserDAO userDao;
+    private RolesDAO rolesDao;
      
     public TW_SystemServiceImpl() {
     }
@@ -128,6 +133,43 @@ public class TW_SystemServiceImpl implements TW_SystemService{
 
     public RateTypesDAO getRateTypesDao() {
         return rateTypesDao;
-    }    
-    
+    }
+
+    public void setUserDao(UserDAO userDao) {
+        this.userDao = userDao;
+    }
+
+    public UserDAO getUserDao() {
+        return userDao;
+    }
+
+    public List obtenerUsuarios() throws Exception{
+        return this.userDao.obtenerUsuarios();
+    }
+
+    public void insertarUsuario(UsersTO usersTO) throws Exception{
+        this.userDao.insertarUsuario(usersTO);
+    }
+
+    public void updateUsuario(UsersTO usersTO) throws Exception{
+        this.userDao.updateUsuario(usersTO);
+    }
+
+    public UsersTO getUserById(String usrId) throws Exception{
+        return this.userDao.getUserById(usrId);  
+    }
+
+    public List buscarUsuario(String search) throws Exception{
+        return this.userDao.buscarUsuarios(search);
+    }
+
+    public boolean deleteUsers(UsersTO user) throws Exception{
+        return this.userDao.deleteUser(user);
+    }
+   
+    public List obtenerRoles() throws Exception{
+        return this.rolesDao.obtenerRoles();
+    }
+
+
 }
