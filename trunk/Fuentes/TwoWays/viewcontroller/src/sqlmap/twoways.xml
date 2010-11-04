@@ -167,7 +167,7 @@
      
   </select>
     
- <select  id="getRateByType" parameterClass="com.twoways.to.RateTypesTO" resultMap="select-Rate-List">
+ <select  id="getRatesByType" parameterClass="com.twoways.to.RateTypesTO" resultMap="select-Rate-List">
      select *
      from Rates r left outer  join Currency c on r.currency_cur_id = c.cur_id
      where rat_type = #rtyName#

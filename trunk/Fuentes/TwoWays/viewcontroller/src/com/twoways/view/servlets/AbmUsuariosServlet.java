@@ -8,6 +8,11 @@ import com.twoways.to.UsersTO;
 
 import java.io.IOException;
 
+import java.sql.Timestamp;
+
+import java.text.SimpleDateFormat;
+
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.*;
@@ -59,7 +64,19 @@ public class AbmUsuariosServlet extends HttpServlet {
                 usuario.setUsrMobileNumber(Long.valueOf((request.getParameter("usrMobileNumber")!= null )?request.getParameter("usrMobileNumber"):""));
                 usuario.setUsrOfficeNumber(Long.valueOf((request.getParameter("usrOfficeNumber")!= null )?request.getParameter("usrOfficeNumber"):""));
                 usuario.setUsrPhoneNumber(Long.valueOf((request.getParameter("usrPhoneNumber")!= null )?request.getParameter("usrPhoneNumber"):""));
-                usuario.setUsrBirth((request.getParameter("usrBirth")!= null )?Long.parseLong(request.getParameter("usrBirth")):0);
+                try {
+                if(request.getParameter("usrBirth")!= null ){ 
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    java.util.Date date = sdf.parse(request.getParameter("usrBirth"));
+                    java.sql.Timestamp timest = new java.sql.Timestamp(date.getTime()); 
+                    usuario.setUsrBirth(timest);
+                }
+                
+                } catch (Exception e) {
+                    request.setAttribute("mensaje","<script>alert('La fecha ingresada no es valida')</script>"); 
+                    e.printStackTrace();
+                    request.getRequestDispatcher("usuario.jsp").forward(request,response);
+                }
                 usuario.setRolesTO(rol);
 
                 try {
