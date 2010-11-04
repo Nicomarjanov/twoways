@@ -110,7 +110,7 @@ function buscarTarifas(){
 function cargarDatosColumna(row,data){
 
     
-   row.cells[0].innerHTML=(data.ratName==null)?'':data.ratName;
+   row.cells[0].innerHTML=(data.ratName==null)?'':'<a href="tarifas?ratId='+data.ratId+'" >'+data.ratName+'</a>';
    row.cells[1].innerHTML=(data.rateTypesTO.rtyName==null)?'':data.rateTypesTO.rtyName;   
    row.cells[2].innerHTML=(data.currencyTO.curName==null)?'':data.currencyTO.curName;      
    row.cells[3].innerHTML=(data.ratDescription==null)?'':data.ratDescription;
