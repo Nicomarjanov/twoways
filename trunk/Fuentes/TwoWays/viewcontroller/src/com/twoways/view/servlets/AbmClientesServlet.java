@@ -78,7 +78,7 @@ public class AbmClientesServlet extends AutorizacionServlet {
             cliente.setCliMail((request.getParameter("mailCliente")!= null )?request.getParameter("mailCliente"):"");
             cliente.setCliName((request.getParameter("nomCliente")!= null )?request.getParameter("nomCliente"):"");
             cliente.setCliPhone((request.getParameter("telCliente")!= null )?request.getParameter("telCliente"):"");
-            cliente.setCliPostalCode((request.getParameter("cpCliente")!= null && request.getParameter("cpCliente").length() > 0 )?Long.parseLong(request.getParameter("cpCliente")):0);
+            cliente.setCliPostalCode((request.getParameter("cpCliente")!= null )?request.getParameter("cpCliente"):"");
             cliente.setCurrencyTO(currency);
 
             try {

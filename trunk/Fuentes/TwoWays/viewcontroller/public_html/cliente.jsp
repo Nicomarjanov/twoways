@@ -31,17 +31,15 @@
   <tr>
   </tr>
   <tr>
-    <td>Nombre o Razón social:</td>
+    <td nowrap >Nombre o Razón social:</td>
     <td><input type="text" class="tw_form" id="nomCliente" name="nomCliente"  value="<c:out value="${cliente.cliName}"/>"  size="50" maxlength="100"  onkeyup="buscarClientes()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
-    <td>Descripción:</td>
-    <td colspan=3><input type="text" class="tw_form" id="descCliente" name="descCliente"  value="<c:out value="${cliente.cliDescription}"/>" size="100" maxlength="250"></input></td>
+    <td nowrap>Mail:</td>
+    <td><input type="text" class="tw_form" id="mailCliente"  name="mailCliente"  value="<c:out value="${cliente.cliMail}"/>" size="30" maxlength="100"></input></td>
   </tr>
   <tr>
-    <td>Mail:</td>
-    <td><input type="text" class="tw_form" id="mailCliente"  name="mailCliente"  value="<c:out value="${cliente.cliMail}"/>" size="30" maxlength="100"></input></td>
-    <td>Teléfono:</td>
+    <td nowrap>Teléfono:</td>
     <td><input type="text" class="tw_form" id="telCliente" name="telCliente"  value="<c:out value="${cliente.cliPhone}"/>"  size="25" maxlength="25"></input></td>
-    <td>Moneda:</td>
+    <td nowrap >Moneda:</td>
     <td>
      <select name="listaMoneda" id="listaMoneda" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">
                 <option value="" >Seleccionar</option>
@@ -63,13 +61,19 @@
     </td>
   </tr>
   <tr>
-    <td>Dirección:</td>
+    <td nowrap >Dirección:</td>
     <td><input type="text" class="tw_form" id="dirCliente" name="dirCliente"   value="<c:out value="${cliente.cliAddress}"/>" size="50" maxlength="250"></input></td>
-    <td>Codigo Postal:</td>
+    <td nowrap>Codigo Postal:</td>
     <td><input type="text" class="tw_form" id="cpCliente" name="cpCliente"  value="<c:out value="${cliente.cliPostalCode}"/>"  size="10" maxlength="10"></input></td>
-    <td>País:</td>
+    <td nowrap>País:</td>
     <td><input type="text" class="tw_form" id="paisCliente" name="paisCliente"  value="<c:out value="${cliente.cliCountry}"/>"  size="20" maxlength="100"></input></td>    
-  </tr> 
+  </tr>
+  <tr> 
+  
+    <td>Descripción:</td>
+    <td colspan="100%" ><textarea rows="20" cols="%100" class="tw_form" id="descCliente" name="descCliente" ><c:out value="${cliente.cliDescription}"/></textarea></td>
+  </tr>
+  
   </table>
   <br>
   <hr class="tw_hr">
