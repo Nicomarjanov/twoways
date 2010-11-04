@@ -167,11 +167,16 @@
      
   </select>
     
+ <select  id="getRateByType" parameterClass="com.twoways.to.RateTypesTO" resultMap="select-Rate-List">
+     select *
+     from Rates r left outer  join Currency c on r.currency_cur_id = c.cur_id
+     where rat_type = #rtyName#
+ </select>   
+    
  <select  id="getRateById" parameterClass="java.lang.String" resultMap="select-Rate-List">
      select *
-     from Rates r, Currency c
-     where r.currency_cur_id = c.cur_id
-        and rat_id = #value#
+     from Rates r left outer  join Currency c on r.currency_cur_id = c.cur_id
+     where rat_id = #value#
  </select>
 
   <delete id="deleteRates" parameterClass="com.twoways.to.RatesTO">
@@ -225,7 +230,7 @@
   </statement>
 
    
-  <insert id="insertUser" parameterClass="com.twoways.to.ClientsTO" >
+  <insert id="insertUser" parameterClass="com.twoways.to.UsersTO" >
       insert into users
           (USR_ID, USR_FIRST_NAME, USR_LAST_NAME, USR_MAIL, USR_BIRTH, USR_MOBILE_NUMBER, USR_OFFICE_NUMBER, USR_PHONE_NUMBER,roles_rol_id)
         values
@@ -233,7 +238,7 @@
                             
   </insert>
   
-   <update  id="updateClients" parameterClass="com.twoways.to.ClientsTO">
+   <update  id="updateUsers" parameterClass="com.twoways.to.UsersTO">
       UPDATE users
       SET     USR_FIRST_NAME = #usrFirstName# , 
               USR_LAST_NAME = #usrLastName#,

@@ -37,6 +37,14 @@
         <servlet-name>AbmUsuariosServlet</servlet-name>
         <servlet-class>com.twoways.view.servlets.AbmUsuariosServlet</servlet-class>
     </servlet>
+     <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>com.twoways.view.servlets.LoginServlet</servlet-class>
+    </servlet>
+     <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AbmClientesServlet</servlet-name>
         <url-pattern>/clientes</url-pattern>
