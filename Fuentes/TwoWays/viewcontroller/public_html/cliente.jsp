@@ -1,6 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page contentType="text/html;charset=windows-1252"%>
+<%@ page errorPage="error.jsp" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
 <html>
   <head>
@@ -18,6 +19,7 @@
  
   
   <body>
+  <jsp:include page="/WEB-INF/jspIncludes/menu.jsp" />
   <c:out value="${mensaje}" escapeXml="false"/>
   <form name="cliente" action="clientes" method="POST">
   <input type="hidden" id="accion" name="accion" value=""/>
@@ -74,11 +76,15 @@
   <table width="100%">
   <tr>
   <td>Tarifas:</td>
-  <td><select name="listaTarifa" id="listaTarifa" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">
-                <option value="" >Seleccionar</option>
+  <td>
+ 
+  <select name="listaTarifa" id="listaTarifa" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">
+               
+                <option value=""  >Seleccionar</option>
                 <c:forEach items="${listaTarifa}" var="item">
+                   <c:out value="${item.ratId}" />
                    <c:choose>
-                    <c:when test="${item.ratId == cliente.rateTO.ratId}">
+                    <c:when test="${false}">
                        <option value="<c:out value="${item.ratId}" />" style="background-color:#A4BAC7;" selected="selected">
                         <c:out value="${item.ratName}" />
                       </option> 

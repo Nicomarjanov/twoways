@@ -1,6 +1,7 @@
 package com.twoways.service;
 
 import com.twoways.to.ClientsTO;
+import com.twoways.to.RateTypesTO;
 import com.twoways.to.RatesTO;
 
 import com.twoways.to.UsersTO;
@@ -38,6 +39,8 @@ public interface TW_SystemService {
     public boolean deleteRate(RatesTO rate)  throws Exception;
 
     public List buscarTarifas(String search) throws Exception;
+    
+    public  List getRateByType(RateTypesTO rateTypesTO) throws Exception;
 
     public List obtenerUsuarios() throws Exception;
     

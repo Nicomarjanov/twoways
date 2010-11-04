@@ -10,6 +10,7 @@ import com.twoways.dao.RolesDAO;
 
 import com.twoways.to.ClientsTO;
 import com.twoways.to.CurrencyTO;
+import com.twoways.to.RateTypesTO;
 import com.twoways.to.RatesTO;
 import com.twoways.to.UsersTO;
 
@@ -109,6 +110,10 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     
     public  RatesTO getRateById(String ratId) throws Exception{
         return  this.rateDao.getRateById(ratId);
+    }
+    
+    public  List getRateByType(RateTypesTO rateTypesTO) throws Exception{
+        return  this.rateDao.getRatesByType(rateTypesTO);
     }
     
     public boolean  deleteRate(RatesTO rate)  throws Exception{

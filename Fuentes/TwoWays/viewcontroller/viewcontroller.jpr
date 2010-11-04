@@ -77,6 +77,7 @@
          <string v="HTML"/>
          <string v="Java"/>
          <string v="XML"/>
+         <string v="General"/>
       </list>
    </hash>
    <hash n="oracle.jdeveloper.compiler.OjcConfiguration">
@@ -86,6 +87,10 @@
       <value n="j2eeWebAppName" v="TwoWays"/>
       <value n="j2eeWebContextRoot" v="twoways"/>
       <hash n="webContentSet">
+         <list n="pattern-filters">
+            <string v="-cliente.js"/>
+            <string v="+**"/>
+         </list>
          <list n="url-path">
             <url path="public_html/"/>
          </list>
@@ -118,6 +123,7 @@
          <hash n="Default">
             <value n="custom" v="false"/>
             <value n="name" v="Default"/>
+            <url n="targetURL" path="public_html/index.jsp"/>
          </hash>
       </hash>
       <list n="runConfigurationList">

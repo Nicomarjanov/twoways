@@ -13,7 +13,7 @@ import java.util.List;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-public class AbmTarifasServlet extends HttpServlet {
+public class AbmTarifasServlet extends AutorizacionServlet {
     private static final String CONTENT_TYPE = "text/html; charset=windows-1252";
 
     public void init(ServletConfig config) throws ServletException {
@@ -23,6 +23,8 @@ public class AbmTarifasServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, 
                       HttpServletResponse response) throws ServletException, IOException {
                       
+        super.doGet(request,response);
+        
         response.setContentType(CONTENT_TYPE);
         String accion=request.getParameter("accion");
         List<CurrencyTO> monedas = null;
@@ -62,7 +64,9 @@ public class AbmTarifasServlet extends HttpServlet {
             try {
                 
                 if(ratId != null && ratId.length() > 0 ){ 
+                    tarifa.setRatId(Long.parseLong(ratId));
                     twoWaysBDL.getServiceTwoWays().actualizarTarifa(tarifa);
+                    
                     request.setAttribute("tarifa",tarifa);
                    
                 }else{
@@ -93,6 +97,7 @@ public class AbmTarifasServlet extends HttpServlet {
                  }
             }          
             request.getRequestDispatcher("tarifa.jsp").forward(request,response);
+        request.getRequestDispatcher("tarifa.jsp").forward(request,response);    
     }
     
     public void doPost(HttpServletRequest request, 
