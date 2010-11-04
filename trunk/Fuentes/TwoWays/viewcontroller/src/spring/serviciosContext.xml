@@ -19,8 +19,8 @@
     	<property name="rateTypesDao">
             <ref bean="rateTypesDAO"/>
         </property> 
-        <property name="usersDao">
-            <ref bean="usersDAO"/>
+        <property name="userDao">
+            <ref bean="userDAO"/>
         </property> 
         <property name="rolesDao">
             <ref bean="rolesDAO"/>

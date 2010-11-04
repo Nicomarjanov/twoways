@@ -177,4 +177,11 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     }
 
 
+    public void setRolesDao(RolesDAO rolesDao) {
+        this.rolesDao = rolesDao;
+    }
+
+    public RolesDAO getRolesDao() {
+        return rolesDao;
+    }
 }

@@ -46,7 +46,7 @@
       </property>
     </bean>  
     
-    <bean id="usersDAO" class="com.twoways.dao.UsersDAOImpl">
+    <bean id="userDAO" class="com.twoways.dao.UserDAOImpl">
        <property name="dataSource">
           <ref bean="dataSource"/>
       </property>
