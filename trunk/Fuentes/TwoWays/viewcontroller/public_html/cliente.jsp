@@ -106,13 +106,17 @@
   <td align="left"><input type="button" id="cancel" value="Cancelar" OnClick="cancelar()"/></td>   
   </tr>
   </table>
-  
-  <div id="div-clientes"  >
-  <table id ="tabla-clientes" >
-  <tr><th>Nombre o Razón social</th><th>Decripción</th><th>Teléfono</th><th>Mail</th><th>&nbsp;</th></tr>
+
+  <div id="div-clientes" style="display:none" align="center">
+  <br>
+  <hr class="tw_hr">
+  <h2 class="tw">Opciones encontradas</h2>
+  <table id ="tabla-busqueda">
+    <tr><th>Nombre o Razón social</th><th>Decripción</th><th>Teléfono</th><th>Mail</th><th>&nbsp;</th></tr>
   </table>
-  
   </div>
+  
+  
   </form>
   </body>
 </html>

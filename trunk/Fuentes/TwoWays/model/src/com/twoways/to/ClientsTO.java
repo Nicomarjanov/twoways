@@ -20,7 +20,7 @@ public class ClientsTO {
     //(name="CLI_PHONE")
     private String cliPhone;
     //(name="CLI_POSTAL_CODE")
-    private Long cliPostalCode;
+    private String cliPostalCode;
     private List<ClientResponsableTO> clientResponsableTOList;
     private List<OrdersTO> ordersTOList;
     private List<PaymentsTO> paymentsTOList;
@@ -86,11 +86,11 @@ public class ClientsTO {
         this.cliPhone = cliPhone;
     }
 
-    public Long getCliPostalCode() {
+    public String getCliPostalCode() {
         return cliPostalCode;
     }
 
-    public void setCliPostalCode(Long cliPostalCode) {
+    public void setCliPostalCode(String cliPostalCode) {
         this.cliPostalCode = cliPostalCode;
     }
 

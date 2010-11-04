@@ -75,6 +75,7 @@ function buscarClientes(){
      
      if(cliId== '' &&  nomCliente.length >2 ){ 
         
+         document.getElementById('div-clientes').style.display='';
         towaysDWR.buscarClientes(nomCliente,buscarClientesCallBack); 
      } 
     
@@ -84,12 +85,12 @@ function buscarClientes(){
 function cargarDatosColumna(row,data){
 
     
-   row.cells[0].innerHTML=(data.cliName==null)?'':data.cliName;
+   row.cells[0].innerHTML=(data.cliName==null)?'':'<a href="clientes?cliId='+data.cliId+'" >'+data.cliName+'</a>';
    row.cells[1].innerHTML=(data.cliDescription==null)?'':data.cliDescription;
    row.cells[2].innerHTML=(data.cliPhone==null)?'':data.cliPhone;
    row.cells[3].innerHTML=(data.cliMail==null)?'':data.cliMail;
-   var editar = '<img src="img/Edit-Contact.png"  height="25" width="25"  alt="Editar" onclick="javascript:window.location.href=\'clientes?cliId='+data.cliId+'\'" onmouseover="this.style.cursor=\'hand\';" /> ';
-   var eliminar = '<img  src="img/Rem_Contact.png" height="25" width="25"  alt="Eliminar" onclick="eliminarCliente('+data.cliId+')" onmouseover="this.style.cursor=\'hand\';" />'
+   var editar = '<img src="img/edit.png"  height="25" width="25"  alt="Editar" onclick="javascript:window.location.href=\'clientes?cliId='+data.cliId+'\'" onmouseover="this.style.cursor=\'hand\';" /> ';
+   var eliminar = '<img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarCliente('+data.cliId+')" onmouseover="this.style.cursor=\'hand\';" />'
    //row.cells[3].innerHTML='<a href="clientes?cliId='+data.cliId+'" ><img src="img/Edit-Contact.png" height="25" width="25"  alt="Editar" /></a>';
    row.cells[4].innerHTML= editar + ' ' + eliminar;
 }
@@ -106,7 +107,7 @@ function  eliminarCliente(cliId){
 
 function postEliminar(data){
   
-   var tablaClientes= document.getElementById('tabla-clientes'); 
+   var tablaClientes= document.getElementById('tabla-busqueda'); 
    if(data){
       alert('El cliente se elimino con exito ');
       borrarFilas(tablaClientes);
@@ -117,7 +118,7 @@ function postEliminar(data){
 
 function buscarClientesCallBack(data){
  
-  var tablaClientes= document.getElementById('tabla-clientes');
+  var tablaClientes= document.getElementById('tabla-busqueda');
   borrarFilas(tablaClientes);
   for(var i=0 ; i<   data.length; i++){
     

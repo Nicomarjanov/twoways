@@ -133,7 +133,7 @@ function  eliminarTarifa(ratId){
 
 function postEliminar(data){
   
-   var tablaTarifas= document.getElementById('tabla-tarifas'); 
+   var tablaTarifas= document.getElementById('tabla-busqueda'); 
    if(data){
       alert('La Tarifa se elimino con exito ');
       borrarFilas(tablaTarifas);
@@ -144,7 +144,7 @@ function postEliminar(data){
 
 function buscarTarifasCallBack(data){
  
-  var tablaTarifas= document.getElementById('tabla-tarifas');
+  var tablaTarifas= document.getElementById('tabla-busqueda');
   borrarFilas(tablaTarifas);
   for(var i=0 ; i<   data.length; i++){
     
