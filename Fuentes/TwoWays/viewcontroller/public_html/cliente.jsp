@@ -64,16 +64,14 @@
     <td nowrap >Dirección:</td>
     <td><input type="text" class="tw_form" id="dirCliente" name="dirCliente"   value="<c:out value="${cliente.cliAddress}"/>" size="50" maxlength="250"></input></td>
     <td nowrap>Codigo Postal:</td>
-    <td><input type="text" class="tw_form" id="cpCliente" name="cpCliente"  value="<c:out value="${cliente.cliPostalCode}"/>"  size="10" maxlength="10"></input></td>
-    <td nowrap>País:</td>
-    <td><input type="text" class="tw_form" id="paisCliente" name="paisCliente"  value="<c:out value="${cliente.cliCountry}"/>"  size="20" maxlength="100"></input></td>    
+    <td nowrap ><input type="text" class="tw_form" id="cpCliente" name="cpCliente"  value="<c:out value="${cliente.cliPostalCode}"/>"  size="10" maxlength="10"></input>
+    País:&nbsp;<input type="text" class="tw_form" id="paisCliente" name="paisCliente"  value="<c:out value="${cliente.cliCountry}"/>"  size="20" maxlength="100"></input></td>    
   </tr>
   <tr> 
   
-    <td>Descripción:</td>
-    <td colspan="100%" ><textarea rows="20" cols="%100" class="tw_form" id="descCliente" name="descCliente" ><c:out value="${cliente.cliDescription}"/></textarea></td>
+    <td valign="top">Descripción:</td>
+    <td colspan="100%" ><textarea  rows="3"  cols="90" class="tw_form" id="descCliente"  onkeyup="limitarArea()" name="descCliente" ><c:out value="${cliente.cliDescription}"/></textarea></td>
   </tr>
-  
   </table>
   <br>
   <hr class="tw_hr">

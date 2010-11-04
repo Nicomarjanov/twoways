@@ -69,8 +69,8 @@ public class AbmClientesServlet extends AutorizacionServlet {
              }
                                 
             CurrencyTO currency= new CurrencyTO(); 
-            RatesTO rate= new RatesTO();
-            rate.setRatId((request.getParameter("listaTarifa")!= null && request.getParameter("listaTarifa").length() > 0 )?Long.parseLong(request.getParameter("listTarifa")):0);
+            //RatesTO rate= new RatesTO();
+            //rate.setRatId((request.getParameter("listaTarifa")!= null && request.getParameter("listaTarifa").length() > 0 )?Long.parseLong(request.getParameter("listTarifa")):0);
             currency.setCurId((request.getParameter("listaMoneda")!= null && request.getParameter("listaMoneda").length() > 0 )?Long.parseLong(request.getParameter("listaMoneda")):0);
             cliente.setCliAddress((request.getParameter("dirCliente")!= null )?request.getParameter("dirCliente"):"");
             cliente.setCliCountry((request.getParameter("paisCliente")!= null )?request.getParameter("paisCliente"):"");
