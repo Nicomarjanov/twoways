@@ -67,8 +67,8 @@ public class TW_SystemServiceImpl implements TW_SystemService{
         return this.currencyDao.obtenerMonedas();
     }
     
-    public void insertarCliente(ClientsTO clientsTO) throws Exception {
-        this.clientDao.insertarCliente(clientsTO);
+    public ClientsTO insertarCliente(ClientsTO clientsTO) throws Exception {
+        return this.clientDao.insertarCliente(clientsTO);
     }
 
     public void updateCliente(ClientsTO clientsTO) throws Exception {

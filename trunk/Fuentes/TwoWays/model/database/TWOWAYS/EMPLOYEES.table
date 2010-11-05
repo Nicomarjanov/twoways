@@ -31,8 +31,8 @@
                   <name>EMP_ID</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13663</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>13647</databaseID>
                      <name>EMPLOYEES</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -74,8 +74,8 @@
                   <name>EMP_FIRST_NAME</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13663</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>13647</databaseID>
                      <name>EMPLOYEES</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -113,8 +113,8 @@
                   <name>EMP_LAST_NAME</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13663</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>13647</databaseID>
                      <name>EMPLOYEES</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -152,8 +152,8 @@
                   <name>EMP_MAIL</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13663</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>13647</databaseID>
                      <name>EMPLOYEES</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -190,8 +190,8 @@
                   <name>EMP_BIRTH</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13663</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>13647</databaseID>
                      <name>EMPLOYEES</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -224,8 +224,8 @@
                   <name>EMP_PHONE_NUMBER</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13663</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>13647</databaseID>
                      <name>EMPLOYEES</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -258,8 +258,8 @@
                   <name>EMP_MOBILE_NUMBER</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13663</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>13647</databaseID>
                      <name>EMPLOYEES</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -297,8 +297,8 @@
                   <name>EMP_ADDRESS</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13663</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>13647</databaseID>
                      <name>EMPLOYEES</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -336,8 +336,8 @@
                   <name>EMP_LOCATION</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13663</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>13647</databaseID>
                      <name>EMPLOYEES</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -380,8 +380,8 @@
                   <name>EMPLOYEES_PK</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13663</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>13647</databaseID>
                      <name>EMPLOYEES</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -399,14 +399,14 @@
    <properties class="java.util.HashMap">
       <Item>
          <Key>OfflineDBConstants.GENERATE_TARGET_CONECTION</Key>
-         <Value>XE</Value>
+         <Value>twoways</Value>
       </Item>
       <Item>
          <Key>OfflineDBConstants.GENERATE_TARGET_ID</Key>
          <Value class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
             <ID/>
-            <connectionName>XE</connectionName>
-            <databaseID>13663</databaseID>
+            <connectionName>twoways</connectionName>
+            <databaseID>13647</databaseID>
             <name>EMPLOYEES</name>
             <parent/>
             <schemaName>TWOWAYS</schemaName>
@@ -428,11 +428,20 @@
    </properties>
    <schema>
       <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-         <ID>b6e384e7-012b-1000-8004-0a000005a486</ID>
+         <ID>054c6faa-012c-1000-8001-0a0000059754</ID>
          <parent/>
          <type>SCHEMA</type>
       </ID>
-      <name>MYSCHEMA</name>
-      <properties/>
+      <name>TWOWAYS</name>
+      <properties class="java.util.HashMap">
+         <Item>
+            <Key>OfflineDBConstants.GENERATE_TARGET_CONECTION</Key>
+            <Value>twoways</Value>
+         </Item>
+         <Item>
+            <Key>OfflineDBConstants.GENERATE_TARGET_SCHEMA</Key>
+            <Value>TWOWAYS</Value>
+         </Item>
+      </properties>
    </schema>
 </TABLE>

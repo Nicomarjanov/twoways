@@ -88,12 +88,14 @@ public class AbmClientesServlet extends AutorizacionServlet {
                     request.setAttribute("cliente",cliente);
                    
                 }else{
-                    twoWaysBDL.getServiceTwoWays().insertarCliente(cliente);
-                    
+                    cliente =twoWaysBDL.getServiceTwoWays().insertarCliente(cliente);
+                    request.setAttribute("cliente",cliente);
                 }
                 
             } catch (Exception e) {
                 e.printStackTrace();
+                request.setAttribute("mensaje","<script>alert('El cliente no pudo guardarse')</script>"); 
+                request.getRequestDispatcher("cliente.jsp").forward(request,response);
             }
            
             request.setAttribute("mensaje","<script>alert('El cliente se guardo con exito')</script>");
@@ -114,6 +116,7 @@ public class AbmClientesServlet extends AutorizacionServlet {
              } catch (Exception e) {
                  request.setAttribute("mensaje","<script>alert('Error al cargar el cliente')</script>"); 
                  e.printStackTrace();
+                 
              }
         }
         

@@ -29,6 +29,12 @@
   <tr>
   </tr>
   <tr>
+    <td>Id. Usuario:</td>
+    <td><input type="text" class="tw_form" id="usrId" name="usrId"  value="<c:out value="${usuario.usrId}"/>"  size="50" maxlength="100"  onkeyup="buscarUsuarios()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
+    <td>Contraseña:</td>
+    <td><input type="text" class="tw_form" id="usrPass" name="usrPass"  value="<c:out value="${usuario.usrPass}"/>"  size="50" maxlength="100"  onkeyup="buscarUsuarios()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
+  </tr>
+  <tr>
     <td>Nombre:</td>
     <td><input type="text" class="tw_form" id="usrFirstName" name="usrFirstName"  value="<c:out value="${usuario.usrFirstName}"/>"  size="50" maxlength="100"  onkeyup="buscarUsuarios()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
     <td>Apellido:</td>
@@ -80,7 +86,7 @@
   </table>
   
   <div id="div-usuarios"  >
-  <table id ="tabla-usuarios" >
+  <table id ="tabla-busqueda" >
   <tr><th>Nombre</th><th>Apellido</th><th>Mail</th><th>Fecha de nacimiento</th><th>Teléfono movil</th><th>Teléfono personal</th><th>Teléfono oficina</th><th>&nbsp;</th></tr>
   </table>
   

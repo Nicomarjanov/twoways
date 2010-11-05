@@ -7,6 +7,7 @@ import java.sql.Timestamp;
 public class UsersTO {
     //(name="USR_BIRTH")
     private Timestamp usrBirth;
+    private String usrPass;
     //(name="USR_FIRST_NAME", nullable = false)
     private String usrFirstName;
     //(name="USR_ID", nullable = false)
@@ -51,6 +52,13 @@ public class UsersTO {
         this.usrId = usrId;
     }
 
+    public String getUsrPass() {
+        return usrId;
+    }
+
+    public void setUsrPass(String usrPass) {
+        this.usrPass = usrPass;
+    }
     public String getUsrLastName() {
         return usrLastName;
     }
