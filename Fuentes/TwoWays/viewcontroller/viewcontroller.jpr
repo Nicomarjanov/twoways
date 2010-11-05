@@ -88,6 +88,7 @@
       <value n="j2eeWebContextRoot" v="twoways"/>
       <hash n="webContentSet">
          <list n="pattern-filters">
+            <string v="-index.html"/>
             <string v="-cliente.js"/>
             <string v="+**"/>
          </list>

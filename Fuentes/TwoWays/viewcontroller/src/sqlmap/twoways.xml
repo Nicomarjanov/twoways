@@ -26,7 +26,8 @@
       <result property="cliId" column="CLI_ID"  />
       <result property="cliName" column="CLI_NAME" />
       <result property="cliPhone" column="CLI_PHONE" />
-      <result property="cliPostalCode" column="CLI_POSTAL_CODE" />  
+      <result property="cliPostalCode" column="CLI_POSTAL_CODE" />
+      <result property="cliMail" column="CLI_MAIL" />
       <result property="currencyTO.curId" column="cur_id" />
       <result property="currencyTO.curName" column="cur_Name" />
     </resultMap>
@@ -39,6 +40,7 @@
       <result property="cliName" column="CLI_NAME" />
       <result property="cliPhone" column="CLI_PHONE" />
       <result property="cliPostalCode" column="CLI_POSTAL_CODE" />  
+      <result property="cliMail" column="CLI_MAIL" /> 
     </resultMap>
   
  <statement  id="getClientById" resultMap="select-Client" parameterClass="java.lang.String" >
@@ -55,14 +57,24 @@
      
   </statement>
 
-   
-  <insert id="insertClients" parameterClass="com.twoways.to.ClientsTO" >
+ 
+  <insert id="insertClients" parameterClass="com.twoways.to.ClientsTO"   >
+        <selectKey  keyProperty="cliId" parameterClass="java.lang.Long" > select client_seq.nextval  cliId from dual</selectKey> 
+        
       insert into clients
           (cli_id, cli_name, cli_description, cli_mail, cli_address, cli_phone, cli_country, cli_postal_code,currency_cur_id)
         values
-          (client_seq.nextval, #cliName#, #cliDescription#, #cliMail#, #cliAddress#, #cliPhone#, #cliCountry#, #cliPostalCode#,#currencyTO.curId#)
-                            
+          (#cliId#, #cliName#, #cliDescription#, #cliMail#, #cliAddress#, #cliPhone#, #cliCountry#, #cliPostalCode#,#currencyTO.curId#)
+      
+         
+      
   </insert>
+  
+  
+  <!--procedure id="insertClients" parameterClass="com.twoways.to.ClientsTO" resultClass="java.lang.Long"  >
+	  { #value# = call SCHEMA.MY_FUNCTION(#cliName#, #cliDescription#, #cliMail#, #cliAddress#, #cliPhone#, #cliCountry#, #cliPostalCode#,#currencyTO.curId#) }
+  </procedure-->
+  
   
    <update  id="updateClients" parameterClass="com.twoways.to.ClientsTO">
       UPDATE clients
@@ -126,7 +138,8 @@
       <result property="ratDescription" column="RAT_DESCRIPTION"/>
       <result property="ratName"   column="RAT_NAME" />
       <result property="rateTypesTO.rtyName" column="RAT_TYPE"  />
-      <result property="currencyTO.curName" column="cur_Name" />      
+      <result property="currencyTO.curName" column="cur_Name" />    
+      <result property="currencyTO.curId" column="cur_Id" />
   </resultMap>
   
   <select id="obtenerTarifas"  parameterClass="java.lang.String" resultClass="com.twoways.to.RatesTO">
@@ -153,7 +166,6 @@
       SET     rat_name = #ratName# , 
               rat_description = #ratDescription#,
               rat_type = #rateTypesTO.rtyName#,
-              rat_value = #ratValue#  ,              
               currency_cur_id= #currencyTO.curId#
               WHERE  rat_id = #ratId#                     
   </update>  

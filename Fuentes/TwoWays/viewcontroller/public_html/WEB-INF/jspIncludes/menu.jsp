@@ -123,11 +123,9 @@ border:1px solid #000;
 
 <Body>
 
+<img src="logo.jpg" alt="TwO WAYS" /> 
 <div id="dhtmlgoodies_menu">
  <ul>
- 
- <!-- Creamos la primer pesta�a del men�: Blogger -->
- <!-- Metemos la primera opci�n -->
      <c:choose>
      <c:when test="${sessionScope.userRol== 'Admin'}">  
       <jsp:include page="/WEB-INF/jspIncludes/menuAdmin.jsp" />

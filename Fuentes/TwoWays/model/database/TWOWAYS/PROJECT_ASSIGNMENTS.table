@@ -31,8 +31,8 @@
                   <name>PRA_ID</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13652</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>13673</databaseID>
                      <name>PROJECT_ASSIGNMENTS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -74,8 +74,8 @@
                   <name>PRA_CLASSIFICATION</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13652</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>13673</databaseID>
                      <name>PROJECT_ASSIGNMENTS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -112,8 +112,8 @@
                   <name>EMPLOYEES_EMP_ID</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13652</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>13673</databaseID>
                      <name>PROJECT_ASSIGNMENTS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -150,8 +150,8 @@
                   <name>PROJECTS_PRO_ID</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13652</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>13673</databaseID>
                      <name>PROJECT_ASSIGNMENTS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -188,8 +188,8 @@
                   <name>PRA_ASSIGN_DATE</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13652</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>13673</databaseID>
                      <name>PROJECT_ASSIGNMENTS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -222,8 +222,8 @@
                   <name>PRA_DEADLINE_DATE</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13652</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>13673</databaseID>
                      <name>PROJECT_ASSIGNMENTS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -256,8 +256,8 @@
                   <name>PRA_FINISH_DATE</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13652</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>13673</databaseID>
                      <name>PROJECT_ASSIGNMENTS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -292,8 +292,8 @@
                   <name>PROJECT_TRANSLATORS_PK</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13652</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>13673</databaseID>
                      <name>PROJECT_ASSIGNMENTS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -335,8 +335,8 @@
                   <name>PROJECT_ASSIGNMENTS_FK</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13652</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>13673</databaseID>
                      <name>PROJECT_ASSIGNMENTS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -387,8 +387,8 @@
                   <name>PROJECT_ASSIGNMENTS_FK1</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13652</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>13673</databaseID>
                      <name>PROJECT_ASSIGNMENTS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -415,14 +415,14 @@
    <properties class="java.util.HashMap">
       <Item>
          <Key>OfflineDBConstants.GENERATE_TARGET_CONECTION</Key>
-         <Value>XE</Value>
+         <Value>twoways</Value>
       </Item>
       <Item>
          <Key>OfflineDBConstants.GENERATE_TARGET_ID</Key>
          <Value class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
             <ID/>
-            <connectionName>XE</connectionName>
-            <databaseID>13652</databaseID>
+            <connectionName>twoways</connectionName>
+            <databaseID>13673</databaseID>
             <name>PROJECT_ASSIGNMENTS</name>
             <parent/>
             <schemaName>TWOWAYS</schemaName>
@@ -444,11 +444,20 @@
    </properties>
    <schema>
       <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-         <ID>b6e384e7-012b-1000-8004-0a000005a486</ID>
+         <ID>054c6faa-012c-1000-8001-0a0000059754</ID>
          <parent/>
          <type>SCHEMA</type>
       </ID>
-      <name>MYSCHEMA</name>
-      <properties/>
+      <name>TWOWAYS</name>
+      <properties class="java.util.HashMap">
+         <Item>
+            <Key>OfflineDBConstants.GENERATE_TARGET_CONECTION</Key>
+            <Value>twoways</Value>
+         </Item>
+         <Item>
+            <Key>OfflineDBConstants.GENERATE_TARGET_SCHEMA</Key>
+            <Value>TWOWAYS</Value>
+         </Item>
+      </properties>
    </schema>
 </TABLE>

@@ -12,7 +12,7 @@ public interface TW_SystemService {
 
     public List obtenerClientes() throws Exception;
     
-    public void insertarCliente(ClientsTO clientsTO) throws Exception ;
+    public ClientsTO insertarCliente(ClientsTO clientsTO) throws Exception ;
     
     public void updateCliente(ClientsTO clientsTO) throws Exception ;
     
