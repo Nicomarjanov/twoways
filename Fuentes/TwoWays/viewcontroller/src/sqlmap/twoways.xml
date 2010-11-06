@@ -90,13 +90,7 @@
   
   <!--Empleados-->
 
-  <select id="obtenerEmpleados"  resultMap="select-Employee" parameterClass="java.lang.String">
-     select *      
-     from 
-     Employees
-     
-
-    <resultMap id="select-Employee" class="com.twoways.to.ClientsTO" >
+    <resultMap id="select-Employee" class="com.twoways.to.EmployeesTO" >
       <result property="empAddress" column="EMP_ADDRESS" />
       <result property="empAvailability" column="EMP_AVAILABILITY"/>
       <result property="empBirth"   column="EMP_BIRTH" />
@@ -109,6 +103,13 @@
       <result property="empObservations" column="EMP_OBSERVATIONS" /> 
       <result property="empPhoneNumber" column="EMP_PHONE_NUMBER" />      
     </resultMap>
+  
+  <select id="obtenerEmpleados"  resultMap="select-Employee" parameterClass="java.lang.String">
+     select *      
+     from 
+     Employees
+     
+  </select>
   
  <statement  id="getEmpById" resultMap="select-Employee" parameterClass="java.lang.String" >
      select *       
@@ -156,7 +157,6 @@
         WHERE  emp_id = #empId#    
  </delete>     
      
-  </select>
   <!--Monedas -->
  
   <resultMap id="select-Currency" class="com.twoways.to.CurrencyTO" >

@@ -22,8 +22,8 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
         return ret;        
     }
     
-    public EmployeesTO getEmpById(String usrId)  throws Exception{
-       EmployeesTO employee =  (EmployeesTO)getSqlMapClientTemplate().queryForObject("getEmpById",usrId);
+    public EmployeesTO getEmpById(String empId)  throws Exception{
+       EmployeesTO employee =  (EmployeesTO)getSqlMapClientTemplate().queryForObject("getEmpById",empId);
        return employee;
     }
 
