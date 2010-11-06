@@ -138,7 +138,7 @@ border:1px solid #000;
      <c:when test="${sessionScope.userSession.rolesTO.rolName == 'Administrador'}">  
       <jsp:include page="/WEB-INF/jspIncludes/menuAdmin.jsp" />
      </c:when>
-     <c:when test="${sessionScope.userRol== 'Usuario'}">
+     <c:when test="${sessionScope.userSession.rolesTO.rolName == 'Usuario'}">
       <jsp:include page="/WEB-INF/jspIncludes/menuUser.jsp" />
      </c:when>
      <c:otherwise>
