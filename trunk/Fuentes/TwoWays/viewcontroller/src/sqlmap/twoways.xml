@@ -57,23 +57,20 @@
      
   </statement>
 
+  <select  id="clients.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > select client_seq.nextval  cliId from dual</select> 
+        
  
   <insert id="insertClients" parameterClass="com.twoways.to.ClientsTO"   >
-        <selectKey  keyProperty="cliId" parameterClass="java.lang.Long" > select client_seq.nextval  cliId from dual</selectKey> 
-        
+       
       insert into clients
           (cli_id, cli_name, cli_description, cli_mail, cli_address, cli_phone, cli_country, cli_postal_code,currency_cur_id)
         values
           (#cliId#, #cliName#, #cliDescription#, #cliMail#, #cliAddress#, #cliPhone#, #cliCountry#, #cliPostalCode#,#currencyTO.curId#)
-      
          
-      
   </insert>
   
   
-  <!--procedure id="insertClients" parameterClass="com.twoways.to.ClientsTO" resultClass="java.lang.Long"  >
-	  { #value# = call SCHEMA.MY_FUNCTION(#cliName#, #cliDescription#, #cliMail#, #cliAddress#, #cliPhone#, #cliCountry#, #cliPostalCode#,#currencyTO.curId#) }
-  </procedure-->
+  
   
   
    <update  id="updateClients" parameterClass="com.twoways.to.ClientsTO">

@@ -48,12 +48,16 @@ public class ClientsDAOImpl extends AbstractDAO  implements ClientDAO{
     
     public ClientsTO insertarCliente(ClientsTO clientsTO) throws Exception {
         
-        ClientsTO cli = (ClientsTO)getSqlMapClientTemplate().insert("insertClients",clientsTO);
-        return cli; 
+        Long cliId = (Long) getSqlMapClientTemplate().queryForObject("clients.seq","");
+        clientsTO.setCliId(cliId); 
+        getSqlMapClientTemplate().insert("insertClients",clientsTO);
+        
+        return getClientById(String.valueOf(cliId)); 
         
     }
 
     public void updateCliente(ClientsTO clientsTO) {
+        
         
             getSqlMapClientTemplate().insert("updateClients",clientsTO);
         
