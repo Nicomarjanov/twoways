@@ -12,6 +12,7 @@ public class RolesTO {
     private Long rolId;
     //(name="ROL_NAME", nullable = false)
     private String rolName;
+   
      private List<UsersTO> usersTOList;
 
     public RolesTO() {
@@ -60,4 +61,6 @@ public class RolesTO {
         usersTO.setRolesTO(null);
         return usersTO;
     }
+
+    
 }

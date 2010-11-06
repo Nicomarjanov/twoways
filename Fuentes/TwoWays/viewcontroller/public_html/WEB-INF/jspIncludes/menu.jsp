@@ -124,17 +124,21 @@ border:1px solid #000;
 <Body>
 <table width="100%">
 <tr>
-    <td><img src="img/logo_bajo_relieve_azul.jpg" alt="TwO WAYS" />
+    <td><img src="img/logo_bajo_relieve_azul.jpg" alt="TwO WAYS" /> 
+    </td>
+</tr>
+<tr>
+    <td><b>Usuario:&nbsp;</b>&nbsp;<c:out value="${ sessionScope.userSession.usrLastName}" />,&nbsp;<c:out value="${ sessionScope.userSession.usrFirstName}" /> 
     </td>
 </tr>
 <tr>
     <td><div id="dhtmlgoodies_menu">
  <ul>
      <c:choose>
-     <c:when test="${sessionScope.userRol== 'Admin'}">  
+     <c:when test="${sessionScope.userSession.rolesTO.rolName == 'Administrador'}">  
       <jsp:include page="/WEB-INF/jspIncludes/menuAdmin.jsp" />
      </c:when>
-     <c:when test="${sessionScope.userRol== 'User'}">
+     <c:when test="${sessionScope.userRol== 'Usuario'}">
       <jsp:include page="/WEB-INF/jspIncludes/menuUser.jsp" />
      </c:when>
      <c:otherwise>
@@ -145,6 +149,5 @@ border:1px solid #000;
  </div>
  </td>
  </tr>
- </table>
- </body>
+ </table></body>
 </html>

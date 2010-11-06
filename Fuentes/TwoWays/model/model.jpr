@@ -121,6 +121,7 @@
          <hash n="Default">
             <value n="custom" v="false"/>
             <value n="name" v="Default"/>
+            <url n="targetURL" path="../viewcontroller/public_html/login.jsp"/>
          </hash>
       </hash>
       <list n="runConfigurationList">
