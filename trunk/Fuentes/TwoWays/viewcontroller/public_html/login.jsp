@@ -52,7 +52,7 @@
 <td align="center" valign="middle" >
   <form method="POST" action="login"  id="loginForm" >
   <table>
-  <tr><th colspan="2" class="tw_form">Conectar a WOWAYS</th></tr>
+  <tr><th colspan="2" class="tw_form">Conectar a TWO WAYS</th></tr>
   <tr><td colspan="2" id="mensajeError"  style="color:red"><c:out value="${requestScope.mensajeError}"/></td></tr>
   <tr><td><b>Usuario: </b> </td><td><input type="text" name="usuario"/></td></tr>
   <tr><td><b>Contraseña: </b> </td><td><input type="password" name="password" onkeypress="conectar"/></td></tr> 

@@ -55,6 +55,34 @@ p.basico{
 }
 
 /*Tablas*/
+#list-tarifas
+{
+width:70%;
+border-style:none;
+border-spacing: 2px;
+border-collapse:separate;
+}
+#list-tarifas td, #list-tarifas th 
+{
+text-align:left;
+font-size:1em;
+padding:2px 7px 2px 7px;
+}
+#list-tarifas th 
+{
+font-size:1.1em;
+padding-top:5px;
+padding-bottom:4px;
+background-color:#80211D;
+color:#ffffff;
+}
+#list-tarifas tr.alt td 
+{
+color:#000000;
+background-color:#EE9A98;
+}
+
+
 #tabla-busqueda
 {
 width:70%;
