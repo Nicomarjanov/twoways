@@ -55,4 +55,7 @@ public interface TW_SystemService {
     public boolean  deleteUsers(UsersTO user)  throws Exception;
     
     public List obtenerRoles() throws Exception;
+    
+    public UsersTO getLogin(String userId, String pass) throws Exception ;
+    
 }

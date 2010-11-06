@@ -38,7 +38,6 @@ public class AbmUsuariosServlet extends HttpServlet {
             
             try {
                twoWaysBDL = new TwoWaysBDL();
-               twoWaysBDL.getServiceTwoWays().obtenerRoles();
                roles =  twoWaysBDL.getServiceTwoWays().obtenerRoles();
                request.setAttribute("listaRoles",roles);
                

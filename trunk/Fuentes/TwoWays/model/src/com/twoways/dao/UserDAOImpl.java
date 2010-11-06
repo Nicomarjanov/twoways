@@ -47,4 +47,11 @@ public class UserDAOImpl extends AbstractDAO  implements UserDAO{
        int res =  getSqlMapClientTemplate().delete("deleteUsers",user);
        return (res > 0); 
     }
+
+    public String getPass(String userId) throws Exception {
+        String res =  (String)getSqlMapClientTemplate().queryForObject("getPass",userId);
+        
+        return res; 
+       
+    }
 }

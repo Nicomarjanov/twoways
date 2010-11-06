@@ -213,7 +213,7 @@
       <result property="usrOfficeNumber" column="USR_OFFICE_NUMBER" />  
       <result property="usrPhoneNumber" column="USR_PHONE_NUMBER" />
       <result property="rolesTO.rolId" column="rol_id" />
-      <result property="rolesTO.rolName" column="cur_Name" />
+      <result property="rolesTO.rolName" column="rol_Name" />
   </resultMap>
 
   <select id="obtenerUsuarios"  resultMap="select-User" parameterClass="java.lang.String">
@@ -265,5 +265,18 @@
         WHERE  usr_id = #usrId#    
  </delete>
 
+ <statement id="obtenerRoles"  resultClass="com.twoways.to.RolesTO" parameterClass="java.lang.String">
+     select  rol_id as rolId,
+             rol_Name as rolName, 
+             rol_description as rolDescription 
+     from Roles     
+  </statement>  
+  
+  
+  <statement id="getPass"  resultClass="java.lang.String" parameterClass="java.lang.String">
+     select  *
+     from  users 
+     where usr_id = #value#      
+  </statement>  
   
 </sqlMap> 

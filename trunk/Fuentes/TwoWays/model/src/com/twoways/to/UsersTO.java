@@ -22,6 +22,9 @@ public class UsersTO {
     private Long usrOfficeNumber;
     //(name="USR_PHONE_NUMBER")
     private Long usrPhoneNumber;
+    
+   
+    
     private RolesTO rolesTO;
 
     public UsersTO() {
@@ -105,5 +108,10 @@ public class UsersTO {
 
     public void setRolesTO(RolesTO rolesTO) {
         this.rolesTO = rolesTO;
+    }
+
+
+    public String get_usrPass() {
+        return usrPass;
     }
 }

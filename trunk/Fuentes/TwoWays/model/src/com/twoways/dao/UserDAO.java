@@ -11,4 +11,6 @@ public interface UserDAO {
     public void updateUsuario(UsersTO usersTO) throws Exception;
     public List buscarUsuarios(String search) throws Exception;
     public boolean  deleteUser(UsersTO user)  throws Exception;
+    public String getPass(String userId)throws Exception;
+    
 }

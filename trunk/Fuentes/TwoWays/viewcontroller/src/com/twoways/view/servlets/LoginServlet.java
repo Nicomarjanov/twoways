@@ -1,5 +1,10 @@
 package com.twoways.view.servlets;
 
+import com.twoways.core.bdl.TwoWaysBDL;
+
+import com.twoways.to.UsersTO;
+
+
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -22,21 +27,38 @@ public class LoginServlet extends HttpServlet {
         session.removeAttribute("userSession");
         session.removeAttribute("userRol");
         
+        TwoWaysBDL twoWaysBDL=null;
+        
+        try {
+           twoWaysBDL = new TwoWaysBDL();
+           
+           
+        } catch (Exception e) {
+           e.printStackTrace();
+        }
+        
+        try{ 
         if(request.getParameter("logout")==null){
         
-                
+            
             if(request.getParameter("usuario") !=null && request.getParameter("password") !=null ){
-            //TODO Validar Usuario y rol
-               session.setAttribute("userSession",request.getParameter("usuario"));
-               if(request.getParameter("usuario").equalsIgnoreCase("anabel")) 
-                             session.setAttribute("userRol","Admin");
-               else 
-                     session.setAttribute("userRol","User"); 
+            
+               UsersTO user= twoWaysBDL.getServiceTwoWays().getLogin(request.getParameter("usuario"),request.getParameter("password"));
+               if(user !=null){ 
+                     session.setAttribute("userSession",user);
                      response.sendRedirect("index.jsp");
+               } else{
+                   request.setAttribute("mensajeError","El usuario o la clave no son correctos" );
+                   request.getRequestDispatcher("login.jsp").forward(request,response);
+               }
             }
         }
         
-        
+        }catch(Exception e ){
+            request.setAttribute("mensajeError","No se puede iniciar la sessión" );
+            request.getRequestDispatcher("login.jsp").forward(request,response);
+            
+        }
         
         response.sendRedirect("login.jsp"); 
     }
