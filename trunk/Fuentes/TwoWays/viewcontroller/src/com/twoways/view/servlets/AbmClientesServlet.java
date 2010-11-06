@@ -9,6 +9,7 @@ import com.twoways.to.RatesTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -20,10 +21,15 @@ public class AbmClientesServlet extends AutorizacionServlet {
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
+        List roles= new ArrayList();
+        roles.add("Administrador");
+        roles.add("Usuario");
+        this.setRolesValidos(roles);
     }
 
     public void doGet(HttpServletRequest request, 
                       HttpServletResponse response) throws ServletException, IOException {
+        
                       
         super.doGet(request,response);
         

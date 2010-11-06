@@ -10,6 +10,8 @@
     <link href="./twoways.css" rel="stylesheet" type="text/css"/>
   </head>
   <body>
+  <jsp:include page="/WEB-INF/jspIncludes/menu.jsp" />
+  
    <c:out value="${AuthMsj}" escapeXml="false"/>
     <%
       if (exception != null) 

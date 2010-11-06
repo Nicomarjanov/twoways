@@ -12,22 +12,28 @@ import java.sql.Timestamp;
 
 import java.text.SimpleDateFormat;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-public class AbmUsuariosServlet extends HttpServlet {
+public class AbmUsuariosServlet extends AutorizacionServlet {
     private static final String CONTENT_TYPE = "text/html; charset=windows-1252";
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
+        List roles= new ArrayList();
+        roles.add("Administrador");
+        this.setRolesValidos(roles);
     }
 
     public void doGet(HttpServletRequest request, 
                       HttpServletResponse response) throws ServletException, IOException {
         
+            super.doGet(request,response);
+            
             response.setContentType(CONTENT_TYPE);
             String accion=request.getParameter("accion");
             List<RolesTO> roles = null;

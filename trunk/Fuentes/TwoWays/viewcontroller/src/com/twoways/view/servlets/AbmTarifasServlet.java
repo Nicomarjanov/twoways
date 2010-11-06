@@ -8,6 +8,7 @@ import com.twoways.to.RateTypesTO;
 
 import java.io.IOException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.*;
@@ -18,6 +19,9 @@ public class AbmTarifasServlet extends AutorizacionServlet {
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
+        List roles= new ArrayList();
+        roles.add("Administrador");
+        this.setRolesValidos(roles);
     }
 
     public void doGet(HttpServletRequest request, 
