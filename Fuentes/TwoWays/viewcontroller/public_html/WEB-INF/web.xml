@@ -41,7 +41,11 @@
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>com.twoways.view.servlets.LoginServlet</servlet-class>
     </servlet>
-     <servlet-mapping>
+    <servlet>
+        <servlet-name>AbmEmpleadosServlet</servlet-name>
+        <servlet-class>com.twoways.view.servlets.AbmEmpleadosServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
@@ -60,6 +64,10 @@
     <servlet-mapping>
         <servlet-name>AbmUsuariosServlet</servlet-name>
         <url-pattern>/usuarios</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AbmEmpleadosServlet</servlet-name>
+        <url-pattern>/empleados</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>35</session-timeout>

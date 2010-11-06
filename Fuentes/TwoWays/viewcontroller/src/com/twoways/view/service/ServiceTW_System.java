@@ -1,11 +1,13 @@
 package com.twoways.view.service;
 
 import com.twoways.to.RatesTO;
+import com.twoways.to.ClientsTO;
 
 import org.apache.log4j.Logger;
-
 import com.twoways.core.bdl.TwoWaysBDL;
-import com.twoways.to.ClientsTO;
+import com.twoways.to.EmployeesTO;
+
+import com.twoways.to.UsersTO;
 
 import java.util.List;
 
@@ -93,6 +95,73 @@ public class ServiceTW_System {
         return null;
     
     }
+
+    public List buscarUsuarios(String search)  {
+        try {
+            return twoWaysBDL.getServiceTwoWays().buscarUsuario(search);
+        } catch (Exception e) {
+            e.printStackTrace(); log.error(e,e);
+        }
+        return null;
+    
+    }
+     
+    public List  obtenerUsers(){
+         try {
+             return twoWaysBDL.getServiceTwoWays().obtenerUsuarios();
+         } catch (Exception e) {
+             e.printStackTrace(); log.error(e,e);
+         }
+         return null;
+     }
+     
+     
+     public boolean deleterUsuario(String usrId){
+          try {
+          
+              UsersTO usuarioDelete= new UsersTO();
+              usuarioDelete.setUsrId(usrId); 
+              return twoWaysBDL.getServiceTwoWays().deleteUsers(usuarioDelete);
+          } catch (Exception e) {
+              
+              e.printStackTrace(); log.error(e,e);
+          }
+          return false;
+      }
+
+    public List buscarEmpleados(String search)  {
+        try {
+            return twoWaysBDL.getServiceTwoWays().buscarEmpleados(search);
+        } catch (Exception e) {
+            e.printStackTrace(); log.error(e,e);
+        }
+        return null;
+    
+    }
+     
+    public List  obtenerEmpleados(){
+         try {
+             return twoWaysBDL.getServiceTwoWays().obtenerEmpleados();
+         } catch (Exception e) {
+             e.printStackTrace(); log.error(e,e);
+         }
+         return null;
+     }
+     
+     
+     public boolean deleterEmpleado(Long empId){
+          try {
+          
+              EmployeesTO empleadoDelete= new EmployeesTO();
+              empleadoDelete.setEmpId(empId); 
+              return twoWaysBDL.getServiceTwoWays().deleteEmployees(empleadoDelete);
+          } catch (Exception e) {
+              
+              e.printStackTrace(); log.error(e,e);
+          }
+          return false;
+      }
+
     
     public void setTwoWaysBDL(TwoWaysBDL twoWaysBDL) {
         this.twoWaysBDL = twoWaysBDL;

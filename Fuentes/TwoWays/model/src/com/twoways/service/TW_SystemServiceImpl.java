@@ -10,6 +10,7 @@ import com.twoways.dao.RolesDAO;
 
 import com.twoways.to.ClientsTO;
 import com.twoways.to.CurrencyTO;
+import com.twoways.to.EmployeesTO;
 import com.twoways.to.RateTypesTO;
 import com.twoways.to.RatesTO;
 import com.twoways.to.UsersTO;
@@ -55,6 +56,27 @@ public class TW_SystemServiceImpl implements TW_SystemService{
         return this.employeeDao.obtenerEmpleados();
     }
     
+    public EmployeesTO insertarEmpleado(EmployeesTO employeesTO) throws Exception {
+      return this.employeeDao.insertarEmployee(employeesTO);
+    }
+    
+    public void updateEmpleado(EmployeesTO employeesTO) throws Exception {
+      this.employeeDao.updateEmpleado(employeesTO);
+    }
+    
+    public EmployeesTO getEmpById(String empId)  throws Exception{
+      return  this.employeeDao.getEmpById(empId);
+    }
+    
+    
+    public List buscarEmpleados(String search) throws Exception {
+      return this.employeeDao.buscarEmpleados(search);
+    }
+    
+    public boolean  deleteEmployees(EmployeesTO employeesTO)  throws Exception{
+      return this.employeeDao.deleteEmployee(employeesTO);
+    }
+        
     public void setCurrencyDao(CurrencyDAO currencyDao){
         this.currencyDao = currencyDao;
     }
@@ -176,7 +198,6 @@ public class TW_SystemServiceImpl implements TW_SystemService{
         return this.rolesDao.obtenerRoles();
     }
 
-
     public void setRolesDao(RolesDAO rolesDao) {
         this.rolesDao = rolesDao;
     }
@@ -197,14 +218,9 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     
     
     private String encript(String pass){
-    
-     
+
         return pass;
         
-    }
-    
-    
-  
-    
+    }    
     
   }

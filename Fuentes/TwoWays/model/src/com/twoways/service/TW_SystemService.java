@@ -1,6 +1,7 @@
 package com.twoways.service;
 
 import com.twoways.to.ClientsTO;
+import com.twoways.to.EmployeesTO;
 import com.twoways.to.RateTypesTO;
 import com.twoways.to.RatesTO;
 
@@ -23,6 +24,16 @@ public interface TW_SystemService {
     public boolean  deleteClients(ClientsTO client)  throws Exception;
     
     public List obtenerEmpleados() throws Exception;
+    
+    public EmployeesTO insertarEmpleado(EmployeesTO employeesTO) throws Exception;
+    
+    public void updateEmpleado(EmployeesTO employeesTO) throws Exception;
+    
+    public EmployeesTO getEmpById(String empId)  throws Exception;
+    
+    public List buscarEmpleados(String search) throws Exception;
+    
+    public boolean  deleteEmployees(EmployeesTO employeesTO)  throws Exception;
     
     public List obtenerMonedas() throws Exception;
     

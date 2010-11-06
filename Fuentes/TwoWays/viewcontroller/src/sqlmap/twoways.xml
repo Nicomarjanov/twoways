@@ -69,11 +69,7 @@
          
   </insert>
   
-  
-  
-  
-  
-   <update  id="updateClients" parameterClass="com.twoways.to.ClientsTO">
+  <update  id="updateClients" parameterClass="com.twoways.to.ClientsTO">
       UPDATE clients
       SET     cli_name = #cliName# , 
               cli_description = #cliDescription#,
@@ -94,16 +90,71 @@
   
   <!--Empleados-->
 
-  <select id="obtenerEmpleados"  parameterClass="java.lang.String" resultClass="com.twoways.to.EmployeesTO">
-     select 
-        EMP_FIRST_NAME as empFirstName,
-        EMP_LAST_NAME as empLastName,
-        EMP_MAIL as empMail,
-        EMP_PHONE_NUMBER as empPhoneNum,
-        EMP_MOBILE_NUMBER as empMobileNum,
-        EMP_MSN as empMsn        
+  <select id="obtenerEmpleados"  resultMap="select-Employee" parameterClass="java.lang.String">
+     select *      
      from 
      Employees
+     
+
+    <resultMap id="select-Employee" class="com.twoways.to.ClientsTO" >
+      <result property="empAddress" column="EMP_ADDRESS" />
+      <result property="empAvailability" column="EMP_AVAILABILITY"/>
+      <result property="empBirth"   column="EMP_BIRTH" />
+      <result property="empFirstName" column="EMP_FIRST_NAME"  />
+      <result property="empLastName" column="EMP_LAST_NAME" />
+      <result property="empLocation" column="EMP_LOCATION" />
+      <result property="empMail" column="EMP_MAIL" />  
+      <result property="empMobileNumber" column="EMP_MOBILE_NUMBER" /> 
+      <result property="empMsn" column="EMP_MSN" /> 
+      <result property="empObservations" column="EMP_OBSERVATIONS" /> 
+      <result property="empPhoneNumber" column="EMP_PHONE_NUMBER" />      
+    </resultMap>
+  
+ <statement  id="getEmpById" resultMap="select-Employee" parameterClass="java.lang.String" >
+     select *       
+     from employee
+     where emp_id = #value#
+ </statement>
+ 
+  <statement id="buscarEmpleados" resultMap="select-Employee"  parameterClass="java.lang.String" >
+     select *       
+     from employee 
+     where upper(EMP_FIRST_NAME) like '%' || upper(#value#) || '%'
+
+  </statement>
+
+  <select  id="employees.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > select employee_seq.nextval  empId from dual</select> 
+        
+ 
+  <insert id="insertEmployees" parameterClass="com.twoways.to.EmployeesTO"   >
+       
+      insert into employees
+          (emp_id, emp_first_name, emp_last_name, emp_availability, emp_mail, emp_msn, emp_address, emp_phone_number, emp_mobile_number, emp_location, emp_birth,emp_observations)
+        values
+          (#empid#, #empFirstName#, #empLastName#, #empAvailability#, #empMail#, #empMsn#, #empAddress#, #empPhoneNumber#, #empMobileNumber#, #emp_location#, #empBirth#, #empObservations#)
+         
+  </insert>
+  
+  <update  id="updateEmployees" parameterClass="com.twoways.to.EmployeesTO">
+      UPDATE employees
+      SET     emp_first_name = #empFirstName# , 
+              emp_last_name = #empLastName# , 
+              emp_availability = #empAvailability#,
+              emp_mail = #empMail#,
+              emp_msn = #empMsn#  ,
+              emp_address =  #empAddress# ,
+              emp_phone_number = #empPhoneNumber# ,
+              emp_mobile_number =#empMobileNumber# ,
+              emp_location= #emp_location#
+              emp_birth = #empBirth#
+              emp_observations = #empObservations#
+              WHERE  emp_id = #empId#                     
+  </update>
+  
+  <delete id="deleteEmployee" parameterClass="com.twoways.to.EmployeesTO">
+        DELETE Employees
+        WHERE  emp_id = #empId#    
+ </delete>     
      
   </select>
   <!--Monedas -->
