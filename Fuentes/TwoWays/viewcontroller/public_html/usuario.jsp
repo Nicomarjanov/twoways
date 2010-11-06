@@ -18,6 +18,7 @@
  
   
   <body>
+  <jsp:include page="/WEB-INF/jspIncludes/menu.jsp" />  
   <c:out value="${mensaje}" escapeXml="false"/>
   <form name="usuario" action="usuarios" method="POST">
   <input type="hidden" id="accion" name="accion" value=""/>
@@ -30,35 +31,15 @@
   </tr>
   <tr>
     <td>Id. Usuario:</td>
-    <td><input type="text" class="tw_form" id="usrId" name="usrId"  value="<c:out value="${usuario.usrId}"/>"  size="50" maxlength="100"  onkeyup="buscarUsuarios()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
+    <td><input type="text" class="tw_form" id="usrId" name="usrId"  value="<c:out value="${usuario.usrId}"/>"  size="10" maxlength="10"  onkeyup="buscarUsuarios()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
+  </tr>
+   <tr>
     <td>Contraseña:</td>
-    <td><input type="text" class="tw_form" id="usrPass" name="usrPass"  value="<c:out value="${usuario.usrPass}"/>"  size="50" maxlength="100"  onkeyup="buscarUsuarios()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
-  </tr>
-  <tr>
-    <td>Nombre:</td>
-    <td><input type="text" class="tw_form" id="usrFirstName" name="usrFirstName"  value="<c:out value="${usuario.usrFirstName}"/>"  size="50" maxlength="100"  onkeyup="buscarUsuarios()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
-    <td>Apellido:</td>
-    <td colspan=3><input type="text" class="tw_form" id="usrLastName" name="usrLastName"  value="<c:out value="${usuario.usrLastName}"/>" size="100" maxlength="250"></input></td>
-    <td>Fecha de nacimiento:</td>
-    <td><input type="text" class="tw_form" id="usrBirth" name="usrBirth"   value="<c:out value="${usuario.usrBirth}"/>" size="50" maxlength="250"></input></td>
-  </tr>
-  <tr>
-    <td>Mail:</td>
-    <td><input type="text" class="tw_form" id="usrMail"  name="usrMail"  value="<c:out value="${usuario.usrMail}"/>" size="30" maxlength="100"></input></td>
-    <td>Teléfono movil:</td>
-    <td><input type="text" class="tw_form" id="usrMobileNumber" name="usrMobileNumber"  value="<c:out value="${usuario.usrMobileNumber}"/>"  size="25" maxlength="25"></input></td>
-    <td>Teléfono fijo:</td>
-    <td><input type="text" class="tw_form" id="usrPhoneNumber" name="usrPhoneNumber"  value="<c:out value="${usuario.usrPhoneNumber}"/>"  size="25" maxlength="25"></input></td>
-    <td>Teléfono oficina:</td>
-    <td><input type="text" class="tw_form" id="usrOfficeNumber" name="usrOfficeNumber"  value="<c:out value="${usuario.usrOfficeNumber}"/>"  size="25" maxlength="25"></input></td>
-  </tr>
-  </table>
-  <br>
-  <hr class="tw_hr">
-  <table width="100%">
-  <tr>
-  <td>Roles:</td>
-  <td><select name="listaRoles" id="listaRoles" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">
+    <td><input type="text" class="tw_form" id="usrPass" name="usrPass"  value="<c:out value="${usuario.usrPass}"/>"  size="10" maxlength="10"  onkeyup="buscarUsuarios()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
+   </tr>
+   <tr>
+    <td>Roles:</td>
+    <td><select name="listaRoles" id="listaRoles" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">
                 <option value="" >Seleccionar</option>
                 <c:forEach items="${listaRoles}" var="item">
                    <c:choose>
@@ -77,7 +58,29 @@
        </select>
     </td>
   </tr>
+  <tr>
+    <td>Nombre:</td>
+    <td><input type="text" class="tw_form" id="usrFirstName" name="usrFirstName"  value="<c:out value="${usuario.usrFirstName}"/>"  size="20" maxlength="100"  onkeyup="buscarUsuarios()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
+    <td>Apellido:</td>
+    <td colspan=2><input type="text" class="tw_form" id="usrLastName" name="usrLastName"  value="<c:out value="${usuario.usrLastName}"/>" size="20" maxlength="100"></input></td>
+  </tr>
+  <tr>
+    <td>Mail:</td>
+    <td><input type="text" class="tw_form" id="usrMail"  name="usrMail"  value="<c:out value="${usuario.usrMail}"/>" size="20" maxlength="100"></input></td>
+        <td>Fecha de nacimiento:</td>
+    <td><input type="text" class="tw_form" id="usrBirth" name="usrBirth"   value="<c:out value="${usuario.usrBirth}"/>" size="10" maxlength="10"></input></td>
+  </tr>
+  <tr>
+    <td>Teléfono movil:</td>
+    <td><input type="text" class="tw_form" id="usrMobileNumber" name="usrMobileNumber"  value="<c:out value="${usuario.usrMobileNumber}"/>"  size="15" maxlength="25"></input></td>
+    <td>Teléfono fijo:</td>
+    <td><input type="text" class="tw_form" id="usrPhoneNumber" name="usrPhoneNumber"  value="<c:out value="${usuario.usrPhoneNumber}"/>"  size="15" maxlength="25"></input></td>
+    <td>Teléfono oficina:</td>
+    <td><input type="text" class="tw_form" id="usrOfficeNumber" name="usrOfficeNumber"  value="<c:out value="${usuario.usrOfficeNumber}"/>"  size="15" maxlength="25"></input></td>
+  </tr>
   </table>
+  <br>
+  <hr>
   <table width="100%">
   <tr>
   <td align="right"><input type="button" id="aceptar" value="Aceptar" onclick="agregar()"/></td>   
@@ -85,7 +88,7 @@
   </tr>
   </table>
   
-  <div id="div-usuarios"  >
+  <div id="div-usuarios" style="display:none" align="center">
   <table id ="tabla-busqueda" >
   <tr><th>Nombre</th><th>Apellido</th><th>Mail</th><th>Fecha de nacimiento</th><th>Teléfono movil</th><th>Teléfono personal</th><th>Teléfono oficina</th><th>&nbsp;</th></tr>
   </table>

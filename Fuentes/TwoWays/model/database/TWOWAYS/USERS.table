@@ -59,13 +59,13 @@
             <attributeValues class="java.util.HashMap">
                <Item>
                   <Key>size</Key>
-                  <Value class="java.lang.Long">2000</Value>
+                  <Value class="java.lang.Long">10</Value>
                </Item>
             </attributeValues>
             <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
-               <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+               <providerClass>oracle.javatools.db.ora.Oracle9i</providerClass>
                <schemaName/>
-               <typeName>RAW</typeName>
+               <typeName>VARCHAR2</typeName>
             </dataTypeID>
          </dataTypeUsage>
          <default/>

@@ -122,9 +122,13 @@ border:1px solid #000;
 </head>
 
 <Body>
-
-<img src="logo.jpg" alt="TwO WAYS" /> 
-<div id="dhtmlgoodies_menu">
+<table width="100%">
+<tr>
+    <td><img src="img/logo_bajo_relieve_azul.jpg" alt="TwO WAYS" />
+    </td>
+</tr>
+<tr>
+    <td><div id="dhtmlgoodies_menu">
  <ul>
      <c:choose>
      <c:when test="${sessionScope.userRol== 'Admin'}">  
@@ -138,5 +142,9 @@ border:1px solid #000;
      </c:otherwise>
      </c:choose>
  </ul> 
- </div></body>
+ </div>
+ </td>
+ </tr>
+ </table>
+ </body>
 </html>
