@@ -12,6 +12,65 @@ function cancelar()
 /******************************************************************************/
 //   metodos utilizados para dar de alta los item
 /******************************************************************************/
+function ocultarOpcionales(){
+   var btnMas=document.getElementById('aMas'); 
+   var btnMenos=document.getElementById('aMenos'); 
+   var op1=document.getElementById('trOpcionales1'); 
+   var op2=document.getElementById('trOpcionales2'); 
+   btnMas.style.display='';
+   btnMenos.style.display='none';
+   op1.style.display='none';
+   op2.style.display='none';
+
+
+}
+
+function mostrarOpcionales(){
+   var btnMas=document.getElementById('aMas'); 
+   var btnMenos=document.getElementById('aMenos'); 
+   var op1=document.getElementById('trOpcionales1'); 
+   var op2=document.getElementById('trOpcionales2'); 
+   btnMas.style.display='none';
+   btnMenos.style.display='';
+   op1.style.display='';
+   op2.style.display='';
+
+}
+
+function vistaTarifas(){
+
+   var tabla=document.getElementById('tabla-tarifas'); 
+   if(tabla.style.display =='none'){
+       tabla.style.display='';
+       document.getElementById('aTar').style.display='none';
+       
+   }else{
+       tabla.style.display='none';
+        document.getElementById('aTar').style.display='';
+   }
+}
+
+function agregarTarifa(){
+
+   var tablaTarifas= document.getElementById('list-tarifas');
+   var index = tablaTarifas.rows.length;
+   var newRow = tablaTarifas.insertRow(index);  
+   if (index % 2 !=0)newRow.bgColor = "#FCEEED";
+   else newRow.bgColor = "#E8B6B5";
+   insertarColumnas(tablaTarifas.rows[index],tablaTarifas.rows[0].cells.length); 
+   cargarItemTarifa(tablaTarifas.rows[index]);
+}
+
+
+function cargarItemTarifa(row){
+   
+   row.cells[0].innerHTML= document.getElementById('listaTarifa').options[document.getElementById('listaTarifa').selectedIndex].text; 
+   row.name = 'item-tarifa'; 
+   row.id= document.getElementById('listaTarifa').options[document.getElementById('listaTarifa').selectedIndex].value;
+   row.cells[1].innerHTML= document.getElementById('tar_val').value;
+   
+}
+
 function agregar()
 {
     //trabar(idsPantalla());
@@ -62,10 +121,7 @@ function grabar(existe)
 }
 
 
-function idsPantalla()
-{
-    return 'itemNombre,itemTitulo,itemToolTip,itemLink,listaBandeja,listaGrupos,btnAgregar,btnCancelar';
-}
+
 
 function buscarClientes(){
      

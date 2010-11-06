@@ -12,7 +12,6 @@
     <script type='text/javascript' src='/twoways/dwr/interface/towaysDWR.js'></script>
     <script type='text/javascript' src='/twoways/dwr/engine.js'></script>
     <script type='text/javascript' src='/twoways/dwr/util.js'></script>
-    
     <title>Cliente</title>
     
   </head>
@@ -60,14 +59,15 @@
        </select> 
     </td>
   </tr>
-  <tr>
+  <tr><td ><a id="aMas" href="javascript:mostrarOpcionales();">Mas..</a><a  id="aMenos"  style="display:none"  href="javascript:ocultarOpcionales();">Menos</a></td></tr>
+  <tr id="trOpcionales1" style="display:none">
     <td nowrap >Dirección:</td>
     <td><input type="text" class="tw_form" id="dirCliente" name="dirCliente"   value="<c:out value="${cliente.cliAddress}"/>" size="50" maxlength="250"></input></td>
     <td nowrap>Codigo Postal:</td>
     <td nowrap ><input type="text" class="tw_form" id="cpCliente" name="cpCliente"  value="<c:out value="${cliente.cliPostalCode}"/>"  size="10" maxlength="10"></input>
     País:&nbsp;<input type="text" class="tw_form" id="paisCliente" name="paisCliente"  value="<c:out value="${cliente.cliCountry}"/>"  size="20" maxlength="100"></input></td>    
   </tr>
-  <tr> 
+  <tr id="trOpcionales2" style="display:none" > 
   
     <td valign="top">Descripción:</td>
     <td colspan="100%" ><textarea  rows="3"  cols="90" class="tw_form" id="descCliente"  onkeyup="limitarArea()" name="descCliente" ><c:out value="${cliente.cliDescription}"/></textarea></td>
@@ -75,9 +75,10 @@
   </table>
   <br>
   <hr class="tw_hr">
-  <table width="100%">
+  <table  id="aTar" ><tr><td><a href="javascript:vistaTarifas()" >Tarifas</a></td></Tr></table>
+  <table id="tabla-tarifas"  style="display:none" >
   <tr>
-  <td>Tarifas:</td>
+  <td valign="top" ><a href="javascript:vistaTarifas()">Tarifas</a></td>
   <td>
  
   <select name="listaTarifa" id="listaTarifa" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">
@@ -99,8 +100,21 @@
                     </c:choose>
                 </c:forEach>
        </select>
+       
     </td>
-  </tr>
+    <td align="left">
+    <input type="text" id="tar_val" size=10  />
+    
+    </td>
+    <td align="left"><input type="button" value="Agregar" onclick="agregarTarifa()" />
+    </td>
+  
+  <td>
+     <table id="list-tarifas" class="tabla_lista" style="heigth:300" >
+     <tr><th>Tarifa</th><th>valor</th></tr>
+     
+     </table>
+  </td>
   </table>
   <table width="100%">
   <tr>
