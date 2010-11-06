@@ -184,4 +184,27 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     public RolesDAO getRolesDao() {
         return rolesDao;
     }
-}
+    
+    public UsersTO getLogin(String userId, String pass) throws Exception {
+    
+          String passIn = this.userDao.getPass(userId);
+          if(passIn != null && encript(passIn).equals(pass)){
+              return this.userDao.getUserById(userId);
+          }else{
+              return null; 
+          }
+    }
+    
+    
+    private String encript(String pass){
+    
+     
+        return pass;
+        
+    }
+    
+    
+  
+    
+    
+  }
