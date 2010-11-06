@@ -274,7 +274,7 @@
   
   
   <statement id="getPass"  resultClass="java.lang.String" parameterClass="java.lang.String">
-     select  *
+     select  usr_pass
      from  users 
      where usr_id = #value#      
   </statement>  

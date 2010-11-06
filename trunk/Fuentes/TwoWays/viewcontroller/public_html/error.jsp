@@ -10,7 +10,7 @@
     <link href="./twoways.css" rel="stylesheet" type="text/css"/>
   </head>
   <body>
-   <c:out value="${AuthMsj}"/>
+   <c:out value="${AuthMsj}" escapeXml="false"/>
     <%
       if (exception != null) 
       { 
