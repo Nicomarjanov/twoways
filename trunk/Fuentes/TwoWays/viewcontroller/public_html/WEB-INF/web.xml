@@ -59,7 +59,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AbmUsuariosServlet</servlet-name>
-        <url-pattern>/Usuarios</url-pattern>
+        <url-pattern>/usuarios</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>35</session-timeout>
