@@ -105,6 +105,8 @@
    <hash n="oracle.jdeveloper.offlinedb.model.OfflineDBProjectSettings">
       <hash n="offlineDBContentSet">
          <list n="pattern-filters">
+            <string v="-script3.sql"/>
+            <string v="-script2.sql"/>
             <string v="-script1.sql"/>
             <string v="-script_dd.sql"/>
             <string v="-MYSCHEMA/"/>

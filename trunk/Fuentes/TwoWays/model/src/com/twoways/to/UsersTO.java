@@ -22,9 +22,7 @@ public class UsersTO {
     private Long usrOfficeNumber;
     //(name="USR_PHONE_NUMBER")
     private Long usrPhoneNumber;
-    
-   
-    
+       
     private RolesTO rolesTO;
 
     public UsersTO() {

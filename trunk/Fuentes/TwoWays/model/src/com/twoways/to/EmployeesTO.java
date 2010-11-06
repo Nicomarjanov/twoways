@@ -38,6 +38,8 @@ public class EmployeesTO {
     private List<ProjectAssignmentsTO> projectAssignmentsTOList;
     private List<EmployeesRatesTO> employeesRatesTOList;
 
+    private RatesTO ratesTO;
+   
     public EmployeesTO() {
     }
 
@@ -216,4 +218,14 @@ public class EmployeesTO {
         employeesRatesTO.setEmployeesTO(null);
         return employeesRatesTO;
     }
+    
+    public RatesTO getRatesTO() {
+        return ratesTO;
+    }
+
+    public void setRatesTO(RatesTO ratesTO) {
+        this.ratesTO = ratesTO;
+    }
+
+
 }

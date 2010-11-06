@@ -38,7 +38,7 @@ public class AbmUsuariosServlet extends AutorizacionServlet {
             String accion=request.getParameter("accion");
             List<RolesTO> roles = null;
             UsersTO usuario = new UsersTO(); 
-            String usrId = request.getParameter("usriId"); 
+            String usrId = request.getParameter("usrId"); 
            
             TwoWaysBDL twoWaysBDL=null;
             
