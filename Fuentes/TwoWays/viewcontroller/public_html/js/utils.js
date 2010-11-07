@@ -79,3 +79,8 @@ function validarEmail(valor) {
         return false;
     }
 }
+
+function isFloat(campo){
+
+  return (/^\d+(\.\d+)?$/.test(campo));
+}
