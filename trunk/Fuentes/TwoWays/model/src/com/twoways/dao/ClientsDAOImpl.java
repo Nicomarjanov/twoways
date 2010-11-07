@@ -1,5 +1,6 @@
 package com.twoways.dao;
 
+import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.ClientsTO;
 
 import java.util.List;
@@ -51,6 +52,13 @@ public class ClientsDAOImpl extends AbstractDAO  implements ClientDAO{
         Long cliId = (Long) getSqlMapClientTemplate().queryForObject("clients.seq","");
         clientsTO.setCliId(cliId); 
         getSqlMapClientTemplate().insert("insertClients",clientsTO);
+        
+        List cliRates = clientsTO.getClientsRatesTOList();
+        
+        for(Object clientsRatesTO: cliRates.toArray() ){
+       
+             getSqlMapClientTemplate().insert("insertClientsRates",(ClientsRatesTO)clientsRatesTO);
+        }
         
         return getClientById(String.valueOf(cliId)); 
         

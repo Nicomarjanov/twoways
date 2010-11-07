@@ -69,6 +69,15 @@
          
   </insert>
   
+  
+  <insert id="insertClientsRates" parameterClass="com.twoways.to.ClientsRatesTO"   >
+    insert into clients_rates
+           (clients_cli_id, clr_value, rates_rat_id)
+    values
+          (#clientsTO.cliId#, #clrValue#, #ratesTO.ratId#)
+          
+  </insert>
+  
   <update  id="updateClients" parameterClass="com.twoways.to.ClientsTO">
       UPDATE clients
       SET     cli_name = #cliName# , 

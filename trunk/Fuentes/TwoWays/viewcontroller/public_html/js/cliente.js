@@ -70,12 +70,14 @@ function agregarTarifa(){
      alert('La tarifa ya se encuentra en la lista');  
    }else{
    
-       var tablaTarifas= document.getElementById('list-tarifas');
+       var tablaTarifas= document.getElementById('list-tarifas-body');
        var index = tablaTarifas.rows.length;
        var newRow = tablaTarifas.insertRow(index);  
        newRow.bgColor = "#FFFFFF";
        insertarColumnas(tablaTarifas.rows[index],tablaTarifas.rows[0].cells.length); 
        cargarItemTarifa(tablaTarifas.rows[index]);
+       document.getElementById('listaTarifa').focus();
+       
    }
    
 }
@@ -83,16 +85,24 @@ function agregarTarifa(){
 
 function cargarItemTarifa(row){
    
-   row.cells[0].innerHTML= document.getElementById('listaTarifa').options[document.getElementById('listaTarifa').selectedIndex].text; 
+   var optionSelected=document.getElementById('listaTarifa').options[document.getElementById('listaTarifa').selectedIndex];
+   var tarVal= document.getElementById('tar_val').value;
+   row.cells[0].innerHTML= optionSelected.text; 
    row.name = 'item-tarifa'; 
-   row.id= 'tarId-'+document.getElementById('listaTarifa').options[document.getElementById('listaTarifa').selectedIndex].value;
-   row.cells[1].innerHTML= document.getElementById('tar_val').value;
+   
+   row.id= 'tarId-'+ optionSelected.value;
+   row.cells[1].innerHTML= tarVal + '<input type="hidden" name="tarifas-hidden"  value="'+optionSelected.value+'#'+tarVal+'" />';
    row.cells[2].innerHTML= '<img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarTarifa(\''+row.id+'\')" onmouseover="this.style.cursor=\'hand\';" />';
+   row.cells[0].width=203;
+   row.cells[1].width=60;
+   row.cells[1].align='right';
+   
+   
 }
 
 function eliminarTarifa(id){
 
-   var tablaTarifas= document.getElementById('list-tarifas');
+   var tablaTarifas= document.getElementById('list-tarifas-body');
    var row = document.getElementById(id);
    tablaTarifas.deleteRow(row.rowIndex);
    
