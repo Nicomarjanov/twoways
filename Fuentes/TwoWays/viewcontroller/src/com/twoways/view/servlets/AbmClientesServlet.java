@@ -1,6 +1,7 @@
 package com.twoways.view.servlets;
 
 import com.twoways.core.bdl.TwoWaysBDL;
+import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.ClientsTO;
 import com.twoways.to.CurrencyTO;
 import com.twoways.to.RateTypesTO;
@@ -11,7 +12,10 @@ import java.io.PrintWriter;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+
+import java.util.Map;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -73,7 +77,26 @@ public class AbmClientesServlet extends AutorizacionServlet {
              } catch (Exception e) {
                  e.printStackTrace();
              }
-                                
+            
+            String tarifasHidden[]=request.getParameterValues("tarifas-hidden");
+            List<ClientsRatesTO> clientsRatesTOList = new   ArrayList<ClientsRatesTO>();
+            
+            if( tarifasHidden  != null){ 
+                
+               
+                for(String aux:tarifasHidden){
+                    
+                    String atribs[]= aux.split("#");
+                    
+                    ClientsRatesTO clientsRatesTO = new ClientsRatesTO();
+                    clientsRatesTO.setClrValue(Long.parseLong(atribs[1]));
+                    RatesTO rtTO= new RatesTO();
+                    rtTO.setRatId(Long.parseLong(atribs[0]));
+                    clientsRatesTO.setRatesTO(rtTO );
+                    clientsRatesTOList.add(clientsRatesTO);
+                    clientsRatesTO.setClientsTO(cliente);
+                }
+            }                    
             CurrencyTO currency= new CurrencyTO(); 
             //RatesTO rate= new RatesTO();
             //rate.setRatId((request.getParameter("listaTarifa")!= null && request.getParameter("listaTarifa").length() > 0 )?Long.parseLong(request.getParameter("listTarifa")):0);
@@ -86,6 +109,8 @@ public class AbmClientesServlet extends AutorizacionServlet {
             cliente.setCliPhone((request.getParameter("telCliente")!= null )?request.getParameter("telCliente"):"");
             cliente.setCliPostalCode((request.getParameter("cpCliente")!= null )?request.getParameter("cpCliente"):"");
             cliente.setCurrencyTO(currency);
+            cliente.setClientsRatesTOList(clientsRatesTOList);
+            
 
             try {
                 
@@ -95,6 +120,7 @@ public class AbmClientesServlet extends AutorizacionServlet {
                    
                 }else{
                     cliente =twoWaysBDL.getServiceTwoWays().insertarCliente(cliente);
+                    
                     request.setAttribute("cliente",cliente);
                 }
                 

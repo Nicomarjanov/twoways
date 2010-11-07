@@ -109,8 +109,21 @@
     <td align="left" valign="top"><input type="button" value="Agregar" onclick="agregarTarifa()" />
     </td>
   <td colspan="100%">
-     <table id="list-tarifas" align="right">
-     <tr><th width="300">Tarifa</th><th width="30">valor</th><th>&nbsp;</th></tr>
+    <table cellpadding="0" cellspacing="0"  style="background:gray">
+    <tr>
+    <td>
+     <table id="list-tarifas" >
+     <tr><th width="190">Tarifa</th><th width="50">valor</th><th width="25"></th></tr>
+     <tr><td width="190"></td><td width="50"></td><td width="25"></td></tr>
+     </table>
+     </td></tr><tr><td>
+     <div style="width:100%;height:100px;overflow-x: hidden;overflow-y:auto ;" >
+     <table id="list-tarifas-body" align="right" width="100%">
+     <tr style="display:none"><th width="200">Tarifa</th><th width="50">valor</th><th width="25"></th></tr>
+     </table>
+     </div>
+     </td>
+     </tr>
      </table>
   </td>
   </tr>

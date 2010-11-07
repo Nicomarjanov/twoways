@@ -27,8 +27,7 @@ public class ServiceTW_System {
             log.error(e,e);
             e.printStackTrace(); log.error(e,e);
         }
-    
-    }
+      }
 
    public List buscarClientes(String search)  {
        try {
