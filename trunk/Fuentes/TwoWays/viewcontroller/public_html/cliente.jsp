@@ -79,7 +79,7 @@
   <table id="tabla-tarifas"  style="display:none" >
   <tr>
   <td valign="top" ><a href="javascript:vistaTarifas()">Tarifas</a></td>
-  <td>
+  <td valign="top">
  
   <select name="listaTarifa" id="listaTarifa" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">
                
@@ -102,19 +102,18 @@
        </select>
        
     </td>
-    <td align="left">
+    <td align="left" valign="top">
     <input type="text" id="tar_val" size=10  />
     
     </td>
-    <td align="left"><input type="button" value="Agregar" onclick="agregarTarifa()" />
+    <td align="left" valign="top"><input type="button" value="Agregar" onclick="agregarTarifa()" />
     </td>
-  
-  <td>
-     <table id="list-tarifas" class="tabla_lista" style="heigth:300" >
-     <tr><th>Tarifa</th><th>valor</th></tr>
-     
+  <td colspan="100%">
+     <table id="list-tarifas" align="right">
+     <tr><th width="300">Tarifa</th><th width="30">valor</th><th>&nbsp;</th></tr>
      </table>
   </td>
+  </tr>
   </table>
   <table width="100%">
   <tr>

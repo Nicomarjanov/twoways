@@ -52,13 +52,32 @@ function vistaTarifas(){
 
 function agregarTarifa(){
 
-   var tablaTarifas= document.getElementById('list-tarifas');
-   var index = tablaTarifas.rows.length;
-   var newRow = tablaTarifas.insertRow(index);  
-   if (index % 2 !=0)newRow.bgColor = "#FCEEED";
-   else newRow.bgColor = "#E8B6B5";
-   insertarColumnas(tablaTarifas.rows[index],tablaTarifas.rows[0].cells.length); 
-   cargarItemTarifa(tablaTarifas.rows[index]);
+
+   
+   if( document.getElementById('listaTarifa').selectedIndex == 0){ 
+      alert('Seleccione una tarifa');  
+      document.getElementById('listaTarifa').focus();
+     return;
+   }
+   if( document.getElementById('tar_val').value == '' || !isFloat(document.getElementById('tar_val').value)){ 
+      alert('Ingrese una tarifa válida');  
+      document.getElementById('tar_val').focus();
+     return;
+   }
+   
+   if(document.getElementById('tarId-'+document.getElementById('listaTarifa').options[document.getElementById('listaTarifa').selectedIndex].value)){
+   
+     alert('La tarifa ya se encuentra en la lista');  
+   }else{
+   
+       var tablaTarifas= document.getElementById('list-tarifas');
+       var index = tablaTarifas.rows.length;
+       var newRow = tablaTarifas.insertRow(index);  
+       newRow.bgColor = "#FFFFFF";
+       insertarColumnas(tablaTarifas.rows[index],tablaTarifas.rows[0].cells.length); 
+       cargarItemTarifa(tablaTarifas.rows[index]);
+   }
+   
 }
 
 
@@ -66,8 +85,16 @@ function cargarItemTarifa(row){
    
    row.cells[0].innerHTML= document.getElementById('listaTarifa').options[document.getElementById('listaTarifa').selectedIndex].text; 
    row.name = 'item-tarifa'; 
-   row.id= document.getElementById('listaTarifa').options[document.getElementById('listaTarifa').selectedIndex].value;
+   row.id= 'tarId-'+document.getElementById('listaTarifa').options[document.getElementById('listaTarifa').selectedIndex].value;
    row.cells[1].innerHTML= document.getElementById('tar_val').value;
+   row.cells[2].innerHTML= '<img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarTarifa(\''+row.id+'\')" onmouseover="this.style.cursor=\'hand\';" />';
+}
+
+function eliminarTarifa(id){
+
+   var tablaTarifas= document.getElementById('list-tarifas');
+   var row = document.getElementById(id);
+   tablaTarifas.deleteRow(row.rowIndex);
    
 }
 
