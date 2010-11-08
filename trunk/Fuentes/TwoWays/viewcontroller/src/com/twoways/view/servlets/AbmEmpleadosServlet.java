@@ -107,7 +107,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                        
                     }else{
                         twoWaysBDL.getServiceTwoWays().insertarEmpleado(empleado);
-                        
+                        request.setAttribute("empleado",empleado);
                     }
                     
                 } catch (Exception e) {
