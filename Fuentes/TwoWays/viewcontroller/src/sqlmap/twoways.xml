@@ -142,7 +142,7 @@
       insert into employees
           (emp_id, emp_first_name, emp_last_name, emp_availability, emp_mail, emp_msn, emp_address, emp_phone_number, emp_mobile_number, emp_location, emp_birth,emp_observations)
         values
-          (employee_seq.nextval, #empFirstName#, #empLastName#, #empAvailability#, #empMail#, #empMsn#, #empAddress#, #empPhoneNumber#, #empMobileNumber#, #empLocation#, #empBirth#, #empObservations#)
+          (#empId#, #empFirstName#, #empLastName#, #empAvailability#, #empMail#, #empMsn#, #empAddress#, #empPhoneNumber#, #empMobileNumber#, #empLocation#, #empBirth#, #empObservations#)
          
   </insert>
   
