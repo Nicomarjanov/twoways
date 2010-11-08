@@ -43,11 +43,9 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                tarifas =  twoWaysBDL.getServiceTwoWays().obtenerTarifas();
                request.setAttribute("listaTarifas",tarifas);
                
-               
             } catch (Exception e) {
                e.printStackTrace();
             }
-            
             
             if (accion!=null && accion.equalsIgnoreCase("guardar")){
                  try {
@@ -62,15 +60,32 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                 empleado.setEmpFirstName((request.getParameter("empFirstName")!= null )?request.getParameter("empFirstName"):"");
                 empleado.setEmpLastName((request.getParameter("empLastName")!= null )?request.getParameter("empLastName"):"");
                 empleado.setEmpMail((request.getParameter("empMail")!= null )?request.getParameter("empMail"):"");
-                empleado.setEmpMsn((request.getParameter("empMsn")!= null )?request.getParameter("empMsn"):"");
-                empleado.setEmpMobileNumber(Long.valueOf((request.getParameter("empMobileNumber")!= null )?request.getParameter("empMobileNumber"):""));
-                empleado.setEmpPhoneNumber(Long.valueOf((request.getParameter("empPhoneNumber")!= null )?request.getParameter("empPhoneNumber"):""));
+                empleado.setEmpMsn((request.getParameter("empMsn")!= null )?request.getParameter("empMsn"):"");               
                 empleado.setEmpAddress((request.getParameter("empAddress")!= null )?request.getParameter("empAddress"):"");
                 empleado.setEmpLocation((request.getParameter("empLocation")!= null )?request.getParameter("empLocation"):"");                
-                empleado.setEmpLocation((request.getParameter("empObservations")!= null )?request.getParameter("empObservations"):"");                                
-
+                empleado.setEmpLocation((request.getParameter("empObservations")!= null )?request.getParameter("empObservations"):"");                                                
+                try{
+                    if (request.getParameter("empMobileNumber")!=null && !request.getParameter("empMobileNumber").equalsIgnoreCase("")){
+                        empleado.setEmpMobileNumber(Long.valueOf(request.getParameter("empMobileNumber")));
+                    }
+                }
+                catch(Exception e) {
+                    e.printStackTrace();
+                    request.setAttribute("mensaje","<script>alert('El número de Teléfono movil ingresado no es valido')</script>"); 
+                    request.getRequestDispatcher("usuario.jsp").forward(request,response);
+                }
+                try{
+                    if (request.getParameter("empPhoneNumber")!=null && !request.getParameter("empPhoneNumber").equalsIgnoreCase("")){
+                        empleado.setEmpPhoneNumber(Long.valueOf(request.getParameter("empPhoneNumber")));
+                    }
+                }
+                catch(Exception e) {
+                    e.printStackTrace();
+                    request.setAttribute("mensaje","<script>alert('El número de Teléfono particular ingresado no es valido')</script>"); 
+                    request.getRequestDispatcher("usuario.jsp").forward(request,response);
+                }
                 try {
-                if(request.getParameter("empBirth")!= null ){ 
+                if(request.getParameter("empBirth")!= null && !request.getParameter("empBirth").equalsIgnoreCase("") ){ 
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                     java.util.Date date = sdf.parse(request.getParameter("empBirth"));
                     java.sql.Timestamp timest = new java.sql.Timestamp(date.getTime()); 
@@ -82,7 +97,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                     e.printStackTrace();
                     request.getRequestDispatcher("empleados.jsp").forward(request,response);
                 }
-                empleado.setRatesTO(tarifa);
+                //empleado.setRatesTO(tarifa);
 
                 try {
                     
@@ -97,6 +112,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                     
                 } catch (Exception e) {
                     e.printStackTrace();
+                    request.setAttribute("mensaje","<script>alert('Ocurrió un error al guardar el empleado')</script>");                    
                 }
                
                 request.setAttribute("mensaje","<script>alert('El empleado se guardo con exito')</script>");
@@ -115,8 +131,9 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                          }
                      
                  } catch (Exception e) {
+                     e.printStackTrace();                 
                      request.setAttribute("mensaje","<script>alert('Error al cargar el empleado')</script>"); 
-                     e.printStackTrace();
+                     request.getRequestDispatcher("empleados.jsp").forward(request,response);
                  }
             }
             

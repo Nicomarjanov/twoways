@@ -62,6 +62,8 @@ public interface TW_SystemService {
     public UsersTO getUserById(String usrId)  throws Exception;
     
     public List buscarUsuario(String search) throws Exception;
+
+    public List buscarUsuarioId(String search) throws Exception;    
     
     public boolean  deleteUsers(UsersTO user)  throws Exception;
     

@@ -219,13 +219,4 @@ public class EmployeesTO {
         return employeesRatesTO;
     }
     
-    public RatesTO getRatesTO() {
-        return ratesTO;
-    }
-
-    public void setRatesTO(RatesTO ratesTO) {
-        this.ratesTO = ratesTO;
-    }
-
-
 }

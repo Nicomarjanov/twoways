@@ -65,15 +65,9 @@ public class AbmClientesServlet extends AutorizacionServlet {
         
         
         if (accion!=null && accion.equalsIgnoreCase("guardar")){
-             try {
-                 
-                
-                 
+             try {             
                  if(cliId != null && cliId.length() > 0 ) 
-                      cliente =  twoWaysBDL.getServiceTwoWays().getClientById(cliId);
-                      
-                  
-                 
+                      cliente =  twoWaysBDL.getServiceTwoWays().getClientById(cliId);     
              } catch (Exception e) {
                  e.printStackTrace();
              }

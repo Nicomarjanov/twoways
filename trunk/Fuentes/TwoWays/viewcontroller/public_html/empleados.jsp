@@ -21,10 +21,10 @@
   <body>
   <jsp:include page="/WEB-INF/jspIncludes/menu.jsp" />
   <c:out value="${mensaje}" escapeXml="false"/>
-  <form name="empleados" action="empleados" method="POST">
+  <form name="empleado" action="empleados" method="POST">
   <input type="hidden" id="accion" name="accion" value=""/>
   <input type="hidden" id="empId" name="empId" value="<c:out value="${empleado.empId}"/>"/>
-  <table width="100%">
+  <table width="100%" class="tw_form">
   <tr>
     <th colspan="6" class="tw_form">Ingrese los campos con los datos de los empleados</th>
   </tr>
@@ -32,15 +32,15 @@
   </tr>
   <tr>
     <td nowrap >Nombre:</td>
-    <td><input type="text" class="tw_form" id="empFirstName" name="empFirstName"  value="<c:out value="${empleado.empFirstName}"/>"  size="50" maxlength="100"  onkeyup="buscarClientes()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
+    <td><input type="text" class="tw_form" id="empFirstName" name="empFirstName"  value="<c:out value="${empleado.empFirstName}"/>"  size="50" maxlength="100"  onkeyup="buscarEmpleados()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
     <td nowrap>Apellido:</td>
-    <td colspan=2><input type="text" class="tw_form" id="empLastName" name="empLastName"  value="<c:out value="${empleado.empLastName}"/>" size="20" maxlength="100"></input></td>
+    <td colspan=2><input type="text" class="tw_form" id="empLastName" name="empLastName"  value="<c:out value="${empleado.empLastName}"/>" size="20" maxlength="100" onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
   </tr>
   <tr>
     <td>Mail:</td>
-    <td><input type="text" class="tw_form" id="empMail"  name="empMail"  value="<c:out value="${empleado.empMail}"/>" size="20" maxlength="100"></input></td>
-    <td>Msn:</td>
-    <td><input type="text" class="tw_form" id="empMsn"  name="empMsn"  value="<c:out value="${empleado.empMsn}"/>" size="20" maxlength="100"></input></td>        
+    <td><input type="text" class="tw_form" id="empMail"  name="empMail"  value="<c:out value="${empleado.empMail}"/>" size="20" maxlength="100" onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
+    <td>MSN:</td>
+    <td><input type="text" class="tw_form" id="empMsn"  name="empMsn"  value="<c:out value="${empleado.empMsn}"/>" size="20" maxlength="100" onfocus="javascript:this.style.background='#FFFFFF';"></input></td>        
     <td nowrap>Fecha de nacimiento:</td>
     <td><input type="text" class="tw_form" id="empBirth" name="empBirth"   value="<c:out value="${empleado.empBirth}"/>" size="10" maxlength="10"></input></td>
   </tr>
@@ -50,13 +50,14 @@
     <td nowrap>Teléfono fijo:</td>
     <td><input type="text" class="tw_form" id="empPhoneNumber" name="empPhoneNumber"  value="<c:out value="${empleado.empPhoneNumber}"/>"  size="15" maxlength="25"></input></td>
   </tr>   
-  <tr>
+  <tr><td ><a id="aMas" href="javascript:mostrarOpcionales();">Mas..</a><a  id="aMenos"  style="display:none"  href="javascript:ocultarOpcionales();">Menos</a></td></tr>
+  <tr id="trOpcionales1" style="display:none">    
     <td nowrap>Dirección:</td>
     <td colspan=2><input type="text" class="tw_form" id="empAddress" name="empAddress"  value="<c:out value="${empleado.empAddress}"/>"  size="15" maxlength="25"></input></td>  
     <td nowrap>Ubicación:</td>
     <td colspan=2><input type="text" class="tw_form" id="empLocation" name="empLocation"  value="<c:out value="${empleado.empLocation}"/>"  size="25" maxlength="25"></input></td>
   </tr>
-  <tr>
+  <tr id="trOpcionales2" style="display:none" > 
     <td nowrap>Disponibilidad:</td>
     <td colspan=2><input type="text" class="tw_form" id="empAvailability" name="empAvailability"  value="<c:out value="${empleado.empAvailability}"/>"  size="10" maxlength="10"></input>
     <td nowrap>Observaciones:</td>
@@ -103,7 +104,7 @@
   <hr class="tw_hr">
   <h2 class="tw">Opciones encontradas</h2>
   <table id ="tabla-busqueda">
-    <tr><th>Nombre</th><th>Apellido</th><th>Teléfono</th><th>Mail</th><th>Msn</th><th>&nbsp;</th></tr>
+    <tr><th>Nombre</th><th>Apellido</th><th>Mail</th><th>Msn</th><th>Fecha nacimiento<th>&nbsp;</th></tr>
   </table>
   </div>
   </form>

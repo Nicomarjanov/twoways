@@ -100,6 +100,7 @@
    <hash n="oracle.jdeveloper.model.PathsConfiguration">
       <hash n="javaContentSet">
          <list n="pattern-filters">
+            <string v="-com/twoways/view/servlets/AbmUsuarioServlet.java"/>
             <string v="-com.toways.spring/sqlMapConfig.xml"/>
             <string v="-com.toways.spring/untitled1.xml"/>
             <string v="+**"/>

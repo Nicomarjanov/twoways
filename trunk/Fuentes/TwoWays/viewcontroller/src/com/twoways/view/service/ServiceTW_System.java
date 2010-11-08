@@ -104,6 +104,16 @@ public class ServiceTW_System {
         return null;
     
     }
+    
+    public List buscarUsuariosId(String search)  {
+        try {
+            return twoWaysBDL.getServiceTwoWays().buscarUsuarioId(search);
+        } catch (Exception e) {
+            e.printStackTrace(); log.error(e,e);
+        }
+        return null;
+    
+    }
      
     public List  obtenerUsers(){
          try {

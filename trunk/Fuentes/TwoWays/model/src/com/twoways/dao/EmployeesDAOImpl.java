@@ -31,7 +31,7 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
         
         Long empId = (Long) getSqlMapClientTemplate().queryForObject("employees.seq","");
         employeesTO.setEmpId(empId); 
-        getSqlMapClientTemplate().insert("insertClients",employeesTO);
+        getSqlMapClientTemplate().insert("insertEmployee",employeesTO);
         
         return getEmpById(String.valueOf(empId)); 
         

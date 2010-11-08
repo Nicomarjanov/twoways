@@ -57,7 +57,7 @@
      
   </statement>
 
-  <select  id="clients.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > select client_seq.nextval  cliId from dual</select> 
+  <select  id="clients.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > select client_seq.nextval cliId from dual</select> 
         
  
   <insert id="insertClients" parameterClass="com.twoways.to.ClientsTO"   >
@@ -100,6 +100,7 @@
   <!--Empleados-->
 
     <resultMap id="select-Employee" class="com.twoways.to.EmployeesTO" >
+      <result property="empId" column="EMP_ID" />    
       <result property="empAddress" column="EMP_ADDRESS" />
       <result property="empAvailability" column="EMP_AVAILABILITY"/>
       <result property="empBirth"   column="EMP_BIRTH" />
@@ -122,26 +123,26 @@
   
  <statement  id="getEmpById" resultMap="select-Employee" parameterClass="java.lang.String" >
      select *       
-     from employee
+     from employees
      where emp_id = #value#
  </statement>
  
   <statement id="buscarEmpleados" resultMap="select-Employee"  parameterClass="java.lang.String" >
      select *       
-     from employee 
+     from employees 
      where upper(EMP_FIRST_NAME) like '%' || upper(#value#) || '%'
 
   </statement>
 
-  <select  id="employees.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > select employee_seq.nextval  empId from dual</select> 
+  <select  id="employees.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > select employee_seq.nextval empId from dual</select> 
         
  
-  <insert id="insertEmployees" parameterClass="com.twoways.to.EmployeesTO"   >
+  <insert id="insertEmployee" parameterClass="com.twoways.to.EmployeesTO"   >
        
       insert into employees
           (emp_id, emp_first_name, emp_last_name, emp_availability, emp_mail, emp_msn, emp_address, emp_phone_number, emp_mobile_number, emp_location, emp_birth,emp_observations)
         values
-          (#empId#, #empFirstName#, #empLastName#, #empAvailability#, #empMail#, #empMsn#, #empAddress#, #empPhoneNumber#, #empMobileNumber#, #empLocation#, #empBirth#, #empObservations#)
+          (employee_seq.nextval, #empFirstName#, #empLastName#, #empAvailability#, #empMail#, #empMsn#, #empAddress#, #empPhoneNumber#, #empMobileNumber#, #empLocation#, #empBirth#, #empObservations#)
          
   </insert>
   
@@ -275,6 +276,14 @@
       <result property="rolesTO.rolId" column="rol_id" />
       <result property="rolesTO.rolName" column="rol_Name" />
   </resultMap>
+  
+  <resultMap id="select-User-busq"  class="com.twoways.to.UsersTO" >
+      <result property="usrFirstName" column="USR_FIRST_NAME" />
+      <result property="usrLastName" column="USR_LAST_NAME"/>
+      <result property="usrId"   column="USR_ID" />
+      <result property="usrMail" column="USR_MAIL"  />
+      <result property="usrBirth" column="USR_BIRTH" />
+  </resultMap>
 
   <select id="obtenerUsuarios"  resultMap="select-User" parameterClass="java.lang.String">
      select * 
@@ -290,20 +299,25 @@
         and roles_rol_id=rol_id
   </statement>
  
-  <statement id="buscarUsuarios" resultMap="select-User"  parameterClass="java.lang.String" >
+  <statement id="buscarUsuarios" resultMap="select-User-busq"  parameterClass="java.lang.String" >
      select *       
-     from users, Roles  
-     where roles_rol_id=rol_id
-     and upper(USR_NAME) like '%' || upper( #value#) || '%'
+     from users
+     where upper(USR_FIRST_NAME) like '%' || upper( #value#) || '%'
      
   </statement>
 
-   
+  <statement id="buscarUsuariosId" resultMap="select-User-busq"  parameterClass="java.lang.String" >
+     select *       
+     from users
+     where upper(USR_ID) like '%' || upper( #value#) || '%'
+     
+  </statement>
+  
   <insert id="insertUser" parameterClass="com.twoways.to.UsersTO" >
       insert into users
-          (USR_ID, USR_FIRST_NAME, USR_LAST_NAME, USR_MAIL, USR_BIRTH, USR_MOBILE_NUMBER, USR_OFFICE_NUMBER, USR_PHONE_NUMBER,roles_rol_id)
+          (USR_ID, USR_PASS, USR_FIRST_NAME, USR_LAST_NAME, USR_MAIL, USR_BIRTH, USR_MOBILE_NUMBER, USR_OFFICE_NUMBER, USR_PHONE_NUMBER,roles_rol_id)
         values
-          (client_seq.nextval, #usrFirstName#, #usrLastName#, #usrMail#, #usrBirth#, #usrMobileNumber#, #usrOfficeNumber#, #usrPhoneNumber#,#rolesTO.rolId#)
+          (#usrId#, #usrPass#, #usrFirstName#, #usrLastName#, #usrMail#, #usrBirth#, #usrMobileNumber#, #usrOfficeNumber#, #usrPhoneNumber#,#rolesTO.rolId#)
                             
   </insert>
   
