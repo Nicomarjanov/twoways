@@ -189,6 +189,10 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     public List buscarUsuario(String search) throws Exception{
         return this.userDao.buscarUsuarios(search);
     }
+    
+    public List buscarUsuarioId(String search) throws Exception{
+          return this.userDao.buscarUsuariosId(search);
+      }
 
     public boolean deleteUsers(UsersTO user) throws Exception{
         return this.userDao.deleteUser(user);

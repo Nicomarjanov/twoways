@@ -62,7 +62,7 @@ public class RatesTO {
     public void setRatValue(String ratValue) {
         this.ratValue = ratValue;
     }
-
+/*
     public List<EmployeesRatesTO> getEmployeesRatesTOList() {
         return employeesRatesTOList;
     }
@@ -82,7 +82,7 @@ public class RatesTO {
         employeesRatesTO.setRatesTO(null);
         return employeesRatesTO;
     }
-
+*/
     public CurrencyTO getCurrencyTO() {
         return currencyTO;
     }

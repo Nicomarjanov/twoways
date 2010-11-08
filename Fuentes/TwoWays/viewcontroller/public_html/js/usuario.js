@@ -9,13 +9,36 @@ function cancelar()
     }
 }
 
+function ocultarOpcionales(){
+   var btnMas=document.getElementById('aMas'); 
+   var btnMenos=document.getElementById('aMenos'); 
+   var op1=document.getElementById('trOpcionales1'); 
+   var op2=document.getElementById('trOpcionales2'); 
+   btnMas.style.display='';
+   btnMenos.style.display='none';
+   op1.style.display='none';
+   op2.style.display='none';
+
+
+}
+
+function mostrarOpcionales(){
+   var btnMas=document.getElementById('aMas'); 
+   var btnMenos=document.getElementById('aMenos'); 
+   var op1=document.getElementById('trOpcionales1'); 
+   var op2=document.getElementById('trOpcionales2'); 
+   btnMas.style.display='none';
+   btnMenos.style.display='';
+   op1.style.display='';
+   op2.style.display='';
+
+}
 /******************************************************************************/
 //   metodos utilizados para dar de alta los item
 /******************************************************************************/
 function agregar()
 {
-    //trabar(idsPantalla());
-    
+   
     document.getElementById('usrId').style.background  = '#FFFFFF';
     document.getElementById('usrPass').style.background  = '#FFFFFF';
     document.getElementById('usrFirstName').style.background  = '#FFFFFF';
@@ -38,11 +61,9 @@ function agregar()
     if(validarCampos())
     {
         alert(mensajeCampoAlert);
-        //destrabar(idsPantalla()); 
     }
     else
         grabar(false);
-        //BpmAdm.isExisteItem(document.getElementById("itemNombre").value,grabar);
 }
 
 function grabar(existe)
@@ -50,7 +71,7 @@ function grabar(existe)
     if(existe)
     {
         alert(mensajeExisteItem);
-        destrabar(idsPantalla());
+
     }
     else
     {
@@ -59,24 +80,20 @@ function grabar(existe)
     }
 }
 
-
-function idsPantalla()
-{
-    return 'itemNombre,itemTitulo,itemToolTip,itemLink,listaBandeja,listaGrupos,btnAgregar,btnCancelar';
-}
-
 function buscarUsuarios(){
      
+     var userId= document.getElementById('userId').value;
      var usrId= document.getElementById('usrId').value;
      var nomUsr= document.getElementById('usrFirstName').value;
-     
-     
-     if(usrId== '' &&  nomUsr.length >2 ){ 
-        
-        document.getElementById('div-usuarios').style.display='';
-        towaysDWR.buscarUsuarios(nomCliente,buscarUsuariosCallBack); 
-     } 
-    
+
+     if(userId== '' &&  (nomUsr.length >2 && usrId=='') || (usrId.length > 2 && nomUsr=='')){     
+        if (nomUsr.length >2){
+            towaysDWR.buscarUsuarios(nomUsr,buscarUsuariosCallBack);
+        }
+        else{
+            towaysDWR.buscarUsuariosId(usrId,buscarUsuariosCallBack);
+        }
+     }
 }
 
 function limitarArea(){
@@ -85,25 +102,23 @@ function limitarArea(){
  if(desc.value.length > 250){
     desc.value= desc.value.substring(0,250); 
  }
-
 }
 
 function cargarDatosColumna(row,data){
     
-   row.cells[0].innerHTML=(data.usrId==null)?'':'<a href="clientes?usrId='+data.usrId+'" >'+data.usrId+'</a>';
-   row.cells[1].innerHTML=(data.usrPass==null)?'':data.usrPass;   
-   row.cells[2].innerHTML=(data.usrFirstName==null)?'':data.usrFirstName;   
-   row.cells[3].innerHTML=(data.usrLastName==null)?'':data.usrLastName;     
-   row.cells[4].innerHTML=(data.usrBirth==null)?'':data.usrBirth;
-   row.cells[5].innerHTML=(data.usrMobileNumber==null)?'':data.usrMobileNumber;
+   row.cells[0].innerHTML=(data.usrId==null)?'':'<a href="usuarios?usrId='+data.usrId+'" >'+data.usrId+'</a>';   
+   row.cells[1].innerHTML=(data.usrFirstName==null)?'':data.usrFirstName;   
+   row.cells[2].innerHTML=(data.usrLastName==null)?'':data.usrLastName;     
+   row.cells[3].innerHTML=(data.usrMail==null)?'':data.usrMail;   
+   row.cells[4].innerHTML=(data.usrBirth==null)?'':data.usrBirth;   
+   /*row.cells[5].innerHTML=(data.usrMobileNumber==null)?'':data.usrMobileNumber;
    row.cells[6].innerHTML=(data.usrPhoneNumber==null)?'':data.usrPhoneNumber;
-   row.cells[7].innerHTML=(data.usrOfficeNumber==null)?'':data.usrOfficeNumber;   
-   var editar = '<img src="img/edit.png"  height="25" width="25"  alt="Editar" onclick="javascript:window.location.href=\'clientes?cliId='+data.usrId+'\'" onmouseover="this.style.cursor=\'hand\';" /> ';
-   var eliminar = '<img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarUsuario('+data.cliId+')" onmouseover="this.style.cursor=\'hand\';" />'
-   //row.cells[3].innerHTML='<a href="clientes?cliId='+data.cliId+'" ><img src="img/Edit-Contact.png" height="25" width="25"  alt="Editar" /></a>';
-   row.cells[8].innerHTML= editar + ' ' + eliminar;
-}
+   row.cells[7].innerHTML=(data.usrOfficeNumber==null)?'':data.usrOfficeNumber;   */
+   var editar = '<img src="img/edit.png"  height="25" width="25"  alt="Editar" onclick="javascript:window.location.href=\'usuarios?usrId='+data.usrId+'\'" onmouseover="this.style.cursor=\'hand\';" /> ';
+   var eliminar = '<img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarUsuario('+data.usrId+')" onmouseover="this.style.cursor=\'hand\';" />'
 
+   row.cells[5].innerHTML= editar + ' ' + eliminar;
+}
 
 function  eliminarUsuario(usrId){
  
@@ -111,7 +126,6 @@ function  eliminarUsuario(usrId){
  
     towaysDWR.deleteUser(usrId,postEliminar); 
  }
-
 }
 
 function postEliminar(data){
@@ -126,14 +140,15 @@ function postEliminar(data){
 }
 
 function buscarUsuariosCallBack(data){
- 
-  var tablaUsuarios= document.getElementById('tabla-busqueda');
-  borrarFilas(tablaClientes);
-  for(var i=0 ; i<   data.length; i++){
-    
-    insertarFila(tablaUsuarios,data[i]);
-    
-  } 
+  if (data.length > 0) {
+      document.getElementById('div-usuarios').style.display='';
+      var tablaUsuarios= document.getElementById('tabla-busqueda');
+      borrarFilas(tablaUsuarios);
+      for(var i=0 ; i<   data.length; i++){
+        
+        insertarFila(tablaUsuarios,data[i]);    
+      }
+  }
 }
 
 function validarCampos()
@@ -160,26 +175,30 @@ function validarCampos()
         banderaMensajeFaltante=true;
     }
 
-    if( document.getElementById("usrPass").value != '')
+   if (document.getElementById("usrPass").value =='')
     {
-        if (document.getElementById("usrPass").value=='')
-        {
         document.getElementById("usrPass").style.background='Red';
         mensajeFaltanteAlert+= ' * El Password del usuario \n';
+        banderaMensajeFaltante=true;        
+    }
+    
+    if( document.getElementById("usrFirstName").value == '')
+    {
+        document.getElementById("usrFirstName").style.background='Red';
+        mensajeFaltanteAlert+= ' * El primer nombre del usuario \n';
+        banderaMensajeFaltante=true;
+    }
+    
+    if( document.getElementById("usrMail").value != '')
+    {
+        if (!(validarEmail(document.getElementById("usrMail").value)))
+        {
+        document.getElementById("usrMail").style.background='Red';
+        mensajeFaltanteAlert+= ' * La dirección de email es incorrecta \n';
         banderaMensajeFaltante=true;
         }
     }
     
-    if( document.getElementById("usrFirstName").value != '')
-    {
-        if (!(validarEmail(document.getElementById("usrFirstName").value)))
-        {
-        document.getElementById("usrFirstName").style.background='Red';
-        mensajeFaltanteAlert+= ' * El primer nombre del usuario \n';
-        banderaMensajeFaltante=true;
-        }
-    }
-
     if(banderaMensajeFaltante)
         mensajeCampoAlert=mensajeFaltanteAlert + '\n';    
     

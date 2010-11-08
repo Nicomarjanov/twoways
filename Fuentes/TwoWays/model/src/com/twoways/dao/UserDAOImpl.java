@@ -43,6 +43,18 @@ public class UserDAOImpl extends AbstractDAO  implements UserDAO{
         return ret;
         }
 
+    public List buscarUsuariosId(String search) throws Exception{
+        List ret= null;
+        try {
+            ret = 
+            getSqlMapClientTemplate().queryForList("buscarUsuariosId",search);
+        } catch (DataAccessException dae) {
+
+           dae.printStackTrace();
+        }
+        return ret;
+        }
+        
     public boolean deleteUser(UsersTO user)  throws Exception{
        int res =  getSqlMapClientTemplate().delete("deleteUsers",user);
        return (res > 0); 

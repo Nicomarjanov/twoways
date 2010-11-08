@@ -35,7 +35,7 @@ public class AbmUsuariosServlet extends AutorizacionServlet {
             String accion=request.getParameter("accion");
             List<RolesTO> roles = null;
             UsersTO usuario = new UsersTO(); 
-            String userId = request.getParameter("userId"); 
+            String usrId = request.getParameter("usrId"); 
            
             TwoWaysBDL twoWaysBDL=null;
             
@@ -52,12 +52,12 @@ public class AbmUsuariosServlet extends AutorizacionServlet {
             
             if (accion!=null && accion.equalsIgnoreCase("guardar")){
                  try {
-                      if(userId != null && userId.length() > 0 ) 
-                          usuario =  twoWaysBDL.getServiceTwoWays().getUserById(userId);                                           
+                      if(usrId != null && usrId.length() > 0 ) 
+                          usuario =  twoWaysBDL.getServiceTwoWays().getUserById(usrId);                                           
                  } catch (Exception e) {
                      e.printStackTrace();
                  }
-                                  
+                                    
                 RolesTO rol= new RolesTO(); 
                 rol.setRolId((request.getParameter("listaRoles")!= null && request.getParameter("listaRoles").length() > 0 )?Long.parseLong(request.getParameter("listaRoles")):0);        
                 usuario.setUsrId((request.getParameter("usrId")!= null )?request.getParameter("usrId"):"");                
@@ -65,38 +65,11 @@ public class AbmUsuariosServlet extends AutorizacionServlet {
                 usuario.setUsrFirstName((request.getParameter("usrFirstName")!= null )?request.getParameter("usrFirstName"):"");
                 usuario.setUsrLastName((request.getParameter("usrLastName")!= null )?request.getParameter("usrLastName"):"");
                 usuario.setUsrMail((request.getParameter("usrMail")!= null )?request.getParameter("usrMail"):"");
-                try{
-                    if (request.getParameter("usrMobileNumber")!=null && !request.getParameter("usrMobileNumber").equalsIgnoreCase("")){
-                        usuario.setUsrMobileNumber(Long.valueOf(request.getParameter("usrMobileNumber")));
-                    }
-                }
-                catch(Exception e) {
-                    e.printStackTrace();
-                    request.setAttribute("mensaje","<script>alert('El número de Teléfono movil ingresado no es valido')</script>"); 
-                    request.getRequestDispatcher("usuario.jsp").forward(request,response);
-                }
-                try{
-                    if (request.getParameter("usrOfficeNumber")!=null && !request.getParameter("usrOfficeNumber").equalsIgnoreCase("")){
-                        usuario.setUsrMobileNumber(Long.valueOf(request.getParameter("usrOfficeNumber")));
-                    }
-                }
-                catch(Exception e) {
-                    e.printStackTrace();
-                    request.setAttribute("mensaje","<script>alert('El número de Teléfono de la oficina ingresado no es valido')</script>"); 
-                    request.getRequestDispatcher("usuario.jsp").forward(request,response);
-                }
-                try{
-                    if (request.getParameter("usrPhoneNumber")!=null && !request.getParameter("usrPhoneNumber").equalsIgnoreCase("")){
-                        usuario.setUsrMobileNumber(Long.valueOf(request.getParameter("usrPhoneNumber")));
-                    }
-                }
-                catch(Exception e) {
-                    e.printStackTrace();
-                    request.setAttribute("mensaje","<script>alert('El número de Teléfono particular ingresado no es valido')</script>"); 
-                    request.getRequestDispatcher("usuario.jsp").forward(request,response);
-                }
+                usuario.setUsrMobileNumber(Long.valueOf((request.getParameter("usrMobileNumber")!= null )?request.getParameter("usrMobileNumber"):""));
+                usuario.setUsrOfficeNumber(Long.valueOf((request.getParameter("usrOfficeNumber")!= null )?request.getParameter("usrOfficeNumber"):""));
+                usuario.setUsrPhoneNumber(Long.valueOf((request.getParameter("usrPhoneNumber")!= null )?request.getParameter("usrPhoneNumber"):""));
                 try {
-                if(request.getParameter("usrBirth")!= null && !request.getParameter("usrBirth").equalsIgnoreCase("") ){ 
+                if(request.getParameter("usrBirth")!= null ){ 
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                     java.util.Date date = sdf.parse(request.getParameter("usrBirth"));
                     java.sql.Timestamp timest = new java.sql.Timestamp(date.getTime()); 
@@ -112,7 +85,7 @@ public class AbmUsuariosServlet extends AutorizacionServlet {
 
                 try {
                     
-                    if(userId != null && userId.length() > 0 ){ 
+                    if(usrId != null && usrId.length() > 0 ){ 
                         twoWaysBDL.getServiceTwoWays().updateUsuario(usuario);
                         request.setAttribute("usuario",usuario);
                        
@@ -130,11 +103,11 @@ public class AbmUsuariosServlet extends AutorizacionServlet {
                 
                 
             }
-            else  if(userId != null && userId.length() > 0  && (accion == null || (accion!=null && !accion.equalsIgnoreCase("cancelar")) )){
+            else  if(usrId != null && usrId.length() > 0  && (accion == null || (accion!=null && !accion.equalsIgnoreCase("cancelar")) )){
               
             
                  try {
-                         usuario =  twoWaysBDL.getServiceTwoWays().getUserById(userId);
+                         usuario =  twoWaysBDL.getServiceTwoWays().getUserById(usrId);
                          request.setAttribute("usuario",usuario);
                          if(usuario == null){
                              request.setAttribute("mensaje","<script>alert('El usuario no existe')</script>"); 

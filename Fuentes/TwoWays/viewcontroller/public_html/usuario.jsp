@@ -22,8 +22,8 @@
   <c:out value="${mensaje}" escapeXml="false"/>
   <form name="usuario" action="usuarios" method="POST">
   <input type="hidden" id="accion" name="accion" value=""/>
-  <input type="hidden" id="usrId" name="usrId" value="<c:out value="${usuario.usrId}"/>"/>
-  <table width="100%">
+  <input type="hidden" id="userId" name="userId" value="<c:out value="${usuario.usrId}"/>"/>
+  <table width="100%" class="tw_form">
   <tr>
     <th colspan="6" class="tw_form">Ingrese los campos con los datos de los usuarios</th>
   </tr>
@@ -35,7 +35,7 @@
   </tr>
    <tr>
     <td>Contraseña:</td>
-    <td><input type="text" class="tw_form" id="usrPass" name="usrPass"  value="<c:out value="${usuario.usrPass}"/>"  size="10" maxlength="10"  onkeyup="buscarUsuarios()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
+    <td><input type="text" class="tw_form" id="usrPass" name="usrPass"  value="<c:out value="${usuario.usrPass}"/>"  size="10" maxlength="10"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
    </tr>
    <tr>
     <td>Roles:</td>
@@ -64,13 +64,15 @@
     <td>Apellido:</td>
     <td colspan=2><input type="text" class="tw_form" id="usrLastName" name="usrLastName"  value="<c:out value="${usuario.usrLastName}"/>" size="20" maxlength="100"></input></td>
   </tr>
+  <tr><td ><a id="aMas" href="javascript:mostrarOpcionales();">Mas..</a><a  id="aMenos"  style="display:none"  href="javascript:ocultarOpcionales();">Menos</a></td></tr>
+  <tr id="trOpcionales1" style="display:none">
   <tr>
     <td>Mail:</td>
     <td><input type="text" class="tw_form" id="usrMail"  name="usrMail"  value="<c:out value="${usuario.usrMail}"/>" size="20" maxlength="100"></input></td>
-        <td>Fecha de nacimiento:</td>
+    <td>Fecha de nacimiento:</td>
     <td><input type="text" class="tw_form" id="usrBirth" name="usrBirth"   value="<c:out value="${usuario.usrBirth}"/>" size="10" maxlength="10"></input></td>
   </tr>
-  <tr>
+  <tr id="trOpcionales2" style="display:none" > 
     <td>Teléfono movil:</td>
     <td><input type="text" class="tw_form" id="usrMobileNumber" name="usrMobileNumber"  value="<c:out value="${usuario.usrMobileNumber}"/>"  size="15" maxlength="25"></input></td>
     <td>Teléfono fijo:</td>
@@ -90,7 +92,7 @@
   
   <div id="div-usuarios" style="display:none" align="center">
   <table id ="tabla-busqueda" >
-  <tr><th>Nombre</th><th>Apellido</th><th>Mail</th><th>Fecha de nacimiento</th><th>Teléfono movil</th><th>Teléfono personal</th><th>Teléfono oficina</th><th>&nbsp;</th></tr>
+  <tr><th>Id.Usuario</th><th>Nombre</th><th>Apellido</th><th>Mail</th><th>Fecha de nacimiento</th><th>&nbsp;</th></tr>
   </table>
   
   </div>
