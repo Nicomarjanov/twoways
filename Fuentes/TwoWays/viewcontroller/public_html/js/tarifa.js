@@ -137,6 +137,7 @@ function postEliminar(data){
    if(data){
       alert('La Tarifa se elimino con exito ');
       borrarFilas(tablaTarifas);
+      window.location.href='tarifas';
    }else{
       alert('La Tarifa no se pudo eliminar ');
    }
