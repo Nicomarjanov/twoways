@@ -23,7 +23,9 @@
         <property name="transactionAttributes">
             <props>
                 <!--prop key="get*">PROPAGATION_SUPPORTS,readOnly</prop-->
-                <prop key="grabar*">PROPAGATION_REQUIRED,-LaSgdaException,-RuntimeException</prop>
+                <prop key="update*">PROPAGATION_REQUIRED,-Exception,-RuntimeException</prop>
+                <prop key="insert*">PROPAGATION_REQUIRED,-Exception,-RuntimeException</prop>
+                <prop key="grabar*">PROPAGATION_REQUIRED,-Exception,-RuntimeException</prop>
             </props>
         </property>  
     </bean>

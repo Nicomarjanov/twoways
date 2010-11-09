@@ -85,7 +85,7 @@ public class AbmClientesServlet extends AutorizacionServlet {
                     ClientsRatesTO clientsRatesTO = new ClientsRatesTO();
                     clientsRatesTO.setClrValue(Long.parseLong(atribs[1]));
                     RatesTO rtTO= new RatesTO();
-                    rtTO.setRatId(Long.parseLong(atribs[0]));
+                    rtTO.setRatId(Long.parseLong(atribs[0].replaceAll(",",".")));
                     clientsRatesTO.setRatesTO(rtTO );
                     clientsRatesTOList.add(clientsRatesTO);
                     clientsRatesTO.setClientsTO(cliente);
@@ -109,13 +109,15 @@ public class AbmClientesServlet extends AutorizacionServlet {
             try {
                 
                 if(cliId != null && cliId.length() > 0 ){ 
-                    twoWaysBDL.getServiceTwoWays().updateCliente(cliente);
+                    cliente =twoWaysBDL.getServiceTwoWays().updateCliente(cliente);
+                    
                     request.setAttribute("cliente",cliente);
+                   
                    
                 }else{
                     cliente =twoWaysBDL.getServiceTwoWays().insertarCliente(cliente);
-                    
                     request.setAttribute("cliente",cliente);
+                   
                 }
                 
             } catch (Exception e) {
@@ -123,7 +125,7 @@ public class AbmClientesServlet extends AutorizacionServlet {
                 request.setAttribute("mensaje","<script>alert('El cliente no pudo guardarse')</script>"); 
                 request.getRequestDispatcher("cliente.jsp").forward(request,response);
             }
-           
+            request.setAttribute("script","<script>init();</script>");
             request.setAttribute("mensaje","<script>alert('El cliente se guardo con exito')</script>");
             
             
@@ -137,6 +139,8 @@ public class AbmClientesServlet extends AutorizacionServlet {
                      request.setAttribute("cliente",cliente);
                      if(cliente == null){
                          request.setAttribute("mensaje","<script>alert('El cliente no existe')</script>"); 
+                     }else{
+                         request.setAttribute("script","<script>init();</script>");
                      }
                  
              } catch (Exception e) {

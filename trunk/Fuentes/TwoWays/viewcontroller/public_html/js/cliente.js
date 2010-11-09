@@ -1,5 +1,16 @@
 var mensajeCampoAlert;
 
+
+function init(){
+    
+    if (  document.getElementById('cliId').value != ''){
+    
+         vistaTarifas(); 
+         mostrarOpcionales();
+    
+    }
+
+}
 function cancelar()
 {
     if(confirm('¿Desea cancelar la carga del cliente?'))
