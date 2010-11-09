@@ -67,21 +67,21 @@ function validarCampos()
     if( document.getElementById("nomTarifa").value == '')
     {
         document.getElementById("nomTarifa").style.background='Red';
-        mensajeFaltanteAlert+= ' Nombre de la tarifa \n';
+        mensajeFaltanteAlert+= '* Nombre de la tarifa \n';
         banderaMensajeFaltante=true;
     }
     
     if(document.getElementById("tipoTarifa").selectedIndex==0)
     {
         document.getElementById("tipoTarifa").style.background='red';
-        mensajeFaltanteAlert=' Seleccionar un tipo de tarifa del combo \n';    
+        mensajeFaltanteAlert+='* Seleccionar un tipo de tarifa del combo \n';    
         banderaMensajeFaltante=true;
     }
 
     if(document.getElementById("listaMoneda").selectedIndex==0)
     {
         document.getElementById("listaMoneda").style.background='red';
-        mensajeFaltanteAlert=' Seleccionar una moneda del combo \n';    
+        mensajeFaltanteAlert+='* Seleccionar una moneda del combo \n';    
         banderaMensajeFaltante=true;
     }
 

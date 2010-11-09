@@ -45,7 +45,7 @@
   <div style="width:100%;heigth:100%" >
   <table width="100%" >
 <tr>
-    <td align="center" ><img src="img/logo_bajo_relieve_azul.jpg" alt="TwO WAYS" /> 
+    <td align="center" ><img src="img/logo_centrado_rad_alt.jpg" alt="TwO WAYS" /> 
     </td>
 </tr>
 <tr>
@@ -54,8 +54,8 @@
   <table>
   <tr><th colspan="2" class="tw_form">Conectar a TWO WAYS</th></tr>
   <tr><td colspan="2" id="mensajeError"  style="color:red"><c:out value="${requestScope.mensajeError}"/></td></tr>
-  <tr><td><b>Usuario: </b> </td><td><input type="text" name="usuario"/></td></tr>
-  <tr><td><b>Contraseña: </b> </td><td><input type="password" name="password" onkeypress="conectar"/></td></tr> 
+  <tr><td><b>Usuario: </b> </td><td><input class="tw_form" type="text" name="usuario"/></td></tr>
+  <tr><td><b>Contraseña: </b> </td><td><input class="tw_form" type="password" name="password" onkeypress="conectar"/></td></tr> 
   <tr><td>&nbsp; </td><td align="right" ><input type="button" onclick="conectar()"  value="Conectar" /></td></tr>
   </table >
   </form>

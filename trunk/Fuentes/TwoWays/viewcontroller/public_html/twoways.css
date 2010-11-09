@@ -61,12 +61,14 @@ border-style:none;
 border-spacing: 2px;
 border-collapse:separate;
 }
+
 #list-tarifas td, #list-tarifas th 
 {
 text-align:left;
 font-size:1em;
 padding:2px 7px 2px 7px;
 }
+
 #list-tarifas th 
 {
 font-size:1.1em;
@@ -75,12 +77,12 @@ padding-bottom:4px;
 background-color:#80211D;
 color:#ffffff;
 }
+
 #list-tarifas tr.alt td 
 {
 color:#000000;
 background-color:#EE9A98;
 }
-
 
 #tabla-busqueda
 {
@@ -111,9 +113,7 @@ background-color:#EE9A98;
 
 table.tw_form
 {
-   border-style:solid;  
-   border-width:1px;
-   border-color:#80211F;
+  
 
 }
 
