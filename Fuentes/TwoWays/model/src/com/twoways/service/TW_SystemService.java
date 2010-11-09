@@ -15,7 +15,7 @@ public interface TW_SystemService {
     
     public ClientsTO insertarCliente(ClientsTO clientsTO) throws Exception ;
     
-    public void updateCliente(ClientsTO clientsTO) throws Exception ;
+    public ClientsTO updateCliente(ClientsTO clientsTO) throws Exception ;
     
     public ClientsTO getClientById(String cliId)  throws Exception;
     

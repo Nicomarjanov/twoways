@@ -17,7 +17,7 @@
   </head>
  
   
-  <body>
+  <body >
   <jsp:include page="/WEB-INF/jspIncludes/menu.jsp" />
   <c:out value="${mensaje}" escapeXml="false"/>
   <form name="cliente" action="clientes" method="POST">
@@ -106,7 +106,7 @@
     <input type="text" id="tar_val" size=10  />
     
     </td>
-    <td align="left" valign="top"><input type="button" value="Agregar" onclick="agregarTarifa()" />
+    <td align="left" valign="top"><img  src="img/arrow_right.png" alt=">" width="25" height="25" title="Agregar Tarifa" onclick="agregarTarifa()" />
     </td>
   <td colspan="100%">
     <table cellpadding="0" cellspacing="0"  style="background:gray">
@@ -120,6 +120,9 @@
      <div style="width:100%;height:100px;overflow-x: hidden;overflow-y:auto ;" >
      <table id="list-tarifas-body" align="right" width="100%">
      <tr style="display:none"><th width="200">Tarifa</th><th width="50">valor</th><th width="25"></th></tr>
+     <c:forEach items="${cliente.clientsRatesTOList}" var="item">
+       <tr name="item-tarifa"  bgcolor="#FFFFFF" id="tarId-<c:out value="${item.ratesTO.ratId}" />" ><td width="200" ><c:out value="${item.ratesTO.ratName}" /></td><td width="60" align="right" ><c:out value="${item.clrValue}" /><input type="hidden" name="tarifas-hidden"  value="<c:out value="${item.ratesTO.ratId}" />#<c:out value="${item.clrValue}" />" /></td><td width="37"><img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarTarifa('tarId-<c:out value="${item.ratesTO.ratId}" />')" onmouseover="this.style.cursor='hand';" /></td></tr>           
+      </c:forEach>
      </table>
      </div>
      </td>
@@ -143,8 +146,7 @@
     <tr><th>Nombre o Razón social</th><th>Decripción</th><th>Teléfono</th><th>Mail</th><th>&nbsp;</th></tr>
   </table>
   </div>
-  
-  
-  </form>
+   </form>
   </body>
 </html>
+ <c:out value="${script}" escapeXml="false"/>

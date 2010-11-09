@@ -353,4 +353,42 @@
      where usr_id = #value#      
   </statement>  
   
+  
+  
+   <resultMap id="select-Cli-Rates" class="com.twoways.to.ClientsRatesTO" >
+      <result property="clrValue" column="CLR_VALUE" />
+      <result property="clientsTO.cliId" column="CLIENTS_CLI_ID"/>
+      <result property="ratesTO.ratId" column="RAT_ID" />
+      <result property="ratesTO.ratDescription" column="RAT_DESCRIPTION"/>
+      <result property="ratesTO.ratName"   column="RAT_NAME" />
+      <result property="ratesTO.rateTypesTO.rtyName" column="RAT_TYPE"  />
+   </resultMap>
+  
+  <statement  id="getClientRatesByCliId" resultMap="select-Cli-Rates"  parameterClass="com.twoways.to.ClientsTO" >
+     select * from clients_rates cr join rates r on cr.rates_rat_id = r.rat_id 
+     and   cr.clients_cli_id=#cliId#
+  </statement>   
+  
+     
+  <insert id="updateClientsRates" parameterClass="com.twoways.to.ClientsRatesTO"   >
+    update  clients_rates
+    set  clr_value= #clrValue#
+    where
+    clients_cli_id = #clientsTO.cliId#  and  
+    rates_rat_id = #ratesTO.ratId#
+          
+  </insert>
+  
+  
+  <delete id="deleteClientsRates" parameterClass="com.twoways.to.ClientsRatesTO"   >
+    delete  clients_rates
+    where
+    clients_cli_id = #clientsTO.cliId#  and  
+    rates_rat_id = #ratesTO.ratId#
+          
+  </delete>
+  
+  
+  
+  
 </sqlMap> 

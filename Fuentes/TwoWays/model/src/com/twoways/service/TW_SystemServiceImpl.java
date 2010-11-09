@@ -93,8 +93,8 @@ public class TW_SystemServiceImpl implements TW_SystemService{
         return this.clientDao.insertarCliente(clientsTO);
     }
 
-    public void updateCliente(ClientsTO clientsTO) throws Exception {
-        this.clientDao.updateCliente(clientsTO);
+    public ClientsTO updateCliente(ClientsTO clientsTO) throws Exception {
+        return this.clientDao.updateCliente(clientsTO);
     }
     
     public ClientsTO getClientById(String cliId)  throws Exception{
