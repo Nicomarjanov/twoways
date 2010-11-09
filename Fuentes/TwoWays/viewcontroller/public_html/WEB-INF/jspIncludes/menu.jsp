@@ -124,7 +124,7 @@ border:1px solid #000;
 <Body>
 <table width="100%">
 <tr>
-    <td><img src="img/logo_bajo_relieve_azul.jpg" alt="TwO WAYS" /> 
+    <td align="center"><img src="img/logo_centrado_rad_alt.jpg" alt="TwO WAYS" /> 
     </td>
 </tr>
 <tr>

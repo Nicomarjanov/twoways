@@ -23,23 +23,22 @@
   <form name="usuario" action="usuarios" method="POST">
   <input type="hidden" id="accion" name="accion" value=""/>
   <input type="hidden" id="userId" name="userId" value="<c:out value="${usuario.usrId}"/>"/>
+  <div align="center">
   <table width="100%" class="tw_form">
   <tr>
     <th colspan="6" class="tw_form">Ingrese los campos con los datos de los usuarios</th>
   </tr>
   <tr>
-  </tr>
-  <tr>
-    <td>Id. Usuario:</td>
-    <td><input type="text" class="tw_form" id="usrId" name="usrId"  value="<c:out value="${usuario.usrId}"/>"  size="10" maxlength="10"  onkeyup="buscarUsuarios()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
+    <td align="right" width="15%">Id. Usuario:</td>
+    <td align="left" width="15%"><input type="text" class="tw_form" id="usrId" name="usrId"  value="<c:out value="${usuario.usrId}"/>"  size="10" maxlength="10"  onkeyup="buscarUsuarios()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
   </tr>
    <tr>
-    <td>Contraseña:</td>
-    <td><input type="text" class="tw_form" id="usrPass" name="usrPass"  value="<c:out value="${usuario.usrPass}"/>"  size="10" maxlength="10"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
+    <td align="right" width="15%">Contraseña:</td>
+    <td align="left" width="15%"><input type="text" class="tw_form" id="usrPass" name="usrPass"  value="<c:out value="${usuario.usrPass}"/>"  size="10" maxlength="10"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
    </tr>
    <tr>
-    <td>Roles:</td>
-    <td><select name="listaRoles" id="listaRoles" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">
+    <td align="right" width="15%">Roles:</td>
+    <td align="left" width="15%"><select name="listaRoles" id="listaRoles" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">
                 <option value="" >Seleccionar</option>
                 <c:forEach items="${listaRoles}" var="item">
                    <c:choose>
@@ -59,28 +58,30 @@
     </td>
   </tr>
   <tr>
-    <td>Nombre:</td>
-    <td><input type="text" class="tw_form" id="usrFirstName" name="usrFirstName"  value="<c:out value="${usuario.usrFirstName}"/>"  size="20" maxlength="100"  onkeyup="buscarUsuarios()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
-    <td>Apellido:</td>
-    <td colspan=2><input type="text" class="tw_form" id="usrLastName" name="usrLastName"  value="<c:out value="${usuario.usrLastName}"/>" size="20" maxlength="100"></input></td>
+    <td align="right" width="15%">Nombre:</td>
+    <td align="left" width="15%"><input type="text" class="tw_form" id="usrFirstName" name="usrFirstName"  value="<c:out value="${usuario.usrFirstName}"/>"  size="20" maxlength="100"  onkeyup="buscarUsuarios()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
+    <td align="right" width="15%">Apellido:</td>
+    <td align="left" width="15%"><input type="text" class="tw_form" id="usrLastName" name="usrLastName"  value="<c:out value="${usuario.usrLastName}"/>" size="20" maxlength="100"></input></td>
   </tr>
-  <tr><td ><a id="aMas" href="javascript:mostrarOpcionales();">Mas..</a><a  id="aMenos"  style="display:none"  href="javascript:ocultarOpcionales();">Menos</a></td></tr>
-  <tr id="trOpcionales1" style="display:none">
   <tr>
-    <td>Mail:</td>
-    <td><input type="text" class="tw_form" id="usrMail"  name="usrMail"  value="<c:out value="${usuario.usrMail}"/>" size="20" maxlength="100"></input></td>
-    <td>Fecha de nacimiento:</td>
-    <td><input type="text" class="tw_form" id="usrBirth" name="usrBirth"   value="<c:out value="${usuario.usrBirth}"/>" size="10" maxlength="10"></input></td>
+    <td ><a id="aMas" href="javascript:mostrarOpcionales();"><img border="0" alt="Mas..." src="img/bottom.png" width="22px" heigh="22px"/></a><a  id="aMenos"  style="display:none"  href="javascript:ocultarOpcionales();"><img border="0" alt="Menos" src="img/top.png" width="22px" heigh="22px"/></a></td>
+  </tr>
+    <tr id="trOpcionales1" style="display:none">
+    <td align="right">Mail:</td>
+    <td align="left"><input type="text" class="tw_form" id="usrMail"  name="usrMail"  value="<c:out value="${usuario.usrMail}"/>" size="20" maxlength="100"></input></td>
+    <td align="right">Fecha de nacimiento:</td>
+    <td align="left"><input type="text" class="tw_form" id="usrBirth" name="usrBirth"   value="<c:out value="${usuario.usrBirth}"/>" size="10" maxlength="10"></input></td>
   </tr>
   <tr id="trOpcionales2" style="display:none" > 
-    <td>Teléfono movil:</td>
-    <td><input type="text" class="tw_form" id="usrMobileNumber" name="usrMobileNumber"  value="<c:out value="${usuario.usrMobileNumber}"/>"  size="15" maxlength="25"></input></td>
-    <td>Teléfono fijo:</td>
-    <td><input type="text" class="tw_form" id="usrPhoneNumber" name="usrPhoneNumber"  value="<c:out value="${usuario.usrPhoneNumber}"/>"  size="15" maxlength="25"></input></td>
-    <td>Teléfono oficina:</td>
-    <td><input type="text" class="tw_form" id="usrOfficeNumber" name="usrOfficeNumber"  value="<c:out value="${usuario.usrOfficeNumber}"/>"  size="15" maxlength="25"></input></td>
+    <td align="right">Teléfono movil:</td>
+    <td align="left"><input type="text" class="tw_form" id="usrMobileNumber" name="usrMobileNumber"  value="<c:out value="${usuario.usrMobileNumber}"/>"  size="15" maxlength="25"></input></td>
+    <td align="right">Teléfono fijo:</td>
+    <td align="left" ><input type="text" class="tw_form" id="usrPhoneNumber" name="usrPhoneNumber"  value="<c:out value="${usuario.usrPhoneNumber}"/>"  size="15" maxlength="25"></input></td>
+    <td align="right" >Teléfono oficina:</td>
+    <td align="left" ><input type="text" class="tw_form" id="usrOfficeNumber" name="usrOfficeNumber"  value="<c:out value="${usuario.usrOfficeNumber}"/>"  size="15" maxlength="25"></input></td>
   </tr>
   </table>
+  </div>
   <br>
   <hr>
   <table width="100%">

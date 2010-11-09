@@ -171,7 +171,7 @@ function validarCampos()
     if(document.getElementById("listaRoles").selectedIndex==0)
     {
         document.getElementById("listaRoles").style.background='red';
-        mensajeFaltanteAlert=' * Seleccionar un rol del combo \n';    
+        mensajeFaltanteAlert+=' * Seleccionar un rol del combo \n';    
         banderaMensajeFaltante=true;
     }
 

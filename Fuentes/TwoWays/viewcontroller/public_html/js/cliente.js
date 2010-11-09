@@ -250,7 +250,7 @@ function validarCampos()
     if(document.getElementById("listaMoneda").selectedIndex==0)
     {
         document.getElementById("listaMoneda").style.background='red';
-        mensajeFaltanteAlert=' * Seleccionar una moneda del combo \n';    
+        mensajeFaltanteAlert+=' * Seleccionar una moneda del combo \n';    
         banderaMensajeFaltante=true;
     }
 
