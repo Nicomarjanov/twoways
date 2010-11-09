@@ -112,8 +112,8 @@ function cargarDatosColumna(row,data){
 function  eliminarEmpleado(empId){
  
  if (confirm('¿Esta seguro que desea eliminar el empleado?') ){
- 
-    towaysDWR.deleteEmployee(empId,postEliminar); 
+    
+    towaysDWR.deleterEmpleado(empId,postEliminar); 
  }
 }
 
@@ -123,6 +123,7 @@ function postEliminar(data){
    if(data){
       alert('El empleado se elimino con exito ');
       borrarFilas(tablaBusqueda);
+      window.location.href='empleados';
    }else{
       alert('El empleado no se pudo eliminar ');
    }

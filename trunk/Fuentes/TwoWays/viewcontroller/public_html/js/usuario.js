@@ -106,7 +106,7 @@ function limitarArea(){
 
 function cargarDatosColumna(row,data){
     
-   row.cells[0].innerHTML=(data.usrId==null)?'':'<a href="usuarios?usrId='+data.usrId+'" >'+data.usrId+'</a>';   
+   row.cells[0].innerHTML=(data.usrId==null)?'':'<a href="usuarios?userId='+data.usrId+'" >'+data.usrId+'</a>';   
    row.cells[1].innerHTML=(data.usrFirstName==null)?'':data.usrFirstName;   
    row.cells[2].innerHTML=(data.usrLastName==null)?'':data.usrLastName;     
    row.cells[3].innerHTML=(data.usrMail==null)?'':data.usrMail;   
@@ -114,17 +114,17 @@ function cargarDatosColumna(row,data){
    /*row.cells[5].innerHTML=(data.usrMobileNumber==null)?'':data.usrMobileNumber;
    row.cells[6].innerHTML=(data.usrPhoneNumber==null)?'':data.usrPhoneNumber;
    row.cells[7].innerHTML=(data.usrOfficeNumber==null)?'':data.usrOfficeNumber;   */
-   var editar = '<img src="img/edit.png"  height="25" width="25"  alt="Editar" onclick="javascript:window.location.href=\'usuarios?usrId='+data.usrId+'\'" onmouseover="this.style.cursor=\'hand\';" /> ';
-   var eliminar = '<img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarUsuario('+data.usrId+')" onmouseover="this.style.cursor=\'hand\';" />'
+   var editar = '<img src="img/edit.png"  height="25" width="25"  alt="Editar" onclick="javascript:window.location.href=\'usuarios?userId='+data.usrId+'\'" onmouseover="this.style.cursor=\'hand\';" /> ';
+   var eliminar = '<img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarUsuario(\''+data.usrId+'\')" onmouseover="this.style.cursor=\'hand\';" />'
 
    row.cells[5].innerHTML= editar + ' ' + eliminar;
 }
 
-function  eliminarUsuario(usrId){
+function  eliminarUsuario(usuarioId){
  
  if (confirm('¿Esta seguro que desea eliminar el usuario?') ){
  
-    towaysDWR.deleteUser(usrId,postEliminar); 
+    towaysDWR.deleterUsuario(usuarioId,postEliminar); 
  }
 }
 
@@ -134,6 +134,7 @@ function postEliminar(data){
    if(data){
       alert('El usuario se elimino con exito ');
       borrarFilas(tablaUsuarios);
+      window.location.href='usuarios';
    }else{
       alert('El usuario no se pudo eliminar ');
    }
