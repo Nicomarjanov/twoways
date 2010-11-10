@@ -83,9 +83,9 @@ public class AbmClientesServlet extends AutorizacionServlet {
                     String atribs[]= aux.split("#");
                     
                     ClientsRatesTO clientsRatesTO = new ClientsRatesTO();
-                    clientsRatesTO.setClrValue(Long.parseLong(atribs[1]));
+                    clientsRatesTO.setClrValue(Float.parseFloat(atribs[1].replaceAll(",",".")));
                     RatesTO rtTO= new RatesTO();
-                    rtTO.setRatId(Long.parseLong(atribs[0].replaceAll(",",".")));
+                    rtTO.setRatId(Long.parseLong(atribs[0]));
                     clientsRatesTO.setRatesTO(rtTO );
                     clientsRatesTOList.add(clientsRatesTO);
                     clientsRatesTO.setClientsTO(cliente);

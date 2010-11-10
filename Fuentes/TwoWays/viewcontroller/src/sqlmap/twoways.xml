@@ -94,6 +94,8 @@
   <delete id="deleteClients" parameterClass="com.twoways.to.ClientsTO">
         DELETE Clients
         WHERE  cli_id = #cliId#    
+        
+        
  </delete>
   
   
