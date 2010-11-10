@@ -44,7 +44,15 @@ public class ClientsDAOImpl extends AbstractDAO  implements ClientDAO{
     }
     
     public boolean  deleteClients(ClientsTO client)  throws Exception{
+       
+        client= getClientById(String.valueOf(client.getCliId()));  
+        
+        for(Object cli : client.getClientsRatesTOList().toArray()){
+            getSqlMapClientTemplate().delete("deleteClientsRates",(ClientsRatesTO)cli); 
+        }
+       
        int res =  getSqlMapClientTemplate().delete("deleteClients",client);
+       
        return (res > 0); 
     }
     
@@ -56,13 +64,13 @@ public class ClientsDAOImpl extends AbstractDAO  implements ClientDAO{
         clientsTO.setCliId(cliId); 
        
        
-        getSqlMapClient().insert("insertClients",clientsTO);
+        getSqlMapClientTemplate().insert("insertClients",clientsTO);
         
         List cliRates = clientsTO.getClientsRatesTOList();
         
         for(Object clientsRatesTO: cliRates.toArray() ){
        
-             getSqlMapClient().insert("insertClientsRates",(ClientsRatesTO)clientsRatesTO);
+             getSqlMapClientTemplate().insert("insertClientsRates",(ClientsRatesTO)clientsRatesTO);
         }
       
         

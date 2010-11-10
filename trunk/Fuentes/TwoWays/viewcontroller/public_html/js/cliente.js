@@ -1,6 +1,15 @@
 var mensajeCampoAlert;
 
 
+ function keyTarifa(e) {
+        var keycode;
+        if (window.event) keycode = window.event.keyCode;
+        else if (e) keycode = e.which;
+        if( keycode == 13){
+           agregarTarifa();
+        }
+        
+ }       
 function init(){
     
     if (  document.getElementById('cliId').value != ''){
@@ -115,7 +124,20 @@ function eliminarTarifa(id){
 
    var tablaTarifas= document.getElementById('list-tarifas-body');
    var row = document.getElementById(id);
+   
+ 
+   document.getElementById('tar_val').value= row.cells[1].innerHTML.substring(0, row.cells[1].innerHTML.indexOf('<INPUT'));
+   
+   for(var i = 0 ; i <   document.getElementById('listaTarifa').length ;i++){
+      if(document.getElementById('listaTarifa').options[i].value == row.id.substring(6)){
+         document.getElementById('listaTarifa').options[i].selected= true;
+      }
+   }
    tablaTarifas.deleteRow(row.rowIndex);
+   
+   
+   
+   
    
 }
 

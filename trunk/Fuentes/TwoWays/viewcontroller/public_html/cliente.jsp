@@ -3,6 +3,7 @@
 <%@ page contentType="text/html;charset=windows-1252"%>
 <%@ page errorPage="error.jsp" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+
 <html>
   <head>
    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252"/>
@@ -59,7 +60,7 @@
        </select> 
     </td>
   </tr>
-  <tr><td ><a id="aMas" href="javascript:mostrarOpcionales();">Mas..</a><a  id="aMenos"  style="display:none"  href="javascript:ocultarOpcionales();">Menos</a></td></tr>
+  <tr><td ><img src="img/bottom.png" id="aMas" onclick="javascript:mostrarOpcionales();"  alt="Mas datos " width="15" height="15" /><img id="aMenos"  style="border:0;display:none"  onclick="javascript:ocultarOpcionales();" src="img/top.png" alt="Menos" width="15" height="15" /></td></tr>
   <tr id="trOpcionales1" style="display:none">
     <td nowrap >Dirección:</td>
     <td><input type="text" class="tw_form" id="dirCliente" name="dirCliente"   value="<c:out value="${cliente.cliAddress}"/>" size="50" maxlength="250"></input></td>
@@ -103,10 +104,10 @@
        
     </td>
     <td align="left" valign="top">
-    <input type="text" id="tar_val" size=10  />
+    <input type="text" id="tar_val" size=10  onkeydown="keyTarifa()" />
     
     </td>
-    <td align="left" valign="top"><img  src="img/arrow_right.png" alt=">" width="25" height="25" title="Agregar Tarifa" onclick="agregarTarifa()" />
+    <td align="left" valign="top"><img  src="img/arrow_right.png" alt=">" width="20" height="20" title="Agregar Tarifa" onclick="agregarTarifa()" />
     </td>
   <td colspan="100%">
     <table cellpadding="0" cellspacing="0"  style="background:gray">
