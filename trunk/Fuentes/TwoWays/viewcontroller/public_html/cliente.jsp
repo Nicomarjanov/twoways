@@ -60,7 +60,10 @@
        </select> 
     </td>
   </tr>
-  <tr><td ><img src="img/bottom.png" id="aMas" onclick="javascript:mostrarOpcionales();"  alt="Mas datos " width="15" height="15" /><img id="aMenos"  style="border:0;display:none"  onclick="javascript:ocultarOpcionales();" src="img/top.png" alt="Menos" width="15" height="15" /></td></tr>
+  <tr>
+    <td >
+    <img src="img/bottom.png" id="aMas" onclick="javascript:mostrarOpcionales();"  title="Agregar más datos" alt="Mas datos " width="15" height="15" onmouseover="this.style.cursor='hand';"/>
+    <img id="aMenos"  style="border:0;display:none"  onclick="javascript:ocultarOpcionales();" title="Contraer" src="img/top.png" alt="Menos" width="15" height="15" onmouseover="this.style.cursor='hand';"/></td></tr>
   <tr id="trOpcionales1" style="display:none">
     <td nowrap >Dirección:</td>
     <td><input type="text" class="tw_form" id="dirCliente" name="dirCliente"   value="<c:out value="${cliente.cliAddress}"/>" size="50" maxlength="250"></input></td>
@@ -76,10 +79,14 @@
   </table>
   <br>
   <hr class="tw_hr">
-  <table  id="aTar" ><tr><td><a href="javascript:vistaTarifas()" >Tarifas</a></td></Tr></table>
+  <table  id="aTar" >
+    <tr>
+        <td><a href="javascript:vistaTarifas()" ><img id="tarifa+"  style="border:0;" title="Mostrar tarifa del cliente" src="img/currency_dollar green.png" alt="Tarifas" width="25" height="25" onmouseover="this.style.cursor='hand';"/></a></td>
+    </Tr>
+  </table>
   <table id="tabla-tarifas"  style="display:none" >
   <tr>
-  <td valign="top" ><a href="javascript:vistaTarifas()">Tarifas</a></td>
+  <td valign="top" ><a href="javascript:vistaTarifas()"><img id="tarifa-"  style="border:0;" title="Ocultar tarifa del cliente" src="img/currency_dollar blue.png" alt="Tarifas" width="25" height="25" onmouseover="this.style.cursor='hand';"/></a></td>
   <td valign="top">
  
   <select name="listaTarifa" id="listaTarifa" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">
@@ -104,10 +111,10 @@
        
     </td>
     <td align="left" valign="top">
-    <input type="text" id="tar_val" size=10  onkeydown="keyTarifa()" />
+    <input type="text" class="tw_form" id="tar_val" size=10  onkeydown="keyTarifa()" />
     
     </td>
-    <td align="left" valign="top"><img  src="img/arrow_right.png" alt=">" width="20" height="20" title="Agregar Tarifa" onclick="agregarTarifa()" />
+    <td align="left" valign="top"><img  src="img/next.png" alt=">" width="20" height="20" title="Agregar Tarifa" onclick="agregarTarifa()" onmouseover="this.style.cursor='hand';"/>
     </td>
   <td colspan="100%">
     <table cellpadding="0" cellspacing="0"  style="background:gray">
@@ -122,7 +129,12 @@
      <table id="list-tarifas-body" align="right" width="100%">
      <tr style="display:none"><th width="200">Tarifa</th><th width="50">valor</th><th width="25"></th></tr>
      <c:forEach items="${cliente.clientsRatesTOList}" var="item">
-       <tr name="item-tarifa"  bgcolor="#FFFFFF" id="tarId-<c:out value="${item.ratesTO.ratId}" />" ><td width="200" ><c:out value="${item.ratesTO.ratName}" /></td><td width="60" align="right" ><c:out value="${item.clrValue}" /><input type="hidden" name="tarifas-hidden"  value="<c:out value="${item.ratesTO.ratId}" />#<c:out value="${item.clrValue}" />" /></td><td width="37"><img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarTarifa('tarId-<c:out value="${item.ratesTO.ratId}" />')" onmouseover="this.style.cursor='hand';" /></td></tr>           
+       <tr name="item-tarifa"  bgcolor="#FFFFFF" id="tarId-<c:out value="${item.ratesTO.ratId}" />" >
+            <td width="200" ><c:out value="${item.ratesTO.ratName}" /></td>
+            <td width="60" align="right" ><c:out value="${item.clrValue}" />
+                <input type="hidden" name="tarifas-hidden"  value="<c:out value="${item.ratesTO.ratId}" />#<c:out value="${item.clrValue}" />" /></td>
+            <td width="37" ><img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarTarifa('tarId-<c:out value="${item.ratesTO.ratId}" />')" onmouseover="this.style.cursor='hand';" /></td>
+        </tr>           
       </c:forEach>
      </table>
      </div>
@@ -135,7 +147,7 @@
   <table width="100%">
   <tr>
   <td align="right"><input type="button" id="aceptar" value="Aceptar" onclick="agregar()"/></td>   
-  <td align="left"><input type="button" id="cancel" value="Cancelar" OnClick="cancelar()"/></td>   
+  <td align="left"><input type="button" id="cancel" value="Limpiar" OnClick="cancelar()"/></td>   
   </tr>
   </table>
 
