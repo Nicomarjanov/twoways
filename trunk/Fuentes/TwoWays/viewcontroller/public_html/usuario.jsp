@@ -29,7 +29,7 @@
     <th colspan="6" class="tw_form">Ingrese los campos con los datos de los usuarios</th>
   </tr>
   <tr>
-    <td align="right" width="15%">Id. Usuario:</td>
+    <td align="right" width="15%" nowrap>Id. Usuario:</td>
     <td align="left" width="15%"><input type="text" class="tw_form" id="usrId" name="usrId"  value="<c:out value="${usuario.usrId}"/>"  size="10" maxlength="10"  onkeyup="buscarUsuarios()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
   </tr>
    <tr>
@@ -64,20 +64,22 @@
     <td align="left" width="15%"><input type="text" class="tw_form" id="usrLastName" name="usrLastName"  value="<c:out value="${usuario.usrLastName}"/>" size="20" maxlength="100"></input></td>
   </tr>
   <tr>
-    <td ><a id="aMas" href="javascript:mostrarOpcionales();"><img border="0" alt="Mas..." src="img/bottom.png" width="22px" heigh="22px"/></a><a  id="aMenos"  style="display:none"  href="javascript:ocultarOpcionales();"><img border="0" alt="Menos" src="img/top.png" width="22px" heigh="22px"/></a></td>
+    <td ><a id="aMas" href="javascript:mostrarOpcionales();">
+        <img border="0" alt="Mas..." src="img/bottom.png" width="15px" height="15px"/></a><a  id="aMenos"  style="display:none"  href="javascript:ocultarOpcionales();">
+        <img border="0" alt="Menos" src="img/top.png" width="15px" height="15px"/></a></td>
   </tr>
     <tr id="trOpcionales1" style="display:none">
-    <td align="right">Mail:</td>
+    <td align="right" width="15%">Mail:</td>
     <td align="left"><input type="text" class="tw_form" id="usrMail"  name="usrMail"  value="<c:out value="${usuario.usrMail}"/>" size="20" maxlength="100"></input></td>
-    <td align="right">Fecha de nacimiento:</td>
+    <td align="right" nowrap>Fecha de nacimiento:</td>
     <td align="left"><input type="text" class="tw_form" id="usrBirth" name="usrBirth"   value="<c:out value="${usuario.usrBirth}"/>" size="10" maxlength="10"></input></td>
   </tr>
   <tr id="trOpcionales2" style="display:none" > 
-    <td align="right">Teléfono movil:</td>
-    <td align="left"><input type="text" class="tw_form" id="usrMobileNumber" name="usrMobileNumber"  value="<c:out value="${usuario.usrMobileNumber}"/>"  size="15" maxlength="25"></input></td>
-    <td align="right">Teléfono fijo:</td>
+    <td align="right" nowrap width="15%">Teléfono movil:</td>
+    <td align="left" ><input type="text" class="tw_form" id="usrMobileNumber" name="usrMobileNumber"  value="<c:out value="${usuario.usrMobileNumber}"/>"  size="15" maxlength="25"></input></td>
+    <td align="right" nowrap>Teléfono fijo:</td>
     <td align="left" ><input type="text" class="tw_form" id="usrPhoneNumber" name="usrPhoneNumber"  value="<c:out value="${usuario.usrPhoneNumber}"/>"  size="15" maxlength="25"></input></td>
-    <td align="right" >Teléfono oficina:</td>
+    <td align="right" nowrap>Teléfono oficina:</td>
     <td align="left" ><input type="text" class="tw_form" id="usrOfficeNumber" name="usrOfficeNumber"  value="<c:out value="${usuario.usrOfficeNumber}"/>"  size="15" maxlength="25"></input></td>
   </tr>
   </table>

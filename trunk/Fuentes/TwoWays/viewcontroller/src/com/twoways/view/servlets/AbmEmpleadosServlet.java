@@ -1,8 +1,15 @@
 package com.twoways.view.servlets;
 
 import com.twoways.core.bdl.TwoWaysBDL;
+import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.EmployeesTO;
+import com.twoways.to.RateTypesTO;
 import com.twoways.to.RatesTO;
+import com.twoways.to.EmployeeTypeTO;
+
+import com.twoways.to.EmployeesRatesTO;
+
+import com.twoways.to.EmployeesTypesTO;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -33,15 +40,24 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
             response.setContentType(CONTENT_TYPE);
             String accion=request.getParameter("accion");
             List<RatesTO> tarifas = null;
+            List<EmployeeTypeTO> tipo = null;
             EmployeesTO empleado = new EmployeesTO(); 
             String empId = request.getParameter("empId"); 
            
             TwoWaysBDL twoWaysBDL=null;
             
             try {
-               twoWaysBDL = new TwoWaysBDL();
-               tarifas =  twoWaysBDL.getServiceTwoWays().obtenerTarifas();
-               request.setAttribute("listaTarifas",tarifas);
+                twoWaysBDL = new TwoWaysBDL();
+                //twoWaysBDL.getServiceTwoWays().obtenerMonedas();
+                tipo =  twoWaysBDL.getServiceTwoWays().obtenerTipoEmpleado();
+                request.setAttribute("listaTipoEmp",tipo);
+                
+                
+                twoWaysBDL = new TwoWaysBDL();
+                RateTypesTO rateType = new RateTypesTO();
+                rateType.setRtyName("Traductor");
+                tarifas = twoWaysBDL.getServiceTwoWays().getRateByType(rateType);
+                request.setAttribute("listaTarifa",tarifas);
                
             } catch (Exception e) {
                e.printStackTrace();
@@ -55,8 +71,38 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                      e.printStackTrace();
                  }
                                     
-                RatesTO tarifa= new RatesTO(); 
-                tarifa.setRatId((request.getParameter("listaTarifas")!= null && request.getParameter("listaTarifas").length() > 0 )?Long.parseLong(request.getParameter("listaTarifas")):0);        
+                String tarifasHidden[]=request.getParameterValues("tarifas-hidden");
+                List<EmployeesRatesTO> employeesRatesTOList = new   ArrayList<EmployeesRatesTO>();
+                
+                if( tarifasHidden  != null){ 
+                                       
+                    for(String aux:tarifasHidden){
+                        
+                        String atribs[]= aux.split("#");
+                        
+                        EmployeesRatesTO employeesRatesTO = new EmployeesRatesTO();
+                        employeesRatesTO.setEmrValue(Float.parseFloat(atribs[1].replaceAll(",",".")));
+                        RatesTO rtTO= new RatesTO();
+                        rtTO.setRatId(Long.parseLong(atribs[0]));
+                        employeesRatesTO.setRatesTO(rtTO );
+                        employeesRatesTOList.add(employeesRatesTO);
+                        employeesRatesTO.setEmployeesTO(empleado);
+                    }
+                }     
+                String empleadosTipos[]=request.getParameterValues("listaTipoEmp");
+                //List<EmployeesTypesTO> employeesTypesTOList = new   ArrayList<EmployeesTypesTO>();
+                
+                if( empleadosTipos  != null){ 
+                                       
+                    for(String aux:empleadosTipos){
+                                                                    
+                        EmployeesTypesTO employeesTypesTO = new EmployeesTypesTO();
+                        employeesTypesTO.setEtyName(aux);
+                        //employeesTypesTOList.add(e)
+                        employeesTypesTO.setEmployeesTO(empleado);
+                    }
+                }  
+                //tarifa.setRatId((request.getParameter("listaTarifas")!= null && request.getParameter("listaTarifas").length() > 0 )?Long.parseLong(request.getParameter("listaTarifas")):0);        
                 empleado.setEmpFirstName((request.getParameter("empFirstName")!= null )?request.getParameter("empFirstName"):"");
                 empleado.setEmpLastName((request.getParameter("empLastName")!= null )?request.getParameter("empLastName"):"");
                 empleado.setEmpMail((request.getParameter("empMail")!= null )?request.getParameter("empMail"):"");

@@ -37,6 +37,7 @@ public class EmployeesTO {
     private List<ExpensesTO> expensesTOList;
     private List<ProjectAssignmentsTO> projectAssignmentsTOList;
     private List<EmployeesRatesTO> employeesRatesTOList;
+    private List<EmployeesTypesTO> employeesTypesTOList;
 
     private RatesTO ratesTO;
    
@@ -219,4 +220,23 @@ public class EmployeesTO {
         return employeesRatesTO;
     }
     
+    public List<EmployeesTypesTO> getEmployeesTypesTOList() {
+        return employeesTypesTOList;
+    }
+    
+    public void setEmployeesTypesTOList(List<EmployeesTypesTO> employeesTypesTOList) {
+        this.employeesTypesTOList = employeesTypesTOList;
+    }
+
+    public EmployeesTypesTO addEmployeesTypesTO(EmployeesTypesTO employeesTypesTO) {
+        getEmployeesTypesTOList().add(employeesTypesTO);
+        employeesTypesTO.setEmployeesTO(this);
+        return employeesTypesTO;
+    }
+
+    public EmployeesTypesTO removeEmployeesTypesTO(EmployeesTypesTO employeesTypesTO) {
+        getEmployeesTypesTOList().remove(employeesTypesTO);
+        employeesTypesTO.setEmployeesTO(null);
+        return employeesTypesTO;
+    }    
 }

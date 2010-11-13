@@ -35,6 +35,8 @@ public interface TW_SystemService {
     
     public boolean  deleteEmployees(EmployeesTO employeesTO)  throws Exception;
     
+    public List obtenerTipoEmpleado() throws Exception;
+
     public List obtenerMonedas() throws Exception;
     
     public List obtenerTarifas() throws Exception;

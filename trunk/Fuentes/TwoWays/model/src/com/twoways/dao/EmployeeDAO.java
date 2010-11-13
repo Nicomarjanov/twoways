@@ -11,4 +11,6 @@ public interface EmployeeDAO {
     public void updateEmpleado(EmployeesTO employeesTO) throws Exception;
     public List buscarEmpleados(String search) throws Exception;
     public boolean deleteEmployee(EmployeesTO employee)  throws Exception;    
+    public List obtenerTipoEmpleado() throws Exception;
+    
 }
