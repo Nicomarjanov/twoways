@@ -165,6 +165,11 @@ input.tw_form
     border:solid 1px #005C8D;
 }
 
+textarea.tw_form
+{
+    border:solid 1px #005C8D;
+}
+
 
 
 A:hover {COLOR: #0066CC; TEXT-DECORATION: none}

@@ -1,12 +1,9 @@
 package com.twoways.to;
 
-
-//(name = "EMPLOYEES_RATES")
-//Class(EmployeesRatesTOPK.class)
 public class EmployeesRatesTO {
     //
     private Long employeesEmpId;
-    private Long emrValue;
+    private Float emrValue;
     private Long ratesRatId;
     private RatesTO ratesTO;
     private EmployeesTO employeesTO;
@@ -22,11 +19,11 @@ public class EmployeesRatesTO {
         this.employeesEmpId = employeesEmpId;
     }
 
-    public Long getEmrValue() {
+    public Float getEmrValue() {
         return emrValue;
     }
-
-    public void setEmrValue(Long emrValue) {
+    
+    public void setEmrValue(Float emrValue) {
         this.emrValue = emrValue;
     }
 
@@ -53,4 +50,5 @@ public class EmployeesRatesTO {
     public void setEmployeesTO(EmployeesTO employeesTO) {
         this.employeesTO = employeesTO;
     }
+
 }

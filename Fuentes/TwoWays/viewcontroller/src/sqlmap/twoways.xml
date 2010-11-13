@@ -148,6 +148,22 @@
          
   </insert>
   
+  <insert id="insertEmployeesRates" parameterClass="com.twoways.to.EmployeesRatesTO"   >
+    insert into employees_rates
+           (employees_cli_id, emr_value, rates_rat_id)
+    values
+          (#employeesTO.empId#, #emrValue#, #ratesTO.ratId#)
+          
+  </insert>
+  
+  <insert id="insertEmployeesTypes" parameterClass="com.twoways.to.EmployeesTypesTO"   >
+    insert into employees_types
+           (EMPLOYEES_EMP_ID,  EMPLOYEE_TYPE_ETY_NAME)
+    values
+          (#employeesTO.empId#, #employeeTypeTO.etyName#)
+          
+  </insert>
+  
   <update  id="updateEmployees" parameterClass="com.twoways.to.EmployeesTO">
       UPDATE employees
       SET     emp_first_name = #empFirstName# , 
@@ -168,6 +184,18 @@
         DELETE Employees
         WHERE  emp_id = #empId#    
  </delete>     
+
+  <resultMap id="select-Tipo-Emp" class="com.twoways.to.EmployeeTypeTO" >
+       
+      <result property="etyName" column="ety_name" />
+      <result property="etyDescription" column="ety_description" />
+  </resultMap>      
+  
+  <statement  id="obtenerTipoEmpleado" resultMap="select-Tipo-Emp">
+     select *    
+     from 
+     employee_type
+  </statement>   
      
   <!--Monedas -->
  

@@ -37,6 +37,8 @@
       <value n="cmpProvider" v="EJB 3.0"/>
       <value n="dbConnection" v="twoways"/>
       <hash n="ejbIdToEjbNameMap">
+         <value n="3e443cff-012c-1000-800b-0a0000031cde" v="com.twoways.to.EmployeeTypeTO"/>
+         <value n="3e443d12-012c-1000-800c-0a0000031cde" v="com.twoways.to.EmployeeTypesTO"/>
          <value n="ebe1b726-012b-1000-8001-c87f29d8d888" v="com.twoways.to.AccountsTO"/>
          <value n="ebe1b7a3-012b-1000-8002-c87f29d8d888" v="com.twoways.to.ClientsTO"/>
          <value n="ebe1b83f-012b-1000-8003-c87f29d8d888" v="com.twoways.to.ClientResponsableTO"/>

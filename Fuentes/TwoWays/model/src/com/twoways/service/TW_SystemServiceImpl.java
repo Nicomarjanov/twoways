@@ -76,7 +76,11 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     public boolean  deleteEmployees(EmployeesTO employeesTO)  throws Exception{
       return this.employeeDao.deleteEmployee(employeesTO);
     }
-        
+
+    public List obtenerTipoEmpleado() throws Exception{
+          return this.employeeDao.obtenerTipoEmpleado();
+      }
+      
     public void setCurrencyDao(CurrencyDAO currencyDao){
         this.currencyDao = currencyDao;
     }

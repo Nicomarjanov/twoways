@@ -42,7 +42,6 @@ function ocultarOpcionales(){
    op1.style.display='none';
    op2.style.display='none';
 
-
 }
 
 function mostrarOpcionales(){
@@ -72,8 +71,6 @@ function vistaTarifas(){
 
 function agregarTarifa(){
 
-
-   
    if( document.getElementById('listaTarifa').selectedIndex == 0){ 
       alert('Seleccione una tarifa');  
       document.getElementById('listaTarifa').focus();
@@ -101,7 +98,6 @@ function agregarTarifa(){
    }
    
 }
-
 
 function cargarItemTarifa(row){
    
@@ -134,17 +130,12 @@ function eliminarTarifa(id){
       }
    }
    tablaTarifas.deleteRow(row.rowIndex);
-   
-   
-   
-   
-   
+  
 }
 
 function agregar()
 {
-    //trabar(idsPantalla());
-    
+
     document.getElementById('nomCliente').style.background  = '#FFFFFF';
     document.getElementById('descCliente').style.background  = '#FFFFFF';
     document.getElementById('mailCliente').style.background = '#FFFFFF';
@@ -166,7 +157,6 @@ function agregar()
     }
     else
         grabar(false);
-        //BpmAdm.isExisteItem(document.getElementById("itemNombre").value,grabar);
 }
 
 function grabar(existe)
@@ -174,34 +164,22 @@ function grabar(existe)
     if(existe)
     {
         alert(mensajeExisteItem);
-        destrabar(idsPantalla());
     }
     else
     {
-        
-         
+                
         document.getElementById("accion").value='guardar';
-        document.forms[0].submit();
-        
-        /*BpmAdm.setItem( document.getElementById('itemLink').value   , document.getElementById("listaBandeja").value , document.getElementById("itemNombre").value   , 
-                        document.getElementById('itemTitulo').value , document.getElementById('itemToolTip').value  , document.getElementById("listaGrupos").value  ,
-                        document.getElementById('rolUserConect').value,grabarResultado);
-           */             
+        document.forms[0].submit();                
     }
 }
-
-
-
 
 function buscarClientes(){
      
      var cliId= document.getElementById('cliId').value;
      var nomCliente= document.getElementById('nomCliente').value;
      
-     
      if(cliId== '' &&  nomCliente.length >2 ){ 
-        
-         document.getElementById('div-clientes').style.display='';
+                
         towaysDWR.buscarClientes(nomCliente,buscarClientesCallBack); 
      } 
     
@@ -216,8 +194,6 @@ function limitarArea(){
 
 }
 
-
-
 function cargarDatosColumna(row,data){
 
     
@@ -230,7 +206,6 @@ function cargarDatosColumna(row,data){
    //row.cells[3].innerHTML='<a href="clientes?cliId='+data.cliId+'" ><img src="img/Edit-Contact.png" height="25" width="25"  alt="Editar" /></a>';
    row.cells[4].innerHTML= editar + ' ' + eliminar;
 }
-
 
 function  eliminarCliente(cliId){
  
@@ -253,14 +228,16 @@ function postEliminar(data){
 }
 
 function buscarClientesCallBack(data){
- 
-  var tablaClientes= document.getElementById('tabla-busqueda');
-  borrarFilas(tablaClientes);
-  for(var i=0 ; i<   data.length; i++){
-    
-    insertarFila(tablaClientes,data[i]);
-    
-  } 
+   if (data.length > 0) {
+      var tablaClientes= document.getElementById('tabla-busqueda');
+      borrarFilas(tablaClientes);
+      document.getElementById('div-clientes').style.display='';
+      for(var i=0 ; i<   data.length; i++){
+        
+        insertarFila(tablaClientes,data[i]);
+        
+      } 
+    }
 }
 
 function validarCampos()

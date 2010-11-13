@@ -31,45 +31,77 @@
   <tr>
   </tr>
   <tr>
-    <td nowrap >Nombre:</td>
-    <td><input type="text" class="tw_form" id="empFirstName" name="empFirstName"  value="<c:out value="${empleado.empFirstName}"/>"  size="50" maxlength="100"  onkeyup="buscarEmpleados()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
-    <td nowrap>Apellido:</td>
-    <td colspan=2><input type="text" class="tw_form" id="empLastName" name="empLastName"  value="<c:out value="${empleado.empLastName}"/>" size="20" maxlength="100" onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
+    <td nowrap align="right" width="35%">Seleccione las especialidades del empleado:</td>
+    <td valign="top" align="left" width="65%"> 
+        <select multiple="multiple" size="4" name="listaTipoEmp" id="listaTipoEmp" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">                                            
+                <c:forEach items="${listaTipoEmp}" var="item">
+                   <c:out value="${item.etyName}" />
+                   <c:choose>
+                    <c:when test="${false}">
+                       <option value="<c:out value="${item.etyName}" />" style="background-color:#A4BAC7;" selected="selected">
+                        <c:out value="${item.etyName}" />
+                      </option> 
+                    </c:when>
+                    <c:otherwise>
+                    <option value="<c:out value="${item.etyName}" />" style="background-color:#A4BAC7;">
+                        <c:out value="${item.etyName}" />
+                    </option>
+                    </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+       </select>       
+    </td>
   </tr>
   <tr>
-    <td>Mail:</td>
-    <td><input type="text" class="tw_form" id="empMail"  name="empMail"  value="<c:out value="${empleado.empMail}"/>" size="20" maxlength="100" onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
-    <td>MSN:</td>
-    <td><input type="text" class="tw_form" id="empMsn"  name="empMsn"  value="<c:out value="${empleado.empMsn}"/>" size="20" maxlength="100" onfocus="javascript:this.style.background='#FFFFFF';"></input></td>        
-    <td nowrap>Fecha de nacimiento:</td>
-    <td><input type="text" class="tw_form" id="empBirth" name="empBirth"   value="<c:out value="${empleado.empBirth}"/>" size="10" maxlength="10"></input></td>
+    <td nowrap  align="right" width="15%" >Nombre:</td>
+    <td align="left" width="15%"><input type="text" class="tw_form" id="empFirstName" name="empFirstName"  value="<c:out value="${empleado.empFirstName}"/>"  size="25" maxlength="100"  onkeyup="buscarEmpleados()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
+    <td nowrap align="right" width="15%">Apellido:</td>
+    <td colspan=2 align="left" width="15%"><input type="text" class="tw_form" id="empLastName" name="empLastName"  value="<c:out value="${empleado.empLastName}"/>" size="25" maxlength="100" onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
   </tr>
   <tr>
-    <td nowrap>Teléfono movil:</td>
-    <td><input type="text" class="tw_form" id="empMobileNumber" name="empMobileNumber"  value="<c:out value="${empleado.empMobileNumber}"/>"  size="15" maxlength="25"></input></td>
-    <td nowrap>Teléfono fijo:</td>
-    <td><input type="text" class="tw_form" id="empPhoneNumber" name="empPhoneNumber"  value="<c:out value="${empleado.empPhoneNumber}"/>"  size="15" maxlength="25"></input></td>
+    <td  align="right" width="15%">Mail:</td>
+    <td align="left" width="15%"><input type="text" class="tw_form" id="empMail"  name="empMail"  value="<c:out value="${empleado.empMail}"/>" size="20" maxlength="100" onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
+    <td align="right" width="15%">MSN:</td>
+    <td align="left" width="15%"><input type="text" class="tw_form" id="empMsn"  name="empMsn"  value="<c:out value="${empleado.empMsn}"/>" size="20" maxlength="100" onfocus="javascript:this.style.background='#FFFFFF';"></input></td>        
+    <td nowrap align="right" width="15%">Fecha de nacimiento:</td>
+    <td align="left" width="15%"><input type="text" class="tw_form" id="empBirth" name="empBirth"   value="<c:out value="${empleado.empBirth}"/>" size="10" maxlength="10"></input></td>
+  </tr>
+  <tr>
+    <td nowrap align="right" width="15%">Teléfono movil:</td>
+    <td align="left" width="15%"><input type="text" class="tw_form" id="empMobileNumber" name="empMobileNumber"  value="<c:out value="${empleado.empMobileNumber}"/>"  size="15" maxlength="25"></input></td>
+    <td nowrap align="right" width="15%">Teléfono fijo:</td>
+    <td align="left" width="15%"><input type="text" class="tw_form" id="empPhoneNumber" name="empPhoneNumber"  value="<c:out value="${empleado.empPhoneNumber}"/>"  size="15" maxlength="25"></input></td>
   </tr>   
-  <tr><td ><a id="aMas" href="javascript:mostrarOpcionales();">Mas..</a><a  id="aMenos"  style="display:none"  href="javascript:ocultarOpcionales();">Menos</a></td></tr>
+   <tr>
+    <td colspan="100%" align="left">
+    <img src="img/bottom.png" id="aMas" onclick="javascript:mostrarOpcionales();"  title="Agregar más datos" alt="Mas datos " width="15" height="15" onmouseover="this.style.cursor='hand';"/>
+    <img id="aMenos"  style="border:0;display:none"  onclick="javascript:ocultarOpcionales();" title="Contraer" src="img/top.png" alt="Menos" width="15" height="15" onmouseover="this.style.cursor='hand';"/></td>
+  </tr>
   <tr id="trOpcionales1" style="display:none">    
-    <td nowrap>Dirección:</td>
-    <td colspan=2><input type="text" class="tw_form" id="empAddress" name="empAddress"  value="<c:out value="${empleado.empAddress}"/>"  size="15" maxlength="25"></input></td>  
-    <td nowrap>Ubicación:</td>
-    <td colspan=2><input type="text" class="tw_form" id="empLocation" name="empLocation"  value="<c:out value="${empleado.empLocation}"/>"  size="25" maxlength="25"></input></td>
+    <td nowrap align="right" width="15%">Dirección:</td>
+    <td align="left"><input type="text" class="tw_form" id="empAddress" name="empAddress"  value="<c:out value="${empleado.empAddress}"/>"  size="40" maxlength="150"></input></td>  
+    <td nowrap align="right" width="15%">Ubicación:</td>
+    <td colspan=2 align="left"><input type="text" class="tw_form" id="empLocation" name="empLocation"  value="<c:out value="${empleado.empLocation}"/>"  size="25" maxlength="25"></input></td>
   </tr>
   <tr id="trOpcionales2" style="display:none" > 
-    <td nowrap>Disponibilidad:</td>
-    <td colspan=2><input type="text" class="tw_form" id="empAvailability" name="empAvailability"  value="<c:out value="${empleado.empAvailability}"/>"  size="10" maxlength="10"></input>
-    <td nowrap>Observaciones:</td>
-    <td colspan=2><input type="text" class="tw_form" id="empObservations" name="empObservations"  value="<c:out value="${empleado.empObservations}"/>"  size="20" maxlength="100"></input></td>    
+    <td nowrap valign="top" align="right" width="15%">Disponibilidad:</td>
+    <td valign="top"><input type="text" class="tw_form" id="empAvailability" name="empAvailability"  value="<c:out value="${empleado.empAvailability}"/>"  size="40" maxlength="150"></input>
+    <td nowrap valign="top" align="right" width="15%">Observaciones:</td>
+    <td colspan="100%" ><textarea  rows="3" cols="40" class="tw_form" id="empObservations"  onkeyup="limitarArea()" name="empObservations" ><c:out value="${empleado.empObservations}"/></textarea></td>    
   </tr>
   </table>
   <br>
   <hr class="tw_hr">
-  <table width="100%">
+  <table  id="aTar" >
+    <tr>
+        <td><a href="javascript:vistaTarifas()" ><img id="tarifa+"  style="border:0;" title="Mostrar tarifa del cliente" src="img/currency_dollar green.png" alt="Tarifas" width="25" height="25" onmouseover="this.style.cursor='hand';"/></a></td>
+    </Tr>
+  </table>
+  <table id="tabla-tarifas"  style="display:none" >
   <tr>
-  <td>Tarifas:</td>
-  <td> 
+  <td valign="top" ><a href="javascript:vistaTarifas()"><img id="tarifa-"  style="border:0;" title="Ocultar tarifa del cliente" src="img/currency_dollar blue.png" alt="Tarifas" width="25" height="25" onmouseover="this.style.cursor='hand';"/></a></td>
+  <td valign="top">
+ 
   <select name="listaTarifa" id="listaTarifa" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">
                
                 <option value=""  >Seleccionar</option>
@@ -89,13 +121,46 @@
                     </c:choose>
                 </c:forEach>
        </select>
+       
     </td>
+    <td align="left" valign="top">
+    <input type="text" class="tw_form" id="tar_val" size=10  onkeydown="keyTarifa()" />
+    
+    </td>
+    <td align="left" valign="top"><img  src="img/next.png" alt=">" width="20" height="20" title="Agregar Tarifa" onclick="agregarTarifa()" onmouseover="this.style.cursor='hand';"/>
+    </td>
+  <td colspan="100%">
+    <table cellpadding="0" cellspacing="0"  style="background:gray">
+    <tr>
+    <td>
+     <table id="list-tarifas" >
+     <tr><th width="190">Tarifa</th><th width="50">valor</th><th width="25"></th></tr>
+     <tr><td width="190"></td><td width="50"></td><td width="25"></td></tr>
+     </table>
+     </td></tr><tr><td>
+     <div style="width:100%;height:100px;overflow-x: hidden;overflow-y:auto ;" >
+     <table id="list-tarifas-body" align="right" width="100%">
+     <tr style="display:none"><th width="200">Tarifa</th><th width="50">valor</th><th width="25"></th></tr>
+     <c:forEach items="${cliente.clientsRatesTOList}" var="item">
+       <tr name="item-tarifa"  bgcolor="#FFFFFF" id="tarId-<c:out value="${item.ratesTO.ratId}" />" >
+            <td width="200" ><c:out value="${item.ratesTO.ratName}" /></td>
+            <td width="60" align="right" ><c:out value="${item.clrValue}" />
+                <input type="hidden" name="tarifas-hidden"  value="<c:out value="${item.ratesTO.ratId}" />#<c:out value="${item.clrValue}" />" /></td>
+            <td width="37" ><img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarTarifa('tarId-<c:out value="${item.ratesTO.ratId}" />')" onmouseover="this.style.cursor='hand';" /></td>
+        </tr>           
+      </c:forEach>
+     </table>
+     </div>
+     </td>
+     </tr>
+     </table>
+  </td>
   </tr>
   </table>
   <table width="100%">
   <tr>
   <td align="right"><input type="button" id="aceptar" value="Aceptar" onclick="agregar()"/></td>   
-  <td align="left"><input type="button" id="cancel" value="Cancelar" OnClick="cancelar()"/></td>   
+  <td align="left"><input type="button" id="cancel" value="Limpiar" OnClick="cancelar()"/></td>    
   </tr>
   </table>
 

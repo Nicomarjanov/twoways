@@ -31,16 +31,18 @@
   <tr>
   </tr>
   <tr>
-    <td nowrap >Nombre o Razón social:</td>
-    <td><input type="text" class="tw_form" id="nomCliente" name="nomCliente"  value="<c:out value="${cliente.cliName}"/>"  size="50" maxlength="100"  onkeyup="buscarClientes()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
-    <td nowrap>Mail:</td>
-    <td><input type="text" class="tw_form" id="mailCliente"  name="mailCliente"  value="<c:out value="${cliente.cliMail}"/>" size="30" maxlength="100"></input></td>
+    <td nowrap align="right" width="15%">Nombre o Razón social:</td>
+    <td align="left" width="15%"><input type="text" class="tw_form" id="nomCliente" name="nomCliente"  value="<c:out value="${cliente.cliName}"/>"  size="50" maxlength="100"  onkeyup="buscarClientes()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
+    <td nowrap align="right" width="15%">Mail:</td>
+    <td align="left" width="15%"><input type="text" class="tw_form" id="mailCliente"  name="mailCliente"  value="<c:out value="${cliente.cliMail}"/>" size="30" maxlength="100"></input></td>
+    <td width="15%">&nbsp;</td>
+    <td width="15%">&nbsp;</td>  
   </tr>
   <tr>
-    <td nowrap>Teléfono:</td>
-    <td><input type="text" class="tw_form" id="telCliente" name="telCliente"  value="<c:out value="${cliente.cliPhone}"/>"  size="25" maxlength="25"></input></td>
-    <td nowrap >Moneda:</td>
-    <td>
+    <td nowrap align="right" width="15%">Teléfono:</td>
+    <td align="left" width="15%"><input type="text" class="tw_form" id="telCliente" name="telCliente"  value="<c:out value="${cliente.cliPhone}"/>"  size="25" maxlength="25"></input></td>
+    <td nowrap align="right" width="15%">Moneda:</td>
+    <td align="left" width="15%">
      <select name="listaMoneda" id="listaMoneda" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">
                 <option value="" >Seleccionar</option>
                 <c:forEach items="${listaMoneda}" var="item">
@@ -59,22 +61,28 @@
                 </c:forEach>
        </select> 
     </td>
+    <td width="15%">&nbsp;</td>
+    <td width="15%">&nbsp;</td>    
   </tr>
   <tr>
-    <td >
+    <td colspan="100%" align="left">
     <img src="img/bottom.png" id="aMas" onclick="javascript:mostrarOpcionales();"  title="Agregar más datos" alt="Mas datos " width="15" height="15" onmouseover="this.style.cursor='hand';"/>
-    <img id="aMenos"  style="border:0;display:none"  onclick="javascript:ocultarOpcionales();" title="Contraer" src="img/top.png" alt="Menos" width="15" height="15" onmouseover="this.style.cursor='hand';"/></td></tr>
+    <img id="aMenos"  style="border:0;display:none"  onclick="javascript:ocultarOpcionales();" title="Contraer" src="img/top.png" alt="Menos" width="15" height="15" onmouseover="this.style.cursor='hand';"/></td>
+  </tr>
+  </table>
+  <table width="100%">
   <tr id="trOpcionales1" style="display:none">
-    <td nowrap >Dirección:</td>
-    <td><input type="text" class="tw_form" id="dirCliente" name="dirCliente"   value="<c:out value="${cliente.cliAddress}"/>" size="50" maxlength="250"></input></td>
-    <td nowrap>Codigo Postal:</td>
-    <td nowrap ><input type="text" class="tw_form" id="cpCliente" name="cpCliente"  value="<c:out value="${cliente.cliPostalCode}"/>"  size="10" maxlength="10"></input>
-    País:&nbsp;<input type="text" class="tw_form" id="paisCliente" name="paisCliente"  value="<c:out value="${cliente.cliCountry}"/>"  size="20" maxlength="100"></input></td>    
+    <td nowrap align="right" width="15%">Dirección:</td>
+    <td align="left" width="15%"><input type="text" class="tw_form" id="dirCliente" name="dirCliente"   value="<c:out value="${cliente.cliAddress}"/>" size="50" maxlength="250"></input></td>
+    <td nowrap align="right" width="11%">Codigo Postal:</td>
+    <td align="left" width="15%"><input type="text" class="tw_form" id="cpCliente" name="cpCliente"  value="<c:out value="${cliente.cliPostalCode}"/>"  size="10" maxlength="10"></input>
+    <td align="right" width="15%">País:</td>
+    <td align="left" width="15%"><input type="text" class="tw_form" id="paisCliente" name="paisCliente"  value="<c:out value="${cliente.cliCountry}"/>"  size="20" maxlength="100"></input></td>    
   </tr>
   <tr id="trOpcionales2" style="display:none" > 
   
-    <td valign="top">Descripción:</td>
-    <td colspan="100%" ><textarea  rows="3"  cols="90" class="tw_form" id="descCliente"  onkeyup="limitarArea()" name="descCliente" ><c:out value="${cliente.cliDescription}"/></textarea></td>
+    <td valign="top" align="right" width="15%">Descripción:</td>
+    <td colspan="100%" ><textarea  rows="3" cols="90" class="tw_form" id="descCliente"  onkeyup="limitarArea()" name="descCliente" ><c:out value="${cliente.cliDescription}"/></textarea></td>
   </tr>
   </table>
   <br>
