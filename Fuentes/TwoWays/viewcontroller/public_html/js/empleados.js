@@ -71,9 +71,9 @@ function cargarItemTarifa(row){
    
    row.id= 'tarId-'+ optionSelected.value;
    row.cells[1].innerHTML= tarVal + '<input type="hidden" name="tarifas-hidden"  value="'+optionSelected.value+'#'+tarVal+'" />';
-   row.cells[2].innerHTML= '<img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarTarifa(\''+row.id+'\')" onmouseover="this.style.cursor=\'hand\';" />';
-   row.cells[0].width=203;
-   row.cells[1].width=60;
+   row.cells[2].innerHTML= '<img  src="img/Delete.png" height="18" width="18"  alt="Eliminar" onclick="eliminarTarifa(\''+row.id+'\')" onmouseover="this.style.cursor=\'hand\';" />';
+   row.cells[0].width=190;
+   row.cells[1].width=50;
    row.cells[1].align='right';
   
 }

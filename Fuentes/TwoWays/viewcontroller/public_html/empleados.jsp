@@ -140,13 +140,13 @@
      </td></tr><tr><td>
      <div style="width:100%;height:100px;overflow-x: hidden;overflow-y:auto ;" >
      <table id="list-tarifas-body" align="right" width="100%">
-     <tr style="display:none"><th width="200">Tarifa</th><th width="50">valor</th><th width="25"></th></tr>
+     <tr style="display:none"><th width="190">Tarifa</th><th width="50">valor</th><th width="25"></th></tr>
      <c:forEach items="${cliente.clientsRatesTOList}" var="item">
        <tr name="item-tarifa"  bgcolor="#FFFFFF" id="tarId-<c:out value="${item.ratesTO.ratId}" />" >
-            <td width="200" ><c:out value="${item.ratesTO.ratName}" /></td>
-            <td width="60" align="right" ><c:out value="${item.clrValue}" />
+            <td width="190" ><c:out value="${item.ratesTO.ratName}" /></td>
+            <td width="50" align="right" ><c:out value="${item.clrValue}" />
                 <input type="hidden" name="tarifas-hidden"  value="<c:out value="${item.ratesTO.ratId}" />#<c:out value="${item.clrValue}" />" /></td>
-            <td width="37" ><img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarTarifa('tarId-<c:out value="${item.ratesTO.ratId}" />')" onmouseover="this.style.cursor='hand';" /></td>
+            <td width="25" ><img  src="img/Delete.png" height="18" width="18"  alt="Eliminar" onclick="eliminarTarifa('tarId-<c:out value="${item.ratesTO.ratId}" />')" onmouseover="this.style.cursor='hand';" /></td>
         </tr>           
       </c:forEach>
      </table>

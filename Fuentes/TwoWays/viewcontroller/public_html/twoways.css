@@ -58,25 +58,48 @@ p.basico{
 #list-tarifas
 {
 border-style:none;
-border-spacing: 2px;
+border-spacing: 1px;
 border-collapse:separate;
-}
-
-#list-tarifas td, #list-tarifas th 
-{
-text-align:left;
-font-size:1em;
-padding:2px 7px 2px 7px;
 }
 
 #list-tarifas th 
 {
-font-size:1.1em;
-padding-top:5px;
-padding-bottom:4px;
+font-size:10px;
+padding-top:3px;
+padding-bottom:2px;
 background-color:#80211D;
 color:#ffffff;
 }
+
+#list-tarifas td 
+{
+text-align:left;
+font-size:10px;
+padding:3px 7px 2px 7px;
+}
+
+#list-tarifas-body
+{
+border-style:none;
+border-spacing: 1px;
+border-collapse:separate;
+}
+#list-tarifas-body th
+{
+font-size:10px;
+padding-top:3px;
+padding-bottom:2px;
+background-color:#80211D;
+color:#ffffff;
+}
+
+#list-tarifas-body td
+{
+text-align:left;
+font-size:10px;
+padding:3px 7px 2px 7px;    
+}
+
 
 #list-tarifas tr.alt td 
 {
