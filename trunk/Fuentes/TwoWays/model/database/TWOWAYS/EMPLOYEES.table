@@ -31,7 +31,7 @@
                   <name>EMP_ID</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>twoways</connectionName>
+                     <connectionName>XE</connectionName>
                      <databaseID>13647</databaseID>
                      <name>EMPLOYEES</name>
                      <parent/>
@@ -74,7 +74,7 @@
                   <name>EMP_FIRST_NAME</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>twoways</connectionName>
+                     <connectionName>XE</connectionName>
                      <databaseID>13647</databaseID>
                      <name>EMPLOYEES</name>
                      <parent/>
@@ -113,7 +113,7 @@
                   <name>EMP_LAST_NAME</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>twoways</connectionName>
+                     <connectionName>XE</connectionName>
                      <databaseID>13647</databaseID>
                      <name>EMPLOYEES</name>
                      <parent/>
@@ -152,7 +152,7 @@
                   <name>EMP_MAIL</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>twoways</connectionName>
+                     <connectionName>XE</connectionName>
                      <databaseID>13647</databaseID>
                      <name>EMPLOYEES</name>
                      <parent/>
@@ -190,7 +190,7 @@
                   <name>EMP_BIRTH</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>twoways</connectionName>
+                     <connectionName>XE</connectionName>
                      <databaseID>13647</databaseID>
                      <name>EMPLOYEES</name>
                      <parent/>
@@ -224,7 +224,7 @@
                   <name>EMP_PHONE_NUMBER</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>twoways</connectionName>
+                     <connectionName>XE</connectionName>
                      <databaseID>13647</databaseID>
                      <name>EMPLOYEES</name>
                      <parent/>
@@ -258,7 +258,7 @@
                   <name>EMP_MOBILE_NUMBER</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>twoways</connectionName>
+                     <connectionName>XE</connectionName>
                      <databaseID>13647</databaseID>
                      <name>EMPLOYEES</name>
                      <parent/>
@@ -297,7 +297,7 @@
                   <name>EMP_ADDRESS</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>twoways</connectionName>
+                     <connectionName>XE</connectionName>
                      <databaseID>13647</databaseID>
                      <name>EMPLOYEES</name>
                      <parent/>
@@ -336,7 +336,7 @@
                   <name>EMP_LOCATION</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>twoways</connectionName>
+                     <connectionName>XE</connectionName>
                      <databaseID>13647</databaseID>
                      <name>EMPLOYEES</name>
                      <parent/>
@@ -348,6 +348,30 @@
                </Value>
             </Item>
          </properties>
+      </Item>
+      <Item>
+         <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
+            <ID>43206a6f-012c-1000-8001-0a000003b9c3</ID>
+            <parent idref="0"/>
+            <type>COLUMN</type>
+         </ID>
+         <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+            <attributeValues class="java.util.HashMap">
+               <Item>
+                  <Key>size</Key>
+                  <Value class="java.lang.Long">500</Value>
+               </Item>
+            </attributeValues>
+            <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+               <providerClass>oracle.javatools.db.ora.Oracle9i</providerClass>
+               <schemaName/>
+               <typeName>VARCHAR2</typeName>
+            </dataTypeID>
+         </dataTypeUsage>
+         <default/>
+         <name>EMP_OBSERVATIONS</name>
+         <notNull>false</notNull>
+         <properties/>
       </Item>
    </columns>
    <constraints>
@@ -380,7 +404,7 @@
                   <name>EMPLOYEES_PK</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>twoways</connectionName>
+                     <connectionName>XE</connectionName>
                      <databaseID>13647</databaseID>
                      <name>EMPLOYEES</name>
                      <parent/>
@@ -405,7 +429,7 @@
          <Key>OfflineDBConstants.GENERATE_TARGET_ID</Key>
          <Value class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
             <ID/>
-            <connectionName>twoways</connectionName>
+            <connectionName>XE</connectionName>
             <databaseID>13647</databaseID>
             <name>EMPLOYEES</name>
             <parent/>
@@ -436,7 +460,7 @@
       <properties class="java.util.HashMap">
          <Item>
             <Key>OfflineDBConstants.GENERATE_TARGET_CONECTION</Key>
-            <Value>twoways</Value>
+            <Value>XE</Value>
          </Item>
          <Item>
             <Key>OfflineDBConstants.GENERATE_TARGET_SCHEMA</Key>

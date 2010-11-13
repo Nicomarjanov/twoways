@@ -90,7 +90,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                     }
                 }     
                 String empleadosTipos[]=request.getParameterValues("listaTipoEmp");
-                //List<EmployeesTypesTO> employeesTypesTOList = new   ArrayList<EmployeesTypesTO>();
+                List<EmployeesTypesTO> employeesTypesTOList = new   ArrayList<EmployeesTypesTO>();
                 
                 if( empleadosTipos  != null){ 
                                        
@@ -98,7 +98,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                                                                     
                         EmployeesTypesTO employeesTypesTO = new EmployeesTypesTO();
                         employeesTypesTO.setEtyName(aux);
-                        //employeesTypesTOList.add(e)
+                        employeesTypesTOList.add();
                         employeesTypesTO.setEmployeesTO(empleado);
                     }
                 }  
@@ -111,6 +111,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                 empleado.setEmpLocation((request.getParameter("empLocation")!= null )?request.getParameter("empLocation"):"");                
                 empleado.setEmpLocation((request.getParameter("empObservations")!= null )?request.getParameter("empObservations"):"");    
                 empleado.setEmployeesRatesTOList(employeesRatesTOList);
+                empleado.setEmployeesTypesTOList(employeesTypesTOList);
                 try{
                     if (request.getParameter("empMobileNumber")!=null && !request.getParameter("empMobileNumber").equalsIgnoreCase("")){
                         empleado.setEmpMobileNumber(Long.valueOf(request.getParameter("empMobileNumber")));

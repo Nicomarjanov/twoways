@@ -150,7 +150,7 @@
   
   <insert id="insertEmployeesRates" parameterClass="com.twoways.to.EmployeesRatesTO"   >
     insert into employees_rates
-           (employees_cli_id, emr_value, rates_rat_id)
+           (employees_emp_id, emr_value, rates_rat_id)
     values
           (#employeesTO.empId#, #emrValue#, #ratesTO.ratId#)
           
