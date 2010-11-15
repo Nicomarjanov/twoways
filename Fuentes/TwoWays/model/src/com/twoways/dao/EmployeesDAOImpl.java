@@ -32,10 +32,6 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
        return employee;
     }
 
-    public void updateEmpleado(EmployeesTO employeesTO) {
-        getSqlMapClientTemplate().insert("updateEmployee",employeesTO);
-    }
-
     public List buscarEmpleados(String search) throws Exception{
         List ret= null;
         try {
@@ -88,29 +84,27 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
         return getEmpById(String.valueOf(empId)); 
         
     }
-
-  /*  public ClientsTO updateCliente(ClientsTO clientsTO) throws Exception {
+    
+    public EmployeesTO updateEmpleado(EmployeesTO employeesTO) throws Exception {
         
        try{
-       /* getSqlMapClientTemplate().getSqlMapClient().startTransaction();
-        getSqlMapClientTemplate().getSqlMapClient().startBatch(); 
-           List<ClientsRatesTO> oldCliRates = (List<ClientsRatesTO>) getSqlMapClientTemplate().queryForList("getClientRatesByCliId",clientsTO); 
+           List<EmployeesRatesTO> oldEmpRates = (List<EmployeesRatesTO>) getSqlMapClientTemplate().queryForList("getEmployeeRatesByCliId",employeesTO); 
              
-          getSqlMapClientTemplate().update("updateClients",clientsTO);
+           getSqlMapClientTemplate().update("updateEmployees",employeesTO);
           
-          List cliRates = clientsTO.getClientsRatesTOList();
-          
+           List empRates = employeesTO.getEmployeesRatesTOList();
+           
           // insertar las nuevas 
           
-          for(Object clientsRatesTO: cliRates.toArray() ){
+           for(Object employeesRatesTO: empRates.toArray() ){
                
-              ClientsRatesTO newCR = (ClientsRatesTO)clientsRatesTO;
+              EmployeesRatesTO newER = (EmployeesRatesTO)employeesRatesTO;
              boolean insertar= true;   
               
-              for(Object oldCliRate: oldCliRates.toArray() ){
+              for(Object oldEmpRate: oldEmpRates.toArray() ){
                  
-                  ClientsRatesTO oldCR = (ClientsRatesTO)oldCliRate;  
-                  if( oldCR.getClientsTO().getCliId().equals(newCR.getClientsTO().getCliId()) && oldCR.getRatesTO().getRatId().equals(newCR.getRatesTO().getRatId())  ){
+                  EmployeesRatesTO oldER = (EmployeesRatesTO)oldEmpRate;  
+                  if( oldER.getEmployeesTO().getEmpId().equals(newER.getEmployeesTO().getEmpId()) && oldER.getRatesTO().getRatId().equals(newER.getRatesTO().getRatId())  ){
                       insertar=false;
                       break;
                   }
@@ -119,21 +113,21 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
                
               if(insertar)
               {
-                  getSqlMapClientTemplate().insert("insertClientsRates",(ClientsRatesTO)clientsRatesTO);
+                  getSqlMapClientTemplate().insert("insertEmployeesRates",(EmployeesRatesTO)employeesRatesTO);
               }else{
-                  getSqlMapClientTemplate().insert("updateClientsRates",(ClientsRatesTO)clientsRatesTO);
+                  getSqlMapClientTemplate().insert("updateEmployeesRates",(EmployeesRatesTO)employeesRatesTO);
               }  
-          }
+           }
           
           //borrar las viejas
-          for(Object oldCliRate: oldCliRates.toArray() ){
-                 ClientsRatesTO oldCR = (ClientsRatesTO)oldCliRate;   
+           for(Object oldEmpRate: oldEmpRates.toArray() ){
+                 EmployeesRatesTO oldER = (EmployeesRatesTO)oldEmpRate;   
                  boolean borrar= true;   
-                 for(Object clientsRatesTO: cliRates.toArray() ){
+                 for(Object employeesRatesTO: empRates.toArray() ){
                  
-                     ClientsRatesTO newCR = (ClientsRatesTO)clientsRatesTO;
+                     EmployeesRatesTO newER = (EmployeesRatesTO)employeesRatesTO;
                      
-                     if( oldCR.getClientsTO().getCliId().equals(newCR.getClientsTO().getCliId()) && oldCR.getRatesTO().getRatId().equals(newCR.getRatesTO().getRatId())  ){
+                     if( oldER.getEmployeesTO().getEmpId().equals(newER.getEmployeesTO().getEmpId()) && oldER.getRatesTO().getRatId().equals(newER.getRatesTO().getRatId())  ){
                          borrar=false;
                          break;
                      }
@@ -142,25 +136,19 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
                   
                  if(borrar)
                  {
-                     getSqlMapClientTemplate().delete("deleteClientsRates",(ClientsRatesTO)oldCR);
+                     getSqlMapClientTemplate().delete("deleteEmployeesRates",(EmployeesRatesTO)oldER);
                  }  
-             }
-             
-            
-                /* getSqlMapClientTemplate().getSqlMapClient().executeBatch();
-                 getSqlMapClientTemplate().getSqlMapClient().commitTransaction();
+             }                                    
                  
-             } catch (Exception ex)  {
+        } catch (Exception ex)  {
                //  getSqlMapClientTemplate().getSqlMapClient().endTransaction();
                  ex.printStackTrace();
                  
-             } finally  {
-             }
-             
-          
-          //borrar las viejas 
+        } finally  {
+        }
+        //borrar las viejas 
            
-        return getClientById(String.valueOf(clientsTO.getCliId()));     
+        return getEmpById(String.valueOf(employeesTO.getEmpId()));     
         
-    }*/
+    }
 }

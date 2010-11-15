@@ -25,7 +25,9 @@
         <property name="rolesDao">
             <ref bean="rolesDAO"/>
         </property> 
-        
+        <property name="itemDao">
+            <ref bean="itemDAO"/>
+        </property>         
     </bean>
 
     <!-- declaracion de los servicios, utilizando proxy para el manejo de transacciones -->

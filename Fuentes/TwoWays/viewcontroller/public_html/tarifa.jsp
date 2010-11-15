@@ -26,15 +26,15 @@
   <tr>
   </tr>
   <tr>
-    <td>Nombre de la tarifa:</td>
+    <td nowrap align="left" width="15%">Nombre de la tarifa:</td>
     <td><input type="text" class="tw_form" id="nomTarifa" name="nomTarifa"  value="<c:out value="${tarifa.ratName}"/>"  size="50" maxlength="100" onkeyup="buscarTarifas()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
-    <td>Descripción:</td>
+    <td align="left" width="15%">Descripción:</td>
     <td colspan="5"><input type="text" class="tw_form" id="descTarifa"  name="descTarifa"  value="<c:out value="${tarifa.ratDescription}"/>" size="100" maxlength="350"></input></td>    
     </tr>
     <tr>
-    <td>Tipo de tarifa:</td>
+    <td nowrap align="left" width="15%">Tipo de tarifa:</td>
     <td>
-           <select name="tipoTarifa" id="tipoTarifa" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">
+       <select name="tipoTarifa" id="tipoTarifa" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">
                 <option value="" >Seleccionar</option>
                 <c:forEach items="${tipoTarifa}" var="item">
                    <c:choose>
@@ -52,12 +52,9 @@
                 </c:forEach>
        </select> 
     </td>
-    <td>Moneda:</td>
+    <td align="left" width="15%">Moneda:</td>
     <td>       
-    
-       
-       <select name="listaMoneda" id="listaMoneda" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">
-                
+       <select name="listaMoneda" id="listaMoneda" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">                
                 <option value="" >Seleccionar</option>
                 <c:forEach items="${listaMoneda}" var="item">
                    <c:choose>

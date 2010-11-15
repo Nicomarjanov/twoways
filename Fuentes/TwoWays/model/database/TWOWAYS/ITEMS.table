@@ -31,7 +31,7 @@
                   <name>ITM_ID</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>twoways</connectionName>
+                     <connectionName>XE</connectionName>
                      <databaseID>13659</databaseID>
                      <name>ITEMS</name>
                      <parent/>
@@ -74,7 +74,7 @@
                   <name>ITM_NAME</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>twoways</connectionName>
+                     <connectionName>XE</connectionName>
                      <databaseID>13659</databaseID>
                      <name>ITEMS</name>
                      <parent/>
@@ -113,7 +113,50 @@
                   <name>ITM_DESCRIPTION</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>twoways</connectionName>
+                     <connectionName>XE</connectionName>
+                     <databaseID>13659</databaseID>
+                     <name>ITEMS</name>
+                     <parent/>
+                     <schemaName>TWOWAYS</schemaName>
+                     <type>TABLE</type>
+                  </parent>
+                  <schemaName/>
+                  <type>COLUMN</type>
+               </Value>
+            </Item>
+         </properties>
+      </Item>
+      <Item>
+         <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
+            <ID>437de0ec-012c-1000-8002-0a000003b9c3</ID>
+            <parent idref="0"/>
+            <type>COLUMN</type>
+         </ID>
+         <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+            <attributeValues class="java.util.HashMap">
+               <Item>
+                  <Key>size</Key>
+                  <Value>15</Value>
+               </Item>
+            </attributeValues>
+            <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+               <providerClass>oracle.javatools.db.ora.Oracle9i</providerClass>
+               <schemaName/>
+               <typeName>VARCHAR2</typeName>
+            </dataTypeID>
+         </dataTypeUsage>
+         <default/>
+         <name>ITM_TYPE</name>
+         <notNull>false</notNull>
+         <properties class="java.util.HashMap">
+            <Item>
+               <Key>OfflineDBConstants.GENERATE_TARGET_ID</Key>
+               <Value class="oracle.jdeveloper.offlinedb.marshal.GenericDBReferenceID">
+                  <ID/>
+                  <name>ITM_TYPE</name>
+                  <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
+                     <ID/>
+                     <connectionName>XE</connectionName>
                      <databaseID>13659</databaseID>
                      <name>ITEMS</name>
                      <parent/>
@@ -147,7 +190,7 @@
                   <name>ITEMS_PK</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>twoways</connectionName>
+                     <connectionName>XE</connectionName>
                      <databaseID>13659</databaseID>
                      <name>ITEMS</name>
                      <parent/>
@@ -166,13 +209,13 @@
    <properties class="java.util.HashMap">
       <Item>
          <Key>OfflineDBConstants.GENERATE_TARGET_CONECTION</Key>
-         <Value>twoways</Value>
+         <Value>XE</Value>
       </Item>
       <Item>
          <Key>OfflineDBConstants.GENERATE_TARGET_ID</Key>
          <Value class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
             <ID/>
-            <connectionName>twoways</connectionName>
+            <connectionName>XE</connectionName>
             <databaseID>13659</databaseID>
             <name>ITEMS</name>
             <parent/>
@@ -203,7 +246,7 @@
       <properties class="java.util.HashMap">
          <Item>
             <Key>OfflineDBConstants.GENERATE_TARGET_CONECTION</Key>
-            <Value>twoways</Value>
+            <Value>XE</Value>
          </Item>
          <Item>
             <Key>OfflineDBConstants.GENERATE_TARGET_SCHEMA</Key>

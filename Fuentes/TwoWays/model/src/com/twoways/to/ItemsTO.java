@@ -12,34 +12,43 @@ public class ItemsTO {
     private Long itmId;
     //(name="ITM_NAME", nullable = false)
     private String itmName;
+    private String itmType;
     private List<ItemsInvoicesTO> itemsInvoicesTOList;
     private List<ItemsExpensesTO> itemsExpensesTOList;
 
     public ItemsTO() {
     }
 
-    public String getItmDescription() {
+    public String getItemDescription() {
         return itmDescription;
     }
 
-    public void setItmDescription(String itmDescription) {
+    public void setItemDescription(String itmDescription) {
         this.itmDescription = itmDescription;
     }
 
-    public Long getItmId() {
+    public Long getItemId() {
         return itmId;
     }
 
-    public void setItmId(Long itmId) {
+    public void setItemId(Long itmId) {
         this.itmId = itmId;
     }
 
-    public String getItmName() {
+    public String getItemName() {
         return itmName;
     }
 
-    public void setItmName(String itmName) {
+    public void setItemName(String itmName) {
         this.itmName = itmName;
+    }
+    
+    public String getItemType() {
+        return itmType;
+    }
+
+    public void setItemType(String itmType) {
+        this.itmType = itmType;
     }
 
     public List<ItemsInvoicesTO> getItemsInvoicesTOList() {

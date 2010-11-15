@@ -156,6 +156,23 @@
           
   </insert>
   
+  <insert id="updateEmployeesRates" parameterClass="com.twoways.to.EmployeesRatesTO"   >
+    update  employees_rates
+    set  emr_value= #emrValue#
+    where
+    employees_emp_id = #employeesTO.empId#  and  
+    rates_rat_id = #ratesTO.ratId#
+          
+  </insert>
+  
+  <delete id="deleteEmployeesRates" parameterClass="com.twoways.to.EmployeesRatesTO"   >
+    delete  employees_rates
+    where
+    employees_emp_id = #employeesTO.empId#  and  
+    rates_rat_id = #ratesTO.ratId#
+          
+  </delete>
+  
   <insert id="insertEmployeesTypes" parameterClass="com.twoways.to.EmployeesTypesTO"   >
     insert into employees_types
            (EMPLOYEES_EMP_ID,  EMPLOYEE_TYPE_ETY_NAME)
@@ -382,9 +399,7 @@
      from  users 
      where usr_id = #value#      
   </statement>  
-  
-  
-  
+      
    <resultMap id="select-Cli-Rates" class="com.twoways.to.ClientsRatesTO" >
       <result property="clrValue" column="CLR_VALUE" />
       <result property="clientsTO.cliId" column="CLIENTS_CLI_ID"/>
@@ -397,8 +412,7 @@
   <statement  id="getClientRatesByCliId" resultMap="select-Cli-Rates"  parameterClass="com.twoways.to.ClientsTO" >
      select * from clients_rates cr join rates r on cr.rates_rat_id = r.rat_id 
      and   cr.clients_cli_id=#cliId#
-  </statement>   
-  
+  </statement>     
      
   <insert id="updateClientsRates" parameterClass="com.twoways.to.ClientsRatesTO"   >
     update  clients_rates
@@ -408,14 +422,12 @@
     rates_rat_id = #ratesTO.ratId#
           
   </insert>
-  
-  
+   
   <delete id="deleteClientsRates" parameterClass="com.twoways.to.ClientsRatesTO"   >
     delete  clients_rates
     where
     clients_cli_id = #clientsTO.cliId#  and  
-    rates_rat_id = #ratesTO.ratId#
-          
+    rates_rat_id = #ratesTO.ratId#        
   </delete>
   
   

@@ -2,6 +2,7 @@ package com.twoways.service;
 
 import com.twoways.to.ClientsTO;
 import com.twoways.to.EmployeesTO;
+import com.twoways.to.ItemsTO;
 import com.twoways.to.RateTypesTO;
 import com.twoways.to.RatesTO;
 
@@ -18,6 +19,8 @@ public interface TW_SystemService {
     public ClientsTO updateCliente(ClientsTO clientsTO) throws Exception ;
     
     public ClientsTO getClientById(String cliId)  throws Exception;
+    
+    //public String getClientByName(String empName)  throws Exception;
     
     public List buscarClientes(String search) throws Exception;
     
@@ -72,5 +75,15 @@ public interface TW_SystemService {
     public List obtenerRoles() throws Exception;
     
     public UsersTO getLogin(String userId, String pass) throws Exception ;
+      
+    public void insertarItem(ItemsTO itemsTO) throws Exception;
+    
+    public void actualizarItem(ItemsTO itemsTO) throws Exception;
+    
+    public boolean deleteItem(ItemsTO item) throws Exception;
+    
+    public List obtenerItem() throws Exception;
+    
+    public ItemsTO getItemById(String itmId)  throws Exception;
     
 }

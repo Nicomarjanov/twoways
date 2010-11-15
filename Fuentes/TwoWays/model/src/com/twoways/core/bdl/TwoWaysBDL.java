@@ -28,8 +28,6 @@ public class TwoWaysBDL {
              if (this.serviceTwoWays == null) {
              throw new Exception("No se pudo obtener la instancia del Servicio");
             }
-         
-          
     }
 
     public void setServiceTwoWays(TW_SystemService serviceTwoWays) {

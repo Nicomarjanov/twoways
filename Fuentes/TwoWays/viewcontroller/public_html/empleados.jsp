@@ -13,7 +13,7 @@
     <script type='text/javascript' src='/twoways/dwr/engine.js'></script>
     <script type='text/javascript' src='/twoways/dwr/util.js'></script>
     
-    <title>Cliente</title>
+    <title>Empleado</title>
     
   </head>
  
@@ -28,30 +28,63 @@
   <tr>
     <th colspan="6" class="tw_form">Ingrese los campos con los datos de los empleados</th>
   </tr>
-  <tr>
-  </tr>
-  <tr>
-    <td nowrap align="right" width="35%">Seleccione las especialidades del empleado:</td>
-    <td valign="top" align="left" width="65%"> 
-        <select multiple="multiple" size="4" name="listaTipoEmp" id="listaTipoEmp" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">                                            
+  </table>
+  <table align="center" width="50%">
+        <tr>
+            <th colspan=3 align="center" style="font-size:10px;">
+                <b>Seleccione las especialidades del empleado:</b>
+            </th>
+        </tr>
+        <tr>
+            <td style="font-size:10px;" align="right"><b>Especialidades disponibles</b></td>
+            <td></td>
+            <td style="font-size:10px;"  align="left"><b>Especialidades asigandas</b></td>
+        </tr>
+        <tr>
+           <td rowspan=3 align="right">
+               <select multiple="multiple" size="4" name="listaTipoEmp" id="listaTipoEmp" style="border:solid 1px #005C8D;width:200px; font-size: 9px;" onfocus="javascript:this.style.background='#FFFFFF';">                                            
                 <c:forEach items="${listaTipoEmp}" var="item">
                    <c:out value="${item.etyName}" />
                    <c:choose>
                     <c:when test="${false}">
-                       <option value="<c:out value="${item.etyName}" />" style="background-color:#A4BAC7;" selected="selected">
+                       <option value="<c:out value="${item.etyName}" />" selected="selected">
                         <c:out value="${item.etyName}" />
                       </option> 
                     </c:when>
                     <c:otherwise>
-                    <option value="<c:out value="${item.etyName}" />" style="background-color:#A4BAC7;">
+                    <option value="<c:out value="${item.etyName}" />" >
                         <c:out value="${item.etyName}" />
                     </option>
                     </c:otherwise>
                     </c:choose>
                 </c:forEach>
-       </select>       
-    </td>
-  </tr>
+              </select>      
+            </td>
+            <td align="center">
+            <table>
+              <tr>
+                <td>
+                <a href="javascript: asignar();"><img style="border:0;" title="Asignar" alt=">" width="17" height="17" src="img/play.png" onmouseover="this.style.cursor='hand';"></img></a>
+                </td>
+              <tr>
+                <td>
+                <a href="javascript: desAsignar();"><img style="border:0;" title="Desasignar" alt="<" width="17" height="17" src="img/back.png" onmouseover="this.style.cursor='hand';"></img></a>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                <a href="javascript: desAsignarTodo();"><img style="border:0;" title="Desasignar todo" alt="|<" width="17" height="17" src="img/player_start.png" onmouseover="this.style.cursor='hand';"></img></a>
+                </td>
+              </tr>
+            </table>
+            <td rowspan=3 align="left">
+                <select name="listaItemsSelect" id="listaItemsSelect" size="4" multiple="multiple" style="border:solid 1px #005C8D;width:200px; font-size: 9px;" >
+                    <option>1</option>
+                </select>
+            </td>
+         </tr>
+  </table>
+  <table>
   <tr>
     <td nowrap  align="right" width="15%" >Nombre:</td>
     <td align="left" width="15%"><input type="text" class="tw_form" id="empFirstName" name="empFirstName"  value="<c:out value="${empleado.empFirstName}"/>"  size="25" maxlength="100"  onkeyup="buscarEmpleados()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
@@ -59,7 +92,7 @@
     <td colspan=2 align="left" width="15%"><input type="text" class="tw_form" id="empLastName" name="empLastName"  value="<c:out value="${empleado.empLastName}"/>" size="25" maxlength="100" onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
   </tr>
   <tr>
-    <td  align="right" width="15%">Mail:</td>
+    <td align="right" width="15%">Mail:</td>
     <td align="left" width="15%"><input type="text" class="tw_form" id="empMail"  name="empMail"  value="<c:out value="${empleado.empMail}"/>" size="20" maxlength="100" onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
     <td align="right" width="15%">MSN:</td>
     <td align="left" width="15%"><input type="text" class="tw_form" id="empMsn"  name="empMsn"  value="<c:out value="${empleado.empMsn}"/>" size="20" maxlength="100" onfocus="javascript:this.style.background='#FFFFFF';"></input></td>        
