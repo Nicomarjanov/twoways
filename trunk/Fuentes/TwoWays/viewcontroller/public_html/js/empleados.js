@@ -288,5 +288,86 @@ function validarCampos()
         return false;
 }
 
+function asignar()
+{
+    var quitar = '';
+    for(var i=0;i<document.getElementById("listaTipoEmp").options.length;i++)
+    {
+        if(document.getElementById("listaTipoEmp").options[i].selected)
+        {
+            var asig = document.getElementById("listaItemsSelect");
+            var option =  new Option(document.getElementById("listaTipoEmp").options[i].text,document.getElementById("listaTipoEmp").options[i].value);
+            asig.options[asig.length] = option;
+            quitar = quitar+document.getElementById("listaTipoEmp").options[i].value+'-'; 
+        }
+    }
+    var arrai = quitar.split('-');
+    for(var j=0;j<arrai.length;j++)
+    {
+        for(var i=0;i<document.getElementById("listaTipoEmp").options.length;i++)
+        {
+            if(document.getElementById("listaTipoEmp").options[i].value == arrai[j])
+                document.getElementById("listaTipoEmp").options[i] = null;    
+        }
+    }
+    
+    sortSelect(document.getElementById("listaItemsSelect"));
+}
 
+function desAsignar()
+{
+    var quitar = '';
+    for(var i=0;i<document.getElementById("listaItemsSelect").options.length;i++)
+    {
+        if(document.getElementById("listaItemsSelect").options[i].selected)
+        {
+            var asig = document.getElementById("listaTipoEmp");
+            var option =  new Option(document.getElementById("listaItemsSelect").options[i].text,document.getElementById("listaItemsSelect").options[i].value);
+            asig.options[asig.length] = option;
+            quitar = quitar+document.getElementById("listaItemsSelect").options[i].value+'-'; 
+        }
+    }
+    var arrai = quitar.split('-');
+    for(var j=0;j<arrai.length;j++)
+    {
+        for(var i=0;i<document.getElementById("listaItemsSelect").options.length;i++)
+        {
+            if(document.getElementById("listaItemsSelect").options[i].value == arrai[j])
+                document.getElementById("listaItemsSelect").options[i] = null;    
+        }
+    }
+    sortSelect(document.getElementById("listaTipoEmp"));
+}
+
+function desAsignarTodo()
+{
+    for(var i=0;i<document.getElementById("listaItemsSelect").options.length;i++)
+    {
+        var asig = document.getElementById("listaTipoEmp");
+        var option =  new Option(document.getElementById("listaItemsSelect").options[i].text,document.getElementById("listaItemsSelect").options[i].value);
+        asig.options[asig.length] = option;
+    }
+    document.getElementById("listaItemsSelect").length = 0;
+    sortSelect(document.getElementById("listaTipoEmp"));
+}
+
+function sortSelect(obj)
+{
+    var o = new Array();
+    for (var i=0; i<obj.options.length; i++){
+        o[o.length] = new Option(obj.options[i].text, obj.options[i].value, obj.options[i].defaultSelected, obj.options[i].selected);
+    }
+    o = o.sort(
+        function(a,b){ 
+            if ((a.text+"") < (b.text+"")) { return -1; }
+            if ((a.text+"") > (b.text+"")) { return 1; }
+            return 0;
+        } 
+    );
+
+    for (var i=0; i<o.length; i++){
+        obj.options[i] = new Option(o[i].text, o[i].value, o[i].defaultSelected, o[i].selected);
+        obj.options[i].title = o[i].text;
+    }
+}
 

@@ -7246,7 +7246,7 @@
                            <dimension
                               name="elementSize"
                               width="210.0"
-                              height="57.34375"/>
+                              height="71.17969"/>
                         </infoMap>
                      </infoMap>
                      <point
@@ -7320,13 +7320,13 @@
                            <dimension
                               name="elementSize"
                               width="210.0"
-                              height="29.671873"/>
+                              height="29.671871"/>
                         </infoMap>
                      </infoMap>
                      <point
                         name="elementPosition"
                         x="0.0"
-                        y="77.17969"/>
+                        y="91.015625"/>
                      <string
                         name="shapeState">symbolic</string>
                      <boolean
@@ -7357,7 +7357,7 @@
                            <dimension
                               name="elementSize"
                               width="210.0"
-                              height="120.0"/>
+                              height="135.0"/>
                         </infoMap>
                      </infoMap>
                      <point
@@ -7394,7 +7394,7 @@
                            <dimension
                               name="elementSize"
                               width="210.0"
-                              height="120.0"/>
+                              height="135.0"/>
                         </infoMap>
                      </infoMap>
                      <point
@@ -7497,18 +7497,18 @@
                      <dimension
                         name="elementSize"
                         width="210.0"
-                        height="120.0"/>
+                        height="135.0"/>
                      <infoMap
                         name="layoutConstraints">
                         <float
                            name="attributesOfClass"
-                           value="0.57249826"/>
+                           value="0.61807203"/>
                         <float
                            name="nameOfShape"
                            value="-2.0"/>
                         <float
                            name="otherInfoOfClass"
-                           value="0.29623273"/>
+                           value="0.2576487"/>
                      </infoMap>
                      <infoList
                         name="shapesUsed"/>
@@ -7516,8 +7516,8 @@
                </infoMap>
                <point
                   name="elementPosition"
-                  x="819.802"
-                  y="937.6603"/>
+                  x="804.802"
+                  y="877.6603"/>
                <graphicalProperties
                   name="graphicalProperties">
                   <color
@@ -7586,8 +7586,8 @@
                      </infoMap>
                      <point
                         name="elementPosition"
-                        x="-103.46924"
-                        y="-229.0"/>
+                        x="-88.46924"
+                        y="-169.0"/>
                      <string
                         name="shapeState">symbolic</string>
                      <boolean
@@ -7623,8 +7623,8 @@
                      </infoMap>
                      <point
                         name="elementPosition"
-                        x="-100.73462"
-                        y="-144.53406"/>
+                        x="-93.23462"
+                        y="-84.53406"/>
                      <string
                         name="shapeState">symbolic</string>
                      <boolean
@@ -7697,8 +7697,8 @@
                      </infoMap>
                      <point
                         name="elementPosition"
-                        x="-149.23462"
-                        y="-166.6278"/>
+                        x="-141.73462"
+                        y="-106.62781"/>
                      <string
                         name="shapeState">symbolic</string>
                      <boolean
@@ -7764,11 +7764,11 @@
                   name="elementPoints">
                   <point
                      name=""
-                     x="911.46106"
-                     y="937.6603"/>
+                     x="896.46106"
+                     y="877.6603"/>
                   <point
                      name=""
-                     x="911.46106"
+                     x="896.46106"
                      y="793.1262"/>
                   <point
                      name=""
@@ -7865,8 +7865,8 @@
                      </infoMap>
                      <point
                         name="elementPosition"
-                        x="284.11264"
-                        y="-244.0"/>
+                        x="314.11264"
+                        y="-184.0"/>
                      <string
                         name="shapeState">symbolic</string>
                      <boolean
@@ -7902,8 +7902,8 @@
                      </infoMap>
                      <point
                         name="elementPosition"
-                        x="93.056335"
-                        y="-216.53406"/>
+                        x="108.056335"
+                        y="-156.53406"/>
                      <string
                         name="shapeState">symbolic</string>
                      <boolean
@@ -7976,8 +7976,8 @@
                      </infoMap>
                      <point
                         name="elementPosition"
-                        x="48.556335"
-                        y="-238.6278"/>
+                        x="63.556335"
+                        y="-178.6278"/>
                      <string
                         name="shapeState">symbolic</string>
                      <boolean
@@ -8043,11 +8043,11 @@
                   name="elementPoints">
                   <point
                      name=""
-                     x="981.4215"
-                     y="937.6603"/>
+                     x="951.4215"
+                     y="877.6603"/>
                   <point
                      name=""
-                     x="981.4215"
+                     x="951.4215"
                      y="721.1262"/>
                   <point
                      name=""

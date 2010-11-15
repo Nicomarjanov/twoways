@@ -111,11 +111,16 @@ public class AbmClientesServlet extends AutorizacionServlet {
                 if(cliId != null && cliId.length() > 0 ){ 
                     cliente =twoWaysBDL.getServiceTwoWays().updateCliente(cliente);
                     
-                    request.setAttribute("cliente",cliente);
+                    request.setAttribute("cliente",cliente);                    
                    
-                   
-                }else{
-                    cliente =twoWaysBDL.getServiceTwoWays().insertarCliente(cliente);
+                /*}else{
+                    String nomCli = request.getParameter("nomCliente");
+                    String resultado = twoWaysBDL.getServiceTwoWays().getClientByName(nomCli);
+                    if (resultado != 'true') {*/
+                        cliente =twoWaysBDL.getServiceTwoWays().insertarCliente(cliente);
+                   /* }else{
+                        request.setAttribute("mensaje","<script>alert('Existe un cliente con ese nombre')</script>");
+                    }*/
                     request.setAttribute("cliente",cliente);
                    
                 }

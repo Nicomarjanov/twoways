@@ -89,7 +89,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                         employeesRatesTO.setEmployeesTO(empleado);
                     }
                 }     
-                String empleadosTipos[]=request.getParameterValues("listaTipoEmp");
+                String empleadosTipos[]=request.getParameterValues("listaItemsSelect");
                 List<EmployeesTypesTO> employeesTypesTOList = new   ArrayList<EmployeesTypesTO>();
                 
                 if( empleadosTipos  != null){ 
@@ -97,9 +97,11 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                     for(String aux:empleadosTipos){
                                                                     
                         EmployeesTypesTO employeesTypesTO = new EmployeesTypesTO();
-                        employeesTypesTO.setEtyName(aux);
-                        employeesTypesTOList.add();
                         employeesTypesTO.setEmployeesTO(empleado);
+
+                        employeesTypesTO.setEtyName(aux);              
+                        employeesTypesTOList.add(employeesTypesTO);                        
+                        
                     }
                 }  
                 //tarifa.setRatId((request.getParameter("listaTarifas")!= null && request.getParameter("listaTarifas").length() > 0 )?Long.parseLong(request.getParameter("listaTarifas")):0);        

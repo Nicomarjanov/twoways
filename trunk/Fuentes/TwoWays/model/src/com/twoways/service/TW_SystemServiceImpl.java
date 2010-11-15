@@ -7,13 +7,16 @@ import com.twoways.dao.RateDAO;
 import com.twoways.dao.RateTypesDAO;
 import com.twoways.dao.UserDAO;
 import com.twoways.dao.RolesDAO;
+import com.twoways.dao.ItemDAO;
 
 import com.twoways.to.ClientsTO;
 import com.twoways.to.CurrencyTO;
 import com.twoways.to.EmployeesTO;
+import com.twoways.to.ItemsTO;
 import com.twoways.to.RateTypesTO;
 import com.twoways.to.RatesTO;
 import com.twoways.to.UsersTO;
+
 
 import java.util.Collections;
 import java.util.List;
@@ -27,6 +30,8 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     private RateTypesDAO rateTypesDao;
     private UserDAO userDao;
     private RolesDAO rolesDao;
+    private ItemDAO itemDao;
+    
      
     public TW_SystemServiceImpl() {
     }
@@ -224,11 +229,37 @@ public class TW_SystemServiceImpl implements TW_SystemService{
           }
     }
     
-    
     private String encript(String pass){
-
         return pass;
-        
     }    
     
+    public void setItemDao(ItemDAO itemDao) {
+        this.itemDao = itemDao;
+    }
+    
+    public ItemDAO getItemDao() {
+        return itemDao;
+    }  
+    public void insertarItem(ItemsTO itemsTO) throws Exception{
+            this.itemDao.insertarItem(itemsTO);
+        }
+        
+    public void actualizarItem(ItemsTO itemsTO) throws Exception {
+            this.itemDao.actualizarItem(itemsTO);
+        }
+
+    public boolean deleteItem(ItemsTO item) throws Exception{
+          return this.itemDao.deleteItem(item);
+      }
+      
+    public List obtenerItem() throws Exception{
+          return this.itemDao.obtenerItem();
+      }      
+      
+    public ItemsTO getItemById(String itmId) throws Exception{
+          return this.itemDao.getItemById(itmId);  
+      }      
+    
+
+      
   }
