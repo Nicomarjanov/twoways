@@ -19,6 +19,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Map;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 
@@ -48,7 +50,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
             
             try {
                 twoWaysBDL = new TwoWaysBDL();
-                //twoWaysBDL.getServiceTwoWays().obtenerMonedas();
+                //twoWaysBDL.getServiceTwoWays().obtenerMonedas();                             
                 tipo =  twoWaysBDL.getServiceTwoWays().obtenerTipoEmpleado();
                 request.setAttribute("listaTipoEmp",tipo);
                 
@@ -89,6 +91,8 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                         employeesRatesTO.setEmployeesTO(empleado);
                     }
                 }     
+                
+                
                 String empleadosTipos[]=request.getParameterValues("listaItemsSelect");
                 List<EmployeesTypesTO> employeesTypesTOList = new   ArrayList<EmployeesTypesTO>();
                 
