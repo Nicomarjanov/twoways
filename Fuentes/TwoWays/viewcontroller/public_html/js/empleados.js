@@ -171,7 +171,8 @@ function grabar(existe)
 
     }
     else
-    {
+    {   
+        sortSelect(document.getElementById("listaItemsSelect"));
         document.getElementById("accion").value='guardar';
         document.forms[0].submit();                   
     }
@@ -311,7 +312,7 @@ function asignar()
         }
     }
     
-    sortSelect(document.getElementById("listaItemsSelect"));
+   // sortSelect(document.getElementById("listaItemsSelect"));
 }
 
 function desAsignar()
@@ -356,6 +357,7 @@ function sortSelect(obj)
     var o = new Array();
     for (var i=0; i<obj.options.length; i++){
         o[o.length] = new Option(obj.options[i].text, obj.options[i].value, obj.options[i].defaultSelected, obj.options[i].selected);
+       
     }
     o = o.sort(
         function(a,b){ 
@@ -366,8 +368,70 @@ function sortSelect(obj)
     );
 
     for (var i=0; i<o.length; i++){
+
         obj.options[i] = new Option(o[i].text, o[i].value, o[i].defaultSelected, o[i].selected);
         obj.options[i].title = o[i].text;
+        obj.options[i].selected = true;
     }
 }
 
+function opcionSeleccionadas(id)
+{
+    var o = new Array();
+    for (var i=0; i<obj.options.length; i++){
+        o[o.length] = new Option(obj.options[i].text, obj.options[i].value, obj.options[i].defaultSelected, obj.options[i].selected);
+       
+    }
+    o = o.sort(
+        function(a,b){ 
+            if ((a.text+"") < (b.text+"")) { return -1; }
+            if ((a.text+"") > (b.text+"")) { return 1; }
+            return 0;
+        } 
+    );
+
+    for (var i=0; i<o.length; i++){
+
+        obj.options[i] = new Option(o[i].text, o[i].value, o[i].defaultSelected, o[i].selected);
+        obj.options[i].title = o[i].text;
+        obj.options[i].selected = true;
+    }
+}
+
+function seleccionarOpciones(array,idDisponible,idAsignado)
+{
+    var listaArray = array.split(',');
+    elementDisp = document.getElementById(idDisponible);
+    elementSelect = document.getElementById(idAsignado);
+    var quitar = '';
+    for(var i=0;i<elementDisp.options.length;i++)
+    {
+       for(var j=0;j<listaArray.length;j++)
+       {
+            if(elementDisp.options[i].value == listaArray[j])
+            {
+                var asig = elementSelect;
+                var option =  new Option(elementDisp.options[i].text,elementDisp.options[i].value);
+                asig.options[asig.length] = option;
+                quitar = quitar+elementDisp.options[i].value+'-';
+            }
+       }
+    }
+    var arrai = quitar.split('-');
+    for(var j=0;j<arrai.length;j++)
+    {
+        for(var i=0;i<elementDisp.options.length;i++)
+        {
+            if(elementDisp.options[i].value == arrai[j])
+                elementDisp.options[i] = null;    
+        }
+    }
+    sortSelect(elementSelect);
+}
+
+function deSeleccionarTodoOpciones(id)
+{
+    elementSelect = document.getElementById(id);
+    for(b=0;b<elementSelect.options.length;b++)
+        elementSelect.options[b].selected=false;
+}

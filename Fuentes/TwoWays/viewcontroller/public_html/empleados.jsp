@@ -44,19 +44,9 @@
            <td rowspan=3 align="right">
                <select multiple="multiple" size="4" name="listaTipoEmp" id="listaTipoEmp" style="border:solid 1px #005C8D;width:200px; font-size: 9px;" onfocus="javascript:this.style.background='#FFFFFF';">                                            
                 <c:forEach items="${listaTipoEmp}" var="item">
-                   <c:out value="${item.etyName}" />
-                   <c:choose>
-                    <c:when test="${false}">
-                       <option value="<c:out value="${item.etyName}" />" selected="selected">
+                       <option value="<c:out value="${item.etyName}"/>" title="<c:out value="${item.etyDescription}"/>">
                         <c:out value="${item.etyName}" />
                       </option> 
-                    </c:when>
-                    <c:otherwise>
-                    <option value="<c:out value="${item.etyName}" />" >
-                        <c:out value="${item.etyName}" />
-                    </option>
-                    </c:otherwise>
-                    </c:choose>
                 </c:forEach>
               </select>      
             </td>
@@ -79,7 +69,6 @@
             </table>
             <td rowspan=3 align="left">
                 <select name="listaItemsSelect" id="listaItemsSelect" size="4" multiple="multiple" style="border:solid 1px #005C8D;width:200px; font-size: 9px;" >
-                    <option>1</option>
                 </select>
             </td>
          </tr>
