@@ -102,8 +102,9 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                                                                     
                         EmployeesTypesTO employeesTypesTO = new EmployeesTypesTO();
                         employeesTypesTO.setEmployeesTO(empleado);
-
-                        employeesTypesTO.setEtyName(aux);              
+                        EmployeeTypeTO etTO = new EmployeeTypeTO();
+                        etTO.setEtyName(aux);
+                        employeesTypesTO.setEmployeeTypeTO(etTO);              
                         employeesTypesTOList.add(employeesTypesTO);                        
                         
                     }
