@@ -86,4 +86,6 @@ public interface TW_SystemService {
     
     public ItemsTO getItemById(String itmId)  throws Exception;
     
+    public List obtenerServicios() throws Exception;
+    
 }

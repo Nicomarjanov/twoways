@@ -56,82 +56,6 @@ function mostrarOpcionales(){
 
 }
 
-function vistaTarifas(){
-
-   var tabla=document.getElementById('tabla-tarifas'); 
-   if(tabla.style.display =='none'){
-       tabla.style.display='';
-       document.getElementById('aTar').style.display='none';
-       
-   }else{
-       tabla.style.display='none';
-        document.getElementById('aTar').style.display='';
-   }
-}
-
-function agregarTarifa(){
-
-   if( document.getElementById('listaTarifa').selectedIndex == 0){ 
-      alert('Seleccione una tarifa');  
-      document.getElementById('listaTarifa').focus();
-     return;
-   }
-   if( document.getElementById('tar_val').value == '' || !isFloat(document.getElementById('tar_val').value)){ 
-      alert('Ingrese una tarifa válida');  
-      document.getElementById('tar_val').focus();
-     return;
-   }
-   
-   if(document.getElementById('tarId-'+document.getElementById('listaTarifa').options[document.getElementById('listaTarifa').selectedIndex].value)){
-   
-     alert('La tarifa ya se encuentra en la lista');  
-   }else{
-   
-       var tablaTarifas= document.getElementById('list-tarifas-body');
-       var index = tablaTarifas.rows.length;
-       var newRow = tablaTarifas.insertRow(index);  
-       newRow.bgColor = "#FFFFFF";
-       insertarColumnas(tablaTarifas.rows[index],tablaTarifas.rows[0].cells.length); 
-       cargarItemTarifa(tablaTarifas.rows[index]);
-       document.getElementById('listaTarifa').focus();
-       
-   }
-   
-}
-
-function cargarItemTarifa(row){
-   
-   var optionSelected=document.getElementById('listaTarifa').options[document.getElementById('listaTarifa').selectedIndex];
-   var tarVal= document.getElementById('tar_val').value;
-   row.cells[0].innerHTML= optionSelected.text; 
-   row.name = 'item-tarifa'; 
-   
-   row.id= 'tarId-'+ optionSelected.value;
-   row.cells[1].innerHTML= tarVal + '<input type="hidden" name="tarifas-hidden"  value="'+optionSelected.value+'#'+tarVal+'" />';
-   row.cells[2].innerHTML= '<img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarTarifa(\''+row.id+'\')" onmouseover="this.style.cursor=\'hand\';" />';
-   row.cells[0].width=203;
-   row.cells[1].width=60;
-   row.cells[1].align='right';
-   
-   
-}
-
-function eliminarTarifa(id){
-
-   var tablaTarifas= document.getElementById('list-tarifas-body');
-   var row = document.getElementById(id);
-   
- 
-   document.getElementById('tar_val').value= row.cells[1].innerHTML.substring(0, row.cells[1].innerHTML.indexOf('<INPUT'));
-   
-   for(var i = 0 ; i <   document.getElementById('listaTarifa').length ;i++){
-      if(document.getElementById('listaTarifa').options[i].value == row.id.substring(6)){
-         document.getElementById('listaTarifa').options[i].selected= true;
-      }
-   }
-   tablaTarifas.deleteRow(row.rowIndex);
-  
-}
 
 function agregar()
 {
@@ -173,16 +97,32 @@ function grabar(existe)
     }
 }
 
-function buscarClientes(){
+function buscarClientes(e){
      
-     var cliId= document.getElementById('cliId').value;
-     var nomCliente= document.getElementById('nomCliente').value;
-     
-     if(cliId== '' &&  nomCliente.length >2 ){ 
-                
-        towaysDWR.buscarClientes(nomCliente,buscarClientesCallBack); 
-     } 
+    var keycode;
+    var cliId= document.getElementById('cliId').value;
+    var nomCliente= document.getElementById('nomCliente').value;
+    if (window.event) keycode = window.event.keyCode;
+    else if (e) keycode = e.which;
     
+    if( keycode == 40 &&  document.getElementById('selectCli').options.length > 0 ){
+      document.getElementById('selectCli').options[0].selected = true;
+      document.getElementById('selectCli').focus();
+      document.getElementById('selectCli').style.display='';
+      
+      return;
+    }else if(keycode == 9 || keycode==8 ){
+      return;
+    }else if( keycode == 13){
+        
+        document.getElementById('nomCliente').value= document.getElementById('selectCli').options[0].text;
+        document.getElementById('selectCli').display='none';
+        document.getElementById('nomCliente').onblur();
+    }else if(cliId== '' &&  nomCliente.length >2 ){ 
+               
+        towaysDWR.buscarClientes(nomCliente,buscarClientesCallBack); 
+      
+    }
 }
 
 function limitarArea(){
@@ -227,16 +167,42 @@ function postEliminar(data){
    }
 }
 
+function seleccionCliente(){
+
+   
+    var selectCli = document.getElementById('selectCli');
+    var seleccion = selectCli.options[selectCli.selectedIndex].text;
+    var cliente = document.getElementById('nomCliente');
+    cliente.value= seleccion;
+    selectCli.display='none';
+    
+    
+}
 function buscarClientesCallBack(data){
    if (data.length > 0) {
       var tablaClientes= document.getElementById('tabla-busqueda');
+      var selectCli = document.getElementById('selectCli');
+      selectCli.options.length=0;
       borrarFilas(tablaClientes);
       document.getElementById('div-clientes').style.display='';
       for(var i=0 ; i<   data.length; i++){
         
+        var option = document.createElement('option')
+        option.value= data[i].cliId;
+        option.text= data[i].cliName;
+                
+        if(MSIE){
+          selectCli.add(option);
+        }else{
+           selectCli.add(option,null);
+        }
         insertarFila(tablaClientes,data[i]);
         
+        
       } 
+     selectCli.style.display=''; 
+     selectCli.size=data.length;
+     
     }
 }
 

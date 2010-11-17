@@ -28,6 +28,9 @@
         <property name="itemDao">
             <ref bean="itemDAO"/>
         </property>         
+        <property name="serviceDao">
+            <ref bean="serviceDAO"/>
+        </property>  
     </bean>
 
     <!-- declaracion de los servicios, utilizando proxy para el manejo de transacciones -->

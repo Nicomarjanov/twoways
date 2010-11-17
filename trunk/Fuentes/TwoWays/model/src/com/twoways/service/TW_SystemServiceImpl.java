@@ -5,6 +5,7 @@ import com.twoways.dao.CurrencyDAO;
 import com.twoways.dao.EmployeeDAO;
 import com.twoways.dao.RateDAO;
 import com.twoways.dao.RateTypesDAO;
+import com.twoways.dao.ServiceDAO;
 import com.twoways.dao.UserDAO;
 import com.twoways.dao.RolesDAO;
 import com.twoways.dao.ItemDAO;
@@ -31,7 +32,7 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     private UserDAO userDao;
     private RolesDAO rolesDao;
     private ItemDAO itemDao;
-    
+    private ServiceDAO serviceDao;
      
     public TW_SystemServiceImpl() {
     }
@@ -258,8 +259,18 @@ public class TW_SystemServiceImpl implements TW_SystemService{
       
     public ItemsTO getItemById(String itmId) throws Exception{
           return this.itemDao.getItemById(itmId);  
-      }      
-    
+      }
 
-      
-  }
+
+    public void setServiceDao(ServiceDAO serviceDao) {
+        this.serviceDao = serviceDao;
+    }
+
+    public ServiceDAO getServiceDao() {
+        return serviceDao;
+    }
+
+    public List obtenerServicios() throws Exception {
+        return serviceDao.obtenerServices();
+    }
+}

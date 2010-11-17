@@ -84,3 +84,5 @@ function isFloat(campo){
 
   return (/^\d+(\.\d+)?$/.test(campo));
 }
+
+
