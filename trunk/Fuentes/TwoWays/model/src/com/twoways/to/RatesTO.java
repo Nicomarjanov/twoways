@@ -62,27 +62,7 @@ public class RatesTO {
     public void setRatValue(String ratValue) {
         this.ratValue = ratValue;
     }
-/*
-    public List<EmployeesRatesTO> getEmployeesRatesTOList() {
-        return employeesRatesTOList;
-    }
 
-    public void setEmployeesRatesTOList(List<EmployeesRatesTO> employeesRatesTOList) {
-        this.employeesRatesTOList = employeesRatesTOList;
-    }
-
-    public EmployeesRatesTO addEmployeesRatesTO(EmployeesRatesTO employeesRatesTO) {
-        getEmployeesRatesTOList().add(employeesRatesTO);
-        employeesRatesTO.setRatesTO(this);
-        return employeesRatesTO;
-    }
-
-    public EmployeesRatesTO removeEmployeesRatesTO(EmployeesRatesTO employeesRatesTO) {
-        getEmployeesRatesTOList().remove(employeesRatesTO);
-        employeesRatesTO.setRatesTO(null);
-        return employeesRatesTO;
-    }
-*/
     public CurrencyTO getCurrencyTO() {
         return currencyTO;
     }

@@ -10,8 +10,7 @@ import java.util.List;
 import org.springframework.dao.DataAccessException;
 
 public class ClientsDAOImpl extends AbstractDAO  implements ClientDAO{
-   
-   
+      
     public List obtenerClientes() throws Exception {
         List ret= null;
         try {
@@ -55,8 +54,6 @@ public class ClientsDAOImpl extends AbstractDAO  implements ClientDAO{
        
        return (res > 0); 
     }
-    
-    
     
     public ClientsTO insertarCliente(ClientsTO clientsTO) throws Exception {
         

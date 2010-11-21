@@ -8,14 +8,17 @@ import org.springframework.dao.DataAccessException;
 
 public class ItemsDAOImpl extends AbstractDAO  implements ItemDAO {
    
-    public void insertarItem(ItemsTO itemsTO) throws Exception {
-        
+    public ItemsTO insertarItem(ItemsTO itemsTO) throws Exception {
+           Long itmId = (Long) getSqlMapClientTemplate().queryForObject("items.seq","");
+           itemsTO.setItemId(itmId);  
            getSqlMapClientTemplate().insert("insertItem",itemsTO);
+           return getItemById(String.valueOf(itmId));           
         }
     
-    public void actualizarItem(ItemsTO itemsTO) {
+    public ItemsTO actualizarItem(ItemsTO itemsTO)throws Exception {
         
-            getSqlMapClientTemplate().insert("updateRate",itemsTO);    
+        getSqlMapClientTemplate().insert("updateItem",itemsTO);   
+        return getItemById(String.valueOf(itemsTO.getItemId()));
     }        
         
     public ItemsTO getItemById(String itmId) throws Exception {
@@ -24,7 +27,7 @@ public class ItemsDAOImpl extends AbstractDAO  implements ItemDAO {
     }
     
     public boolean  deleteItem(ItemsTO item) throws Exception {
-       int res =  getSqlMapClientTemplate().delete("deleteItems",item);
+       int res =  getSqlMapClientTemplate().delete("deleteItem",item);
        return (res > 0); 
     }
 
@@ -39,6 +42,17 @@ public class ItemsDAOImpl extends AbstractDAO  implements ItemDAO {
         }
         return ret;
     }
-        
+
+    public List buscarItems(String search) throws Exception {
+        List ret= null;
+        try {
+            ret = 
+            getSqlMapClientTemplate().queryForList("buscarItems",search);
+        } catch (DataAccessException dae) {
+
+           dae.printStackTrace();
+        }
+        return ret;
+        }        
 }
 
