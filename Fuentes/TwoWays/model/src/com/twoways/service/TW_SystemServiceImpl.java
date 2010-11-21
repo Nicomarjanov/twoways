@@ -259,7 +259,12 @@ public class TW_SystemServiceImpl implements TW_SystemService{
       
     public ItemsTO getItemById(String itmId) throws Exception{
           return this.itemDao.getItemById(itmId);  
-      }
+      }      
+      
+    public List buscarItems(String search) throws Exception{
+      return this.itemDao.buscarItems(search);
+    }
+      
 
 
     public void setServiceDao(ServiceDAO serviceDao) {

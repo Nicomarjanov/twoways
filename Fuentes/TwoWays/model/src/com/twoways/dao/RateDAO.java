@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface RateDAO {
     public List obtenerTarifas() throws Exception;
-    public void insertarTarifa(RatesTO ratesTO) throws Exception;
-    public void actualizarTarifa(RatesTO ratesTO) throws Exception;   
+    public RatesTO insertarTarifa(RatesTO ratesTO) throws Exception;
+    public RatesTO actualizarTarifa(RatesTO ratesTO) throws Exception;   
     public RatesTO getRateById(String ratId) throws Exception;
     public boolean  deleteRate(RatesTO rate)  throws Exception; 
     public List buscarTarifas(String search) throws Exception; 

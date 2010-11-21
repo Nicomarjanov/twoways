@@ -47,10 +47,6 @@ function grabar(existe)
     }
 }
 
-function idsPantalla()
-{
-    return 'itemNombre,itemTitulo,itemToolTip,itemLink,listaBandeja,listaGrupos,btnAgregar,btnCancelar';
-}
 /******************************************************************************/
 //   metodos de validacion de campos
 /******************************************************************************/

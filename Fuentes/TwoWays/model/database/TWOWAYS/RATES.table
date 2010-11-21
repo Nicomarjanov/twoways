@@ -337,6 +337,17 @@
             <type>CONSTRAINT</type>
          </referenceID>
       </Item>
+      <Item class="oracle.javatools.db.CheckConstraint">
+         <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
+            <ID>52b86057-012c-1000-8001-0a0000030dba</ID>
+            <parent idref="0"/>
+            <type>CONSTRAINT</type>
+         </ID>
+         <checkCondition>Cliente</checkCondition>
+         <enabled>true</enabled>
+         <name>RATES_CHK1</name>
+         <properties/>
+      </Item>
    </constraints>
    <indexes class="[Loracle.javatools.db.Index;"/>
    <name>RATES</name>
@@ -380,7 +391,7 @@
       <properties class="java.util.HashMap">
          <Item>
             <Key>OfflineDBConstants.GENERATE_TARGET_CONECTION</Key>
-            <Value>twoways</Value>
+            <Value>XE</Value>
          </Item>
          <Item>
             <Key>OfflineDBConstants.GENERATE_TARGET_SCHEMA</Key>

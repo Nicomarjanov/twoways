@@ -2,7 +2,7 @@
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
 
 <!-- Place filename in namespace field value without extension (.xml) -->
-<sqlMap namespace="twowaysMap" >
+<sqlMap namespace="twowaysMap">
   <!--- Clientes -->
   <select id="obtenerClientes"  parameterClass="java.lang.String" resultClass="com.twoways.to.ClientsTO">
      select 
@@ -97,7 +97,36 @@
         
         
  </delete>
+      
+   <resultMap id="select-Cli-Rates" class="com.twoways.to.ClientsRatesTO" >
+      <result property="clrValue" column="CLR_VALUE" />
+      <result property="clientsTO.cliId" column="CLIENTS_CLI_ID"/>
+      <result property="ratesTO.ratId" column="RAT_ID" />
+      <result property="ratesTO.ratDescription" column="RAT_DESCRIPTION"/>
+      <result property="ratesTO.ratName"   column="RAT_NAME" />
+      <result property="ratesTO.rateTypesTO.rtyName" column="RAT_TYPE"  />
+   </resultMap>
   
+  <statement  id="getClientRatesByCliId" resultMap="select-Cli-Rates"  parameterClass="com.twoways.to.ClientsTO" >
+     select * from clients_rates cr join rates r on cr.rates_rat_id = r.rat_id 
+     and   cr.clients_cli_id=#cliId#
+  </statement>     
+     
+  <insert id="updateClientsRates" parameterClass="com.twoways.to.ClientsRatesTO"   >
+    update  clients_rates
+    set  clr_value= #clrValue#
+    where
+    clients_cli_id = #clientsTO.cliId#  and  
+    rates_rat_id = #ratesTO.ratId#
+          
+  </insert>
+   
+  <delete id="deleteClientsRates" parameterClass="com.twoways.to.ClientsRatesTO"   >
+    delete  clients_rates
+    where
+    clients_cli_id = #clientsTO.cliId#  and  
+    rates_rat_id = #ratesTO.ratId#        
+  </delete>  
   
   <!--Empleados-->
 
@@ -137,8 +166,7 @@
   </statement>
 
   <select  id="employees.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > select employee_seq.nextval empId from dual</select> 
-        
- 
+
   <insert id="insertEmployee" parameterClass="com.twoways.to.EmployeesTO"   >
        
       insert into employees
@@ -161,25 +189,35 @@
     set  emr_value= #emrValue#
     where
     employees_emp_id = #employeesTO.empId#  and  
-    rates_rat_id = #ratesTO.ratId#
-          
+    rates_rat_id = #ratesTO.ratId#          
   </insert>
   
   <delete id="deleteEmployeesRates" parameterClass="com.twoways.to.EmployeesRatesTO"   >
     delete  employees_rates
     where
     employees_emp_id = #employeesTO.empId#  and  
-    rates_rat_id = #ratesTO.ratId#
-          
+    rates_rat_id = #ratesTO.ratId#          
   </delete>
   
   <insert id="insertEmployeesTypes" parameterClass="com.twoways.to.EmployeesTypesTO"   >
     insert into employees_types
            (EMPLOYEES_EMP_ID,  EMPLOYEE_TYPE_ETY_NAME)
     values
-          (#employeesTO.empId#, #employeeTypeTO.etyName#)
-          
+          (#employeesTO.empId#, #employeeTypeTO.etyName#)          
   </insert>
+  
+  <insert id="updateEmployeesTypes" parameterClass="com.twoways.to.EmployeesTypesTO"   >
+    update  employees_types
+    set  EMPLOYEE_TYPE_ETY_NAME = #etyName#
+    where
+    employees_emp_id = #employeesTO.empId#          
+  </insert>  
+  
+  <delete id="deleteEmployeesTypes" parameterClass="com.twoways.to.EmployeesTypesTO"   >
+    delete  employees_types
+    where
+    employees_emp_id = #employeesTO.empId# 
+  </delete>  
   
   <update  id="updateEmployees" parameterClass="com.twoways.to.EmployeesTO">
       UPDATE employees
@@ -191,8 +229,8 @@
               emp_address =  #empAddress# ,
               emp_phone_number = #empPhoneNumber# ,
               emp_mobile_number =#empMobileNumber# ,
-              emp_location= #empLocation#
-              emp_birth = #empBirth#
+              emp_location= #empLocation#,
+              emp_birth = #empBirth#,
               emp_observations = #empObservations#
               WHERE  emp_id = #empId#                     
   </update>
@@ -214,6 +252,32 @@
      employee_type
   </statement>   
      
+  <resultMap id="select-Emp-Rates" class="com.twoways.to.EmployeesRatesTO" >
+      <result property="emrValue" column="EMR_VALUE" />
+      <result property="employeesTO.empId" column="EMPLOYEES_EMP_ID"/>
+      <result property="ratesTO.ratId" column="RAT_ID" />
+      <result property="ratesTO.ratDescription" column="RAT_DESCRIPTION"/>
+      <result property="ratesTO.ratName"   column="RAT_NAME" />
+      <result property="ratesTO.rateTypesTO.rtyName" column="RAT_TYPE"  />
+  </resultMap>
+  
+  <statement  id="getEmpRatesByEmpId" resultMap="select-Emp-Rates"  parameterClass="com.twoways.to.EmployeesTO" >
+     select * from employees_rates cr 
+     join rates r 
+     on cr.rates_rat_id = r.rat_id 
+     and   cr.employees_emp_id=#empId#
+  </statement>       
+
+  <resultMap id="select-Emp-Types" class="com.twoways.to.EmployeesTypesTO">
+      <result property="employeesTO.empId" column="EMPLOYEES_EMP_ID"/>
+      <result property="employeeTypeTO.etyName" column="EMPLOYEE_TYPE_ETY_NAME" />     
+  </resultMap>
+  
+  <statement  id="getEmpTypesByEmpId" resultMap="select-Emp-Types"  parameterClass="com.twoways.to.EmployeesTO" >
+     select * from employees_types cr 
+     where cr.employees_emp_id=#empId#
+  </statement>  
+  
   <!--Monedas -->
  
   <resultMap id="select-Currency" class="com.twoways.to.CurrencyTO" >
@@ -249,6 +313,7 @@
   
   <select id="obtenerTarifas"  parameterClass="java.lang.String" resultClass="com.twoways.to.RatesTO">
      select 
+        RAT_ID as ratId,
         RAT_NAME as ratName,
         RAT_TYPE as ratType,
         RAT_DESCRIPTION as ratDescription,
@@ -258,12 +323,16 @@
      where r.currency_cur_id = c.cur_id
      
   </select>
+  
+  <select  id="rates.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > 
+     select rates_seq.nextval ratId from dual
+  </select> 
 
   <insert id="insertRate" parameterClass="com.twoways.to.RatesTO" >
       insert into rates
           (rat_id, rat_type, rat_name, rat_description,currency_cur_id)
         values
-          (rates_seq.nextval, #rateTypesTO.rtyName#, #ratName#, #ratDescription#, #currencyTO.curId#)                        
+          (#ratId#, #rateTypesTO.rtyName#, #ratName#, #ratDescription#, #currencyTO.curId#)                        
   </insert>
 
   <update  id="updateRate" parameterClass="com.twoways.to.RatesTO">
@@ -393,48 +462,90 @@
      from Roles     
   </statement>  
   
+  <!-- Items -->
+  
+  <insert id="insertItem" parameterClass="com.twoways.to.ItemsTO" >
+      insert into items
+          (itm_id, itm_type, itm_name, itm_description)
+        values
+          (#itmId#, #itmType#, #itmName#, #itmDescription#)                        
+  </insert>
+
+  <update  id="updateItem" parameterClass="com.twoways.to.ItemsTO">
+      UPDATE items
+      SET     itm_name = #itmName# , 
+              itm_description = #itmDescription#,
+              itm_type = #itmType#
+      WHERE  itm_id = #itmId#                     
+  </update>  
+  
+  <resultMap id="select-Item-List"  class="com.twoways.to.ItemsTO" >
+      <result property="itmName" column="ITM_NAME" />
+      <result property="itmId"   column="ITM_ID" />
+      <result property="itmType" column="ITM_TYPE"  />
+      <result property="itmDescription" column="ITM_DESCRIPTION" />
+  </resultMap>
+    
+  <statement id="buscarItems" resultMap="select-Item-List"  parameterClass="java.lang.String" >
+     select *       
+     from items
+     where upper(items.ITM_NAME) like '%' || upper( #value#) || '%'
+     order by items.ITM_NAME
+     
+  </statement>
+
+  <delete id="deleteItem" parameterClass="com.twoways.to.ItemsTO">
+        DELETE Items
+        WHERE  itm_id = #itmId#    
+ </delete> 
+  
+   <select  id="getItemById" parameterClass="java.lang.String" resultMap="select-Item-List">
+     select *
+     from Items r 
+     where itm_id = #value#
+ </select>
   
   <statement id="getPass"  resultClass="java.lang.String" parameterClass="java.lang.String">
      select  usr_pass
      from  users 
      where usr_id = #value#      
   </statement>  
-      
-   <resultMap id="select-Cli-Rates" class="com.twoways.to.ClientsRatesTO" >
-      <result property="clrValue" column="CLR_VALUE" />
-      <result property="clientsTO.cliId" column="CLIENTS_CLI_ID"/>
-      <result property="ratesTO.ratId" column="RAT_ID" />
-      <result property="ratesTO.ratDescription" column="RAT_DESCRIPTION"/>
-      <result property="ratesTO.ratName"   column="RAT_NAME" />
-      <result property="ratesTO.rateTypesTO.rtyName" column="RAT_TYPE"  />
-   </resultMap>
-  
-  <statement  id="getClientRatesByCliId" resultMap="select-Cli-Rates"  parameterClass="com.twoways.to.ClientsTO" >
-     select * from clients_rates cr join rates r on cr.rates_rat_id = r.rat_id 
-     and   cr.clients_cli_id=#cliId#
-  </statement>     
-     
-  <insert id="updateClientsRates" parameterClass="com.twoways.to.ClientsRatesTO"   >
-    update  clients_rates
-    set  clr_value= #clrValue#
-    where
-    clients_cli_id = #clientsTO.cliId#  and  
-    rates_rat_id = #ratesTO.ratId#
-          
-  </insert>
-   
-  <delete id="deleteClientsRates" parameterClass="com.twoways.to.ClientsRatesTO"   >
-    delete  clients_rates
-    where
-    clients_cli_id = #clientsTO.cliId#  and  
-    rates_rat_id = #ratesTO.ratId#        
-  </delete>
-  
- <select id="obtenerServices"  parameterClass="java.lang.String" resultClass="com.twoways.to.ServicesTO">
-     select ser_id as serId, ser_name as serName, ser_description as serDescription 
-     from services
-     
-  </select>   
-  
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </sqlMap> 

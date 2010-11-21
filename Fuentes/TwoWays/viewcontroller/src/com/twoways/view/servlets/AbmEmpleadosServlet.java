@@ -19,8 +19,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.util.Map;
-
 import javax.servlet.*;
 import javax.servlet.http.*;
 
@@ -54,11 +52,9 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                 tipo =  twoWaysBDL.getServiceTwoWays().obtenerTipoEmpleado();
                 request.setAttribute("listaTipoEmp",tipo);
                 
+                request.setAttribute("listaTipoEmpTar",tipo);
                 
-                twoWaysBDL = new TwoWaysBDL();
-                RateTypesTO rateType = new RateTypesTO();
-                rateType.setRtyName("Traductor");
-                tarifas = twoWaysBDL.getServiceTwoWays().getRateByType(rateType);
+                tarifas = twoWaysBDL.getServiceTwoWays().obtenerTarifas();
                 request.setAttribute("listaTarifa",tarifas);
                
             } catch (Exception e) {
@@ -72,7 +68,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                  } catch (Exception e) {
                      e.printStackTrace();
                  }
-                                    
+                                  
                 String tarifasHidden[]=request.getParameterValues("tarifas-hidden");
                 List<EmployeesRatesTO> employeesRatesTOList = new   ArrayList<EmployeesRatesTO>();
                 
@@ -92,7 +88,6 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                     }
                 }     
                 
-                
                 String empleadosTipos[]=request.getParameterValues("listaItemsSelect");
                 List<EmployeesTypesTO> employeesTypesTOList = new   ArrayList<EmployeesTypesTO>();
                 
@@ -106,10 +101,8 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                         etTO.setEtyName(aux);
                         employeesTypesTO.setEmployeeTypeTO(etTO);              
                         employeesTypesTOList.add(employeesTypesTO);                        
-                        
                     }
                 }  
-                //tarifa.setRatId((request.getParameter("listaTarifas")!= null && request.getParameter("listaTarifas").length() > 0 )?Long.parseLong(request.getParameter("listaTarifas")):0);        
                 empleado.setEmpFirstName((request.getParameter("empFirstName")!= null )?request.getParameter("empFirstName"):"");
                 empleado.setEmpLastName((request.getParameter("empLastName")!= null )?request.getParameter("empLastName"):"");
                 empleado.setEmpMail((request.getParameter("empMail")!= null )?request.getParameter("empMail"):"");
@@ -152,10 +145,8 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                     e.printStackTrace();
                     request.getRequestDispatcher("empleados.jsp").forward(request,response);
                 }
-                //empleado.setRatesTO(tarifa);
 
                 try {
-                    
                     if(empId != null && empId.length() > 0 ){ 
                         twoWaysBDL.getServiceTwoWays().updateEmpleado(empleado);
                         request.setAttribute("empleado",empleado);
@@ -172,32 +163,32 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                 }
                
                 request.setAttribute("mensaje","<script>alert('El empleado se guardo con exito')</script>");
-                
-                
-                
+                               
             }
-            else  if(empId != null && empId.length() > 0  && (accion == null || (accion!=null && !accion.equalsIgnoreCase("cancelar")) )){
-              
-            
+            else if(empId != null && empId.length() > 0  && (accion == null || (accion!=null && !accion.equalsIgnoreCase("cancelar")) ))
+            {                        
                  try {
                          empleado =  twoWaysBDL.getServiceTwoWays().getEmpById(empId);
                          request.setAttribute("empleado",empleado);
                          if(empleado == null){
                              request.setAttribute("mensaje","<script>alert('El empleado no existe')</script>"); 
+                         }else{
+                         request.setAttribute("script","<script>init();</script>");
                          }
                      
                  } catch (Exception e) {
                      e.printStackTrace();                 
                      request.setAttribute("mensaje","<script>alert('Error al cargar el empleado')</script>"); 
-                     request.getRequestDispatcher("empleados.jsp").forward(request,response);
+                    // request.getRequestDispatcher("empleados.jsp").forward(request,response);
                  }
             }
+                     
+        request.getRequestDispatcher("empleados.jsp").forward(request,response);
             
-            request.getRequestDispatcher("empleados.jsp").forward(request,response);
-            }
+}
             
-            public void doPost(HttpServletRequest request,
-                           HttpServletResponse response) throws ServletException, IOException {response.setContentType(CONTENT_TYPE);
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            response.setContentType(CONTENT_TYPE);
             doGet(request,response); 
             }
-            }
+}

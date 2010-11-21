@@ -34,18 +34,21 @@ function vistaTarifas(){
 
 function agregarTarifa(){
    
-   if( document.getElementById('listaTarifa').selectedIndex == 0){ 
+   var optionTipoSelected=document.getElementById('listaTipoEmpTar').options[document.getElementById('listaTipoEmpTar').selectedIndex];
+   var optionSelected=document.getElementById('dropDown3').options[document.getElementById('dropDown3').selectedIndex];
+   
+  /* if( document.getElementById('dropDown3').selectedIndex == 0){ 
       alert('Seleccione una tarifa');  
-      document.getElementById('listaTarifa').focus();
+      document.getElementById('dropDown3').focus();
      return;
-   }
+   }*/
    if( document.getElementById('tar_val').value == '' || !isFloat(document.getElementById('tar_val').value)){ 
       alert('Ingrese una tarifa válida');  
       document.getElementById('tar_val').focus();
      return;
    }
    
-   if(document.getElementById('tarId-'+document.getElementById('listaTarifa').options[document.getElementById('listaTarifa').selectedIndex].value)){
+   if(document.getElementById('tarId-'+optionTipoSelected+optionSelected)){
    
      alert('La tarifa ya se encuentra en la lista');  
    }else{
@@ -56,7 +59,7 @@ function agregarTarifa(){
        newRow.bgColor = "#FFFFFF";
        insertarColumnas(tablaTarifas.rows[index],tablaTarifas.rows[0].cells.length); 
        cargarItemTarifa(tablaTarifas.rows[index]);
-       document.getElementById('listaTarifa').focus();    
+       document.getElementById('dropDown3').focus();    
    }
    
 }
@@ -64,17 +67,21 @@ function agregarTarifa(){
 
 function cargarItemTarifa(row){
    
-   var optionSelected=document.getElementById('listaTarifa').options[document.getElementById('listaTarifa').selectedIndex];
+   var optionTipoSelected=document.getElementById('listaTipoEmpTar').options[document.getElementById('listaTipoEmpTar').selectedIndex];
+   var optionSelected=document.getElementById('dropDown3').options[document.getElementById('dropDown3').selectedIndex];
    var tarVal= document.getElementById('tar_val').value;
-   row.cells[0].innerHTML= optionSelected.text; 
+   row.cells[0].innerHTML= optionTipoSelected.text; 
+   row.cells[1].innerHTML= optionSelected.text; 
    row.name = 'item-tarifa'; 
    
-   row.id= 'tarId-'+ optionSelected.value;
-   row.cells[1].innerHTML= tarVal + '<input type="hidden" name="tarifas-hidden"  value="'+optionSelected.value+'#'+tarVal+'" />';
-   row.cells[2].innerHTML= '<img  src="img/Delete.png" height="18" width="18"  alt="Eliminar" onclick="eliminarTarifa(\''+row.id+'\')" onmouseover="this.style.cursor=\'hand\';" />';
-   row.cells[0].width=190;
-   row.cells[1].width=50;
-   row.cells[1].align='right';
+   row.id= 'tarId-'+optionTipoSelected.value+optionSelected.value;
+   
+   row.cells[2].innerHTML= tarVal + '<input type="hidden" name="tarifas-hidden"  value="'+optionSelected.value+'#'+tarVal+'" />';
+   row.cells[3].innerHTML= '<img  src="img/Delete.png" height="18" width="18"  alt="Eliminar" onclick="eliminarTarifa(\''+row.id+'\')" onmouseover="this.style.cursor=\'hand\';" />';
+   row.cells[0].width=130;
+   row.cells[1].width=130;
+   row.cells[2].width=40;
+   row.cells[2].align='right';
   
 }
 
@@ -297,9 +304,14 @@ function asignar()
         if(document.getElementById("listaTipoEmp").options[i].selected)
         {
             var asig = document.getElementById("listaItemsSelect");
+            var asigTar = document.getElementById("listaTipoEmpTar");
+           
             var option =  new Option(document.getElementById("listaTipoEmp").options[i].text,document.getElementById("listaTipoEmp").options[i].value);
-            asig.options[asig.length] = option;
+            var option2 =  new Option(document.getElementById("listaTipoEmp").options[i].text,document.getElementById("listaTipoEmp").options[i].value);
+            asigTar.options[asigTar.length] = option;
+            asig.options[asig.length] = option2;
             quitar = quitar+document.getElementById("listaTipoEmp").options[i].value+'-'; 
+            createDynamicDropdown('listaTipoEmpTar', 'listaTarifa', 'dropDown3');
         }
     }
     var arrai = quitar.split('-');
@@ -325,7 +337,8 @@ function desAsignar()
             var asig = document.getElementById("listaTipoEmp");
             var option =  new Option(document.getElementById("listaItemsSelect").options[i].text,document.getElementById("listaItemsSelect").options[i].value);
             asig.options[asig.length] = option;
-            quitar = quitar+document.getElementById("listaItemsSelect").options[i].value+'-'; 
+            quitar = quitar+document.getElementById("listaItemsSelect").options[i].value+'-';
+            
         }
     }
     var arrai = quitar.split('-');
@@ -333,10 +346,22 @@ function desAsignar()
     {
         for(var i=0;i<document.getElementById("listaItemsSelect").options.length;i++)
         {
-            if(document.getElementById("listaItemsSelect").options[i].value == arrai[j])
-                document.getElementById("listaItemsSelect").options[i] = null;    
+            if(document.getElementById("listaItemsSelect").options[i].value == arrai[j])                
+               // deselectDynamicDropDown ();
+                document.getElementById("listaItemsSelect").options[i] = null;  
+
         }
+        for(var i=0;i<document.getElementById("listaTipoEmpTar").options.length;i++)
+        {
+            if(document.getElementById("listaTipoEmpTar").options[i].value == arrai[j])                
+               // 
+                document.getElementById("listaTipoEmpTar").options[i] = null;  
+
+        }
+        
     }
+    deselectDynamicDropDown ();
+    createDynamicDropdown("listaTipoEmpTar", "listaTarifa", "dropDown3");
     sortSelect(document.getElementById("listaTipoEmp"));
 }
 
@@ -349,6 +374,8 @@ function desAsignarTodo()
         asig.options[asig.length] = option;
     }
     document.getElementById("listaItemsSelect").length = 0;
+    document.getElementById("listaTipoEmpTar").length = 0;
+    deselectDynamicDropDown ();
     sortSelect(document.getElementById("listaTipoEmp"));
 }
 
@@ -434,4 +461,58 @@ function deSeleccionarTodoOpciones(id)
     elementSelect = document.getElementById(id);
     for(b=0;b<elementSelect.options.length;b++)
         elementSelect.options[b].selected=false;
+}
+
+function createDynamicDropdown(listaTipoEmpTar, listaTarifa, dropDown3) {
+
+/*  dropdown1 = lists all the countries 
+    dropdown2 = this drop down is not used by users. Think of it as just a struture that holds ALL the cities for ALL countries from dropdown1. 
+    dropdown3 = is a dynamically generated dropdown list which changes based on what is selected in dropdown1. the <option> nodes are copied out from dropdown2 and dynamically rendered in dropdown3.
+*/
+        var dropDown1 = document.getElementById(listaTipoEmpTar);
+        var dropDown2 = document.getElementById(listaTarifa);
+        var dropDown3 = document.getElementById(dropDown3);
+        var allDropDown2Elements = dropDown2.childNodes; // 'childNodes' used so you can also include <optgroup label="xxxxxxx" name="xxx"/> in dropDown2 if required
+  
+        // remove all <option>s in dropDown3
+        while (dropDown3.hasChildNodes()){
+            dropDown3.removeChild(dropDown3.firstChild);
+        }  
+ 
+        // loop though and insert into dropDown3 all of the city <option>s in dropdown2 that relate to the country value selected in dropdown1
+        for(var i = 0; i < allDropDown2Elements.length; i++){
+ 
+                if (allDropDown2Elements[i].nodeType == 1 && allDropDown2Elements[i].getAttribute("name") == dropDown1.value) {
+ 
+                    newDropDown3Element = allDropDown2Elements[i].cloneNode(true);
+                    dropDown3.appendChild(newDropDown3Element);
+                }    
+ 
+        } // END - for loop
+ 
+        /* if '-- Country --' is selected insert the 'default' node into dropDown3 
+        if(dropDown1.value == 0) {
+              dropDown3.options[0] = new Option("Por favor seleccione una tarifa", "0")
+        }*/
+ 
+        // (if you have server side logic that adds selected="selected" in dropdown2) extra code for IE to display the correct 'slected="selected"' value in the select box dropdown3
+        if (navigator.userAgent.indexOf('MSIE') !=-1){
+ 
+            for (var i=0; i < dropDown3.length; i++) {
+                if(dropDown3[i].value == dropDown2.value) {
+                    dropDown3[i].selected = true;
+                }
+            } 
+        }  
+}
+
+function deselectDynamicDropDown () {
+
+       var dropDown3 = document.getElementById("dropDown3");
+       // alert(dropDown3);
+       while (dropDown3.hasChildNodes()){
+       //alert("child");
+            dropDown3.removeChild(dropDown3.lastChild);
+        }
+       
 }

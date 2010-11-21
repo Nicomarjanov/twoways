@@ -88,8 +88,8 @@ public class AbmItemsServlet extends AutorizacionServlet {
                      e.printStackTrace();
                  }
             }          
-            request.getRequestDispatcher("item.jsp").forward(request,response);
-        request.getRequestDispatcher("item.jsp").forward(request,response);    
+
+        request.getRequestDispatcher("items.jsp").forward(request,response);    
     }
     
     public void doPost(HttpServletRequest request, 

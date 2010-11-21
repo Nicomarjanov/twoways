@@ -34,14 +34,18 @@ public class RatesDAOImpl extends AbstractDAO  implements RateDAO {
         return ret;
     }
     
-    public void insertarTarifa(RatesTO ratesTO) throws Exception {
+    public RatesTO insertarTarifa(RatesTO ratesTO) throws Exception {
         
+           Long ratId = (Long) getSqlMapClientTemplate().queryForObject("rates.seq","");
+           ratesTO.setRatId(ratId);        
            getSqlMapClientTemplate().insert("insertRate",ratesTO);
+           return getRateById(String.valueOf(ratId)); 
         }
     
-    public void actualizarTarifa(RatesTO ratesTO) {
+    public RatesTO actualizarTarifa(RatesTO ratesTO) throws Exception {
         
-            getSqlMapClientTemplate().insert("updateRate",ratesTO);    
+            getSqlMapClientTemplate().insert("updateRate",ratesTO); 
+            return getRateById(String.valueOf(ratesTO.getRatId()));
     }        
         
     public RatesTO getRateById(String ratId) throws Exception {

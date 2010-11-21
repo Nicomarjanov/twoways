@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import com.twoways.core.bdl.TwoWaysBDL;
 import com.twoways.to.EmployeesTO;
 
+import com.twoways.to.ItemsTO;
 import com.twoways.to.UsersTO;
 
 import java.util.List;
@@ -171,6 +172,29 @@ public class ServiceTW_System {
           return false;
       }
 
+
+    public boolean deleterItem(Long itmId){
+         try {
+         
+             ItemsTO itemDelete= new ItemsTO();
+             itemDelete.setItemId(itmId); 
+             return twoWaysBDL.getServiceTwoWays().deleteItem(itemDelete);
+         } catch (Exception e) {
+             
+             e.printStackTrace(); log.error(e,e);
+         }
+         return false;
+     }
+
+    public List buscarItems(String search)  {
+       try {
+           return twoWaysBDL.getServiceTwoWays().buscarItems(search);
+       } catch (Exception e) {
+           e.printStackTrace(); log.error(e,e);
+       }
+       return null;
+    
+    }
     
     public void setTwoWaysBDL(TwoWaysBDL twoWaysBDL) {
         this.twoWaysBDL = twoWaysBDL;
