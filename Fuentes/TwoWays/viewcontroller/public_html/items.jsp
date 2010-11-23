@@ -58,7 +58,7 @@
   <hr class="tw_hr">
   <h2 class="tw">Opciones encontradas</h2>
   <table id ="tabla-busqueda">
-    <tr><th>Nombre Tarifa</th><th>Tipo de Tarifa</th><th>Descripción</th><th>&nbsp;</th></tr>
+    <tr><th>Nombre Item</th><th>Tipo de Item</th><th>Descripción</th><th>&nbsp;</th></tr>
   </table>
   </div>
   </form>

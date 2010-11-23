@@ -2,15 +2,10 @@ package com.twoways.to;
 
 import java.util.List;
 
-
-//(name = "ITEMS")
 public class ItemsTO {
-    //(name="ITM_DESCRIPTION")
+
     private String itmDescription;
-    //
-    //(name="ITM_ID", nullable = false)
     private Long itmId;
-    //(name="ITM_NAME", nullable = false)
     private String itmName;
     private String itmType;
     private List<ItemsInvoicesTO> itemsInvoicesTOList;
@@ -18,10 +13,10 @@ public class ItemsTO {
 
     public ItemsTO() {
     }
-
+    
     public String getItemDescription() {
-        return itmDescription;
-    }
+            return itmDescription;
+        }
 
     public void setItemDescription(String itmDescription) {
         this.itmDescription = itmDescription;
@@ -89,5 +84,5 @@ public class ItemsTO {
         getItemsExpensesTOList().remove(itemsExpensesTO);
         itemsExpensesTO.setItemsTO(null);
         return itemsExpensesTO;
-    }
+    }    
 }

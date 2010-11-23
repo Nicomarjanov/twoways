@@ -263,9 +263,7 @@ public class TW_SystemServiceImpl implements TW_SystemService{
       
     public List buscarItems(String search) throws Exception{
       return this.itemDao.buscarItems(search);
-    }
-      
-
+    }      
 
     public void setServiceDao(ServiceDAO serviceDao) {
         this.serviceDao = serviceDao;
