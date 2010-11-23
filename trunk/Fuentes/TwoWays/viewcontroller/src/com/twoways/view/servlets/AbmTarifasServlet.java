@@ -100,7 +100,7 @@ public class AbmTarifasServlet extends AutorizacionServlet {
                      e.printStackTrace();
                  }
             }          
-            request.getRequestDispatcher("tarifa.jsp").forward(request,response);
+            //request.getRequestDispatcher("tarifa.jsp").forward(request,response);
         request.getRequestDispatcher("tarifa.jsp").forward(request,response);    
     }
     

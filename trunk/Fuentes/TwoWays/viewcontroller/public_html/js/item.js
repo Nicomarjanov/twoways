@@ -77,7 +77,7 @@ function buscarItems(){
      
      var itmId= document.getElementById('itmId').value;
      var itmNombre= document.getElementById('itmNombre').value;     
-     
+
      if(itmId== '' &&  itmNombre.length >2 ){ 
         
         towaysDWR.buscarItems(itmNombre,buscarItemsCallBack); 
@@ -118,6 +118,7 @@ function postEliminar(data){
 }
 
 function buscarItemsCallBack(data){
+alert(data.length);
  if (data.length > 0) {
     document.getElementById('div-items').style.display='';
     var tablaTarifas= document.getElementById('tabla-busqueda');

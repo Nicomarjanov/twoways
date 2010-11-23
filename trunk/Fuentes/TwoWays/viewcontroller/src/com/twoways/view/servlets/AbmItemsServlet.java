@@ -1,13 +1,9 @@
 package com.twoways.view.servlets;
 
 import com.twoways.core.bdl.TwoWaysBDL;
-import com.twoways.to.CurrencyTO;
 import com.twoways.to.ItemsTO;
-import com.twoways.to.RateTypesTO;
-import com.twoways.to.RatesTO;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +29,7 @@ public class AbmItemsServlet extends AutorizacionServlet {
         response.setContentType(CONTENT_TYPE);
         String accion=request.getParameter("accion");
         ItemsTO item = new ItemsTO(); 
-        List tipoItem= null; 
+        //List tipoItem= null; 
         String itmId = request.getParameter("itmId"); 
         
         TwoWaysBDL twoWaysBDL=null;
@@ -73,7 +69,8 @@ public class AbmItemsServlet extends AutorizacionServlet {
             request.setAttribute("mensaje","<script>alert('El item se guardo con exito')</script>");                    
             
         }
-            else  if(itmId != null && itmId.length() > 0  && (accion == null || (accion!=null && !accion.equalsIgnoreCase("cancelar")) )){
+            else  if(itmId != null && itmId.length() > 0  && (accion == null || (accion!=null && !accion.equalsIgnoreCase("cancelar")) ))
+            {
               
             
                  try {
@@ -84,7 +81,7 @@ public class AbmItemsServlet extends AutorizacionServlet {
                          }
                      
                  } catch (Exception e) {
-                     request.setAttribute("mensaje","<script>alert('Error al cargar la item')</script>"); 
+                     request.setAttribute("mensaje","<script>alert('Error al cargar el item')</script>"); 
                      e.printStackTrace();
                  }
             }          

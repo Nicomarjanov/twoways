@@ -79,7 +79,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AbmItemsServlet</servlet-name>
-        <url-pattern>/item</url-pattern>
+        <url-pattern>/items</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>OrdenTrabajoServlet</servlet-name>
