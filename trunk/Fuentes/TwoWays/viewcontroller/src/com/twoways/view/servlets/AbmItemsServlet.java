@@ -44,15 +44,15 @@ public class AbmItemsServlet extends AutorizacionServlet {
         if (accion!=null && accion.equalsIgnoreCase("guardar")){
                                 
 //            currency.setCurId((request.getParameter("listaMoneda")!= null && request.getParameter("listaMoneda").length() > 0 )?Long.parseLong(request.getParameter("listaMoneda")):0);
-            item.setItemName((request.getParameter("itmNombre")!= null )?request.getParameter("itmNombre"):"");
+            item.setItmName((request.getParameter("itmNombre")!= null )?request.getParameter("itmNombre"):"");
             //rateType.setRtyName((request.getParameter("tipoitem")!= null )?request.getParameter("tipoitem"):"");
-            item.setItemDescription((request.getParameter("descItem")!= null )?request.getParameter("descItem"):"");
-            item.setItemType((request.getParameter("tipoItem")!= null )?request.getParameter("tipoItem"):"");
+            item.setItmDescription((request.getParameter("descItem")!= null )?request.getParameter("descItem"):"");
+            item.setItmType((request.getParameter("tipoItem")!= null )?request.getParameter("tipoItem"):"");
 
             try {
                 
                 if(itmId != null && itmId.length() > 0 ){ 
-                    item.setItemId(Long.parseLong(itmId));
+                    item.setItmId(Long.parseLong(itmId));
                     twoWaysBDL.getServiceTwoWays().actualizarItem(item);
                     
                     request.setAttribute("item",item);

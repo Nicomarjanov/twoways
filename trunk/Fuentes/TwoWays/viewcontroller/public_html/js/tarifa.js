@@ -97,7 +97,7 @@ function buscarTarifas(){
      
      
      if(ratId== '' &&  nomTarifa.length >2 ){ 
-        document.getElementById('div-tarifas').style.display='';
+
         towaysDWR.buscarTarifas(nomTarifa,buscarTarifasCallBack); 
      } 
     
@@ -140,13 +140,16 @@ function postEliminar(data){
 }
 
 function buscarTarifasCallBack(data){
- 
-  var tablaTarifas= document.getElementById('tabla-busqueda');
-  borrarFilas(tablaTarifas);
-  for(var i=0 ; i<   data.length; i++){
-    
-    insertarFila(tablaTarifas,data[i]);
-    
-  } 
+  if (data.length > 0) {
+      document.getElementById('div-tarifas').style.display='';
+      var tablaTarifas= document.getElementById('tabla-busqueda');
+      borrarFilas(tablaTarifas);
+      for(var i=0 ; i<   data.length; i++){
+        
+        insertarFila(tablaTarifas,data[i]);        
+  }
+   else {
+     document.getElementById('div-tarifas').style.display='none';
+  }
 }
 

@@ -240,6 +240,9 @@ function buscarEmpleadosCallBack(data){
         insertarFila(tablaBusqueda,data[i]);    
       }
   }
+   else {
+     document.getElementById('div-empleados').style.display='none';
+  }
 }
 
 function validarCampos()

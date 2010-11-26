@@ -2,10 +2,15 @@ package com.twoways.to;
 
 import java.util.List;
 
-public class ItemsTO {
 
+//(name = "ITEMS")
+public class ItemsTO {
+    //(name="ITM_DESCRIPTION")
     private String itmDescription;
+    //
+    //(name="ITM_ID", nullable = false)
     private Long itmId;
+    //(name="ITM_NAME", nullable = false)
     private String itmName;
     private String itmType;
     private List<ItemsInvoicesTO> itemsInvoicesTOList;
@@ -13,38 +18,10 @@ public class ItemsTO {
 
     public ItemsTO() {
     }
-    
-    public String getItemDescription() {
-            return itmDescription;
-        }
 
-    public void setItemDescription(String itmDescription) {
-        this.itmDescription = itmDescription;
-    }
 
-    public Long getItemId() {
-        return itmId;
-    }
 
-    public void setItemId(Long itmId) {
-        this.itmId = itmId;
-    }
 
-    public String getItemName() {
-        return itmName;
-    }
-
-    public void setItemName(String itmName) {
-        this.itmName = itmName;
-    }
-    
-    public String getItemType() {
-        return itmType;
-    }
-
-    public void setItemType(String itmType) {
-        this.itmType = itmType;
-    }
 
     public List<ItemsInvoicesTO> getItemsInvoicesTOList() {
         return itemsInvoicesTOList;
@@ -84,5 +61,37 @@ public class ItemsTO {
         getItemsExpensesTOList().remove(itemsExpensesTO);
         itemsExpensesTO.setItemsTO(null);
         return itemsExpensesTO;
-    }    
+    }
+
+    public void setItmId(Long itmId) {
+        this.itmId = itmId;
+    }
+
+    public Long getItmId() {
+        return itmId;
+    }
+
+    public void setItmName(String itmName) {
+        this.itmName = itmName;
+    }
+
+    public String getItmName() {
+        return itmName;
+    }
+
+    public void setItmDescription(String itmDescription) {
+        this.itmDescription = itmDescription;
+    }
+
+    public String getItmDescription() {
+        return itmDescription;
+    }
+
+    public void setItmType(String itmType) {
+        this.itmType = itmType;
+    }
+
+    public String getItmType() {
+        return itmType;
+    }
 }

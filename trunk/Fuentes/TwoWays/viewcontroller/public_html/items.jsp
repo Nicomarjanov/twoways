@@ -36,20 +36,35 @@
   <tr>
     <td nowrap align="right" width="25%">Tipo de item:</td>
     <td align="left">
-       <select name="tipoItem" id="tipoItem" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">
+       <select name="tipoItem" id="tipoItem" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">            
             <option value="" selected="selected">Seleccionar</option>
-            <option value="Gastos" style="background-color:#A4BAC7;" >Gastos</option> 
-            <option value="Facturacion" style="background-color:#A4BAC7;">Facturacion</option>
+            <c:choose>
+                <c:when test="${item.itmType != null}">
+                    <c:if test="${item.itmType == 'Gastos'}">
+                        <option value="Gastos" style="background-color:#A4BAC7;" selected="selected">Gastos</option> 
+                        <option value="Facturacion" style="background-color:#A4BAC7;">Facturacion</option>
+                    </c:if>
+                    <c:if test="${item.itmType == 'Facturacion'}">
+                        <option value="Gastos" style="background-color:#A4BAC7;" >Gastos</option> 
+                        <option value="Facturacion" style="background-color:#A4BAC7;" selected="selected">Facturacion</option>
+                    </c:if>
+                </c:when>
+                <c:otherwise>
+                        <option value="Gastos" style="background-color:#A4BAC7;" >Gastos</option> 
+                        <option value="Facturacion" style="background-color:#A4BAC7;">Facturacion</option>                
+                </c:otherwise>
+            </c:choose>
        </select> 
     </td>    
   </tr>
   </table>
   <br>
   <hr class="tw_hr">
-  <table width="100%">
+  <table width="25%" align="center">
   <tr>
   <td align="right"><input type="button" id="aceptar" value="Aceptar" onclick="agregar()"/></td>   
-  <td align="left"><input type="button" id="cancel" value="Limpiar" OnClick="cancelar()"/></td>   
+  <td align="center"><input type="button" id="cancel" value="Limpiar" OnClick="cancelar()"/></td>   
+  <td align="left"><input type="button" id="eliminar" value="Eliminar" disabled OnClick="eliminarItem(<c:out value="${item.itmId}"/>)"/></td>
   </tr>
   </table>
   
