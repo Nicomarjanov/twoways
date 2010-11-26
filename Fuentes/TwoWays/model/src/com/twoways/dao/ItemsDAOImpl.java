@@ -10,7 +10,7 @@ public class ItemsDAOImpl extends AbstractDAO  implements ItemDAO {
    
     public ItemsTO insertarItem(ItemsTO itemsTO) throws Exception {
            Long itmId = (Long) getSqlMapClientTemplate().queryForObject("items.seq","");
-           itemsTO.setItemId(itmId);  
+           itemsTO.setItmId(itmId);  
            getSqlMapClientTemplate().insert("insertItem",itemsTO);
            return getItemById(String.valueOf(itmId));           
         }
@@ -18,7 +18,7 @@ public class ItemsDAOImpl extends AbstractDAO  implements ItemDAO {
     public ItemsTO actualizarItem(ItemsTO itemsTO)throws Exception {
         
         getSqlMapClientTemplate().insert("updateItem",itemsTO);   
-        return getItemById(String.valueOf(itemsTO.getItemId()));
+        return getItemById(String.valueOf(itemsTO.getItmId()));
     }        
         
     public ItemsTO getItemById(String itmId) throws Exception {

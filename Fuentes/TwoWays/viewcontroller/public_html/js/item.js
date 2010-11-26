@@ -87,19 +87,18 @@ function buscarItems(){
 function cargarDatosColumna(row,data){
     
    row.cells[0].innerHTML=(data.itmId==null)?'':'<a href="items?itmId='+data.itmId+'" >'+data.itmName+'</a>';
-   row.cells[1].innerHTML=(data.itmName==null)?'':data.itmName;   
-   row.cells[2].innerHTML=(data.itmType==null)?'':data.itmType;      
-   row.cells[3].innerHTML=(data.itmDescription==null)?'':data.itmDescription;
+   row.cells[1].innerHTML=(data.itmName==null)?'':data.itmType;   
+   row.cells[2].innerHTML=(data.itmType==null)?'':data.itmDescription;      
 
    var editar = '<img src="img/edit.png"  height="25" width="25" alt="Editar" onclick="javascript:window.location.href=\'items?itmId='+data.itmId+'\'" onmouseover="this.style.cursor=\'hand\';"/> ';
    var eliminar = '<img  src="img/Delete.png" height="25" width="25" alt="Eliminar" onclick="eliminarItem('+data.itmId+')" onmouseover="this.style.cursor=\'hand\';"/>'
-   row.cells[4].innerHTML= editar + ' ' + eliminar;
+   row.cells[3].innerHTML= editar + ' ' + eliminar;
 }
 
 function  eliminarItem(itmId){
  
  if (confirm('¿Esta seguro que desea eliminar el item?') ){
- 
+    
     towaysDWR.deleterItem(itmId,postEliminar); 
  }
 
@@ -126,6 +125,9 @@ alert(data.length);
   
     for(var i=0 ; i<   data.length; i++){
         insertarFila(tablaTarifas,data[i]);    
-    } 
+    }
+ }
+ else {
+     document.getElementById('div-items').style.display='none';
  }
 }

@@ -177,7 +177,7 @@ public class ServiceTW_System {
          try {
          
              ItemsTO itemDelete= new ItemsTO();
-             itemDelete.setItemId(itmId); 
+             itemDelete.setItmId(itmId); 
              return twoWaysBDL.getServiceTwoWays().deleteItem(itemDelete);
          } catch (Exception e) {
              

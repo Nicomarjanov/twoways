@@ -53,18 +53,22 @@
      select *       
      from clients left outer join currency on clients.currency_cur_id = currency.cur_id
      where upper(clients.CLI_NAME) like '%' || upper(#value#) || '%'
-          
+     
+     
   </statement>
 
   <select  id="clients.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > select client_seq.nextval cliId from dual</select> 
-         
+        
+ 
   <insert id="insertClients" parameterClass="com.twoways.to.ClientsTO"   >
        
       insert into clients
           (cli_id, cli_name, cli_description, cli_mail, cli_address, cli_phone, cli_country, cli_postal_code,currency_cur_id)
         values
-          (#cliId#, #cliName#, #cliDescription#, #cliMail#, #cliAddress#, #cliPhone#, #cliCountry#, #cliPostalCode#,#currencyTO.curId#)        
-  </insert>  
+          (#cliId#, #cliName#, #cliDescription#, #cliMail#, #cliAddress#, #cliPhone#, #cliCountry#, #cliPostalCode#,#currencyTO.curId#)
+         
+  </insert>
+  
   
   <insert id="insertClientsRates" parameterClass="com.twoways.to.ClientsRatesTO"   >
     insert into clients_rates
@@ -89,7 +93,9 @@
   
   <delete id="deleteClients" parameterClass="com.twoways.to.ClientsTO">
         DELETE Clients
-        WHERE  cli_id = #cliId#     
+        WHERE  cli_id = #cliId#    
+        
+        
  </delete>
       
    <resultMap id="select-Cli-Rates" class="com.twoways.to.ClientsRatesTO" >
@@ -457,9 +463,9 @@
   </statement>  
   
   <!-- Items -->
+  <select  id="items.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > select item_seq.nextval itmId from dual</select> 
+  
 
- <select  id="items.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > select item_seq.nextval itmId from dual</select> 
-    
   <insert id="insertItem" parameterClass="com.twoways.to.ItemsTO" >
       insert into items
           (itm_id, itm_type, itm_name, itm_description)
@@ -474,14 +480,14 @@
               itm_type = #itmType#
       WHERE  itm_id = #itmId#                     
   </update>  
-
+  
   <resultMap id="select-Item-List"  class="com.twoways.to.ItemsTO" >
       <result property="itmName" column="ITM_NAME" />
       <result property="itmId"   column="ITM_ID" />
       <result property="itmType" column="ITM_TYPE"  />
       <result property="itmDescription" column="ITM_DESCRIPTION" />
   </resultMap>
-
+    
   <statement id="buscarItems" resultMap="select-Item-List"  parameterClass="java.lang.String" >
      select *       
      from items
@@ -497,7 +503,7 @@
   
    <select  id="getItemById" parameterClass="java.lang.String" resultMap="select-Item-List">
      select *
-     from Items  
+     from Items r 
      where itm_id = #value#
  </select>
   
@@ -506,42 +512,5 @@
      from  users 
      where usr_id = #value#      
   </statement>  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </sqlMap> 

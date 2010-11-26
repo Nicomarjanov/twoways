@@ -150,6 +150,9 @@ function buscarUsuariosCallBack(data){
         insertarFila(tablaUsuarios,data[i]);    
       }
   }
+  else {
+     document.getElementById('div-usuarios').style.display='none';
+  }
 }
 
 function validarCampos()

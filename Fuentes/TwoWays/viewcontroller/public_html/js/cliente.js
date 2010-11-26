@@ -201,8 +201,10 @@ function buscarClientesCallBack(data){
         
       } 
      selectCli.style.display=''; 
-     selectCli.size=data.length;
-     
+     selectCli.size=data.length;    
+    }
+     else {
+     document.getElementById('div-clientes').style.display='none';
     }
 }
 
