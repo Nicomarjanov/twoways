@@ -10,12 +10,14 @@ import com.twoways.dao.UserDAO;
 import com.twoways.dao.RolesDAO;
 import com.twoways.dao.ItemDAO;
 
+import com.twoways.dao.TranslatorDAO;
 import com.twoways.to.ClientsTO;
 import com.twoways.to.CurrencyTO;
 import com.twoways.to.EmployeesTO;
 import com.twoways.to.ItemsTO;
 import com.twoways.to.RateTypesTO;
 import com.twoways.to.RatesTO;
+import com.twoways.to.TranslatorsTO;
 import com.twoways.to.UsersTO;
 
 
@@ -33,6 +35,7 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     private RolesDAO rolesDao;
     private ItemDAO itemDao;
     private ServiceDAO serviceDao;
+    private TranslatorDAO translatorDao;
      
     public TW_SystemServiceImpl() {
     }
@@ -276,4 +279,37 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     public List obtenerServicios() throws Exception {
         return serviceDao.obtenerServices();
     }
+
+    public void setTranslatorDao(TranslatorDAO translatorDao){
+        this.translatorDao = translatorDao;
+    }
+    
+    public TranslatorDAO getTranslatorDao(){
+        return translatorDao;
+    }
+
+    public List obtenerTraductores() throws Exception {
+        return this.translatorDao.obtenerTraductores();
+    }
+    
+    public TranslatorsTO insertarTraductor(TranslatorsTO translatorsTO) throws Exception {
+      return this.translatorDao.insertarTraductor(translatorsTO);
+    }
+    
+    public void updateTraductor(TranslatorsTO translatorsTO) throws Exception {
+      this.translatorDao.updateTraductor(translatorsTO);
+    }
+    
+    public TranslatorsTO getTraById(String traId)  throws Exception{
+      return  this.translatorDao.getTraById(traId);
+    }    
+    
+    public List buscarTraductores(String search) throws Exception {
+      return this.translatorDao.buscarTraductores(search);
+    }
+    
+    public boolean deleteTraductor(TranslatorsTO translatorsTO) throws Exception{
+          return this.translatorDao.deleteTraductor(translatorsTO);
+      }    
+
 }
