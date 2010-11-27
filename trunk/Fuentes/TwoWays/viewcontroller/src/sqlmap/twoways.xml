@@ -239,7 +239,7 @@
         DELETE Employees
         WHERE  emp_id = #empId#    
  </delete>     
-
+ 
   <resultMap id="select-Tipo-Emp" class="com.twoways.to.EmployeeTypeTO" >
        
       <result property="etyName" column="ety_name" />
@@ -507,10 +507,72 @@
      where itm_id = #value#
  </select>
   
+  <!-- Translator 
+  <select  id="traductores.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > select translator_seq.nextval traId from dual</select> 
+
+  <insert id="insertarTraductor" parameterClass="com.twoways.to.TranslatorsTO" >
+      insert into translators
+          (tra_id, tra_specialization, languagues_lan_id, languagues_lan_id1, languagues_lan_id2, employees_emp_id, tra_editor)
+        values
+          (#traId#, #traSpecialization#, #LanguaguesTO.lanId#, #LanguaguesTO.lanId1#, #LanguaguesTO.lanId2#, #employeesTO.empId#, #traEditor#)                        
+  </insert>
+
+  <update  id="updateTraductor" parameterClass="com.twoways.to.TranslatorsTO">
+      UPDATE translators
+      SET     tra_specialization = #traSpecialization# , 
+              languagues_lan_id = #LanguaguesTO.lanId#,
+              languagues_lan_id1 = #LanguaguesTO.lanId1#,
+              languagues_lan_id2 = #LanguaguesTO.lanId2#,              
+              tra_editor = #traEditor#
+      WHERE  tra_id = #traId#                     
+  </update>  
+  
+  <resultMap id="select-Trad-List"  class="com.twoways.to.TranslatorsTO" >
+      <result property="traSpecialization" column="tra_specialization" />
+      <result property="LanguaguesTO.lanId"   column="languagues_lan_id" />
+      <result property="LanguaguesTO.lanId1" column="languagues_lan_id1"  />
+      <result property="LanguaguesTO.lanId2" column="languagues_lan_id2"  />      
+      <result property="traEditor" column="tra_editor" />
+      <result property="EmployeesTO.EmpId" column="employees_emp_id" />      
+      <result property="EmployeesTO.empFirstName" column="emp_first_name" />    
+      <result property="EmployeesTO.empLastName" column="emp_last_name" />          
+  </resultMap>
+    
+  <resultMap id="select-TradId-List"  class="com.twoways.to.TranslatorsTO" >
+      <result property="traSpecialization" column="tra_specialization" />
+      <result property="LanguaguesTO.lanId"   column="languagues_lan_id" />
+      <result property="LanguaguesTO.lanId1" column="languagues_lan_id1"  />
+      <result property="LanguaguesTO.lanId2" column="languagues_lan_id2"  />      
+      <result property="traEditor" column="tra_editor" />
+      <result property="EmployeesTO.EmpId" column="employees_emp_id" />   
+  </resultMap>
+  
+  <statement id="buscarTraductores" resultMap="select-Trad-List"  parameterClass="java.lang.String" >
+     select *       
+     from translators t, employees e
+     where t.employees_emp_id = e.emp_id
+     and upper(e.emp_last_name) like '%' || upper( #value#) || '%'
+     order by e.emp_last_name
+     
+  </statement>
+
+  <delete id="deleteTraductor" parameterClass="com.twoways.to.TranslatorsTO">
+        DELETE translators
+        WHERE  tra_id = #traId#    
+ </delete> 
+  
+   <select  id="getTraById" parameterClass="java.lang.String" resultMap="select-TradId-List">
+     select *
+     from translators 
+     where tra_id = #value#
+ </select>
+-->
   <statement id="getPass"  resultClass="java.lang.String" parameterClass="java.lang.String">
      select  usr_pass
      from  users 
      where usr_id = #value#      
   </statement>  
+
+
 
 </sqlMap> 

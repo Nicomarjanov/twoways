@@ -162,7 +162,7 @@
                 </c:forEach>
        </select>
        <select id="dropDown3" name="dropDown3" style="border:solid 1px #005C8D;width:200px; font-size: 13px;">
-                 <option>Loading...</option>
+                 <option>Cargando...</option>
        </select>
   </td> 
 <!-- -->
@@ -230,11 +230,11 @@
   </td>
   </tr>
   </table>
-  <table width="35%" align="center">
+  <table width="25%" align="center">
   <tr>
   <td align="right"><input type="button" id="aceptar" value="Aceptar" onclick="agregar()"/></td>   
-  <td align="left"><input type="button" id="cancel" value="Limpiar" OnClick="cancelar()"/></td>    
-  <td align="left"><input type="button" id="cancel" value="Eliminar" OnClick=""/></td>    
+  <td align="center"><input type="button" id="cancel" value="Limpiar" OnClick="cancelar()"/></td>    
+  <td align="left"><input type="button" id="eliminar" value="Eliminar" OnClick="eliminarEmp()"/></td>    
   </tr>
   </table>
 

@@ -195,7 +195,7 @@ function buscarEmpleados(){
 }
 
 function cargarDatosColumna(row,data){
-    
+   
    row.cells[0].innerHTML=(data.empFirstName==null)?'':'<a href="empleados?empId='+data.empId+'" >'+data.empFirstName+'</a>';   
    row.cells[1].innerHTML=(data.empLastName==null)?'':data.empLastName;   
    row.cells[2].innerHTML=(data.empMail==null)?'':data.empMail;     
@@ -204,7 +204,7 @@ function cargarDatosColumna(row,data){
    /*row.cells[5].innerHTML=(data.usrMobileNumber==null)?'':data.usrMobileNumber;
    row.cells[6].innerHTML=(data.usrPhoneNumber==null)?'':data.usrPhoneNumber;
    row.cells[7].innerHTML=(data.usrOfficeNumber==null)?'':data.usrOfficeNumber;   */
-   var editar = '<img src="img/edit.png"  height="25" width="25"  alt="Editar" onclick="javascript:window.location.href=\'empleados?empId='+data.empId+'\'" onmouseover="this.style.cursor=\'hand\';" /> ';
+   var editar = '<img src="img/edit.png"  height="25" width="25"  alt="Editar" onclick="javascript:window.location.href=\'empleados?empId='+data.empId+'\';" onmouseover="this.style.cursor=\'hand\';" /> ';
    var eliminar = '<img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarEmpleado('+data.empId+')" onmouseover="this.style.cursor=\'hand\';" />'
 
    row.cells[5].innerHTML= editar + ' ' + eliminar;
@@ -213,8 +213,20 @@ function cargarDatosColumna(row,data){
 function  eliminarEmpleado(empId){
  
  if (confirm('¿Esta seguro que desea eliminar el empleado?') ){
-    
-    towaysDWR.deleterEmpleado(empId,postEliminar); 
+        sortSelect(document.getElementById("listaItemsSelect"));
+        document.getElementById("accion").value='eliminar';
+        document.getElementById("empId").value=empId;
+        document.forms[0].submit();  
+    //towaysDWR.deleterEmpleado(empId,postEliminar); 
+ }
+}
+
+function  eliminarEmp(){
+ 
+ if (confirm('¿Esta seguro que desea eliminar el empleado?') ){
+        sortSelect(document.getElementById("listaItemsSelect"));
+        document.getElementById("accion").value='eliminar';
+        document.forms[0].submit();                   
  }
 }
 

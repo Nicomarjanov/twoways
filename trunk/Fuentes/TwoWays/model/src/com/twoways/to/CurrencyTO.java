@@ -98,13 +98,11 @@ public class CurrencyTO {
 
     public TranslatorsTO addTranslatorsTO(TranslatorsTO translatorsTO) {
         getTranslatorsTOList().add(translatorsTO);
-        translatorsTO.setCurrencyTO(this);
         return translatorsTO;
     }
 
     public TranslatorsTO removeTranslatorsTO(TranslatorsTO translatorsTO) {
         getTranslatorsTOList().remove(translatorsTO);
-        translatorsTO.setCurrencyTO(null);
         return translatorsTO;
     }
 

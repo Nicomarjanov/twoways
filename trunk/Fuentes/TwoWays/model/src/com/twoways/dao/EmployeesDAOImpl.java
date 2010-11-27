@@ -46,16 +46,31 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
         return ret;
         }
 
-    public boolean deleteEmployee(EmployeesTO employee)  throws Exception{
-       int res =  getSqlMapClientTemplate().delete("deleteEmployee",employee);
-       return (res > 0); 
+    public boolean deleteEmployee(EmployeesTO employeesTO)  throws Exception{      
+       
+        List empRates = employeesTO.getEmployeesRatesTOList();
+        if (empRates != null && empRates.size() > 0){
+            for(Object employeeRatesTO: empRates.toArray() ){
+            
+                 getSqlMapClientTemplate().delete("deleteEmployeesRates",(EmployeesRatesTO)employeeRatesTO);
+            }
+        }
+        List empTypes = employeesTO.getEmployeesTypesTOList();
+        if (empTypes != null && empTypes.size() > 0){
+            for(Object employeesTypesTO: empTypes.toArray() ){
+            
+                 getSqlMapClientTemplate().delete("deleteEmployeesTypes",(EmployeesTypesTO)employeesTypesTO);
+            } 
+        }
+        int res =  getSqlMapClientTemplate().delete("deleteEmployee",employeesTO);
+        return (res > 0);
     }
     
     public List obtenerTipoEmpleado(){
         List ret = null;
         try {
             ret = 
-            getSqlMapClientTemplate().queryForList("obtenerTipoEmpleado","");
+            getSqlMapClientTemplate().queryForList("obtenerTipoEmpleado","");   
         } catch (DataAccessException dae) {
 
            dae.printStackTrace();

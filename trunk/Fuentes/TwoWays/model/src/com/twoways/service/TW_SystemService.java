@@ -1,11 +1,13 @@
 package com.twoways.service;
 
+import com.twoways.dao.TranslatorDAO;
 import com.twoways.to.ClientsTO;
 import com.twoways.to.EmployeesTO;
 import com.twoways.to.ItemsTO;
 import com.twoways.to.RateTypesTO;
 import com.twoways.to.RatesTO;
 
+import com.twoways.to.TranslatorsTO;
 import com.twoways.to.UsersTO;
 
 import java.util.List;
@@ -88,6 +90,17 @@ public interface TW_SystemService {
 
     public List buscarItems(String search) throws Exception;    
     
-    public List obtenerServicios() throws Exception;
+    public List obtenerServicios() throws Exception;        
+
+    public List obtenerTraductores() throws Exception;
     
+    public TranslatorsTO insertarTraductor(TranslatorsTO translatorsTO) throws Exception;
+    
+    public void updateTraductor(TranslatorsTO translatorsTO) throws Exception ;
+    
+    public TranslatorsTO getTraById(String traId)  throws Exception;    
+    
+    public List buscarTraductores(String search) throws Exception;
+    
+    public boolean  deleteTraductor(TranslatorsTO translatorsTO) throws Exception;    
 }
