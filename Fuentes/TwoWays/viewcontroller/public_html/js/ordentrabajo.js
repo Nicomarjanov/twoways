@@ -21,3 +21,11 @@ function mostrarOpcionales(){
    op2.style.display='';
 
 }
+function cancelar()
+{
+    if(confirm('¿Desea cancelar la carga de la orden ?'))
+    {   
+        document.getElementById("accion").value='cancelar';
+        document.forms[0].submit();
+    }
+}

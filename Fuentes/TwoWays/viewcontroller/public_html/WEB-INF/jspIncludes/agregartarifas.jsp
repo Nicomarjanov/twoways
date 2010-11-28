@@ -51,7 +51,7 @@
      <div style="width:100%;height:100px;overflow-x: hidden;overflow-y:auto ;" >
      <table id="list-tarifas-body" align="right" width="100%">
      <tr style="display:none"><th width="200">Tarifa</th><th width="50">valor</th><th width="25"></th></tr>
-     <c:forEach items="${cliente.clientsRatesTOList}" var="item">
+     <c:forEach items="${requestScope.ratesTOList}" var="item">
        <tr name="item-tarifa"  bgcolor="#FFFFFF" id="tarId-<c:out value="${item.ratesTO.ratId}" />" >
             <td width="200" ><c:out value="${item.ratesTO.ratName}" /></td>
             <td width="60" align="right" ><c:out value="${item.clrValue}" />

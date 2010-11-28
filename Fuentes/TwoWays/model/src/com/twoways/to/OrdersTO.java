@@ -117,13 +117,11 @@ public class OrdersTO {
 
     public OrdersDocsTO addOrdersDocsTO(OrdersDocsTO ordersDocsTO) {
         getOrdersDocsTOList().add(ordersDocsTO);
-        ordersDocsTO.setOrdersTO(this);
         return ordersDocsTO;
     }
 
     public OrdersDocsTO removeOrdersDocsTO(OrdersDocsTO ordersDocsTO) {
         getOrdersDocsTOList().remove(ordersDocsTO);
-        ordersDocsTO.setOrdersTO(null);
         return ordersDocsTO;
     }
 

@@ -7,7 +7,7 @@ public class OrdersDocsTO {
     private Long odoId;
     private String odoName;
     private Long ordersOrdId;
-    private OrdersTO ordersTO;
+   
 
     public OrdersDocsTO() {
     }
@@ -36,11 +36,5 @@ public class OrdersDocsTO {
         this.ordersOrdId = ordersOrdId;
     }
 
-    public OrdersTO getOrdersTO() {
-        return ordersTO;
-    }
-
-    public void setOrdersTO(OrdersTO ordersTO) {
-        this.ordersTO = ordersTO;
-    }
+   
 }

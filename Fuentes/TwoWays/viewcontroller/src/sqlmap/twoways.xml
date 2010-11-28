@@ -49,6 +49,13 @@
      where cli_id = #value#
  </statement>
  
+  <statement  id="getClientByName" resultMap="select-Client" parameterClass="java.lang.String" >
+     select *       
+     from clients left outer join currency on clients.currency_cur_id = currency.cur_id
+     where cli_Name = #value# and rownum = 1 
+ </statement>
+ 
+ 
   <statement id="buscarClientes" resultMap="select-Client-List"  parameterClass="java.lang.String" >
      select *       
      from clients left outer join currency on clients.currency_cur_id = currency.cur_id

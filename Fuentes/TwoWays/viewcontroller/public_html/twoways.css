@@ -134,6 +134,60 @@ color:#000000;
 background-color:#EE9A98;
 }
 
+#list-documentos
+{
+border-style:none;
+border-spacing: 1px;
+border-collapse:separate;
+}
+
+#list-documentos th 
+{
+font-size:10px;
+padding-top:3px;
+padding-bottom:2px;
+background-color:#80211D;
+color:#ffffff;
+}
+
+#list-documentos td 
+{
+text-align:left;
+font-size:10px;
+padding:3px 7px 2px 7px;
+}
+
+#list-documentos-body
+{
+border-style:none;
+border-spacing: 1px;
+border-collapse:separate;
+}
+#list-documentos-body th
+{
+font-size:10px;
+padding-top:3px;
+padding-bottom:2px;
+background-color:#80211D;
+color:#ffffff;
+}
+
+#list-documentos-body td
+{
+text-align:left;
+font-size:10px;
+padding:3px 7px 2px 7px;    
+}
+
+
+#list-documentos tr.alt td 
+{
+color:#000000;
+background-color:#EE9A98;
+}
+
+
+
 table.tw_form
 {
   

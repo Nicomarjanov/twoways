@@ -113,14 +113,15 @@ public class AbmClientesServlet extends AutorizacionServlet {
                     
                     request.setAttribute("cliente",cliente);                    
                    
-                /*}else{
+                }else{
                     String nomCli = request.getParameter("nomCliente");
-                    String resultado = twoWaysBDL.getServiceTwoWays().getClientByName(nomCli);
-                    if (resultado != 'true') {*/
+                    ClientsTO resultado = twoWaysBDL.getServiceTwoWays().getClientByName(nomCli);
+                    if (resultado == null) {
                         cliente =twoWaysBDL.getServiceTwoWays().insertarCliente(cliente);
-                   /* }else{
+                    }else{
                         request.setAttribute("mensaje","<script>alert('Existe un cliente con ese nombre')</script>");
-                    }*/
+                        request.getRequestDispatcher("cliente.jsp").forward(request,response);
+                    }
                     request.setAttribute("cliente",cliente);
                    
                 }

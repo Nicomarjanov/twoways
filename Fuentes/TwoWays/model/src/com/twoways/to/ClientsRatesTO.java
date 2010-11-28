@@ -2,23 +2,14 @@ package com.twoways.to;
 
 public class ClientsRatesTO {
         //
-        private Long clientsCliId;
         private Float clrValue;
-        private Long ratesRatId;
         private RatesTO ratesTO;
         private ClientsTO clientsTO;
         
         public ClientsRatesTO() {
         }
 
-        public Long getClientsEmpId() {
-            return clientsCliId;
-        }
-
-        public void setClientCliId(Long clientsCliId) {
-            this.clientsCliId = clientsCliId;
-        }
-
+      
         public Float getClrValue() {
             return clrValue;
         }
@@ -27,13 +18,7 @@ public class ClientsRatesTO {
             this.clrValue = clrValue;
         }
 
-        public Long getRatesRatId() {
-            return ratesRatId;
-        }
-
-        public void setRatesRatId(Long ratesRatId) {
-            this.ratesRatId = ratesRatId;
-        }
+       
 
         public RatesTO getRatesTO() {
             return ratesTO;
