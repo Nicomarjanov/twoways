@@ -11,4 +11,5 @@ public interface ClientDAO {
     public ClientsTO updateCliente(ClientsTO clientsTO) throws Exception;
     public List buscarClientes(String search) throws Exception;
     public boolean  deleteClients(ClientsTO client)  throws Exception;
+    public ClientsTO getClientByName(String name)  throws Exception;
 }

@@ -103,4 +103,7 @@ public interface TW_SystemService {
     public List buscarTraductores(String search) throws Exception;
     
     public boolean  deleteTraductor(TranslatorsTO translatorsTO) throws Exception;    
+
+    public ClientsTO getClientByName(String name) throws Exception;
+   
 }

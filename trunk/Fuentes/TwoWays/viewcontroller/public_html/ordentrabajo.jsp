@@ -9,6 +9,7 @@
     <link href="./twoways.css" rel="stylesheet" type="text/css"/>
     <script type='text/javascript' src="./js/ordentrabajo.js"></script>
     <script type='text/javascript' src="./js/agregartarifa.js"></script>
+    <script type='text/javascript' src="./js/agregardocumentos.js"></script>
     <script type='text/javascript' src="./js/utils.js"></script>
     <script type='text/javascript' src='/twoways/dwr/interface/towaysDWR.js'></script>
     <script type='text/javascript' src='/twoways/dwr/engine.js'></script>
@@ -24,6 +25,7 @@
    <c:out value="${mensaje}" escapeXml="false"/>
 <form action="ordentrabajo" >  
 <input type ="hidden" name="ordId" id="ordId" /> 
+<input type ="hidden" name="accion" id="accion" />
 <table width="100%" class="tw_form">
   <tr>
     <th class="tw_form">Ingrese los campos con los datos de la orden</th>
@@ -66,7 +68,7 @@
          <td nowrap align="right" >WO Number</td><td><input type="text" class="tw_form" name="ordWoNumber" id="ordWoNumber" size="10" /> </td>
          <td nowrap align="right" >Job Id</td><td><input type="text" class="tw_form" name="ordJobId" id="ordJobId" /> </td>
          <td nowrap align="right" >Job Name</td><td><input type="text" class="tw_form" name="ordJobName" id="ordJobName" /></td></tr>
-        <tr id="trOpcionales2" style="display:none"><td nowrap align="right" >Job Description</td><td colspan="7"><textarea  rows="3" cols="90"  class="tw_form" name="ordJobDescription" id="ordJobDescription" ></textarea></td></tr>
+        <tr id="trOpcionales2" style="display:none"><td nowrap align="right" >Job Description</td><td colspan="7"><textarea  rows="3" cols="90"   onkeyup="limitarArea()" class="tw_form" name="ordJobDescription" id="ordJobDescription" ></textarea></td></tr>
         <tr> <td nowrap align="right" >Servicio </td><td>
          <select name="listaServices" id="listaServices" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">
                
@@ -89,11 +91,23 @@
        </select>
         </td></tr> 
         <tr>
-         <td nowrap align="right" >Descripción </td><td colspan="7"  ><textarea  rows="3" cols="90"  class="tw_form" name="ordDescription" id="ordDescription"> </textarea> </td>
+         <td nowrap align="right" >Descripción </td><td colspan="7"  ><textarea  rows="3" cols="90"  class="tw_form"  onkeyup="limitarArea()"  name="ordDescription" id="ordDescription"> </textarea> </td>
          </tr>
          <tr>
+         
+          
          <td colspan="100%" style="padding:0;spacing:0" >
-         <jsp:include page="/WEB-INF/jspIncludes/agregartarifas.jsp" />
+         <br>   
+         <hr class="tw_hr">
+         <c:set scope="request"     var="ratesTOList" value="${cliente.clientsRatesTOList}" /> 
+         <jsp:include page="/WEB-INF/jspIncludes/agregartarifas.jsp"/>
+         </td>
+         </tr>
+          <tr>
+         <td colspan="100%" style="padding:0;spacing:0" >
+         <br>   
+         <hr class="tw_hr">
+          <jsp:include page="/WEB-INF/jspIncludes/agregardocumentos.jsp"/>
          </td>
          </tr>
         </table>

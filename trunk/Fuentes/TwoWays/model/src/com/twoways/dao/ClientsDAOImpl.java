@@ -35,6 +35,11 @@ public class ClientsDAOImpl extends AbstractDAO  implements ClientDAO{
         return ret;
     }
     
+    public ClientsTO getClientByName(String nombre){
+        
+        ClientsTO cliente =  (ClientsTO)getSqlMapClientTemplate().queryForObject("getClientByName",nombre);
+        return cliente;
+    }
     
     public ClientsTO getClientById(String cliId)  throws Exception{
        ClientsTO cliente =  (ClientsTO)getSqlMapClientTemplate().queryForObject("getClientById",cliId);

@@ -312,4 +312,10 @@ public class TW_SystemServiceImpl implements TW_SystemService{
           return this.translatorDao.deleteTraductor(translatorsTO);
       }    
 
+  
+    public ClientsTO getClientByName(String nombre) throws Exception {
+        return clientDao.getClientByName(nombre) ; 
+    }
+
+
 }

@@ -86,3 +86,11 @@ function isFloat(campo){
 }
 
 
+function limitarArea(){
+
+ var desc=  document.getElementById('descCliente');  
+ if(desc.value.length > 250){
+    desc.value= desc.value.substring(0,250); 
+ }
+
+}
