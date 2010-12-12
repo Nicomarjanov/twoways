@@ -94,3 +94,32 @@ function limitarArea(){
  }
 
 }
+
+  function isDate(campo){
+    
+    if(/^(\d{1,2})[/](\d{1,2})[/](\d{4})$/.test(campo)){
+    
+       var dia = campo.substring(0,2);
+       var mes = campo.substring(3,5);
+       var anio = campo.substring(6,10);
+     
+       if (parseInt(mes) > 12 ){
+         return false; 
+       }else if ( parseInt(dia) <= 31 && mes == '01' || mes == '03' || mes == '05'  || mes== '07' || mes == '08'  || mes == '10' || mes == '12' ){
+          
+           return true; 
+       }else if ( parseInt(dia) <= 30 && ( mes == '04' || mes =='06'  || mes == '09'|| mes == '11'  )){
+           return true; 
+           
+       }else if (parseInt(dia) <= 28 && mes == '02'  ||   (parseInt(dia) <= 29 && mes == '02' && parseInt(anio) % 4 == 0 )) {
+        
+        return true; 
+       
+       } 
+       else return false;
+    }else{
+      return false;
+    }
+ }
+
+

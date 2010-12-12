@@ -31,6 +31,10 @@
         <property name="serviceDao">
             <ref bean="serviceDAO"/>
         </property>  
+        
+        <property name="ordersDao">
+            <ref bean="ordersDAO"/>
+        </property>
     </bean>
 
     <!-- declaracion de los servicios, utilizando proxy para el manejo de transacciones -->

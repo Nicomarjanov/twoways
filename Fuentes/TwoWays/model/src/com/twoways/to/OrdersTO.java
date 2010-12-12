@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 
 import java.util.List;
 
+import org.apache.commons.fileupload.FileItem;
+
 
 //(name = "ORDERS")
 public class OrdersTO {
@@ -30,6 +32,7 @@ public class OrdersTO {
     private ClientsTO clientsTO;
     private List<ProjectsTO> projectsTOList;
     private List<InvoicesTO> invoicesTOList;
+    private List<FileItem> files; 
 
     public OrdersTO() {
     }
@@ -171,5 +174,13 @@ public class OrdersTO {
         getInvoicesTOList().remove(invoicesTO);
         invoicesTO.setOrdersTO(null);
         return invoicesTO;
+    }
+
+    public void setFiles(List<FileItem> files) {
+        this.files = files;
+    }
+
+    public List<FileItem> getFiles() {
+        return files;
     }
 }

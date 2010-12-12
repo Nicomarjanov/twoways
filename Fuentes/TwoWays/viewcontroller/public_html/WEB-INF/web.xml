@@ -57,6 +57,18 @@
         <servlet-name>AbmTraductoresServlet</servlet-name>
         <servlet-class>com.twoways.view.servlets.AbmTraductoresServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CargarArchivo</servlet-name>
+        <servlet-class>com.twoways.view.servlets.CargarArchivo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CommonsFileUploadServlet</servlet-name>
+        <servlet-class>com.twoways.view.servlets.CommonsFileUploadServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DownloadFileServlet</servlet-name>
+        <servlet-class>com.twoways.view.servlets.DownloadFileServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -92,6 +104,18 @@
     <servlet-mapping>
         <servlet-name>AbmTraductoresServlet</servlet-name>
         <url-pattern>/traductor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CargarArchivo</servlet-name>
+        <url-pattern>/cargararchivo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CommonsFileUploadServlet</servlet-name>
+        <url-pattern>/Commonsfileuploadservlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DownloadFileServlet</servlet-name>
+        <url-pattern>/downloadfile</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>35</session-timeout>

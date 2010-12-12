@@ -3,6 +3,7 @@ package com.twoways.service;
 import com.twoways.dao.ClientDAO;
 import com.twoways.dao.CurrencyDAO;
 import com.twoways.dao.EmployeeDAO;
+import com.twoways.dao.OrdersDAO;
 import com.twoways.dao.RateDAO;
 import com.twoways.dao.RateTypesDAO;
 import com.twoways.dao.ServiceDAO;
@@ -11,10 +12,13 @@ import com.twoways.dao.RolesDAO;
 import com.twoways.dao.ItemDAO;
 
 import com.twoways.dao.TranslatorDAO;
+import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.ClientsTO;
 import com.twoways.to.CurrencyTO;
 import com.twoways.to.EmployeesTO;
 import com.twoways.to.ItemsTO;
+import com.twoways.to.OrdersDocsTO;
+import com.twoways.to.OrdersTO;
 import com.twoways.to.RateTypesTO;
 import com.twoways.to.RatesTO;
 import com.twoways.to.TranslatorsTO;
@@ -36,6 +40,7 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     private ItemDAO itemDao;
     private ServiceDAO serviceDao;
     private TranslatorDAO translatorDao;
+    private OrdersDAO ordersDao;
      
     public TW_SystemServiceImpl() {
     }
@@ -105,6 +110,7 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     public ClientsTO insertarCliente(ClientsTO clientsTO) throws Exception {
         return this.clientDao.insertarCliente(clientsTO);
     }
+    
 
     public ClientsTO updateCliente(ClientsTO clientsTO) throws Exception {
         return this.clientDao.updateCliente(clientsTO);
@@ -317,5 +323,33 @@ public class TW_SystemServiceImpl implements TW_SystemService{
         return clientDao.getClientByName(nombre) ; 
     }
 
+
+    public void setOrdersDao(OrdersDAO ordersDao) {
+        this.ordersDao = ordersDao;
+    }
+
+    public OrdersDAO getOrdersDao() {
+        return ordersDao;
+    }
+    
+    public OrdersTO insertarOrder(OrdersTO ordersTO) throws Exception {
+        
+        ordersTO = this.ordersDao.insertarOrder(ordersTO);
+        return ordersTO;
+        
+        
+    }
+    
+    public OrdersTO getOrderById(Long ordId) throws Exception{
+        return this.ordersDao.getOrderById(ordId);
+    }
+    
+    public OrdersDocsTO getOrdersDocById(Long docId)  throws Exception{
+        return this.ordersDao.getOrdersDocById(docId);
+    }
+    
+    public List<ClientsRatesTO> getTarifaClienteById(Long cliId)  throws Exception{
+        return clientDao.getTarifaClienteById(cliId);
+    }
 
 }

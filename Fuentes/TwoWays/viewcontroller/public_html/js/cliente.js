@@ -1,15 +1,7 @@
 var mensajeCampoAlert;
 
 
- function keyTarifa(e) {
-        var keycode;
-        if (window.event) keycode = window.event.keyCode;
-        else if (e) keycode = e.which;
-        if( keycode == 13){
-           agregarTarifa();
-        }
-        
- }       
+     
 function init(){
     
     if (  document.getElementById('cliId').value != ''){
