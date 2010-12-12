@@ -1,9 +1,12 @@
 package com.twoways.service;
 
 import com.twoways.dao.TranslatorDAO;
+import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.ClientsTO;
 import com.twoways.to.EmployeesTO;
 import com.twoways.to.ItemsTO;
+import com.twoways.to.OrdersDocsTO;
+import com.twoways.to.OrdersTO;
 import com.twoways.to.RateTypesTO;
 import com.twoways.to.RatesTO;
 
@@ -105,5 +108,12 @@ public interface TW_SystemService {
     public boolean  deleteTraductor(TranslatorsTO translatorsTO) throws Exception;    
 
     public ClientsTO getClientByName(String name) throws Exception;
-   
+    
+    public OrdersTO insertarOrder(OrdersTO ordersTO) throws Exception;
+    
+    public OrdersTO getOrderById(Long ordId) throws Exception; 
+    
+    public OrdersDocsTO getOrdersDocById(Long docId)  throws Exception;
+    
+    public List<ClientsRatesTO> getTarifaClienteById(Long cliId)  throws Exception;
 }

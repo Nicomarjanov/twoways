@@ -1,5 +1,7 @@
 package com.twoways.to;
 
+import java.sql.Blob;
+
 //(name = "ORDERS_DOCS")
 //Class(OrdersDocsTOPK.class)
 public class OrdersDocsTO {
@@ -7,7 +9,7 @@ public class OrdersDocsTO {
     private Long odoId;
     private String odoName;
     private Long ordersOrdId;
-   
+    private byte[] odoDoc; 
 
     public OrdersDocsTO() {
     }
@@ -36,5 +38,14 @@ public class OrdersDocsTO {
         this.ordersOrdId = ordersOrdId;
     }
 
-   
+
+ 
+
+    public void setOdoDoc(byte[] odoDoc) {
+        this.odoDoc = odoDoc;
+    }
+
+    public byte[] getOdoDoc() {
+        return odoDoc;
+    }
 }

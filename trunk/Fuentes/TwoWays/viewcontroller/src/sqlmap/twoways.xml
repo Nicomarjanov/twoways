@@ -67,6 +67,9 @@
   <select  id="clients.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > select client_seq.nextval cliId from dual</select> 
         
  
+ <select  id="order.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > select order_seq.nextval ordId from dual</select> 
+  
+ 
   <insert id="insertClients" parameterClass="com.twoways.to.ClientsTO"   >
        
       insert into clients
@@ -75,6 +78,8 @@
           (#cliId#, #cliName#, #cliDescription#, #cliMail#, #cliAddress#, #cliPhone#, #cliCountry#, #cliPostalCode#,#currencyTO.curId#)
          
   </insert>
+  
+  
   
   
   <insert id="insertClientsRates" parameterClass="com.twoways.to.ClientsRatesTO"   >
@@ -580,6 +585,83 @@
      where usr_id = #value#      
   </statement>  
 
-
-
+ <select id="obtenerServices"  parameterClass="java.lang.String" resultClass="com.twoways.to.ServicesTO">
+     select ser_id as serId , ser_name as serName , ser_description  as serDescription from services
+     
+  </select>  
+  
+  
+  <select  id="orders.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > 
+     select order_seq.nextval ordId from dual
+  </select> 
+  
+    <select  id="ordersdoc.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > 
+     select order_doc_seq.nextval ordDocId from dual
+  </select> 
+    
+  <insert id="insertOrders" parameterClass="com.twoways.to.OrdersTO" >
+       
+  insert into orders
+       (ord_id, ord_name, ord_description, ord_date, clients_cli_id, ord_proj_id, ord_wo_number, ord_job_id, ord_job_name, ord_job_description)
+     values
+       (#ordId#, #ordName#, #ordDescription#, #ordDate#, #clientsTO.cliId#, #ordProjId#, #ordWoNumber#, #ordJobId#, #ordJobName#, #ordJobDescription#)
+       
+   
+  </insert>
+  
+      
+  <insert id="insertOrderDoc" parameterClass="com.twoways.to.OrdersDocsTO" >
+    insert into orders_docs
+      (odo_id, odo_name, orders_ord_id, odo_doc)
+     values
+      (#odoId#, #odoName#, #ordersOrdId#,  #odoDoc#)
+  </insert>
+  
+  
+   <resultMap id="select-Order" class="com.twoways.to.OrdersTO" >
+      <result property="ordId" column="ord_id" />
+      <result property="ordName" column="ord_name"/>
+      <result property="ordDate"   column="ord_date" />
+      <result property="ordDescription"   column="ord_description" />
+      <result property="clientsTO.cliId" column="clients_cli_id"  />
+      <result property="ordProjId" column="ord_proj_id" />
+      <result property="ordWoNumber" column="ord_wo_number" />
+      <result property="ordJobId" column="ord_job_id" />  
+      <result property="ordJobName" column="ord_job_name" />
+      <result property="ordJobDescription" column="ord_job_description" />
+      <result property="clientsTO.cliName" column="cli_name" />
+  </resultMap>
+  
+  
+   
+   <resultMap id="select-order-doc" class="com.twoways.to.OrdersDocsTO" >
+      <result property="odoId" column="odo_id" />
+      <result property="odoName" column="odo_name"/>
+      <result property="ordersOrdId"   column="orders_Ord_Id" />
+      <result property="odoDoc" column="odo_doc"  jdbcType="BLOB" />
+  </resultMap>
+  
+  
+  
+  
+  
+   <statement id="getOrderById" parameterClass="java.lang.Long" resultMap="select-Order" >
+       
+       select *
+       from orders, clients
+       where ord_id = #value#
+       and clients_cli_id = cli_Id 
+  </statement>
+  
+  <statement id="getOrderDocById" parameterClass="java.lang.Long" resultMap="select-order-doc" >
+    select * from  orders_docs
+    where odo_id = #odoId#
+  </statement>
+  
+  <statement id="getOrderDocByOrder" parameterClass="java.lang.Long" resultMap="select-order-doc" >
+    select * from  orders_docs
+    where orders_Ord_Id = #ordersOrdId#
+  </statement>
+  
+  
 </sqlMap> 

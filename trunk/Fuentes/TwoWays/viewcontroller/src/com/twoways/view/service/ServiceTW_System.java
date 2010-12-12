@@ -5,6 +5,7 @@ import com.twoways.to.ClientsTO;
 
 import org.apache.log4j.Logger;
 import com.twoways.core.bdl.TwoWaysBDL;
+import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.EmployeesTO;
 
 import com.twoways.to.ItemsTO;
@@ -49,6 +50,16 @@ public class ServiceTW_System {
         return null;
     }
     
+    
+    
+     public List<ClientsRatesTO> getTarifaClienteById(Long cliId){
+         try {
+             return twoWaysBDL.getServiceTwoWays().getTarifaClienteById(cliId);
+         } catch (Exception e) {
+             e.printStackTrace(); log.error(e,e);
+         }
+         return null;
+     }
     
     public boolean deleterCliente(Long cliId){
          try {

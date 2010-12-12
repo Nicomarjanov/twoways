@@ -47,6 +47,17 @@ public class ClientsDAOImpl extends AbstractDAO  implements ClientDAO{
        return cliente;
     }
     
+    
+    public List<ClientsRatesTO> getTarifaClienteById(Long cliId)  throws Exception{
+    
+       ClientsTO cliente = new ClientsTO (); 
+       cliente.setCliId(cliId);
+       return  getSqlMapClientTemplate().queryForList("getClientRatesByCliId",cliente) ;
+       
+    }
+    
+    
+    
     public boolean  deleteClients(ClientsTO client)  throws Exception{
        
         client= getClientById(String.valueOf(client.getCliId()));  

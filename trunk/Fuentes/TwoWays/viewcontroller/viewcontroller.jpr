@@ -49,6 +49,11 @@
             <url n="sourceOwnerURL" path="../TwoWays.jws"/>
             <url n="sourceURL" path="../model/model.jpr"/>
          </hash>
+         <hash>
+            <value n="class" v="oracle.jdeveloper.library.ProjectLibrary"/>
+            <url n="sourceOwnerURL" path="../TwoWays.jws"/>
+            <url n="sourceURL" path="../../../../commons-fileupload-1.2.2/commons-fileupload-1.2.2.jpr"/>
+         </hash>
       </list>
    </hash>
    <hash n="oracle.ide.model.ResourcePaths">
@@ -160,10 +165,6 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Cglib-nodep-2.1_2.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
             <value n="id" v="Commons-beanutils.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
@@ -173,10 +174,6 @@
          </hash>
          <hash>
             <value n="id" v="Commons-digester.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="Commons-fileupload.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
@@ -231,18 +228,13 @@
             <value n="id" v="Xalan.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
+         <hash>
+            <value n="id" v="Commons-io-1.4.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
       </list>
       <hash n="internalDefinitions">
          <list n="libraryDefinitions">
-            <hash>
-               <list n="classPath">
-                  <url path="public_html/WEB-INF/lib/cglib-nodep-2.1_2.jar" jar-entry=""/>
-               </list>
-               <value n="deployedByDefault" v="true"/>
-               <value n="description" v="Cglib-nodep-2.1_2.jar"/>
-               <value n="id" v="Cglib-nodep-2.1_2.jar"/>
-               <value n="locked" v="true"/>
-            </hash>
             <hash>
                <list n="classPath">
                   <url path="public_html/WEB-INF/lib/commons-beanutils.jar" jar-entry=""/>
@@ -268,15 +260,6 @@
                <value n="deployedByDefault" v="true"/>
                <value n="description" v="Commons-digester.jar"/>
                <value n="id" v="Commons-digester.jar"/>
-               <value n="locked" v="true"/>
-            </hash>
-            <hash>
-               <list n="classPath">
-                  <url path="public_html/WEB-INF/lib/commons-fileupload.jar" jar-entry=""/>
-               </list>
-               <value n="deployedByDefault" v="true"/>
-               <value n="description" v="Commons-fileupload.jar"/>
-               <value n="id" v="Commons-fileupload.jar"/>
                <value n="locked" v="true"/>
             </hash>
             <hash>
@@ -396,6 +379,15 @@
                <value n="id" v="Xalan.jar"/>
                <value n="locked" v="true"/>
             </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="public_html/WEB-INF/lib/commons-io-1.4.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Commons-io-1.4.jar"/>
+               <value n="id" v="Commons-io-1.4.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
          </list>
       </hash>
       <list n="libraryReferences">
@@ -424,10 +416,6 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Cglib-nodep-2.1_2.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
             <value n="id" v="Commons-beanutils.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
@@ -437,10 +425,6 @@
          </hash>
          <hash>
             <value n="id" v="Commons-digester.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="Commons-fileupload.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
@@ -495,6 +479,10 @@
             <value n="id" v="Xalan.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
+         <hash>
+            <value n="id" v="Commons-io-1.4.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
       </list>
    </hash>
    <hash n="oracle.jdevimpl.config.JProjectPaths">
@@ -526,7 +514,7 @@
             <value n="jspVersion" v="1.2"/>
             <value n="name" v="JSTL Core RT"/>
             <value n="prefix" v="c_rt"/>
-            <value n="runInEditor" v="false"/>
+            <value n="runInEditor" v="true"/>
             <value n="showInPalette" v="false"/>
             <value n="tldURL" v="WEB-INF/lib/standard.jar!/META-INF/c-rt.tld"/>
             <value n="URI" v="http://java.sun.com/jstl/core_rt"/>
@@ -536,7 +524,7 @@
             <value n="jspVersion" v="1.2"/>
             <value n="name" v="JSTL Format"/>
             <value n="prefix" v="fmt"/>
-            <value n="runInEditor" v="false"/>
+            <value n="runInEditor" v="true"/>
             <value n="showInPalette" v="true"/>
             <value n="tldURL" v="WEB-INF/lib/standard.jar!/META-INF/fmt.tld"/>
             <value n="URI" v="http://java.sun.com/jstl/fmt"/>

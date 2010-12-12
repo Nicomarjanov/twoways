@@ -97,6 +97,7 @@
    <hash n="oracle.jdeveloper.model.PathsConfiguration">
       <hash n="javaContentSet">
          <list n="pattern-filters">
+            <string v="-com/twoways/dao/OrderDAO.java"/>
             <string v="+**"/>
          </list>
          <list n="url-path">
@@ -159,10 +160,6 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Commons-fileupload.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
             <value n="id" v="Commons-lang.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
@@ -208,6 +205,14 @@
          </hash>
          <hash>
             <value n="id" v="Xalan.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Commons-fileupload-1.2.2.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Commons-io-1.4.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
@@ -256,15 +261,6 @@
                <value n="deployedByDefault" v="true"/>
                <value n="description" v="Commons-digester.jar"/>
                <value n="id" v="Commons-digester.jar"/>
-               <value n="locked" v="true"/>
-            </hash>
-            <hash>
-               <list n="classPath">
-                  <url path="../viewcontroller/public_html/WEB-INF/lib/commons-fileupload.jar" jar-entry=""/>
-               </list>
-               <value n="deployedByDefault" v="true"/>
-               <value n="description" v="Commons-fileupload.jar"/>
-               <value n="id" v="Commons-fileupload.jar"/>
                <value n="locked" v="true"/>
             </hash>
             <hash>
@@ -375,6 +371,24 @@
                <value n="id" v="Xalan.jar"/>
                <value n="locked" v="true"/>
             </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../viewcontroller/public_html/WEB-INF/lib/commons-fileupload-1.2.2.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Commons-fileupload-1.2.2.jar"/>
+               <value n="id" v="Commons-fileupload-1.2.2.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../viewcontroller/public_html/WEB-INF/lib/commons-io-1.4.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Commons-io-1.4.jar"/>
+               <value n="id" v="Commons-io-1.4.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
          </list>
       </hash>
       <list n="libraryReferences">
@@ -400,10 +414,6 @@
          </hash>
          <hash>
             <value n="id" v="Commons-digester.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="Commons-fileupload.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
@@ -452,6 +462,14 @@
          </hash>
          <hash>
             <value n="id" v="Xalan.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Commons-fileupload-1.2.2.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Commons-io-1.4.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>

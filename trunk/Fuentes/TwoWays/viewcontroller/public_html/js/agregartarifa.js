@@ -1,3 +1,14 @@
+
+ function keyTarifa(e) {
+        var keycode;
+        if (window.event) keycode = window.event.keyCode;
+        else if (e) keycode = e.which;
+        if( keycode == 13){
+           agregarTarifa();
+        }
+        
+ }  
+ 
 function vistaTarifas(){
 
    var tabla=document.getElementById('tabla-tarifas'); 
@@ -41,6 +52,29 @@ function agregarTarifa(){
    
 }
 
+
+function agregarTarifaCliente(data){
+  
+       var tablaTarifas= document.getElementById('list-tarifas-body');
+       
+       while( tablaTarifas.rows.length > 2 ){ 
+         tablaTarifas.deleteRow(1);
+       }
+       
+       var index = tablaTarifas.rows.length;
+       var newRow = tablaTarifas.insertRow(index);  
+       newRow.bgColor = "#FFFFFF";
+       for( var i =0 ; i < data.length ; i++){ 
+         
+         insertarColumnas(tablaTarifas.rows[index],tablaTarifas.rows[0].cells.length); 
+         
+         cargarItemTarifaCliente(tablaTarifas.rows[index],data[i] );
+                  
+       }
+}
+
+
+
 function cargarItemTarifa(row){
    
    var optionSelected=document.getElementById('listaTarifa').options[document.getElementById('listaTarifa').selectedIndex];
@@ -50,6 +84,25 @@ function cargarItemTarifa(row){
    
    row.id= 'tarId-'+ optionSelected.value;
    row.cells[1].innerHTML= tarVal + '<input type="hidden" name="tarifas-hidden"  value="'+optionSelected.value+'#'+tarVal+'" />';
+   row.cells[2].innerHTML= '<img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarTarifa(\''+row.id+'\')" onmouseover="this.style.cursor=\'hand\';" />';
+   row.cells[0].width=203;
+   row.cells[1].width=60;
+   row.cells[1].align='right';
+   
+   
+}
+
+
+function cargarItemTarifaCliente(row,tarifa){
+   
+   //alert(dwr.util.toDescriptiveString(tarifa));
+   var tarVal= tarifa.clrValue;
+   
+   row.cells[0].innerHTML= tarifa.ratesTO.ratName; 
+   row.name = 'item-tarifa'; 
+   
+   row.id= 'tarId-'+ tarifa.ratesTO.ratId;
+   row.cells[1].innerHTML= tarVal + '<input type="hidden" name="tarifas-hidden"  value="'+tarifa.ratesTO+'#'+tarVal+'" />';
    row.cells[2].innerHTML= '<img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarTarifa(\''+row.id+'\')" onmouseover="this.style.cursor=\'hand\';" />';
    row.cells[0].width=203;
    row.cells[1].width=60;
@@ -74,3 +127,5 @@ function eliminarTarifa(id){
    tablaTarifas.deleteRow(row.rowIndex);
   
 }
+
+
