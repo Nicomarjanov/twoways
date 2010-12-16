@@ -102,10 +102,6 @@
         <url-pattern>/ordentrabajo</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AbmTraductoresServlet</servlet-name>
-        <url-pattern>/traductor</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>CargarArchivo</servlet-name>
         <url-pattern>/cargararchivo</url-pattern>
     </servlet-mapping>

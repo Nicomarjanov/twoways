@@ -12,5 +12,5 @@ public interface EmployeeDAO {
     public List buscarEmpleados(String search) throws Exception;
     public boolean deleteEmployee(EmployeesTO employee)  throws Exception;    
     public List obtenerTipoEmpleado() throws Exception;
-    
+    public List obtenerTipoEmpleadoById(String empId) throws Exception;    
 }

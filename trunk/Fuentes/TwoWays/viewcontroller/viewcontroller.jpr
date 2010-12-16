@@ -93,6 +93,8 @@
       <value n="j2eeWebContextRoot" v="twoways"/>
       <hash n="webContentSet">
          <list n="pattern-filters">
+            <string v="-js/traductor.js"/>
+            <string v="-traductor.jsp"/>
             <string v="-logo_bajo_relieve.jpg"/>
             <string v="-index.html"/>
             <string v="-cliente.js"/>
@@ -106,6 +108,7 @@
    <hash n="oracle.jdeveloper.model.PathsConfiguration">
       <hash n="javaContentSet">
          <list n="pattern-filters">
+            <string v="-com/twoways/view/servlets/AbmTraductoresServlet.java"/>
             <string v="-com/twoways/view/servlets/AbmUsuarioServlet.java"/>
             <string v="-com.toways.spring/sqlMapConfig.xml"/>
             <string v="-com.toways.spring/untitled1.xml"/>

@@ -35,6 +35,12 @@
         <property name="ordersDao">
             <ref bean="ordersDAO"/>
         </property>
+        <property name="translatorDao">
+            <ref bean="translatorDAO"/>
+        </property>  
+        <property name="languagueDao">
+            <ref bean="languagueDAO"/>
+        </property>        
     </bean>
 
     <!-- declaracion de los servicios, utilizando proxy para el manejo de transacciones -->

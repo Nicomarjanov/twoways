@@ -264,6 +264,14 @@
      employee_type
   </statement>   
      
+  <statement  id="obtenerTipoEmpleadoByEmpId" resultMap="select-Tipo-Emp" parameterClass="java.lang.String">
+     select *    
+     from employee_type
+     where ety_name not in (select employee_type_ety_name 
+                            from employees_types
+                            where employees_emp_id = #empId#)
+  </statement>
+  
   <resultMap id="select-Emp-Rates" class="com.twoways.to.EmployeesRatesTO" >
       <result property="emrValue" column="EMR_VALUE" />
       <result property="employeesTO.empId" column="EMPLOYEES_EMP_ID"/>
@@ -519,44 +527,42 @@
      where itm_id = #value#
  </select>
   
-  <!-- Translator 
+  <!-- Translator -->
   <select  id="traductores.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > select translator_seq.nextval traId from dual</select> 
 
   <insert id="insertarTraductor" parameterClass="com.twoways.to.TranslatorsTO" >
       insert into translators
-          (tra_id, tra_specialization, languagues_lan_id, languagues_lan_id1, languagues_lan_id2, employees_emp_id, tra_editor)
+          (tra_id, tra_specialization, languagues_lan_id, languagues_lan_id1, languagues_lan_id2, employees_emp_id)
         values
-          (#traId#, #traSpecialization#, #LanguaguesTO.lanId#, #LanguaguesTO.lanId1#, #LanguaguesTO.lanId2#, #employeesTO.empId#, #traEditor#)                        
+          (#traId#, #traSpecialization#, #languaguesTO.lanId#, #languaguesTO1.lanId#, #languaguesTO2.lanId#, #employeesTO.empId#)                        
   </insert>
 
   <update  id="updateTraductor" parameterClass="com.twoways.to.TranslatorsTO">
       UPDATE translators
       SET     tra_specialization = #traSpecialization# , 
-              languagues_lan_id = #LanguaguesTO.lanId#,
-              languagues_lan_id1 = #LanguaguesTO.lanId1#,
-              languagues_lan_id2 = #LanguaguesTO.lanId2#,              
-              tra_editor = #traEditor#
+              languagues_lan_id = #languaguesTO.lanId#,
+              languagues_lan_id1 = #languaguesTO1.lanId#,
+              languagues_lan_id2 = #languaguesTO2.lanId#              
       WHERE  tra_id = #traId#                     
   </update>  
   
   <resultMap id="select-Trad-List"  class="com.twoways.to.TranslatorsTO" >
       <result property="traSpecialization" column="tra_specialization" />
-      <result property="LanguaguesTO.lanId"   column="languagues_lan_id" />
-      <result property="LanguaguesTO.lanId1" column="languagues_lan_id1"  />
-      <result property="LanguaguesTO.lanId2" column="languagues_lan_id2"  />      
-      <result property="traEditor" column="tra_editor" />
-      <result property="EmployeesTO.EmpId" column="employees_emp_id" />      
-      <result property="EmployeesTO.empFirstName" column="emp_first_name" />    
-      <result property="EmployeesTO.empLastName" column="emp_last_name" />          
+      <result property="languaguesTO.lanId"   column="languagues_lan_id" />
+      <result property="languaguesTO1.lanId" column="languagues_lan_id1"  />
+      <result property="languaguesTO2.lanId" column="languagues_lan_id2"  />      
+      <result property="employeesTO.empId" column="employees_emp_id" />      
+      <result property="employeesTO.empFirstName" column="emp_first_name" />    
+      <result property="employeesTO.empLastName" column="emp_last_name" />          
   </resultMap>
     
   <resultMap id="select-TradId-List"  class="com.twoways.to.TranslatorsTO" >
+      <result property="traId" column="tra_id" />  
       <result property="traSpecialization" column="tra_specialization" />
-      <result property="LanguaguesTO.lanId"   column="languagues_lan_id" />
-      <result property="LanguaguesTO.lanId1" column="languagues_lan_id1"  />
-      <result property="LanguaguesTO.lanId2" column="languagues_lan_id2"  />      
-      <result property="traEditor" column="tra_editor" />
-      <result property="EmployeesTO.EmpId" column="employees_emp_id" />   
+      <result property="languaguesTO.lanId"   column="languagues_lan_id" />
+      <result property="languaguesTO1.lanId" column="languagues_lan_id1"  />
+      <result property="languaguesTO2.lanId" column="languagues_lan_id2"  />      
+      <result property="employeesTO.empId" column="employees_emp_id" />   
   </resultMap>
   
   <statement id="buscarTraductores" resultMap="select-Trad-List"  parameterClass="java.lang.String" >
@@ -573,12 +579,25 @@
         WHERE  tra_id = #traId#    
  </delete> 
   
-   <select  id="getTraById" parameterClass="java.lang.String" resultMap="select-TradId-List">
+   <select  id="getTraByEmpId" parameterClass="java.lang.String" resultMap="select-TradId-List">
+     select *
+     from translators 
+     where employees_emp_id = #value#
+ </select>
+ 
+ <select  id="getTraById" parameterClass="java.lang.String" resultMap="select-TradId-List">
      select *
      from translators 
      where tra_id = #value#
- </select>
--->
+ </select> 
+ 
+  <statement id="obtenerIdioma"  resultClass="com.twoways.to.LanguaguesTO" parameterClass="java.lang.String">
+     select  lan_id as lanId,
+             lan_Name as lanName, 
+             lan_description as lanDescription 
+     from Languagues     
+  </statement>  
+
   <statement id="getPass"  resultClass="java.lang.String" parameterClass="java.lang.String">
      select  usr_pass
      from  users 

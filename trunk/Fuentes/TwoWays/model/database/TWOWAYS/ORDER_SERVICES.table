@@ -1,14 +1,14 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <TABLE class="oracle.javatools.db.Table" xmlns="http://xmlns.oracle.com/jdeveloper/10130/offlinedb">
    <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID" id="0">
-      <ID>22e10c23-012c-1000-8008-0a000003d206</ID>
+      <ID>94c8a2d3-012c-1000-8001-7f0000015b4a</ID>
       <parent/>
       <type>TABLE</type>
    </ID>
    <columns>
-      <Item id="2">
+      <Item id="1">
          <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-            <ID>22e1dee8-012c-1000-800a-0a000003d206</ID>
+            <ID>94c98860-012c-1000-8003-7f0000015b4a</ID>
             <parent idref="0"/>
             <type>COLUMN</type>
          </ID>
@@ -19,26 +19,26 @@
                   <Value class="java.lang.Long">50</Value>
                </Item>
             </attributeValues>
-            <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID" id="1">
+            <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
                <providerClass>oracle.javatools.db.ora.Oracle9i</providerClass>
                <schemaName/>
                <typeName>VARCHAR2</typeName>
             </dataTypeID>
          </dataTypeUsage>
          <default/>
-         <name>SER_NAME</name>
+         <name>SERVICES_SER_NAME</name>
          <notNull>true</notNull>
          <properties class="java.util.HashMap">
             <Item>
                <Key>OfflineDBConstants.GENERATE_TARGET_ID</Key>
                <Value class="oracle.jdeveloper.offlinedb.marshal.GenericDBReferenceID">
                   <ID/>
-                  <name>SER_NAME</name>
+                  <name>SERVICES_SER_NAME</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
                      <connectionName>XE</connectionName>
-                     <databaseID>14917</databaseID>
-                     <name>SERVICES</name>
+                     <databaseID>14916</databaseID>
+                     <name>ORDER_SERVICES</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
                      <type>TABLE</type>
@@ -49,35 +49,34 @@
             </Item>
          </properties>
       </Item>
-      <Item>
+      <Item id="2">
          <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-            <ID>22e1dee8-012c-1000-800b-0a000003d206</ID>
+            <ID>94c9a514-012c-1000-8005-7f0000015b4a</ID>
             <parent idref="0"/>
             <type>COLUMN</type>
          </ID>
          <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
-            <attributeValues class="java.util.HashMap">
-               <Item>
-                  <Key>size</Key>
-                  <Value class="java.lang.Long">250</Value>
-               </Item>
-            </attributeValues>
-            <dataTypeID idref="1"/>
+            <attributeValues class="java.util.HashMap"/>
+            <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+               <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+               <schemaName/>
+               <typeName>NUMBER</typeName>
+            </dataTypeID>
          </dataTypeUsage>
          <default/>
-         <name>SER_DESCRIPTION</name>
-         <notNull>false</notNull>
+         <name>ORDERS_ORD_ID</name>
+         <notNull>true</notNull>
          <properties class="java.util.HashMap">
             <Item>
                <Key>OfflineDBConstants.GENERATE_TARGET_ID</Key>
                <Value class="oracle.jdeveloper.offlinedb.marshal.GenericDBReferenceID">
                   <ID/>
-                  <name>SER_DESCRIPTION</name>
+                  <name>ORDERS_ORD_ID</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
                      <connectionName>XE</connectionName>
-                     <databaseID>14917</databaseID>
-                     <name>SERVICES</name>
+                     <databaseID>14916</databaseID>
+                     <name>ORDER_SERVICES</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
                      <type>TABLE</type>
@@ -90,28 +89,113 @@
       </Item>
    </columns>
    <constraints>
-      <Item class="oracle.javatools.db.PKConstraint">
+      <Item class="oracle.javatools.db.FKConstraint">
          <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
+            <ID>94c98017-012c-1000-8002-7f0000015b4a</ID>
+            <parent idref="0"/>
+            <type>CONSTRAINT</type>
+         </ID>
+         <columns>
+            <Item idref="1"/>
+         </columns>
+         <deleteMode>0</deleteMode>
+         <enabled>true</enabled>
+         <name>ORDER_SERVICES_SERVICES_FK</name>
+         <properties class="java.util.HashMap">
+            <Item>
+               <Key>OfflineDBConstants.GENERATE_TARGET_ID</Key>
+               <Value class="oracle.jdeveloper.offlinedb.marshal.GenericDBReferenceID">
+                  <ID/>
+                  <name>ORDER_SERVICES_SERVICES_FK</name>
+                  <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
+                     <ID/>
+                     <connectionName>XE</connectionName>
+                     <databaseID>14916</databaseID>
+                     <name>ORDER_SERVICES</name>
+                     <parent/>
+                     <schemaName>TWOWAYS</schemaName>
+                     <type>TABLE</type>
+                  </parent>
+                  <schemaName/>
+                  <type>CONSTRAINT</type>
+               </Value>
+            </Item>
+         </properties>
+         <referenceID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
             <ID>22e1dee8-012c-1000-800c-0a000003d206</ID>
+            <parent class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
+               <ID>22e10c23-012c-1000-8008-0a000003d206</ID>
+               <parent/>
+               <type>TABLE</type>
+            </parent>
+            <type>CONSTRAINT</type>
+         </referenceID>
+      </Item>
+      <Item class="oracle.javatools.db.FKConstraint">
+         <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
+            <ID>94c99f4a-012c-1000-8004-7f0000015b4a</ID>
             <parent idref="0"/>
             <type>CONSTRAINT</type>
          </ID>
          <columns>
             <Item idref="2"/>
          </columns>
+         <deleteMode>0</deleteMode>
          <enabled>true</enabled>
-         <name>SERVICES_PK</name>
+         <name>ORDER_SERVICES_ORDERS_FK</name>
          <properties class="java.util.HashMap">
             <Item>
                <Key>OfflineDBConstants.GENERATE_TARGET_ID</Key>
                <Value class="oracle.jdeveloper.offlinedb.marshal.GenericDBReferenceID">
                   <ID/>
-                  <name>SERVICES_PK</name>
+                  <name>ORDER_SERVICES_ORDERS_FK</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
                      <connectionName>XE</connectionName>
-                     <databaseID>14917</databaseID>
-                     <name>SERVICES</name>
+                     <databaseID>14916</databaseID>
+                     <name>ORDER_SERVICES</name>
+                     <parent/>
+                     <schemaName>TWOWAYS</schemaName>
+                     <type>TABLE</type>
+                  </parent>
+                  <schemaName/>
+                  <type>CONSTRAINT</type>
+               </Value>
+            </Item>
+         </properties>
+         <referenceID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
+            <ID>b71c0910-012b-1000-8026-0a000005a486</ID>
+            <parent class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
+               <ID>b6e47c7d-012b-1000-8008-0a000005a486</ID>
+               <parent/>
+               <type>TABLE</type>
+            </parent>
+            <type>CONSTRAINT</type>
+         </referenceID>
+      </Item>
+      <Item class="oracle.javatools.db.PKConstraint">
+         <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
+            <ID>94cda522-012c-1000-8006-7f0000015b4a</ID>
+            <parent idref="0"/>
+            <type>CONSTRAINT</type>
+         </ID>
+         <columns>
+            <Item idref="1"/>
+            <Item idref="2"/>
+         </columns>
+         <enabled>true</enabled>
+         <name>ORDER_SERVICES_PK</name>
+         <properties class="java.util.HashMap">
+            <Item>
+               <Key>OfflineDBConstants.GENERATE_TARGET_ID</Key>
+               <Value class="oracle.jdeveloper.offlinedb.marshal.GenericDBReferenceID">
+                  <ID/>
+                  <name>ORDER_SERVICES_PK</name>
+                  <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
+                     <ID/>
+                     <connectionName>XE</connectionName>
+                     <databaseID>14916</databaseID>
+                     <name>ORDER_SERVICES</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
                      <type>TABLE</type>
@@ -124,7 +208,7 @@
       </Item>
    </constraints>
    <indexes class="[Loracle.javatools.db.Index;"/>
-   <name>SERVICES</name>
+   <name>ORDER_SERVICES</name>
    <properties class="java.util.HashMap">
       <Item>
          <Key>OfflineDBConstants.GENERATE_TARGET_CONECTION</Key>
@@ -135,8 +219,8 @@
          <Value class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
             <ID/>
             <connectionName>XE</connectionName>
-            <databaseID>14917</databaseID>
-            <name>SERVICES</name>
+            <databaseID>14916</databaseID>
+            <name>ORDER_SERVICES</name>
             <parent/>
             <schemaName>TWOWAYS</schemaName>
             <type>TABLE</type>
@@ -144,7 +228,7 @@
       </Item>
       <Item>
          <Key>OfflineDBConstants.GENERATE_TARGET_NAME</Key>
-         <Value>SERVICES</Value>
+         <Value>ORDER_SERVICES</Value>
       </Item>
       <Item>
          <Key>OfflineDBConstants.GENERATE_TARGET_SCHEMA</Key>

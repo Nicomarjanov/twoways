@@ -228,7 +228,7 @@
       </Item>
       <Item id="8">
          <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-            <ID>22e48cf7-012c-1000-8011-0a000003d206</ID>
+            <ID>94d5095f-012c-1000-800b-7f0000015b4a</ID>
             <parent idref="0"/>
             <type>COLUMN</type>
          </ID>
@@ -236,7 +236,7 @@
             <attributeValues class="java.util.HashMap">
                <Item>
                   <Key>size</Key>
-                  <Value class="java.lang.Long">20</Value>
+                  <Value class="java.lang.Long">50</Value>
                </Item>
             </attributeValues>
             <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
@@ -246,14 +246,52 @@
             </dataTypeID>
          </dataTypeUsage>
          <default/>
-         <name>SERVICES_SER_ID</name>
+         <name>ORDER_SERVICES_SERVICES_SER_NA</name>
          <notNull>false</notNull>
          <properties class="java.util.HashMap">
             <Item>
                <Key>OfflineDBConstants.GENERATE_TARGET_ID</Key>
                <Value class="oracle.jdeveloper.offlinedb.marshal.GenericDBReferenceID">
                   <ID/>
-                  <name>SERVICES_SER_ID</name>
+                  <name>ORDER_SERVICES_SERVICES_SER_NA</name>
+                  <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
+                     <ID/>
+                     <connectionName>XE</connectionName>
+                     <databaseID>14252</databaseID>
+                     <name>PROJECT_ASSIGNMENTS</name>
+                     <parent/>
+                     <schemaName>TWOWAYS</schemaName>
+                     <type>TABLE</type>
+                  </parent>
+                  <schemaName/>
+                  <type>COLUMN</type>
+               </Value>
+            </Item>
+         </properties>
+      </Item>
+      <Item id="9">
+         <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
+            <ID>94d5095f-012c-1000-800c-7f0000015b4a</ID>
+            <parent idref="0"/>
+            <type>COLUMN</type>
+         </ID>
+         <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+            <attributeValues class="java.util.HashMap"/>
+            <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+               <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+               <schemaName/>
+               <typeName>NUMBER</typeName>
+            </dataTypeID>
+         </dataTypeUsage>
+         <default/>
+         <name>ORDER_SERVICES_ORDERS_ORD_ID</name>
+         <notNull>false</notNull>
+         <properties class="java.util.HashMap">
+            <Item>
+               <Key>OfflineDBConstants.GENERATE_TARGET_ID</Key>
+               <Value class="oracle.jdeveloper.offlinedb.marshal.GenericDBReferenceID">
+                  <ID/>
+                  <name>ORDER_SERVICES_ORDERS_ORD_ID</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
                      <connectionName>XE</connectionName>
@@ -498,12 +536,13 @@
       </Item>
       <Item class="oracle.javatools.db.FKConstraint">
          <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-            <ID>22e47145-012c-1000-8010-0a000003d206</ID>
+            <ID>94d4e848-012c-1000-800a-7f0000015b4a</ID>
             <parent idref="0"/>
             <type>CONSTRAINT</type>
          </ID>
          <columns>
             <Item idref="8"/>
+            <Item idref="9"/>
          </columns>
          <deleteMode>0</deleteMode>
          <enabled>true</enabled>
@@ -529,9 +568,9 @@
             </Item>
          </properties>
          <referenceID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-            <ID>22e1dee8-012c-1000-800c-0a000003d206</ID>
+            <ID>94cda522-012c-1000-8006-7f0000015b4a</ID>
             <parent class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-               <ID>22e10c23-012c-1000-8008-0a000003d206</ID>
+               <ID>94c8a2d3-012c-1000-8001-7f0000015b4a</ID>
                <parent/>
                <type>TABLE</type>
             </parent>
