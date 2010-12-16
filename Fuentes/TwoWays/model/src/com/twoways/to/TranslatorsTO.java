@@ -3,8 +3,6 @@ package com.twoways.to;
 
 //(name = "TRANSLATORS")
 public class TranslatorsTO {
-    //(name="TRA_EDITOR")
-    private String traEditor;
     //
     //(name="TRA_ID", nullable = false)
     private Long traId;
@@ -14,19 +12,11 @@ public class TranslatorsTO {
     private LanguaguesTO languaguesTO1;
     private EmployeesTO employeesTO;
     private LanguaguesTO languaguesTO2;
-    private CurrencyTO currencyTO;
+
 
     public TranslatorsTO() {
     }
 
-
-    public String getTraEditor() {
-        return traEditor;
-    }
-
-    public void setTraEditor(String traEditor) {
-        this.traEditor = traEditor;
-    }
 
     public Long getTraId() {
         return traId;
@@ -76,11 +66,4 @@ public class TranslatorsTO {
         this.languaguesTO2 = languaguesTO2;
     }
 
-    public CurrencyTO getCurrencyTO() {
-        return currencyTO;
-    }
-
-    public void setCurrencyTO(CurrencyTO currencyTO) {
-        this.currencyTO = currencyTO;
-    }
 }

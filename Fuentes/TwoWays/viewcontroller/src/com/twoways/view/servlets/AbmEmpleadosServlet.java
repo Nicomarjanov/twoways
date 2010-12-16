@@ -1,9 +1,7 @@
 package com.twoways.view.servlets;
 
 import com.twoways.core.bdl.TwoWaysBDL;
-import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.EmployeesTO;
-import com.twoways.to.RateTypesTO;
 import com.twoways.to.RatesTO;
 import com.twoways.to.EmployeeTypeTO;
 
@@ -11,12 +9,15 @@ import com.twoways.to.EmployeesRatesTO;
 
 import com.twoways.to.EmployeesTypesTO;
 
+import com.twoways.to.LanguaguesTO;
+import com.twoways.to.TranslatorsTO;
+
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.*;
@@ -43,21 +44,38 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
             List<EmployeeTypeTO> tipo = null;
             EmployeesTO empleado = new EmployeesTO(); 
             String empId = request.getParameter("empId"); 
+            
+            TranslatorsTO traductor = new TranslatorsTO(); 
+            List<LanguaguesTO> idioma= null; 
+            List<LanguaguesTO> lengua1= null; 
+            List<LanguaguesTO> lengua2= null;     
+            
             String paginaSiguiente = "empleados.jsp";
            
             TwoWaysBDL twoWaysBDL=null;
             
             try {
                 twoWaysBDL = new TwoWaysBDL();
-                //twoWaysBDL.getServiceTwoWays().obtenerMonedas();                             
-                tipo =  twoWaysBDL.getServiceTwoWays().obtenerTipoEmpleado();
+               
+                 if (empId != null && empId.length() > 0) {  
+                    tipo = twoWaysBDL.getServiceTwoWays().obtenerTipoEmpleadoById(empId);
+                } else {
+                    tipo = twoWaysBDL.getServiceTwoWays().obtenerTipoEmpleado();  
+                }
                 request.setAttribute("listaTipoEmp",tipo);
-                
-                request.setAttribute("listaTipoEmpTar",tipo);
+                //request.setAttribute("listaTipoEmpTar",tipo);
                 
                 tarifas = twoWaysBDL.getServiceTwoWays().obtenerTarifas();
                 request.setAttribute("listaTarifa",tarifas);
-               
+                
+                idioma =  twoWaysBDL.getServiceTwoWays().obtenerIdioma();
+                lengua1 =  idioma;
+                lengua2 =  idioma;
+                request.setAttribute("listaIdiomas",idioma);
+                request.setAttribute("listaLengua1",lengua1);
+                request.setAttribute("listaLengua2",lengua2);
+                request.setAttribute("traductor",traductor);
+                
             } catch (Exception e) {
                e.printStackTrace();
             }
@@ -149,14 +167,11 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
 
                 try {
                     if(empId != null && empId.length() > 0 ){ 
-                        twoWaysBDL.getServiceTwoWays().updateEmpleado(empleado);
-                        request.setAttribute("empleado",empleado);
-                       
+                        twoWaysBDL.getServiceTwoWays().updateEmpleado(empleado);                       
                     }else{
                         twoWaysBDL.getServiceTwoWays().insertarEmpleado(empleado);
-                        request.setAttribute("empleado",empleado);
                     }
-                    
+                    request.setAttribute("empleado",empleado);  
                 } catch (Exception e) {
                     e.printStackTrace();
                     request.setAttribute("mensaje","<script>alert('Ocurrió un error al guardar el empleado')</script>");  
@@ -169,11 +184,33 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                                        
                     for(String aux:empleadosTipos){                                                                
                         if (aux.equalsIgnoreCase("Traductor")){
-                            paginaSiguiente = "traductor.jsp";
+                            //paginaSiguiente = "traductor";         
+                             String traId = request.getParameter("traId");
+                             LanguaguesTO lenguaNativa = new LanguaguesTO();
+                             LanguaguesTO lenguaPri = new LanguaguesTO();
+                             LanguaguesTO lenguaSec = new LanguaguesTO();
+                             lenguaNativa.setLanId((request.getParameter("listaIdiomas") != null && request.getParameter("listaIdiomas").length() > 0 )? Long.parseLong(request.getParameter("listaIdiomas")):0);
+                             lenguaPri.setLanId((request.getParameter("listaLengua1") != null && request.getParameter("listaLengua1").length() > 0 )? Long.parseLong(request.getParameter("listaLengua1")):null);
+                             lenguaSec.setLanId((request.getParameter("listaLengua2") != null && request.getParameter("listaLengua2").length() > 0 )? Long.parseLong(request.getParameter("listaLengua2")):null);
+                             traductor.setEmployeesTO(empleado);
+                             traductor.setLanguaguesTO(lenguaNativa);
+                             traductor.setLanguaguesTO1(lenguaPri);
+                             traductor.setLanguaguesTO2(lenguaSec);
+                             traductor.setTraSpecialization((request.getParameter("tipoEspecialidad") != null && request.getParameter("tipoEspecialidad").length() > 0 )?request.getParameter("tipoEspecialidad"):null);
+                             try {
+                                 if (traId != null){     
+                                     traductor.setTraId(Long.valueOf(traId));
+                                     twoWaysBDL.getServiceTwoWays().updateTraductor(traductor);
+                                 }else{
+                                     twoWaysBDL.getServiceTwoWays().insertarTraductor(traductor);           
+                                 }
+                             request.setAttribute("traductor",traductor); 
+                             } catch (Exception e) {
+                                e.printStackTrace();
+                             }                            
                         }                       
                     }
-                }                  
-                               
+                }                                                 
             }
             else if(empId != null && empId.length() > 0  && (accion!=null && accion.equalsIgnoreCase("eliminar")) ){
                 try {
@@ -233,12 +270,17 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
             {                        
                  try {
                          empleado =  twoWaysBDL.getServiceTwoWays().getEmpById(empId);
+                         
                          request.setAttribute("empleado",empleado);
-
+                         
+                         traductor = twoWaysBDL.getServiceTwoWays().getTraByEmpId(empId);
+                         if (traductor != null){
+                             request.setAttribute("traductor",traductor);
+                         }
                          if(empleado == null){
                              request.setAttribute("mensaje","<script>alert('El empleado no existe')</script>"); 
                          }else{
-                         request.setAttribute("script","<script>init();</script>");
+                             request.setAttribute("script","<script>init();</script>");
                          }
                      
                  } catch (Exception e) {
@@ -246,6 +288,9 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                      request.setAttribute("mensaje","<script>alert('Error al cargar el empleado')</script>"); 
                     // request.getRequestDispatcher("empleados.jsp").forward(request,response);
                  }
+            }
+            else {
+                
             }
                      
     request.getRequestDispatcher(paginaSiguiente).forward(request,response);

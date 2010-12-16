@@ -44,6 +44,8 @@ public interface TW_SystemService {
     public boolean  deleteEmployees(EmployeesTO employeesTO)  throws Exception;
     
     public List obtenerTipoEmpleado() throws Exception;
+    
+    public List obtenerTipoEmpleadoById(String empId) throws Exception;
 
     public List obtenerMonedas() throws Exception;
     
@@ -101,7 +103,7 @@ public interface TW_SystemService {
     
     public void updateTraductor(TranslatorsTO translatorsTO) throws Exception ;
     
-    public TranslatorsTO getTraById(String traId)  throws Exception;    
+    public TranslatorsTO getTraByEmpId(String empId)  throws Exception;    
     
     public List buscarTraductores(String search) throws Exception;
     
@@ -116,4 +118,7 @@ public interface TW_SystemService {
     public OrdersDocsTO getOrdersDocById(Long docId)  throws Exception;
     
     public List<ClientsRatesTO> getTarifaClienteById(Long cliId)  throws Exception;
+    
+    public List obtenerIdioma()throws Exception;
+   
 }

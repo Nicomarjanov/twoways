@@ -23,10 +23,7 @@ div.background
   /* CSS3 standard 
   opacity:0.1;*/
   }
-div.foreground
-  {
 
-}
 /*Fuentes*/
 h1.tw{
     color:#80211D;
@@ -187,6 +184,11 @@ background-color:#EE9A98;
 }
 
 
+#div-traductor th
+{
+    font-size: 15px;
+    color: #80211D;
+}
 
 table.tw_form
 {

@@ -18,12 +18,13 @@
   </head>
  
   
-  <body onload="createDynamicDropdown('listaTipoEmpTar', 'listaTarifa', 'dropDown3');">
+  <body>
   <jsp:include page="/WEB-INF/jspIncludes/menu.jsp" />
   <c:out value="${mensaje}" escapeXml="false"/>
   <form name="empleado" action="empleados" method="POST">
   <input type="hidden" id="accion" name="accion" value=""/>
   <input type="hidden" id="empId" name="empId" value="<c:out value="${empleado.empId}"/>"/>
+  <input type="hidden" id="traId" name="traId" value="<c:out value="${traductor.traId}"/>"/>  
   <table width="100%" class="tw_form">
   <tr>
     <th colspan="6" class="tw_form">Ingrese los campos con los datos de los empleados</th>
@@ -68,7 +69,7 @@
               </tr>
             </table>
             <td rowspan=3 align="left">
-                <select name="listaItemsSelect" id="listaItemsSelect" size="4" multiple="multiple" style="border:solid 1px #005C8D;width:200px; font-size: 9px;" >
+                <select name="listaItemsSelect" id="listaItemsSelect" size="4" multiple="multiple" style="border:solid 1px #005C8D;width:200px; font-size: 9px;">                
                 <c:forEach items="${empleado.employeesTypesTOList}" var="item">
                        <option value="<c:out value="${item.employeeTypeTO.etyName}"/>" title="<c:out value="${item.employeeTypeTO.etyDescription}"/>">
                         <c:out value="${item.employeeTypeTO.etyName}" />
@@ -132,15 +133,13 @@
     <img id="tarifa-"  style="border:0;" title="Ocultar tarifa del empleado" src="img/currency_dollar blue.png" alt="Tarifas" width="25" height="25" onmouseover="this.style.cursor='hand';"/></a>
   </td>
   <td valign="top" align="right" width="35%">
-  <!--Prueba-->
-            <select name="listaTipoEmpTar" id="listaTipoEmpTar" style="border:solid 1px #005C8D;width:200px; font-size: 13px;" onfocus="javascript:this.style.background='#FFFFFF';" onchange="createDynamicDropdown('listaTipoEmpTar', 'listaTarifa', 'dropDown3');">                                            
-                <!-- <option value=""  >Seleccionar Tipo</option>
-                <c:forEach items="${listaTipoEmpTar}" var="item">
-                      <option value="<c:out value="${item.etyName}"/>" title="<c:out value="${item.etyDescription}"/>">
-                        <c:out value="${item.etyName}" />
-                      </option> 
-                </c:forEach>-->
-            </select> 
+        <select name="listaTipoEmpTar" id="listaTipoEmpTar" style="border:solid 1px #005C8D;width:200px; font-size: 13px;" onfocus="javascript:this.style.background='#FFFFFF';createDynamicDropdown('listaTipoEmpTar', 'listaTarifa', 'dropDown3');" onchange="createDynamicDropdown('listaTipoEmpTar', 'listaTarifa', 'dropDown3');">                                            
+            <c:forEach items="${empleado.employeesTypesTOList}" var="item">
+                   <option value="<c:out value="${item.employeeTypeTO.etyName}"/>" title="<c:out value="${item.employeeTypeTO.etyDescription}"/>">
+                    <c:out value="${item.employeeTypeTO.etyName}" />
+                  </option> 
+            </c:forEach>
+        </select> 
   </td>
   <td valign="top">
          <select name="listaTarifa" id="listaTarifa" style="display:none;">              
@@ -150,44 +149,36 @@
                    <c:choose>
                     <c:when test="${false}">
                        <option name="<c:out value="${item.ratType}" />" value="<c:out value="${item.ratId}" />" style="background-color:#A4BAC7;" selected="selected">
-                        <c:out value="${item.ratName}" />
-                      </option> 
+                            <c:out value="${item.ratName}" />
+                       </option> 
                     </c:when>
                     <c:otherwise>
-                    <option  name="<c:out value="${item.ratType}" />" value="<c:out value="${item.ratId}" />" style="background-color:#A4BAC7;">
-                        <c:out value="${item.ratName}" />
-                    </option>
+                        <option  name="<c:out value="${item.ratType}" />" value="<c:out value="${item.ratId}" />" style="background-color:#A4BAC7;">
+                            <c:out value="${item.ratName}" />
+                        </option>
                     </c:otherwise>
                     </c:choose>
                 </c:forEach>
        </select>
-       <select id="dropDown3" name="dropDown3" style="border:solid 1px #005C8D;width:200px; font-size: 13px;">
-                 <option>Cargando...</option>
+       <select id="dropDown3" name="dropDown3" style="border:solid 1px #005C8D;width:200px; font-size: 13px;" onfocus="createDynamicDropdown('listaTipoEmpTar', 'listaTarifa', 'dropDown3');">
+                <c:choose>
+                <c:when test="${empleado.employeesRatesTOList} == null">
+                    <option>Cargando...</option>
+                </c:when>
+                <c:otherwise>
+                    <c:if test="${empleado.employeesRatesTOList} != null">
+                       <c:set var="listaTarifasEmpleado" value="${empleado.employeesRatesTOList}" scope="page"/>
+                    </c:if>
+                    <c:forEach items="${pageScope.listaTarifasEmpleado}" var="item">
+                       
+                       <option value="<c:out value="${item.ratesTO.ratName}"/>" title="<c:out value="${item.ratesTO.ratName}"/>">
+                            <c:out value="${item.ratesTO.ratName}"/>
+                        </option> 
+                     </c:forEach>
+                </c:otherwise>
+                </c:choose>
        </select>
   </td> 
-<!-- -->
-<!--   
-  <select name="listaTarifa" id="listaTarifa" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">
-               
-                <option value=""  >Seleccionar</option>
-                <c:forEach items="${listaTarifa}" var="item">
-                   <c:out value="${item.ratId}" />
-                   <c:choose>
-                    <c:when test="${false}">
-                       <option value="<c:out value="${item.ratId}" />" style="background-color:#A4BAC7;" selected="selected">
-                        <c:out value="${item.ratName}" />
-                      </option> 
-                    </c:when>
-                    <c:otherwise>
-                    <option value="<c:out value="${item.ratId}" />" style="background-color:#A4BAC7;">
-                        <c:out value="${item.ratName}" />
-                    </option>
-                    </c:otherwise>
-                    </c:choose>
-                </c:forEach>
-       </select>
-       
-    </td>-->
     <td align="left" valign="top">
     <input type="text" class="tw_form" id="tar_val" size=10  onkeydown="keyTarifa()" />
     
@@ -230,9 +221,417 @@
   </td>
   </tr>
   </table>
+  <c:forEach items="${empleado.employeesTypesTOList}" var="item">
+     <c:choose>
+     <c:when test="${item.employeeTypeTO.etyName == 'Traductor'}">
+        <div id="div-traductor" align="center">
+        <hr>
+        <table width="50%" align="center">
+          <tr>
+          <th colspan=4>Ingrese los datos del traductor
+          </th>
+          </tr>
+          <tr>
+            <td nowrap align="center" width="15%">Lengua nativa</td>
+            <td nowrap align="center" width="15%">Lengua Principal</td>
+            <td nowrap align="center" width="15%">Lengua Secundaria</td>        
+            <td align="center" width="15%">Especialidad</td>
+           </tr>
+           <tr>
+            <td align="center">
+               <select name="listaIdiomas" id="listaIdiomas" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">
+                        <option value="" >Seleccionar</option>
+                        <c:forEach items="${listaIdiomas}" var="item">
+                           <c:choose>
+                            <c:when test="${item.lanId == traductor.languaguesTO.lanId}">
+                               <option value="<c:out value="${item.lanId}" />" style="background-color:#A4BAC7;" selected="selected">
+                                <c:out value="${item.lanName}" />
+                              </option> 
+                            </c:when>
+                            <c:when test="${item.lanId == 2}">
+                               <option value="<c:out value="${item.lanId}" />" style="background-color:#A4BAC7;" selected="selected">
+                                <c:out value="${item.lanName}" />
+                              </option> 
+                            </c:when>
+                            <c:otherwise>
+                            <option value="<c:out value="${item.lanId}" />" style="background-color:#A4BAC7;">
+                                <c:out value="${item.lanName}" />
+                            </option>
+                            </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+               </select>
+            </td>
+            <td align="center">
+               <select name="listaLengua1" id="listaLengua1" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">                
+                        <option value="" >Seleccionar</option>
+                        <c:forEach items="${listaLengua1}" var="item">
+                           <c:choose>
+                            <c:when test="${item.lanId == traductor.languaguesTO1.lanId}">
+                               <option value="<c:out value="${item.lanId}" />" style="background-color:#A4BAC7;" selected="selected">
+                                <c:out value="${item.lanName}" />
+                              </option> 
+                            </c:when>
+                            <c:otherwise>
+                            <option value="<c:out value="${item.lanId}" />" style="background-color:#A4BAC7;">
+                                <c:out value="${item.lanName}" />
+                            </option>
+                            </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+               </select> 
+            </td>    
+            <td align="center">
+               <select name="listaLengua2" id="listaLengua2" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">                
+                        <option value="" >Seleccionar</option>
+                        <c:forEach items="${listaLengua2}" var="item">
+                           <c:choose>
+                            <c:when test="${item.lanId == traductor.languaguesTO2.lanId}">
+                               <option value="<c:out value="${item.lanId}" />" style="background-color:#A4BAC7;" selected="selected">
+                                <c:out value="${item.lanName}" />
+                              </option> 
+                            </c:when>
+                            <c:otherwise>
+                            <option value="<c:out value="${item.lanId}" />" style="background-color:#A4BAC7;">
+                                <c:out value="${item.lanName}" />
+                            </option>
+                            </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+               </select> 
+            </td>    
+            <td align="center">
+               <select name="tipoEspecialidad" id="tipoEspecialidad" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">            
+                    <option value="" selected="selected">Seleccionar</option>
+                    <c:choose>
+                        <c:when test="${traductor.traSpecialization != null}">
+                            <c:if test="${traductor.traSpecialization == 'Art/Literary'}">
+                                <option value="Art/Literary" style="background-color:#A4BAC7;" selected="selected">Art/Literary</option> 
+                                <option value="Bus/Financial" style="background-color:#A4BAC7;">Bus/Financial</option>
+                                <option value="Law/Patents" style="background-color:#A4BAC7;">Law/Patents</option>
+                                <option value="Marketing" style="background-color:#A4BAC7;">Marketing</option>
+                                <option value="Medical" style="background-color:#A4BAC7;">Medical</option>
+                                <option value="Science" style="background-color:#A4BAC7;">Science</option>
+                                <option value="Social Sciences" style="background-color:#A4BAC7;">Social Sciences</option>
+                                <option value="Tech/Engineering" style="background-color:#A4BAC7;">Tech/Engineering</option>
+                                <option value="Other" style="background-color:#A4BAC7;">Other</option>
+                            </c:if>
+                            <c:if test="${traductor.traSpecialization == 'Bus/Financial'}">
+                                <option value="Art/Literary" style="background-color:#A4BAC7;" >Art/Literary</option> 
+                                <option value="Bus/Financial" style="background-color:#A4BAC7;" selected="selected">Bus/Financial</option>
+                                <option value="Law/Patents" style="background-color:#A4BAC7;">Law/Patents</option>
+                                <option value="Marketing" style="background-color:#A4BAC7;">Marketing</option>
+                                <option value="Medical" style="background-color:#A4BAC7;">Medical</option>
+                                <option value="Science" style="background-color:#A4BAC7;">Science</option>
+                                <option value="Social Sciences" style="background-color:#A4BAC7;">Social Sciences</option>
+                                <option value="Tech/Engineering" style="background-color:#A4BAC7;">Tech/Engineering</option>
+                                <option value="Other" style="background-color:#A4BAC7;">Other</option>                        
+                            </c:if>
+                            <c:if test="${traductor.traSpecialization == 'Law/Patents'}">
+                                <option value="Art/Literary" style="background-color:#A4BAC7;" >Art/Literary</option> 
+                                <option value="Bus/Financial" style="background-color:#A4BAC7;">Bus/Financial</option>
+                                <option value="Law/Patents" style="background-color:#A4BAC7;" selected="selected">Law/Patents</option>
+                                <option value="Marketing" style="background-color:#A4BAC7;">Marketing</option>
+                                <option value="Medical" style="background-color:#A4BAC7;">Medical</option>
+                                <option value="Science" style="background-color:#A4BAC7;">Science</option>
+                                <option value="Social Sciences" style="background-color:#A4BAC7;">Social Sciences</option>
+                                <option value="Tech/Engineering" style="background-color:#A4BAC7;">Tech/Engineering</option>
+                                <option value="Other" style="background-color:#A4BAC7;">Other</option>                        
+                            </c:if>
+                            <c:if test="${traductor.traSpecialization == 'Marketing'}">
+                                <option value="Art/Literary" style="background-color:#A4BAC7;" >Art/Literary</option> 
+                                <option value="Bus/Financial" style="background-color:#A4BAC7;">Bus/Financial</option>
+                                <option value="Law/Patents" style="background-color:#A4BAC7;">Law/Patents</option>
+                                <option value="Marketing" style="background-color:#A4BAC7;" selected="selected">Marketing</option>
+                                <option value="Medical" style="background-color:#A4BAC7;">Medical</option>
+                                <option value="Science" style="background-color:#A4BAC7;">Science</option>
+                                <option value="Social Sciences" style="background-color:#A4BAC7;">Social Sciences</option>
+                                <option value="Tech/Engineering" style="background-color:#A4BAC7;">Tech/Engineering</option>
+                                <option value="Other" style="background-color:#A4BAC7;">Other</option>                        
+                            </c:if>
+                            <c:if test="${traductor.traSpecialization == 'Medical'}">
+                                <option value="Art/Literary" style="background-color:#A4BAC7;" >Art/Literary</option> 
+                                <option value="Bus/Financial" style="background-color:#A4BAC7;">Bus/Financial</option>
+                                <option value="Law/Patents" style="background-color:#A4BAC7;">Law/Patents</option>
+                                <option value="Marketing" style="background-color:#A4BAC7;">Marketing</option>
+                                <option value="Medical" style="background-color:#A4BAC7;" selected="selected">Medical</option>
+                                <option value="Science" style="background-color:#A4BAC7;">Science</option>
+                                <option value="Social Sciences" style="background-color:#A4BAC7;">Social Sciences</option>
+                                <option value="Tech/Engineering" style="background-color:#A4BAC7;">Tech/Engineering</option>
+                                <option value="Other" style="background-color:#A4BAC7;">Other</option>                        
+                            </c:if>
+                            <c:if test="${traductor.traSpecialization == 'Science'}">
+                                <option value="Art/Literary" style="background-color:#A4BAC7;" >Art/Literary</option> 
+                                <option value="Bus/Financial" style="background-color:#A4BAC7;">Bus/Financial</option>
+                                <option value="Law/Patents" style="background-color:#A4BAC7;">Law/Patents</option>
+                                <option value="Marketing" style="background-color:#A4BAC7;">Marketing</option>
+                                <option value="Medical" style="background-color:#A4BAC7;">Medical</option>
+                                <option value="Science" style="background-color:#A4BAC7;" selected="selected">Science</option>
+                                <option value="Social Sciences" style="background-color:#A4BAC7;">Social Sciences</option>
+                                <option value="Tech/Engineering" style="background-color:#A4BAC7;">Tech/Engineering</option>
+                                <option value="Other" style="background-color:#A4BAC7;">Other</option>                        
+                            </c:if>
+                            <c:if test="${traductor.traSpecialization == 'Social Sciences'}">
+                                <option value="Art/Literary" style="background-color:#A4BAC7;" >Art/Literary</option> 
+                                <option value="Bus/Financial" style="background-color:#A4BAC7;">Bus/Financial</option>
+                                <option value="Law/Patents" style="background-color:#A4BAC7;">Law/Patents</option>
+                                <option value="Marketing" style="background-color:#A4BAC7;">Marketing</option>
+                                <option value="Medical" style="background-color:#A4BAC7;">Medical</option>
+                                <option value="Science" style="background-color:#A4BAC7;">Science</option>
+                                <option value="Social Sciences" style="background-color:#A4BAC7;" selected="selected">Social Sciences</option>
+                                <option value="Tech/Engineering" style="background-color:#A4BAC7;">Tech/Engineering</option>
+                                <option value="Other" style="background-color:#A4BAC7;">Other</option>                        
+                            </c:if>
+                            <c:if test="${traductor.traSpecialization == 'Tech/Engineering'}">
+                                <option value="Art/Literary" style="background-color:#A4BAC7;" >Art/Literary</option> 
+                                <option value="Bus/Financial" style="background-color:#A4BAC7;">Bus/Financial</option>
+                                <option value="Law/Patents" style="background-color:#A4BAC7;">Law/Patents</option>
+                                <option value="Marketing" style="background-color:#A4BAC7;">Marketing</option>
+                                <option value="Medical" style="background-color:#A4BAC7;">Medical</option>
+                                <option value="Science" style="background-color:#A4BAC7;">Science</option>
+                                <option value="Social Sciences" style="background-color:#A4BAC7;">Social Sciences</option>
+                                <option value="Tech/Engineering" style="background-color:#A4BAC7;"  selected="selected">Tech/Engineering</option>
+                                <option value="Other" style="background-color:#A4BAC7;">Other</option>                        
+                            </c:if>
+                            <c:if test="${traductor.traSpecialization == 'Other'}">
+                                <option value="Art/Literary" style="background-color:#A4BAC7;" >Art/Literary</option> 
+                                <option value="Bus/Financial" style="background-color:#A4BAC7;">Bus/Financial</option>
+                                <option value="Law/Patents" style="background-color:#A4BAC7;">Law/Patents</option>
+                                <option value="Marketing" style="background-color:#A4BAC7;">Marketing</option>
+                                <option value="Medical" style="background-color:#A4BAC7;">Medical</option>
+                                <option value="Science" style="background-color:#A4BAC7;">Science</option>
+                                <option value="Social Sciences" style="background-color:#A4BAC7;">Social Sciences</option>
+                                <option value="Tech/Engineering" style="background-color:#A4BAC7;">Tech/Engineering</option>
+                                <option value="Other" style="background-color:#A4BAC7;"  selected="selected">Other</option>                        
+                            </c:if>                    
+                        </c:when>
+                        <c:otherwise>
+                                <option value="Art/Literary" style="background-color:#A4BAC7;" >Art/Literary</option> 
+                                <option value="Bus/Financial" style="background-color:#A4BAC7;">Bus/Financial</option>                
+                                <option value="Law/Patents" style="background-color:#A4BAC7;">Law/Patents</option>
+                                <option value="Marketing" style="background-color:#A4BAC7;">Marketing</option>
+                                <option value="Medical" style="background-color:#A4BAC7;">Medical</option>
+                                <option value="Science" style="background-color:#A4BAC7;">Science</option>
+                                <option value="Social Sciences" style="background-color:#A4BAC7;">Social Sciences</option>
+                                <option value="Tech/Engineering" style="background-color:#A4BAC7;">Tech/Engineering</option>
+                                <option value="Other" style="background-color:#A4BAC7;">Other</option>                        
+                        </c:otherwise>
+                    </c:choose>
+               </select> 
+            </td>    
+          </tr>
+          </table>
+          </div>
+    </c:when>
+    <c:otherwise>
+        <div id="div-traductor" style="display:none" align="center">
+        <hr>
+        <table width="50%" align="center">
+          <tr>
+          <th colspan=4>Ingrese los datos del traductor
+          </th>
+          </tr>
+          <tr>
+            <td nowrap align="center" width="15%">Lengua Nativa</td>
+            <td nowrap align="center" width="15%">Lengua Principal</td>
+            <td nowrap align="center" width="15%">Lengua Secundaria</td>        
+            <td align="center" width="15%">Especialidad</td>
+           </tr>
+           <tr>
+            <td align="center">
+               <select name="listaIdiomas" id="listaIdiomas" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">
+                        <option value="" >Seleccionar</option>
+                        <c:forEach items="${listaIdiomas}" var="item">
+                           <c:choose>
+                            <c:when test="${item.lanId == traductor.languaguesTO.lanId}">
+                               <option value="<c:out value="${item.lanId}" />" style="background-color:#A4BAC7;" selected="selected">
+                                <c:out value="${item.lanName}" />
+                              </option> 
+                            </c:when>
+                            <c:when test="${item.lanId == 2}">
+                               <option value="<c:out value="${item.lanId}" />" style="background-color:#A4BAC7;" selected="selected">
+                                <c:out value="${item.lanName}" />
+                              </option> 
+                            </c:when>
+                            <c:otherwise>
+                            <option value="<c:out value="${item.lanId}" />" style="background-color:#A4BAC7;">
+                                <c:out value="${item.lanName}" />
+                            </option>
+                            </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+               </select>
+            </td>
+            <td align="center">
+               <select name="listaLengua1" id="listaLengua1" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">                
+                        <option value="" >Seleccionar</option>
+                        <c:forEach items="${listaLengua1}" var="item">
+                           <c:choose>
+                            <c:when test="${item.lanId == traductor.languaguesTO1.lanId}">
+                               <option value="<c:out value="${item.lanId}" />" style="background-color:#A4BAC7;" selected="selected">
+                                <c:out value="${item.lanName}" />
+                              </option> 
+                            </c:when>
+                            <c:otherwise>
+                            <option value="<c:out value="${item.lanId}" />" style="background-color:#A4BAC7;">
+                                <c:out value="${item.lanName}" />
+                            </option>
+                            </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+               </select> 
+            </td>    
+            <td align="center">
+               <select name="listaLengua2" id="listaLengua2" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">                
+                        <option value="" >Seleccionar</option>
+                        <c:forEach items="${listaLengua2}" var="item">
+                           <c:choose>
+                            <c:when test="${item.lanId == traductor.languaguesTO2.lanId}">
+                               <option value="<c:out value="${item.lanId}" />" style="background-color:#A4BAC7;" selected="selected">
+                                <c:out value="${item.lanName}" />
+                              </option> 
+                            </c:when>
+                            <c:otherwise>
+                            <option value="<c:out value="${item.lanId}" />" style="background-color:#A4BAC7;">
+                                <c:out value="${item.lanName}" />
+                            </option>
+                            </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+               </select> 
+            </td>    
+            <td align="center">
+               <select name="tipoEspecialidad" id="tipoEspecialidad" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">            
+                    <option value="" selected="selected">Seleccionar</option>
+                    <c:choose>
+                        <c:when test="${traductor.traSpecialization != null}">
+                            <c:if test="${traductor.traSpecialization == 'Art/Literary'}">
+                                <option value="Art/Literary" style="background-color:#A4BAC7;" selected="selected">Art/Literary</option> 
+                                <option value="Bus/Financial" style="background-color:#A4BAC7;">Bus/Financial</option>
+                                <option value="Law/Patents" style="background-color:#A4BAC7;">Law/Patents</option>
+                                <option value="Marketing" style="background-color:#A4BAC7;">Marketing</option>
+                                <option value="Medical" style="background-color:#A4BAC7;">Medical</option>
+                                <option value="Science" style="background-color:#A4BAC7;">Science</option>
+                                <option value="Social Sciences" style="background-color:#A4BAC7;">Social Sciences</option>
+                                <option value="Tech/Engineering" style="background-color:#A4BAC7;">Tech/Engineering</option>
+                                <option value="Other" style="background-color:#A4BAC7;">Other</option>
+                            </c:if>
+                            <c:if test="${traductor.traSpecialization == 'Bus/Financial'}">
+                                <option value="Art/Literary" style="background-color:#A4BAC7;" >Art/Literary</option> 
+                                <option value="Bus/Financial" style="background-color:#A4BAC7;" selected="selected">Bus/Financial</option>
+                                <option value="Law/Patents" style="background-color:#A4BAC7;">Law/Patents</option>
+                                <option value="Marketing" style="background-color:#A4BAC7;">Marketing</option>
+                                <option value="Medical" style="background-color:#A4BAC7;">Medical</option>
+                                <option value="Science" style="background-color:#A4BAC7;">Science</option>
+                                <option value="Social Sciences" style="background-color:#A4BAC7;">Social Sciences</option>
+                                <option value="Tech/Engineering" style="background-color:#A4BAC7;">Tech/Engineering</option>
+                                <option value="Other" style="background-color:#A4BAC7;">Other</option>                        
+                            </c:if>
+                            <c:if test="${traductor.traSpecialization == 'Law/Patents'}">
+                                <option value="Art/Literary" style="background-color:#A4BAC7;" >Art/Literary</option> 
+                                <option value="Bus/Financial" style="background-color:#A4BAC7;">Bus/Financial</option>
+                                <option value="Law/Patents" style="background-color:#A4BAC7;" selected="selected">Law/Patents</option>
+                                <option value="Marketing" style="background-color:#A4BAC7;">Marketing</option>
+                                <option value="Medical" style="background-color:#A4BAC7;">Medical</option>
+                                <option value="Science" style="background-color:#A4BAC7;">Science</option>
+                                <option value="Social Sciences" style="background-color:#A4BAC7;">Social Sciences</option>
+                                <option value="Tech/Engineering" style="background-color:#A4BAC7;">Tech/Engineering</option>
+                                <option value="Other" style="background-color:#A4BAC7;">Other</option>                        
+                            </c:if>
+                            <c:if test="${traductor.traSpecialization == 'Marketing'}">
+                                <option value="Art/Literary" style="background-color:#A4BAC7;" >Art/Literary</option> 
+                                <option value="Bus/Financial" style="background-color:#A4BAC7;">Bus/Financial</option>
+                                <option value="Law/Patents" style="background-color:#A4BAC7;">Law/Patents</option>
+                                <option value="Marketing" style="background-color:#A4BAC7;" selected="selected">Marketing</option>
+                                <option value="Medical" style="background-color:#A4BAC7;">Medical</option>
+                                <option value="Science" style="background-color:#A4BAC7;">Science</option>
+                                <option value="Social Sciences" style="background-color:#A4BAC7;">Social Sciences</option>
+                                <option value="Tech/Engineering" style="background-color:#A4BAC7;">Tech/Engineering</option>
+                                <option value="Other" style="background-color:#A4BAC7;">Other</option>                        
+                            </c:if>
+                            <c:if test="${traductor.traSpecialization == 'Medical'}">
+                                <option value="Art/Literary" style="background-color:#A4BAC7;" >Art/Literary</option> 
+                                <option value="Bus/Financial" style="background-color:#A4BAC7;">Bus/Financial</option>
+                                <option value="Law/Patents" style="background-color:#A4BAC7;">Law/Patents</option>
+                                <option value="Marketing" style="background-color:#A4BAC7;">Marketing</option>
+                                <option value="Medical" style="background-color:#A4BAC7;" selected="selected">Medical</option>
+                                <option value="Science" style="background-color:#A4BAC7;">Science</option>
+                                <option value="Social Sciences" style="background-color:#A4BAC7;">Social Sciences</option>
+                                <option value="Tech/Engineering" style="background-color:#A4BAC7;">Tech/Engineering</option>
+                                <option value="Other" style="background-color:#A4BAC7;">Other</option>                        
+                            </c:if>
+                            <c:if test="${traductor.traSpecialization == 'Science'}">
+                                <option value="Art/Literary" style="background-color:#A4BAC7;" >Art/Literary</option> 
+                                <option value="Bus/Financial" style="background-color:#A4BAC7;">Bus/Financial</option>
+                                <option value="Law/Patents" style="background-color:#A4BAC7;">Law/Patents</option>
+                                <option value="Marketing" style="background-color:#A4BAC7;">Marketing</option>
+                                <option value="Medical" style="background-color:#A4BAC7;">Medical</option>
+                                <option value="Science" style="background-color:#A4BAC7;" selected="selected">Science</option>
+                                <option value="Social Sciences" style="background-color:#A4BAC7;">Social Sciences</option>
+                                <option value="Tech/Engineering" style="background-color:#A4BAC7;">Tech/Engineering</option>
+                                <option value="Other" style="background-color:#A4BAC7;">Other</option>                        
+                            </c:if>
+                            <c:if test="${traductor.traSpecialization == 'Social Sciences'}">
+                                <option value="Art/Literary" style="background-color:#A4BAC7;" >Art/Literary</option> 
+                                <option value="Bus/Financial" style="background-color:#A4BAC7;">Bus/Financial</option>
+                                <option value="Law/Patents" style="background-color:#A4BAC7;">Law/Patents</option>
+                                <option value="Marketing" style="background-color:#A4BAC7;">Marketing</option>
+                                <option value="Medical" style="background-color:#A4BAC7;">Medical</option>
+                                <option value="Science" style="background-color:#A4BAC7;">Science</option>
+                                <option value="Social Sciences" style="background-color:#A4BAC7;" selected="selected">Social Sciences</option>
+                                <option value="Tech/Engineering" style="background-color:#A4BAC7;">Tech/Engineering</option>
+                                <option value="Other" style="background-color:#A4BAC7;">Other</option>                        
+                            </c:if>
+                            <c:if test="${traductor.traSpecialization == 'Tech/Engineering'}">
+                                <option value="Art/Literary" style="background-color:#A4BAC7;" >Art/Literary</option> 
+                                <option value="Bus/Financial" style="background-color:#A4BAC7;">Bus/Financial</option>
+                                <option value="Law/Patents" style="background-color:#A4BAC7;">Law/Patents</option>
+                                <option value="Marketing" style="background-color:#A4BAC7;">Marketing</option>
+                                <option value="Medical" style="background-color:#A4BAC7;">Medical</option>
+                                <option value="Science" style="background-color:#A4BAC7;">Science</option>
+                                <option value="Social Sciences" style="background-color:#A4BAC7;">Social Sciences</option>
+                                <option value="Tech/Engineering" style="background-color:#A4BAC7;"  selected="selected">Tech/Engineering</option>
+                                <option value="Other" style="background-color:#A4BAC7;">Other</option>                        
+                            </c:if>
+                            <c:if test="${traductor.traSpecialization == 'Other'}">
+                                <option value="Art/Literary" style="background-color:#A4BAC7;" >Art/Literary</option> 
+                                <option value="Bus/Financial" style="background-color:#A4BAC7;">Bus/Financial</option>
+                                <option value="Law/Patents" style="background-color:#A4BAC7;">Law/Patents</option>
+                                <option value="Marketing" style="background-color:#A4BAC7;">Marketing</option>
+                                <option value="Medical" style="background-color:#A4BAC7;">Medical</option>
+                                <option value="Science" style="background-color:#A4BAC7;">Science</option>
+                                <option value="Social Sciences" style="background-color:#A4BAC7;">Social Sciences</option>
+                                <option value="Tech/Engineering" style="background-color:#A4BAC7;">Tech/Engineering</option>
+                                <option value="Other" style="background-color:#A4BAC7;"  selected="selected">Other</option>                        
+                            </c:if>                    
+                        </c:when>
+                        <c:otherwise>
+                                <option value="Art/Literary" style="background-color:#A4BAC7;" >Art/Literary</option> 
+                                <option value="Bus/Financial" style="background-color:#A4BAC7;">Bus/Financial</option>                
+                                <option value="Law/Patents" style="background-color:#A4BAC7;">Law/Patents</option>
+                                <option value="Marketing" style="background-color:#A4BAC7;">Marketing</option>
+                                <option value="Medical" style="background-color:#A4BAC7;">Medical</option>
+                                <option value="Science" style="background-color:#A4BAC7;">Science</option>
+                                <option value="Social Sciences" style="background-color:#A4BAC7;">Social Sciences</option>
+                                <option value="Tech/Engineering" style="background-color:#A4BAC7;">Tech/Engineering</option>
+                                <option value="Other" style="background-color:#A4BAC7;">Other</option>                        
+                        </c:otherwise>
+                    </c:choose>
+               </select> 
+            </td>    
+          </tr>
+          </table>
+          </div>
+    </c:otherwise>
+  </c:choose>
+  </c:forEach>
+
+  
+  <hr>
   <table width="25%" align="center">
   <tr>
   <td align="right"><input type="button" id="aceptar" value="Aceptar" onclick="agregar()"/></td>   
+  <!--<td align="right"><input disabled type="button" id="traductor" value="Alta Traductor" onclick="altaTraductor()"/></td>   -->
   <td align="center"><input type="button" id="cancel" value="Limpiar" OnClick="cancelar()"/></td>    
   <td align="left"><input type="button" id="eliminar" value="Eliminar" OnClick="eliminarEmp()"/></td>    
   </tr>
@@ -240,12 +639,12 @@
 
   <div id="div-empleados" style="display:none" align="center">
   <br>
-  <hr class="tw_hr">
   <h2 class="tw">Opciones encontradas</h2>
   <table id ="tabla-busqueda">
     <tr><th>Nombre</th><th>Apellido</th><th>Mail</th><th>Msn</th><th>Fecha nacimiento<th>&nbsp;</th></tr>
   </table>
   </div>
+  
   </form>
   </body>
 </html>

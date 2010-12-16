@@ -78,6 +78,19 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
         return ret;       
     }
     
+    public List obtenerTipoEmpleadoById(String empId){
+
+        List ret = null;
+        try {
+            ret = 
+            getSqlMapClientTemplate().queryForList("obtenerTipoEmpleadoByEmpId",empId);   
+        } catch (DataAccessException dae) {
+
+           dae.printStackTrace();
+        }
+        return ret;       
+    }
+    
     public EmployeesTO insertarEmployee(EmployeesTO employeesTO) throws Exception{
         
         Long empId = (Long) getSqlMapClientTemplate().queryForObject("employees.seq","");
@@ -151,8 +164,7 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
                      if( oldER.getEmployeesTO().getEmpId().equals(newER.getEmployeesTO().getEmpId()) && oldER.getRatesTO().getRatId().equals(newER.getRatesTO().getRatId())  ){
                          borrar=false;
                          break;
-                     }
-                     
+                     }                     
                  }     
                   
                  if(borrar)

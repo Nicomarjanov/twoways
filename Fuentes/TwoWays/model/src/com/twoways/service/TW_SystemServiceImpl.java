@@ -10,6 +10,7 @@ import com.twoways.dao.ServiceDAO;
 import com.twoways.dao.UserDAO;
 import com.twoways.dao.RolesDAO;
 import com.twoways.dao.ItemDAO;
+import com.twoways.dao.LanguagueDAO;
 
 import com.twoways.dao.TranslatorDAO;
 import com.twoways.to.ClientsRatesTO;
@@ -41,6 +42,7 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     private ServiceDAO serviceDao;
     private TranslatorDAO translatorDao;
     private OrdersDAO ordersDao;
+    private LanguagueDAO languagueDao;
      
     public TW_SystemServiceImpl() {
     }
@@ -94,6 +96,10 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     public List obtenerTipoEmpleado() throws Exception{
           return this.employeeDao.obtenerTipoEmpleado();
       }
+  
+    public List obtenerTipoEmpleadoById(String empId) throws Exception{
+          return this.employeeDao.obtenerTipoEmpleadoById(empId);
+      }    
       
     public void setCurrencyDao(CurrencyDAO currencyDao){
         this.currencyDao = currencyDao;
@@ -306,9 +312,13 @@ public class TW_SystemServiceImpl implements TW_SystemService{
       this.translatorDao.updateTraductor(translatorsTO);
     }
     
+    public TranslatorsTO getTraByEmpId(String empId)  throws Exception{
+      return  this.translatorDao.getTraByEmpId(empId);
+    }    
+    
     public TranslatorsTO getTraById(String traId)  throws Exception{
       return  this.translatorDao.getTraById(traId);
-    }    
+    }  
     
     public List buscarTraductores(String search) throws Exception {
       return this.translatorDao.buscarTraductores(search);
@@ -322,6 +332,37 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     public ClientsTO getClientByName(String nombre) throws Exception {
         return clientDao.getClientByName(nombre) ; 
     }
+
+    public List obtenerIdioma() throws Exception{
+        return this.languagueDao.obtenerIdioma();
+    }
+
+
+    public void setLanguagueDao(LanguagueDAO languagueDao) {
+        this.languagueDao = languagueDao;
+    }
+
+    public LanguagueDAO getLanguagueDao() {
+        return languagueDao;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public void setOrdersDao(OrdersDAO ordersDao) {

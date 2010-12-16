@@ -89,6 +89,22 @@
         <ref local="twowaysSqlMapConfig"/>
       </property>
     </bean>   
+     <bean id="translatorDAO" class="com.twoways.dao.TranslatorsDAOImpl">
+       <property name="dataSource">
+          <ref bean="dataSource"/>
+      </property>
+      <property name="sqlMapClient">
+        <ref local="twowaysSqlMapConfig"/>
+      </property>
+    </bean> 
+     <bean id="languagueDAO" class="com.twoways.dao.LanguaguesDAOImpl">
+       <property name="dataSource">
+          <ref bean="dataSource"/>
+      </property>
+      <property name="sqlMapClient">
+        <ref local="twowaysSqlMapConfig"/>
+      </property>
+    </bean>    
 	<!--  Web SqlMap setup for iBATIS Database Layer -->
 	<bean id="twowaysSqlMapConfig" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
 		<property name="configLocation">

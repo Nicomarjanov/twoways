@@ -11,11 +11,9 @@ function keyTarifa(e) {
  
 function init(){
     
-    if (  document.getElementById('cliId').value != ''){
-    
+    if (  document.getElementById('empId').value != ''){    
          vistaTarifas(); 
-         mostrarOpcionales();
-    
+         mostrarOpcionales();  
     }
 }
 
@@ -118,8 +116,6 @@ function ocultarOpcionales(){
    btnMenos.style.display='none';
    op1.style.display='none';
    op2.style.display='none';
-
-
 }
 
 function mostrarOpcionales(){
@@ -131,8 +127,8 @@ function mostrarOpcionales(){
    btnMenos.style.display='';
    op1.style.display='';
    op2.style.display='';
-
 }
+
 /******************************************************************************/
 //   metodos utilizados para dar de alta los item
 /******************************************************************************/
@@ -292,7 +288,7 @@ function validarCampos()
         }
     }
     
-        if( document.getElementById("empMsn").value != '')
+    if( document.getElementById("empMsn").value != '')
     {
         if (!(validarEmail(document.getElementById("empMsn").value)))
         {
@@ -301,6 +297,36 @@ function validarCampos()
         banderaMensajeFaltante=true;
         }
     }
+    
+    for(var i=0;i<document.getElementById("listaTipoEmp").options.length;i++)
+    {
+        if(document.getElementById("listaTipoEmp").options[i].value = 'Traductor'){
+            var banTraductor=true;
+        }
+    }
+    if (banTraductor){
+            if(document.getElementById("listaIdiomas").selectedIndex==0)
+            {
+                document.getElementById("listaIdiomas").style.background='red';
+                mensajeFaltanteAlert+='* Seleccionar un idioma del combo \n';    
+                banderaMensajeFaltante=true;
+            }
+            
+            if(document.getElementById("listaLengua1").selectedIndex==0)
+            {
+                document.getElementById("listaLengua1").style.background='red';
+                mensajeFaltanteAlert+='* Seleccionar una lengua principal del combo \n';    
+                banderaMensajeFaltante=true;
+            }
+        
+            if(document.getElementById("tipoEspecialidad").selectedIndex==0)
+            {
+                document.getElementById("tipoEspecialidad").style.background='red';
+                mensajeFaltanteAlert+='* Seleccionar una especialidad del combo \n';    
+                banderaMensajeFaltante=true;
+            }
+    }
+    
     
     if(banderaMensajeFaltante)
         mensajeCampoAlert=mensajeFaltanteAlert + '\n';    
@@ -327,7 +353,12 @@ function asignar()
             asig.options[asig.length] = option2;
             quitar = quitar+document.getElementById("listaTipoEmp").options[i].value+'-'; 
             createDynamicDropdown('listaTipoEmpTar', 'listaTarifa', 'dropDown3');
-        }
+            if(document.getElementById("listaTipoEmp").options[i].value = 'Traductor'){
+                document.getElementById('div-traductor').style.display='';
+                //document.getElementById("traductor").disabled=false;
+            }            
+        }        
+
     }
     var arrai = quitar.split('-');
     for(var j=0;j<arrai.length;j++)
@@ -353,7 +384,10 @@ function desAsignar()
             var option =  new Option(document.getElementById("listaItemsSelect").options[i].text,document.getElementById("listaItemsSelect").options[i].value);
             asig.options[asig.length] = option;
             quitar = quitar+document.getElementById("listaItemsSelect").options[i].value+'-';
-            
+            if(document.getElementById("listaItemsSelect").options[i].value = 'Traductor'){
+                document.getElementById('div-traductor').style.display='none';
+                //document.getElementById("traductor").disabled=true;
+            }            
         }
     }
     var arrai = quitar.split('-');
@@ -392,6 +426,7 @@ function desAsignarTodo()
     document.getElementById("listaTipoEmpTar").length = 0;
     deselectDynamicDropDown ();
     sortSelect(document.getElementById("listaTipoEmp"));
+    document.getElementById('div-traductor').style.display='none';
 }
 
 function sortSelect(obj)
@@ -518,7 +553,7 @@ function createDynamicDropdown(listaTipoEmpTar, listaTarifa, dropDown3) {
                     dropDown3[i].selected = true;
                 }
             } 
-        }  
+        }
 }
 
 function deselectDynamicDropDown () {
@@ -528,6 +563,5 @@ function deselectDynamicDropDown () {
        while (dropDown3.hasChildNodes()){
        //alert("child");
             dropDown3.removeChild(dropDown3.lastChild);
-        }
-       
+        }    
 }

@@ -87,7 +87,6 @@ public class AbmTarifasServlet extends AutorizacionServlet {
         }
             else  if(ratId != null && ratId.length() > 0  && (accion == null || (accion!=null && !accion.equalsIgnoreCase("cancelar")) )){
               
-            
                  try {
                          tarifa =  twoWaysBDL.getServiceTwoWays().getRateById(ratId);
                          request.setAttribute("tarifa",tarifa);
@@ -100,7 +99,6 @@ public class AbmTarifasServlet extends AutorizacionServlet {
                      e.printStackTrace();
                  }
             }          
-            //request.getRequestDispatcher("tarifa.jsp").forward(request,response);
         request.getRequestDispatcher("tarifa.jsp").forward(request,response);    
     }
     

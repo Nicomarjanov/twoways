@@ -31,8 +31,8 @@
                   <name>TRA_ID</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>twoways</connectionName>
-                     <databaseID>13679</databaseID>
+                     <connectionName>XE</connectionName>
+                     <databaseID>15161</databaseID>
                      <name>TRANSLATORS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -74,8 +74,8 @@
                   <name>TRA_SPECIALIZATION</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>twoways</connectionName>
-                     <databaseID>13679</databaseID>
+                     <connectionName>XE</connectionName>
+                     <databaseID>15161</databaseID>
                      <name>TRANSLATORS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -112,8 +112,8 @@
                   <name>LANGUAGUES_LAN_ID</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>twoways</connectionName>
-                     <databaseID>13679</databaseID>
+                     <connectionName>XE</connectionName>
+                     <databaseID>15161</databaseID>
                      <name>TRANSLATORS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -146,8 +146,8 @@
                   <name>LANGUAGUES_LAN_ID1</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>twoways</connectionName>
-                     <databaseID>13679</databaseID>
+                     <connectionName>XE</connectionName>
+                     <databaseID>15161</databaseID>
                      <name>TRANSLATORS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -180,8 +180,8 @@
                   <name>LANGUAGUES_LAN_ID2</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>twoways</connectionName>
-                     <databaseID>13679</databaseID>
+                     <connectionName>XE</connectionName>
+                     <databaseID>15161</databaseID>
                      <name>TRANSLATORS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -218,51 +218,8 @@
                   <name>EMPLOYEES_EMP_ID</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>twoways</connectionName>
-                     <databaseID>13679</databaseID>
-                     <name>TRANSLATORS</name>
-                     <parent/>
-                     <schemaName>TWOWAYS</schemaName>
-                     <type>TABLE</type>
-                  </parent>
-                  <schemaName/>
-                  <type>COLUMN</type>
-               </Value>
-            </Item>
-         </properties>
-      </Item>
-      <Item>
-         <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-            <ID>b8eca8e5-012b-1000-802f-0a000003729a</ID>
-            <parent idref="0"/>
-            <type>COLUMN</type>
-         </ID>
-         <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
-            <attributeValues class="java.util.HashMap">
-               <Item>
-                  <Key>size</Key>
-                  <Value class="java.lang.Long">1</Value>
-               </Item>
-            </attributeValues>
-            <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
-               <providerClass>oracle.javatools.db.ora.Oracle9i</providerClass>
-               <schemaName/>
-               <typeName>CHAR</typeName>
-            </dataTypeID>
-         </dataTypeUsage>
-         <default/>
-         <name>TRA_EDITOR</name>
-         <notNull>false</notNull>
-         <properties class="java.util.HashMap">
-            <Item>
-               <Key>OfflineDBConstants.GENERATE_TARGET_ID</Key>
-               <Value class="oracle.jdeveloper.offlinedb.marshal.GenericDBReferenceID">
-                  <ID/>
-                  <name>TRA_EDITOR</name>
-                  <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
-                     <ID/>
-                     <connectionName>twoways</connectionName>
-                     <databaseID>13679</databaseID>
+                     <connectionName>XE</connectionName>
+                     <databaseID>15161</databaseID>
                      <name>TRANSLATORS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -296,8 +253,8 @@
                   <name>TRANSLATORS_NATIVE_LANG_FK</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>twoways</connectionName>
-                     <databaseID>13679</databaseID>
+                     <connectionName>XE</connectionName>
+                     <databaseID>15161</databaseID>
                      <name>TRANSLATORS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -338,8 +295,8 @@
                   <name>TRANSLATORS_LANG1_FK</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>twoways</connectionName>
-                     <databaseID>13679</databaseID>
+                     <connectionName>XE</connectionName>
+                     <databaseID>15161</databaseID>
                      <name>TRANSLATORS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -372,8 +329,8 @@
                   <name>TRANSLATORS_LANG2_FK</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>twoways</connectionName>
-                     <databaseID>13679</databaseID>
+                     <connectionName>XE</connectionName>
+                     <databaseID>15161</databaseID>
                      <name>TRANSLATORS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -405,8 +362,8 @@
                   <name>TRANSLATORS_PK</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>twoways</connectionName>
-                     <databaseID>13679</databaseID>
+                     <connectionName>XE</connectionName>
+                     <databaseID>15161</databaseID>
                      <name>TRANSLATORS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -438,8 +395,8 @@
                   <name>TRANSLATORS_EMPLOYEES_FK</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>twoways</connectionName>
-                     <databaseID>13679</databaseID>
+                     <connectionName>XE</connectionName>
+                     <databaseID>15161</databaseID>
                      <name>TRANSLATORS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -466,14 +423,14 @@
    <properties class="java.util.HashMap">
       <Item>
          <Key>OfflineDBConstants.GENERATE_TARGET_CONECTION</Key>
-         <Value>twoways</Value>
+         <Value>XE</Value>
       </Item>
       <Item>
          <Key>OfflineDBConstants.GENERATE_TARGET_ID</Key>
          <Value class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
             <ID/>
-            <connectionName>twoways</connectionName>
-            <databaseID>13679</databaseID>
+            <connectionName>XE</connectionName>
+            <databaseID>15161</databaseID>
             <name>TRANSLATORS</name>
             <parent/>
             <schemaName>TWOWAYS</schemaName>
@@ -503,7 +460,7 @@
       <properties class="java.util.HashMap">
          <Item>
             <Key>OfflineDBConstants.GENERATE_TARGET_CONECTION</Key>
-            <Value>twoways</Value>
+            <Value>XE</Value>
          </Item>
          <Item>
             <Key>OfflineDBConstants.GENERATE_TARGET_SCHEMA</Key>
