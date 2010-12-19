@@ -17,5 +17,9 @@
          <value n="nodeClass" v="oracle.ide.model.Project"/>
          <url n="URL" path="viewcontroller/viewcontroller.jpr"/>
       </hash>
+      <hash>
+         <value n="nodeClass" v="oracle.ide.model.Project"/>
+         <url n="URL" path="GarbarinoDemoBaja/GarbarinoDemoBaja.jpr"/>
+      </hash>
    </list>
 </jws:workspace>

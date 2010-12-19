@@ -32,6 +32,7 @@ public class OrdersTO {
     private ClientsTO clientsTO;
     private List<ProjectsTO> projectsTOList;
     private List<InvoicesTO> invoicesTOList;
+    private List<OrdersRatesTO> orderRatesTOList;
     private List<FileItem> files; 
 
     public OrdersTO() {
@@ -182,5 +183,13 @@ public class OrdersTO {
 
     public List<FileItem> getFiles() {
         return files;
+    }
+
+    public void setOrderRatesTOList(List<OrdersRatesTO> orderRatesTOList) {
+        this.orderRatesTOList = orderRatesTOList;
+    }
+
+    public List<OrdersRatesTO> getOrderRatesTOList() {
+        return orderRatesTOList;
     }
 }
