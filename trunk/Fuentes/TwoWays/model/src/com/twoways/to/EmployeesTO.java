@@ -33,6 +33,8 @@ public class EmployeesTO {
     private String empObservations;
     //(name="EMP_PHONE_NUMBER")
     private Long empPhoneNumber;
+    private Timestamp empEraseDate;
+    
     private List<TranslatorsTO> translatorsTOList;
     private List<ExpensesTO> expensesTOList;
     private List<ProjectAssignmentsTO> projectAssignmentsTOList;
@@ -238,5 +240,13 @@ public class EmployeesTO {
         getEmployeesTypesTOList().remove(employeesTypesTO);
         employeesTypesTO.setEmployeesTO(null);
         return employeesTypesTO;
-    }    
+    }
+
+    public void setEmpEraseDate(Timestamp empEraseDate) {
+        this.empEraseDate = empEraseDate;
+    }
+
+    public Timestamp getEmpEraseDate() {
+        return empEraseDate;
+    }
 }

@@ -118,6 +118,7 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
     public EmployeesTO updateEmpleado(EmployeesTO employeesTO) throws Exception {
         
        try{
+                      
            List<EmployeesRatesTO> oldEmpRates = (List<EmployeesRatesTO>) getSqlMapClientTemplate().queryForList("getEmpRatesByEmpId",employeesTO); 
            
            List<EmployeesTypesTO> oldEmpTypes = (List<EmployeesTypesTO>) getSqlMapClientTemplate().queryForList("getEmpTypesByEmpId",employeesTO); 
@@ -172,52 +173,17 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
                      getSqlMapClientTemplate().delete("deleteEmployeesRates",(EmployeesRatesTO)oldER);
                  }  
            }
-           
+            //borrar tipos viejos
+             for(Object oldEmpType: oldEmpTypes.toArray() ){
+                   getSqlMapClientTemplate().delete("deleteEmployeesTypes",(EmployeesTypesTO)oldEmpType);
+             }        
             // insertar tipos nuevos 
             
              for(Object employeesTypesTO: empTypes.toArray() ){
-                 
-                EmployeesTypesTO newET = (EmployeesTypesTO)employeesTypesTO;
-               boolean insertar= true;   
-                
-                for(Object oldEmpType: oldEmpTypes.toArray() ){
-                   
-                    EmployeesTypesTO oldET = (EmployeesTypesTO)oldEmpType;  
-                    if( oldET.getEmployeesTO().getEmpId().equals(newET.getEmployeesTO().getEmpId()) && oldET.getEmployeeTypeTO().getEtyName().equals(newET.getEmployeeTypeTO().getEtyName())){
-                        insertar=false;
-                        break;
-                    }
-                    
-                }     
-                 
-                if(insertar)
-                {
-                    getSqlMapClientTemplate().insert("insertEmployeesTypes",(EmployeesTypesTO)employeesTypesTO);
-                }else{
-                    getSqlMapClientTemplate().insert("updateEmployeesTypes",(EmployeesTypesTO)employeesTypesTO);
-                }  
+                 getSqlMapClientTemplate().insert("insertEmployeesTypes",(EmployeesTypesTO)employeesTypesTO);
              }
             
-            //borrar tipos viejos
-             for(Object oldEmpType: oldEmpTypes.toArray() ){
-                   EmployeesTypesTO oldET = (EmployeesTypesTO)oldEmpType;   
-                   boolean borrar= true;   
-                   for(Object employeesTypesTO: oldEmpTypes.toArray() ){
-                   
-                       EmployeesTypesTO newET = (EmployeesTypesTO)employeesTypesTO;
-                       
-                       if( oldET.getEmployeesTO().getEmpId().equals(newET.getEmployeesEmpId()) && oldET.getEmployeeTypeTO().getEtyName().equals(newET.getEtyName())){
-                           borrar=false;
-                           break;
-                       }
-                       
-                   }     
-                    
-                   if(borrar)
-                   {
-                       getSqlMapClientTemplate().delete("deleteEmployeesTypes",(EmployeesTypesTO)oldET);
-                   }  
-             }           
+               
                  
         } catch (Exception ex)  {
                //  getSqlMapClientTemplate().getSqlMapClient().endTransaction();

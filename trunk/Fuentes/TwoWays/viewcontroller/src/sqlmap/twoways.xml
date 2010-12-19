@@ -161,19 +161,21 @@
      select *      
      from 
      Employees
-     
+     where emp_erase_date is null
   </select>
   
  <statement  id="getEmpById" resultMap="select-Employee" parameterClass="java.lang.String" >
      select *       
      from employees
      where emp_id = #value#
+     and emp_erase_date is null
  </statement>
  
   <statement id="buscarEmpleados" resultMap="select-Employee"  parameterClass="java.lang.String" >
      select *       
      from employees 
      where upper(EMP_FIRST_NAME) like '%' || upper(#value#) || '%'
+     and emp_erase_date is null
 
   </statement>
 
@@ -248,7 +250,8 @@
   </update>
   
   <delete id="deleteEmployee" parameterClass="com.twoways.to.EmployeesTO">
-        DELETE Employees
+        UPDATE Employees
+        SET emp_erase_date = sysdate
         WHERE  emp_id = #empId#    
  </delete>     
  

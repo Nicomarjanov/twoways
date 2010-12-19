@@ -31,10 +31,10 @@
         <property name="serviceDao">
             <ref bean="serviceDAO"/>
         </property>  
-        
+        <!--
         <property name="ordersDao">
             <ref bean="ordersDAO"/>
-        </property>
+        </property>-->
         <property name="translatorDao">
             <ref bean="translatorDAO"/>
         </property>  

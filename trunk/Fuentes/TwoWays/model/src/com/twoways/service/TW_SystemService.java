@@ -116,7 +116,7 @@ public interface TW_SystemService {
     public OrdersTO getOrderById(Long ordId) throws Exception; 
     
     public OrdersDocsTO getOrdersDocById(Long docId)  throws Exception;
-    
+
     public List<ClientsRatesTO> getTarifaClienteById(Long cliId)  throws Exception;
     
     public List obtenerIdioma()throws Exception;

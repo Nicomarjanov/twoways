@@ -30,6 +30,34 @@ function vistaTarifas(){
    }
 }
 
+function vistaTraductor(){
+   var listaEmp = document.getElementById("listaItemsSelect");
+   var bandera = 0;
+    if (listaEmp.options.length > 0 ){        
+        for(var i=0;i<listaEmp.options.length;i++)
+        {
+            if(listaEmp.options[i].value == 'Traductor')
+            {      bandera = 1;          
+                   var tabla=document.getElementById('tabla-traductor');    
+                   if(tabla.style.display =='none'){
+                       tabla.style.display='';
+                       document.getElementById('aTrad').style.display='none';
+                       
+                   }else{
+                       tabla.style.display='none';
+                        document.getElementById('aTrad').style.display='';
+                   }              
+            }       
+        }
+   }
+   else {
+         bandera = 0;        
+   }
+    if (bandera == 0){
+        alert('Debe seleccionar la especialidad Traductor en la lista de especialidades disponibles');
+    }
+}
+
 function agregarTarifa(){
    
    var optionTipoSelected=document.getElementById('listaTipoEmpTar').options[document.getElementById('listaTipoEmpTar').selectedIndex];
@@ -103,6 +131,8 @@ function cancelar()
     if(confirm('¿Desea cancelar la carga del empleado?'))
     {   
         document.getElementById("accion").value='cancelar';
+        document.getElementById("empId").value="";
+        document.getElementById("traId").value="";        
         document.forms[0].submit();
     }
 }
@@ -353,8 +383,8 @@ function asignar()
             asig.options[asig.length] = option2;
             quitar = quitar+document.getElementById("listaTipoEmp").options[i].value+'-'; 
             createDynamicDropdown('listaTipoEmpTar', 'listaTarifa', 'dropDown3');
-            if(document.getElementById("listaTipoEmp").options[i].value = 'Traductor'){
-                document.getElementById('div-traductor').style.display='';
+            if(document.getElementById("listaTipoEmp").options[i].value == 'Traductor'){                
+                document.getElementById('traductor+').src="img/lang+.png";
                 //document.getElementById("traductor").disabled=false;
             }            
         }        
@@ -384,9 +414,12 @@ function desAsignar()
             var option =  new Option(document.getElementById("listaItemsSelect").options[i].text,document.getElementById("listaItemsSelect").options[i].value);
             asig.options[asig.length] = option;
             quitar = quitar+document.getElementById("listaItemsSelect").options[i].value+'-';
-            if(document.getElementById("listaItemsSelect").options[i].value = 'Traductor'){
-                document.getElementById('div-traductor').style.display='none';
-                //document.getElementById("traductor").disabled=true;
+            if(document.getElementById("listaItemsSelect").options[i].value == 'Traductor'){
+                if (confirm('Al desasignar la especialidad Traductor del empleado eliminará los datos cargados del traductor')){
+                    document.getElementById('traductor+').src="img/lang.png";
+                    document.getElementById('tabla-traductor').style.display='none';
+                    document.getElementById('aTrad').style.display='';                                    
+                }
             }            
         }
     }
@@ -426,7 +459,10 @@ function desAsignarTodo()
     document.getElementById("listaTipoEmpTar").length = 0;
     deselectDynamicDropDown ();
     sortSelect(document.getElementById("listaTipoEmp"));
-    document.getElementById('div-traductor').style.display='none';
+    document.getElementById('traductor+').src="img/lang.png";
+  
+    document.getElementById('tabla-traductor').style.display='none';
+    document.getElementById('aTrad').style.display='';              
 }
 
 function sortSelect(obj)
