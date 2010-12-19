@@ -97,10 +97,10 @@
         <servlet-name>AbmItemsServlet</servlet-name>
         <url-pattern>/items</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
+   <!-- <servlet-mapping>
         <servlet-name>OrdenTrabajoServlet</servlet-name>
         <url-pattern>/ordentrabajo</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
     <servlet-mapping>
         <servlet-name>CargarArchivo</servlet-name>
         <url-pattern>/cargararchivo</url-pattern>

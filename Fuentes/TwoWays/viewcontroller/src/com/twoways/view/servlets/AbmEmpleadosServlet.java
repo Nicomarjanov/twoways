@@ -38,7 +38,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
         
             super.doGet(request,response);
             
-            response.setContentType(CONTENT_TYPE);
+                response.setContentType(CONTENT_TYPE);
             String accion=request.getParameter("accion");
             List<RatesTO> tarifas = null;
             List<EmployeeTypeTO> tipo = null;
@@ -74,7 +74,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                 request.setAttribute("listaIdiomas",idioma);
                 request.setAttribute("listaLengua1",lengua1);
                 request.setAttribute("listaLengua2",lengua2);
-                request.setAttribute("traductor",traductor);
+                //request.setAttribute("traductor",traductor);
                 
             } catch (Exception e) {
                e.printStackTrace();
@@ -171,6 +171,8 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                     }else{
                         twoWaysBDL.getServiceTwoWays().insertarEmpleado(empleado);
                     }
+                    //Preguntar a luciano
+                    empleado =  twoWaysBDL.getServiceTwoWays().getEmpById(empId);
                     request.setAttribute("empleado",empleado);  
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -184,7 +186,6 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                                        
                     for(String aux:empleadosTipos){                                                                
                         if (aux.equalsIgnoreCase("Traductor")){
-                            //paginaSiguiente = "traductor";         
                              String traId = request.getParameter("traId");
                              LanguaguesTO lenguaNativa = new LanguaguesTO();
                              LanguaguesTO lenguaPri = new LanguaguesTO();
@@ -250,14 +251,24 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                         EmployeeTypeTO etTO = new EmployeeTypeTO();
                         etTO.setEtyName(aux);
                         employeesTypesTO.setEmployeeTypeTO(etTO);              
-                        employeesTypesTOList.add(employeesTypesTO);                        
+                        employeesTypesTOList.add(employeesTypesTO);    
+                        if (aux.equalsIgnoreCase("Traductor")){
+                            try{
+                               traductor = twoWaysBDL.getServiceTwoWays().getTraByEmpId(empId);  
+                               twoWaysBDL.getServiceTwoWays().deleteTraductor(traductor);
+                            }
+                            catch(Exception e){                            
+                                e.printStackTrace();
+                                request.setAttribute("mensaje","<script>alert('Ocurrió un error al eliminar el traductor')</script>");
+                            }
+                        }
                     }
                 }
                 try {
                     empleado.setEmployeesRatesTOList(employeesRatesTOList);
                     empleado.setEmployeesTypesTOList(employeesTypesTOList);
                     twoWaysBDL.getServiceTwoWays().deleteEmployees(empleado);
-                    //request.setAttribute("empleado",empleado);
+
                     }                    
                 catch (Exception e) {
                     e.printStackTrace();
@@ -290,7 +301,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                  }
             }
             else {
-                
+                request.setAttribute("empId","");
             }
                      
     request.getRequestDispatcher(paginaSiguiente).forward(request,response);
