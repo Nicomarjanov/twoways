@@ -22,7 +22,7 @@
   </head>
  
   
-  <body><jsp:include page="/WEB-INF/jspIncludes/menu.jsp" /><c:out value="${mensaje}" escapeXml="false"/>
+  <body ><jsp:include page="/WEB-INF/jspIncludes/menu.jsp" /><c:out value="${mensaje}" escapeXml="false"/>
 <form action="ordentrabajo" enctype="multipart/form-data" method="POST" >  
 <input type ="hidden" name="ordId" id="ordId" value="<c:out value="${order.ordId}" />" /> 
 <input type ="hidden" name="accion" id="accion" />
@@ -33,8 +33,13 @@
   </table>
   <table align="center" width="50%">
         <tr>
-         <td nowrap align="right" >Nombre </td><td><input type="text" class="tw_form" name="ordName" id="ordName"  value="<c:out value="${order.ordName}" />" /></td>
-         <td nowrap align="right" >Fecha </td><td colspan="5"><input type="text" class="tw_form" name="ordDate" id="ordDate"  value="<fmt:formatDate value="${order.ordDate}"    pattern="dd/MM/yyyy" />" /> </td>
+         <td nowrap align="right" >Nombre </td><td colspan="8"><input type="text" size="145"  class="tw_form" name="ordName" id="ordName"  value="<c:out value="${order.ordName}" />" /></td>
+         </tr>
+         <tr>
+         <td nowrap align="right" >Fecha </td><td><input type="text" class="tw_form" name="ordDate" id="ordDate"  value="<fmt:formatDate value="${order.ordDate}"    pattern="dd/MM/yyyy" />" /> </td>
+         <td nowrap align="right" >Fecha de Inicio</td><td><input type="text" class="tw_form" name="ordStartDate" id="ordStartDate"  value="<fmt:formatDate value="${order.ordStartDate}"    pattern="dd/MM/yyyy" />" /> </td>
+         <td nowrap align="right" >Fecha Límite</td><td><input type="text" class="tw_form" name="ordDeadLineDate" id="ordDeadLineDate"  value="<fmt:formatDate value="${order.ordDeadLineDate}"    pattern="dd/MM/yyyy" />" /> </td>
+         <td nowrap align="right" >Fecha de fin</td><td><input type="text" class="tw_form" name="ordFinishDate" id="ordFinishDate"  value="<fmt:formatDate value="${order.ordFinishDate}"    pattern="dd/MM/yyyy" />" /> </td>
         </tr>
         <tr>
         <td nowrap align="right" >Cliente </td><td >
@@ -59,7 +64,7 @@
        </select>
         </td></tr>
          <tr>
-         <td nowrap align="right" >Descripción </td><td colspan="7"  ><textarea  rows="3" cols="90"  class="tw_form"  onkeyup="limitarArea()"  name="ordDescription" id="ordDescription" ><c:out value="${order.ordDescription}" /></textarea> </td>
+         <td nowrap align="right" >Descripción </td><td colspan="7"  ><textarea  rows="3" cols="109"  class="tw_form"  onkeyup="limitarArea()"  name="ordDescription" id="ordDescription" ><c:out value="${order.ordDescription}" /></textarea> </td>
          </tr>
         <tr>
             <td colspan="100%" align="left">
@@ -71,7 +76,7 @@
          <td nowrap align="right" >WO Number</td><td><input type="text" class="tw_form" name="ordWoNumber" id="ordWoNumber" size="10"  value="<c:out value="${order.ordWoNumber}" />"  /> </td>
          <td nowrap align="right" >Job Id</td><td><input type="text" class="tw_form" name="ordJobId" id="ordJobId"  value="<c:out value="${order.ordJobId}" />" /> </td>
          <td nowrap align="right" >Job Name</td><td><input type="text" class="tw_form" name="ordJobName" id="ordJobName"  value="<c:out value="${order.ordJobName}" />" /></td></tr>
-        <tr id="trOpcionales2" style="display:none"><td nowrap align="right" >Job Description</td><td colspan="7"><textarea  rows="3" cols="90"   onkeyup="limitarArea()" class="tw_form" name="ordJobDescription" id="ordJobDescription" ><c:out value="${order.ordJobDescription}" /></textarea></td></tr>
+        <tr id="trOpcionales2" style="display:none"><td nowrap align="right" >Job Description</td><td colspan="7"><textarea  rows="3" cols="109"   onkeyup="limitarArea()" class="tw_form" name="ordJobDescription" id="ordJobDescription" ><c:out value="${order.ordJobDescription}" /></textarea></td></tr>
         
         <tr><td colspan="100%">
         <table align="center" width="50%">
@@ -114,7 +119,7 @@
             </table>
             <td rowspan=3 align="left">
                 <select name="listaItemsSelect" id="listaItemsSelect" size="4" multiple="multiple" style="border:solid 1px #005C8D;width:200px; font-size: 9px;" >
-                <c:forEach items="${orden.serviciosTOList}" var="item">
+                <c:forEach items="${order.servicesTOList}" var="item">
                        <option value="<c:out value="${item.serId}" />" title="<c:out value="${item.serDescription}"/>">
                          <c:out value="${item.serName}" />
                       </option> 
@@ -132,7 +137,7 @@
          <td colspan="100%" style="padding:0;spacing:0" >
          <br>   
          <hr class="tw_hr">
-         <c:set scope="request"     var="ratesTOList" value="${cliente.clientsRatesTOList}" /> 
+         <c:set scope="request"     var="ratesTOList" value="${order.orderRatesTOList}" /> 
          <jsp:include page="/WEB-INF/jspIncludes/agregartarifas.jsp"/>
          </td>
          </tr>
@@ -154,4 +159,5 @@
   </table>
   </form>
   </body>
+ <script>onloadOrder();</script>
 </html>

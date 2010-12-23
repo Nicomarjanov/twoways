@@ -627,9 +627,9 @@
   <insert id="insertOrders" parameterClass="com.twoways.to.OrdersTO" >
        
   insert into orders
-       (ord_id, ord_name, ord_description, ord_date, clients_cli_id, ord_proj_id, ord_wo_number, ord_job_id, ord_job_name, ord_job_description)
+       (ord_id, ord_name, ord_description, ord_date, ord_start_date,ord_finish_date,ord_deadline_date, clients_cli_id, ord_proj_id, ord_wo_number, ord_job_id, ord_job_name, ord_job_description)
      values
-       (#ordId#, #ordName#, #ordDescription#, #ordDate#, #clientsTO.cliId#, #ordProjId#, #ordWoNumber#, #ordJobId#, #ordJobName#, #ordJobDescription#)
+       (#ordId#, #ordName#, #ordDescription#, #ordDate#, #ordStartDate#, #ordFinishDate#, #ordDeadLineDate#, #clientsTO.cliId#, #ordProjId#, #ordWoNumber#, #ordJobId#, #ordJobName#, #ordJobDescription#)
        
    
   </insert>
@@ -643,10 +643,23 @@
   </insert>
   
   
+  <insert id="insertOrdersRates" parameterClass="com.twoways.to.OrdersRatesTO" >
+    insert into orders_rates
+           (orders_ord_id, orr_value, rates_rat_id)
+            values
+           (#ordersTO.ordId#,#clrValue# ,#ratesTO.ratId#)
+      
+  </insert>
+  
+  
+  
    <resultMap id="select-Order" class="com.twoways.to.OrdersTO" >
       <result property="ordId" column="ord_id" />
       <result property="ordName" column="ord_name"/>
       <result property="ordDate"   column="ord_date" />
+      <result property="ordStartDate"   column="ord_start_date" />
+      <result property="ordFinishDate"   column="ord_finish_date" />
+      <result property="ordDeadLineDate"   column="ord_deadline_date" />
       <result property="ordDescription"   column="ord_description" />
       <result property="clientsTO.cliId" column="clients_cli_id"  />
       <result property="ordProjId" column="ord_proj_id" />
@@ -687,6 +700,91 @@
     select * from  orders_docs
     where orders_Ord_Id = #ordersOrdId#
   </statement>
+  
+     <resultMap id="select-Ord-Rates" class="com.twoways.to.OrdersRatesTO" >
+      <result property="clrValue" column="orr_value" />
+      <result property="ordersTO.ordId" column="orders_ord_id"/>
+      <result property="ratesTO.ratId" column="RAT_ID" />
+      <result property="ratesTO.ratDescription" column="RAT_DESCRIPTION"/>
+      <result property="ratesTO.ratName"   column="RAT_NAME" />
+      <result property="ratesTO.rateTypesTO.rtyName" column="RAT_TYPE"  />
+   </resultMap>
+  
+  <statement  id="getOrderRatesByOrderId" resultMap="select-Ord-Rates"  parameterClass="com.twoways.to.OrdersTO" >
+     select * from orders_rates ord join rates r on ord.rates_rat_id = r.rat_id and ord.orders_ord_id=#ordId#
+  </statement>    
+  
+  
+  
+  
+  
+  <insert id="insertOrdersServices" parameterClass="java.util.Map" >
+    insert into order_services
+           (services_ser_name, orders_ord_id)
+           values
+           (#serId#,#ordId#)
+      
+  </insert>
+  
+    <statement  id="getOrderServicesByOrderId" resultClass="com.twoways.to.ServicesTO"   parameterClass="com.twoways.to.OrdersTO"  >
+     select s.ser_id as serId,
+            s.ser_name as  serName,
+            s.ser_Description as serDescription
+            from order_services ord join Services s on ord.services_ser_name = s.ser_id and ord.orders_ord_id=#ordId#
+  </statement> 
+  
+  
+    
+  <update id="updateOrders" parameterClass="com.twoways.to.OrdersTO" >
+         update orders
+               set ord_name = #ordName#,
+                   ord_description = #ordDescription#,
+                   ord_date = #ordDate#,
+                   clients_cli_id = #clientsTO.cliId#,
+                   ord_proj_id = #ordProjId#,
+                   ord_wo_number = #ordWoNumber#,
+                   ord_job_id = #ordJobId#,
+                   ord_job_name = #ordJobName#,
+                   ord_job_description = #ordJobDescription#,
+                   ord_start_date = #ordStartDate#,
+                   ord_finish_date = #ordFinishDate#,
+                   ord_deadline_date = #ordDeadLineDate#
+             where ord_id =#ordId#
+  </update>
+  
+
+ 
+   <update id="updateOrdersRates" parameterClass="com.twoways.to.OrdersRatesTO" >
+          update  orders_rates
+                  set  orr_value= #clrValue#
+                  where
+                  orders_ord_id = #ordersTO.ordId#  and  
+                  rates_rat_id = #ratesTO.ratId#
+  </update>
+  
+  
+   
+  <delete id="deleteOrdersRates" parameterClass="com.twoways.to.OrdersRatesTO"   >
+    delete  orders_rates
+    where
+    orders_ord_id = #ordersTO.ordId#  and  
+    rates_rat_id = #ratesTO.ratId#        
+  </delete>  
+  
+  
+   <delete id="deleteOrdersServices" parameterClass="java.util.Map"   >
+    delete order_services
+       where services_ser_name = #serId#
+       and orders_ord_id = #ordId#    
+  </delete>  
+  
+  
+   <delete id="deleteOrdersDocs" parameterClass="java.util.Map"   >
+    delete orders_docs
+          where odo_id =#odoId#
+          and orders_ord_id = #ordId#
+  </delete>  
+  
   
   
 </sqlMap> 

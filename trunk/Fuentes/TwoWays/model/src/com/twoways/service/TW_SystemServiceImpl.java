@@ -362,6 +362,14 @@ public class TW_SystemServiceImpl implements TW_SystemService{
         
     }
     
+    public OrdersTO updateOrder(OrdersTO ordersTO) throws Exception {
+        
+        ordersTO = this.ordersDao.updateOrder(ordersTO);
+        return ordersTO;
+        
+        
+    }
+    
     public OrdersTO getOrderById(Long ordId) throws Exception{
         return this.ordersDao.getOrderById(ordId);
     }

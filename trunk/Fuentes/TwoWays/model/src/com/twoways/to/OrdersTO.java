@@ -11,6 +11,11 @@ import org.apache.commons.fileupload.FileItem;
 public class OrdersTO {
     //(name="ORD_DATE", nullable = false)
     private Timestamp ordDate;
+    private Timestamp ordStartDate;
+    private Timestamp ordFinishDate;
+    private Timestamp ordDeadLineDate;
+    
+    
     //(name="ORD_DESCRIPTION")
     private String ordDescription;
     //
@@ -33,6 +38,8 @@ public class OrdersTO {
     private List<ProjectsTO> projectsTOList;
     private List<InvoicesTO> invoicesTOList;
     private List<OrdersRatesTO> orderRatesTOList;
+    private List<ServicesTO> servicesTOList;
+    
     private List<FileItem> files; 
 
     public OrdersTO() {
@@ -191,5 +198,37 @@ public class OrdersTO {
 
     public List<OrdersRatesTO> getOrderRatesTOList() {
         return orderRatesTOList;
+    }
+
+    public void setOrdStartDate(Timestamp ordStartDate) {
+        this.ordStartDate = ordStartDate;
+    }
+
+    public Timestamp getOrdStartDate() {
+        return ordStartDate;
+    }
+
+    public void setOrdFinishDate(Timestamp ordEndDate) {
+        this.ordFinishDate = ordEndDate;
+    }
+
+    public Timestamp getOrdFinishDate() {
+        return ordFinishDate;
+    }
+
+    public void setOrdDeadLineDate(Timestamp ordDeadLineDate) {
+        this.ordDeadLineDate = ordDeadLineDate;
+    }
+
+    public Timestamp getOrdDeadLineDate() {
+        return ordDeadLineDate;
+    }
+
+    public void setServicesTOList(List<ServicesTO> servicesTOList) {
+        this.servicesTOList = servicesTOList;
+    }
+
+    public List<ServicesTO> getServicesTOList() {
+        return servicesTOList;
     }
 }

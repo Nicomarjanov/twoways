@@ -68,9 +68,7 @@ function eliminarDocumento(id){
 
    var tablaDocumentos= document.getElementById('list-documento-body');
    var row = document.getElementById(id);
-   
- 
-   document.getElementById('doc_name').value= row.cells[1].innerHTML.substring(0, row.cells[1].innerHTML.indexOf('<INPUT'));
+   //document.getElementById('doc_name').value= row.cells[1].innerHTML.substring(0, row.cells[1].innerHTML.indexOf('<INPUT'));
    
    tablaDocumentos.deleteRow(row.rowIndex);
   

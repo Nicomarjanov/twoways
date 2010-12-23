@@ -113,6 +113,8 @@ public interface TW_SystemService {
     
     public OrdersTO insertarOrder(OrdersTO ordersTO) throws Exception;
     
+    public OrdersTO updateOrder(OrdersTO ordersTO) throws Exception;
+    
     public OrdersTO getOrderById(Long ordId) throws Exception; 
     
     public OrdersDocsTO getOrdersDocById(Long docId)  throws Exception;
