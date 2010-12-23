@@ -76,8 +76,8 @@ public class TW_SystemServiceImpl implements TW_SystemService{
       return this.employeeDao.insertarEmployee(employeesTO);
     }
     
-    public void updateEmpleado(EmployeesTO employeesTO) throws Exception {
-      this.employeeDao.updateEmpleado(employeesTO);
+    public EmployeesTO updateEmpleado(EmployeesTO employeesTO) throws Exception {
+      return this.employeeDao.updateEmpleado(employeesTO);
     }
     
     public EmployeesTO getEmpById(String empId)  throws Exception{

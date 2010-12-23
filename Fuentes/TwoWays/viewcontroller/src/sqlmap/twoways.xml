@@ -16,6 +16,7 @@
         CLI_POSTAL_CODE as cliPostalCode          
      from 
      Clients 
+     WHERE CLI_ERASE_DATE is not null
      
   </select>  
   
@@ -47,12 +48,15 @@
      select *       
      from clients left outer join currency on clients.currency_cur_id = currency.cur_id
      where cli_id = #value#
+     and CLI_ERASE_DATE is not null
  </statement>
  
   <statement  id="getClientByName" resultMap="select-Client" parameterClass="java.lang.String" >
      select *       
      from clients left outer join currency on clients.currency_cur_id = currency.cur_id
-     where cli_Name = #value# and rownum = 1 
+     where cli_Name = #value# 
+     and CLI_ERASE_DATE is not null
+     and rownum = 1 
  </statement>
  
  
@@ -60,6 +64,7 @@
      select *       
      from clients left outer join currency on clients.currency_cur_id = currency.cur_id
      where upper(clients.CLI_NAME) like '%' || upper(#value#) || '%'
+     and CLI_ERASE_DATE is not null
      
      
   </statement>
@@ -77,10 +82,7 @@
         values
           (#cliId#, #cliName#, #cliDescription#, #cliMail#, #cliAddress#, #cliPhone#, #cliCountry#, #cliPostalCode#,#currencyTO.curId#)
          
-  </insert>
-  
-  
-  
+  </insert>      
   
   <insert id="insertClientsRates" parameterClass="com.twoways.to.ClientsRatesTO"   >
     insert into clients_rates
@@ -104,7 +106,8 @@
   </update>
   
   <delete id="deleteClients" parameterClass="com.twoways.to.ClientsTO">
-        DELETE Clients
+        UPDATE Clients
+        SET CLI_ERASE_DATE = sysdate
         WHERE  cli_id = #cliId#    
         
         
