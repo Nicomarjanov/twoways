@@ -8,5 +8,6 @@ import java.io.IOException;
 public interface OrdersDAO {
    public OrdersTO getOrderById(Long ordId) throws Exception;
    public OrdersTO insertarOrder(OrdersTO ordersTO) throws Exception;
+   public OrdersTO updateOrder(OrdersTO ordersTO) throws Exception;
    public OrdersDocsTO getOrdersDocById(Long docId)  throws Exception;
 }

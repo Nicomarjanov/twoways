@@ -1,7 +1,10 @@
 package com.twoways.view.servlets;
 
 import com.twoways.core.bdl.TwoWaysBDL;
+import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.ClientsTO;
+import com.twoways.to.OrdersDocsTO;
+import com.twoways.to.OrdersRatesTO;
 import com.twoways.to.OrdersTO;
 import com.twoways.to.RateTypesTO;
 import com.twoways.to.RatesTO;
@@ -72,7 +75,11 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
         if( request.getHeader("CONTENT-TYPE")!= null &&  request.getHeader("CONTENT-TYPE").startsWith("multipart/form-data") ){ 
              pRequest =  parseRequest(request);
              mRequest = (HashMap)pRequest.get("parameters");
+             
         }
+
+        
+        
         List<FileItem> files= (List<FileItem>) pRequest.get("Files");
         String accion=(mRequest.get("accion")!= null )?mRequest.get("accion").toString():"";
         List<ClientsTO> clientes = null;
@@ -100,9 +107,26 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
             if (ordId != null &&  ordId.length() > 0 ){
                  try{
                  order =twoWaysBDL.getServiceTwoWays().getOrderById(Long.parseLong(ordId) );
+                 
+                 
+                     
+                     
+                     
+             for (ServicesTO servOrd:order.getServicesTOList()){
+                     
+                 for(ServicesTO serv: services){
+                     
+                       
+                         if(serv.getSerId().equals(servOrd.getSerId())){
+                             services.remove(serv);
+                             break;
+                         }
+                     }
+                 }
+                 
                  request.setAttribute("order",order);
                  }catch(Exception e){
-                     e.getMessage();
+                     e.printStackTrace();
                  }
             }
            
@@ -120,12 +144,31 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
             ordersTO.setClientsTO(clientsTO);
             
             try {
-            if(mRequest.get("ordDate")!= null && !mRequest.get("ordDate").toString().equalsIgnoreCase("") ){ 
+            
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                java.util.Date date = sdf.parse(mRequest.get("ordDate").toString());
-                java.sql.Timestamp timest = new java.sql.Timestamp(date.getTime()); 
-                ordersTO.setOrdDate(timest);
-            }
+                if(mRequest.get("ordDate")!= null && !mRequest.get("ordDate").toString().equalsIgnoreCase("") ){ 
+                    
+                    java.util.Date date = sdf.parse(mRequest.get("ordDate").toString());
+                    java.sql.Timestamp timest = new java.sql.Timestamp(date.getTime()); 
+                    ordersTO.setOrdDate(timest);
+                }
+                if(mRequest.get("ordStartDate")!= null && !mRequest.get("ordStartDate").toString().equalsIgnoreCase("") ){ 
+                   
+                    java.util.Date date = sdf.parse(mRequest.get("ordStartDate").toString());
+                    java.sql.Timestamp timest = new java.sql.Timestamp(date.getTime()); 
+                    ordersTO.setOrdStartDate(timest);
+                }
+                if(mRequest.get("ordFinishDate")!= null && !mRequest.get("ordFinishDate").toString().equalsIgnoreCase("") ){ 
+                     java.util.Date date = sdf.parse(mRequest.get("ordFinishDate").toString());
+                    java.sql.Timestamp timest = new java.sql.Timestamp(date.getTime()); 
+                    ordersTO.setOrdFinishDate(timest);
+                }
+                if(mRequest.get("ordDeadLineDate")!= null && !mRequest.get("ordDeadLineDate").toString().equalsIgnoreCase("") ){ 
+                    java.util.Date date = sdf.parse(mRequest.get("ordDeadLineDate").toString());
+                    java.sql.Timestamp timest = new java.sql.Timestamp(date.getTime()); 
+                    ordersTO.setOrdDeadLineDate(timest);
+                }
+            
             
             } catch (Exception e) {
                 request.setAttribute("mensaje","<script>alert('La fecha ingresada no es valida')</script>"); 
@@ -140,11 +183,121 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
             ordersTO.setOrdJobName((mRequest.get("ordJobName")!= null )?mRequest.get("ordJobName").toString():""); 
             ordersTO.setOrdName((mRequest.get("ordName")!= null )?mRequest.get("ordName").toString():"");
             ordersTO.setFiles(files);
+            Object tarifasHidden[]=null;
+            
+            if(mRequest.get("tarifas-hidden") != null && mRequest.get("tarifas-hidden") instanceof ArrayList){
+                List aux =(ArrayList) mRequest.get("tarifas-hidden");
+                tarifasHidden=aux.toArray();
+            }else if (mRequest.get("tarifas-hidden")!=null){
+                tarifasHidden = new String[1];
+                tarifasHidden[0]=mRequest.get("tarifas-hidden").toString();
+            }
+            
+                 
+            if( tarifasHidden  != null){ 
+                
+                List<OrdersRatesTO> ordersRatesTOList = new   ArrayList<OrdersRatesTO>();
+                
+                for(Object aux:tarifasHidden){
+                    
+                    String atribs[]= ((String)aux).split("#");
+                    
+                    OrdersRatesTO orderRatesTO = new OrdersRatesTO();
+                    orderRatesTO.setClrValue(Float.parseFloat(atribs[1].replaceAll(",",".")));
+                    RatesTO rtTO= new RatesTO();
+                    rtTO.setRatId(Long.parseLong(atribs[0]));
+                    orderRatesTO.setRatesTO(rtTO );
+                    ordersRatesTOList.add(orderRatesTO);
+                    orderRatesTO.setOrdersTO(ordersTO);
+                }
+                
+                ordersTO.setOrderRatesTOList(ordersRatesTOList);
+            }        
+            
+            Object listaItemsSelect[]=null;
+            
+            if(mRequest.get("listaItemsSelect") != null && mRequest.get("listaItemsSelect") instanceof ArrayList){
+                List aux =(ArrayList) mRequest.get("listaItemsSelect");
+                listaItemsSelect=aux.toArray();
+            }else if (mRequest.get("listaItemsSelect")!=null){
+                listaItemsSelect = new String[1];
+                listaItemsSelect[0]=mRequest.get("listaItemsSelect").toString();
+            }
+            
+                 
+            if( listaItemsSelect  != null){ 
+                
+                List<ServicesTO> ordersServices = new   ArrayList<ServicesTO>();
+                
+                for(Object aux:listaItemsSelect){
+                                       
+                    ServicesTO serviceTO = new ServicesTO();
+                    serviceTO.setSerId(aux.toString());
+                    ordersServices.add(serviceTO);
+                    
+                }
+                
+                
+               
+                
+                
+                ordersTO.setServicesTOList(ordersServices);
+            }
+            
+            
+            Object exoList[]=null;
+            
+            if(mRequest.get("exdoc") != null && mRequest.get("exdoc") instanceof ArrayList){
+                List aux =(ArrayList) mRequest.get("exdoc");
+                exoList=aux.toArray();
+            }else if (mRequest.get("exdoc")!=null){
+                exoList = new String[1];
+                exoList[0]=mRequest.get("exdoc").toString();
+            }
             
 
             try {
+              
+               if (mRequest.get("ordId")  != null &&  mRequest.get("ordId").toString().length() > 0 ){
+                  OrdersTO orderOld = twoWaysBDL.getServiceTwoWays().getOrderById(Long.parseLong(mRequest.get("ordId").toString()));
+                  ordersTO.setOrdId(Long.parseLong(mRequest.get("ordId").toString() ));
+                  
+                  boolean eliminar=true;
+                  List <OrdersDocsTO> auxListDoc = new ArrayList <OrdersDocsTO>();
+                  
+                  for(OrdersDocsTO docOld : orderOld.getOrdersDocsTOList()){ 
+                          for(Object  docPage:exoList){
+                             eliminar = true;
+                              if(docPage.toString().equals(docOld.getOdoName())){
+                                  eliminar= false;
+                                  break;
+                              }
+                          }
+                          
+                          if(!eliminar){
+                              auxListDoc.add(docOld); 
+                          }
+                   }
+                   
+                   ordersTO.setOrdersDocsTOList(auxListDoc);
+                   
+                   ordersTO = twoWaysBDL.getServiceTwoWays().updateOrder(ordersTO);  
+                  
+                  
+               }else{
+                  ordersTO = twoWaysBDL.getServiceTwoWays().insertarOrder(ordersTO);
+               } for (ServicesTO servOrd:ordersTO.getServicesTOList()){
                 
-               ordersTO = twoWaysBDL.getServiceTwoWays().insertarOrder(ordersTO);
+                for(ServicesTO serv: services){
+                
+                  
+                    if(serv.getSerId().equals(servOrd.getSerId())){
+                        services.remove(serv);
+                        break;
+                    }
+                }
+                }
+               
                request.setAttribute("order",ordersTO );
                 
             } catch (Exception e) {
@@ -191,7 +344,21 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                              */
                             
                             if(item.isFormField()) {
-                                 parametros.put(item.getFieldName(),item.getString());
+                            
+                                 if (parametros.get(item.getFieldName()) ==null){
+                                    parametros.put(item.getFieldName(),item.getString());
+                                 }else{
+                                    Object obj = parametros.get(item.getFieldName());
+                                    if(obj instanceof  ArrayList ){
+                                        ((ArrayList)obj).add(item.getString());
+                                    }else{
+                                        List aux = new ArrayList();
+                                        aux.add(obj);
+                                        aux.add(item.getString());
+                                        parametros.put(item.getFieldName(),aux);
+                                    }
+                                 }
+                                 
                             }else{
                               //Handle Uploaded files.
                                     System.out.println("Field Name = "+item.getFieldName()+

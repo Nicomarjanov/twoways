@@ -61,11 +61,12 @@ function agregarTarifaCliente(data){
          tablaTarifas.deleteRow(1);
        }
        
-       var index = tablaTarifas.rows.length;
-       var newRow = tablaTarifas.insertRow(index);  
-       newRow.bgColor = "#FFFFFF";
-       for( var i =0 ; i < data.length ; i++){ 
+        for( var i =0 ; i < data.length ; i++){ 
          
+         var index = tablaTarifas.rows.length;
+         var newRow = tablaTarifas.insertRow(index);  
+         newRow.bgColor = "#FFFFFF";
+     
          insertarColumnas(tablaTarifas.rows[index],tablaTarifas.rows[0].cells.length); 
          
          cargarItemTarifaCliente(tablaTarifas.rows[index],data[i] );
@@ -102,7 +103,7 @@ function cargarItemTarifaCliente(row,tarifa){
    row.name = 'item-tarifa'; 
    
    row.id= 'tarId-'+ tarifa.ratesTO.ratId;
-   row.cells[1].innerHTML= tarVal + '<input type="hidden" name="tarifas-hidden"  value="'+tarifa.ratesTO+'#'+tarVal+'" />';
+   row.cells[1].innerHTML= tarVal + '<input type="hidden" name="tarifas-hidden"  value="'+tarifa.ratesTO.ratId+'#'+tarVal+'" />';
    row.cells[2].innerHTML= '<img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarTarifa(\''+row.id+'\')" onmouseover="this.style.cursor=\'hand\';" />';
    row.cells[0].width=203;
    row.cells[1].width=60;

@@ -90,7 +90,9 @@ function validarCampos()
         return false;
 }
 
-function buscarTarifas(){
+function buscarTarifas()
+{
+     
      
      var ratId= document.getElementById('ratId').value;
      var nomTarifa= document.getElementById('nomTarifa').value;
@@ -140,6 +142,7 @@ function postEliminar(data){
 }
 
 function buscarTarifasCallBack(data){
+  
   if (data.length > 0) {
       document.getElementById('div-tarifas').style.display='';
       var tablaTarifas= document.getElementById('tabla-busqueda');
@@ -147,8 +150,8 @@ function buscarTarifasCallBack(data){
       for(var i=0 ; i<   data.length; i++){
         
         insertarFila(tablaTarifas,data[i]);        
-  }
-   else {
+      }
+   }else {
      document.getElementById('div-tarifas').style.display='none';
   }
 }
