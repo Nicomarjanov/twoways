@@ -167,12 +167,12 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
 
                 try {
                     if(empId != null && empId.length() > 0 ){ 
-                        twoWaysBDL.getServiceTwoWays().updateEmpleado(empleado);                       
+                        empleado = twoWaysBDL.getServiceTwoWays().updateEmpleado(empleado);                       
                     }else{
-                        twoWaysBDL.getServiceTwoWays().insertarEmpleado(empleado);
+                        empleado = twoWaysBDL.getServiceTwoWays().insertarEmpleado(empleado);
                     }
                     //Preguntar a luciano
-                    empleado =  twoWaysBDL.getServiceTwoWays().getEmpById(empId);
+                   // empleado =  twoWaysBDL.getServiceTwoWays().getEmpById(empId);
                     request.setAttribute("empleado",empleado);  
                 } catch (Exception e) {
                     e.printStackTrace();
