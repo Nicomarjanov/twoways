@@ -69,6 +69,10 @@
         <servlet-name>DownloadFileServlet</servlet-name>
         <servlet-class>com.twoways.view.servlets.DownloadFileServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AbmCuentasServlet</servlet-name>
+        <servlet-class>com.twoways.view.servlets.AbmCuentasServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -112,6 +116,10 @@
     <servlet-mapping>
         <servlet-name>DownloadFileServlet</servlet-name>
         <url-pattern>/downloadfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AbmCuentasServlet</servlet-name>
+        <url-pattern>/cuentas</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>35</session-timeout>

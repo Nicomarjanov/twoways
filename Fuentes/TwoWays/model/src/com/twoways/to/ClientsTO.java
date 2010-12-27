@@ -1,5 +1,7 @@
 package com.twoways.to;
 
+import java.sql.Timestamp;
+
 import java.util.List;
 
 
@@ -26,6 +28,7 @@ public class ClientsTO {
     private List<PaymentsTO> paymentsTOList;
     private CurrencyTO currencyTO;
     private List<ClientsRatesTO> clientsRatesTOList;
+    private Timestamp cliEraseDate;    
 
     public ClientsTO() {
     }
@@ -181,5 +184,13 @@ public class ClientsTO {
         getClientsRatesTOList().remove(clientsRatesTO);
         clientsRatesTO.setClientsTO(null);
         return clientsRatesTO;
-    }    
+    }
+
+    public void setCliEraseDate(Timestamp cliEraseDate) {
+        this.cliEraseDate = cliEraseDate;
+    }
+
+    public Timestamp getCliEraseDate() {
+        return cliEraseDate;
+    }
 }

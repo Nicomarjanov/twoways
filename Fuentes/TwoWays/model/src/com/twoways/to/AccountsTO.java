@@ -1,5 +1,7 @@
 package com.twoways.to;
 
+import java.sql.Timestamp;
+
 import java.util.List;
 
 
@@ -13,10 +15,11 @@ public class AccountsTO {
    //(name="ACC_NAME", nullable = false)
     private String accName;
     
-    private  List<ItemsExpensesTO> itemsExpensesTOList;
-    private  List<PaymentsTO>  paymentsTOList;
+    private List<ItemsExpensesTO> itemsExpensesTOList;
+    private List<PaymentsTO>  paymentsTOList;
     private List<ItemsInvoicesTO> itemsInvoicesTOList;    
-   
+    private Timestamp accEraseDate;
+    private Long accNumber;    
 
     public AccountsTO() {
     }
@@ -111,5 +114,21 @@ public class AccountsTO {
         getItemsInvoicesTOList().remove(itemsInvoicesTO);
         itemsInvoicesTO.setAccountsTO(null);
         return itemsInvoicesTO;
+    }
+
+    public void setAccEraseDate(Timestamp accEraseDate) {
+        this.accEraseDate = accEraseDate;
+    }
+
+    public Timestamp getAccEraseDate() {
+        return accEraseDate;
+    }
+
+    public void setAccNumber(Long accNumber) {
+        this.accNumber = accNumber;
+    }
+
+    public Long getAccNumber() {
+        return accNumber;
     }
 }

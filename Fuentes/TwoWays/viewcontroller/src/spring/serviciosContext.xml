@@ -41,6 +41,9 @@
         <property name="languagueDao">
             <ref bean="languagueDAO"/>
         </property>        
+        <property name="accountDao">
+            <ref bean="accountDAO"/>
+        </property>           
     </bean>
 
     <!-- declaracion de los servicios, utilizando proxy para el manejo de transacciones -->
