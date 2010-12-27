@@ -82,12 +82,12 @@
     <td colspan="100%" ><textarea  rows="3" cols="90" class="tw_form" id="descCliente"  onkeyup="limitarArea()" name="descCliente" ><c:out value="${cliente.cliDescription}"/></textarea></td>
   </tr>
   </table>
-  <br>
-     
-      <hr class="tw_hr">
- <c:set scope="request"     var="ratesTOList" value="${cliente.clientsRatesTOList}" /> 
- <jsp:include page="/WEB-INF/jspIncludes/agregartarifas.jsp"/>
-   <table width="100%">
+  <br>     
+  <hr class="tw_hr">
+  <c:set scope="request"     var="ratesTOList" value="${cliente.clientsRatesTOList}" /> 
+  <jsp:include page="/WEB-INF/jspIncludes/agregartarifas.jsp"/>
+  <hr>
+  <table width="100%">
   <tr>
   <td align="right"><input type="button" id="aceptar" value="Aceptar" onclick="agregar()"/></td>   
   <td align="left"><input type="button" id="cancel" value="Limpiar" OnClick="cancelar()"/></td>   

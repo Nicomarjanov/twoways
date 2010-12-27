@@ -1,6 +1,7 @@
 package com.twoways.service;
 
 import com.twoways.dao.TranslatorDAO;
+import com.twoways.to.AccountsTO;
 import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.ClientsTO;
 import com.twoways.to.EmployeesTO;
@@ -122,5 +123,17 @@ public interface TW_SystemService {
     public List<ClientsRatesTO> getTarifaClienteById(Long cliId)  throws Exception;
     
     public List obtenerIdioma()throws Exception;
+    
+    public void insertarAccount(AccountsTO accountsTO) throws Exception;
+    
+    public boolean deleteAccount(AccountsTO cuenta) throws Exception;
+    
+    public void actualizarAccount(AccountsTO accountsTO) throws Exception;    
+
+    public List obtenerAccount() throws Exception;    
+
+    public AccountsTO getAccountById(String accId) throws Exception; 
+    
+    public List buscarAccounts(String search) throws Exception;    
    
 }

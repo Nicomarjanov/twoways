@@ -6,15 +6,15 @@
       <type>TABLE</type>
    </ID>
    <columns>
-      <Item id="2">
-         <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
+      <Item>
+         <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID" id="4">
             <ID>b927276d-012b-1000-807c-0a000003729a</ID>
             <parent idref="0"/>
             <type>COLUMN</type>
          </ID>
          <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
             <attributeValues class="java.util.HashMap"/>
-            <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+            <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID" id="5">
                <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
                <schemaName/>
                <typeName>NUMBER</typeName>
@@ -26,7 +26,7 @@
          <properties class="java.util.HashMap">
             <Item>
                <Key>OfflineDBConstants.GENERATE_TARGET_ID</Key>
-               <Value class="oracle.jdeveloper.offlinedb.marshal.GenericDBReferenceID">
+               <Value class="oracle.jdeveloper.offlinedb.marshal.GenericDBReferenceID" id="6">
                   <ID/>
                   <name>ODO_ID</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
@@ -87,15 +87,15 @@
             </Item>
          </properties>
       </Item>
-      <Item id="1">
-         <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
+      <Item>
+         <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID" id="1">
             <ID>b92767b7-012b-1000-807f-0a000003729a</ID>
             <parent idref="0"/>
             <type>COLUMN</type>
          </ID>
          <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
             <attributeValues class="java.util.HashMap"/>
-            <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+            <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID" id="2">
                <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
                <schemaName/>
                <typeName>NUMBER</typeName>
@@ -107,7 +107,7 @@
          <properties class="java.util.HashMap">
             <Item>
                <Key>OfflineDBConstants.GENERATE_TARGET_ID</Key>
-               <Value class="oracle.jdeveloper.offlinedb.marshal.GenericDBReferenceID">
+               <Value class="oracle.jdeveloper.offlinedb.marshal.GenericDBReferenceID" id="3">
                   <ID/>
                   <name>ORDERS_ORD_ID</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
@@ -125,6 +125,25 @@
             </Item>
          </properties>
       </Item>
+      <Item>
+         <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
+            <ID>1154ebcf-012d-1000-8001-0a000004f5da</ID>
+            <parent idref="0"/>
+            <type>COLUMN</type>
+         </ID>
+         <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+            <attributeValues class="java.util.HashMap"/>
+            <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+               <providerClass>oracle.javatools.db.ora.Oracle8</providerClass>
+               <schemaName/>
+               <typeName>BLOB</typeName>
+            </dataTypeID>
+         </dataTypeUsage>
+         <default/>
+         <name>ODO_DOC</name>
+         <notNull>false</notNull>
+         <properties/>
+      </Item>
    </columns>
    <constraints>
       <Item class="oracle.javatools.db.FKConstraint">
@@ -134,7 +153,22 @@
             <type>CONSTRAINT</type>
          </ID>
          <columns>
-            <Item idref="1"/>
+            <Item id="7">
+               <ID idref="1"/>
+               <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+                  <attributeValues class="java.util.HashMap"/>
+                  <dataTypeID idref="2"/>
+               </dataTypeUsage>
+               <default/>
+               <name>ORDERS_ORD_ID</name>
+               <notNull>true</notNull>
+               <properties class="java.util.HashMap">
+                  <Item>
+                     <Key>OfflineDBConstants.GENERATE_TARGET_ID</Key>
+                     <Value idref="3"/>
+                  </Item>
+               </properties>
+            </Item>
          </columns>
          <deleteMode>0</deleteMode>
          <enabled>true</enabled>
@@ -176,8 +210,23 @@
             <type>CONSTRAINT</type>
          </ID>
          <columns>
-            <Item idref="2"/>
-            <Item idref="1"/>
+            <Item>
+               <ID idref="4"/>
+               <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+                  <attributeValues class="java.util.HashMap"/>
+                  <dataTypeID idref="5"/>
+               </dataTypeUsage>
+               <default/>
+               <name>ODO_ID</name>
+               <notNull>true</notNull>
+               <properties class="java.util.HashMap">
+                  <Item>
+                     <Key>OfflineDBConstants.GENERATE_TARGET_ID</Key>
+                     <Value idref="6"/>
+                  </Item>
+               </properties>
+            </Item>
+            <Item idref="7"/>
          </columns>
          <enabled>true</enabled>
          <name>ORDERS_DOCS_PK</name>
@@ -245,7 +294,7 @@
       <properties class="java.util.HashMap">
          <Item>
             <Key>OfflineDBConstants.GENERATE_TARGET_CONECTION</Key>
-            <Value>twoways</Value>
+            <Value>XE</Value>
          </Item>
          <Item>
             <Key>OfflineDBConstants.GENERATE_TARGET_SCHEMA</Key>

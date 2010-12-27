@@ -4,12 +4,12 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
 <table  id="aDoc" >
     <tr>
-        <td><a href="javascript:vistaDocumentos()" ><img id="documento+"  style="border:0;" title="Mostrar documentos del cliente" src="img/currency_dollar green.png" alt="Documentos" width="25" height="25" onmouseover="this.style.cursor='hand';"/></a></td>
+        <td><a href="javascript:vistaDocumentos()" ><img id="documento+"  style="border:0;" title="Mostrar documentos del cliente" src="img/folder_red.png" alt="Documentos" width="25" height="25" onmouseover="this.style.cursor='hand';"/></a></td>
     </Tr>
   </table>
   <table id="tabla-documentos"  style="display:none" >
   <tr>
-  <td valign="top" ><a href="javascript:vistaDocumentos()"><img id="documento-"  style="border:0;" title="Ocultar documentos del cliente" src="img/currency_dollar blue.png" alt="Documentos" width="25" height="25" onmouseover="this.style.cursor='hand';"/></a></td>
+  <td valign="top" ><a href="javascript:vistaDocumentos()"><img id="documento-"  style="border:0;" title="Ocultar documentos del cliente" src="img/folder_red_open.png" alt="Documentos" width="25" height="25" onmouseover="this.style.cursor='hand';"/></a></td>
   <td valign="top">
     <table >
       <tr><td >Documento</td><td id="tdIn" ><input type="file" class="tw_form" id="doc_name" size=30  onchange="agregarDocumento()" /> </td></tr>

@@ -1,5 +1,6 @@
 package com.twoways.service;
 
+import com.twoways.dao.AccountDAO;
 import com.twoways.dao.ClientDAO;
 import com.twoways.dao.CurrencyDAO;
 import com.twoways.dao.EmployeeDAO;
@@ -11,8 +12,9 @@ import com.twoways.dao.UserDAO;
 import com.twoways.dao.RolesDAO;
 import com.twoways.dao.ItemDAO;
 import com.twoways.dao.LanguagueDAO;
-
 import com.twoways.dao.TranslatorDAO;
+
+import com.twoways.to.AccountsTO;
 import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.ClientsTO;
 import com.twoways.to.CurrencyTO;
@@ -25,8 +27,6 @@ import com.twoways.to.RatesTO;
 import com.twoways.to.TranslatorsTO;
 import com.twoways.to.UsersTO;
 
-
-import java.util.Collections;
 import java.util.List;
 
 public class TW_SystemServiceImpl implements TW_SystemService{
@@ -43,6 +43,7 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     private TranslatorDAO translatorDao;
     private OrdersDAO ordersDao;
     private LanguagueDAO languagueDao;
+    private AccountDAO accountDao;
      
     public TW_SystemServiceImpl() {
     }
@@ -354,12 +355,9 @@ public class TW_SystemServiceImpl implements TW_SystemService{
         return ordersDao;
     }
     
-    public OrdersTO insertarOrder(OrdersTO ordersTO) throws Exception {
-        
+    public OrdersTO insertarOrder(OrdersTO ordersTO) throws Exception {        
         ordersTO = this.ordersDao.insertarOrder(ordersTO);
-        return ordersTO;
-        
-        
+        return ordersTO;                
     }
     
     public OrdersTO updateOrder(OrdersTO ordersTO) throws Exception {
@@ -381,5 +379,37 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     public List<ClientsRatesTO> getTarifaClienteById(Long cliId)  throws Exception{
         return clientDao.getTarifaClienteById(cliId);
     }
+
+    public void setAccountDao(AccountDAO accountDao) {
+        this.accountDao = accountDao;
+    }
+    
+    public AccountDAO getAccountDao() {
+        return accountDao;
+    }  
+    public void insertarAccount(AccountsTO accountsTO) throws Exception{
+            this.accountDao.insertarAccount(accountsTO);
+        }
+        
+    public void actualizarAccount(AccountsTO accountsTO) throws Exception {
+            this.accountDao.actualizarAccount(accountsTO);
+        }
+
+    public boolean deleteAccount(AccountsTO cuenta) throws Exception{
+          return this.accountDao.deleteAccount(cuenta);
+      }
+      
+    public List obtenerAccount() throws Exception{
+          return this.accountDao.obtenerAccount();
+      }      
+      
+    public AccountsTO getAccountById(String accId) throws Exception{
+          return this.accountDao.getAccountById(accId);  
+      }      
+      
+    public List buscarAccounts(String search) throws Exception{
+      return this.itemDao.buscarItems(search);
+    }      
+
 
 }
