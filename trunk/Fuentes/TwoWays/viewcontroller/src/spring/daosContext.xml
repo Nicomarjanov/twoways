@@ -72,7 +72,7 @@
         <ref local="twowaysSqlMapConfig"/>
       </property>
     </bean>   
-   <!-- <bean id="ordersDAO" class="com.twoways.dao.OrdersDAOImpl">
+    <bean id="ordersDAO" class="com.twoways.dao.OrdersDAOImpl">
        <property name="dataSource">
           <ref bean="dataSource"/>
       </property>
@@ -80,7 +80,7 @@
         <ref local="twowaysSqlMapConfig"/>
       </property>
     </bean>  
-    -->
+    
      <bean id="serviceDAO" class="com.twoways.dao.ServiceDAOImpl">
        <property name="dataSource">
           <ref bean="dataSource"/>

@@ -16,7 +16,7 @@
         CLI_POSTAL_CODE as cliPostalCode          
      from 
      Clients 
-     WHERE CLI_ERASE_DATE is not null
+     WHERE CLI_ERASE_DATE is null
      
   </select>  
   

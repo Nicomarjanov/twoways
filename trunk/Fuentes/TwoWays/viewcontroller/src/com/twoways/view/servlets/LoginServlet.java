@@ -23,6 +23,7 @@ public class LoginServlet extends HttpServlet {
         
         
         HttpSession session = request.getSession(); 
+        boolean redirect= true;
         
         session.removeAttribute("userSession");
         session.removeAttribute("userRol");
@@ -46,21 +47,32 @@ public class LoginServlet extends HttpServlet {
                UsersTO user= twoWaysBDL.getServiceTwoWays().getLogin(request.getParameter("usuario"),request.getParameter("password"));
                if(user !=null){ 
                      session.setAttribute("userSession",user);
-                     response.sendRedirect("index.jsp");
+                     if(redirect){ 
+                         response.sendRedirect("index.jsp");
+                         redirect=!redirect;
+                     }
+                     
                } else{
                    request.setAttribute("mensajeError","El usuario o la clave no son correctos" );
-                   request.getRequestDispatcher("login.jsp").forward(request,response);
+                   if(redirect){ 
+                       request.getRequestDispatcher("login.jsp").forward(request,response);
+                       redirect=!redirect;
+                   }
                }
             }
         }
         
         }catch(Exception e ){
-            request.setAttribute("mensajeError","No se puede iniciar la sessión" );
-            request.getRequestDispatcher("login.jsp").forward(request,response);
-            
+            if(redirect){  
+             request.setAttribute("mensajeError","No se puede iniciar la sessión" );
+             request.getRequestDispatcher("login.jsp").forward(request,response);
+             redirect=!redirect;
+            }
         }
-        
-        response.sendRedirect("login.jsp"); 
+        if(redirect){  
+           response.sendRedirect("login.jsp");
+           redirect=!redirect;
+        }
     }
 
     public void doPost(HttpServletRequest request, 

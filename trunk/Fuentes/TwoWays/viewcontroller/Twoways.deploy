@@ -1,0 +1,25 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<ear-deployment nselem="ear-deployment" class="oracle.jdeveloper.deploy.ear.EarProfile" xmlns="http://xmlns.oracle.com/jdeveloper/101303/deploy/j2ee-ear">
+   <archiveOptions>
+      <additionalManifests/>
+      <compressed>false</compressed>
+      <hasManifest>false</hasManifest>
+      <mainClass/>
+   </archiveOptions>
+   <defaultConnection/>
+   <deployClientMaxHeapSize/>
+   <description/>
+   <earURL path="deploy/Twoways.ear"/>
+   <enterpriseAppName>Twoways</enterpriseAppName>
+   <fileGroups>
+      <groups class="[Loracle.jdeveloper.deploy.common.FileGroup;"/>
+   </fileGroups>
+   <profileDeps>
+      <Item>
+         <pathInEar class="java.lang.String"/>
+         <profileURL path="deploy/webapp.deploy"/>
+         <projectURL path="viewcontroller.jpr"/>
+      </Item>
+   </profileDeps>
+   <properties/>
+</ear-deployment>

@@ -16,7 +16,7 @@ import java.util.List;
 public class ServiceTW_System {
     
     private TwoWaysBDL twoWaysBDL;
-    private Logger log = Logger.getLogger(this.getClass()) ;
+    private Logger log = Logger.getRootLogger() ;
     
     public ServiceTW_System() {
     
