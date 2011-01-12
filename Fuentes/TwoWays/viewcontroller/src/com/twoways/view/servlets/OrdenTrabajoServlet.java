@@ -31,19 +31,22 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.log4j.Logger;
 
 
 public class OrdenTrabajoServlet extends AutorizacionServlet {
     private static final String CONTENT_TYPE = "text/html; charset=windows-1252";
     private static final String TMP_DIR_PATH = "C:\\WINDOWS\\Temp";
     private File tmpDir;
+    private static  Logger log;   
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
+        log = Logger.getRootLogger();
         List roles= new ArrayList();
         roles.add("Administrador");
         this.setRolesValidos(roles);
-        
+        log.info("Inicia OrdenTrabajoServlet");
      
         tmpDir = new File(TMP_DIR_PATH);
         if(!tmpDir.isDirectory()) {

@@ -1,5 +1,12 @@
 package com.twoways.dao;
 
+import com.google.gdata.client.calendar.CalendarService;
+import com.google.gdata.data.DateTime;
+import com.google.gdata.data.calendar.CalendarEventEntry;
+import com.google.gdata.data.extensions.Reminder;
+import com.google.gdata.util.ServiceException;
+
+import com.twoways.service.CalendarGoogleService;
 import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.ClientsTO;
 
@@ -14,17 +21,27 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 
 
 import java.util.Map;
+
+import java.util.ResourceBundle;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -32,6 +49,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import org.apache.commons.fileupload.FileItem;
+import org.apache.log4j.Logger;
 
 public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
     public OrdersDAOImpl() {
@@ -119,20 +137,6 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
 
 
         getSqlMapClientTemplate().insert("updateOrders", ordersTO);
-
-       /* if (ordersTO.getOrderRatesTOList() != null) {
-
-
-            for (Object ordRate: ordersTO.getOrderRatesTOList().toArray()) {
-
-                ((OrdersRatesTO)ordRate).setOrdersTO(ordersTO);
-                getSqlMapClientTemplate().insert("insertOrdersRates", 
-                                                 (OrdersRatesTO)ordRate);
-            }
-
-        }
-        */
-        
         List <OrdersRatesTO> ordRates = ordersTO.getOrderRatesTOList();
         
         // insertar las nuevas 
@@ -181,27 +185,7 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
                }  
            }
            
-        
-        
-        
-        
-        /*
-        if (ordersTO.getServicesTOList() != null) {
-
-
-            for (Object service: ordersTO.getServicesTOList().toArray()) {
-
-               Map insert= new HashMap();
-               insert.put("ordId",ordersTO.getOrdId());
-               insert.put("serId",((ServicesTO)service).getSerId());
-               getSqlMapClientTemplate().insert("insertOrdersServices",insert);
-            }
-
-        }
-        
-        
-        */
-        
+             
         List <ServicesTO> services = ordersTO.getServicesTOList();
         
         // insertar las nuevas 
@@ -255,11 +239,9 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
                }  
            }
            
-        
-        
-        
+            
         List <OrdersDocsTO> docsList = ordersTO.getOrdersDocsTOList();
-         List<OrdersDocsTO> documentosOld = (List<OrdersDocsTO>)getSqlMapClientTemplate().queryForList("getOrderDocByOrder", 
+        List<OrdersDocsTO> documentosOld = (List<OrdersDocsTO>)getSqlMapClientTemplate().queryForList("getOrderDocByOrder", 
                                                                                                 ordersTO.getOrdId());
         
         for(OrdersDocsTO oldDocs: documentosOld ){
@@ -297,14 +279,54 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
     
     public OrdersTO insertarOrder(OrdersTO ordersTO) throws Exception {
 
+        
+        Logger log = Logger.getRootLogger(); 
+        log.debug("OrdersTO insertarOrder(OrdersTO ordersTO)");
         Long ordId = 
             (Long)getSqlMapClientTemplate().queryForObject("ordersdoc.seq", 
                                                            "");
         ordersTO.setOrdId(ordId);
+        ;
+        ResourceBundle rb = ResourceBundle.getBundle("twoways");
+        String userName = rb.getString("userCalendar");
+        String userPassword = rb.getString("userCalendarPassword");
+        String cliente = ordersTO.getClientsTO().getCliName();
+        
 
+        
+        CalendarGoogleService  cgsvc= new CalendarGoogleService(userName);
 
         getSqlMapClientTemplate().insert("insertOrders", ordersTO);
+        
+       CalendarService myService = new CalendarService("srv"+userName);
+ 
+       
 
+        try {
+        
+          log.debug("Antes del login");  
+          myService.setUserCredentials(userName, userPassword);
+          log.debug("Despues del login");  
+          // Demonstrate retrieving a list of the user's calendars.
+          log.debug(myService);
+          Calendar calendar = new GregorianCalendar();
+          calendar.setTimeInMillis(ordersTO.getOrdDate().getTime());
+          // Demonstrate creating a single-occurrence event.
+          CalendarEventEntry quickAddEvent = cgsvc.createSingleEvent(myService,
+              "Id: "+ordersTO.getOrdId()+ " Name: " + ordersTO.getOrdName(),null,calendar);
+          log.debug("Successfully created event "
+              + quickAddEvent.getTitle().getPlainText());
+
+        } catch (IOException e) {
+          // Communications error
+          log.error("There was a problem communicating with the service.",e);
+          e.printStackTrace();
+        } catch (ServiceException e) {
+          // Server side error
+          log.error("The server had a problem handling your request.",e);
+          e.printStackTrace();
+        }
+        
         if (ordersTO.getOrderRatesTOList() != null) {
 
 

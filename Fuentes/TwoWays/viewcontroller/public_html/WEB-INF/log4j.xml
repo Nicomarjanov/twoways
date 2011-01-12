@@ -45,8 +45,23 @@
 
    
     <!-- BEGIN APPENDER: ROLLING FILE APPENDER (rolling) -->
+    
+    
+    <appender name="springape" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="springape.log"/>
+        <param name="MaxFileSize" value="500KB"/>
+        <param name="MaxBackupIndex" value="5"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <!--param name="ConversionPattern" value="%5p ( %c{3} ) %m%n"/-->
+	        <!--value="%d %-5p %-17c{2} (%30F:%L) %3x - %m%n"/>-->
+			<!-- work's with jdk 1.4.* -->
+            <!--param name="ConversionPattern" value="%d{yy-MM-dd,HH:mm} %F:%L%n%-5p >> %m%n%n"/-->
+            <param name="ConversionPattern" value="%d{dd-MM-yyyy,HH:mm} %-5p (%c{1}:%L) >> %m%n"/>
+        </layout>
+    </appender>
+    
     <appender name="rolling" class="org.apache.log4j.RollingFileAppender">
-        <param name="File" value="lasgda_mobile.log"/>
+        <param name="File" value="twoways.log"/>
         <param name="MaxFileSize" value="500KB"/>
         <param name="MaxBackupIndex" value="5"/>
         <layout class="org.apache.log4j.PatternLayout">
@@ -87,9 +102,9 @@
     <!-- the XMLLayout.  Send information to both and XMLLayout and to -->
     <!-- a socket on which Chainsaw is running, and you can watch chainsaw -->
     <!-- now, and then look at the data in it again later. -->
-    <!--
+   
     <appender name="lf5Rolling" class="org.apache.log4j.RollingFileAppender">
-        <param name="File" value="example_lf5.log"/>
+        <param name="File" value="twoways_lf5.log"/>
         <param name="MaxBackupIndex" value="5"/>
         <param name="MaxFileSize" value="100KB"/>
         <layout class="org.apache.log4j.PatternLayout">
@@ -97,7 +112,7 @@
                     value="[slf5s.start]%d{DATE}[slf5s.DATE]%n  %p[slf5s.PRIORITY]%n%x[slf5s.NDC]%n%t[slf5s.THREAD]%n%c[slf5s.CATEGORY]%n  %l[slf5s.LOCATION]%n%m[slf5s.MESSAGE]%n%n"/>
         </layout>
     </appender>
-    -->
+   
     <!-- LogFactor5 is also capable of loading information from file, -->
     <!-- although the formatting isn't nearly as simple (to configure) -->
     <!-- as the stored file for Chainsaw.  Unfortunately, there appears -->
@@ -131,24 +146,34 @@
     <!-- appenders attached to the root logger/category and to set -->
     <!-- the level of logging done at the root level. -->
 
-    <!-- apache commons
+    
     <logger name="org.apache.commons.beanutils.BeanUtils">
         <level value="debug,info,error,fatal"/>
         <appender-ref ref="rolling"/>
         <appender-ref ref="stdout"/>
-    </logger>-->
+    </logger>
  
+    
+    
+    <logger name="org.springframework.context.access.ContextSingletonBeanFactoryLocator">
+        <level value="debug,info,error,fatal"/>
+        <appender-ref ref="springape"/>
+       
+    </logger>
+    
     <!-- PreparedStatement logging , permite ver sql y parametros enviadoss -->
     <logger name="java.sql">
        <level value="error"/>
-       <appender-ref ref="stdout"/>     
+       <appender-ref ref="stdout"/> 
+       <appender-ref ref="rolling"/>
+        
+       
     </logger>
     
     <!-- ibatis -->
     <logger name="com.ibatis">
-       <level value="error"/>
-       <appender-ref ref="stdout"/>
-       <appender-ref ref="rolling"/>
+       <level value="debug"/>
+       <appender-ref ref="springape"/>
     </logger>
         
     <!-- Logs de la aplicacion -->
@@ -156,11 +181,17 @@
        <level value="debug"/>
        <appender-ref ref="stdout"/>
        <appender-ref ref="rolling"/>
+        
     </logger>
 
     <root>
-        <level value="error"/>
+        <level value="debug"/>
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="rolling"/>
+        
     </root>
+    
+ 
 
     <!--<appender-ref ref="stdout"/>-->
     <!-- Multiple appender-ref tags can be used to have multiple appenders -->

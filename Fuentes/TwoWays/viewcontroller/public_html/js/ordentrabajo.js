@@ -290,7 +290,7 @@ function onloadOrder(){
     {
         
         var date = new Date();
-        fecha.value = date.getDate()+ '/' + (date.getMonth() +1) + '/'+ date.getYear() ;
+        fecha.value = ((date.getDate() < 10)?'0'+date.getDate():date.getDate())  + '/' + ((date.getMonth()+1 < 10)?''+date.getMonth()+1:(date.getMonth() +1))+ '/'+ date.getYear() ;
         
        
     }
