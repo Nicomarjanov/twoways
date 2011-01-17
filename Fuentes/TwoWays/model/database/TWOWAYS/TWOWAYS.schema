@@ -9,7 +9,7 @@
    <properties class="java.util.HashMap">
       <Item>
          <Key>OfflineDBConstants.GENERATE_TARGET_CONECTION</Key>
-         <Value>XE</Value>
+         <Value>twoways</Value>
       </Item>
       <Item>
          <Key>OfflineDBConstants.GENERATE_TARGET_SCHEMA</Key>

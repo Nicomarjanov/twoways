@@ -31,8 +31,8 @@
                   <name>ORDERS_ORD_ID</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>14247</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>14429</databaseID>
                      <name>ORDERS_RATES</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -69,8 +69,8 @@
                   <name>ORR_VALUE</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>14247</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>14429</databaseID>
                      <name>ORDERS_RATES</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -107,8 +107,8 @@
                   <name>RATES_RAT_ID</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>14247</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>14429</databaseID>
                      <name>ORDERS_RATES</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -194,14 +194,14 @@
    <properties class="java.util.HashMap">
       <Item>
          <Key>OfflineDBConstants.GENERATE_TARGET_CONECTION</Key>
-         <Value>XE</Value>
+         <Value>twoways</Value>
       </Item>
       <Item>
          <Key>OfflineDBConstants.GENERATE_TARGET_ID</Key>
          <Value class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
             <ID/>
-            <connectionName>XE</connectionName>
-            <databaseID>14247</databaseID>
+            <connectionName>twoways</connectionName>
+            <databaseID>14429</databaseID>
             <name>ORDERS_RATES</name>
             <parent/>
             <schemaName>TWOWAYS</schemaName>
@@ -231,7 +231,7 @@
       <properties class="java.util.HashMap">
          <Item>
             <Key>OfflineDBConstants.GENERATE_TARGET_CONECTION</Key>
-            <Value>XE</Value>
+            <Value>twoways</Value>
          </Item>
          <Item>
             <Key>OfflineDBConstants.GENERATE_TARGET_SCHEMA</Key>

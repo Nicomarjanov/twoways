@@ -55,9 +55,10 @@ function agregarTarifa(){
 
 function agregarTarifaCliente(data){
   
+       
        var tablaTarifas= document.getElementById('list-tarifas-body');
        
-       while( tablaTarifas.rows.length > 2 ){ 
+       while( tablaTarifas.rows.length > 1 ){ 
          tablaTarifas.deleteRow(1);
        }
        

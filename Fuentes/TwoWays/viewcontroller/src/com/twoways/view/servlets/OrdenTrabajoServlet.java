@@ -217,7 +217,7 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                 ordersTO.setOrderRatesTOList(ordersRatesTOList);
             }        
             
-            Object listaItemsSelect[]=null;
+            Object listaItemsSelect[]={" "};
             
             if(mRequest.get("listaItemsSelect") != null && mRequest.get("listaItemsSelect") instanceof ArrayList){
                 List aux =(ArrayList) mRequest.get("listaItemsSelect");
@@ -236,7 +236,9 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                                        
                     ServicesTO serviceTO = new ServicesTO();
                     serviceTO.setSerId(aux.toString());
-                    ordersServices.add(serviceTO);
+                    if(aux.toString().trim().length() > 0){ 
+                       ordersServices.add(serviceTO);
+                    }
                     
                 }
                 
@@ -248,15 +250,15 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
             }
             
             
-            Object exoList[]=null;
+            Object exoList[]= {" "};
             
             if(mRequest.get("exdoc") != null && mRequest.get("exdoc") instanceof ArrayList){
                 List aux =(ArrayList) mRequest.get("exdoc");
                 exoList=aux.toArray();
             }else if (mRequest.get("exdoc")!=null){
-                exoList = new String[1];
                 exoList[0]=mRequest.get("exdoc").toString();
             }
+            
             
 
             try {

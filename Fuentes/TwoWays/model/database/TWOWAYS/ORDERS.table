@@ -31,8 +31,8 @@
                   <name>ORD_ID</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13655</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>14428</databaseID>
                      <name>ORDERS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -74,8 +74,8 @@
                   <name>ORD_NAME</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13655</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>14428</databaseID>
                      <name>ORDERS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -113,8 +113,8 @@
                   <name>ORD_DESCRIPTION</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13655</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>14428</databaseID>
                      <name>ORDERS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -151,8 +151,8 @@
                   <name>ORD_DATE</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13655</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>14428</databaseID>
                      <name>ORDERS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -185,8 +185,8 @@
                   <name>CLIENTS_CLI_ID</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13655</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>14428</databaseID>
                      <name>ORDERS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -228,8 +228,8 @@
                   <name>ORD_PROJ_ID</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13655</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>14428</databaseID>
                      <name>ORDERS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -266,8 +266,8 @@
                   <name>ORD_WO_NUMBER</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13655</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>14428</databaseID>
                      <name>ORDERS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -305,8 +305,8 @@
                   <name>ORD_JOB_ID</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13655</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>14428</databaseID>
                      <name>ORDERS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -344,8 +344,8 @@
                   <name>ORD_JOB_NAME</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13655</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>14428</databaseID>
                      <name>ORDERS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -383,8 +383,8 @@
                   <name>ORD_JOB_DESCRIPTION</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13655</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>14428</databaseID>
                      <name>ORDERS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -421,8 +421,8 @@
                   <name>ORD_START_DATE</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13655</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>14428</databaseID>
                      <name>ORDERS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -455,8 +455,8 @@
                   <name>ORD_FINISH_DATE</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13655</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>14428</databaseID>
                      <name>ORDERS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -489,8 +489,8 @@
                   <name>ORD_DEADLINE_DATE</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13655</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>14428</databaseID>
                      <name>ORDERS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -533,8 +533,8 @@
                   <name>ORDERS_PK</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13655</databaseID>
+                     <connectionName>twoways</connectionName>
+                     <databaseID>14428</databaseID>
                      <name>ORDERS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -576,7 +576,7 @@
                   <name>ORDERS_CLIENTS_FK</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>XE</connectionName>
+                     <connectionName>twoways</connectionName>
                      <databaseID>13655</databaseID>
                      <name>ORDERS</name>
                      <parent/>
@@ -604,14 +604,14 @@
    <properties class="java.util.HashMap">
       <Item>
          <Key>OfflineDBConstants.GENERATE_TARGET_CONECTION</Key>
-         <Value>XE</Value>
+         <Value>twoways</Value>
       </Item>
       <Item>
          <Key>OfflineDBConstants.GENERATE_TARGET_ID</Key>
          <Value class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
             <ID/>
-            <connectionName>XE</connectionName>
-            <databaseID>13655</databaseID>
+            <connectionName>twoways</connectionName>
+            <databaseID>14428</databaseID>
             <name>ORDERS</name>
             <parent/>
             <schemaName>TWOWAYS</schemaName>
@@ -641,7 +641,7 @@
       <properties class="java.util.HashMap">
          <Item>
             <Key>OfflineDBConstants.GENERATE_TARGET_CONECTION</Key>
-            <Value>XE</Value>
+            <Value>twoways</Value>
          </Item>
          <Item>
             <Key>OfflineDBConstants.GENERATE_TARGET_SCHEMA</Key>

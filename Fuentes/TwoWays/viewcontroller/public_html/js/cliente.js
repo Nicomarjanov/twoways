@@ -89,31 +89,17 @@ function grabar(existe)
     }
 }
 
-function buscarClientes(e){
+function buscarClientes(){
      
-    var keycode;
+   
     var cliId= document.getElementById('cliId').value;
-    var nomCliente= document.getElementById('nomCliente').value;
-    if (window.event) keycode = window.event.keyCode;
-    else if (e) keycode = e.which;
-    
-    if( keycode == 40 &&  document.getElementById('selectCli').options.length > 0 ){
-      document.getElementById('selectCli').options[0].selected = true;
-      document.getElementById('selectCli').focus();
-      document.getElementById('selectCli').style.display='';
-      
-      return;
-    }else if(keycode == 9 || keycode==8 ){
-      return;
-    }else if( keycode == 13){
+     var nomCliente= document.getElementById('nomCliente').value;
+     
+     
+     if(cliId== '' &&  nomCliente.length >2 ){ 
         
-        document.getElementById('nomCliente').value= document.getElementById('selectCli').options[0].text;
-        document.getElementById('selectCli').display='none';
-        document.getElementById('nomCliente').onblur();
-    }else if(cliId== '' &&  nomCliente.length >2 ){ 
-               
+        
         towaysDWR.buscarClientes(nomCliente,buscarClientesCallBack); 
-      
     }
 }
 
@@ -152,44 +138,17 @@ function postEliminar(data){
    }
 }
 
-function seleccionCliente(){
 
-   
-    var selectCli = document.getElementById('selectCli');
-    var seleccion = selectCli.options[selectCli.selectedIndex].text;
-    var cliente = document.getElementById('nomCliente');
-    cliente.value= seleccion;
-    selectCli.display='none';
-    
-    
-}
 function buscarClientesCallBack(data){
-   if (data.length > 0) {
-      var tablaClientes= document.getElementById('tabla-busqueda');
-      var selectCli = document.getElementById('selectCli');
-      selectCli.options.length=0;
-      borrarFilas(tablaClientes);
+   
+    var tablaClientes= document.getElementById('tabla-busqueda');
+    borrarFilas(tablaClientes);
+    if (data.length > 0) {
       document.getElementById('div-clientes').style.display='';
+     
       for(var i=0 ; i<   data.length; i++){
-        
-        var option = document.createElement('option')
-        option.value= data[i].cliId;
-        option.text= data[i].cliName;
-                
-        if(MSIE){
-          selectCli.add(option);
-        }else{
-           selectCli.add(option,null);
-        }
         insertarFila(tablaClientes,data[i]);
-        
-        
       } 
-     selectCli.style.display=''; 
-     selectCli.size=data.length;    
-    }
-     else {
-     document.getElementById('div-clientes').style.display='none';
     }
 }
 

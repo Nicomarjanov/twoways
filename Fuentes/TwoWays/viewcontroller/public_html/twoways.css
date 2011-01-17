@@ -131,14 +131,14 @@ color:#000000;
 background-color:#EE9A98;
 }
 
-#list-documentos
+#list-documento
 {
 border-style:none;
 border-spacing: 1px;
 border-collapse:separate;
 }
 
-#list-documentos th 
+#list-documento-body th 
 {
 font-size:10px;
 padding-top:3px;
@@ -147,20 +147,20 @@ background-color:#80211D;
 color:#ffffff;
 }
 
-#list-documentos td 
+#list-documento td 
 {
 text-align:left;
 font-size:10px;
 padding:3px 7px 2px 7px;
 }
 
-#list-documentos-body
+#list-documento-body
 {
 border-style:none;
 border-spacing: 1px;
 border-collapse:separate;
 }
-#list-documentos-body th
+#list-documento-body th
 {
 font-size:10px;
 padding-top:3px;
@@ -169,7 +169,7 @@ background-color:#80211D;
 color:#ffffff;
 }
 
-#list-documentos-body td
+#list-documento-body td
 {
 text-align:left;
 font-size:10px;
@@ -177,7 +177,7 @@ padding:3px 7px 2px 7px;
 }
 
 
-#list-documentos tr.alt td 
+#list-documento tr.alt td 
 {
 color:#000000;
 background-color:#EE9A98;

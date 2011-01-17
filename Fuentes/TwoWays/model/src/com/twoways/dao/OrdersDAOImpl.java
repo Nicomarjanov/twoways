@@ -33,6 +33,7 @@ import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -143,7 +144,9 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
         
         List<OrdersRatesTO> oldOrdRates = (List<OrdersRatesTO>) getSqlMapClientTemplate().queryForList("getOrderRatesByOrderId",ordersTO); 
          
-        
+        if(ordRates ==null){ 
+            ordRates= new ArrayList();
+        }
         for(OrdersRatesTO ordersRatesTO: ordRates ){
              boolean insertar= true;   
             
@@ -241,6 +244,10 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
            
             
         List <OrdersDocsTO> docsList = ordersTO.getOrdersDocsTOList();
+       
+       if (docsList==null){
+           docsList = new ArrayList(); 
+       }
         List<OrdersDocsTO> documentosOld = (List<OrdersDocsTO>)getSqlMapClientTemplate().queryForList("getOrderDocByOrder", 
                                                                                                 ordersTO.getOrdId());
         

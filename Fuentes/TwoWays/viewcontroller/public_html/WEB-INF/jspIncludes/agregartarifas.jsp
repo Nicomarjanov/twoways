@@ -43,14 +43,17 @@
     <table cellpadding="0" cellspacing="0"  style="background:gray">
     <tr>
     <td>
-     <table id="list-tarifas" >
+     <!--table id="list-tarifas" >
      <tr><th width="190">Tarifa</th><th width="50">valor</th><th width="25"></th></tr>
      <tr><td width="190"></td><td width="50"></td><td width="25"></td></tr>
      </table>
-     </td></tr><tr><td>
-     <div style="width:100%;height:100px;overflow-x: hidden;overflow-y:auto ;" >
-     <table id="list-tarifas-body" align="right" width="100%">
-     <tr style="display:none"><th width="200">Tarifa</th><th width="50">valor</th><th width="25"></th></tr>
+     </td></tr><tr><td-->
+     <!--div style="width:100%;height:100px;overflow-x: hidden;overflow-y:auto ;" -->
+     <table id="list-tarifas-body" align="right" heigth="40px" width="100%">
+     <thead>
+     <tr style="display:block"><th width="200">Tarifa</th><th >valor</th><th ></th></tr>
+     </thead>
+     <tbody style="width:100%;height:30px;overflow-x: hidden;overflow-y:auto ;">
      <c:forEach items="${requestScope.ratesTOList}" var="item">
        <tr name="item-tarifa"  bgcolor="#FFFFFF" id="tarId-<c:out value="${item.ratesTO.ratId}" />" >
             <td width="200" ><c:out value="${item.ratesTO.ratName}" /></td>
@@ -59,6 +62,7 @@
             <td width="37" ><img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarTarifa('tarId-<c:out value="${item.ratesTO.ratId}" />')" onmouseover="this.style.cursor='hand';" /></td>
         </tr>           
       </c:forEach>
+      </tbody>
      </table>
      </div>
      </td>
