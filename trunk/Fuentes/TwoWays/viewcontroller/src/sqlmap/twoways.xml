@@ -48,14 +48,14 @@
      select *       
      from clients left outer join currency on clients.currency_cur_id = currency.cur_id
      where cli_id = #value#
-     and CLI_ERASE_DATE is not null
+     and CLI_ERASE_DATE is null
  </statement>
  
   <statement  id="getClientByName" resultMap="select-Client" parameterClass="java.lang.String" >
      select *       
      from clients left outer join currency on clients.currency_cur_id = currency.cur_id
      where cli_Name = #value# 
-     and CLI_ERASE_DATE is not null
+     and CLI_ERASE_DATE is null
      and rownum = 1 
  </statement>
  
@@ -64,7 +64,7 @@
      select *       
      from clients left outer join currency on clients.currency_cur_id = currency.cur_id
      where upper(clients.CLI_NAME) like '%' || upper(#value#) || '%'
-     and CLI_ERASE_DATE is not null
+     and CLI_ERASE_DATE is null
      
      
   </statement>

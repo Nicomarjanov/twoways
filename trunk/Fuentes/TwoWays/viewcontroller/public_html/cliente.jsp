@@ -33,7 +33,7 @@
   </tr>
   <tr>
     <td nowrap align="right" >Nombre o Razón social:</td>
-    <td align="left" ><input type="text" class="tw_form" id="nomCliente" name="nomCliente"  value="<c:out value="${cliente.cliName}"/>" onblur="document.getElementById('selectCli').style.display='none'"   size="50" maxlength="100"  onkeydown="buscarClientes()"  onfocus="javascript:this.style.background='#FFFFFF';"></input><div ><select id="selectCli" style="display:none;position:absolute;border:solid 1px #005C8D;"  onclick="seleccionCliente();" onblur="this.style.display='none'"  ></select></div></td>
+    <td align="left" ><input type="text" class="tw_form" id="nomCliente" name="nomCliente"  value="<c:out value="${cliente.cliName}"/>"    size="50" maxlength="100"   onkeyup="buscarClientes()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
     <td nowrap align="right" >Mail:</td>
     <td align="left"  colspan="3" ><input type="text" class="tw_form" id="mailCliente"  name="mailCliente"  value="<c:out value="${cliente.cliMail}"/>" size="30" maxlength="100"></input></td>
      

@@ -21,14 +21,11 @@
     <table cellpadding="0" cellspacing="0"  style="background:gray">
     <tr>
     <td>
-     <table id="list-documentos" >
-     <tr><th width="400" colspan="2" nowrap>Documento</th></tr>
-    
-     </table>
-     </td></tr><tr><td>
-     <div style="width:100%;height:100px;overflow-x: hidden;overflow-y:auto ;" >
      <table id="list-documento-body" align="right" width="100%">
-     <tr style="display:none" ><th width="400" colspan="2" >Documento</th></tr>
+     <thead>
+     <tr><th width="400" colspan="2" >Documento</th></tr>
+      </thead>
+      <tbody  style="width:100%;height:30px;overflow-x: hidden;overflow-y:auto ;" >
      <c:forEach items="${docList}" var="item">
        <tr name="item-documento"  bgcolor="#FFFFFF" id="ordId-<c:out value="${item.odoName}" />" >
              <td width="46" align="right" ><img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarDocumento('ordId-<c:out value="${item.odoName}" />')" onmouseover="this.style.cursor='hand';" /></td>
@@ -36,6 +33,7 @@
              </td>
        </tr>           
       </c:forEach>
+      </tbody>
      </table>
      </div>
      </td>

@@ -275,15 +275,17 @@ var ordDeadLineDate = document.getElementById("ordDeadLineDate");
 function cambioCliente(){
 
    var cliente = document.getElementById('listaClientes');
-  // alert(cliente.value);
    towaysDWR.getTarifaClienteById(cliente.value,agregarTarifaCliente); 
+   var tabla=document.getElementById('tabla-tarifas'); 
+   tabla.style.display='';
+   document.getElementById('aTar').style.display='none';
    
 }
 
 function onloadOrder(){
 
    
-     var fecha = document.getElementById("ordDate");
+    var fecha = document.getElementById("ordDate");
     
     
     if(fecha.value == '')
@@ -293,7 +295,12 @@ function onloadOrder(){
         fecha.value = ((date.getDate() < 10)?'0'+date.getDate():date.getDate())  + '/' + ((date.getMonth()+1 < 10)?''+date.getMonth()+1:(date.getMonth() +1))+ '/'+ date.getYear() ;
         
        
+    }else{
+     vistaDocumentos();
+     vistaTarifas();      
     }
+    
+   
 
 
 }
