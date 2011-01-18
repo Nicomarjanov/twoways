@@ -628,7 +628,7 @@
   <statement id="getPass"  resultClass="java.lang.String" parameterClass="java.lang.String">
      select  usr_pass
      from  users 
-     where usr_id = #value#      
+     where upper(usr_id) = upper(#value#)      
   </statement>  
 
  <select id="obtenerServices"  parameterClass="java.lang.String" resultClass="com.twoways.to.ServicesTO">

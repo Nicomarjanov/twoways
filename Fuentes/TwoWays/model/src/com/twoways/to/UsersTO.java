@@ -53,13 +53,6 @@ public class UsersTO {
         this.usrId = usrId;
     }
 
-    public String getUsrPass() {
-        return usrId;
-    }
-
-    public void setUsrPass(String usrPass) {
-        this.usrPass = usrPass;
-    }
     public String getUsrLastName() {
         return usrLastName;
     }
@@ -109,7 +102,11 @@ public class UsersTO {
     }
 
 
-    public String get_usrPass() {
+    public void setUsrPass(String usrPass) {
+        this.usrPass = usrPass;
+    }
+
+    public String getUsrPass() {
         return usrPass;
     }
 }
