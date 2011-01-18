@@ -65,15 +65,14 @@
      from clients left outer join currency on clients.currency_cur_id = currency.cur_id
      where upper(clients.CLI_NAME) like '%' || upper(#value#) || '%'
      and CLI_ERASE_DATE is null
-     
-     
+         
   </statement>
 
   <select  id="clients.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > select client_seq.nextval cliId from dual</select> 
-        
- 
- <select  id="order.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > select order_seq.nextval ordId from dual</select> 
-  
+         
+  <select  id="order.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > select order_seq.nextval ordId from dual</select>   
+
+  <select  id="client_responsable.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > select client_resp_seq.nextval creId from dual</select> 
  
   <insert id="insertClients" parameterClass="com.twoways.to.ClientsTO"   >
        
@@ -89,6 +88,14 @@
            (clients_cli_id, clr_value, rates_rat_id)
     values
           (#clientsTO.cliId#, #clrValue#, #ratesTO.ratId#)
+          
+  </insert>
+  
+  <insert id="insertClientsResponsable" parameterClass="com.twoways.to.ClientResponsableTO"   >
+    insert into client_responsable
+           (cre_id, cre_First_Name, cre_Last_Name, cre_email, cre_Phone_Number, cre_Mobile_Number, clients_cli_id)
+    values
+          (#creId#, #creFirstName#, #creLastName#, #creEmail#, #crePhoneNumber#, #creMobileNumber#, #clientsTO.cliId#)
           
   </insert>
   
@@ -121,12 +128,26 @@
       <result property="ratesTO.ratName"   column="RAT_NAME" />
       <result property="ratesTO.rateTypesTO.rtyName" column="RAT_TYPE"  />
    </resultMap>
+
+   <resultMap id="select-Cli-Responsable" class="com.twoways.to.ClientResponsableTO" >
+      <result property="creId" column="CRE_ID" />
+      <result property="creFirstName" column="CRE_FIRST_NAME" />
+      <result property="creLastName" column="CRE_LAST_NAME"/>
+      <result property="crePhoneNumber" column="CRE_PHONE_NUMBER" />
+      <result property="creMobileNumber" column="CRE_MOBILE_NUMBER"  />
+      <result property="clientsTO.cliId" column="CLIENTS_CLI_ID"/>      
+   </resultMap>   
   
   <statement  id="getClientRatesByCliId" resultMap="select-Cli-Rates"  parameterClass="com.twoways.to.ClientsTO" >
      select * from clients_rates cr join rates r on cr.rates_rat_id = r.rat_id 
      and   cr.clients_cli_id=#cliId#
   </statement>     
-     
+
+  <statement  id="getClientResponsableByCliId" resultMap="select-Cli-Responsable"  parameterClass="com.twoways.to.ClientsTO" >
+     select * from client_responsable cr 
+     where   cr.clients_cli_id=#cliId#
+  </statement>   
+  
   <insert id="updateClientsRates" parameterClass="com.twoways.to.ClientsRatesTO"   >
     update  clients_rates
     set  clr_value= #clrValue#
@@ -650,9 +671,7 @@
            (#ordersTO.ordId#,#clrValue# ,#ratesTO.ratId#)
       
   </insert>
-  
-  
-  
+
    <resultMap id="select-Order" class="com.twoways.to.OrdersTO" >
       <result property="ordId" column="ord_id" />
       <result property="ordName" column="ord_name"/>
@@ -679,10 +698,7 @@
       <result property="odoDoc" column="odo_doc"  jdbcType="BLOB" />
   </resultMap>
   
-  
-  
-  
-  
+
    <statement id="getOrderById" parameterClass="java.lang.Long" resultMap="select-Order" >
        
        select *
@@ -714,10 +730,6 @@
      select * from orders_rates ord join rates r on ord.rates_rat_id = r.rat_id and ord.orders_ord_id=#ordId#
   </statement>    
   
-  
-  
-  
-  
   <insert id="insertOrdersServices" parameterClass="java.util.Map" >
     insert into order_services
            (services_ser_name, orders_ord_id)
@@ -732,8 +744,6 @@
             s.ser_Description as serDescription
             from order_services ord join Services s on ord.services_ser_name = s.ser_id and ord.orders_ord_id=#ordId#
   </statement> 
-  
-  
     
   <update id="updateOrders" parameterClass="com.twoways.to.OrdersTO" >
          update orders

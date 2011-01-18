@@ -1,5 +1,6 @@
 package com.twoways.dao;
 
+import com.twoways.to.ClientResponsableTO;
 import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.ClientsTO;
 
@@ -44,6 +45,7 @@ public class ClientsDAOImpl extends AbstractDAO  implements ClientDAO{
     public ClientsTO getClientById(String cliId)  throws Exception{
        ClientsTO cliente =  (ClientsTO)getSqlMapClientTemplate().queryForObject("getClientById",cliId);
        cliente.setClientsRatesTOList((List<ClientsRatesTO>) getSqlMapClientTemplate().queryForList("getClientRatesByCliId",cliente) );
+       cliente.setClientResponsableTOList((List<ClientResponsableTO>) getSqlMapClientTemplate().queryForList("getClientResponsableByCliId",cliente) );
        return cliente;
     }
     
@@ -75,18 +77,27 @@ public class ClientsDAOImpl extends AbstractDAO  implements ClientDAO{
         
         Long cliId = (Long) getSqlMapClientTemplate().queryForObject("clients.seq","");
         clientsTO.setCliId(cliId); 
-       
-       
+
         getSqlMapClientTemplate().insert("insertClients",clientsTO);
         
         List cliRates = clientsTO.getClientsRatesTOList();
-        
-        for(Object clientsRatesTO: cliRates.toArray() ){
-       
-             getSqlMapClientTemplate().insert("insertClientsRates",(ClientsRatesTO)clientsRatesTO);
+        if (cliRates.size() > 0){
+            for(Object clientsRatesTO: cliRates.toArray() ){
+           
+                 getSqlMapClientTemplate().insert("insertClientsRates",(ClientsRatesTO)clientsRatesTO);
+            }
         }
-      
         
+        List cliResponsable = clientsTO.getClientResponsableTOList();
+        if (cliResponsable.size() > 0){
+            
+            for(Object clientsResponsableTO: cliResponsable.toArray() ){
+                ClientResponsableTO auxResp=(ClientResponsableTO)clientsResponsableTO;
+                Long creId = (Long) getSqlMapClientTemplate().queryForObject("client_responsable.seq","");
+                auxResp.setCreId(creId);
+                getSqlMapClientTemplate().insert("insertClientsResponsable",auxResp);
+            }      
+        }
         return getClientById(String.valueOf(cliId)); 
         
     }

@@ -222,19 +222,6 @@ function validarCampos()
     
     }
     
-    var ordStartDate = document.getElementById("ordStartDate");
-    
-    
-    if(ordStartDate.value != '')
-    {
-        if (!(isDate(ordStartDate.value)))
-        {
-        ordStartDate.style.background='Red';
-        mensajeFaltanteAlert+= ' * La fecha de inicio debe ser dd/mm/aaaa \n';
-        banderaMensajeFaltante=true;
-        }
-    }
-
 var ordFinishDate = document.getElementById("ordFinishDate");
     
     
@@ -243,23 +230,13 @@ var ordFinishDate = document.getElementById("ordFinishDate");
         if (!(isDate(ordFinishDate.value)))
         {
         ordFinishDate.style.background='Red';
-        mensajeFaltanteAlert+= ' * La fecha de fin debe ser dd/mm/aaaa \n';
+        mensajeFaltanteAlert+= ' * La fecha de entrega debe ser dd/mm/aaaa \n';
         banderaMensajeFaltante=true;
         }
     }
 
-var ordDeadLineDate = document.getElementById("ordDeadLineDate");
-    
-    
-    if(ordDeadLineDate.value != '')
-    {
-        if (!(isDate(ordDeadLineDate.value)))
-        {
-        ordDeadLineDate.style.background='Red';
-        mensajeFaltanteAlert+= ' * La fecha límite debe ser dd/mm/aaaa \n';
-        banderaMensajeFaltante=true;
-        }
-    }
+   
+  
     
     
     if(banderaMensajeFaltante)

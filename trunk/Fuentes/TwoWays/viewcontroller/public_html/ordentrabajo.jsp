@@ -36,10 +36,8 @@
          <td nowrap align="right" >Nombre </td><td colspan="8"><input type="text" size="145"  class="tw_form" name="ordName" id="ordName"  value="<c:out value="${order.ordName}" />" /></td>
          </tr>
          <tr>
-         <td nowrap align="right" >Fecha </td><td><input type="text" class="tw_form" name="ordDate" id="ordDate"  value="<fmt:formatDate value="${order.ordDate}"    pattern="dd/MM/yyyy" />" /> </td>
-         <td nowrap align="right" >Fecha de Inicio</td><td><input type="text" class="tw_form" name="ordStartDate" id="ordStartDate"  value="<fmt:formatDate value="${order.ordStartDate}"    pattern="dd/MM/yyyy" />" /> </td>
-         <td nowrap align="right" >Fecha Límite</td><td><input type="text" class="tw_form" name="ordDeadLineDate" id="ordDeadLineDate"  value="<fmt:formatDate value="${order.ordDeadLineDate}"    pattern="dd/MM/yyyy" />" /> </td>
-         <td nowrap align="right" >Fecha de fin</td><td><input type="text" class="tw_form" name="ordFinishDate" id="ordFinishDate"  value="<fmt:formatDate value="${order.ordFinishDate}"    pattern="dd/MM/yyyy" />" /> </td>
+         <td nowrap align="right" >Fecha Inicio</td><td><input type="text" class="tw_form" name="ordDate" id="ordDate"  value="<fmt:formatDate value="${order.ordDate}"    pattern="dd/MM/yyyy" />" /> </td>
+         <td nowrap align="right" >Fecha de Entrega</td><td><input type="text" class="tw_form" name="ordFinishDate" id="ordFinishDate"  value="<fmt:formatDate value="${order.ordFinishDate}"    pattern="dd/MM/yyyy" />" /> </td>
         </tr>
         <tr>
         <td nowrap align="right" >Cliente </td><td >

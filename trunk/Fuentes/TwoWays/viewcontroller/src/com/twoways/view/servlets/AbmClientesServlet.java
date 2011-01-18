@@ -1,6 +1,7 @@
 package com.twoways.view.servlets;
 
 import com.twoways.core.bdl.TwoWaysBDL;
+import com.twoways.to.ClientResponsableTO;
 import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.ClientsTO;
 import com.twoways.to.CurrencyTO;
@@ -76,8 +77,7 @@ public class AbmClientesServlet extends AutorizacionServlet {
             List<ClientsRatesTO> clientsRatesTOList = new   ArrayList<ClientsRatesTO>();
             
             if( tarifasHidden  != null){ 
-                
-               
+                               
                 for(String aux:tarifasHidden){
                     
                     String atribs[]= aux.split("#");
@@ -86,11 +86,30 @@ public class AbmClientesServlet extends AutorizacionServlet {
                     clientsRatesTO.setClrValue(Float.parseFloat(atribs[1].replaceAll(",",".")));
                     RatesTO rtTO= new RatesTO();
                     rtTO.setRatId(Long.parseLong(atribs[0]));
-                    clientsRatesTO.setRatesTO(rtTO );
+                    clientsRatesTO.setRatesTO(rtTO);
                     clientsRatesTOList.add(clientsRatesTO);
                     clientsRatesTO.setClientsTO(cliente);
                 }
-            }                    
+            }  
+            String responsableHidden[]=request.getParameterValues("responsable-hidden");
+            List<ClientResponsableTO> clientsResponsableTOList = new   ArrayList<ClientResponsableTO>();            
+            if( responsableHidden  != null){ 
+
+                for(String auxiliar:responsableHidden){
+                    
+                    String atributos[]= auxiliar.split("#");
+                    
+                    ClientResponsableTO clientResponsableTO = new ClientResponsableTO();
+                    clientResponsableTO.setCreFirstName(atributos[0]);
+                    clientResponsableTO.setCreLastName(atributos[1]);
+                    clientResponsableTO.setCreEmail((atributos[2] != null || atributos[2].length()== 0)?atributos[2]:"");
+                    clientResponsableTO.setCrePhoneNumber((atributos[3]!= null || atributos[3].length()== 0)?atributos[3]:"");
+                    clientResponsableTO.setCreMobileNumber((atributos[4]!= null || atributos[4].length()== 0)?atributos[4]:"");
+                    clientsResponsableTOList.add(clientResponsableTO);
+                    clientResponsableTO.setClientsTO(cliente);
+                }
+            }
+            
             CurrencyTO currency= new CurrencyTO(); 
             //RatesTO rate= new RatesTO();
             //rate.setRatId((request.getParameter("listaTarifa")!= null && request.getParameter("listaTarifa").length() > 0 )?Long.parseLong(request.getParameter("listTarifa")):0);
@@ -104,7 +123,7 @@ public class AbmClientesServlet extends AutorizacionServlet {
             cliente.setCliPostalCode((request.getParameter("cpCliente")!= null )?request.getParameter("cpCliente"):"");
             cliente.setCurrencyTO(currency);
             cliente.setClientsRatesTOList(clientsRatesTOList);
-            
+            cliente.setClientResponsableTOList(clientsResponsableTOList);
 
             try {
                 
@@ -133,9 +152,7 @@ public class AbmClientesServlet extends AutorizacionServlet {
             }
             request.setAttribute("script","<script>init();</script>");
             request.setAttribute("mensaje","<script>alert('El cliente se guardo con exito')</script>");
-            
-            
-            
+   
         }
         else  if(cliId != null && cliId.length() > 0  && (accion == null || (accion!=null && !accion.equalsIgnoreCase("cancelar")) )){
           

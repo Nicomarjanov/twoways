@@ -10,6 +10,7 @@
     <link href="./twoways.css" rel="stylesheet" type="text/css"/>
     <script type='text/javascript' src="./js/cliente.js"></script>
     <script type='text/javascript' src="./js/agregartarifa.js"></script>
+    <script type='text/javascript' src="./js/agregarresponsable.js"></script>    
     <script type='text/javascript' src="./js/utils.js"></script>
     <script type='text/javascript' src='/twoways/dwr/interface/towaysDWR.js'></script>
     <script type='text/javascript' src='/twoways/dwr/engine.js'></script>
@@ -87,6 +88,9 @@
   <c:set scope="request"     var="ratesTOList" value="${cliente.clientsRatesTOList}" /> 
   <jsp:include page="/WEB-INF/jspIncludes/agregartarifas.jsp"/>
   <hr>
+  <jsp:include page="/WEB-INF/jspIncludes/agregarresponsable.jsp"/>
+  <hr>  
+    
   <table width="100%">
   <tr>
   <td align="right"><input type="button" id="aceptar" value="Aceptar" onclick="agregar()"/></td>   
