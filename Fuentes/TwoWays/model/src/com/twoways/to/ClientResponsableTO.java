@@ -12,9 +12,9 @@ public class ClientResponsableTO {
     //(name="CRE_LAST_NAME")
     private String creLastName;
     //(name="CRE_MOBILE_NUMBER")
-    private Long creMobileNumber;
+    private String creMobileNumber;
     //(name="CRE_PHONE_NUMBER")
-    private Long crePhoneNumber;
+    private String crePhoneNumber;
     private ClientsTO clientsTO;
 
     public ClientResponsableTO() {
@@ -53,19 +53,19 @@ public class ClientResponsableTO {
         this.creLastName = creLastName;
     }
 
-    public Long getCreMobileNumber() {
+    public String getCreMobileNumber() {
         return creMobileNumber;
     }
 
-    public void setCreMobileNumber(Long creMobileNumber) {
+    public void setCreMobileNumber(String creMobileNumber) {
         this.creMobileNumber = creMobileNumber;
     }
 
-    public Long getCrePhoneNumber() {
+    public String getCrePhoneNumber() {
         return crePhoneNumber;
     }
 
-    public void setCrePhoneNumber(Long crePhoneNumber) {
+    public void setCrePhoneNumber(String crePhoneNumber) {
         this.crePhoneNumber = crePhoneNumber;
     }
 

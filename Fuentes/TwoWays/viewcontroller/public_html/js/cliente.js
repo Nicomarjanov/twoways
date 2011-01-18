@@ -140,16 +140,17 @@ function postEliminar(data){
 
 
 function buscarClientesCallBack(data){
-   
-    var tablaClientes= document.getElementById('tabla-busqueda');
-    borrarFilas(tablaClientes);
-    if (data.length > 0) {
-      document.getElementById('div-clientes').style.display='';
-     
+   if (data.length > 0) {
+      var tablaClientes= document.getElementById('tabla-busqueda');
+      borrarFilas(tablaClientes);
+      document.getElementById('div-clientes').style.display='';     
       for(var i=0 ; i<   data.length; i++){
         insertarFila(tablaClientes,data[i]);
       } 
-    }
+   }
+   else {
+     document.getElementById('div-clientes').style.display='none';
+  }
 }
 
 function validarCampos()

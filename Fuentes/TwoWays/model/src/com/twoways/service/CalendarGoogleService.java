@@ -263,8 +263,11 @@ public class CalendarGoogleService {
     EventWho eventWho=new EventWho();
     eventWho.setEmail("lucianonicolasfernandez@gmail.com");
     myEntry.addParticipant(eventWho);
-    eventWho=new EventWho();
-    eventWho.setEmail("nicomarjanov@gmail.com");
+    /*eventWho=new EventWho();
+    eventWho.setEmail("milena@twoways.net");
+    myEntry.addParticipant(eventWho);
+    */eventWho=new EventWho();
+    eventWho.setEmail("luciano.fernandez@hotmail.com");
     myEntry.addParticipant(eventWho);
     // If a recurrence was requested, add it. Otherwise, set the
     // time (the current date and time) and duration (30 minutes)

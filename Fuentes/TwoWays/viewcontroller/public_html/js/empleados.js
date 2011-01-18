@@ -269,7 +269,8 @@ function postEliminar(data){
 }
 
 function buscarEmpleadosCallBack(data){
-  if (data.length > 0) {
+  
+  if (data != null && data.length > 0) {
       document.getElementById('div-empleados').style.display='';
       var tablaBusqueda= document.getElementById('tabla-busqueda');
       borrarFilas(tablaBusqueda);
@@ -328,9 +329,9 @@ function validarCampos()
         }
     }
     
-    for(var i=0;i<document.getElementById("listaTipoEmp").options.length;i++)
+    for(var i=0;i<document.getElementById("listaItemsSelect").options.length;i++)
     {
-        if(document.getElementById("listaTipoEmp").options[i].value = 'Traductor'){
+        if(document.getElementById("listaItemsSelect").options[i].value = 'Traductor'){
             var banTraductor=true;
         }
     }
