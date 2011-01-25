@@ -103,8 +103,6 @@ function buscarClientes(){
     }
 }
 
-
-
 function cargarDatosColumna(row,data){
 
     
@@ -120,11 +118,14 @@ function cargarDatosColumna(row,data){
 
 function  eliminarCliente(cliId){
  
- if (confirm('¿Esta seguro que desea eliminar el cliente?') ){
- 
-    towaysDWR.deleterCliente(cliId,postEliminar); 
+if (cliId != null){ 
+     if (confirm('¿Esta seguro que desea eliminar el cliente?') ){ 
+        towaysDWR.deleterCliente(cliId,postEliminar);      
+      }
+  }
+  else {
+     alert('Debe seleccionar un cliente antes de eliminar');
  }
-
 }
 
 function postEliminar(data){

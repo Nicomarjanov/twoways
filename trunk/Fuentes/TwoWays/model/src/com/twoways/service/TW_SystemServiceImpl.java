@@ -389,12 +389,12 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     public AccountDAO getAccountDao() {
         return accountDao;
     }  
-    public void insertarAccount(AccountsTO accountsTO) throws Exception{
-            this.accountDao.insertarAccount(accountsTO);
+    public AccountsTO insertarAccount(AccountsTO accountsTO) throws Exception{
+           return this.accountDao.insertarAccount(accountsTO);
         }
         
-    public void actualizarAccount(AccountsTO accountsTO) throws Exception {
-            this.accountDao.actualizarAccount(accountsTO);
+    public AccountsTO actualizarAccount(AccountsTO accountsTO) throws Exception {
+           return this.accountDao.actualizarAccount(accountsTO);
         }
 
     public boolean deleteAccount(AccountsTO cuenta) throws Exception{
@@ -410,8 +410,6 @@ public class TW_SystemServiceImpl implements TW_SystemService{
       }      
       
     public List buscarAccounts(String search) throws Exception{
-      return this.itemDao.buscarItems(search);
+      return this.accountDao.buscarAccounts(search);
     }      
-
-
 }

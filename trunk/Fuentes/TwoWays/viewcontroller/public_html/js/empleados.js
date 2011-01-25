@@ -18,16 +18,22 @@ function init(){
 }
 
 function vistaTarifas(){
-
+   var listaEmp = document.getElementById("listaItemsSelect");
    var tabla=document.getElementById('tabla-tarifas'); 
-   if(tabla.style.display =='none'){
-       tabla.style.display='';
-       document.getElementById('aTar').style.display='none';
-       
-   }else{
-       tabla.style.display='none';
-        document.getElementById('aTar').style.display='';
+   if (listaEmp.options.length > 0 ){   
+       if(tabla.style.display =='none'){
+           tabla.style.display='';
+           document.getElementById('aTar').style.display='none';
+           
+       }else{
+           tabla.style.display='none';
+            document.getElementById('aTar').style.display='';
+       }
    }
+   else {
+       alert('Debe seleccionar una especialidad de la lista de especialidades disponibles antes de asignar una tarifa');
+       document.getElementById("listaTipoEmp").focus();
+  }
 }
 
 function vistaTraductor(){
@@ -55,6 +61,7 @@ function vistaTraductor(){
    }
     if (bandera == 0){
         alert('Debe seleccionar la especialidad Traductor en la lista de especialidades disponibles');
+        document.getElementById("listaTipoEmp").focus();
     }
 }
 
@@ -286,6 +293,7 @@ function buscarEmpleadosCallBack(data){
 
 function validarCampos()
 {
+    var listaEmp = document.getElementById("listaItemsSelect");
     var banderaMensajeFaltante=false;
     mensajeCampoAlert='';
     mensajeFaltanteAlert = 'Se tiene que completar los siguientes campos: \n';
@@ -329,35 +337,54 @@ function validarCampos()
         }
     }
     
-    for(var i=0;i<document.getElementById("listaItemsSelect").options.length;i++)
+   if (listaEmp.options.length > 0 ){   
+    
+        for(var i=0;i<listaEmp.options.length;i++)
+        {
+            if(listaEmp.options[i].value = 'Traductor'){
+                var banTraductor=true;
+            }
+        }
+        if (banTraductor){
+                if(document.getElementById("listaIdiomas").selectedIndex==0)
+                {
+                    document.getElementById("listaIdiomas").style.background='red';
+                    mensajeFaltanteAlert+='* Seleccionar un idioma del combo \n';    
+                    banderaMensajeFaltante=true;
+                }
+                
+                if(document.getElementById("listaLengua1").selectedIndex==0)
+                {
+                    document.getElementById("listaLengua1").style.background='red';
+                    mensajeFaltanteAlert+='* Seleccionar una lengua principal del combo \n';    
+                    banderaMensajeFaltante=true;
+                }
+            
+                if(document.getElementById("tipoEspecialidad").selectedIndex==0)
+                {
+                    document.getElementById("tipoEspecialidad").style.background='red';
+                    mensajeFaltanteAlert+='* Seleccionar una especialidad del combo \n';    
+                    banderaMensajeFaltante=true;
+                }
+        }
+   }
+   else {
+       mensajeFaltanteAlert+='Debe seleccionar una especialidad de la lista de especialidades disponibles antes de cargar el empleado';
+       document.getElementById("listaTipoEmp").focus();
+       banderaMensajeFaltante=true;
+   }
+   
+    var fecha = document.getElementById("empBirth");
+
+    if(fecha.value != '')
     {
-        if(document.getElementById("listaItemsSelect").options[i].value = 'Traductor'){
-            var banTraductor=true;
+        if (!(isDate(fecha.value)))
+        {
+        fecha.style.background='Red';
+        mensajeFaltanteAlert+= ' * La fecha debe ser dd/mm/aaaa \n';
+        banderaMensajeFaltante=true;
         }
     }
-    if (banTraductor){
-            if(document.getElementById("listaIdiomas").selectedIndex==0)
-            {
-                document.getElementById("listaIdiomas").style.background='red';
-                mensajeFaltanteAlert+='* Seleccionar un idioma del combo \n';    
-                banderaMensajeFaltante=true;
-            }
-            
-            if(document.getElementById("listaLengua1").selectedIndex==0)
-            {
-                document.getElementById("listaLengua1").style.background='red';
-                mensajeFaltanteAlert+='* Seleccionar una lengua principal del combo \n';    
-                banderaMensajeFaltante=true;
-            }
-        
-            if(document.getElementById("tipoEspecialidad").selectedIndex==0)
-            {
-                document.getElementById("tipoEspecialidad").style.background='red';
-                mensajeFaltanteAlert+='* Seleccionar una especialidad del combo \n';    
-                banderaMensajeFaltante=true;
-            }
-    }
-    
     
     if(banderaMensajeFaltante)
         mensajeCampoAlert=mensajeFaltanteAlert + '\n';    

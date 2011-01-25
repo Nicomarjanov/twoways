@@ -124,11 +124,11 @@ public interface TW_SystemService {
     
     public List obtenerIdioma()throws Exception;
     
-    public void insertarAccount(AccountsTO accountsTO) throws Exception;
+    public AccountsTO insertarAccount(AccountsTO accountsTO) throws Exception;
     
     public boolean deleteAccount(AccountsTO cuenta) throws Exception;
     
-    public void actualizarAccount(AccountsTO accountsTO) throws Exception;    
+    public AccountsTO actualizarAccount(AccountsTO accountsTO) throws Exception;    
 
     public List obtenerAccount() throws Exception;    
 

@@ -190,8 +190,16 @@ background-color:#EE9A98;
     color: #80211D;
 }
 
+#list-responsables-body td
+{
+  
+  font-size: 9px;
+  padding:1px 5px 1px 5px;
+}
+
 table.tw_form
 {
+  border:solid 1px #005C8D;
 }
 
 
@@ -253,3 +261,60 @@ A:hover {COLOR: #0066CC; TEXT-DECORATION: none}
 a {
      border-bottom-style:none
 }
+
+
+div.fixedHeaderTable {
+      position: relative;
+  }
+  div.fixedHeaderTable table {
+      width:100%;
+  }
+  div.fixedHeaderTable tbody {
+      height: 100px;
+     overflow-y: auto;
+     overflow-x: hidden;
+ }
+ /*div.fixedHeaderTable table th {
+     background-color:#CCCCCC;font-weight:bold
+ }
+ div.fixedHeaderTable table td {
+     background-color:#EEEEEE
+ }*/
+ div.fixedHeaderTable thead td, div.fixedHeaderTable thead th {
+     position:relative;
+ }
+ 
+ /* IE7 hacks */
+ div.fixedHeaderTable {
+     *position: relative;
+     *height: 100px;
+     *overflow-y: scroll;
+     *overflow-x: hidden;
+     *padding-right:16px;
+ }
+ 
+ div.fixedHeaderTable thead tr {
+     *position: relative;
+     _position: absolute;
+     *top: expression(this.offsetParent.scrollTop-2);
+     *background:none;
+     background-color:transparent;
+ }
+  
+ div.fixedHeaderTable tbody {
+     *height: auto;
+     *position:absolute;
+     *top:50px;   
+ }
+
+ /* IE6 hacks */
+ div.fixedHeaderTable {
+     _width:expression(this.offsetParent.clientWidth-20);
+     _overflow: auto;
+     _overflow-y: scroll;
+     _overflow-x: hidden;
+ }
+ div.fixedHeaderTable thead tr {
+     _position: relative
+ }
+

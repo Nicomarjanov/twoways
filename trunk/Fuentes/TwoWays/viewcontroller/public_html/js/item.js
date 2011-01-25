@@ -87,8 +87,8 @@ function buscarItems(){
 function cargarDatosColumna(row,data){
     
    row.cells[0].innerHTML=(data.itmId==null)?'':'<a href="items?itmId='+data.itmId+'" >'+data.itmName+'</a>';
-   row.cells[1].innerHTML=(data.itmName==null)?'':data.itmType;   
-   row.cells[2].innerHTML=(data.itmType==null)?'':data.itmDescription;      
+   row.cells[1].innerHTML=(data.itmType==null)?'':data.itmType;   
+   row.cells[2].innerHTML=(data.itmDescription==null)?'':data.itmDescription;      
 
    var editar = '<img src="img/edit.png"  height="25" width="25" alt="Editar" onclick="javascript:window.location.href=\'items?itmId='+data.itmId+'\'" onmouseover="this.style.cursor=\'hand\';"/> ';
    var eliminar = '<img  src="img/Delete.png" height="25" width="25" alt="Eliminar" onclick="eliminarItem('+data.itmId+')" onmouseover="this.style.cursor=\'hand\';"/>'
@@ -117,14 +117,14 @@ function postEliminar(data){
 }
 
 function buscarItemsCallBack(data){
-alert(data.length);
+
  if (data.length > 0) {
     document.getElementById('div-items').style.display='';
-    var tablaTarifas= document.getElementById('tabla-busqueda');
-    borrarFilas(tablaTarifas);
+    var tablaBusqueda= document.getElementById('tabla-busqueda');
+    borrarFilas(tablaBusqueda);
   
     for(var i=0 ; i<   data.length; i++){
-        insertarFila(tablaTarifas,data[i]);    
+        insertarFila(tablaBusqueda,data[i]);    
     }
  }
  else {

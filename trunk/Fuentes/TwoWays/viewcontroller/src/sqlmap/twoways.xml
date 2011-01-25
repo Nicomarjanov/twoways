@@ -795,6 +795,51 @@
           and orders_ord_id = #ordId#
   </delete>  
   
+    <!-- Cuentas -->
+  <select id="accounts.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > select account_seq.nextval accId from dual</select>   
+
+  <insert id="insertAccount" parameterClass="com.twoways.to.AccountsTO" >
+      insert into accounts
+          (acc_id, acc_name, acc_number, acc_description, acc_details)
+        values
+          (#accId#, #accName#, #accNumber#, #accDescription#, #accDetails#)                        
+  </insert>
+
+  <update  id="updateAccount" parameterClass="com.twoways.to.AccountsTO">
+      UPDATE accounts
+         SET acc_name = #accName#, 
+             acc_number = #accNumber#,
+             acc_description = #accDescription#,
+             acc_details = #accDetails#
+      WHERE  acc_id = #accId#                     
+  </update>  
+  
+  <resultMap id="select-Account-List"  class="com.twoways.to.AccountsTO" >
+      <result property="accName" column="ACC_NAME" />
+      <result property="accId"   column="ACC_ID" />
+      <result property="accNumber" column="ACC_NUMBER"  />
+      <result property="accDescription" column="ACC_DESCRIPTION" />
+      <result property="accDetails" column="ACC_DETAILS" />      
+  </resultMap>
+    
+  <statement id="buscarAccounts" resultMap="select-Account-List"  parameterClass="java.lang.String" >
+     select *       
+     from accounts
+     where upper(ACC_NAME) like '%' || upper( #value#) || '%'
+     order by ACC_NAME
+     
+  </statement>
+
+  <delete id="deleteAccount" parameterClass="com.twoways.to.AccountsTO">
+        DELETE Accounts
+        WHERE  acc_id = #accId#    
+ </delete> 
+  
+   <select id="getAccountById" parameterClass="java.lang.String" resultMap="select-Account-List">
+     select *
+     from Accounts 
+     where acc_id = #value#
+ </select>
   
   
 </sqlMap> 
