@@ -25,7 +25,7 @@
   <input type="hidden" id="accion" name="accion" value=""/>
   <input type="hidden" id="userId" name="userId" value="<c:out value="${usuario.usrId}"/>"/>
   <div align="center">
-  <table width="100%" class="tw_form">
+  <table width="100%">
   <tr>
     <th colspan="6" class="tw_form">Ingrese los campos con los datos de los usuarios</th>
   </tr>
@@ -87,11 +87,12 @@
   </div>
   <br>
   <hr>
-  <table width="100%">
-  <tr>
-  <td align="right"><input type="button" id="aceptar" value="Aceptar" onclick="agregar()"/></td>   
-  <td align="left"><input type="button" id="cancel" value="Cancelar" OnClick="cancelar()"/></td>   
-  </tr>
+  <table width="25%" align="center">
+   <tr>
+      <td align="right"><input type="button" id="aceptar" value="Aceptar" onclick="agregar()"/></td>   
+      <td align="left"><input type="button" id="cancel" value="Cancelar" OnClick="cancelar()"/></td> 
+      <td align="left"><input type="button" id="eliminar" value="Eliminar" disabled OnClick="eliminarUsuario(<c:out value="${usuario.usrId}"/>)"/></td>
+    </tr>
   </table>
   
   <div id="div-usuarios" style="display:none" align="center">

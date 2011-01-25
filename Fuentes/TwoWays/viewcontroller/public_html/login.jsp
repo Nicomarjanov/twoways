@@ -18,7 +18,10 @@
            conectar();
         }
     }
-        
+    
+    function cursor(){
+       document.getElementById('usuario').focus();
+    }
 
      function conectar(){
       var msj ="";
@@ -41,7 +44,7 @@
      }
     </script>
   </head>
-  <body>
+  <body onLoad="cursor()">
   <div style="width:100%;heigth:100%" >
   <table width="100%" >
 <tr>
@@ -54,7 +57,7 @@
   <table>
   <tr><th colspan="2" class="tw_form">Conectar a TWO WAYS</th></tr>
   <tr><td colspan="2" id="mensajeError"  style="color:red"><c:out value="${requestScope.mensajeError}"/></td></tr>
-  <tr><td><b>Usuario: </b> </td><td><input class="tw_form" type="text" name="usuario"/></td></tr>
+  <tr><td><b>Usuario: </b> </td><td><input class="tw_form" type="text" name="usuario" id="usuario"/></td></tr>
   <tr><td><b>Contraseña: </b> </td><td><input class="tw_form" type="password" name="password" onkeypress="conectar"/></td></tr> 
   <tr><td>&nbsp; </td><td align="right" ><input type="button" onclick="conectar()"  value="Conectar" /></td></tr>
   </table >

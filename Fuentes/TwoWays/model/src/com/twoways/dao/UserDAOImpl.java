@@ -23,12 +23,14 @@ public class UserDAOImpl extends AbstractDAO  implements UserDAO{
        return usuario;
     }
 
-    public void insertarUsuario(UsersTO usersTO)  throws Exception {
-            getSqlMapClientTemplate().insert("insertUser",usersTO);
+    public UsersTO insertarUsuario(UsersTO usersTO)  throws Exception {
+        getSqlMapClientTemplate().insert("insertUser",usersTO);
+        return getUserById(String.valueOf(usersTO.getUsrId()));
     }
 
-    public void updateUsuario(UsersTO usersTO) {
+    public UsersTO updateUsuario(UsersTO usersTO) throws Exception {
         getSqlMapClientTemplate().insert("updateUser",usersTO);
+        return getUserById(String.valueOf(usersTO.getUsrId()));
     }
 
     public List buscarUsuarios(String search) throws Exception{

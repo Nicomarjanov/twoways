@@ -5,6 +5,7 @@ import com.twoways.to.ClientsTO;
 
 import org.apache.log4j.Logger;
 import com.twoways.core.bdl.TwoWaysBDL;
+import com.twoways.to.AccountsTO;
 import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.EmployeesTO;
 
@@ -206,6 +207,28 @@ public class ServiceTW_System {
        return null;
     
     }
+    
+    public boolean deleterAccount(Long accId){
+         try {
+         
+             AccountsTO accDelete= new AccountsTO();
+             accDelete.setAccId(accId); 
+             return twoWaysBDL.getServiceTwoWays().deleteAccount(accDelete);
+         } catch (Exception e) {
+             
+             e.printStackTrace(); log.error(e,e);
+         }
+         return false;
+     }
+
+    public List buscarCuentas(String search)  {
+       try {
+           return twoWaysBDL.getServiceTwoWays().buscarAccounts(search);
+       } catch (Exception e) {
+           e.printStackTrace(); log.error(e,e);
+       }
+       return null;    
+    }    
     
     public void setTwoWaysBDL(TwoWaysBDL twoWaysBDL) {
         this.twoWaysBDL = twoWaysBDL;

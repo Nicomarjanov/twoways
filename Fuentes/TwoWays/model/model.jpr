@@ -67,6 +67,10 @@
    </hash>
    <hash n="oracle.bm.commonIde.data.project.ModelerProjectSettings">
       <hash n="modelersContentSet">
+         <list n="pattern-filters">
+            <string v="-model/"/>
+            <string v="+**"/>
+         </list>
          <list n="url-path">
             <url path="model/"/>
          </list>
@@ -109,6 +113,96 @@
    <hash n="oracle.jdeveloper.offlinedb.model.OfflineDBProjectSettings">
       <hash n="offlineDBContentSet">
          <list n="pattern-filters">
+            <string v="-TWOWAYS/USERS2.table"/>
+            <string v="-TWOWAYS/TRANSLATORS2.table"/>
+            <string v="-TWOWAYS/SERVICES2.table"/>
+            <string v="-TWOWAYS/ROLES2.table"/>
+            <string v="-TWOWAYS/RATES2.table"/>
+            <string v="-TWOWAYS/RATE_TYPES2.table"/>
+            <string v="-TWOWAYS/PROJECTS2.table"/>
+            <string v="-TWOWAYS/PROJECTS_RATES2.table"/>
+            <string v="-TWOWAYS/PROJECT_ASSIGNMENTS2.table"/>
+            <string v="-TWOWAYS/PAYMENTS2.table"/>
+            <string v="-TWOWAYS/ORDERS2.table"/>
+            <string v="-TWOWAYS/ORDERS_RATES2.table"/>
+            <string v="-TWOWAYS/ORDERS_DOCS2.table"/>
+            <string v="-TWOWAYS/ORDER_SERVICES2.table"/>
+            <string v="-TWOWAYS/LANGUAGUES2.table"/>
+            <string v="-TWOWAYS/ITEMS2.table"/>
+            <string v="-TWOWAYS/ITEMS_INVOICES2.table"/>
+            <string v="-TWOWAYS/ITEMS_EXPENSES2.table"/>
+            <string v="-TWOWAYS/INVOICES2.table"/>
+            <string v="-TWOWAYS/EXPENSES2.table"/>
+            <string v="-TWOWAYS/EMPLOYEES2.table"/>
+            <string v="-TWOWAYS/EMPLOYEES_TYPES2.table"/>
+            <string v="-TWOWAYS/EMPLOYEES_RATES2.table"/>
+            <string v="-TWOWAYS/EMPLOYEE_TYPE2.table"/>
+            <string v="-TWOWAYS/CURRENCY2.table"/>
+            <string v="-TWOWAYS/CURRENCY_COTIZATIONS2.table"/>
+            <string v="-TWOWAYS/CLIENTS2.table"/>
+            <string v="-TWOWAYS/CLIENTS_RATES2.table"/>
+            <string v="-TWOWAYS/CLIENT_RESPONSABLE2.table"/>
+            <string v="-TWOWAYS/ACCOUNTS2.table"/>
+            <string v="-TWOWAYS/USERS1.table"/>
+            <string v="-TWOWAYS/USERS.table"/>
+            <string v="-TWOWAYS/TRANSLATORS1.table"/>
+            <string v="-TWOWAYS/TRANSLATORS.table"/>
+            <string v="-TWOWAYS/SERVICES1.table"/>
+            <string v="-TWOWAYS/SERVICES.table"/>
+            <string v="-TWOWAYS/ROLES1.table"/>
+            <string v="-TWOWAYS/ROLES.table"/>
+            <string v="-TWOWAYS/RATES1.table"/>
+            <string v="-TWOWAYS/RATES.table"/>
+            <string v="-TWOWAYS/RATE_TYPES1.table"/>
+            <string v="-TWOWAYS/RATE_TYPES.table"/>
+            <string v="-TWOWAYS/PROJECTS1.table"/>
+            <string v="-TWOWAYS/PROJECTS_RATES1.table"/>
+            <string v="-TWOWAYS/PROJECTS_RATES.table"/>
+            <string v="-TWOWAYS/PROJECTS.table"/>
+            <string v="-TWOWAYS/PROJECT_ASSIGNMENTS1.table"/>
+            <string v="-TWOWAYS/PROJECT_ASSIGNMENTS.table"/>
+            <string v="-TWOWAYS/PAYMENTS1.table"/>
+            <string v="-TWOWAYS/PAYMENTS.table"/>
+            <string v="-TWOWAYS/ORDERS1.table"/>
+            <string v="-TWOWAYS/ORDERS_RATES1.table"/>
+            <string v="-TWOWAYS/ORDERS_RATES.table"/>
+            <string v="-TWOWAYS/ORDERS_DOCS1.table"/>
+            <string v="-TWOWAYS/ORDERS_DOCS.table"/>
+            <string v="-TWOWAYS/ORDERS.table"/>
+            <string v="-TWOWAYS/ORDER_SERVICES1.table"/>
+            <string v="-TWOWAYS/ORDER_SERVICES.table"/>
+            <string v="-TWOWAYS/LANGUAGUES1.table"/>
+            <string v="-TWOWAYS/LANGUAGUES.table"/>
+            <string v="-TWOWAYS/ITEMS1.table"/>
+            <string v="-TWOWAYS/ITEMS_INVOICES1.table"/>
+            <string v="-TWOWAYS/ITEMS_INVOICES.table"/>
+            <string v="-TWOWAYS/ITEMS_EXPENSES1.table"/>
+            <string v="-TWOWAYS/ITEMS_EXPENSES.table"/>
+            <string v="-TWOWAYS/ITEMS.table"/>
+            <string v="-TWOWAYS/INVOICES1.table"/>
+            <string v="-TWOWAYS/INVOICES.table"/>
+            <string v="-TWOWAYS/EXPENSES1.table"/>
+            <string v="-TWOWAYS/EXPENSES.table"/>
+            <string v="-TWOWAYS/EMPLOYEES1.table"/>
+            <string v="-TWOWAYS/EMPLOYEES_TYPES1.table"/>
+            <string v="-TWOWAYS/EMPLOYEES_TYPES.table"/>
+            <string v="-TWOWAYS/EMPLOYEES_RATES1.table"/>
+            <string v="-TWOWAYS/EMPLOYEES_RATES.table"/>
+            <string v="-TWOWAYS/EMPLOYEES.table"/>
+            <string v="-TWOWAYS/EMPLOYEE_TYPE1.table"/>
+            <string v="-TWOWAYS/EMPLOYEE_TYPE.table"/>
+            <string v="-TWOWAYS/CURRENCY1.table"/>
+            <string v="-TWOWAYS/CURRENCY_COTIZATIONS1.table"/>
+            <string v="-TWOWAYS/CURRENCY_COTIZATIONS.table"/>
+            <string v="-TWOWAYS/CURRENCY.table"/>
+            <string v="-TWOWAYS/CLIENTS1.table"/>
+            <string v="-TWOWAYS/CLIENTS_RATES1.table"/>
+            <string v="-TWOWAYS/CLIENTS_RATES.table"/>
+            <string v="-TWOWAYS/CLIENTS.table"/>
+            <string v="-TWOWAYS/CLIENT_RESPONSABLE1.table"/>
+            <string v="-TWOWAYS/CLIENT_RESPONSABLE.table"/>
+            <string v="-TWOWAYS/ACCOUNTS1.table"/>
+            <string v="-TWOWAYS/ACCOUNTS.table"/>
             <string v="-script3.sql"/>
             <string v="-script2.sql"/>
             <string v="-script1.sql"/>
@@ -217,11 +311,11 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Google-collect-1.0-rc1.jar"/>
+            <value n="id" v="Jsr305.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Jsr305.jar"/>
+            <value n="id" v="Google-collect-1.0-rc1.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
@@ -233,11 +327,15 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Gdata-calendar-2.0.jar"/>
+            <value n="id" v="Deps"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
             <value n="id" v="Gdata-calendar-meta-2.0.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Gdata-calendar-2.0.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
@@ -428,7 +526,7 @@
             </hash>
             <hash>
                <list n="classPath">
-                  <url path="../../../../CalendarSample/lib/deps/activation.jar" jar-entry=""/>
+                  <url path="../../../../../CalendarSample/lib/deps/activation.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
                <value n="description" v="Activation.jar"/>
@@ -437,16 +535,7 @@
             </hash>
             <hash>
                <list n="classPath">
-                  <url path="../../../../CalendarSample/lib/deps/google-collect-1.0-rc1.jar" jar-entry=""/>
-               </list>
-               <value n="deployedByDefault" v="true"/>
-               <value n="description" v="Google-collect-1.0-rc1.jar"/>
-               <value n="id" v="Google-collect-1.0-rc1.jar"/>
-               <value n="locked" v="true"/>
-            </hash>
-            <hash>
-               <list n="classPath">
-                  <url path="../../../../CalendarSample/lib/deps/jsr305.jar" jar-entry=""/>
+                  <url path="../../../../../CalendarSample/lib/deps/jsr305.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
                <value n="description" v="Jsr305.jar"/>
@@ -455,7 +544,16 @@
             </hash>
             <hash>
                <list n="classPath">
-                  <url path="../../../../CalendarSample/lib/deps/mail.jar" jar-entry=""/>
+                  <url path="../../../../../CalendarSample/lib/deps/google-collect-1.0-rc1.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Google-collect-1.0-rc1.jar"/>
+               <value n="id" v="Google-collect-1.0-rc1.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../../../../../CalendarSample/lib/deps/mail.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
                <value n="description" v="Mail.jar"/>
@@ -464,7 +562,7 @@
             </hash>
             <hash>
                <list n="classPath">
-                  <url path="../../../../CalendarSample/lib/deps/servlet-api-2.4.jar" jar-entry=""/>
+                  <url path="../../../../../CalendarSample/lib/deps/servlet-api-2.4.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
                <value n="description" v="Servlet-api-2.4.jar"/>
@@ -473,11 +571,11 @@
             </hash>
             <hash>
                <list n="classPath">
-                  <url path="../../../../CalendarSample/lib/gdata-calendar-2.0.jar" jar-entry=""/>
+                  <url path="../../../../../CalendarSample/lib/deps/"/>
                </list>
                <value n="deployedByDefault" v="true"/>
-               <value n="description" v="Gdata-calendar-2.0.jar"/>
-               <value n="id" v="Gdata-calendar-2.0.jar"/>
+               <value n="description" v="Deps"/>
+               <value n="id" v="Deps"/>
                <value n="locked" v="true"/>
             </hash>
             <hash>
@@ -487,6 +585,15 @@
                <value n="deployedByDefault" v="true"/>
                <value n="description" v="Gdata-calendar-meta-2.0.jar"/>
                <value n="id" v="Gdata-calendar-meta-2.0.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../../../../CalendarSample/lib/gdata-calendar-2.0.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Gdata-calendar-2.0.jar"/>
+               <value n="id" v="Gdata-calendar-2.0.jar"/>
                <value n="locked" v="true"/>
             </hash>
             <hash>
@@ -604,11 +711,11 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Google-collect-1.0-rc1.jar"/>
+            <value n="id" v="Jsr305.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Jsr305.jar"/>
+            <value n="id" v="Google-collect-1.0-rc1.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
@@ -620,11 +727,15 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Gdata-calendar-2.0.jar"/>
+            <value n="id" v="Deps"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
             <value n="id" v="Gdata-calendar-meta-2.0.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Gdata-calendar-2.0.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>

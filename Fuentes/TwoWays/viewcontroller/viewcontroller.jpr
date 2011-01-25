@@ -217,10 +217,6 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Spring-1.2.8.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
             <value n="id" v="Standard.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
@@ -230,6 +226,10 @@
          </hash>
          <hash>
             <value n="id" v="Commons-io-1.4.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Spring-1.2.8.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
@@ -354,15 +354,6 @@
             </hash>
             <hash>
                <list n="classPath">
-                  <url path="public_html/WEB-INF/lib/spring-1.2.8.jar" jar-entry=""/>
-               </list>
-               <value n="deployedByDefault" v="true"/>
-               <value n="description" v="Spring-1.2.8.jar"/>
-               <value n="id" v="Spring-1.2.8.jar"/>
-               <value n="locked" v="true"/>
-            </hash>
-            <hash>
-               <list n="classPath">
                   <url path="public_html/WEB-INF/lib/standard.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
@@ -386,6 +377,15 @@
                <value n="deployedByDefault" v="true"/>
                <value n="description" v="Commons-io-1.4.jar"/>
                <value n="id" v="Commons-io-1.4.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="public_html/WEB-INF/lib/spring-1.2.8.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Spring-1.2.8.jar"/>
+               <value n="id" v="Spring-1.2.8.jar"/>
                <value n="locked" v="true"/>
             </hash>
          </list>
@@ -468,10 +468,6 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Spring-1.2.8.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
             <value n="id" v="Standard.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
@@ -481,6 +477,10 @@
          </hash>
          <hash>
             <value n="id" v="Commons-io-1.4.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Spring-1.2.8.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>

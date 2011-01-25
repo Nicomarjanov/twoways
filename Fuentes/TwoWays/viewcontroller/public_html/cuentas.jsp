@@ -16,9 +16,9 @@
   <body>
   <jsp:include page="/WEB-INF/jspIncludes/menu.jsp" />
   <c:out value="${mensaje}" escapeXml="false"/>
-  <form name="item" action="items" method="POST">
+  <form name="cuenta" action="cuentas" method="POST">
   <input type="hidden" id="accion" name="accion" value=""/>
-  <input type="hidden" id="accId" name="accId" value="<c:out value="${item.accId}"/>"/>
+  <input type="hidden" id="accId" name="accId" value="<c:out value="${cuenta.accId}"/>"/>
   <table width="100%">
   <tr>
     <th colspan="2" class="tw_form">Ingrese los campos con los datos de la Cuenta</th>
@@ -27,20 +27,20 @@
   </tr>
   <tr>
     <td nowrap align="right" width="25%">Nombre de la Cuenta:</td>
-    <td align="left"><input type="text" class="tw_form" id="accNombre" name="accNombre"  value="<c:out value="${item.accName}"/>"  size="50" maxlength="100" onkeyup="buscarCuentas()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
+    <td align="left"><input type="text" class="tw_form" id="accNombre" name="accNombre"  value="<c:out value="${cuenta.accName}"/>"  size="50" maxlength="100" onkeyup="buscarCuentas()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
   </tr>
   <tr>
-    <td nowrap align="right" width="25%">Número de la Cuenta:</td>
-    <td align="left"><input type="text" class="tw_form" id="accNumero" name="accNumero"  value="<c:out value="${item.accNumero}"/>"  size="25" maxlength="25" onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
+    <td nowrap align="right" width="25%">Número de Cuenta:</td>
+    <td align="left"><input type="text" class="tw_form" id="accNumero" name="accNumero"  value="<c:out value="${cuenta.accNumber}"/>"  size="25" maxlength="30" onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
 
   </tr>
   <tr>
     <td align="right" width="25%">Descripción:</td>
-    <td align="left"><input type="text" class="tw_form" id="descAcc"  name="descAcc"  value="<c:out value="${item.accDescription}"/>" size="100" maxlength="350"></input></td>    
+    <td align="left"><input type="text" class="tw_form" id="descAcc"  name="descAcc"  value="<c:out value="${cuenta.accDescription}"/>" size="100" maxlength="350"></input></td>    
   </tr>
   <tr>
     <td align="right" width="25%">Detalles de la cuenta:</td>
-    <td align="left"><input type="text" class="tw_form" id="detalleAcc"  name="detalleAcc"  value="<c:out value="${item.detalleAcc}"/>" size="100" maxlength="350"></input></td>       
+    <td align="left"><input type="text" class="tw_form" id="detalleAcc"  name="detalleAcc"  value="<c:out value="${cuenta.accDetails}"/>" size="100" maxlength="350"></input></td>       
   </tr>
   </table>
   <br>
@@ -49,16 +49,16 @@
   <tr>
   <td align="right"><input type="button" id="aceptar" value="Aceptar" onclick="agregar()"/></td>   
   <td align="center"><input type="button" id="cancel" value="Limpiar" OnClick="cancelar()"/></td>   
-  <td align="left"><input type="button" id="eliminar" value="Eliminar" disabled OnClick="eliminarCuenta(<c:out value="${item.accId}"/>)"/></td>
+  <td align="left"><input type="button" id="eliminar" value="Eliminar" OnClick="eliminarCuenta(<c:out value="${cuenta.accId}"/>)"/></td>
   </tr>
   </table>
   
-  <div id="div-items" style="display:none" align="center">
+  <div id="div-cuentas" style="display:none" align="center">
   <br>
   <hr class="tw_hr">
   <h2 class="tw">Opciones encontradas</h2>
   <table id ="tabla-busqueda">
-    <tr><th>Nombre Cuenta</th><th>Número de la Cuenta</th><th>Descripción</th><th>&nbsp;</th></tr>
+    <tr><th>Nombre Cuenta</th><th>Número de la Cuenta</th><th>Descripción</th><th>Detalle</th><th>&nbsp;</th></tr>
   </table>
   </div>
   </form>

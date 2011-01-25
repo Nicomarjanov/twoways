@@ -14,12 +14,13 @@ public class AccountsTO {
     private Long accId;
    //(name="ACC_NAME", nullable = false)
     private String accName;
+    private String accNumber;  
     
     private List<ItemsExpensesTO> itemsExpensesTOList;
     private List<PaymentsTO>  paymentsTOList;
     private List<ItemsInvoicesTO> itemsInvoicesTOList;    
     private Timestamp accEraseDate;
-    private Long accNumber;    
+  
 
     public AccountsTO() {
     }
@@ -124,11 +125,12 @@ public class AccountsTO {
         return accEraseDate;
     }
 
-    public void setAccNumber(Long accNumber) {
+
+    public void setAccNumber(String accNumber) {
         this.accNumber = accNumber;
     }
 
-    public Long getAccNumber() {
+    public String getAccNumber() {
         return accNumber;
     }
 }

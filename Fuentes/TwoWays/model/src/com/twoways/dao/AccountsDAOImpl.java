@@ -9,7 +9,7 @@ import org.springframework.dao.DataAccessException;
 public class AccountsDAOImpl extends AbstractDAO  implements AccountDAO {
    
     public AccountsTO insertarAccount(AccountsTO AccountsTO) throws Exception {
-           Long accId = (Long) getSqlMapClientTemplate().queryForObject("Accounts.seq","");
+           Long accId = (Long) getSqlMapClientTemplate().queryForObject("accounts.seq","");
            AccountsTO.setAccId(accId);  
            getSqlMapClientTemplate().insert("insertAccount",AccountsTO);
            return getAccountById(String.valueOf(accId));           
