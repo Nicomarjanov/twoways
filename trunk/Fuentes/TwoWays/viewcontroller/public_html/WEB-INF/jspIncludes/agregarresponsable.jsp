@@ -7,16 +7,8 @@
         <td><a href="javascript:vistaResponsablesCliente()" ><img id="responsable+"  style="border:0;" title="Mostrar responsables del cliente" src="img/Person-add-white.png" alt="Responsable" width="25" height="25" onmouseover="this.style.cursor='hand';"/></a></td>
     </Tr>
   </table>
-<table id="tabla-responsables"  style="display:none"  width="60%" cellpadding="0" cellspacing="1">
-  <tr>
-    <th width="3%"><a href="javascript:vistaResponsablesCliente()"><img id="responsable-"  style="border:0;" title="Ocultar responsables del cliente" src="img/Person-add-black.png" alt="Responsable" width="25" height="25" onmouseover="this.style.cursor='hand';"/></a></th>
-    <th width="15%" align="center">Nombre</th>
-    <th width="15%" align="center">Apellido</th>
-    <th width="15%" align="center">Mail</th>
-    <th width="15%" align="center">Teléfono</th>
-    <th width="15%" align="center">Mobil</th>
-    <th width="5%"></th>
- </tr>
+  <table id="tabla-responsables"  style="display:none" >
+  <tr><th><a href="javascript:vistaResponsablesCliente()"><img id="responsable-"  style="border:0;" title="Ocultar responsables del cliente" src="img/Person-add-black.png" alt="Responsable" width="25" height="25" onmouseover="this.style.cursor='hand';"/></a></th><th width="20">Nombre</th><th width="20">Apellido</th><th width="20">Mail</th><th width="20">Teléfono</th><th width="20">Mobil</th></tr>
   <tr>
   <td valign="top" ><!--<a href="javascript:vistaResponsablesCliente()"><img id="responsable-"  style="border:0;" title="Ocultar responsables del cliente" src="../../img/Person-add-black.png" alt="Responsable" width="25" height="25" onmouseover="this.style.cursor='hand';"/></a>-->&nbsp;</td>
   <td valign="top">
@@ -28,10 +20,10 @@
   <td valign="top">
     <input type="text" class="tw_form"  name="MailResponsable" id="MailResponsable" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">       
   </td>
-  <td valign="top">
+    <td valign="top">
     <input type="text" class="tw_form"  name="PhoneResponsable" id="PhoneResponsable" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">       
   </td>
-  <td valign="top">
+    <td valign="top">
     <input type="text" class="tw_form"  name="MobilResponsable" id="MobilResponsable" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">       
   </td>
   <td align="left" valign="top">
@@ -40,7 +32,7 @@
   </tr>
   </table>
   <!--<td colspan="100%">-->
-  <table id="tabla-resultados" style="display:none" width="63%">
+    <table cellpadding="0" cellspacing="0"  width="100%">
     <tr>
     <td>
      <!--<table id="list-responsables" >
@@ -49,34 +41,26 @@
      </table>
      </td></tr><tr><td
      <div style="width:100%;height:100px;overflow-x: hidden;overflow-y:auto ;background:gray;" >-->
-     <div class="fixedHeaderTable">
-     <table cellpadding="0" cellspacing="1" id="list-responsables-body" align="right" width="100%">
+     <table id="list-responsables-body" align="right" width="100%">
      <thead>     
-       <tr style="display:block; background-color='transparent'">
-            <th width="2%"></th>
-            <th width="15%"></th>
-            <th width="15%"></th>
-            <th width="15%"></th>
-            <th width="15%"></th>
-            <th width="15%"></th>
-            <th width="7%"></th></tr>
+       <tr style="display:block">
+            <th width="20"></th><th width="20"></th><th width="20"></th><th width="20"></th><th width="20"></th><th width="37"></th></tr>
      </thead>  
-     <tbody>
-       <c:forEach items="${requestScope.clientResponsableTOList}" var="item">
-       <tr name="item-responsable" id="creId-<c:out value="${item.clientResponsableTO.creId}" />" >
-            <td width="2%"></td>
-            <td width="15%"><c:out value="${item.clientResponsableTO.creFirstName}" />
+     <tbody style="width:600%;height:30px;overflow-x: hidden;overflow-y:auto ;">
+     <c:forEach items="${requestScope.clientResponsableTOList}" var="item">
+       <tr name="item-responsable"  bgcolor="#FFFFFF" id="creId-<c:out value="${item.clientResponsableTO.creId}" />" >            
+            <td width="20" ><c:out value="${item.clientResponsableTO.creFirstName}" />
                <input type="hidden" name="responsable-hidden"  value="<c:out value="${item.clientResponsableTO.creId}"/>#<c:out value="${item.clientResponsableTO.creFirstName}"/>#<c:out value="${item.clientResponsableTO.creLastName}"/>#<c:out value="${item.clientResponsableTO.creEmail}"/>#<c:out value="${item.clientResponsableTO.crePhoneNumber}" />#<c:out value="${item.clientResponsableTO.creMobileNumber}" />"</td>
-            <td width="15%"><c:out value="${item.clientResponsableTO.creLastName}" /></td>
-            <td width="15%"><c:out value="${item.clientResponsableTO.creEmail}" /></td>
-            <td width="15%"><c:out value="${item.clientResponsableTO.crePhoneNumber}" /></td>                        
-            <td width="15%"><c:out value="${item.clientResponsableTO.creMobileNumber}" /></td>            
-            <td width="7%"><img  src="img/del2.png" height="15" width="15"  alt="Eliminar responsable" onclick="eliminarResponsable('creId-<c:out value="${item.clientResponsableTO.creFirstName}"/>#<c:out value="${item.clientResponsableTO.creLastName}" />')" onmouseover="this.style.cursor='hand';" /></td>
+            <td width="20" ><c:out value="${item.clientResponsableTO.creLastName}" /></td>
+            <td width="20" ><c:out value="${item.clientResponsableTO.creEmail}" /></td>
+            <td width="20" ><c:out value="${item.clientResponsableTO.crePhoneNumber}" /></td>                        
+            <td width="20" ><c:out value="${item.clientResponsableTO.creMobileNumber}" /></td>            
+            <td width="37" ><img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarResponsable('creId-<c:out value="${item.clientResponsableTO.creFirstName}"/>#<c:out value="${item.clientResponsableTO.creLastName}" />')" onmouseover="this.style.cursor='hand';" /></td>
         </tr>           
       </c:forEach>
       </tbody>
      </table>
-     </div>
+
      </td>
      </tr>
      </table>

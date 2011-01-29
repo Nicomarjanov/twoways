@@ -4,6 +4,7 @@ import com.google.gdata.client.Query;
 import com.google.gdata.client.calendar.CalendarQuery;
 import com.google.gdata.client.calendar.CalendarService;
 import com.google.gdata.data.DateTime;
+import com.google.gdata.data.Extension;
 import com.google.gdata.data.Link;
 import com.google.gdata.data.PlainTextConstruct;
 import com.google.gdata.data.batch.BatchOperationType;
@@ -260,15 +261,7 @@ public class CalendarGoogleService {
     myEntry.setContent(new PlainTextConstruct(eventContent));
     myEntry.setQuickAdd(isQuickAdd);
     myEntry.setWebContent(wc);
-    EventWho eventWho=new EventWho();
-    eventWho.setEmail("lucianonicolasfernandez@gmail.com");
-    myEntry.addParticipant(eventWho);
-    /*eventWho=new EventWho();
-    eventWho.setEmail("milena@twoways.net");
-    myEntry.addParticipant(eventWho);
-    */eventWho=new EventWho();
-    eventWho.setEmail("luciano.fernandez@hotmail.com");
-    myEntry.addParticipant(eventWho);
+    
     // If a recurrence was requested, add it. Otherwise, set the
     // time (the current date and time) and duration (30 minutes)
     // of the event.

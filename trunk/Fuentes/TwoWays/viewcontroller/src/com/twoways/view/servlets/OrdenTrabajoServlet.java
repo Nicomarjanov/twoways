@@ -148,30 +148,31 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
             
             try {
             
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat sdfc = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat sdfl = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                
                 if(mRequest.get("ordDate")!= null && !mRequest.get("ordDate").toString().equalsIgnoreCase("") ){ 
-                    
-                    java.util.Date date = sdf.parse(mRequest.get("ordDate").toString());
+                    java.util.Date date ;
+                    if(mRequest.get("ordDate").toString().length() == 10 ){ 
+                       date = sdfc.parse(mRequest.get("ordDate").toString());
+                    }else{
+                       date = sdfl.parse(mRequest.get("ordDate").toString());  
+                    }
                     java.sql.Timestamp timest = new java.sql.Timestamp(date.getTime()); 
                     ordersTO.setOrdDate(timest);
                 }
-                if(mRequest.get("ordStartDate")!= null && !mRequest.get("ordStartDate").toString().equalsIgnoreCase("") ){ 
-                   
-                    java.util.Date date = sdf.parse(mRequest.get("ordStartDate").toString());
-                    java.sql.Timestamp timest = new java.sql.Timestamp(date.getTime()); 
-                    ordersTO.setOrdStartDate(timest);
-                }
+                
                 if(mRequest.get("ordFinishDate")!= null && !mRequest.get("ordFinishDate").toString().equalsIgnoreCase("") ){ 
-                     java.util.Date date = sdf.parse(mRequest.get("ordFinishDate").toString());
+                    java.util.Date date ;
+                    if(mRequest.get("ordFinishDate").toString().length() == 10 ){ 
+                       date = sdfc.parse(mRequest.get("ordFinishDate").toString());
+                    }else{
+                       date = sdfl.parse(mRequest.get("ordFinishDate").toString());  
+                    }
                     java.sql.Timestamp timest = new java.sql.Timestamp(date.getTime()); 
                     ordersTO.setOrdFinishDate(timest);
                 }
-                if(mRequest.get("ordDeadLineDate")!= null && !mRequest.get("ordDeadLineDate").toString().equalsIgnoreCase("") ){ 
-                    java.util.Date date = sdf.parse(mRequest.get("ordDeadLineDate").toString());
-                    java.sql.Timestamp timest = new java.sql.Timestamp(date.getTime()); 
-                    ordersTO.setOrdDeadLineDate(timest);
-                }
-            
+                
             
             } catch (Exception e) {
                 request.setAttribute("mensaje","<script>alert('La fecha ingresada no es valida')</script>"); 
