@@ -28,6 +28,7 @@ import com.twoways.to.TranslatorsTO;
 import com.twoways.to.UsersTO;
 
 import java.util.List;
+import java.util.Map;
 
 public class TW_SystemServiceImpl implements TW_SystemService{
     
@@ -412,4 +413,13 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     public List buscarAccounts(String search) throws Exception{
       return this.accountDao.buscarAccounts(search);
     }      
+    
+    public List <OrdersTO> findOrders(Map orderParameters)  throws Exception{
+        return this.ordersDao.findOrders(orderParameters);
+    }
+    
+    
 }
+
+
+

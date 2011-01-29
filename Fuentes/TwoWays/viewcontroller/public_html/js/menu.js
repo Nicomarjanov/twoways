@@ -32,7 +32,7 @@ var liIndex = 0;
 var visibleMenus = new Array();
 var activeMenuItem = false;
 var timeBeforeAutoHide = 1200; // Cantidad de microsegundos antes de que los menús se oculten automaticamente
-var dhtmlgoodies_menu_arrow = 'arrow.gif'; //Ruta a la imagen de flecha hacia abajo
+var dhtmlgoodies_menu_arrow = 'img/player_next.png'; //Ruta a la imagen de flecha hacia abajo
 
 var MSIE = navigator.userAgent.indexOf('MSIE')>=0?true:false;
 var navigatorVersion = navigator.appVersion.replace(/.*?MSIE ([0-9]\.[0-9]).*/g,'$1')/1;
@@ -231,9 +231,11 @@ var aTags = dhtmlgoodies_menuObj.getElementsByTagName('A');
 for(var no=0;no<aTags.length;no++){
 var subUl = aTags[no].parentNode.getElementsByTagName('UL');
 if(subUl.length>0 && aTags[no].parentNode.parentNode.parentNode.id != 'dhtmlgoodies_menu'){
-var img = document.createElement('IMG');
+/*var img = document.createElement('IMG');
 img.src = dhtmlgoodies_menu_arrow;
-aTags[no].appendChild(img);
+img.width=10;
+img.height=10;
+aTags[no].appendChild(img);*/
 }
 }
 

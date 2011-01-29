@@ -109,13 +109,12 @@ function formatoFechaKeyPress(fecha)
 
 function isDate(campo){
 
-    if(/^(\d{1,2})[/](\d{1,2})[/](\d{4})$/.test(campo)){
-    
+    if(/^((0[1-9]|[1-2][0-9]|3[0-1])[/](0[1-9]|1[0-2])[/](\d{4}) (0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]))|((0[1-9]|[1-2][0-9]|3[0-1])[/](0[1-9]|1[0-2])[/](\d{4}))$/.test(campo)){
+      
        var dia = campo.substring(0,2);
        var mes = campo.substring(3,5);
        var anio = campo.substring(6,10);
-    alert(dia); 
-    alert(mes); alert(anio); 
+       
        if (parseInt(mes) > 12 ){
          return false; 
        }else if ( parseInt(dia) <= 31 && mes == '01' || mes == '03' || mes == '05'  || mes== '07' || mes == '08'  || mes == '10' || mes == '12' ){
@@ -130,9 +129,7 @@ function isDate(campo){
        
        } 
        else return false;
-    }else{
-      return false;
-    }
+      }else return false;
  }
 
 function validarSiNumeroInCh(e)

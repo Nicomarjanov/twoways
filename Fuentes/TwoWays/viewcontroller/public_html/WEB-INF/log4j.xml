@@ -60,6 +60,19 @@
         </layout>
     </appender>
     
+    <appender name="sqls" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="springape.log"/>
+        <param name="MaxFileSize" value="500KB"/>
+        <param name="MaxBackupIndex" value="5"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <!--param name="ConversionPattern" value="%5p ( %c{3} ) %m%n"/-->
+	        <!--value="%d %-5p %-17c{2} (%30F:%L) %3x - %m%n"/>-->
+			<!-- work's with jdk 1.4.* -->
+            <!--param name="ConversionPattern" value="%d{yy-MM-dd,HH:mm} %F:%L%n%-5p >> %m%n%n"/-->
+            <param name="ConversionPattern" value="%d{dd-MM-yyyy,HH:mm} %-5p (%c{1}:%L) >> %m%n"/>
+        </layout>
+    </appender>
+    
     <appender name="rolling" class="org.apache.log4j.RollingFileAppender">
         <param name="File" value="twoways.log"/>
         <param name="MaxFileSize" value="500KB"/>
@@ -128,6 +141,8 @@
         <appender-ref ref="xml"/>
     </logger>
     -->
+    
+    
     <!-- The previous three 'logger' tags demonstrate three things.  First, -->
     <!-- the addition of a new appender to what is already in use by the -->
     <!-- levels below (defined in root).  The socketLogger will be used in -->
@@ -148,40 +163,55 @@
 
     
     <logger name="org.apache.commons.beanutils.BeanUtils">
-        <level value="debug,info,error,fatal"/>
+        <level value="error,fatal"/>
         <appender-ref ref="rolling"/>
-        <appender-ref ref="stdout"/>
+        <!--appender-ref ref="stdout"/-->
     </logger>
  
     
     
     <logger name="org.springframework.context.access.ContextSingletonBeanFactoryLocator">
-        <level value="debug,info,error,fatal"/>
+        <level value="error,fatal"/>
         <appender-ref ref="springape"/>
        
     </logger>
     
     <!-- PreparedStatement logging , permite ver sql y parametros enviadoss -->
     <logger name="java.sql">
-       <level value="error"/>
+       <level value="debug,info,error,fatal"/>
+       <appender-ref ref="sqls"/>
        <appender-ref ref="stdout"/> 
-       <appender-ref ref="rolling"/>
-        
        
     </logger>
     
     <!-- ibatis -->
     <logger name="com.ibatis">
-       <level value="debug"/>
+       <level value="debug,info,error,fatal"/>
        <appender-ref ref="springape"/>
     </logger>
         
     <!-- Logs de la aplicacion -->
     <logger name="com.twoways">
-       <level value="debug"/>
+       <level value="debug,info,error,fatal"/>
        <appender-ref ref="stdout"/>
        <appender-ref ref="rolling"/>
         
+    </logger>
+    
+    <logger name="java.sql.Connection">    
+       <level value="debug,info,error,fatal"/>
+       <appender-ref ref="sqls"/> 
+       <appender-ref ref="stdout"/>
+    </logger>  
+    <logger name="java.sql.PreparedStatement"> 
+      <level value="debug,info,error,fatal"/>
+       <appender-ref ref="stdout"/>
+       <appender-ref ref="sqls"/>
+    </logger> 
+    <logger name="java.sql.ResultSet"> 
+     <level value="debug,info,error,fatal"/>
+       <appender-ref ref="stdout"/>
+       <appender-ref ref="sqls"/>
     </logger>
 
     <root>

@@ -10,7 +10,11 @@
  </li>
 <li><a href="#" >Actividades</a> 
  <ul>
- <li><a href="ordentrabajo">Administrar Ordenes de Trabajo</a></li>
+     <li><a href="#" >Ordenes de Trabajo</a>
+          <ul><li><a href="ordentrabajo">Nueva Orden de Trabajo</a></li>
+              <li><a href="buscarordentrabajo">Buscar Ordenes de Trabajo</a></li>
+          </ul>
+    </li>  
  </ul>
 </li> 
 <li><a href="#" >Contables</a> 

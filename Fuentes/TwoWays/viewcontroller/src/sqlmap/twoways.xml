@@ -648,9 +648,9 @@
   <insert id="insertOrders" parameterClass="com.twoways.to.OrdersTO" >
        
   insert into orders
-       (ord_id, ord_name, ord_description, ord_date, ord_start_date,ord_finish_date,ord_deadline_date, clients_cli_id, ord_proj_id, ord_wo_number, ord_job_id, ord_job_name, ord_job_description)
+       (ord_id, ord_name, ord_description, ord_date, ord_start_date,ord_finish_date, clients_cli_id, ord_proj_id, ord_wo_number, ord_job_id, ord_job_name, ord_job_description)
      values
-       (#ordId#, #ordName#, #ordDescription#, #ordDate#, #ordStartDate#, #ordFinishDate#, #ordDeadLineDate#, #clientsTO.cliId#, #ordProjId#, #ordWoNumber#, #ordJobId#, #ordJobName#, #ordJobDescription#)
+       (#ordId#, #ordName#, #ordDescription#, #ordDate#, #ordFinishDate#,  #clientsTO.cliId#, #ordProjId#, #ordWoNumber#, #ordJobId#, #ordJobName#, #ordJobDescription#)
        
    
   </insert>
@@ -676,9 +676,7 @@
       <result property="ordId" column="ord_id" />
       <result property="ordName" column="ord_name"/>
       <result property="ordDate"   column="ord_date" />
-      <result property="ordStartDate"   column="ord_start_date" />
       <result property="ordFinishDate"   column="ord_finish_date" />
-      <result property="ordDeadLineDate"   column="ord_deadline_date" />
       <result property="ordDescription"   column="ord_description" />
       <result property="clientsTO.cliId" column="clients_cli_id"  />
       <result property="ordProjId" column="ord_proj_id" />
@@ -756,9 +754,8 @@
                    ord_job_id = #ordJobId#,
                    ord_job_name = #ordJobName#,
                    ord_job_description = #ordJobDescription#,
-                   ord_start_date = #ordStartDate#,
-                   ord_finish_date = #ordFinishDate#,
-                   ord_deadline_date = #ordDeadLineDate#
+                   ord_finish_date = #ordFinishDate#
+                   
              where ord_id =#ordId#
   </update>
   
@@ -840,6 +837,24 @@
      from Accounts 
      where acc_id = #value#
  </select>
+  
+  
+  <statement id="findOrders" resultMap="select-Order"  parameterClass="java.util.Map" >
+     
+        select *
+        from orders o, clients c
+        where o.ord_name like '%' || #ordName# ||'%'
+        and (o.ord_Proj_Id like '%' || #ordProjId# ||'%' or o.ord_Proj_Id is null)
+        and o.clients_cli_id = c.cli_Id
+        and c.cli_id = decode(#cliId#,0,c.cli_id,#cliId#) 
+        order by o.ord_date
+        and o.ord_date <![CDATA[ [#op1# ]]>  to_date (#ordDate#,'dd/MM/yyyy hh24:mi')
+       <!--and o.ord_finish_date #ordFinishDateOpt# to_date(#ordFinishDate#,'dd/MM/yyyy hh24:mi')
+        -->
+    
+         
+  </statement>
+  
   
   
 </sqlMap> 

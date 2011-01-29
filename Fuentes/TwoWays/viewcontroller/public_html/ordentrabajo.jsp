@@ -2,6 +2,7 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page contentType="text/html;charset=windows-1252" %>
 <%@ page errorPage="error.jsp" %>
+<%@ page isELIgnored="true" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 
@@ -38,11 +39,11 @@
      </tr>
      <tr>
         <td nowrap align="right" >Fecha Inicio:</td>
-        <td><input type="text" class="tw_form" name="ordDate" id="ordDate"  value="<fmt:formatDate value="${order.ordDate}"    pattern="dd/MM/yyyy hh24:mi" />" /> </td>
+        <td><input type="text" class="tw_form" name="ordDate" id="ordDate"  value="<fmt:formatDate value="${order.ordDate}"    pattern="dd/MM/yyyy HH:mm" />" /> </td>
      </tr>
      <tr>
         <td nowrap align="right" >Fecha de Entrega:</td>
-        <td><input type="text" class="tw_form" name="ordFinishDate" id="ordFinishDate"  value="<fmt:formatDate value="${order.ordFinishDate}"    pattern="dd/MM/yyyy" />" /> </td>
+        <td><input type="text" class="tw_form" name="ordFinishDate" id="ordFinishDate"  value="<fmt:formatDate value="${order.ordFinishDate}"    pattern="dd/MM/yyyy HH:mm" />" /> </td>
     </tr>
     <tr>
         <td nowrap align="right" >Cliente:</td>

@@ -15,6 +15,7 @@ import com.twoways.to.TranslatorsTO;
 import com.twoways.to.UsersTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface TW_SystemService {
 
@@ -135,5 +136,8 @@ public interface TW_SystemService {
     public AccountsTO getAccountById(String accId) throws Exception; 
     
     public List buscarAccounts(String search) throws Exception;    
+    
+    public List <OrdersTO> findOrders(Map orderParameters)  throws Exception;
+    
    
 }

@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -48,7 +49,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import javax.sql.DataSource;
-
 import org.apache.commons.fileupload.FileItem;
 import org.apache.log4j.Logger;
 
@@ -320,7 +320,7 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
           calendar.setTimeInMillis(ordersTO.getOrdDate().getTime());
           // Demonstrate creating a single-occurrence event.
           CalendarEventEntry quickAddEvent = cgsvc.createSingleEvent(myService,
-              "Id: "+ordersTO.getOrdId()+ " Name: " + ordersTO.getOrdName(),null,calendar);
+              "Id: "+ordersTO.getOrdId()+ " Name: " + ordersTO.getOrdName(),"Id: "+ordersTO.getOrdId()+ " Name: " + ordersTO.getOrdName(),calendar);
           log.debug("Successfully created event "
               + quickAddEvent.getTitle().getPlainText());
 
@@ -366,7 +366,115 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
 
     }
     
-    
-    
+    public List <OrdersTO> findOrders(Map orderParameters) {
+        
+       List <OrdersTO> results = new ArrayList<OrdersTO>();
+       DataSource ds = this.getDataSource(); 
+       Connection con = null;
+       Statement stm = null;
+       ResultSet rs= null ;
+       String query = " select *\n" + 
+       "        from orders o, clients c\n" + 
+       "        where o.ord_name like '%#ordName#%'\n" + 
+       "        and (o.ord_Proj_Id like '%#ordProjId#%' or o.ord_Proj_Id is null)\n" + 
+       "        and o.clients_cli_id = c.cli_Id\n" + 
+       "        and c.cli_id = decode(#cliId#,0,c.cli_id,#cliId#)" ;
+       
+       if(orderParameters.get("ordDate") != null && orderParameters.get("ordDate").toString().length() > 0){
+       
+          String formato = "dd/MM/yyyy hh24:mi";
+          if (orderParameters.get("ordDate").toString().length() == 10){
+              if(!orderParameters.get("ordDateOpt").toString().equals("=")){ 
+                  formato = "dd/MM/yyyy";
+                  query += " and o.ord_date "+ orderParameters.get("ordDateOpt").toString()+"  to_date ('#ordDate#','"+formato+"')";
+              }else{
+                  query += " and o.ord_date >= to_date ('#ordDate# 00:00','"+formato+"') and  o.ord_date <= to_date ('#ordDate# 23:59','"+formato+"') ";
+              }
+          }else{        
+            query += " and o.ord_date "+ orderParameters.get("ordDateOpt").toString()+"  to_date ('#ordDate#','"+formato+"')";
+          }  
+       }
+       
+        if(orderParameters.get("ordFinishDate") != null && orderParameters.get("ordFinishDate").toString().length() > 0){
+        
+           String formato = "dd/MM/yyyy hh24:mi";
+           if (orderParameters.get("ordFinishDate").toString().length() == 10){
+               if(!orderParameters.get("ordFinishDateOpt").toString().equals("=")){ 
+                   formato = "dd/MM/yyyy";
+                   query += " and o.ord_date "+ orderParameters.get("ordFinishDateOpt").toString()+"  to_date ('#ordFinishDate#','"+formato+"')";
+               }else{
+                   query += " and o.ord_date >= to_date ('#ordFinishDate# 00:00','"+formato+"') and  o.ord_date <= to_date ('#ordFinishDate# 23:59','"+formato+"') ";
+               }
+           }else{        
+             query += " and o.ord_date "+ orderParameters.get("ordFinishDateOpt").toString()+"  to_date ('#ordFinishDate#','"+formato+"')";
+           }  
+        }
+      
+      
+       
+       for (Iterator i = orderParameters.keySet().iterator();i.hasNext();){
+           String param = (String)i.next();
+           query = query.replaceAll("#"+param+"#",orderParameters.get(param).toString());
+       }
+       
+       query+= " order by o.ord_date" ;
+        try {
+            con = ds.getConnection();
+            stm = con.createStatement();
+            System.out.println(query);
+            System.out.println(query);
+            rs = stm.executeQuery(query);
+            
+            while(rs.next()){
+                OrdersTO order= new OrdersTO();
+                order.setOrdId(rs.getLong("ord_id"));
+                order.setOrdName(rs.getString("ord_name"));
+                order.setOrdJobName(rs.getString("ord_job_name"));
+                
+                if(rs.getTime("ord_finish_date") !=null ){ 
+                   
+                        
+                       java.sql.Timestamp timest = rs.getTimestamp("ord_finish_date"); 
+                        order.setOrdFinishDate(timest);
+                        
+                    
+                }
+                if(rs.getTime("ord_date") !=null ){ 
+                   
+                       java.sql.Timestamp timest = rs.getTimestamp("ord_date"); 
+                        order.setOrdDate(timest);
+                        
+                   
+                }
+                
+                results.add(order);
+            }
+            
+        } catch (SQLException e) {
+             e.printStackTrace();
+        }finally{
+            try {
+            rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try{
+            stm.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try{
+            con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            
+            
+        }
+        
+      
+        return results;
+    }
+
 
 }

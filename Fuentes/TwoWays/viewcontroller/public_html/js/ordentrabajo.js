@@ -269,8 +269,8 @@ function onloadOrder(){
     {
         
         var date = new Date();
-        fecha.value = ((date.getDate() < 10)?'0'+date.getDate():date.getDate())  + '/' + ((date.getMonth()+1 < 10)?''+date.getMonth()+1:(date.getMonth() +1))+ '/'+ date.getYear() +' '+ date.getHours() +':'+ date.getMinutes();
-        alert(fecha.value);
+        fecha.value = ((date.getDate() < 10)?'0'+date.getDate():date.getDate())  + '/' + ((date.getMonth()+1 < 10)?''+date.getMonth()+1:(date.getMonth() +1))+ '/'+ date.getYear() +' '+ ((date.getHours()+1 < 10)?''+date.getHours()+1:(date.getHours() +1)) +':'+  ((date.getMinutes()+1 < 10)?''+date.getMinutes()+1:(date.getMinutes() +1)) ;
+        //alert(fecha.value);
        
     }else{
      vistaDocumentos();
@@ -280,4 +280,64 @@ function onloadOrder(){
    
 
 
+}
+
+function buscarOrden(){
+  
+  
+    var ordFinishDate = frmbuscarOrden.ordFinishDate;
+    var ordDate = frmbuscarOrden.ordDate;
+    var banderaMensajeFaltante=false;
+    var mensajeCampoAlert='';
+    var mensajeFaltanteAlert = 'Se tiene que completar los siguientes campos: \n';
+    
+    
+    
+    if(ordDate.value != '')
+    {
+        if (!(isDate(ordDate.value)))
+        {
+        //ordDate.style.background='Red';
+        mensajeFaltanteAlert+= ' * La fecha de inicio debe ser dd/mm/aaaa \n';
+        banderaMensajeFaltante=true;
+        }
+    }
+    
+    if(ordFinishDate.value != '')
+    {
+        if (!(isDate(ordFinishDate.value)))
+        {
+        //ordFinishDate.style.background='Red';
+        mensajeFaltanteAlert+= ' * La fecha de entrega debe ser dd/mm/aaaa \n';
+        banderaMensajeFaltante=true;
+        }
+    }
+    
+     
+    if(banderaMensajeFaltante){
+        mensajeCampoAlert=mensajeFaltanteAlert + '\n';  
+        alert(mensajeCampoAlert);
+        return; 
+    }
+    
+    
+  frmbuscarOrden.accion.value="buscar";  
+  frmbuscarOrden.submit();
+}
+
+function back(){
+
+  frmbuscarOrden.pageId.value =parseInt(frmbuscarOrden.pageId.value) -1;
+  buscarOrden();
+}
+
+
+function next(){
+  frmbuscarOrden.pageId.value = parseInt(frmbuscarOrden.pageId.value) +1;
+  buscarOrden();
+}
+
+function editarOrden(ord){
+
+   window.location.href = '/twoways/ordentrabajo?ordId='+ord;
 }
