@@ -6,7 +6,7 @@ public class LanguaguesAcronymsTO {
 
     private String laaAcronym;
     private String laaDescription;
-    
+    private Long languaguesLanId;
     private LanguaguesTO languaguesTO;
     
     public LanguaguesAcronymsTO() {
@@ -35,5 +35,13 @@ public class LanguaguesAcronymsTO {
 
     public LanguaguesTO getLanguaguesTO() {
         return languaguesTO;
+    }
+
+    public void setLanguaguesLanId(Long languaguesLanId) {
+        this.languaguesLanId = languaguesLanId;
+    }
+
+    public Long getLanguaguesLanId() {
+        return languaguesLanId;
     }
 }
