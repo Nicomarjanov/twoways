@@ -1,5 +1,7 @@
 package com.twoways.to;
 
+import java.util.List;
+
 
 //(name = "TRANSLATORS")
 public class TranslatorsTO {
@@ -7,16 +9,17 @@ public class TranslatorsTO {
     //(name="TRA_ID", nullable = false)
     private Long traId;
     //(name="TRA_SPECIALIZATION")
-    private String traSpecialization;
-    private LanguaguesTO languaguesTO;
+    private EmployeesTO employeesTO;
+    private List<TranslatorsSpecializationsTO> transSpecializationTOList;
+    private List<TranslatorsLanguaguesTO> transLanguaguesTOList;
+    /*private LanguaguesTO languaguesTO;
     private LanguaguesTO languaguesTO1;
     private EmployeesTO employeesTO;
     private LanguaguesTO languaguesTO2;
-
+*/
 
     public TranslatorsTO() {
     }
-
 
     public Long getTraId() {
         return traId;
@@ -26,15 +29,7 @@ public class TranslatorsTO {
         this.traId = traId;
     }
 
-    public String getTraSpecialization() {
-        return traSpecialization;
-    }
-
-    public void setTraSpecialization(String traSpecialization) {
-        this.traSpecialization = traSpecialization;
-    }
-
-    public LanguaguesTO getLanguaguesTO() {
+    /*public LanguaguesTO getLanguaguesTO() {
         return languaguesTO;
     }
 
@@ -49,7 +44,7 @@ public class TranslatorsTO {
     public void setLanguaguesTO1(LanguaguesTO languaguesTO1) {
         this.languaguesTO1 = languaguesTO1;
     }
-
+*/
     public EmployeesTO getEmployeesTO() {
         return employeesTO;
     }
@@ -57,7 +52,7 @@ public class TranslatorsTO {
     public void setEmployeesTO(EmployeesTO employeesTO) {
         this.employeesTO = employeesTO;
     }
-
+/*
     public LanguaguesTO getLanguaguesTO2() {
         return languaguesTO2;
     }
@@ -65,5 +60,20 @@ public class TranslatorsTO {
     public void setLanguaguesTO2(LanguaguesTO languaguesTO2) {
         this.languaguesTO2 = languaguesTO2;
     }
+*/
+    public void setTransSpecializationTOList(List<TranslatorsSpecializationsTO> transSpecializationTOList) {
+        this.transSpecializationTOList = transSpecializationTOList;
+    }
 
+    public List<TranslatorsSpecializationsTO> getTransSpecializationTOList() {
+        return transSpecializationTOList;
+    }
+
+    public void setTransLanguaguesTOList(List<TranslatorsLanguaguesTO> transLanguaguesTOList) {
+        this.transLanguaguesTOList = transLanguaguesTOList;
+    }
+
+    public List<TranslatorsLanguaguesTO> getTransLanguaguesTOList() {
+        return transLanguaguesTOList;
+    }
 }

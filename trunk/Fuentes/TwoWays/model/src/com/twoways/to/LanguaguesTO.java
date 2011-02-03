@@ -10,9 +10,8 @@ public class LanguaguesTO {
     private Long lanId;
     //(name="LAN_NAME")
     private String lanName;
-    private List<TranslatorsTO> translatorsTOList;
-    private List<TranslatorsTO> translatorsTOList1;
-    private List<TranslatorsTO> translatorsTOList2;
+    private List<TranslatorsLanguaguesTO> translatorsLanguaguesTOList;
+    private List<TranslatorsLanguaguesTO> translatorsLanguaguesTOList1;
 
     public LanguaguesTO() {
     }
@@ -41,63 +40,20 @@ public class LanguaguesTO {
         this.lanName = lanName;
     }
 
-    public List<TranslatorsTO> getTranslatorsTOList() {
-        return translatorsTOList;
+
+    public void setTranslatorsLanguaguesTOList(List<TranslatorsLanguaguesTO> translatorsLanguaguesTOList) {
+        this.translatorsLanguaguesTOList = translatorsLanguaguesTOList;
     }
 
-    public void setTranslatorsTOList(List<TranslatorsTO> translatorsTOList) {
-        this.translatorsTOList = translatorsTOList;
+    public List<TranslatorsLanguaguesTO> getTranslatorsLanguaguesTOList() {
+        return translatorsLanguaguesTOList;
     }
 
-    public TranslatorsTO addTranslatorsTO(TranslatorsTO translatorsTO) {
-        getTranslatorsTOList().add(translatorsTO);
-        translatorsTO.setLanguaguesTO(this);
-        return translatorsTO;
+    public void setTranslatorsLanguaguesTOList1(List<TranslatorsLanguaguesTO> translatorsLanguaguesTOList1) {
+        this.translatorsLanguaguesTOList1 = translatorsLanguaguesTOList1;
     }
 
-    public TranslatorsTO removeTranslatorsTO(TranslatorsTO translatorsTO) {
-        getTranslatorsTOList().remove(translatorsTO);
-        translatorsTO.setLanguaguesTO(null);
-        return translatorsTO;
-    }
-
-    public List<TranslatorsTO> getTranslatorsTOList1() {
-        return translatorsTOList1;
-    }
-
-    public void setTranslatorsTOList1(List<TranslatorsTO> translatorsTOList1) {
-        this.translatorsTOList1 = translatorsTOList1;
-    }
-
-    public TranslatorsTO addTranslatorsTO1(TranslatorsTO translatorsTO) {
-        getTranslatorsTOList1().add(translatorsTO);
-        translatorsTO.setLanguaguesTO1(this);
-        return translatorsTO;
-    }
-
-    public TranslatorsTO removeTranslatorsTO1(TranslatorsTO translatorsTO) {
-        getTranslatorsTOList1().remove(translatorsTO);
-        translatorsTO.setLanguaguesTO1(null);
-        return translatorsTO;
-    }
-
-    public List<TranslatorsTO> getTranslatorsTOList2() {
-        return translatorsTOList2;
-    }
-
-    public void setTranslatorsTOList2(List<TranslatorsTO> translatorsTOList2) {
-        this.translatorsTOList2 = translatorsTOList2;
-    }
-
-    public TranslatorsTO addTranslatorsTO2(TranslatorsTO translatorsTO) {
-        getTranslatorsTOList2().add(translatorsTO);
-        translatorsTO.setLanguaguesTO2(this);
-        return translatorsTO;
-    }
-
-    public TranslatorsTO removeTranslatorsTO2(TranslatorsTO translatorsTO) {
-        getTranslatorsTOList2().remove(translatorsTO);
-        translatorsTO.setLanguaguesTO2(null);
-        return translatorsTO;
+    public List<TranslatorsLanguaguesTO> getTranslatorsLanguaguesTOList1() {
+        return translatorsLanguaguesTOList1;
     }
 }
