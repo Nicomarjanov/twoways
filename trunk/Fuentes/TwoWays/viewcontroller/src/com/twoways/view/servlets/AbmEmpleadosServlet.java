@@ -308,8 +308,5 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
             
 }
             
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            response.setContentType(CONTENT_TYPE);
-            doGet(request,response); 
-            }
+  
 }

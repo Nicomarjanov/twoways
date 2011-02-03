@@ -254,3 +254,7 @@ function validarFecha(fecha,origen)
     }
     return true;
 }
+
+
+String.prototype.startsWith = function(str)
+{return (this.match("^"+str)==str)}

@@ -557,14 +557,14 @@
   <!-- Translator -->
   <select  id="traductores.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > select translator_seq.nextval traId from dual</select> 
 
-  <insert id="insertarTraductor" parameterClass="com.twoways.to.TranslatorsTO" >
+ <insert id="insertarTraductor" parameterClass="com.twoways.to.TranslatorsTO" >
       insert into translators
           (tra_id, employees_emp_id)
         values
           (#traId#, #employeesTO.empId#)                        
   </insert>
-   
-    <select  id="trans_lang.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > select trans_lang_seq.nextval tlaId from dual</select> 
+  
+ <select  id="trans_lang.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > select trans_lang_seq.nextval tlaId from dual</select> 
    
   <insert id="insertTransLanguagues" parameterClass="com.twoways.to.TranslatorsLanguaguesTO">
         insert into translators_languagues
@@ -611,10 +611,7 @@
       <result property="employeesTO.empId" column="employees_emp_id" />   
   </resultMap>
  
-  <delete id="deleteTraductor" parameterClass="com.twoways.to.TranslatorsTO">
-        DELETE translators
-        WHERE  tra_id = #traId#    
- </delete> 
+  
  
  <delete id="deleteTranslatorsLangs" parameterClass="com.twoways.to.TranslatorsLanguaguesTO">
         DELETE translators_languagues
@@ -656,8 +653,71 @@
   <statement id="obtenerAcronimos"  resultMap="select-Acron-List" parameterClass="java.lang.String">
      select  *
      from Languagues_acronyms     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   </statement>  
 
+<!--hasta aca lo nuevo-->
+
+
+  
+    
+ 
+  
+  <!--statement id="buscarTraductores" resultMap="select-Trad-List"  parameterClass="java.lang.String" >
+     select *       
+     from translators t, employees e
+     where t.employees_emp_id = e.emp_id
+     and upper(e.emp_last_name) like '%' || upper( #value#) || '%'
+     order by e.emp_last_name
+     
+  </statement-->
+
+  <delete id="deleteTraductor" parameterClass="com.twoways.to.TranslatorsTO">
+        DELETE translators
+        WHERE  tra_id = #traId#    
+ </delete> 
+  <!--Ver-->
   <statement id="getPass"  resultClass="java.lang.String" parameterClass="java.lang.String">
      select  usr_pass
      from  users 
@@ -667,13 +727,14 @@
  <select id="obtenerServices"  parameterClass="java.lang.String" resultClass="com.twoways.to.ServicesTO">
      select ser_id as serId , ser_name as serName , ser_description  as serDescription from services
      
-  </select>   
+  </select>  
+  
   
   <select  id="orders.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > 
      select order_seq.nextval ordId from dual
   </select> 
   
-  <select  id="ordersdoc.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > 
+    <select  id="ordersdoc.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > 
      select order_doc_seq.nextval ordDocId from dual
   </select> 
     
@@ -683,15 +744,19 @@
        (ord_id, ord_name, ord_description, ord_date, ord_start_date,ord_finish_date, clients_cli_id, ord_proj_id, ord_wo_number, ord_job_id, ord_job_name, ord_job_description)
      values
        (#ordId#, #ordName#, #ordDescription#, #ordDate#, #ordFinishDate#,  #clientsTO.cliId#, #ordProjId#, #ordWoNumber#, #ordJobId#, #ordJobName#, #ordJobDescription#)
-  </insert>
+       
    
+  </insert>
+  
+      
   <insert id="insertOrderDoc" parameterClass="com.twoways.to.OrdersDocsTO" >
     insert into orders_docs
       (odo_id, odo_name, orders_ord_id, odo_doc)
      values
       (#odoId#, #odoName#, #ordersOrdId#,  #odoDoc#)
   </insert>
-   
+  
+  
   <insert id="insertOrdersRates" parameterClass="com.twoways.to.OrdersRatesTO" >
     insert into orders_rates
            (orders_ord_id, orr_value, rates_rat_id)
@@ -714,7 +779,9 @@
       <result property="ordJobDescription" column="ord_job_description" />
       <result property="clientsTO.cliName" column="cli_name" />
   </resultMap>
-    
+  
+  
+   
    <resultMap id="select-order-doc" class="com.twoways.to.OrdersDocsTO" >
       <result property="odoId" column="odo_id" />
       <result property="odoName" column="odo_name"/>
@@ -762,7 +829,7 @@
       
   </insert>
   
-  <statement  id="getOrderServicesByOrderId" resultClass="com.twoways.to.ServicesTO"   parameterClass="com.twoways.to.OrdersTO"  >
+    <statement  id="getOrderServicesByOrderId" resultClass="com.twoways.to.ServicesTO"   parameterClass="com.twoways.to.OrdersTO"  >
      select s.ser_id as serId,
             s.ser_name as  serName,
             s.ser_Description as serDescription
@@ -784,6 +851,8 @@
                    
              where ord_id =#ordId#
   </update>
+  
+
  
    <update id="updateOrdersRates" parameterClass="com.twoways.to.OrdersRatesTO" >
           update  orders_rates
@@ -792,20 +861,24 @@
                   orders_ord_id = #ordersTO.ordId#  and  
                   rates_rat_id = #ratesTO.ratId#
   </update>
-     
+  
+  
+   
   <delete id="deleteOrdersRates" parameterClass="com.twoways.to.OrdersRatesTO"   >
     delete  orders_rates
     where
     orders_ord_id = #ordersTO.ordId#  and  
     rates_rat_id = #ratesTO.ratId#        
   </delete>  
-    
+  
+  
    <delete id="deleteOrdersServices" parameterClass="java.util.Map"   >
     delete order_services
        where services_ser_name = #serId#
        and orders_ord_id = #ordId#    
   </delete>  
-    
+  
+  
    <delete id="deleteOrdersDocs" parameterClass="java.util.Map"   >
     delete orders_docs
           where odo_id =#odoId#
@@ -858,26 +931,77 @@
      where acc_id = #value#
  </select>
 
-  <statement id="obtenerEspecializaciones"  resultClass="com.twoways.to.SpecializationsTO" parameterClass="java.lang.String">
+ <statement id="obtenerEspecializaciones"  resultClass="com.twoways.to.SpecializationsTO" parameterClass="java.lang.String">
      select  spe_Name as speName, 
              spe_description as speDescription 
      from Specializations     
-  </statement>   
+  </statement>  
+
+
+  <!--proyectos -->
   
-  <statement id="findOrders" resultMap="select-Order"  parameterClass="java.util.Map" >
+  <select id="project.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > select project_seq.nextval accId from dual</select>   
+  
+ 
+   <resultMap id="select-project-obj"  class="com.twoways.to.ProjectsTO" >
+      <result property="proId" column="pro_id" />
+      <result property="proName"   column="pro_name" />
+      <result property="proDescription" column="pro_description"  />
+      <result property="proStatus" column="pro_status" />
+      <result property="proTotalCliWcount" column="pro_total_cli_wcount" />     
+      <result property="proTotalClient" column="pro_total_client" />     
+      <result property="proTotalTranWcount" column="pro_total_tran_wcount" />     
+      <result property="proTotalTranslator" column="pro_total_translator" />     
+      <result property="proStartDate" column="pro_start_date" />     
+      <result property="proFinishDate" column="pro_finish_date" />     
+      <result property="currencyCotizationsCucId" column="currency_cotizations_cuc_id" /> 
+      <result property="usersUsrId" column="users_usr_id" />     
+      <result property="currencyTO.curId" column="currency_cur_id" />     
+      <result property="ordersTO.ordId"  column="orders_ord_id"/> 
+      <result property="proDate" column="pro_date" /> 
+      
+  </resultMap>
+  
+  
+  <select id="getProjectById" parameterClass="java.lang.Long" resultMap="select-project-obj">
+     select *
+     from projects 
+     where pro_id = #value#
+ </select>
+ 
+ <select id="getProjectByOrdId" parameterClass="java.lang.Long" resultMap="select-project-obj">
+     select *
+     from projects 
+     where orders_ord_id = #value#
+ </select>
+  
+   <insert id="insertProject" parameterClass="com.twoways.to.ProjectsTO"   >
+       
+      insert into projects
+          (pro_id, pro_name, pro_description, pro_status, pro_total_cli_wcount, pro_total_client, pro_total_tran_wcount, pro_total_translator, pro_start_date, pro_finish_date, currency_cotizations_cuc_id, users_usr_id, currency_cur_id, orders_ord_id, pro_date)
+        values
+          (#proId#, #proName#, #proDescription#, #proStatus#,#proTotalCliWcount#,#proTotalClient#,#proTotalTranWcount#,#proTotalTranslator#,#proStartDate#,#proFinishDate#,#currencyCotizationsCucId#,#usersUsrId#,#currencyTO.curId#,#ordersTO.ordId#,#proDate#)  
+  </insert>      
+    <insert id="updateProject" parameterClass="com.twoways.to.ProjectsTO"   >
+       update projects
+    set pro_id = #proId#,
+        pro_name =#proName#,
+        pro_description =#proDescription#,
+        pro_status =#proStatus#,
+        pro_total_cli_wcount =#proTotalCliWcount#,
+        pro_total_client =#proTotalClient#,
+        pro_total_tran_wcount =#proTotalTranWcount#,
+        pro_total_translator =#proTotalTranslator#,
+        pro_start_date =#proStartDate#,
+        pro_finish_date =#proFinishDate#,
+        currency_cotizations_cuc_id =#currencyCotizationsCucId#,n
+        users_usr_id =#usersUsrId#,
+        currency_cur_id =#currencyTO.curId#,
+        orders_ord_id =#ordersTO.ordId#,
+        pro_date =#proDate#
+  where pro_id =#proId#
      
-        select *
-        from orders o, clients c
-        where o.ord_name like '%' || #ordName# ||'%'
-        and (o.ord_Proj_Id like '%' || #ordProjId# ||'%' or o.ord_Proj_Id is null)
-        and o.clients_cli_id = c.cli_Id
-        and c.cli_id = decode(#cliId#,0,c.cli_id,#cliId#) 
-        order by o.ord_date
-        and o.ord_date <![CDATA[ [#op1# ]]>  to_date (#ordDate#,'dd/MM/yyyy hh24:mi')
-       <!--and o.ord_finish_date #ordFinishDateOpt# to_date(#ordFinishDate#,'dd/MM/yyyy hh24:mi')
-        -->
-  </statement>
-  
+  </insert>      
   
   
 </sqlMap> 
