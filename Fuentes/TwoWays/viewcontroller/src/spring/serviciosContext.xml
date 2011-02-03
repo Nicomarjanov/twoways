@@ -42,7 +42,10 @@
         </property>        
         <property name="accountDao">
             <ref bean="accountDAO"/>
-        </property>           
+        </property>   
+        <property name="projectDao">
+            <ref bean="projectDAO"/>
+        </property> 
     </bean>
 
     <!-- declaracion de los servicios, utilizando proxy para el manejo de transacciones -->

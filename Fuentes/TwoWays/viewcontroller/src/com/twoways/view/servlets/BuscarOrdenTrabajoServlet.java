@@ -137,9 +137,5 @@ public class BuscarOrdenTrabajoServlet extends AutorizacionServlet {
         request.getRequestDispatcher("buscarOrdendeTrabajo.jsp").forward(request,response); 
     }
 
-    public void doPost(HttpServletRequest request, 
-                       HttpServletResponse response) throws ServletException, 
-                                                            IOException {
-       doGet(request,response);
-    }
+    
 }

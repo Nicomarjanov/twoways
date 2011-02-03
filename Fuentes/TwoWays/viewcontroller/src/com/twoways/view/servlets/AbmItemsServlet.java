@@ -89,9 +89,6 @@ public class AbmItemsServlet extends AutorizacionServlet {
         request.getRequestDispatcher("items.jsp").forward(request,response);    
     }
     
-    public void doPost(HttpServletRequest request, 
-                       HttpServletResponse response) throws ServletException, IOException {response.setContentType(CONTENT_TYPE);
-        doGet(request,response); 
-    }
+    
 }
 

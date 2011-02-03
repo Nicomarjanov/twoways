@@ -341,3 +341,8 @@ function editarOrden(ord){
 
    window.location.href = '/twoways/ordentrabajo?ordId='+ord;
 }
+
+function editarProyecto(ord){
+
+   window.location.href = '/twoways/proyectos?ordId='+ord;
+}

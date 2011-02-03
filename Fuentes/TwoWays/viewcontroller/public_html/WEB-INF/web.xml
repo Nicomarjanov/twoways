@@ -63,14 +63,7 @@
         <servlet-name>AbmTraductoresServlet</servlet-name>
         <servlet-class>com.twoways.view.servlets.AbmTraductoresServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>CargarArchivo</servlet-name>
-        <servlet-class>com.twoways.view.servlets.CargarArchivo</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>CommonsFileUploadServlet</servlet-name>
-        <servlet-class>com.twoways.view.servlets.CommonsFileUploadServlet</servlet-class>
-    </servlet>
+    
     <servlet>
         <servlet-name>DownloadFileServlet</servlet-name>
         <servlet-class>com.twoways.view.servlets.DownloadFileServlet</servlet-class>
@@ -85,7 +78,15 @@
     </servlet>
     <servlet>
         <servlet-name>ProyectoServlet</servlet-name>
-        <servlet-class>com.twoways.view.servlets.ProyectoServlet</servlet-class>
+        <servlet-class>com.twoways.view.servlets.ProyectosServlet</servlet-class>
+    </servlet>
+     <servlet>
+        <servlet-name>AsignacionesServlet</servlet-name>
+        <servlet-class>com.twoways.view.servlets.AsignacionesServlet</servlet-class>
+    </servlet>
+      <servlet>
+        <servlet-name>AbmTarifasServlet</servlet-name>
+        <servlet-class>com.twoways.view.servlets.AbmTarifasServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -95,10 +96,7 @@
         <servlet-name>AbmClientesServlet</servlet-name>
         <url-pattern>/clientes</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>AbmTarifasServlet</servlet-name>
-        <servlet-class>com.twoways.view.servlets.AbmTarifasServlet</servlet-class>
-    </servlet>
+  
     <servlet-mapping>
         <servlet-name>AbmTarifasServlet</servlet-name>
         <url-pattern>/tarifas</url-pattern>
@@ -141,16 +139,19 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProyectoServlet</servlet-name>
-        <url-pattern>/proyecto</url-pattern>
+        <url-pattern>/proyectos</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AsignacionesServlet</servlet-name>
+        <url-pattern>/asignaciones</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>dwr-invoker</servlet-name>
+     <url-pattern>/dwr/*</url-pattern>
+   </servlet-mapping>
     <session-config>
         <session-timeout>35</session-timeout>
     </session-config>
-<servlet-mapping>
-  <servlet-name>dwr-invoker</servlet-name>
-  <url-pattern>/dwr/*</url-pattern>
-</servlet-mapping>
-
     <mime-mapping>
         <extension>html</extension>
         <mime-type>text/html</mime-type>

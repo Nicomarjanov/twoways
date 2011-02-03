@@ -76,9 +76,9 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
-    public void doPost(HttpServletRequest request, 
-                       HttpServletResponse response) throws ServletException, IOException {response.setContentType(CONTENT_TYPE);
-        
-        doGet(request,response);
-    }
+
+        public void doPost(HttpServletRequest request, 
+                           HttpServletResponse response) throws ServletException, IOException {response.setContentType(CONTENT_TYPE);
+           doGet(request,response);
+        }
 }
