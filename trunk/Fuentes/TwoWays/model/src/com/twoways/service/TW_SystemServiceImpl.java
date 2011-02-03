@@ -5,6 +5,7 @@ import com.twoways.dao.ClientDAO;
 import com.twoways.dao.CurrencyDAO;
 import com.twoways.dao.EmployeeDAO;
 import com.twoways.dao.OrdersDAO;
+import com.twoways.dao.ProjectDAO;
 import com.twoways.dao.RateDAO;
 import com.twoways.dao.RateTypesDAO;
 import com.twoways.dao.ServiceDAO;
@@ -22,6 +23,7 @@ import com.twoways.to.EmployeesTO;
 import com.twoways.to.ItemsTO;
 import com.twoways.to.OrdersDocsTO;
 import com.twoways.to.OrdersTO;
+import com.twoways.to.ProjectsTO;
 import com.twoways.to.RateTypesTO;
 import com.twoways.to.RatesTO;
 import com.twoways.to.TranslatorsTO;
@@ -43,7 +45,7 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     private ServiceDAO serviceDao;
     private TranslatorDAO translatorDao;
     private OrdersDAO ordersDao;
-
+    private ProjectDAO projectDao;
     private LanguagueDAO languagueDao;
     private AccountDAO accountDao;
      
@@ -417,9 +419,39 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     public List <OrdersTO> findOrders(Map orderParameters)  throws Exception{
         return this.ordersDao.findOrders(orderParameters);
     }
+   
+    public ProjectsTO getProjectById(Long proId) throws Exception{
+        
+        ProjectsTO proyecto =  this.projectDao.getProjectById(proId);
+        proyecto.setOrdersTO(ordersDao.getOrderById(proyecto.getOrdersTO().getOrdId()));
+        return proyecto;
+    }
     
+    public ProjectsTO getProjectByOrdId(Long ordId) throws Exception{
+        
+        ProjectsTO proyecto =  this.projectDao.getProjectByOrdId(ordId);
+        if(proyecto!= null){ 
+            proyecto.setOrdersTO(ordersDao.getOrderById(proyecto.getOrdersTO().getOrdId()));
+        }
+        return proyecto;
+    }
     
-}
 
+    public void setProjectDao(ProjectDAO projectDao) {
+        this.projectDao = projectDao;
+    }
+
+    public ProjectDAO getProjectDao() {
+        return projectDao;
+    }
+
+    public ProjectsTO updateProject(ProjectsTO projectsTO) throws Exception {
+        return projectDao.updateProject(projectsTO);
+    }
+
+    public ProjectsTO insertProject(ProjectsTO projectsTO) throws Exception {
+        return projectDao.insertProject(projectsTO);
+    }
+}
 
 
