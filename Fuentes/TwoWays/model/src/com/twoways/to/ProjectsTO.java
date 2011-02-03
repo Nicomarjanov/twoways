@@ -12,7 +12,7 @@ public class ProjectsTO {
     //(name="CURRENCY_COTIZATIONS_CUC_ID")
     private Long currencyCotizationsCucId;
     //(name="PRO_DEADLINE_DATE")
-    private Timestamp proDeadlineDate;
+    private Timestamp proDate;
     //(name="PRO_DESCRIPTION")
     private String proDescription;
     //(name="PRO_FINISH_DATE")
@@ -53,14 +53,7 @@ public class ProjectsTO {
     }
 
 
-    public Timestamp getProDeadlineDate() {
-        return proDeadlineDate;
-    }
-
-    public void setProDeadlineDate(Timestamp proDeadlineDate) {
-        this.proDeadlineDate = proDeadlineDate;
-    }
-
+    
     public String getProDescription() {
         return proDescription;
     }
@@ -203,5 +196,13 @@ public class ProjectsTO {
         getProjectAssignmentsTOList().remove(projectAssignmentsTO);
         projectAssignmentsTO.setProjectsTO(null);
         return projectAssignmentsTO;
+    }
+
+    public void setProDate(Timestamp proDate) {
+        this.proDate = proDate;
+    }
+
+    public Timestamp getProDate() {
+        return proDate;
     }
 }

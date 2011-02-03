@@ -8,6 +8,7 @@ import com.twoways.to.EmployeesTO;
 import com.twoways.to.ItemsTO;
 import com.twoways.to.OrdersDocsTO;
 import com.twoways.to.OrdersTO;
+import com.twoways.to.ProjectsTO;
 import com.twoways.to.RateTypesTO;
 import com.twoways.to.RatesTO;
 
@@ -138,6 +139,14 @@ public interface TW_SystemService {
     public List buscarAccounts(String search) throws Exception;    
     
     public List <OrdersTO> findOrders(Map orderParameters)  throws Exception;
+    
+    public ProjectsTO getProjectById(Long proId) throws Exception;
+    
+    public ProjectsTO getProjectByOrdId(Long ordId) throws Exception;
+    
+    public ProjectsTO updateProject(ProjectsTO projectsTO) throws Exception;
+    
+    public ProjectsTO insertProject(ProjectsTO projectsTO) throws Exception;
     
    
 }
