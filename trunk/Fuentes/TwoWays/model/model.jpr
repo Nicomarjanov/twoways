@@ -39,6 +39,8 @@
       <hash n="ejbIdToEjbNameMap">
          <value n="3e443cff-012c-1000-800b-0a0000031cde" v="com.twoways.to.EmployeeTypeTO"/>
          <value n="3e443d12-012c-1000-800c-0a0000031cde" v="com.twoways.to.EmployeeTypesTO"/>
+         <value n="d30d129e-012d-1000-8002-c0a80165f65b" v="com.twoways.view.servlets.ProyectosServlet"/>
+         <value n="d30d129e-012d-1000-8003-c0a80165f65b" v="com.twoways.view.servlets.ProjectosServlet"/>
          <value n="ebe1b726-012b-1000-8001-c87f29d8d888" v="com.twoways.to.AccountsTO"/>
          <value n="ebe1b7a3-012b-1000-8002-c87f29d8d888" v="com.twoways.to.ClientsTO"/>
          <value n="ebe1b83f-012b-1000-8003-c87f29d8d888" v="com.twoways.to.ClientResponsableTO"/>
@@ -67,6 +69,16 @@
    </hash>
    <hash n="oracle.bm.commonIde.data.project.ModelerProjectSettings">
       <hash n="modelersContentSet">
+         <list n="constituent-sets">
+            <hash>
+               <list n="pattern-filters">
+                  <string v="+Projects.oxd_db"/>
+               </list>
+               <list n="url-path">
+                  <url path="model/model/"/>
+               </list>
+            </hash>
+         </list>
          <list n="pattern-filters">
             <string v="-model/"/>
             <string v="+**"/>
@@ -536,7 +548,7 @@
             </hash>
             <hash>
                <list n="classPath">
-                  <url path="../../../../../CalendarSample/lib/deps/activation.jar" jar-entry=""/>
+                  <url protocol="jar" path="file:/CalendarSample/lib/deps/activation.jar!/"/>
                </list>
                <value n="deployedByDefault" v="true"/>
                <value n="description" v="Activation.jar"/>
@@ -545,7 +557,7 @@
             </hash>
             <hash>
                <list n="classPath">
-                  <url path="../../../../../CalendarSample/lib/deps/jsr305.jar" jar-entry=""/>
+                  <url protocol="jar" path="file:/CalendarSample/lib/deps/jsr305.jar!/"/>
                </list>
                <value n="deployedByDefault" v="true"/>
                <value n="description" v="Jsr305.jar"/>
@@ -554,7 +566,7 @@
             </hash>
             <hash>
                <list n="classPath">
-                  <url path="../../../../../CalendarSample/lib/deps/google-collect-1.0-rc1.jar" jar-entry=""/>
+                  <url protocol="jar" path="file:/CalendarSample/lib/deps/google-collect-1.0-rc1.jar!/"/>
                </list>
                <value n="deployedByDefault" v="true"/>
                <value n="description" v="Google-collect-1.0-rc1.jar"/>
@@ -563,7 +575,7 @@
             </hash>
             <hash>
                <list n="classPath">
-                  <url path="../../../../../CalendarSample/lib/deps/mail.jar" jar-entry=""/>
+                  <url protocol="jar" path="file:/CalendarSample/lib/deps/mail.jar!/"/>
                </list>
                <value n="deployedByDefault" v="true"/>
                <value n="description" v="Mail.jar"/>
@@ -572,7 +584,7 @@
             </hash>
             <hash>
                <list n="classPath">
-                  <url path="../../../../../CalendarSample/lib/deps/servlet-api-2.4.jar" jar-entry=""/>
+                  <url protocol="jar" path="file:/CalendarSample/lib/deps/servlet-api-2.4.jar!/"/>
                </list>
                <value n="deployedByDefault" v="true"/>
                <value n="description" v="Servlet-api-2.4.jar"/>
@@ -581,7 +593,7 @@
             </hash>
             <hash>
                <list n="classPath">
-                  <url path="../../../../../CalendarSample/lib/deps/"/>
+                  <url protocol="file" path="/CalendarSample/lib/deps/"/>
                </list>
                <value n="deployedByDefault" v="true"/>
                <value n="description" v="Deps"/>
