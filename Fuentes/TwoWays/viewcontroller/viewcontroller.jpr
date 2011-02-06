@@ -90,7 +90,6 @@
       <hash n="webContentSet">
          <list n="pattern-filters">
             <string v="-img/Language.png"/>
-            <string v="-js/traductor.js"/>
             <string v="-traductor.jsp"/>
             <string v="-logo_bajo_relieve.jpg"/>
             <string v="-index.html"/>

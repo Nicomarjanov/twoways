@@ -111,13 +111,10 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
     }
 
     public OrdersTO getOrderById(Long ordId) throws Exception {
-        OrdersTO ordersTO = 
-            (OrdersTO)getSqlMapClientTemplate().queryForObject("getOrderById", 
-                                                               ordId);
+        OrdersTO ordersTO = (OrdersTO)getSqlMapClientTemplate().queryForObject("getOrderById", ordId);
         ordersTO.setOrderRatesTOList((List<OrdersRatesTO>)getSqlMapClientTemplate().queryForList("getOrderRatesByOrderId",ordersTO) );
         ordersTO.setServicesTOList((List<ServicesTO>)getSqlMapClientTemplate().queryForList("getOrderServicesByOrderId",ordersTO) );
-        ordersTO.setOrdersDocsTOList((List<OrdersDocsTO>)getSqlMapClientTemplate().queryForList("getOrderDocByOrder", 
-                                                                                                ordId));
+        ordersTO.setOrdersDocsTOList((List<OrdersDocsTO>)getSqlMapClientTemplate().queryForList("getOrderDocByOrder", ordId));
 
         return ordersTO;
     }

@@ -43,16 +43,20 @@ function vistaTraductor(){
         for(var i=0;i<listaEmp.options.length;i++)
         {
             if(listaEmp.options[i].value == 'Traductor')
-            {      bandera = 1;          
-                   var tabla=document.getElementById('tabla-traductor');    
-                   if(tabla.style.display =='none'){
-                       tabla.style.display='';
-                       document.getElementById('aTrad').style.display='none';
-                       
-                   }else{
-                       tabla.style.display='none';
-                        document.getElementById('aTrad').style.display='';
-                   }              
+            {  bandera = 1;          
+               var tabla=document.getElementById('tabla-traductor');    
+               if(tabla.style.display =='none'){
+                   tabla.style.display='';
+                   document.getElementById('tabla-trad-titulo').style.display='';
+                   document.getElementById('tabla-trad-especial').style.display='';
+                   document.getElementById('aTrad').style.display='none';
+                   
+               }else{
+                    tabla.style.display='none';
+                    document.getElementById('tabla-trad-titulo').style.display='none';
+                    document.getElementById('tabla-trad-especial').style.display='none';
+                    document.getElementById('aTrad').style.display='';
+               }              
             }       
         }
    }
@@ -213,6 +217,9 @@ function grabar(existe)
     else
     {   
         sortSelect(document.getElementById("listaItemsSelect"));
+        if (document.getElementById("listaSpecialTradSelect").options.length > 0){
+            sortSelect(document.getElementById("listaSpecialTradSelect"));
+        }
         document.getElementById("accion").value='guardar';
         document.forms[0].submit();                   
     }
@@ -346,24 +353,24 @@ function validarCampos()
             }
         }
         if (banTraductor){
-                if(document.getElementById("listaIdiomas").selectedIndex==0)
+                if(document.getElementById("tabla-result-idiomas").style.display =='none')
                 {
-                    document.getElementById("listaIdiomas").style.background='red';
-                    mensajeFaltanteAlert+='* Seleccionar un idioma del combo \n';    
+                    document.getElementById("listaLengua1").style.background='red';
+                    mensajeFaltanteAlert+=' * Seleccionar un par de idiomas \n';    
                     banderaMensajeFaltante=true;
                 }
                 
-                if(document.getElementById("listaLengua1").selectedIndex==0)
+               /* if(document.getElementById("listaLengua1").selectedIndex==0)
                 {
                     document.getElementById("listaLengua1").style.background='red';
-                    mensajeFaltanteAlert+='* Seleccionar una lengua principal del combo \n';    
+                    mensajeFaltanteAlert+='* Seleccionar una idioma destino del combo \n';    
                     banderaMensajeFaltante=true;
-                }
-            
-                if(document.getElementById("tipoEspecialidad").selectedIndex==0)
+                }*/
+               
+                if(document.getElementById("listaSpecialTradSelect").options.length == 0)
                 {
-                    document.getElementById("tipoEspecialidad").style.background='red';
-                    mensajeFaltanteAlert+='* Seleccionar una especialidad del combo \n';    
+                    document.getElementById("listaSpecialTradSelect").style.background='red';
+                    mensajeFaltanteAlert+=' * Seleccionar una especialidad del traductor de la lista de especalidades del traductor \n';    
                     banderaMensajeFaltante=true;
                 }
         }
@@ -401,7 +408,7 @@ function asignar()
     for(var i=0;i<document.getElementById("listaTipoEmp").options.length;i++)
     {
         if(document.getElementById("listaTipoEmp").options[i].selected)
-        {
+        {  
             var asig = document.getElementById("listaItemsSelect");
             var asigTar = document.getElementById("listaTipoEmpTar");
            
@@ -457,18 +464,13 @@ function desAsignar()
         for(var i=0;i<document.getElementById("listaItemsSelect").options.length;i++)
         {
             if(document.getElementById("listaItemsSelect").options[i].value == arrai[j])                
-               // deselectDynamicDropDown ();
                 document.getElementById("listaItemsSelect").options[i] = null;  
-
         }
         for(var i=0;i<document.getElementById("listaTipoEmpTar").options.length;i++)
         {
-            if(document.getElementById("listaTipoEmpTar").options[i].value == arrai[j])                
-               // 
+            if(document.getElementById("listaTipoEmpTar").options[i].value == arrai[j])                               
                 document.getElementById("listaTipoEmpTar").options[i] = null;  
-
-        }
-        
+        }        
     }
     deselectDynamicDropDown ();
     createDynamicDropdown("listaTipoEmpTar", "listaTarifa", "dropDown3");
@@ -628,4 +630,68 @@ function deselectDynamicDropDown () {
        //alert("child");
             dropDown3.removeChild(dropDown3.lastChild);
         }    
+}
+
+function asignarSpecial()
+{
+    var quitar = '';
+    for(var i=0;i<document.getElementById("listaSpecialTrad").options.length;i++)
+    {
+        if(document.getElementById("listaSpecialTrad").options[i].selected)
+        {
+            var asig = document.getElementById("listaSpecialTradSelect");   
+            asig.style.background='#FFFFFF';
+            var option =  new Option(document.getElementById("listaSpecialTrad").options[i].text,document.getElementById("listaSpecialTrad").options[i].value);
+            var option2 =  new Option(document.getElementById("listaSpecialTrad").options[i].text,document.getElementById("listaSpecialTrad").options[i].value);
+            asig.options[asig.length] = option2;
+            quitar = quitar+document.getElementById("listaSpecialTrad").options[i].value+'-';       
+        }        
+    }
+    var arrai = quitar.split('-');
+    for(var j=0;j<arrai.length;j++)
+    {
+        for(var i=0;i<document.getElementById("listaSpecialTrad").options.length;i++)
+        {
+            if(document.getElementById("listaSpecialTrad").options[i].value == arrai[j])
+                document.getElementById("listaSpecialTrad").options[i] = null;    
+        }
+    }
+}
+
+function desAsignarSpecial()
+{
+    var quitar = '';
+    for(var i=0;i<document.getElementById("listaSpecialTradSelect").options.length;i++)
+    {
+        if(document.getElementById("listaSpecialTradSelect").options[i].selected)
+        {
+            var asig = document.getElementById("listaSpecialTrad");
+            var option =  new Option(document.getElementById("listaSpecialTradSelect").options[i].text,document.getElementById("listaSpecialTradSelect").options[i].value);
+            asig.options[asig.length] = option;
+            quitar = quitar+document.getElementById("listaSpecialTradSelect").options[i].value+'-';          
+        }
+    }
+    var arrai = quitar.split('-');
+    for(var j=0;j<arrai.length;j++)
+    {
+        for(var i=0;i<document.getElementById("listaSpecialTradSelect").options.length;i++)
+        {
+            if(document.getElementById("listaSpecialTradSelect").options[i].value == arrai[j])                
+                document.getElementById("listaSpecialTradSelect").options[i] = null;  
+        }
+    }
+
+    sortSelect(document.getElementById("listaSpecialTrad"));
+}
+
+function desAsignarTodoSpecial()
+{
+    for(var i=0;i<document.getElementById("listaSpecialTradSelect").options.length;i++)
+    {
+        var asig = document.getElementById("listaSpecialTrad");
+        var option =  new Option(document.getElementById("listaSpecialTradSelect").options[i].text,document.getElementById("listaSpecialTradSelect").options[i].value);
+        asig.options[asig.length] = option;
+    }
+    document.getElementById("listaSpecialTradSelect").length = 0;
+    sortSelect(document.getElementById("listaSpecialTrad"));
 }

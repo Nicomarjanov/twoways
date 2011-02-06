@@ -134,7 +134,7 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
            for(Object employeesRatesTO: empRates.toArray() ){
                
               EmployeesRatesTO newER = (EmployeesRatesTO)employeesRatesTO;
-             boolean insertar= true;   
+              boolean insertar= true;   
               
               for(Object oldEmpRate: oldEmpRates.toArray() ){
                  
@@ -143,9 +143,7 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
                       insertar=false;
                       break;
                   }
-                  
-              }     
-               
+              }               
               if(insertar)
               {
                   getSqlMapClientTemplate().insert("insertEmployeesRates",(EmployeesRatesTO)employeesRatesTO);
@@ -182,8 +180,6 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
              for(Object employeesTypesTO: empTypes.toArray() ){
                  getSqlMapClientTemplate().insert("insertEmployeesTypes",(EmployeesTypesTO)employeesTypesTO);
              }
-            
-               
                  
         } catch (Exception ex)  {
                //  getSqlMapClientTemplate().getSqlMapClient().endTransaction();
@@ -191,8 +187,6 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
                  
         } finally  {
         }
-        //borrar las viejas 
-           
         return getEmpById(String.valueOf(employeesTO.getEmpId()));     
         
     }

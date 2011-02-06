@@ -1,5 +1,8 @@
 package com.twoways.dao;
 
+import com.twoways.to.EmployeesTypesTO;
+import com.twoways.to.TranslatorsLanguaguesTO;
+import com.twoways.to.TranslatorsSpecializationsTO;
 import com.twoways.to.TranslatorsTO;
 
 import java.util.List;
@@ -26,6 +29,8 @@ public class TranslatorsDAOImpl extends AbstractDAO  implements TranslatorDAO{
     
     public TranslatorsTO getTraById(String traId)  throws Exception{
        TranslatorsTO translator =  (TranslatorsTO)getSqlMapClientTemplate().queryForObject("getTraById",traId);
+       //translator.setTransLanguaguesTOList((List<TranslatorsLanguaguesTO>)getSqlMapClientTemplate().queryForList("getTransLangByTransId",traId) );
+       translator.setTransSpecializationTOList((List<TranslatorsSpecializationsTO>)getSqlMapClientTemplate().queryForList("getTransSpezialByTransId",traId) );
        return translator;
     }
 
@@ -45,14 +50,56 @@ public class TranslatorsDAOImpl extends AbstractDAO  implements TranslatorDAO{
         
         Long traId = (Long) getSqlMapClientTemplate().queryForObject("traductores.seq","");
         translatorsTO.setTraId(traId);        
-        getSqlMapClientTemplate().insert("insertarTraductor",translatorsTO);            
+        getSqlMapClientTemplate().insert("insertarTraductor",translatorsTO);  
+        
+        List transLanguagues = translatorsTO.getTransLanguaguesTOList();
+        if ( transLanguagues != null && transLanguagues.size() > 0 ){
+            for(Object transLanguaguesTO: transLanguagues.toArray() ){
+                 Long tlaId = (Long) getSqlMapClientTemplate().queryForObject("trans_lang.seq","");
+                 TranslatorsLanguaguesTO auxTrans = (TranslatorsLanguaguesTO)transLanguaguesTO;
+                 auxTrans.setTlaId(tlaId);
+                 auxTrans.setTranslatorsTraId(traId);
+                 getSqlMapClientTemplate().insert("insertTransLanguagues",auxTrans);
+            }
+        }
+    
+        List transSpezial = translatorsTO.getTransSpecializationTOList();
+        if ( transSpezial != null && transSpezial.size() > 0 ){
+            for(Object TransSpecializationTO: transSpezial.toArray() ){
+            
+                 getSqlMapClientTemplate().insert("insertTransSpecializations",(TranslatorsSpecializationsTO)TransSpecializationTO);
+            }
+        }        
         return getTraById(String.valueOf(traId)); 
         
     }
 
     public TranslatorsTO updateTraductor(TranslatorsTO translatorsTO) throws Exception {                    
-          
+        List<TranslatorsLanguaguesTO> oldTransLang = (List<TranslatorsLanguaguesTO>) getSqlMapClientTemplate().queryForList("getTransLangByTransId",translatorsTO); 
+        List<TranslatorsSpecializationsTO> oldTransSpezial = (List<TranslatorsSpecializationsTO>) getSqlMapClientTemplate().queryForList("getTransSpezialByTransId",translatorsTO); 
+        List transLang = translatorsTO.getTransLanguaguesTOList();
+        List transSpezial = translatorsTO.getTransSpecializationTOList();
+        
         getSqlMapClientTemplate().update("updateTraductor",translatorsTO);        
+        
+         //borrar lenguajes viejos
+          for(Object oldTranLang: oldTransLang.toArray() ){
+                getSqlMapClientTemplate().delete("deleteTranslatorsLangs",(TranslatorsLanguaguesTO)oldTranLang);
+          }        
+         // insertar lenguajes nuevos 
+         
+          for(Object transLangTO: transLang.toArray() ){
+              getSqlMapClientTemplate().insert("insertTransLanguagues",(TranslatorsLanguaguesTO)transLangTO);
+          }
+         //borrar especializaciones viejos
+          for(Object oldTranSpezial: oldTransSpezial.toArray() ){
+                getSqlMapClientTemplate().delete("deleteTranslatorsSpezials",(TranslatorsLanguaguesTO)oldTranSpezial);
+          }        
+         // insertar especializaciones nuevos 
+         
+          for(Object transSpezialTO: transSpezial.toArray() ){
+              getSqlMapClientTemplate().insert("insertTransSpezialitations",(TranslatorsLanguaguesTO)transSpezialTO);
+          }        
         return getTraById(String.valueOf(translatorsTO.getTraId()));     
      }
 
@@ -60,5 +107,26 @@ public class TranslatorsDAOImpl extends AbstractDAO  implements TranslatorDAO{
        int res =  getSqlMapClientTemplate().delete("deleteTraductor",translatorsTO);
        return (res > 0); 
     }        
+    
+    public List obtenerEspecializaciones() {    
+        List ret= null;
+        try {
+            ret = getSqlMapClientTemplate().queryForList("obtenerEspecializaciones","");
+        } catch (DataAccessException dae) {
 
+           dae.printStackTrace();
+        }
+        return ret;        
+    }
+    public List getLangByTradId(Long tradId) throws Exception{
+        List ret= null;
+        try {
+            ret = getSqlMapClientTemplate().queryForList("getTransLangByTransId",tradId);
+            } catch (DataAccessException dae) {
+
+           dae.printStackTrace();
+        }
+        return ret;
+        }
+    
 }
