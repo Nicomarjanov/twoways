@@ -292,10 +292,9 @@ function buscarOrden(){
     var mensajeFaltanteAlert = 'Se tiene que completar los siguientes campos: \n';
     
     
-    
     if(ordDate.value != '')
     {
-        if (!(isDate(ordDate.value)))
+       if (!(isDate(ordDate.value)))
         {
         //ordDate.style.background='Red';
         mensajeFaltanteAlert+= ' * La fecha de inicio debe ser dd/mm/aaaa \n';

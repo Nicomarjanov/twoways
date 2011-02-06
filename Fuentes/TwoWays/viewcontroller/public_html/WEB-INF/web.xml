@@ -59,12 +59,7 @@
         <servlet-name>OrdenTrabajoServlet</servlet-name>
         <servlet-class>com.twoways.view.servlets.OrdenTrabajoServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>AbmTraductoresServlet</servlet-name>
-        <servlet-class>com.twoways.view.servlets.AbmTraductoresServlet</servlet-class>
-    </servlet>
-    
-    <servlet>
+     <servlet>
         <servlet-name>DownloadFileServlet</servlet-name>
         <servlet-class>com.twoways.view.servlets.DownloadFileServlet</servlet-class>
     </servlet>
@@ -116,14 +111,6 @@
     <servlet-mapping>
         <servlet-name>OrdenTrabajoServlet</servlet-name>
         <url-pattern>/ordentrabajo</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CargarArchivo</servlet-name>
-        <url-pattern>/cargararchivo</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CommonsFileUploadServlet</servlet-name>
-        <url-pattern>/Commonsfileuploadservlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DownloadFileServlet</servlet-name>

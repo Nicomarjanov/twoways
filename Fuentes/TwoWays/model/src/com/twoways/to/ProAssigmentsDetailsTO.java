@@ -7,7 +7,7 @@ public class ProAssigmentsDetailsTO {
     private long padWCount; 
     private EmployeesRatesTO employeesRatesTO; 
     private TranslatorsLanguaguesTO pranslatorsLanguaguesTO;
-    
+ 
     public ProAssigmentsDetailsTO() {
     
     
