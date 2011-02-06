@@ -139,7 +139,8 @@ public interface TW_SystemService {
     public List buscarAccounts(String search) throws Exception;    
     
     public List <OrdersTO> findOrders(Map orderParameters)  throws Exception;
-    
+
+
     public ProjectsTO getProjectById(Long proId) throws Exception;
     
     public ProjectsTO getProjectByOrdId(Long ordId) throws Exception;
@@ -148,5 +149,9 @@ public interface TW_SystemService {
     
     public ProjectsTO insertProject(ProjectsTO projectsTO) throws Exception;
     
-   
+    public List getLangByTradId(Long tradId) throws Exception; 
+
+    public List obtenerEspecializaciones() throws Exception;
+
+    public List obtenerAcronimos()throws Exception;
 }

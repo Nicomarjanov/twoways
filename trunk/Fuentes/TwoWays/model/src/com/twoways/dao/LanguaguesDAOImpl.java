@@ -15,4 +15,15 @@ public class LanguaguesDAOImpl extends AbstractDAO  implements LanguagueDAO {
         }
         return ret;
     }
+    
+    public List obtenerAcronimos() throws Exception {
+        List ret= null;
+        try {
+            ret = getSqlMapClientTemplate().queryForList("obtenerAcronimos","");
+        } catch (DataAccessException dae) {
+
+           dae.printStackTrace();
+        }
+        return ret;
+    }
 }

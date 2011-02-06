@@ -13,5 +13,7 @@ public interface TranslatorDAO {
     public List buscarTraductores(String search) throws Exception;
     public TranslatorsTO insertarTraductor(TranslatorsTO translatorsTO) throws Exception;
     public TranslatorsTO updateTraductor(TranslatorsTO translatorsTO) throws Exception;
-    public boolean  deleteTraductor(TranslatorsTO translatorsTO)  throws Exception;
+    public boolean deleteTraductor(TranslatorsTO translatorsTO)  throws Exception;
+    public List obtenerEspecializaciones();
+    public List getLangByTradId(Long tradId) throws Exception;
 }

@@ -34,8 +34,7 @@ public class AbmClientesServlet extends AutorizacionServlet {
 
     public void doGet(HttpServletRequest request, 
                       HttpServletResponse response) throws ServletException, IOException {
-        
-                      
+                              
         super.doGet(request,response);
         
         response.setContentType(CONTENT_TYPE);
@@ -50,11 +49,9 @@ public class AbmClientesServlet extends AutorizacionServlet {
         
         try {
            twoWaysBDL = new TwoWaysBDL();
-           //twoWaysBDL.getServiceTwoWays().obtenerMonedas();
            monedas =  twoWaysBDL.getServiceTwoWays().obtenerMonedas();
            request.setAttribute("listaMoneda",monedas);
            
-           //twoWaysBDL.getServiceTwoWays().obtenerTarifas();
            RateTypesTO rateType = new RateTypesTO();
            rateType.setRtyName("Cliente");
            tarifas =  twoWaysBDL.getServiceTwoWays().getRateByType(rateType);
@@ -63,7 +60,6 @@ public class AbmClientesServlet extends AutorizacionServlet {
         } catch (Exception e) {
            e.printStackTrace();
         }
-        
         
         if (accion!=null && accion.equalsIgnoreCase("guardar")){
              try {             

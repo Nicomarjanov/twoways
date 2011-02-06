@@ -342,7 +342,6 @@ public class TW_SystemServiceImpl implements TW_SystemService{
         return this.languagueDao.obtenerIdioma();
     }
 
-
     public void setLanguagueDao(LanguagueDAO languagueDao) {
         this.languagueDao = languagueDao;
     }
@@ -416,6 +415,14 @@ public class TW_SystemServiceImpl implements TW_SystemService{
       return this.accountDao.buscarAccounts(search);
     }      
     
+    public List obtenerAcronimos() throws Exception{
+        return this.languagueDao.obtenerAcronimos();
+    }
+
+    public List obtenerEspecializaciones() throws Exception{
+        return this.translatorDao.obtenerEspecializaciones();
+    }
+
     public List <OrdersTO> findOrders(Map orderParameters)  throws Exception{
         return this.ordersDao.findOrders(orderParameters);
     }
@@ -451,6 +458,10 @@ public class TW_SystemServiceImpl implements TW_SystemService{
 
     public ProjectsTO insertProject(ProjectsTO projectsTO) throws Exception {
         return projectDao.insertProject(projectsTO);
+    }
+
+    public List getLangByTradId(Long tradId) throws Exception{
+        return this.translatorDao.getLangByTradId(tradId);
     }
 }
 

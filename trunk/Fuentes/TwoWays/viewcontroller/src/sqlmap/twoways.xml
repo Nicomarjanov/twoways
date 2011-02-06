@@ -570,7 +570,7 @@
         insert into translators_languagues
             (tla_id, translators_tra_id, languagues_acronyms_languagues,languagues_acronyms_laa_acrony, languagues_acronyms_languague1,languagues_acronyms_laa_acron1)
           values
-            (#tlaId#, #translatorsTraId#,#langAcronymsTO.languaguesLanId#,#langAcronymsTO.laaAcronym#,#langAcronymsTO1.languaguesLanId#,#langAcronymsTO1.laaAcronym#)
+            (#tlaId#, #translatorsTraId#,#langAcronymsTO.languaguesTO.lanId#,#langAcronymsTO.laaAcronym#,#langAcronymsTO1.languaguesTO.lanId#,#langAcronymsTO1.laaAcronym#)
   </insert>
 
   <insert id="insertTransSpecializations" parameterClass="com.twoways.to.TranslatorsSpecializationsTO">
@@ -581,10 +581,10 @@
   </insert>
   
   <resultMap id="select-Trans-Lang" class="com.twoways.to.TranslatorsLanguaguesTO">
-      <result property="translatorsTO.traId" column="translators_tra_id" />  
-      <result property="langAcronymsTO.languaguesLanId"   column="languagues_acronyms_languagues" />
-      <result property="langAcronymsTO.laaAcronym"   column="languagues_acronyms_laa_acronym" />
-      <result property="langAcronymsTO1.languaguesLanId" column="languagues_acronyms_languague1"  />
+      <!--<result property="translatorsTO.traId" column="translators_tra_id" />  -->
+      <result property="langAcronymsTO.languaguesTO.lanName"   column="languagues_acronyms_languagues" />
+      <result property="langAcronymsTO.laaAcronym"   column="languagues_acronyms_laa_acrony" />
+      <result property="langAcronymsTO1.languaguesTO.lanId" column="languagues_acronyms_languague1"  />
       <result property="langAcronymsTO1.laaAcronym"   column="languagues_acronyms_laa_acron1" />    
       <result property="tlaId" column="tla_id"/>
   </resultMap>
@@ -594,14 +594,19 @@
       <result property="specializationsTO.speName"  column="specializations_Spe_Name" />
   </resultMap>
   
-  <statement  id="getTransLangByTransId" resultClass="com.twoways.to.TranslatorsLanguaguesTO"  parameterClass="java.lang.String" >
-     select *
-     from translators_languagues t
-     where t.translators_tra_id = #traId#
+  <statement  id="getTransLangByTransId" resultClass="java.util.HashMap"  parameterClass="java.lang.Long" >
+     select t.languagues_acronyms_languagues as lan_id_origen,
+            (select l.lan_name from languagues l where l.lan_id=t.languagues_acronyms_languagues) as lan_origen,
+            t.languagues_acronyms_laa_acrony as acron_origen,
+            languagues_acronyms_languague1 as lan_id_destino,
+            (select l.lan_name from languagues l where l.lan_id=t.languagues_acronyms_languague1) as lan_destino,
+            t.languagues_acronyms_laa_acron1 as acron_destino
+     from translators_languagues t 
+     where t.translators_tra_id =  #traId#
   </statement>  
     
-  <statement  id="getTransSpezialByTransId" resultClass="com.twoways.to.TranslatorsSpecializationsTO"  parameterClass="java.lang.String" >
-     select t.specializations_spe_name as specializationsSpeName
+  <statement  id="getTransSpezialByTransId" resultMap="select-Trans-Spezial"  parameterClass="java.lang.String" >
+     select *
      from translators_specializations t
      where t.translators_tra_id = #traId#
   </statement>  
