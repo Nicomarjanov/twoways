@@ -110,10 +110,6 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
             if (ordId != null &&  ordId.length() > 0 ){
                  try{
                  order =twoWaysBDL.getServiceTwoWays().getOrderById(Long.parseLong(ordId) );
-                 
-                 
-                     
-                     
                      
              for (ServicesTO servOrd:order.getServicesTOList()){
                      

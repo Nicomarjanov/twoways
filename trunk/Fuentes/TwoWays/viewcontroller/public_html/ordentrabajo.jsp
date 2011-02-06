@@ -17,6 +17,12 @@
     <script type='text/javascript' src='/twoways/dwr/interface/towaysDWR.js'></script>
     <script type='text/javascript' src='/twoways/dwr/engine.js'></script>
     <script type='text/javascript' src='/twoways/dwr/util.js'></script>
+    <script type='text/javascript' src="./js/commons.js"></script>  
+    <script type='text/javascript' src="./js/CalendarPopup.js"></script>
+    <script>
+        writeSource('jscallDesde');
+        writeSource('jscallHasta');
+    </script>
     
     <title>Orden de Trabajo</title>
     
@@ -39,11 +45,11 @@
      </tr>
      <tr>
         <td nowrap align="right" >Fecha Inicio:</td>
-        <td><input type="text" class="tw_form" name="ordDate" id="ordDate"  value="<fmt:formatDate value="${order.ordDate}"    pattern="dd/MM/yyyy HH:mm" />" /> </td>
+        <td><input type="text" class="tw_form" name="ordDate" id="ordDate"  value="<fmt:formatDate value="${order.ordDate}"    pattern="dd/MM/yyyy HH:mm" />" /><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].ordDate,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png"></img> </td>
      </tr>
      <tr>
         <td nowrap align="right" >Fecha de Entrega:</td>
-        <td><input type="text" class="tw_form" name="ordFinishDate" id="ordFinishDate"  value="<fmt:formatDate value="${order.ordFinishDate}"    pattern="dd/MM/yyyy HH:mm" />" /> </td>
+        <td><input type="text" class="tw_form" name="ordFinishDate" id="ordFinishDate"  value="<fmt:formatDate value="${order.ordFinishDate}"    pattern="dd/MM/yyyy HH:mm" />" /><div id="divHasta" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Hasta.select(document.forms[0].ordFinishDate,'selHasta','dd/MM/yyyy'); return false;" NAME="selHasta" ID="selHasta"  height="20" width="20" alt="seleccion" src="img/cal.png"></img></td>
     </tr>
     <tr>
         <td nowrap align="right" >Cliente:</td>
@@ -154,6 +160,11 @@
 <table width="100%">
   <tr>
       <td align="right"><input type="button" id="aceptar" value="Aceptar" onclick="agregar()"/></td>   
+      <td align="center" width="20px">
+        <c:if test="${not empty order.ordId && order.ordId != ''}">
+          <input type="button" id="proyecto" value="Proyecto" onclick="window.location.href='proyectos?ordId=<c:out value="${order.ordId}" />'" />
+        </c:if>
+      </td>   
       <td align="left"><input type="button" id="cancel" value="Limpiar" OnClick="cancelar()"/></td>    
   </tr>
 </table>

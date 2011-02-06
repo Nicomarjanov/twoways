@@ -12,11 +12,11 @@ public class TranslatorsTO {
     private EmployeesTO employeesTO;
     private List<TranslatorsSpecializationsTO> transSpecializationTOList;
     private List<TranslatorsLanguaguesTO> transLanguaguesTOList;
-    /*private LanguaguesTO languaguesTO;
+    private LanguaguesTO languaguesTO;
     private LanguaguesTO languaguesTO1;
-    private EmployeesTO employeesTO;
-    private LanguaguesTO languaguesTO2;
-*/
+   /* private EmployeesTO employeesTO;
+  */  private LanguaguesTO languaguesTO2;
+
 
     public TranslatorsTO() {
     }
@@ -29,7 +29,7 @@ public class TranslatorsTO {
         this.traId = traId;
     }
 
-    /*public LanguaguesTO getLanguaguesTO() {
+    public LanguaguesTO getLanguaguesTO() {
         return languaguesTO;
     }
 
@@ -44,7 +44,7 @@ public class TranslatorsTO {
     public void setLanguaguesTO1(LanguaguesTO languaguesTO1) {
         this.languaguesTO1 = languaguesTO1;
     }
-*/
+
     public EmployeesTO getEmployeesTO() {
         return employeesTO;
     }
@@ -75,5 +75,13 @@ public class TranslatorsTO {
 
     public List<TranslatorsLanguaguesTO> getTransLanguaguesTOList() {
         return transLanguaguesTOList;
+    }
+
+    public void setLanguaguesTO2(LanguaguesTO languaguesTO2) {
+        this.languaguesTO2 = languaguesTO2;
+    }
+
+    public LanguaguesTO getLanguaguesTO2() {
+        return languaguesTO2;
     }
 }

@@ -197,7 +197,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                              traductor.setLanguaguesTO(lenguaNativa);
                              traductor.setLanguaguesTO1(lenguaPri);
                              traductor.setLanguaguesTO2(lenguaSec);
-                             traductor.setTraSpecialization((request.getParameter("tipoEspecialidad") != null && request.getParameter("tipoEspecialidad").length() > 0 )?request.getParameter("tipoEspecialidad"):null);
+                   //          traductor.setTraSpecialization((request.getParameter("tipoEspecialidad") != null && request.getParameter("tipoEspecialidad").length() > 0 )?request.getParameter("tipoEspecialidad"):null);
                              try {
                                  if (traId != null){     
                                      traductor.setTraId(Long.valueOf(traId));

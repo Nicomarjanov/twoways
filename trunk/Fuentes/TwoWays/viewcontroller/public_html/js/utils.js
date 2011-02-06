@@ -88,9 +88,18 @@ function isFloat(campo){
 
 function limitarArea(){
 
- var desc=  document.getElementById('descCliente');  
- if(desc.value.length > 250){
-    desc.value= desc.value.substring(0,250); 
+ 
+ 
+ var descArray=  document.getElementsByTagName('textarea');  
+ 
+ if(descArray != null){ 
+
+     for(var i =0 ; i< descArray.length; i++ ){ 
+         var desc= descArray[i];
+         if(desc.value.length > 250){
+            desc.value= desc.value.substring(0,250); 
+         }
+     }
  }
 
 }
@@ -108,7 +117,9 @@ function formatoFechaKeyPress(fecha)
 }
 
 function isDate(campo){
-
+    
+    
+    
     if(/^((0[1-9]|[1-2][0-9]|3[0-1])[/](0[1-9]|1[0-2])[/](\d{4}) (0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]))|((0[1-9]|[1-2][0-9]|3[0-1])[/](0[1-9]|1[0-2])[/](\d{4}))$/.test(campo)){
       
        var dia = campo.substring(0,2);
@@ -155,6 +166,8 @@ function validarSiNumeroInCh(e)
 function validarFecha(fecha,origen)
 {    
     var fechaCadena = fecha.value.split("/");
+    
+    
     if(fecha.value != null && fecha.value.length != 0)
     {
         if(fecha.value.length < 10)
