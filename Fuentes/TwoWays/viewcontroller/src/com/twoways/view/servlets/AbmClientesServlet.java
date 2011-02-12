@@ -100,7 +100,9 @@ public class AbmClientesServlet extends AutorizacionServlet {
                     clientResponsableTO.setCreLastName(atributos[1]);
                     clientResponsableTO.setCreEmail((atributos[2] != null || atributos[2].length()== 0)?atributos[2]:"");
                     clientResponsableTO.setCrePhoneNumber((atributos[3]!= null || atributos[3].length()== 0)?atributos[3]:"");
-                    clientResponsableTO.setCreMobileNumber((atributos[4]!= null || atributos[4].length()== 0)?atributos[4]:"");
+                    clientResponsableTO.setCreMsn((atributos[4]!= null || atributos[4].length()== 0)?atributos[4]:"");
+                    clientResponsableTO.setCreSkype((atributos[5]!= null || atributos[5].length()== 0)?atributos[5]:"");
+                   // clientResponsableTO.setCreId(Long.parseLong((atributos[6]!= null || atributos[6].length()== 0)?atributos[6]:""));
                     clientsResponsableTOList.add(clientResponsableTO);
                     clientResponsableTO.setClientsTO(cliente);
                 }
@@ -124,9 +126,8 @@ public class AbmClientesServlet extends AutorizacionServlet {
             try {
                 
                 if(cliId != null && cliId.length() > 0 ){ 
-                    cliente =twoWaysBDL.getServiceTwoWays().updateCliente(cliente);
-                    
-                    request.setAttribute("cliente",cliente);                    
+                    cliente =twoWaysBDL.getServiceTwoWays().updateCliente(cliente);                    
+                    //request.setAttribute("cliente",cliente);                    
                    
                 }else{
                     String nomCli = request.getParameter("nomCliente");
@@ -137,7 +138,7 @@ public class AbmClientesServlet extends AutorizacionServlet {
                         request.setAttribute("mensaje","<script>alert('Existe un cliente con ese nombre')</script>");
                         request.getRequestDispatcher("cliente.jsp").forward(request,response);
                     }
-                    request.setAttribute("cliente",cliente);
+                   // request.setAttribute("cliente",cliente);
                    
                 }
                 
@@ -156,6 +157,7 @@ public class AbmClientesServlet extends AutorizacionServlet {
              try {
                      cliente =  twoWaysBDL.getServiceTwoWays().getClientById(cliId);
                      request.setAttribute("cliente",cliente);
+
                      if(cliente == null){
                          request.setAttribute("mensaje","<script>alert('El cliente no existe')</script>"); 
                      }else{

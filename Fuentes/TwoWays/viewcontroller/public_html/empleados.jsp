@@ -295,8 +295,8 @@
             <td rowspan=3 align="left">
                 <select name="listaSpecialTradSelect" id="listaSpecialTradSelect" size="5" multiple="multiple" style="border:solid 1px #005C8D;width:200px; font-size: 9px;">                
                 <c:forEach items="${traductor.transSpecializationTOList}" var="item">
-                       <option value="<c:out value="${item.specializationsSpeName}"/>" title="<c:out value="${item.specializationsSpeName}"/>">
-                        <c:out value="$item.specializationsSpeName}" />
+                       <option value="<c:out value="${item.specializationsTO.speName}"/>" title="<c:out value="${item.specializationsTO.speName}"/>">
+                           <c:out value="${item.specializationsTO.speName}" />
                       </option> 
                 </c:forEach>
                 </select>
@@ -390,7 +390,14 @@
                     </td>
                 </tr>
             </table>
-            <table id="tabla-result-idiomas" width="100%" style="display:none">
+            <c:choose>
+              <c:when test="${empty idiomasTraductor}">
+                <table id="tabla-result-idiomas" width="100%" style="display:none">
+              </c:when>
+              <c:otherwise>
+                 <table id="tabla-result-idiomas" width="100%">
+              </c:otherwise>
+            </c:choose>
             <tr>
             <td>
              <div class="fixedHeaderTableIdiom">
@@ -405,13 +412,14 @@
              </thead>  
              <tbody>
                <c:forEach items="${idiomasTraductor}" var="item">
-               <tr name="item-idiomas" id="tlaId-<c:out value="${item.lan_origen}"/>#<c:out value="${item.acron_origen}" /><c:out value="${item.lan_destino}"/>#<c:out value="${item.acron_destino}" />" >
-                    <td width="15%" style="padding-left:'5%'"><c:out value='${item.value.lan_id_origen}' />
-                      <!-- <input type="hidden" name="lenguas-hidden"  value="<c:out value="${item.lan_id_origen}"/>#<c:out value="${item.acron_origen}"/>#<c:out value="${item.lan_id_destino}"/>#<c:out value="${item.acron_destino}"/>"</td>                 -->
-                    <td width="15%"><c:out value="${item[1].value}" /></td> 
-                    <td width="15%"><c:out value="${item[0].value}" /></td>     
-                    <td width="15%"><c:out value='${item[1].value.lan_id_origen}' /></td>     
-                    <td width="2%"><img  src="img/del2.png" height="15" width="15"  alt="Eliminar relación de idiomas" onclick="eliminarResponsable('tlaId-<c:out value="${item.languaguesTO.lanId}"/>#<c:out value="${item.languaguesTO1.lanId}"/>')" onmouseover="this.style.cursor='hand';" /></td>
+               <tr name="item-idiomas" id="tlaId-<c:out value="${item[\'LAN_ID_ORIGEN\']}"/>#<c:out value="${item[\'ACRON_ORIGEN\']}"/>#<c:out value="${item[\'LAN_ID_DESTINO\']}"/>#<c:out value="${item[\'ACRON_DESTINO\']}"/>" >
+                    <td width="15%" bgcolor="#FFFFF"><c:out value="${item[\'LAN_ORIGEN\']}" />     
+                       <input type="hidden" name="lenguas-hidden"  value="<c:out value="${item[\'LAN_ID_ORIGEN\']}"/>#<c:out value="${item[\'ACRON_ORIGEN\']}"/>#<c:out value="${item[\'LAN_ID_DESTINO\']}"/>#<c:out value="${item[\'ACRON_DESTINO\']}"/>"></td>                 
+                    <!--<td width="15%"><%=((Map)pageContext.getAttribute("item")).get("lan_id_origen")%><c:out value="${item.lan_id_origen}" /></td> -->
+                    <td width="15%" bgcolor="#FFFFF"><c:out value="${item[\'ACRON_ORIGEN\']}" /></td>     
+                    <td width="15%" bgcolor="#FFFFF"><c:out value="${item[\'LAN_DESTINO\']}" /></td>     
+                    <td width="15%" bgcolor="#FFFFF"><c:out value="${item[\'ACRON_DESTINO\']}" /></td>          
+                    <td width="2%"><img  src="img/del2.png" height="15" width="15"  alt="Eliminar relación de idiomas" onclick="eliminarIdiomas('tlaId-<c:out value="${item[\'LAN_ID_ORIGEN\']}"/>#<c:out value="${item[\'ACRON_ORIGEN\']}"/>#<c:out value="${item[\'LAN_ID_DESTINO\']}"/>#<c:out value="${item[\'ACRON_DESTINO\']}"/>')" onmouseover="this.style.cursor='hand';" /></td>
                 </tr>           
               </c:forEach>
               </tbody>

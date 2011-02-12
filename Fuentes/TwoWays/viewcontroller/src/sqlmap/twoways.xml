@@ -93,9 +93,9 @@
   
   <insert id="insertClientsResponsable" parameterClass="com.twoways.to.ClientResponsableTO"   >
     insert into client_responsable
-           (cre_id, cre_First_Name, cre_Last_Name, cre_email, cre_Phone_Number, cre_Mobile_Number, clients_cli_id)
+           (cre_id, cre_First_Name, cre_Last_Name, cre_email,  cre_Phone_Number, cre_Msn, cre_Skype, clients_cli_id)
     values
-          (#creId#, #creFirstName#, #creLastName#, #creEmail#, #crePhoneNumber#, #creMobileNumber#, #clientsTO.cliId#)
+          (#creId#, #creFirstName#, #creLastName#, #creEmail#, #crePhoneNumber#, #creMsn#, #creSkype#, #clientsTO.cliId#)
           
   </insert>
   
@@ -134,7 +134,8 @@
       <result property="creFirstName" column="CRE_FIRST_NAME" />
       <result property="creLastName" column="CRE_LAST_NAME"/>
       <result property="crePhoneNumber" column="CRE_PHONE_NUMBER" />
-      <result property="creMobileNumber" column="CRE_MOBILE_NUMBER"  />
+      <result property="creMsn" column="CRE_MSN"  />
+      <result property="creSkype" column="CRE_SKYPE"  />
       <result property="clientsTO.cliId" column="CLIENTS_CLI_ID"/>      
    </resultMap>   
   
@@ -146,6 +147,7 @@
   <statement  id="getClientResponsableByCliId" resultMap="select-Cli-Responsable"  parameterClass="com.twoways.to.ClientsTO" >
      select * from client_responsable cr 
      where   cr.clients_cli_id=#cliId#
+    
   </statement>   
   
   <insert id="updateClientsRates" parameterClass="com.twoways.to.ClientsRatesTO"   >
@@ -178,7 +180,8 @@
       <result property="empMobileNumber" column="EMP_MOBILE_NUMBER" /> 
       <result property="empMsn" column="EMP_MSN" /> 
       <result property="empObservations" column="EMP_OBSERVATIONS" /> 
-      <result property="empPhoneNumber" column="EMP_PHONE_NUMBER" />      
+      <result property="empPhoneNumber" column="EMP_PHONE_NUMBER" />
+      <result property="empEraseDate" column="EMP_ERASE_DATE" />
     </resultMap>
   
   <select id="obtenerEmpleados"  resultMap="select-Employee" parameterClass="java.lang.String">
@@ -192,14 +195,13 @@
      select *       
      from employees
      where emp_id = #value#
-     and emp_erase_date is null
+
  </statement>
  
   <statement id="buscarEmpleados" resultMap="select-Employee"  parameterClass="java.lang.String" >
      select *       
      from employees 
      where upper(EMP_FIRST_NAME) like '%' || upper(#value#) || '%'
-     and emp_erase_date is null
 
   </statement>
 
@@ -446,6 +448,7 @@
       <result property="usrId"   column="USR_ID" />
       <result property="usrMail" column="USR_MAIL"  />
       <result property="usrBirth" column="USR_BIRTH" />
+      <result property="usrEraseDate" column="USR_ERASE_DATE" />
   </resultMap>
 
   <select id="obtenerUsuarios"  resultMap="select-User" parameterClass="java.lang.String">
@@ -498,7 +501,8 @@
   </update>
   
   <delete id="deleteUsers" parameterClass="com.twoways.to.UsersTO">
-        DELETE Users
+        UPDATE Users
+        SET USR_ERASE_DATE = sysdate
         WHERE  usr_id = #usrId#    
  </delete>
 
@@ -581,8 +585,8 @@
   </insert>
   
   <resultMap id="select-Trans-Lang" class="com.twoways.to.TranslatorsLanguaguesTO">
-      <!--<result property="translatorsTO.traId" column="translators_tra_id" />  -->
-      <result property="langAcronymsTO.languaguesTO.lanName"   column="languagues_acronyms_languagues" />
+      <result property="translatorsTO.traId" column="translators_tra_id" />  
+      <result property="langAcronymsTO.languaguesTO.lanId"   column="languagues_acronyms_languagues" />
       <result property="langAcronymsTO.laaAcronym"   column="languagues_acronyms_laa_acrony" />
       <result property="langAcronymsTO1.languaguesTO.lanId" column="languagues_acronyms_languague1"  />
       <result property="langAcronymsTO1.laaAcronym"   column="languagues_acronyms_laa_acron1" />    
@@ -603,12 +607,14 @@
             t.languagues_acronyms_laa_acron1 as acron_destino
      from translators_languagues t 
      where t.translators_tra_id =  #traId#
+     and t.tla_erase_Date is null
   </statement>  
     
-  <statement  id="getTransSpezialByTransId" resultMap="select-Trans-Spezial"  parameterClass="java.lang.String" >
+  <statement  id="getTransSpezialByTransId" resultMap="select-Trans-Spezial"  parameterClass="java.lang.Long" >
      select *
      from translators_specializations t
      where t.translators_tra_id = #traId#
+     and t.trs_erase_Date is null
   </statement>  
   
   <resultMap id="select-TradId-List"  class="com.twoways.to.TranslatorsTO" >
@@ -618,25 +624,26 @@
  
   
  
- <delete id="deleteTranslatorsLangs" parameterClass="com.twoways.to.TranslatorsLanguaguesTO">
-        DELETE translators_languagues
-        WHERE  translators_tra_id = #translatorsTraId#    
- </delete> 
+ <update id="deleteTranslatorsLangs" parameterClass="com.twoways.to.TranslatorsLanguaguesTO">
+        UPDATE translators_languagues
+        SET TLA_ERASE_DATE = sysdate
+        WHERE  tla_id = #tlaId#    
+ </update> 
  
-  <delete id="deleteTranslatorsSpezials" parameterClass="com.twoways.to.TranslatorsSpecializationsTO">
-        DELETE translators_languagues
-        WHERE  translators_tra_id = #translatorsTraId#    
- </delete> 
+  <update id="deleteTranslatorsSpezials" parameterClass="com.twoways.to.TranslatorsSpecializationsTO">
+        UPDATE translators_specializations 
+        SET TRS_ERASE_DATE = sysdate        
+        WHERE  translators_tra_id = #translatorsTO.traId#   
+        and specializations_spe_name = #specializationsTO.speName#
+ </update> 
  
    <select  id="getTraByEmpId" parameterClass="java.lang.String" resultMap="select-TradId-List">
      select *
-     from translators t, translators_specializations ts, translators_languagues l
-     where employees_emp_id = #value#
-     and t.tra_id=ts.translators_tra_id
-     and t.tra_id=l.translators_tra_id
+     from translators t
+     where t.employees_emp_id = #value#
  </select>
  
- <select  id="getTraById" parameterClass="java.lang.String" resultMap="select-TradId-List">
+ <select  id="getTraById" parameterClass="java.lang.Long" resultMap="select-TradId-List">
      select *
      from translators t
      where t.tra_id = #value#
@@ -658,48 +665,6 @@
   <statement id="obtenerAcronimos"  resultMap="select-Acron-List" parameterClass="java.lang.String">
      select  *
      from Languagues_acronyms     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   </statement>  
 
 <!--hasta aca lo nuevo-->
@@ -1007,6 +972,42 @@
   where pro_id =#proId#
      
   </insert>      
+   
+  <select id="getOldTransLangByTransId" parameterClass="java.lang.Long" resultMap="select-Trans-Lang">
+     select * from translators_languagues t
+     where t.translators_tra_id=#traId#
+     and t.tla_erase_Date is null
+  </select>
   
+  <select id="obtenerTraductorByEmpId" parameterClass="java.lang.String" resultClass="java.lang.Long">
+     select t.tra_id from translators t
+     where t.employees_emp_id=#value#
+  </select>
+  
+   <statement id="obtenerEspecializacionesByTraId"  resultClass="com.twoways.to.SpecializationsTO" parameterClass="java.lang.Long">
+     select  spe_Name as speName, 
+             spe_description as speDescription 
+     from Specializations  s
+     where s.spe_name not in (select t.specializations_spe_name from translators_specializations t
+                              where t.translators_tra_id = #traId#
+                              and t.trs_erase_date is null)
+  </statement>  
+  
+  <update  id="updateClientsResponsable" parameterClass="com.twoways.to.ClientResponsableTO"   >
+     update client_responsable
+     set cre_First_Name = #creFirstName#,
+         cre_Last_Name = #creLastName#,
+         cre_email = #creEmail#,
+         cre_phone_number = #crePhoneNumber#,
+         cre_skype = #creSkype#,
+         cre_msn = #creMsn#
+     where cre_id=#creId#
+  </update>
+ 
+  <update  id="deleteClientsResponsable" parameterClass="com.twoways.to.ClientResponsableTO"   >
+     update client_responsable
+     set cre_erase_date = sysdate
+     where cre_id=#creId#
+  </update>
   
 </sqlMap> 

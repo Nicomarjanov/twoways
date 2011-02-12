@@ -111,20 +111,30 @@ function cargarDatosColumna(row,data){
    row.cells[2].innerHTML=(data.usrLastName==null)?'':data.usrLastName;     
    row.cells[3].innerHTML=(data.usrMail==null)?'':data.usrMail;   
    row.cells[4].innerHTML=(data.usrBirth==null)?'':data.usrBirth;   
-   /*row.cells[5].innerHTML=(data.usrMobileNumber==null)?'':data.usrMobileNumber;
-   row.cells[6].innerHTML=(data.usrPhoneNumber==null)?'':data.usrPhoneNumber;
-   row.cells[7].innerHTML=(data.usrOfficeNumber==null)?'':data.usrOfficeNumber;   */
-   var editar = '<img src="img/edit.png"  height="25" width="25"  alt="Editar" onclick="javascript:window.location.href=\'usuarios?userId='+data.usrId+'\'" onmouseover="this.style.cursor=\'hand\';" /> ';
-   var eliminar = '<img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarUsuario(\''+data.usrId+'\')" onmouseover="this.style.cursor=\'hand\';" />'
 
-   row.cells[5].innerHTML= editar + ' ' + eliminar;
+   var editar = '<img src="img/edit.png"  height="20" width="20"  alt="Editar" onclick="javascript:window.location.href=\'usuarios?userId='+data.usrId+'\'" onmouseover="this.style.cursor=\'hand\';" /> ';
+   var eliminar = '';
+   var eliminado = '';
+   if (data.usrEraseDate != null){
+      eliminado = '<img  src="img/Erase.png" height="20" width="20"  alt="Usuario eliminado el día: \''+data.usrEraseDate+'\'"  />'      
+   }
+   else {
+      eliminar = '<img  src="img/Delete.png" height="20" width="20"  alt="Eliminar" onclick="eliminarUsuario(\''+data.usrId+'\')" onmouseover="this.style.cursor=\'hand\';" />';
+   }
+   
+   row.cells[5].innerHTML= editar + ' ' + eliminar + eliminado;
 }
 
 function  eliminarUsuario(usuarioId){
- 
- if (confirm('¿Esta seguro que desea eliminar el usuario?') ){
- 
-    towaysDWR.deleterUsuario(usuarioId,postEliminar); 
+
+if(usuarioId != null){ 
+     if (confirm('¿Esta seguro que desea eliminar el usuario?') ){
+     
+        towaysDWR.deleterUsuario(usuarioId,postEliminar); 
+     }
+}
+else {
+ alert('Debe seleccionar un usuario antes de eliminar');
  }
 }
 
@@ -132,7 +142,7 @@ function postEliminar(data){
   
    var tablaUsuarios= document.getElementById('tabla-busqueda'); 
    if(data){
-      alert('El usuario se elimino con exito ');
+      alert('El usuario se elimino con exito');
       borrarFilas(tablaUsuarios);
       window.location.href='usuarios';
    }else{
