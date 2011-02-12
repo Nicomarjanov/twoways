@@ -76,7 +76,13 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                 tarifas = twoWaysBDL.getServiceTwoWays().obtenerTarifas();
                 request.setAttribute("listaTarifa",tarifas);
                 
-                special = twoWaysBDL.getServiceTwoWays().obtenerEspecializaciones();
+                Long traIdByEmpId = twoWaysBDL.getServiceTwoWays().obtenerTraductorByEmpId(empId);
+                if (traIdByEmpId != null){
+                    special = twoWaysBDL.getServiceTwoWays().obtenerEspecializacionesByTraId(traIdByEmpId);
+                } else {
+                    special = twoWaysBDL.getServiceTwoWays().obtenerEspecializaciones();
+                }
+                
                 request.setAttribute("listaSpecialTrad",special);
                                
                 idioma =  twoWaysBDL.getServiceTwoWays().obtenerIdioma();
@@ -186,9 +192,8 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                     }else{
                         empleado = twoWaysBDL.getServiceTwoWays().insertarEmpleado(empleado);
                     }
-                    //Preguntar a luciano
-                   // empleado =  twoWaysBDL.getServiceTwoWays().getEmpById(empId);
-                    request.setAttribute("empleado",empleado);  
+                    //Para mostrar de nuevo los datos del empleado desp de cargado descomentar sig
+                    //request.setAttribute("empleado",empleado);  
                 } catch (Exception e) {
                     e.printStackTrace();
                     request.setAttribute("mensaje","<script>alert('Ocurrió un error al guardar el empleado')</script>");  
@@ -262,12 +267,12 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                                      twoWaysBDL.getServiceTwoWays().insertarTraductor(traductor);           
                                  }
 
-                             request.setAttribute("traductor",traductor); 
+                             /*request.setAttribute("traductor",traductor); 
                              
                              List idiomasTraductor = null;
                              idiomasTraductor =  twoWaysBDL.getServiceTwoWays().getLangByTradId(traductor.getTraId());
                              request.setAttribute("idiomasTraductor",idiomasTraductor); 
-                             
+                             */
                              } catch (Exception e) {
                                 e.printStackTrace();
                              }                            
@@ -349,6 +354,10 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                          traductor = twoWaysBDL.getServiceTwoWays().getTraByEmpId(empId);
                          if (traductor != null){
                              request.setAttribute("traductor",traductor);
+                             List idiomasTraductor = null;
+                             idiomasTraductor =  twoWaysBDL.getServiceTwoWays().getLangByTradId(traductor.getTraId());
+                             request.setAttribute("idiomasTraductor",idiomasTraductor); 
+                             
                          }
                          if(empleado == null){
                              request.setAttribute("mensaje","<script>alert('El empleado no existe')</script>"); 

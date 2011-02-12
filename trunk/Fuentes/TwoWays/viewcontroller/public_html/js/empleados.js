@@ -120,7 +120,7 @@ function cargarItemTarifa(row){
    row.cells[2].width=40;
    row.cells[2].align='right';
   
-}
+}0
 
 function eliminarTarifa(id){
 
@@ -197,8 +197,7 @@ function agregar()
     document.getElementById('empLocation').value    = trim(document.getElementById('empLocation').value);
     document.getElementById('empAvailability').value       = trim(document.getElementById('empAvailability').value);
     document.getElementById('empObservations').value       = trim(document.getElementById('empObservations').value);
-   
-    
+       
     if(validarCampos())
     {
         alert(mensajeCampoAlert);
@@ -216,7 +215,9 @@ function grabar(existe)
     }
     else
     {   
-        sortSelect(document.getElementById("listaItemsSelect"));
+        if (document.getElementById("listaItemsSelect").options.length > 0){            
+            sortSelect(document.getElementById("listaItemsSelect"));
+        }
         if (document.getElementById("listaSpecialTradSelect").options.length > 0){
             sortSelect(document.getElementById("listaSpecialTradSelect"));
         }
@@ -244,21 +245,31 @@ function cargarDatosColumna(row,data){
    /*row.cells[5].innerHTML=(data.usrMobileNumber==null)?'':data.usrMobileNumber;
    row.cells[6].innerHTML=(data.usrPhoneNumber==null)?'':data.usrPhoneNumber;
    row.cells[7].innerHTML=(data.usrOfficeNumber==null)?'':data.usrOfficeNumber;   */
-   var editar = '<img src="img/edit.png"  height="25" width="25"  alt="Editar" onclick="javascript:window.location.href=\'empleados?empId='+data.empId+'\';" onmouseover="this.style.cursor=\'hand\';" /> ';
-   var eliminar = '<img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarEmpleado('+data.empId+')" onmouseover="this.style.cursor=\'hand\';" />'
-
-   row.cells[5].innerHTML= editar + ' ' + eliminar;
+   var editar = '<img src="img/edit.png"  height="20" width="20"  alt="Editar" onclick="javascript:window.location.href=\'empleados?empId='+data.empId+'\';" onmouseover="this.style.cursor=\'hand\';" /> ';
+   var eliminado='';
+   var eliminar='';
+   if (data.empEraseDate != null){
+         eliminado = '<img  src="img/Erase.png" height="20" width="20"  alt="Empleado eliminado el día: \''+data.empEraseDate+'\'"  />'      
+   }
+   else {
+         eliminar = '<img  src="img/Delete.png" height="20" width="20"  alt="Eliminar" onclick="eliminarEmpleado('+data.empId+')" onmouseover="this.style.cursor=\'hand\';" />'
+   }
+   row.cells[5].innerHTML= editar + ' ' + eliminar + eliminado;
 }
 
 function  eliminarEmpleado(empId){
- 
- if (confirm('¿Esta seguro que desea eliminar el empleado?') ){
-        sortSelect(document.getElementById("listaItemsSelect"));
-        document.getElementById("accion").value='eliminar';
-        document.getElementById("empId").value=empId;
-        document.forms[0].submit();  
-    //towaysDWR.deleterEmpleado(empId,postEliminar); 
- }
+
+if (empId != null){
+     if (confirm('¿Esta seguro que desea eliminar el empleado?') ){
+            sortSelect(document.getElementById("listaItemsSelect"));
+            document.getElementById("accion").value='eliminar';
+            document.getElementById("empId").value=empId;
+            document.forms[0].submit();  
+        //towaysDWR.deleterEmpleado(empId,postEliminar); 
+     }
+  }else {
+      alert('Debe seleccionar un empleado antes de eliminar');
+  }
 }
 
 function  eliminarEmp(){
@@ -348,7 +359,7 @@ function validarCampos()
     
         for(var i=0;i<listaEmp.options.length;i++)
         {
-            if(listaEmp.options[i].value = 'Traductor'){
+            if(listaEmp.options[i].value == 'Traductor'){
                 var banTraductor=true;
             }
         }
@@ -408,14 +419,15 @@ function asignar()
     for(var i=0;i<document.getElementById("listaTipoEmp").options.length;i++)
     {
         if(document.getElementById("listaTipoEmp").options[i].selected)
-        {  
+        {
             var asig = document.getElementById("listaItemsSelect");
             var asigTar = document.getElementById("listaTipoEmpTar");
-           
+
             var option =  new Option(document.getElementById("listaTipoEmp").options[i].text,document.getElementById("listaTipoEmp").options[i].value);
             var option2 =  new Option(document.getElementById("listaTipoEmp").options[i].text,document.getElementById("listaTipoEmp").options[i].value);
             asigTar.options[asigTar.length] = option;
             asig.options[asig.length] = option2;
+
             quitar = quitar+document.getElementById("listaTipoEmp").options[i].value+'-'; 
             createDynamicDropdown('listaTipoEmpTar', 'listaTarifa', 'dropDown3');
             if(document.getElementById("listaTipoEmp").options[i].value == 'Traductor'){                
@@ -641,9 +653,8 @@ function asignarSpecial()
         {
             var asig = document.getElementById("listaSpecialTradSelect");   
             asig.style.background='#FFFFFF';
-            var option =  new Option(document.getElementById("listaSpecialTrad").options[i].text,document.getElementById("listaSpecialTrad").options[i].value);
-            var option2 =  new Option(document.getElementById("listaSpecialTrad").options[i].text,document.getElementById("listaSpecialTrad").options[i].value);
-            asig.options[asig.length] = option2;
+            var option =  new Option(document.getElementById("listaSpecialTrad").options[i].text,document.getElementById("listaSpecialTrad").options[i].value);           
+            asig.options[asig.length] = option;
             quitar = quitar+document.getElementById("listaSpecialTrad").options[i].value+'-';       
         }        
     }

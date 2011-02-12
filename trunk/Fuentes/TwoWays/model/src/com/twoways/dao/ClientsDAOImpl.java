@@ -105,52 +105,43 @@ public class ClientsDAOImpl extends AbstractDAO  implements ClientDAO{
     public ClientsTO updateCliente(ClientsTO clientsTO) throws Exception {
         
        try{
-       /* getSqlMapClientTemplate().getSqlMapClient().startTransaction();
-        getSqlMapClientTemplate().getSqlMapClient().startBatch(); */
-           List<ClientsRatesTO> oldCliRates = (List<ClientsRatesTO>) getSqlMapClientTemplate().queryForList("getClientRatesByCliId",clientsTO); 
-             
+          List<ClientsRatesTO> oldCliRates = (List<ClientsRatesTO>) getSqlMapClientTemplate().queryForList("getClientRatesByCliId",clientsTO); 
+          List<ClientResponsableTO> oldCliRespo = (List<ClientResponsableTO>) getSqlMapClientTemplate().queryForList("getClientResponsableByCliId",clientsTO); 
+          
           getSqlMapClientTemplate().update("updateClients",clientsTO);
           
           List cliRates = clientsTO.getClientsRatesTOList();
-          
-          // insertar las nuevas 
+          List cliRespo = clientsTO.getClientResponsableTOList();
+          // insertar tarifas nuevas 
           
           for(Object clientsRatesTO: cliRates.toArray() ){
                
-              ClientsRatesTO newCR = (ClientsRatesTO)clientsRatesTO;
-             boolean insertar= true;   
-              
-              for(Object oldCliRate: oldCliRates.toArray() ){
-                 
+             ClientsRatesTO newCR = (ClientsRatesTO)clientsRatesTO;
+             boolean insertar= true;    
+             for(Object oldCliRate: oldCliRates.toArray() ){
                   ClientsRatesTO oldCR = (ClientsRatesTO)oldCliRate;  
                   if( oldCR.getClientsTO().getCliId().equals(newCR.getClientsTO().getCliId()) && oldCR.getRatesTO().getRatId().equals(newCR.getRatesTO().getRatId())  ){
                       insertar=false;
                       break;
-                  }
-                  
-              }     
-               
+                  }             
+              }                   
               if(insertar)
               {
                   getSqlMapClientTemplate().insert("insertClientsRates",(ClientsRatesTO)clientsRatesTO);
               }else{
                   getSqlMapClientTemplate().insert("updateClientsRates",(ClientsRatesTO)clientsRatesTO);
               }  
-          }
-          
+          }          
           //borrar las viejas
           for(Object oldCliRate: oldCliRates.toArray() ){
                  ClientsRatesTO oldCR = (ClientsRatesTO)oldCliRate;   
                  boolean borrar= true;   
-                 for(Object clientsRatesTO: cliRates.toArray() ){
-                 
-                     ClientsRatesTO newCR = (ClientsRatesTO)clientsRatesTO;
-                     
+                 for(Object clientsRatesTO: cliRates.toArray() ){                 
+                     ClientsRatesTO newCR = (ClientsRatesTO)clientsRatesTO;                    
                      if( oldCR.getClientsTO().getCliId().equals(newCR.getClientsTO().getCliId()) && oldCR.getRatesTO().getRatId().equals(newCR.getRatesTO().getRatId())  ){
                          borrar=false;
                          break;
-                     }
-                     
+                     }                     
                  }     
                   
                  if(borrar)
@@ -158,21 +149,57 @@ public class ClientsDAOImpl extends AbstractDAO  implements ClientDAO{
                      getSqlMapClientTemplate().delete("deleteClientsRates",(ClientsRatesTO)oldCR);
                  }  
              }
-             
-            
-                /* getSqlMapClientTemplate().getSqlMapClient().executeBatch();
-                 getSqlMapClientTemplate().getSqlMapClient().commitTransaction();
-                 */
-             } catch (Exception ex)  {
-               //  getSqlMapClientTemplate().getSqlMapClient().endTransaction();
-                 ex.printStackTrace();
-                 
-             } finally  {
+        //insertar responsables 
+             Long creIdAux = null;
+             for(Object clientsResponsableTO: cliRespo.toArray() ){                 
+                ClientResponsableTO newCRes = (ClientResponsableTO)clientsResponsableTO;
+                boolean insertar= true;                     
+                for(Object oldCliResp: oldCliRespo.toArray() ){               
+                     ClientResponsableTO oldCRes = (ClientResponsableTO)oldCliResp;  
+                     if( oldCRes.getClientsTO().getCliId().equals(newCRes.getClientsTO().getCliId()) && oldCRes.getCreFirstName().equals(newCRes.getCreFirstName()) && oldCRes.getCreLastName().equals(newCRes.getCreLastName()) ){
+                         insertar=false;
+                         creIdAux = oldCRes.getCreId();
+                         break;
+                     }                        
+                 }                           
+                 if(insertar)
+                 {  
+                     ClientResponsableTO auxResp=(ClientResponsableTO)clientsResponsableTO;
+                     Long creId = (Long) getSqlMapClientTemplate().queryForObject("client_responsable.seq","");
+                     auxResp.setCreId(creId);
+                     getSqlMapClientTemplate().insert("insertClientsResponsable",auxResp);
+                 }else{
+                     ClientResponsableTO updateResp=(ClientResponsableTO)clientsResponsableTO;
+                     updateResp.setCreId(creIdAux);
+                     getSqlMapClientTemplate().insert("updateClientsResponsable",updateResp);
+                 }  
              }
+           //borrar los viejos responsables
+             for(Object oldCliResp: oldCliRespo.toArray() ){
+                    ClientResponsableTO oldCResp = (ClientResponsableTO)oldCliResp;   
+                    boolean borrar= true;   
+                    for(Object clientsResponsableTO: cliRespo.toArray() ){
+                    
+                        ClientResponsableTO newCResp = (ClientResponsableTO)clientsResponsableTO;
+                        
+                        if( oldCResp.getClientsTO().getCliId().equals(newCResp.getClientsTO().getCliId()) && oldCResp.getCreId().equals(newCResp.getCreId())  ){
+                            borrar=false;
+                            break;
+                        }
+                        
+                    }     
+                     
+                    if(borrar)
+                    {
+                        getSqlMapClientTemplate().delete("deleteClientsResponsable",(ClientResponsableTO)oldCResp);
+                    }  
+                }
+         } catch (Exception ex)  {
+           //  getSqlMapClientTemplate().getSqlMapClient().endTransaction();
+             ex.printStackTrace();
              
-          
-          //borrar las viejas 
-           
+         } finally  {
+         }          
         return getClientById(String.valueOf(clientsTO.getCliId()));     
         
     }

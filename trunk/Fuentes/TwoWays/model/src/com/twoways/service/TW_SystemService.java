@@ -2,6 +2,7 @@ package com.twoways.service;
 
 import com.twoways.dao.TranslatorDAO;
 import com.twoways.to.AccountsTO;
+import com.twoways.to.ClientResponsableTO;
 import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.ClientsTO;
 import com.twoways.to.EmployeesTO;
@@ -140,7 +141,6 @@ public interface TW_SystemService {
     
     public List <OrdersTO> findOrders(Map orderParameters)  throws Exception;
 
-
     public ProjectsTO getProjectById(Long proId) throws Exception;
     
     public ProjectsTO getProjectByOrdId(Long ordId) throws Exception;
@@ -154,4 +154,10 @@ public interface TW_SystemService {
     public List obtenerEspecializaciones() throws Exception;
 
     public List obtenerAcronimos()throws Exception;
+    
+    public Long obtenerTraductorByEmpId(String empId)throws Exception;
+    
+    public List obtenerEspecializacionesByTraId(Long traId)throws Exception;
+    
+
 }

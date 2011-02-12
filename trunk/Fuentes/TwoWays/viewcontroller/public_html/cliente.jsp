@@ -95,7 +95,7 @@
    <tr>
       <td align="right"><input type="button" id="aceptar" value="Aceptar" onclick="agregar()"/></td>   
       <td align="center"><input type="button" id="cancel" value="Limpiar" OnClick="cancelar()"/></td>   
-      <td align="left"><input type="button" id="eliminar" value="Eliminar" OnClick="eliminarUsuario(<c:out value="${cliente.cliId}"/>)"/></td>
+      <td align="left"><input type="button" id="eliminar" value="Eliminar" OnClick="eliminarCliente(<c:out value="${cliente.cliId}"/>)"/></td>
     </tr>
   </table>
 

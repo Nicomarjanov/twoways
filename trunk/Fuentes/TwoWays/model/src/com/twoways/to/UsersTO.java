@@ -22,6 +22,8 @@ public class UsersTO {
     private Long usrOfficeNumber;
     //(name="USR_PHONE_NUMBER")
     private Long usrPhoneNumber;
+    
+    private Timestamp usrEraseDate;
        
     private RolesTO rolesTO;
 
@@ -108,5 +110,13 @@ public class UsersTO {
 
     public String getUsrPass() {
         return usrPass;
+    }
+
+    public void setUsrEraseDate(Timestamp usrEraseDate) {
+        this.usrEraseDate = usrEraseDate;
+    }
+
+    public Timestamp getUsrEraseDate() {
+        return usrEraseDate;
     }
 }

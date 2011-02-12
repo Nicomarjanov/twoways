@@ -16,6 +16,7 @@ import com.twoways.dao.LanguagueDAO;
 import com.twoways.dao.TranslatorDAO;
 
 import com.twoways.to.AccountsTO;
+import com.twoways.to.ClientResponsableTO;
 import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.ClientsTO;
 import com.twoways.to.CurrencyTO;
@@ -48,6 +49,7 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     private ProjectDAO projectDao;
     private LanguagueDAO languagueDao;
     private AccountDAO accountDao;
+
      
     public TW_SystemServiceImpl() {
     }
@@ -321,7 +323,7 @@ public class TW_SystemServiceImpl implements TW_SystemService{
       return  this.translatorDao.getTraByEmpId(empId);
     }    
     
-    public TranslatorsTO getTraById(String traId)  throws Exception{
+    public TranslatorsTO getTraById(Long traId)  throws Exception{
       return  this.translatorDao.getTraById(traId);
     }  
     
@@ -463,6 +465,16 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     public List getLangByTradId(Long tradId) throws Exception{
         return this.translatorDao.getLangByTradId(tradId);
     }
+    
+    public Long obtenerTraductorByEmpId(String empId)throws Exception{
+        return this.translatorDao.obtenerTraductorByEmpId(empId);
+    }
+    
+    public List obtenerEspecializacionesByTraId(Long traId)throws Exception{
+        return this.translatorDao.obtenerEspecializacionesByTraId(traId);
+    }
+    
+
 }
 
 

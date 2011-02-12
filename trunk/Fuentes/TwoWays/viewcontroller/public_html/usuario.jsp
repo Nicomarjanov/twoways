@@ -90,8 +90,8 @@
   <table width="25%" align="center">
    <tr>
       <td align="right"><input type="button" id="aceptar" value="Aceptar" onclick="agregar()"/></td>   
-      <td align="center"><input type="button" id="cancel" value="Cancelar" OnClick="cancelar()"/></td> 
-      <td align="left"><input type="button" id="eliminar" value="Eliminar" disabled OnClick="eliminarUsuario(<c:out value="${usuario.usrId}"/>)"/></td>
+      <td align="center"><input type="button" id="cancel" value="Limpiar" OnClick="cancelar()"/></td> 
+      <td align="left"><input type="button" id="eliminar" value="Eliminar" OnClick="eliminarUsuario(<c:out value="${usuario.usrId}"/>)"/></td>
     </tr>
   </table>
   

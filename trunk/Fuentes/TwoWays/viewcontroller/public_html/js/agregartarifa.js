@@ -14,11 +14,13 @@ function vistaTarifas(){
    var tabla=document.getElementById('tabla-tarifas'); 
    if(tabla.style.display =='none'){
        tabla.style.display='';
+       document.getElementById('tabla-tarifas-body').style.display='';
        document.getElementById('aTar').style.display='none';
        
    }else{
        tabla.style.display='none';
-        document.getElementById('aTar').style.display='';
+       document.getElementById('tabla-tarifas-body').style.display='none';
+       document.getElementById('aTar').style.display='';
    }
 }
 
