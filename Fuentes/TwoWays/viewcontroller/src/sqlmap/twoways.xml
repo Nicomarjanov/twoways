@@ -1176,19 +1176,6 @@
               
  </select>
  
- <resultMap id="select-projectAssignamentDetails-obj"  class="com.twoways.to.ProAssigmentsDetailsTO" >
-      <result property="padId" column="PAD_ID" />
-      <result property="projectAssignmentsTO.praId"   column="PROJECT_ASSIGNMENTS_PRA_ID" />
-      <result property="ordersDocsTO.odoId" column="ORDERS_DOCS_ODO_ID" />     
-      <result property="padWCount" column="PAD_WCOUNT" />     
-      <result property="ordersDocsTO.ordersOrdId" column="orders_docs_orders_ord_id" />  
-      <result property="employeesRatesTO.ratesTO.ratId" column="employees_rates_rates_rat_id" />
-      <result property="employeesRatesTO.employeesTO.empId" column="employees_rates_employees_emp_" />     
-      <result property="pranslatorsLanguaguesTO.tlaId" column="translators_languagues_tla_id" />     
-      <result property="padRate" column="pad_rate" /> 
-  </resultMap>
-  
-  
   
     <resultMap id="select-projectAssignamentDetails-complete"  class="com.twoways.to.ProAssigmentsDetailsTO" >
       <result property="padId" column="PAD_ID" />
@@ -1209,7 +1196,7 @@
   </resultMap>
   
  
-  <select id="getProjectAssigmentDetailsByPadMap" parameterClass="java.lang.Long" resultM="select-projectAssignamentDetails-complete">
+  <select id="getProjectAssigmentDetailsByPadMap" parameterClass="java.lang.Long" resultClass="java.util.HashMap">
      select pad.* , l1.lan_name as len1 , l2.lan_name as len2, o.odo_name docName , tl.languagues_acronyms_laa_acrony acro1  ,  tl.languagues_acronyms_laa_acron1 acro2,  r.rat_name
      from ((((proj_assignments_details pad left outer join employees_rates er on pad.employees_rates_employees_emp_ = er.employees_emp_id and pad.employees_rates_rates_rat_id = er.rates_rat_id) left outer join 
      rates r on  er.rates_rat_id = r.rat_id ) left outer join orders_docs o  on o.odo_id = pad.orders_docs_odo_id and pad.orders_docs_orders_ord_id = o.orders_ord_id ) left outer join
