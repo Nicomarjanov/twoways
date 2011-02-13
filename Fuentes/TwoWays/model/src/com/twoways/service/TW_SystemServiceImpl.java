@@ -20,16 +20,21 @@ import com.twoways.to.ClientResponsableTO;
 import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.ClientsTO;
 import com.twoways.to.CurrencyTO;
+import com.twoways.to.EmployeesRatesTO;
 import com.twoways.to.EmployeesTO;
 import com.twoways.to.ItemsTO;
 import com.twoways.to.OrdersDocsTO;
 import com.twoways.to.OrdersTO;
+import com.twoways.to.ProAssigmentsDetailsTO;
+import com.twoways.to.ProjectAssignmentsTO;
 import com.twoways.to.ProjectsTO;
 import com.twoways.to.RateTypesTO;
 import com.twoways.to.RatesTO;
 import com.twoways.to.TranslatorsTO;
 import com.twoways.to.UsersTO;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -433,7 +438,14 @@ public class TW_SystemServiceImpl implements TW_SystemService{
         
         ProjectsTO proyecto =  this.projectDao.getProjectById(proId);
         proyecto.setOrdersTO(ordersDao.getOrderById(proyecto.getOrdersTO().getOrdId()));
+        proyecto.setProjectAssignmentsTOList(this.getProjectAssignmentsByProId(proId));
+        
         return proyecto;
+    }
+    
+    public List <ProjectAssignmentsTO> getProjectAssignmentsByProId(Long proId)throws Exception{
+        
+        return projectDao.getProjectAssignmentsByProId(proId);
     }
     
     public ProjectsTO getProjectByOrdId(Long ordId) throws Exception{
@@ -466,6 +478,14 @@ public class TW_SystemServiceImpl implements TW_SystemService{
         return this.translatorDao.getLangByTradId(tradId);
     }
     
+    public List getEmpByRatesName(String rateName) throws Exception {
+        return this.employeeDao.getEmpByRatesName(rateName);
+    }
+
+    public ProjectAssignmentsTO updateProjectAssignament(ProjectAssignmentsTO projectAssignmentsTO)throws Exception {
+        return this.projectDao.updateProjectAssignament(projectAssignmentsTO);
+    }
+
     public Long obtenerTraductorByEmpId(String empId)throws Exception{
         return this.translatorDao.obtenerTraductorByEmpId(empId);
     }
@@ -474,7 +494,44 @@ public class TW_SystemServiceImpl implements TW_SystemService{
         return this.translatorDao.obtenerEspecializacionesByTraId(traId);
     }
     
+    public ProjectAssignmentsTO insertProjectAssignament(ProjectAssignmentsTO projectAssignmentsTO)throws Exception {
+        return this.projectDao.insertProjectAssignament(projectAssignmentsTO);
+    }
 
+    public void insertProjectAssignamentDetails(ProAssigmentsDetailsTO proAssigmentsDetailsTO) throws Exception {
+       
+       List<EmployeesRatesTO> employeesRatesTOList = employeeDao.getEmpRatesByEmpId(proAssigmentsDetailsTO.getProjectAssignmentsTO().getEmployeesTO());
+       this.projectDao.insertProjectAssignamentDetails( proAssigmentsDetailsTO,employeesRatesTOList);
+    }
+    
+    
+    public List<EmployeesRatesTO> getEmpRatesByEmpId(Long empId) throws Exception {
+        EmployeesTO employeesTO= new  EmployeesTO();
+        employeesTO.setEmpId(empId);
+        return  employeeDao.getEmpRatesByEmpId(employeesTO);
+    }
+
+    public List<ProAssigmentsDetailsTO> getProjectAssignmentsDetailsById(Long praId)throws Exception {
+        return this.projectDao.getProjectAssignmentsDetailsById( praId);
+    }
+
+    public ProjectAssignmentsTO getProjectAssignmentsById(Long praId)throws Exception {
+        return this.projectDao.getProjectAssignmentsById(praId);
+    }
+
+    public void deleteProjectAssignamentDetails(ProAssigmentsDetailsTO detail) throws Exception {
+    
+       this.projectDao.deleteProjectAssignamentDetails(detail);
+    }
+
+    public Long buscarAssignacion(String praDate, Long emp, String serv, 
+                                     String proId) throws Exception {
+        return this.projectDao.findProjectAssignament(praDate,emp,serv,proId);
+    }
+    
+    public void deleteProjectAssigmentDetailsByPraId(Map params)throws Exception {
+        this.projectDao.deleteProjectAssigmentDetailsByPraId(params); 
+    }
 }
 
 

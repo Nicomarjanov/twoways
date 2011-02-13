@@ -2,7 +2,7 @@ package com.twoways.to;
 
 public class OrdersRatesTO {
     //
-    private Float clrValue;
+    private Double clrValue;
     private RatesTO ratesTO;
     private OrdersTO ordersTO;
 
@@ -10,11 +10,11 @@ public class OrdersRatesTO {
     }
 
 
-    public Float getClrValue() {
+    public Double getClrValue() {
         return clrValue;
     }
 
-    public void setClrValue(Float clrValue) {
+    public void setClrValue(Double clrValue) {
         this.clrValue = clrValue;
     }
 

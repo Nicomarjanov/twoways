@@ -2,12 +2,16 @@ package com.twoways.to;
 
 public class ProAssigmentsDetailsTO {
     
-    
+    private Long padId; 
     private OrdersDocsTO ordersDocsTO;
-    private long padWCount; 
+    private Long padWCount; 
     private EmployeesRatesTO employeesRatesTO; 
     private TranslatorsLanguaguesTO pranslatorsLanguaguesTO;
- 
+    private Double padRate; 
+    private ProjectsRatesTO projectsRatesTO;
+    private ProjectAssignmentsTO projectAssignmentsTO;
+    
+    
     public ProAssigmentsDetailsTO() {
     
     
@@ -22,11 +26,11 @@ public class ProAssigmentsDetailsTO {
         return ordersDocsTO;
     }
 
-    public void setPadWCount(long padWCount) {
+    public void setPadWCount(Long padWCount) {
         this.padWCount = padWCount;
     }
 
-    public long getPadWCount() {
+    public Long getPadWCount() {
         return padWCount;
     }
 
@@ -44,5 +48,41 @@ public class ProAssigmentsDetailsTO {
 
     public TranslatorsLanguaguesTO getPranslatorsLanguaguesTO() {
         return pranslatorsLanguaguesTO;
+    }
+
+    
+
+  
+
+    public void setPadId(Long padId) {
+        this.padId = padId;
+    }
+
+    public Long getPadId() {
+        return padId;
+    }
+
+    public void setProjectsRatesTO(ProjectsRatesTO projectsRatesTO) {
+        this.projectsRatesTO = projectsRatesTO;
+    }
+
+    public ProjectsRatesTO getProjectsRatesTO() {
+        return projectsRatesTO;
+    }
+
+    public void setProjectAssignmentsTO(ProjectAssignmentsTO projectAssignmentsTO) {
+        this.projectAssignmentsTO = projectAssignmentsTO;
+    }
+
+    public ProjectAssignmentsTO getProjectAssignmentsTO() {
+        return projectAssignmentsTO;
+    }
+
+    public void setPadRate(Double padRate) {
+        this.padRate = padRate;
+    }
+
+    public Double getPadRate() {
+        return padRate;
     }
 }

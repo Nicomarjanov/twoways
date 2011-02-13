@@ -38,7 +38,8 @@ public class OrdersTO {
     private List<ProjectsTO> projectsTOList;
     private List<InvoicesTO> invoicesTOList;
     private List<OrdersRatesTO> orderRatesTOList;
-    private List<ServicesTO> servicesTOList;
+    //private List<ServicesTO> servicesTOList;
+    private List<RateTypesTO> servicesTOList;
     
     private List<FileItem> files; 
 
@@ -224,11 +225,11 @@ public class OrdersTO {
         return ordDeadLineDate;
     }
 
-    public void setServicesTOList(List<ServicesTO> servicesTOList) {
+    public void setServicesTOList(List<RateTypesTO> servicesTOList) {
         this.servicesTOList = servicesTOList;
     }
 
-    public List<ServicesTO> getServicesTOList() {
+    public List<RateTypesTO> getServicesTOList() {
         return servicesTOList;
     }
 }

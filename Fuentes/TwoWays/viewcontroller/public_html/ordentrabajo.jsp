@@ -108,8 +108,8 @@
                <td rowspan=3 align="right">
                    <select multiple="multiple" size="4"  name="listaServices" id="listaServices" style="border:solid 1px #005C8D;width:200px; font-size: 9px;" onfocus="javascript:this.style.background='#FFFFFF';">                                            
                     <c:forEach items="${listaService}" var="item">
-                          <option value="<c:out value="${item.serId}" />" style="background-color:#A4BAC7;">
-                            <c:out value="${item.serName}" />
+                          <option value="<c:out value="${item.rtyName}" />" style="background-color:#A4BAC7;">
+                            <c:out value="${item.rtyName}" />
                         </option> 
                     </c:forEach>
                   </select>      
@@ -129,8 +129,8 @@
                 <td rowspan=3 align="left">
                     <select name="listaItemsSelect" id="listaItemsSelect" size="4" multiple="multiple" style="border:solid 1px #005C8D;width:200px; font-size: 9px;" >
                     <c:forEach items="${order.servicesTOList}" var="item">
-                           <option value="<c:out value="${item.serId}" />" title="<c:out value="${item.serDescription}"/>">
-                             <c:out value="${item.serName}" />
+                           <option value="<c:out value="${item.rtyName}" />" title="<c:out value="${item.rtyName}"/>">
+                             <c:out value="${item.rtyName}" />
                           </option> 
                     </c:forEach>
                     </select>
