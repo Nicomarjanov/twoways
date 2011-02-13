@@ -56,7 +56,7 @@
 	        <!--value="%d %-5p %-17c{2} (%30F:%L) %3x - %m%n"/>-->
 			<!-- work's with jdk 1.4.* -->
             <!--param name="ConversionPattern" value="%d{yy-MM-dd,HH:mm} %F:%L%n%-5p >> %m%n%n"/-->
-            <param name="ConversionPattern" value="%d{dd-MM-yyyy,HH:mm} %-5p (%c{1}:%L) >> %m%n"/>
+            <param name="ConversionPattern" value="%d{dd/MM/yyy HH:mm} %-5p (%c{1}:%L) >> %m%n"/>
         </layout>
     </appender>
     
@@ -69,7 +69,7 @@
 	        <!--value="%d %-5p %-17c{2} (%30F:%L) %3x - %m%n"/>-->
 			<!-- work's with jdk 1.4.* -->
             <!--param name="ConversionPattern" value="%d{yy-MM-dd,HH:mm} %F:%L%n%-5p >> %m%n%n"/-->
-            <param name="ConversionPattern" value="%d{dd-MM-yyyy,HH:mm} %-5p (%c{1}:%L) >> %m%n"/>
+            <param name="ConversionPattern" value="%d{dd/MM/yyy HH:mm} %-5p (%c{1}:%L) >> %m%n"/>
         </layout>
     </appender>
     
@@ -82,7 +82,7 @@
 	        <!--value="%d %-5p %-17c{2} (%30F:%L) %3x - %m%n"/>-->
 			<!-- work's with jdk 1.4.* -->
             <!--param name="ConversionPattern" value="%d{yy-MM-dd,HH:mm} %F:%L%n%-5p >> %m%n%n"/-->
-            <param name="ConversionPattern" value="%d{yy-MM-dd,HH:mm} %-5p (%c{1}:%L) >> %m%n"/>
+            <param name="ConversionPattern" value="%d{dd/MM/yyy HH:mm} %-5p (%c{1}:%L) >> %m%n"/>
         </layout>
     </appender>
     <!-- Notice, in the RollingFileAppender example, that the layout used -->
@@ -191,14 +191,14 @@
     </logger>
         
     <!-- Logs de la aplicacion -->
-    <logger name="com.twoways">
+    <!--logger name="com.twoways">
        <level value="debug,info,error,fatal"/>
        <appender-ref ref="stdout"/>
        <appender-ref ref="rolling"/>
         
-    </logger>
+    </logger-->
     
-    <logger name="java.sql.Connection">    
+    <!--logger name="java.sql.Connection">    
        <level value="debug,info,error,fatal"/>
        <appender-ref ref="sqls"/> 
        <appender-ref ref="stdout"/>
@@ -207,12 +207,12 @@
       <level value="debug,info,error,fatal"/>
        <appender-ref ref="stdout"/>
        <appender-ref ref="sqls"/>
-    </logger> 
-    <logger name="java.sql.ResultSet"> 
+    </logger--> 
+    <!--logger name="java.sql.ResultSet"> 
      <level value="debug,info,error,fatal"/>
        <appender-ref ref="stdout"/>
        <appender-ref ref="sqls"/>
-    </logger>
+    </logger-->
 
     <root>
         <level value="debug"/>

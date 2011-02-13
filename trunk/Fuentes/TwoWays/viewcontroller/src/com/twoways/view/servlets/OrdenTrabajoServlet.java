@@ -8,7 +8,7 @@ import com.twoways.to.OrdersRatesTO;
 import com.twoways.to.OrdersTO;
 import com.twoways.to.RateTypesTO;
 import com.twoways.to.RatesTO;
-import com.twoways.to.ServicesTO;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -86,7 +86,7 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
         List<FileItem> files= (List<FileItem>) pRequest.get("Files");
         String accion=(mRequest.get("accion")!= null )?mRequest.get("accion").toString():"";
         List<ClientsTO> clientes = null;
-        List<ServicesTO> services = null;
+        List<RateTypesTO> services = null;
        /* ClientsTO cliente = new Clients
         * TO(); 
         String cliId = request.getParameter("cliId"); 
@@ -101,7 +101,9 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
            rateType.setRtyName("Cliente");
            tarifas =  twoWaysBDL.getServiceTwoWays().getRateByType(rateType);
            clientes= twoWaysBDL.getServiceTwoWays().obtenerClientes();
-           services= twoWaysBDL.getServiceTwoWays().obtenerServicios();
+           //services= twoWaysBDL.getServiceTwoWays().obtenerServicios();
+           services = twoWaysBDL.getServiceTwoWays().obtenerTipoTarifas();
+            
            request.setAttribute("listaTarifa",tarifas);
            request.setAttribute("listaCliente",clientes);
            request.setAttribute("listaService",services);
@@ -111,12 +113,12 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                  try{
                  order =twoWaysBDL.getServiceTwoWays().getOrderById(Long.parseLong(ordId) );
                      
-             for (ServicesTO servOrd:order.getServicesTOList()){
+             for (RateTypesTO servOrd:order.getServicesTOList()){
                      
-                 for(ServicesTO serv: services){
+                 for(RateTypesTO serv: services){
                      
                        
-                         if(serv.getSerId().equals(servOrd.getSerId())){
+                         if(serv.getRtyName().equals(servOrd.getRtyName())){
                              services.remove(serv);
                              break;
                          }
@@ -176,6 +178,7 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                 request.getRequestDispatcher("ordentrabajo.jsp").forward(request,response);
             }
             
+            ordersTO.setOrdProjId((mRequest.get("ordProjId")!= null )?mRequest.get("ordProjId").toString():"");    
             ordersTO.setOrdJobId((mRequest.get("ordJobId")!= null )?mRequest.get("ordJobId").toString():"");    
             ordersTO.setOrdJobDescription((mRequest.get("ordJobDescription")!= null )?mRequest.get("ordJobDescription").toString():"");    
             ordersTO.setOrdDescription((mRequest.get("ordDescription")!= null )?mRequest.get("ordDescription").toString():"");    
@@ -203,7 +206,7 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                     String atribs[]= ((String)aux).split("#");
                     
                     OrdersRatesTO orderRatesTO = new OrdersRatesTO();
-                    orderRatesTO.setClrValue(Float.parseFloat(atribs[1].replaceAll(",",".")));
+                    orderRatesTO.setClrValue(Double.parseDouble(atribs[1].replaceAll(",",".")));
                     RatesTO rtTO= new RatesTO();
                     rtTO.setRatId(Long.parseLong(atribs[0]));
                     orderRatesTO.setRatesTO(rtTO );
@@ -227,12 +230,12 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                  
             if( listaItemsSelect  != null){ 
                 
-                List<ServicesTO> ordersServices = new   ArrayList<ServicesTO>();
+                List<RateTypesTO> ordersServices = new   ArrayList<RateTypesTO>();
                 
                 for(Object aux:listaItemsSelect){
                                        
-                    ServicesTO serviceTO = new ServicesTO();
-                    serviceTO.setSerId(aux.toString());
+                    RateTypesTO serviceTO = new RateTypesTO();
+                    serviceTO.setRtyName(aux.toString());
                     if(aux.toString().trim().length() > 0){ 
                        ordersServices.add(serviceTO);
                     }
@@ -288,12 +291,12 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                   
                }else{
                   ordersTO = twoWaysBDL.getServiceTwoWays().insertarOrder(ordersTO);
-               } for (ServicesTO servOrd:ordersTO.getServicesTOList()){
+               } for (RateTypesTO servOrd:ordersTO.getServicesTOList()){
                 
-                for(ServicesTO serv: services){
+                for(RateTypesTO serv: services){
                 
                   
-                    if(serv.getSerId().equals(servOrd.getSerId())){
+                    if(serv.getRtyName().equals(servOrd.getRtyName())){
                         services.remove(serv);
                         break;
                     }

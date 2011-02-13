@@ -45,6 +45,20 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
         }
         return ret;
         }
+        
+        
+    public List getEmpByRatesName(String rateName) throws Exception{
+        List ret= null;
+        try {
+            ret = 
+            getSqlMapClientTemplate().queryForList("getEmpByRatesName",rateName);
+        } catch (DataAccessException dae) {
+
+           dae.printStackTrace();
+        }
+        return ret;
+    }
+    
 
     public boolean deleteEmployee(EmployeesTO employeesTO)  throws Exception{      
        
@@ -113,6 +127,12 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
         
         return getEmpById(String.valueOf(empId)); 
         
+    }
+    
+    public List<EmployeesRatesTO> getEmpRatesByEmpId(EmployeesTO employeesTO)throws Exception {
+    
+       return  (List<EmployeesRatesTO>) getSqlMapClientTemplate().queryForList("getEmpRatesByEmpId",employeesTO); 
+    
     }
     
     public EmployeesTO updateEmpleado(EmployeesTO employeesTO) throws Exception {

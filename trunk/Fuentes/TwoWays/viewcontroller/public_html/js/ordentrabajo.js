@@ -284,9 +284,9 @@ function onloadOrder(){
 
 function buscarOrden(){
   
-  
-    var ordFinishDate = frmbuscarOrden.ordFinishDate;
-    var ordDate = frmbuscarOrden.ordDate;
+     
+    var ordFinishDate = document.getElementById('ordFinishDate');
+    var ordDate =document.getElementById('ordDate');
     var banderaMensajeFaltante=false;
     var mensajeCampoAlert='';
     var mensajeFaltanteAlert = 'Se tiene que completar los siguientes campos: \n';
@@ -320,19 +320,22 @@ function buscarOrden(){
     }
     
     
-  frmbuscarOrden.accion.value="buscar";  
+  document.getElementById('accion').value='buscar';  
+  var frmbuscarOrden = document.getElementById('frmbuscarOrden');
   frmbuscarOrden.submit();
 }
 
 function back(){
-
-  frmbuscarOrden.pageId.value =parseInt(frmbuscarOrden.pageId.value) -1;
+  
+  var pageId = document.getElementById('pageId')   
+  pageId.value =parseInt(pageId.value) -1;
   buscarOrden();
 }
 
 
 function next(){
-  frmbuscarOrden.pageId.value = parseInt(frmbuscarOrden.pageId.value) +1;
+  var pageId = document.getElementById('pageId')   
+  pageId.value = parseInt(pageId.value) +1;
   buscarOrden();
 }
 

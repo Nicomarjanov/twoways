@@ -119,7 +119,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                         String atribs[]= aux.split("#");
                         
                         EmployeesRatesTO employeesRatesTO = new EmployeesRatesTO();
-                        employeesRatesTO.setEmrValue(Float.parseFloat(atribs[1].replaceAll(",",".")));
+                        employeesRatesTO.setEmrValue(Double.parseDouble(atribs[1].replaceAll(",",".")));
                         RatesTO rtTO= new RatesTO();
                         rtTO.setRatId(Long.parseLong(atribs[0]));
                         employeesRatesTO.setRatesTO(rtTO );
@@ -297,7 +297,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                         String atribs[]= aux.split("#");
                         
                         EmployeesRatesTO employeesRatesTO = new EmployeesRatesTO();
-                        employeesRatesTO.setEmrValue(Float.parseFloat(atribs[1].replaceAll(",",".")));
+                        employeesRatesTO.setEmrValue(Double.parseDouble(atribs[1].replaceAll(",",".")));
                         RatesTO rtTO= new RatesTO();
                         rtTO.setRatId(Long.parseLong(atribs[0]));
                         employeesRatesTO.setRatesTO(rtTO );

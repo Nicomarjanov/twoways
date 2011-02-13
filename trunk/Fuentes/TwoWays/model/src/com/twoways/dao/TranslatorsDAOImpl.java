@@ -25,7 +25,9 @@ public class TranslatorsDAOImpl extends AbstractDAO  implements TranslatorDAO{
     public TranslatorsTO getTraByEmpId(String empId)  throws Exception{
        TranslatorsTO translator =  (TranslatorsTO)getSqlMapClientTemplate().queryForObject("getTraByEmpId",empId);
       // String traId = translator.getTraId().toString();
+      if(translator!= null){ 
        translator.setTransSpecializationTOList((List<TranslatorsSpecializationsTO>)getSqlMapClientTemplate().queryForList("getTransSpezialByTransId",translator.getTraId()) );
+      }
        return translator;
     }
     

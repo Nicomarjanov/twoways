@@ -3,7 +3,7 @@ package com.twoways.to;
 public class EmployeesRatesTO {
     //
     private Long employeesEmpId;
-    private Float emrValue;
+    private Double emrValue;
     private Long ratesRatId;
     private RatesTO ratesTO;
     private EmployeesTO employeesTO;
@@ -19,11 +19,11 @@ public class EmployeesRatesTO {
         this.employeesEmpId = employeesEmpId;
     }
 
-    public Float getEmrValue() {
+    public Double getEmrValue() {
         return emrValue;
     }
     
-    public void setEmrValue(Float emrValue) {
+    public void setEmrValue(Double emrValue) {
         this.emrValue = emrValue;
     }
 

@@ -14,7 +14,8 @@ import com.twoways.to.OrdersDocsTO;
 import com.twoways.to.OrdersRatesTO;
 import com.twoways.to.OrdersTO;
 
-import com.twoways.to.ServicesTO;
+import com.twoways.to.RateTypesTO;
+
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -113,7 +114,7 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
     public OrdersTO getOrderById(Long ordId) throws Exception {
         OrdersTO ordersTO = (OrdersTO)getSqlMapClientTemplate().queryForObject("getOrderById", ordId);
         ordersTO.setOrderRatesTOList((List<OrdersRatesTO>)getSqlMapClientTemplate().queryForList("getOrderRatesByOrderId",ordersTO) );
-        ordersTO.setServicesTOList((List<ServicesTO>)getSqlMapClientTemplate().queryForList("getOrderServicesByOrderId",ordersTO) );
+        ordersTO.setServicesTOList((List<RateTypesTO>)getSqlMapClientTemplate().queryForList("getOrderServicesByOrderId",ordersTO) );
         ordersTO.setOrdersDocsTOList((List<OrdersDocsTO>)getSqlMapClientTemplate().queryForList("getOrderDocByOrder", ordId));
 
         return ordersTO;
@@ -186,20 +187,20 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
            }
            
              
-        List <ServicesTO> services = ordersTO.getServicesTOList();
+        List <RateTypesTO> services = ordersTO.getServicesTOList();
         
         // insertar las nuevas 
         
-        List<ServicesTO> oldOrdServices = (List<ServicesTO>) getSqlMapClientTemplate().queryForList("getOrderServicesByOrderId",ordersTO); 
+        List<RateTypesTO> oldOrdServices = (List<RateTypesTO>) getSqlMapClientTemplate().queryForList("getOrderServicesByOrderId",ordersTO); 
          
         
-        for(ServicesTO servicesTO: services ){
+        for(RateTypesTO servicesTO: services ){
              boolean insertar= true;   
             
-            for(ServicesTO oldServices: oldOrdServices ){
+            for(RateTypesTO oldServices: oldOrdServices ){
                
                  
-                if( oldServices.getSerId().equals(servicesTO.getSerId())){
+                if( oldServices.getRtyName().equals(servicesTO.getRtyName())){
                     insertar=false;
                     break;
                 }
@@ -210,18 +211,18 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
             {
                 Map insert= new HashMap();
                 insert.put("ordId",ordersTO.getOrdId());
-                insert.put("serId",servicesTO.getSerId());
+                insert.put("serId",servicesTO.getRtyName());
                 getSqlMapClientTemplate().insert("insertOrdersServices",insert);
             } 
         }
         
         //borrar las viejas
-        for(ServicesTO oldServices: oldOrdServices ){
+        for(RateTypesTO oldServices: oldOrdServices ){
                boolean borrar= true;   
-               for(ServicesTO servicesTO: services ){
+               for(RateTypesTO servicesTO: services ){
                
                    
-                   if( oldServices.getSerId().equals(servicesTO.getSerId())  ){
+                   if( oldServices.getRtyName().equals(servicesTO.getRtyName())  ){
                        borrar=false;
                        break;
                    }
@@ -232,7 +233,7 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
                {
                    Map insert= new HashMap();
                    insert.put("ordId",ordersTO.getOrdId());
-                   insert.put("serId",oldServices.getSerId());
+                   insert.put("serId",oldServices.getRtyName());
                    getSqlMapClientTemplate().delete("deleteOrdersServices",insert);
                    
                   
@@ -290,8 +291,8 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
             (Long)getSqlMapClientTemplate().queryForObject("ordersdoc.seq", 
                                                            "");
         ordersTO.setOrdId(ordId);
-        ;
-        ResourceBundle rb = ResourceBundle.getBundle("twoways");
+        
+        /*ResourceBundle rb = ResourceBundle.getBundle("twoways");
         String userName = rb.getString("userCalendar");
         String userPassword = rb.getString("userCalendarPassword");
         String cliente = ordersTO.getClientsTO().getCliName();
@@ -299,13 +300,13 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
 
         
         CalendarGoogleService  cgsvc= new CalendarGoogleService(userName);
-
+        */ 
         getSqlMapClientTemplate().insert("insertOrders", ordersTO);
         
-       CalendarService myService = new CalendarService("srv"+userName);
+        //CalendarService myService = new CalendarService("srv"+userName);
  
        
-
+/*
         try {
         
           log.debug("Antes del login");  
@@ -330,7 +331,7 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
           log.error("The server had a problem handling your request.",e);
           e.printStackTrace();
         }
-        
+  */      
         if (ordersTO.getOrderRatesTOList() != null) {
 
 
@@ -350,7 +351,7 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
 
                Map insert= new HashMap();
                insert.put("ordId",ordersTO.getOrdId());
-               insert.put("serId",((ServicesTO)service).getSerId());
+               insert.put("serId",((RateTypesTO)service).getRtyName());
                getSqlMapClientTemplate().insert("insertOrdersServices",insert);
             }
 
@@ -370,12 +371,12 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
        Connection con = null;
        Statement stm = null;
        ResultSet rs= null ;
-       String query = " select *\n" + 
-       "        from orders o, clients c\n" + 
-       "        where o.ord_name like '%#ordName#%'\n" + 
-       "        and (o.ord_Proj_Id like '%#ordProjId#%' or o.ord_Proj_Id is null)\n" + 
-       "        and o.clients_cli_id = c.cli_Id\n" + 
-       "        and c.cli_id = decode(#cliId#,0,c.cli_id,#cliId#)" ;
+       String query =  " select * " + 
+                       " from orders o, clients c " + 
+                       " where upper(o.ord_name) like upper('%#ordName#%') " + 
+                       " and upper(decode(o.ord_Proj_Id, null , ' ',o.ord_Proj_Id)) like  upper('%#ordProjId#%')"+
+                       " and o.clients_cli_id = c.cli_Id " + 
+                       " and c.cli_id = decode(#cliId#,0,c.cli_id,#cliId#) " ;
        
        if(orderParameters.get("ordDate") != null && orderParameters.get("ordDate").toString().length() > 0){
        
@@ -398,12 +399,12 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
            if (orderParameters.get("ordFinishDate").toString().length() == 10){
                if(!orderParameters.get("ordFinishDateOpt").toString().equals("=")){ 
                    formato = "dd/MM/yyyy";
-                   query += " and o.ord_date "+ orderParameters.get("ordFinishDateOpt").toString()+"  to_date ('#ordFinishDate#','"+formato+"')";
+                   query += " and o.ord_finish_date "+ orderParameters.get("ordFinishDateOpt").toString()+"  to_date ('#ordFinishDate#','"+formato+"')";
                }else{
-                   query += " and o.ord_date >= to_date ('#ordFinishDate# 00:00','"+formato+"') and  o.ord_date <= to_date ('#ordFinishDate# 23:59','"+formato+"') ";
+                   query += " and o.ord_finish_date >= to_date ('#ordFinishDate# 00:00','"+formato+"') and  o.ord_date <= to_date ('#ordFinishDate# 23:59','"+formato+"') ";
                }
            }else{        
-             query += " and o.ord_date "+ orderParameters.get("ordFinishDateOpt").toString()+"  to_date ('#ordFinishDate#','"+formato+"')";
+             query += " and o.ord_finish_date "+ orderParameters.get("ordFinishDateOpt").toString()+"  to_date ('#ordFinishDate#','"+formato+"')";
            }  
         }
       
@@ -426,8 +427,11 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
                 OrdersTO order= new OrdersTO();
                 order.setOrdId(rs.getLong("ord_id"));
                 order.setOrdName(rs.getString("ord_name"));
-                order.setOrdJobName(rs.getString("ord_job_name"));
-                
+                order.setOrdProjId(rs.getString("ord_Proj_Id"));
+                ClientsTO client = new ClientsTO();
+                client.setCliId(rs.getLong("cli_id"));
+                client.setCliName(rs.getString("cli_name"));
+                order.setClientsTO(client);
                 if(rs.getTime("ord_finish_date") !=null ){ 
                    
                         

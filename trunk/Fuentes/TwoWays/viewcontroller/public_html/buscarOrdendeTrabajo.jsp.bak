@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<%@ page contentType="text/html;charset=windows-1252"%>
+<%@ page errorPage="error.jsp" %>
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+
+<html>
+   <head>
+   <meta http-equiv="Content-Type" content="text/html; charset=windows-1252"/>
+    <link href="./twoways.css" rel="stylesheet" type="text/css"/>
+    <title>Buscar Orden de Trabajo</title>
+    <script type='text/javascript' src="./js/ordentrabajo.js"></script>
+    <script type='text/javascript' src="./js/utils.js"></script>
+    <script type='text/javascript' src='/twoways/dwr/interface/towaysDWR.js'></script>
+    <script type='text/javascript' src='/twoways/dwr/engine.js'></script>
+    <script type='text/javascript' src='/twoways/dwr/util.js'></script>
+    
+  </head>
+  <body>
+   <jsp:include page="/WEB-INF/jspIncludes/menu.jsp" />
+   <form  name="frmbuscarOrden" action="buscarordentrabajo" method="POST" >
+   <input type="hidden"  name="accion"  value=""   />
+   <input type="hidden"  name="pageId"  value="<c:out value="${pageId}" />" >
+   <table width="100%">
+  <thead>
+  <tr>
+    <th class="tw_form">Ingrese los criterios de busqueda para la orden </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+  <td align="center" >  
+   <table>
+   <thead>
+   <tr>
+   <th>Nombre</th><th colspan="2"  >Fecha de Inicio</th><th colspan="2" >Fecha de Entrega</th><th>Cliente</th><th>Proyecto</th><th>&nbsp;</th> 
+   </tr>
+   </thead>
+   <tbody>
+   <tr>
+   <td><input type="text" class="tw_form" name="ordName"  id="ordName" value="<c:out value="${order.ordName}" />"  /></td>
+   <td><input type="text" class="tw_form" name="ordDate"  id="ordDate" value="<fmt:formatDate value="${order.ordDate}"    pattern="dd/MM/yyyy hh:mm" />"  /></td>
+   <td>
+   <select id="ordDateOpt" name="ordDateOpt">
+       <option value="=" >=</option>
+       <option value=">=" >>=</option>
+       <option value="<=" ><=</option>
+       </select>
+   </td>
+   <td><input type="text" class="tw_form" name="ordFinishDate"  id="ordFinishDate"  value="<fmt:formatDate value="${order.ordFinishDate}"    pattern="dd/MM/yyyy hh:mm" />" /></td>
+   <td>
+   <select id="ordFinishDateOpt" name="ordFinishDateOpt" >
+       <option value="=" >=</option>
+       <option value=">=" >>=</option>
+       <option value="<=" ><=</option>
+       </select>
+   </td>
+   <td><select name="listaClientes" id="listaClientes" style="border:solid 1px #005C8D;"   onfocus="javascript:this.style.background='#FFFFFF';">               
+                <option value=""  >Seleccionar</option>
+                <c:forEach items="${listaCliente}" var="item">
+                   <c:out value="${item.cliId}" />
+                   <c:choose>
+                    <c:when test="${order.clientsTO.cliId == item.cliId}">
+                       <option value="<c:out value="${item.cliId}" />" style="background-color:#A4BAC7;" selected="selected">
+                        <c:out value="${item.cliName}" />
+                      </option> 
+                    </c:when>
+                    <c:otherwise>
+                    <option value="<c:out value="${item.cliId}" />" style="background-color:#A4BAC7;">
+                        <c:out value="${item.cliName}" />
+                    </option>
+                    </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+           </select>
+    </td>
+   <td><input type="text" class="tw_form" name="ordProjId"  id="ordProjId"  value="<c:out value="${order.ordProjId}" />" /></td> 
+   <td><input type="button" value="Buscar" onclick="buscarOrden()"  /></td>
+   </tr>
+   
+   </tbody>
+   </table>
+   </tr>
+   <tr>
+   <td>&nbsp;</td>
+   </tr>
+   <tr>
+   <td align="center" ><table id ="tabla-busqueda">
+    <thead>
+      <tr><th>Nombre</th><th>Fecha de Inicio</th><th>Fecha de Entrega</th><th>Cliente</th><th>Proyecto</th></tr> 
+    </thead>
+      <c:choose   >
+      <c:when test="${not empty listaOrden}">
+       <tbody>
+        
+        <c:forEach items="${listaOrden}" var="order" varStatus="status" >
+        <c:choose>
+        <c:when test="${status.index % 2 == 0}">  
+          <c:set scope="page" var="color_row" value="${'#FCEEED'}" />
+        </c:when>
+        <c:otherwise>
+          <c:set scope="page" var="color_row" value="${'#E8B6B5'}" /> 
+        </c:otherwise>
+        </c:choose>
+       
+        <tr bgcolor="<c:out value="${color_row}"/>" ><td><c:out value="${order.ordName}" /></td><td><fmt:formatDate value="${order.ordDate}"    pattern="dd/MM/yyyy" /></td><td><fmt:formatDate value="${order.ordFinishDate}"    pattern="dd/MM/yyyy" /></td><td><c:out value="${order.clientsTO.cliId}" /></td><td><c:out value="${order.ordProjId}" /></td></tr> 
+        
+       </c:forEach>
+       <tr><td colspan="100%" ><a href="javascript:next()"   ><img src="img/player_fwd.png" alt="<"/></a>&nbsp; - Pagina <c:out value="${ pageId/10 }" />  -&nbsp; <a href="javascript:next()"  ><img src="img/player_next.png" alt=">" /></a> </td></tr>
+       
+       </tbody>
+      </c:when>
+      <c:otherwise>
+       <c:if test="${not empty accion}">
+       <tbody>
+        <tr><td colspan="100%">La busqueda no arrojo resultados</td></tr> 
+       </tbody>
+       </c:if>
+      </c:otherwise>
+      </c:choose>
+    
+  </table>
+  </td>
+   </tr>
+   </tbody>
+   </table>
+   
+   </form>
+   
+  </body>
+</html>

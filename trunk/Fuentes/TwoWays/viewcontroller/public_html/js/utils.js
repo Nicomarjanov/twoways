@@ -271,3 +271,51 @@ function validarFecha(fecha,origen)
 
 String.prototype.startsWith = function(str)
 {return (this.match("^"+str)==str)}
+
+
+
+function arrayFecha(fecha1){ 
+   var result = new Array(); 
+   var fecha= trim(fecha1).split('/');
+    result[2]= parseInt(fecha[0]);
+    result[1]= parseInt(fecha[1]); 
+    aux = fecha[2].split(' ');
+    result[0]= parseInt(aux[0]);
+  
+   if(aux != null && aux.length > 0 && aux[1] != null  && aux[1] != '' ){
+      
+      var hora = aux[1].split(':');
+      result[3]= parseInt(hora[0]);
+      result[4]= parseInt(hora[1]);
+      
+   }else{
+      result[3]= 0;
+      result[4]= 0;
+   }
+   
+  
+   return result;
+}
+
+function compararFecha(fecha1 , fecha2){
+
+    var auxFecha1 = arrayFecha(fecha1);
+    var auxFecha2 = arrayFecha(fecha2);
+    
+    for(var i=0 ; i < auxFecha1.length;i++ ){
+         
+                 
+         if(auxFecha1[i] > auxFecha2[i]){
+            return 1
+         }else if(auxFecha1[i] == auxFecha2[i]){
+             
+         }else{
+         
+           return -1
+         }
+         
+    }
+    
+    return 0;
+
+}

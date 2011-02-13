@@ -117,6 +117,8 @@ public class BuscarOrdenTrabajoServlet extends AutorizacionServlet {
                int  minPage=(page)*10 ;
                List<OrdersTO> suborders = (orders.size() > pageTop )?orders.subList(minPage,pageTop):orders.subList(minPage,orders.size());       
                
+               
+               
                int maxPage = (int)(orders.size() / 10);
                request.setAttribute("listaOrden",suborders);
                request.setAttribute("maxPage",maxPage);

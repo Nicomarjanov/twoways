@@ -5,10 +5,13 @@ import com.twoways.to.AccountsTO;
 import com.twoways.to.ClientResponsableTO;
 import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.ClientsTO;
+import com.twoways.to.EmployeesRatesTO;
 import com.twoways.to.EmployeesTO;
 import com.twoways.to.ItemsTO;
 import com.twoways.to.OrdersDocsTO;
 import com.twoways.to.OrdersTO;
+import com.twoways.to.ProAssigmentsDetailsTO;
+import com.twoways.to.ProjectAssignmentsTO;
 import com.twoways.to.ProjectsTO;
 import com.twoways.to.RateTypesTO;
 import com.twoways.to.RatesTO;
@@ -155,9 +158,32 @@ public interface TW_SystemService {
 
     public List obtenerAcronimos()throws Exception;
     
+    public List getEmpByRatesName(String rateName) throws Exception;
+
+    public ProjectAssignmentsTO updateProjectAssignament(ProjectAssignmentsTO project)throws Exception;
+
+    public ProjectAssignmentsTO insertProjectAssignament(ProjectAssignmentsTO project)throws Exception;
+    
     public Long obtenerTraductorByEmpId(String empId)throws Exception;
     
     public List obtenerEspecializacionesByTraId(Long traId)throws Exception;
     
+    public List <ProjectAssignmentsTO> getProjectAssignmentsByProId(Long proId) throws Exception;
+
+    public void insertProjectAssignamentDetails(ProAssigmentsDetailsTO proAssigmentsDetailsTO)throws Exception;
+
+    public List<ProAssigmentsDetailsTO> getProjectAssignmentsDetailsById(Long praId)throws Exception;
+
+    public ProjectAssignmentsTO getProjectAssignmentsById(Long praId)throws Exception;
+
+    public void deleteProjectAssignamentDetails(ProAssigmentsDetailsTO detail)throws Exception;
+
+    public Long buscarAssignacion(String praDate, Long emp, String serv, 
+                                  String proId)throws Exception;
+                                  
+   
+    public List<EmployeesRatesTO> getEmpRatesByEmpId(Long empId) throws Exception;
+    
+    public void deleteProjectAssigmentDetailsByPraId(Map params)throws Exception ;
 
 }

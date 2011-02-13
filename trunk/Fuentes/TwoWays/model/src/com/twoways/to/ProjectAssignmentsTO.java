@@ -2,7 +2,7 @@ package com.twoways.to;
 
 import java.sql.Timestamp;
 
-
+import java.util.List;
 
 
 //(name = "PROJECT_ASSIGNMENTS")
@@ -12,11 +12,11 @@ public class ProjectAssignmentsTO {
     private Timestamp praAssignDate;
     private Timestamp praFinishDate;
     private Long praId;
-    private Long projectsProId;
     private EmployeesTO employeesTO;
     private ProjectsTO projectsTO;
-    private ServicesTO serviceTO;
-    private ProAssigmentsDetailsTO proAssigmentsDetailsTO;
+    private RateTypesTO serviceTO;
+    private Long praTotalAmount;
+    private List <ProAssigmentsDetailsTO> proAssigmentsDetailsTO;
 
     public ProjectAssignmentsTO(){
         
@@ -46,14 +46,7 @@ public class ProjectAssignmentsTO {
         return praId;
     }
 
-    public void setProjectsProId(Long projectsProId) {
-        this.projectsProId = projectsProId;
-    }
-
-    public Long getProjectsProId() {
-        return projectsProId;
-    }
-
+   
     public void setEmployeesTO(EmployeesTO employeesTO) {
         this.employeesTO = employeesTO;
     }
@@ -70,20 +63,29 @@ public class ProjectAssignmentsTO {
         return projectsTO;
     }
 
-   
-    public void setServiceTO(ServicesTO serviceTO) {
+  
+
+    public void setServiceTO(RateTypesTO serviceTO) {
         this.serviceTO = serviceTO;
     }
 
-    public ServicesTO getServiceTO() {
+    public RateTypesTO getServiceTO() {
         return serviceTO;
     }
 
-    public void setProAssigmentsDetailsTO(ProAssigmentsDetailsTO proAssigmentsDetailsTO) {
+    public void setPraTotalAmount(Long praTotalAmount) {
+        this.praTotalAmount = praTotalAmount;
+    }
+
+    public Long getPraTotalAmount() {
+        return praTotalAmount;
+    }
+
+    public void setProAssigmentsDetailsTO(List<ProAssigmentsDetailsTO> proAssigmentsDetailsTO) {
         this.proAssigmentsDetailsTO = proAssigmentsDetailsTO;
     }
 
-    public ProAssigmentsDetailsTO getProAssigmentsDetailsTO() {
+    public List<ProAssigmentsDetailsTO> getProAssigmentsDetailsTO() {
         return proAssigmentsDetailsTO;
     }
 }

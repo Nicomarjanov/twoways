@@ -199,11 +199,24 @@
 
  </statement>
  
+
+ 
+ <statement  id="getEmpByRatesName" resultMap="select-Employee" parameterClass="java.lang.String" >
+      select *
+        from employees e, employees_types et
+        where e.emp_id = et.employees_emp_id
+        and et.employee_type_ety_name =  #value#
+        and e.emp_erase_date is null
+        order by e.emp_first_Name
+ </statement>
+ 
+ 
+ 
   <statement id="buscarEmpleados" resultMap="select-Employee"  parameterClass="java.lang.String" >
      select *       
      from employees 
      where upper(EMP_FIRST_NAME) like '%' || upper(#value#) || '%'
-
+     order by emp_first_Name 
   </statement>
 
   <select  id="employees.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > select employee_seq.nextval empId from dual</select> 
@@ -616,7 +629,7 @@
             t.languagues_acronyms_laa_acrony as acron_origen,
             languagues_acronyms_languague1 as lan_id_destino,
             (select l.lan_name from languagues l where l.lan_id=t.languagues_acronyms_languague1) as lan_destino,
-            t.languagues_acronyms_laa_acron1 as acron_destino
+            t.languagues_acronyms_laa_acron1 as acron_destino,t.tla_id 
      from translators_languagues t 
      where t.translators_tra_id =  #traId#
      and t.tla_erase_Date is null
@@ -677,7 +690,7 @@
   <statement id="obtenerAcronimos"  resultMap="select-Acron-List" parameterClass="java.lang.String">
      select  *
      from Languagues_acronyms     
-  </statement>  
+ </statement>  
 
 <!--hasta aca lo nuevo-->
 
@@ -723,7 +736,7 @@
   <insert id="insertOrders" parameterClass="com.twoways.to.OrdersTO" >
        
   insert into orders
-       (ord_id, ord_name, ord_description, ord_date, ord_start_date,ord_finish_date, clients_cli_id, ord_proj_id, ord_wo_number, ord_job_id, ord_job_name, ord_job_description)
+       (ord_id, ord_name, ord_description, ord_date, ord_finish_date, clients_cli_id, ord_proj_id, ord_wo_number, ord_job_id, ord_job_name, ord_job_description)
      values
        (#ordId#, #ordName#, #ordDescription#, #ordDate#, #ordFinishDate#,  #clientsTO.cliId#, #ordProjId#, #ordWoNumber#, #ordJobId#, #ordJobName#, #ordJobDescription#)
        
@@ -773,11 +786,10 @@
   
 
    <statement id="getOrderById" parameterClass="java.lang.Long" resultMap="select-Order" >
-       
-       select *
-       from orders, clients
+       select * 
+       from orders left outer join clients on orders.clients_cli_id = clients.cli_Id
        where ord_id = #value#
-       and clients_cli_id = cli_Id 
+  
   </statement>
   
   <statement id="getOrderDocById" parameterClass="java.lang.Long" resultMap="select-order-doc" >
@@ -805,17 +817,16 @@
   
   <insert id="insertOrdersServices" parameterClass="java.util.Map" >
     insert into order_services
-           (services_ser_name, orders_ord_id)
+           (rate_types_rty_name, orders_ord_id)
            values
            (#serId#,#ordId#)
       
   </insert>
   
-    <statement  id="getOrderServicesByOrderId" resultClass="com.twoways.to.ServicesTO"   parameterClass="com.twoways.to.OrdersTO"  >
-     select s.ser_id as serId,
-            s.ser_name as  serName,
-            s.ser_Description as serDescription
-            from order_services ord join Services s on ord.services_ser_name = s.ser_id and ord.orders_ord_id=#ordId#
+    <statement  id="getOrderServicesByOrderId" resultClass="com.twoways.to.RateTypesTO"   parameterClass="com.twoways.to.OrdersTO"  >
+            select s.rty_name as rtyName,
+            s.rty_description as  rtyDescription
+            from order_services ord join rate_types s on ord.rate_types_rty_name = s.rty_name and ord.orders_ord_id=#ordId#
   </statement> 
     
   <update id="updateOrders" parameterClass="com.twoways.to.OrdersTO" >
@@ -856,7 +867,7 @@
   
    <delete id="deleteOrdersServices" parameterClass="java.util.Map"   >
     delete order_services
-       where services_ser_name = #serId#
+       where rate_types_rty_name = #serId#
        and orders_ord_id = #ordId#    
   </delete>  
   
@@ -930,7 +941,7 @@
       <result property="proId" column="pro_id" />
       <result property="proName"   column="pro_name" />
       <result property="proDescription" column="pro_description"  />
-      <result property="proStatus" column="pro_status" />
+      <result property="proStatus" column="states_sta_id" />
       <result property="proTotalCliWcount" column="pro_total_cli_wcount" />     
       <result property="proTotalClient" column="pro_total_client" />     
       <result property="proTotalTranWcount" column="pro_total_tran_wcount" />     
@@ -961,7 +972,7 @@
    <insert id="insertProject" parameterClass="com.twoways.to.ProjectsTO"   >
        
       insert into projects
-          (pro_id, pro_name, pro_description, pro_status, pro_total_cli_wcount, pro_total_client, pro_total_tran_wcount, pro_total_translator, pro_start_date, pro_finish_date, currency_cotizations_cuc_id, users_usr_id, currency_cur_id, orders_ord_id, pro_date)
+          (pro_id, pro_name, pro_description, states_sta_id, pro_total_cli_wcount, pro_total_client, pro_total_tran_wcount, pro_total_translator, pro_start_date, pro_finish_date, currency_cotizations_cuc_id, users_usr_id, currency_cur_id, orders_ord_id, pro_date)
         values
           (#proId#, #proName#, #proDescription#, #proStatus#,#proTotalCliWcount#,#proTotalClient#,#proTotalTranWcount#,#proTotalTranslator#,#proStartDate#,#proFinishDate#,#currencyCotizationsCucId#,#usersUsrId#,#currencyTO.curId#,#ordersTO.ordId#,#proDate#)  
   </insert>      
@@ -970,7 +981,7 @@
     set pro_id = #proId#,
         pro_name =#proName#,
         pro_description =#proDescription#,
-        pro_status =#proStatus#,
+        states_sta_id =#proStatus#,
         pro_total_cli_wcount =#proTotalCliWcount#,
         pro_total_client =#proTotalClient#,
         pro_total_tran_wcount =#proTotalTranWcount#,
@@ -992,10 +1003,38 @@
      and t.tla_erase_Date is null
   </select>
   
+   <select id="projectAss.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > select project_ass_seq.nextval accId from dual</select>   
+ 
   <select id="obtenerTraductorByEmpId" parameterClass="java.lang.String" resultClass="java.lang.Long">
      select t.tra_id from translators t
      where t.employees_emp_id=#value#
   </select>
+  
+  
+   <insert id="insertProjectAssigment" parameterClass="com.twoways.to.ProjectAssignmentsTO"   >
+       
+      insert into project_assignments
+          (pra_id, employees_emp_id, projects_pro_id, pra_assign_date, pra_finish_date, services_ser_id)
+        values
+          (#praId#, #employeesTO.empId#, #projectsTO.proId#, #praAssignDate#, #praFinishDate#, #serviceTO.rtyName#)
+          
+  </insert>
+  
+  
+    <insert id="updateProjectAssigment" parameterClass="com.twoways.to.ProjectAssignmentsTO"   >
+      update project_assignments
+       set pra_id = #praId#,
+           employees_emp_id =  #employeesTO.empId#,
+           projects_pro_id = #projectsTO.proId#,
+           pra_assign_date = #praAssignDate#,
+           pra_finish_date = #praFinishDate#,
+           services_ser_id =  #serviceTO.rtyName#,
+           pra_total_amount = #praTotalAmount#
+         where pra_id =#praId#
+           and employees_emp_id = #employeesTO.empId#
+           and projects_pro_id = #projectsTO.proId#
+         
+  </insert>      
   
    <statement id="obtenerEspecializacionesByTraId"  resultClass="com.twoways.to.SpecializationsTO" parameterClass="java.lang.Long">
      select  spe_Name as speName, 
@@ -1024,4 +1063,166 @@
      where cre_id=#creId#
   </update>
   
+  
+  <resultMap id="select-projectAssignament-obj"  class="com.twoways.to.ProjectAssignmentsTO" >
+      <result property="praId" column="pra_id" />
+      <result property="employeesTO.empId"   column="employees_emp_id" />
+      <result property="employeesTO.empFirstName"   column="emp_first_name" />
+      <result property="employeesTO.empLastName"   column="emp_last_name" />
+      <result property="praAssignDate" column="pra_assign_date"  />
+      <result property="praFinishDate" column="pra_finish_date" />
+      <result property="serviceTO.rtyName" column="services_ser_id" />     
+      <result property="praTotalAmount" column="pra_total_amount" />     
+      <result property="projectsTO.proId" column="projects_pro_id" />    
+      <result property="projectsTO.proId" column="projects_pro_id" />   
+  </resultMap>
+  
+  <select id="getProjectAssignamentByPraId" parameterClass="java.lang.Long" resultMap="select-projectAssignament-obj">
+     select * from (((project_assignments  pa left outer join employees e on pa.employees_emp_id = e.emp_id) left outer join rate_types r  on pa.services_ser_id = r.rty_name) 
+     left outer join states s on pa.states_sta_id = s.sta_id) 
+     where pra_Id= #value#
+ </select>
+ 
+ 
+ <select id="getProjectAssignamentByProId" parameterClass="java.lang.Long" resultMap="select-projectAssignament-obj">
+     select * from (((project_assignments  pa left outer join employees e on pa.employees_emp_id = e.emp_id) left outer join rate_types r  on pa.services_ser_id = r.rty_name) 
+     left outer join states s on pa.states_sta_id = s.sta_id) 
+     where  pa.projects_pro_id= #value#
+ </select>
+ 
+  <select id="projectAssDet.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > 
+        select proj_assign_det_seq.nextval from dual    
+  </select>   
+ 
+  
+  <insert id="insertProjectAssigmentDetails" parameterClass="com.twoways.to.ProAssigmentsDetailsTO"   >
+       
+      insert into proj_assignments_details
+          (pad_id, project_assignments_pra_id, project_assignments_employees_, project_assignments_projects_p, orders_docs_odo_id, orders_docs_orders_ord_id,  employees_rates_rates_rat_id, employees_rates_employees_emp_, pad_rate , translators_languagues_tla_id)
+        values
+          (#padId#,#projectAssignmentsTO.praId#,#projectAssignmentsTO.employeesTO.empId#,#projectAssignmentsTO.projectsTO.proId#, #ordersDocsTO.odoId#, #ordersDocsTO.ordersOrdId#, #employeesRatesTO.ratesTO.ratId#,#employeesRatesTO.employeesTO.empId#, #employeesRatesTO.emrValue#, #pranslatorsLanguaguesTO.tlaId# )       
+  </insert>
+  
+  
+    <insert id="updateProjectAssigmentDetails" parameterClass="com.twoways.to.ProAssigmentsDetailsTO"   >
+     update proj_assignments_details
+           set pad_id = #padId#,
+               project_assignments_pra_id = #projectAssignmentsTO.praId#,
+               orders_docs_odo_id = #ordersDocsTO.odoId#,
+               orders_docs_orders_ord_id = #ordersDocsTO.ordersOrdId#,
+               pad_wcount = #padWCount#,
+               employees_rates_rates_rat_id = #employeesRatesTO.ratesTO.ratId# ,
+               employees_rates_employees_emp_ = #employeesRatesTO.employeesTO.empId# ,
+               translators_languagues_tla_id = #pranslatorsLanguaguesTO.tlaId#,
+               pad_rate = #padRate#
+     where project_assignments_pra_id = #projectAssignmentsTO.praId# 
+               and  orders_docs_odo_id = #ordersDocsTO.odoId#
+               and  orders_docs_orders_ord_id = #ordersDocsTO.ordersOrdId#
+               and employees_rates_rates_rat_id = #employeesRatesTO.ratesTO.ratId# 
+               and employees_rates_employees_emp_ = #employeesRatesTO.employeesTO.empId#
+                     
+  </insert>      
+  
+  
+    <insert id="updateProjectAssigmentDetailsLanguage" parameterClass="com.twoways.to.ProAssigmentsDetailsTO"   >
+     update proj_assignments_details
+           set translators_languagues_tla_id = #pranslatorsLanguaguesTO.tlaId#
+     where project_assignments_pra_id = #projectAssignmentsTO.praId# 
+               and  orders_docs_odo_id = #ordersDocsTO.odoId#
+               and  orders_docs_orders_ord_id = #ordersDocsTO.ordersOrdId#
+               and  pad_id = #padId#
+               
+    </insert>      
+  
+  
+    
+    <delete id="deleteProjectAssigmentDetailsByPraId" parameterClass="java.util.Map"   >
+     delete  proj_assignments_details
+        where project_assignments_pra_id = #praId# 
+        and  orders_docs_odo_id = #odoId#
+                     
+    </delete>      
+  
+  <resultMap id="select-projectAssignamentDetails-obj"  class="com.twoways.to.ProAssigmentsDetailsTO" >
+      <result property="padId" column="PAD_ID" />
+      <result property="projectAssignmentsTO.praId"   column="PROJECT_ASSIGNMENTS_PRA_ID" />
+      <result property="ordersDocsTO.odoId" column="ORDERS_DOCS_ODO_ID" />     
+      <result property="padWCount" column="PAD_WCOUNT" />     
+      <result property="ordersDocsTO.ordersOrdId" column="orders_docs_orders_ord_id" />  
+      <result property="employeesRatesTO.ratesTO.ratId" column="employees_rates_rates_rat_id" />
+      <result property="employeesRatesTO.employeesTO.empId" column="employees_rates_employees_emp_" />     
+      <result property="pranslatorsLanguaguesTO.tlaId" column="translators_languagues_tla_id" />     
+      <result property="padRate" column="pad_rate" /> 
+  </resultMap>
+  
+  <select id="getProjectAssigmentDetailsByPraId" parameterClass="java.lang.Long" resultMap="select-projectAssignamentDetails-obj">
+     select *
+     from proj_assignments_details
+     where project_assignments_pra_id = #value#
+ </select>
+ 
+ <delete id="deleteProjectAssigmentDetails"  parameterClass="com.twoways.to.ProAssigmentsDetailsTO"   >
+      delete proj_assignments_details  where pad_id = #padId#
+ </delete>
+ 
+   <select id="getProjectAssigmentDetailsByPad" parameterClass="com.twoways.to.ProAssigmentsDetailsTO" resultMap="select-projectAssignamentDetails-obj">
+     select *
+     from proj_assignments_details
+     where project_assignments_pra_id = #projectAssignmentsTO.praId# 
+     and  orders_docs_odo_id = #ordersDocsTO.odoId#
+     and  orders_docs_orders_ord_id = #ordersDocsTO.ordersOrdId#
+     and employees_rates_rates_rat_id = #employeesRatesTO.ratesTO.ratId# 
+     and employees_rates_employees_emp_ = #employeesRatesTO.employeesTO.empId#
+              
+ </select>
+ 
+ <resultMap id="select-projectAssignamentDetails-obj"  class="com.twoways.to.ProAssigmentsDetailsTO" >
+      <result property="padId" column="PAD_ID" />
+      <result property="projectAssignmentsTO.praId"   column="PROJECT_ASSIGNMENTS_PRA_ID" />
+      <result property="ordersDocsTO.odoId" column="ORDERS_DOCS_ODO_ID" />     
+      <result property="padWCount" column="PAD_WCOUNT" />     
+      <result property="ordersDocsTO.ordersOrdId" column="orders_docs_orders_ord_id" />  
+      <result property="employeesRatesTO.ratesTO.ratId" column="employees_rates_rates_rat_id" />
+      <result property="employeesRatesTO.employeesTO.empId" column="employees_rates_employees_emp_" />     
+      <result property="pranslatorsLanguaguesTO.tlaId" column="translators_languagues_tla_id" />     
+      <result property="padRate" column="pad_rate" /> 
+  </resultMap>
+  
+  
+  
+    <resultMap id="select-projectAssignamentDetails-complete"  class="com.twoways.to.ProAssigmentsDetailsTO" >
+      <result property="padId" column="PAD_ID" />
+      <result property="pranslatorsLanguaguesTO.tlaId" column="TRANSLATORS_LANGUAGUES_TLA_ID" />   
+      <result property="pranslatorsLanguaguesTO.langAcronymsTO.languaguesTO.lanName" column="LEN1" />  
+      <result property="pranslatorsLanguaguesTO.langAcronymsTO1.languaguesTO.lanName" column="LEN12" />  
+      <result property="pranslatorsLanguaguesTO.langAcronymsTO1.laaAcronym" column="ACRO2" />  
+      <result property="pranslatorsLanguaguesTO.langAcronymsTO.laaAcronym" column="ACRO1" />  
+      <result property="projectAssignmentsTO.praId"   column="PROJECT_ASSIGNMENTS_PRA_ID" />
+      <result property="ordersDocsTO.odoId" column="ORDERS_DOCS_ODO_ID" />     
+      <result property="padWCount" column="PAD_WCOUNT" />     
+      <result property="ordersDocsTO.ordersOrdId" column="ORDERS_DOCS_ORDERS_ORD_ID" />  
+      <result property="ordersDocsTO.odoName" column="DOCNAME"  />  
+      <result property="employeesRatesTO.ratesTO.ratId" column="EMPLOYEES_RATES_RATES_RAT_ID" />
+      <result property="employeesRatesTO.ratesTO.ratName" column="RAT_NAME" />
+      <result property="employeesRatesTO.employeesTO.empId" column="EMPLOYEES_RATES_EMPLOYEES_EMP_" />     
+      <result property="padRate" column="PAD_RATE" /> 
+  </resultMap>
+  
+ 
+  <select id="getProjectAssigmentDetailsByPadMap" parameterClass="java.lang.Long" resultM="select-projectAssignamentDetails-complete">
+     select pad.* , l1.lan_name as len1 , l2.lan_name as len2, o.odo_name docName , tl.languagues_acronyms_laa_acrony acro1  ,  tl.languagues_acronyms_laa_acron1 acro2,  r.rat_name
+     from ((((proj_assignments_details pad left outer join employees_rates er on pad.employees_rates_employees_emp_ = er.employees_emp_id and pad.employees_rates_rates_rat_id = er.rates_rat_id) left outer join 
+     rates r on  er.rates_rat_id = r.rat_id ) left outer join orders_docs o  on o.odo_id = pad.orders_docs_odo_id and pad.orders_docs_orders_ord_id = o.orders_ord_id ) left outer join
+     translators_languagues tl on pad.translators_languagues_tla_id = tl.tla_id)  , languagues l1 ,  languagues l2
+     where  tl.languagues_acronyms_languagues = l1.lan_id and tl.languagues_acronyms_languague1 = l2.lan_id
+     and pad.project_assignments_pra_id =  #value# 
+ </select>
+ 
+ <select id="findProjectAssignament" parameterClass="java.util.Map" resultClass="java.lang.Long">
+     select pa.pra_id from project_assignments pa
+                where pa.employees_emp_id = #emp#
+                and pa.services_ser_id =#serv#
+                and pa.projects_pro_id = #proId#
+                and pa.pra_assign_date = to_date( #praDate#, 'dd/mm/yyyy hh24:mi') 
+ </select> 
 </sqlMap> 
