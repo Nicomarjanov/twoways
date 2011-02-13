@@ -90,18 +90,28 @@ function cargarDatosColumna(row,data){
    row.cells[1].innerHTML=(data.itmType==null)?'':data.itmType;   
    row.cells[2].innerHTML=(data.itmDescription==null)?'':data.itmDescription;      
 
-   var editar = '<img src="img/edit.png"  height="25" width="25" alt="Editar" onclick="javascript:window.location.href=\'items?itmId='+data.itmId+'\'" onmouseover="this.style.cursor=\'hand\';"/> ';
-   var eliminar = '<img  src="img/Delete.png" height="25" width="25" alt="Eliminar" onclick="eliminarItem('+data.itmId+')" onmouseover="this.style.cursor=\'hand\';"/>'
-   row.cells[3].innerHTML= editar + ' ' + eliminar;
+   var editar = '<img src="img/edit.png"  height="20" width="20" alt="Editar" onclick="javascript:window.location.href=\'items?itmId='+data.itmId+'\'" onmouseover="this.style.cursor=\'hand\';"/> ';
+   var eliminado='';
+   var eliminar='';
+   if(data.itmEraseDate != null){
+       eliminado = '<img  src="img/Erase.png" height="20" width="20"  alt="Item eliminado el día: \''+data.itmEraseDate+'\'"  />';
+   }
+   else {
+       eliminar = '<img  src="img/Delete.png" height="20" width="20" alt="Eliminar" onclick="eliminarItem('+data.itmId+')" onmouseover="this.style.cursor=\'hand\';"/>'
+   }
+   row.cells[3].innerHTML= editar + ' ' + eliminar + eliminado;
 }
 
 function  eliminarItem(itmId){
  
- if (confirm('¿Esta seguro que desea eliminar el item?') ){
-    
-    towaysDWR.deleterItem(itmId,postEliminar); 
+ if (itmId != null){
+     if (confirm('¿Esta seguro que desea eliminar el item?') ){
+        
+        towaysDWR.deleterItem(itmId,postEliminar); 
+     }
  }
-
+ else{ alert('Debe seleccionar un item antes de eliminar');
+ }
 }
 
 function postEliminar(data){

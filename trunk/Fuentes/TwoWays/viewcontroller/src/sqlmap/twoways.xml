@@ -41,14 +41,15 @@
       <result property="cliName" column="CLI_NAME" />
       <result property="cliPhone" column="CLI_PHONE" />
       <result property="cliPostalCode" column="CLI_POSTAL_CODE" />  
-      <result property="cliMail" column="CLI_MAIL" /> 
+      <result property="cliMail" column="CLI_MAIL" />
+      <result property="cliEraseDate" column="CLI_ERASE_DATE" />      
     </resultMap>
   
  <statement  id="getClientById" resultMap="select-Client" parameterClass="java.lang.String" >
      select *       
      from clients left outer join currency on clients.currency_cur_id = currency.cur_id
      where cli_id = #value#
-     and CLI_ERASE_DATE is null
+
  </statement>
  
   <statement  id="getClientByName" resultMap="select-Client" parameterClass="java.lang.String" >
@@ -64,7 +65,6 @@
      select *       
      from clients left outer join currency on clients.currency_cur_id = currency.cur_id
      where upper(clients.CLI_NAME) like '%' || upper(#value#) || '%'
-     and CLI_ERASE_DATE is null
          
   </statement>
 
@@ -108,7 +108,8 @@
               cli_phone =  #cliPhone# ,
               cli_country = #cliCountry# ,
               cli_postal_code =#cliPostalCode# ,
-              currency_cur_id= #currencyTO.curId#
+              currency_cur_id= #currencyTO.curId#,
+              cli_erase_date = null
               WHERE  cli_id = #cliId#                     
   </update>
   
@@ -271,7 +272,8 @@
               emp_mobile_number =#empMobileNumber# ,
               emp_location= #empLocation#,
               emp_birth = #empBirth#,
-              emp_observations = #empObservations#
+              emp_observations = #empObservations#,
+              emp_erase_Date=null
               WHERE  emp_id = #empId#                     
   </update>
   
@@ -355,6 +357,7 @@
       <result property="ratId" column="RAT_ID" />
       <result property="ratDescription" column="RAT_DESCRIPTION"/>
       <result property="ratName"   column="RAT_NAME" />
+      <result property="ratEraseDate" column="RAT_ERASE_DATE" />
       <result property="rateTypesTO.rtyName" column="RAT_TYPE"  />
       <result property="currencyTO.curName" column="cur_Name" />    
       <result property="currencyTO.curId" column="cur_Id" />
@@ -389,7 +392,8 @@
       SET     rat_name = #ratName# , 
               rat_description = #ratDescription#,
               rat_type = #rateTypesTO.rtyName#,
-              currency_cur_id= #currencyTO.curId#
+              currency_cur_id= #currencyTO.curId#,
+              rat_erase_date=null
               WHERE  rat_id = #ratId#                     
   </update>  
   
@@ -415,7 +419,8 @@
  </select>
 
   <delete id="deleteRates" parameterClass="com.twoways.to.RatesTO">
-        DELETE Rates
+        UPDATE Rates
+        SET rat_erase_date=sysdate
         WHERE  rat_id = #ratId#    
  </delete> 
 
@@ -435,6 +440,7 @@
       <result property="usrId"   column="USR_ID" />
       <result property="usrMail" column="USR_MAIL"  />
       <result property="usrBirth" column="USR_BIRTH" />
+      <result property="usrPass" column="USR_PASS" />
       <result property="usrMobileNumber" column="USR_MOBILE_NUMBER" />
       <result property="usrOfficeNumber" column="USR_OFFICE_NUMBER" />  
       <result property="usrPhoneNumber" column="USR_PHONE_NUMBER" />
@@ -449,6 +455,7 @@
       <result property="usrMail" column="USR_MAIL"  />
       <result property="usrBirth" column="USR_BIRTH" />
       <result property="usrEraseDate" column="USR_ERASE_DATE" />
+      
   </resultMap>
 
   <select id="obtenerUsuarios"  resultMap="select-User" parameterClass="java.lang.String">
@@ -487,16 +494,18 @@
                             
   </insert>
   
-   <update  id="updateUsers" parameterClass="com.twoways.to.UsersTO">
+   <update  id="updateUser" parameterClass="com.twoways.to.UsersTO">
       UPDATE users
-      SET     USR_FIRST_NAME = #usrFirstName# , 
+      SET     USR_PASS =#usrPass#,
+              USR_FIRST_NAME = #usrFirstName# , 
               USR_LAST_NAME = #usrLastName#,
               USR_MAIL = #usrMail#,
               USR_BIRTH = #usrBirth#  ,
               USR_MOBILE_NUMBER =  #usrMobileNumber# ,
               USR_OFFICE_NUMBER = #usrOfficeNumber# ,
               USR_PHONE_NUMBER =#usrPhoneNumber# ,
-              roles_rol_id= #rolesTO.rolId#
+              roles_rol_id= #rolesTO.rolId#,
+              usr_erase_date=null
               WHERE  usr_id = #usrId#                     
   </update>
   
@@ -528,7 +537,8 @@
       UPDATE items
       SET     itm_name = #itmName# , 
               itm_description = #itmDescription#,
-              itm_type = #itmType#
+              itm_type = #itmType#,
+              itm_erase_date=null
       WHERE  itm_id = #itmId#                     
   </update>  
   
@@ -537,6 +547,7 @@
       <result property="itmId"   column="ITM_ID" />
       <result property="itmType" column="ITM_TYPE"  />
       <result property="itmDescription" column="ITM_DESCRIPTION" />
+      <result property="itmEraseDate" column="ITM_ERASE_DATE" />      
   </resultMap>
     
   <statement id="buscarItems" resultMap="select-Item-List"  parameterClass="java.lang.String" >
@@ -548,7 +559,8 @@
   </statement>
 
   <delete id="deleteItem" parameterClass="com.twoways.to.ItemsTO">
-        DELETE Items
+        UPDATE Items
+        SET itm_erase_date=sysdate
         WHERE  itm_id = #itmId#    
  </delete> 
   
@@ -870,7 +882,8 @@
          SET acc_name = #accName#, 
              acc_number = #accNumber#,
              acc_description = #accDescription#,
-             acc_details = #accDetails#
+             acc_details = #accDetails#,
+             acc_erase_Date=sysdate
       WHERE  acc_id = #accId#                     
   </update>  
   
@@ -1000,7 +1013,8 @@
          cre_email = #creEmail#,
          cre_phone_number = #crePhoneNumber#,
          cre_skype = #creSkype#,
-         cre_msn = #creMsn#
+         cre_msn = #creMsn#,
+         cre_erase_date=null
      where cre_id=#creId#
   </update>
  

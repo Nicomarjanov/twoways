@@ -60,17 +60,17 @@ function cargarItemIdiomas(row){
    
    var idiomaOrigen = document.getElementById('listaIdiomas').options[document.getElementById('listaIdiomas').selectedIndex].value;
    var idiomaDestino = document.getElementById('listaLengua1').options[document.getElementById('listaLengua1').selectedIndex].value;   
-   var acronimoOrigen = document.getElementById('listaAcron').options[document.getElementById('listaAcron').selectedIndex].value;
-   var acronimoDestino = document.getElementById('listaAcron1').options[document.getElementById('listaAcron1').selectedIndex].value;
+   var acronimoOrigen = document.getElementById('listaAcronOrigen').options[document.getElementById('listaAcronOrigen').selectedIndex].value;
+   var acronimoDestino = document.getElementById('listaAcronDestino').options[document.getElementById('listaAcronDestino').selectedIndex].value;
    row.name = 'item-idiomas'; 
 
    idiomaOrigenArr = idiomaOrigen.split('#');
    idiomaDestinoArr = idiomaDestino.split('#');   
    
-   if (document.getElementById('listaAcron').disabled == false){
+   if (document.getElementById('listaAcronOrigen').disabled == false){
       idiomaOrigenArr[2]=acronimoOrigen;
    }else idiomaOrigenArr[2] = ' ';
-   if (document.getElementById('listaAcron1').disabled == false){
+   if (document.getElementById('listaAcronDestino').disabled == false){
       idiomaDestinoArr[2]=acronimoDestino;
    }else idiomaDestinoArr[2] = ' ';
     
@@ -105,8 +105,9 @@ function eliminarIdiomas(id){
 function cambiarAcronimo(valor, lista){
   var idiomaArr = valor.split('#');
   var variable = document.getElementById(lista);
-  if (idiomaArr[1] == 'Spanish'){
+  if (idiomaArr[1] == 'Spanish' || idiomaArr[1] == 'English' ){
      variable.disabled=false;
   }
   else variable.disabled=true;
 }
+

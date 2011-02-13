@@ -71,7 +71,7 @@ public class AbmTarifasServlet extends AutorizacionServlet {
                     tarifa.setRatId(Long.parseLong(ratId));
                     twoWaysBDL.getServiceTwoWays().actualizarTarifa(tarifa);
                     
-                    request.setAttribute("tarifa",tarifa);
+                    //request.setAttribute("tarifa",tarifa);
                    
                 }else{
                     twoWaysBDL.getServiceTwoWays().insertarTarifa(tarifa);

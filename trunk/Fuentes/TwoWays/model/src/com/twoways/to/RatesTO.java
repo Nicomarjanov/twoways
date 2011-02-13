@@ -1,5 +1,7 @@
 package com.twoways.to;
 
+import java.sql.Timestamp;
+
 import java.util.List;
 
 
@@ -16,7 +18,8 @@ public class RatesTO {
     private String ratType;
     //(name="RAT_VALUE", nullable = false)
     private String ratValue;
-    private List<EmployeesRatesTO> employeesRatesTOList;
+    private Timestamp ratEraseDate;
+
     private CurrencyTO currencyTO;
     private RateTypesTO rateTypesTO;
 
@@ -77,5 +80,13 @@ public class RatesTO {
 
     public void setRateTypesTO(RateTypesTO rateTypesTO) {
         this.rateTypesTO = rateTypesTO;
+    }
+
+    public void setRatEraseDate(Timestamp ratEraseDate) {
+        this.ratEraseDate = ratEraseDate;
+    }
+
+    public Timestamp getRatEraseDate() {
+        return ratEraseDate;
     }
 }

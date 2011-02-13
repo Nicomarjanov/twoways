@@ -5,6 +5,9 @@ import com.twoways.to.ClientResponsableTO;
 import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.ClientsTO;
 import com.twoways.to.CurrencyTO;
+import com.twoways.to.EmployeeTypeTO;
+import com.twoways.to.EmployeesRatesTO;
+import com.twoways.to.EmployeesTypesTO;
 import com.twoways.to.RateTypesTO;
 import com.twoways.to.RatesTO;
 
@@ -150,6 +153,43 @@ public class AbmClientesServlet extends AutorizacionServlet {
             request.setAttribute("script","<script>init();</script>");
             request.setAttribute("mensaje","<script>alert('El cliente se guardo con exito')</script>");
    
+        }
+        else if(cliId != null && cliId.length() > 0  && (accion!=null && accion.equalsIgnoreCase("eliminar")) ){
+            try {
+                 if(cliId != null && cliId.length() > 0 ) 
+                     cliente =  twoWaysBDL.getServiceTwoWays().getClientById(cliId);                                           
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            String tarifasHidden[]=request.getParameterValues("tarifas-hidden");
+            List<ClientsRatesTO> clientsRatesTOList = new   ArrayList<ClientsRatesTO>();
+            
+            if( tarifasHidden  != null){ 
+                                   
+                for(String aux:tarifasHidden){
+                    
+                    String atribs[]= aux.split("#");
+                    
+                    ClientsRatesTO clientsRatesTO = new ClientsRatesTO();
+                    clientsRatesTO.setClrValue(Float.parseFloat(atribs[1].replaceAll(",",".")));
+                    RatesTO rtTO= new RatesTO();
+                    rtTO.setRatId(Long.parseLong(atribs[0]));
+                    clientsRatesTO.setRatesTO(rtTO );
+                    clientsRatesTOList.add(clientsRatesTO);
+                    clientsRatesTO.setClientsTO(cliente);
+                }
+            }     
+            
+            try {
+                cliente.setClientsRatesTOList(clientsRatesTOList);
+                twoWaysBDL.getServiceTwoWays().deleteClients(cliente);
+                }                    
+            catch (Exception e) {
+                e.printStackTrace();
+                request.setAttribute("mensaje","<script>alert('Ocurrió un error al eliminar el cliente')</script>");
+                request.getRequestDispatcher("empleados.jsp").forward(request,response);
+            }
+            request.setAttribute("mensaje","<script>alert('El cliente se eliminó con éxito')</script>");
         }
         else  if(cliId != null && cliId.length() > 0  && (accion == null || (accion!=null && !accion.equalsIgnoreCase("cancelar")) )){
           

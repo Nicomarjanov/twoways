@@ -26,12 +26,12 @@
   <tr>
   </tr>
   <tr>
-    <td nowrap align="right" width="15%">Nombre de la tarifa:</td>
-    <td align="left"><input type="text" class="tw_form" id="nomTarifa" name="nomTarifa"  value="<c:out value="${tarifa.ratName}"/>"  size="50" maxlength="100" onkeyup="buscarTarifas()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
-    <td align="right" width="15%">Descripción:</td>
-    <td colspan="5" align="left"><input type="text" class="tw_form" id="descTarifa"  name="descTarifa"  value="<c:out value="${tarifa.ratDescription}"/>" size="100" maxlength="350"></input></td>    
-    </tr>
-    <tr>
+        <td nowrap align="right" width="15%">Nombre de la tarifa:</td>
+        <td align="left"><input type="text" class="tw_form" id="nomTarifa" name="nomTarifa"  value="<c:out value="${tarifa.ratName}"/>"  size="50" maxlength="100" onkeyup="buscarTarifas()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
+        <td align="right" width="15%">Descripción:</td>
+        <td colspan="5" align="left"><input type="text" class="tw_form" id="descTarifa"  name="descTarifa"  value="<c:out value="${tarifa.ratDescription}"/>" size="100" maxlength="350"></input></td>    
+  </tr>
+  <tr>
     <td nowrap align="right" width="15%">Tipo de tarifa:</td>
     <td align="left">
        <select name="tipoTarifa" id="tipoTarifa" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">
@@ -76,10 +76,11 @@
   </table>
   <br>
   <hr class="tw_hr">
-  <table width="100%">
+  <table align="center" width="25%">
   <tr>
   <td align="right"><input type="button" id="aceptar" value="Aceptar" onclick="agregar()"/></td>   
-  <td align="left"><input type="button" id="cancel" value="Cancelar" OnClick="cancelar()"/></td>   
+  <td align="center"><input type="button" id="eliminar" value="Eliminar" OnClick="eliminarTarifa('<c:out value="${tarifa.ratId}" />')"/></td>   
+  <td align="left"><input type="button" id="cancel" value="Limpiar" OnClick="cancelar()"/></td>    
   </tr>
   </table>
   

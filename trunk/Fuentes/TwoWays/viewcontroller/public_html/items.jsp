@@ -64,7 +64,7 @@
   <tr>
   <td align="right"><input type="button" id="aceptar" value="Aceptar" onclick="agregar()"/></td>   
   <td align="center"><input type="button" id="cancel" value="Limpiar" OnClick="cancelar()"/></td>   
-  <td align="left"><input type="button" id="eliminar" value="Eliminar" disabled OnClick="eliminarItem(<c:out value="${item.itmId}"/>)"/></td>
+  <td align="left"><input type="button" id="eliminar" value="Eliminar" OnClick="eliminarItem(<c:out value="${item.itmId}"/>)"/></td>
   </tr>
   </table>
   
