@@ -321,68 +321,48 @@
                 </tr>
                 <tr>
                     <td valign="top" align="left">
-                      <select name="listaIdiomas" id="listaIdiomas" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';"  onchange="cambiarAcronimo(this.value, 'listaAcron')">
+                      <select name="listaIdiomas" id="listaIdiomas" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';"  onchange="createDynamicDropdown('listaIdiomas', 'listaAcron','listaAcronOrigen')">
                         <option value="" >Seleccionar</option>
                         <c:forEach items="${listaIdiomas}" var="item">
-                           <c:choose>
-                            <c:when test="${item.lanId == 1}">
-                               <option value="<c:out value="${item.lanId}"/>#<c:out value="${item.lanName}"/>" style="background-color:#A4BAC7;" selected="selected">
-                                <c:out value="${item.lanName}" />
-                              </option> 
-                            </c:when>                                                
-                            <c:otherwise>
                             <option value="<c:out value="${item.lanId}"/>#<c:out value="${item.lanName}"/>" style="background-color:#A4BAC7;">
                                 <c:out value="${item.lanName}" />
                             </option>
-                            </c:otherwise>
-                            </c:choose>
                         </c:forEach>
                       </select>
-                    </td>
+                    </td>                
                     <td valign="top" align="center">
-                      <select disabled name="listaAcron" id="listaAcron" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">
+                    
+                      <select name="listaAcron" id="listaAcron" style="display:none;">
                          <c:forEach items="${listaAcron}" var="item">
-                            <option value="<c:out value="${item.laaAcronym}"/>" style="background-color:#A4BAC7;">
+                            <option name="<c:out value="${item.languaguesTO.lanId}"/>" value="<c:out value="${item.laaAcronym}"/>" style="background-color:#A4BAC7;">
                                 <c:out value="${item.laaAcronym}" />
                             </option>
                         </c:forEach>
                       </select>
+                      <select name="listaAcronOrigen" id="listaAcronOrigen" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">
+                                                
+                      </select>
                     </td>
                     <td valign="top" align="left">
-                      <select  name="listaLengua1" id="listaLengua1" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';" onchange="cambiarAcronimo(this.value, 'listaAcron1')">                
+                      <select  name="listaLengua1" id="listaLengua1" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';" onchange="createDynamicDropdown('listaLengua1', 'listaAcron1','listaAcronDestino')">                
                         <option value="" >Seleccionar</option>
                         <c:forEach items="${listaLengua1}" var="item">
-                           <c:choose>
-                            <c:when test="${item.lanId == 2}">
-                               <option value="<c:out value="${item.lanId}"/>#<c:out value="${item.lanName}"/>" style="background-color:#A4BAC7;" selected="selected">
-                                <c:out value="${item.lanName}" />
-                              </option> 
-                            </c:when>                                                  
-                            <c:otherwise>
                             <option value="<c:out value="${item.lanId}"/>#<c:out value="${item.lanName}"/>" style="background-color:#A4BAC7;">
                                 <c:out value="${item.lanName}" />
                             </option>
-                            </c:otherwise>
-                            </c:choose>
                         </c:forEach>
                       </select> 
                     </td>
                     <td valign="top" align="center">
-                      <select name="listaAcron1" id="listaAcron1" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">
+                      <select name="listaAcron1" id="listaAcron1" style="display:none;">
                          <c:forEach items="${listaAcron1}" var="item">
-                           <c:choose>
-                           <c:when test="${item.laaAcronym == 'AR'}">
-                               <option value="<c:out value="${item.laaAcronym}"/>" style="background-color:#A4BAC7;" selected="selected">
-                                <c:out value="${item.laaAcronym}" />
-                              </option> 
-                            </c:when>
-                            <c:otherwise>
-                            <option value="<c:out value="${item.laaAcronym}"/>" style="background-color:#A4BAC7;">
+                            <option  name="<c:out value="${item.languaguesTO.lanId}"/>" value="<c:out value="${item.laaAcronym}"/>" style="background-color:#A4BAC7;">
                                 <c:out value="${item.laaAcronym}" />
                             </option>
-                            </c:otherwise>
-                            </c:choose>
                         </c:forEach>
+                      </select>
+                      <select name="listaAcronDestino" id="listaAcronDestino" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">
+                                                
                       </select>
                     </td>                    
                     <td align="left" valign="top">

@@ -29,7 +29,7 @@ public class UserDAOImpl extends AbstractDAO  implements UserDAO{
     }
 
     public UsersTO updateUsuario(UsersTO usersTO) throws Exception {
-        getSqlMapClientTemplate().insert("updateUser",usersTO);
+        getSqlMapClientTemplate().update("updateUser",usersTO);
         return getUserById(String.valueOf(usersTO.getUsrId()));
     }
 

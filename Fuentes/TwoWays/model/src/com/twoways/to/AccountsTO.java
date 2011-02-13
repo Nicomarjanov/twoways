@@ -15,7 +15,7 @@ public class AccountsTO {
    //(name="ACC_NAME", nullable = false)
     private String accName;
     private String accNumber;  
-    
+
     private List<ItemsExpensesTO> itemsExpensesTOList;
     private List<PaymentsTO>  paymentsTOList;
     private List<ItemsInvoicesTO> itemsInvoicesTOList;    

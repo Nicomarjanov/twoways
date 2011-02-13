@@ -1,5 +1,7 @@
 package com.twoways.to;
 
+import java.sql.Timestamp;
+
 import java.util.List;
 
 
@@ -13,6 +15,7 @@ public class ItemsTO {
     //(name="ITM_NAME", nullable = false)
     private String itmName;
     private String itmType;
+    private Timestamp itmEraseDate;
     private List<ItemsInvoicesTO> itemsInvoicesTOList;
     private List<ItemsExpensesTO> itemsExpensesTOList;
 
@@ -93,5 +96,13 @@ public class ItemsTO {
 
     public String getItmType() {
         return itmType;
+    }
+
+    public void setItmEraseDate(Timestamp itmEraseDate) {
+        this.itmEraseDate = itmEraseDate;
+    }
+
+    public Timestamp getItmEraseDate() {
+        return itmEraseDate;
     }
 }

@@ -3,9 +3,13 @@
         <li><a href="usuarios">ABM de Usuarios</a></li>        
         <li><a href="clientes">ABM de Clientes</a></li> 
         <li><a href="empleados">ABM de Empleados</a></li>        
-        <li><a href="tarifas">ABM de Tarifas</a></li> 
-        <li><a href="items">ABM de Items</a></li> 
-        <li><a href="cuentas">ABM de Cuentas</a></li>
+        <li><a href="tarifas">ABM de Tarifas</a></li>
+        <li><a href="#" >Contables</a>
+            <ul>
+                <li><a href="items">ABM de Items</a></li> 
+                <li><a href="cuentas">ABM de Cuentas</a></li>
+            </ul>
+        </li>
     </ul>
  </li>
 <li><a href="#" >Actividades</a> 

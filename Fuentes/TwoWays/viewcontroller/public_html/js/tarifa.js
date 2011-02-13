@@ -112,21 +112,30 @@ function cargarDatosColumna(row,data){
    row.cells[1].innerHTML=(data.rateTypesTO.rtyName==null)?'':data.rateTypesTO.rtyName;   
    row.cells[2].innerHTML=(data.currencyTO.curName==null)?'':data.currencyTO.curName;      
    row.cells[3].innerHTML=(data.ratDescription==null)?'':data.ratDescription;
-
-   var editar = '<img src="img/edit.png"  height="25" width="25" alt="Editar" onclick="javascript:window.location.href=\'tarifas?ratId='+data.ratId+'\'" onmouseover="this.style.cursor=\'hand\';"/> ';
-   var eliminar = '<img  src="img/Delete.png" height="25" width="25" alt="Eliminar" onclick="eliminarTarifa('+data.ratId+')" onmouseover="this.style.cursor=\'hand\';"/>'
-   //row.cells[3].innerHTML='<a href="clientes?cliId='+data.cliId+'" ><img src="img/Edit-Contact.png" height="25" width="25"  alt="Editar" /></a>';
-   row.cells[4].innerHTML= editar + ' ' + eliminar;
+   var editar = '<img src="img/edit.png"  height="20" width="20" alt="Editar" onclick="javascript:window.location.href=\'tarifas?ratId='+data.ratId+'\'" onmouseover="this.style.cursor=\'hand\';"/> ';
+   var eliminado='';
+   var eliminar='';
+   if (data.ratEraseDate != null ){
+      eliminado = '<img  src="img/Erase.png" height="20" width="20" alt="Empleado eliminado el día: \''+data.ratEraseDate+'\'"  />' ;
+   }
+   else {
+      eliminar = '<img  src="img/Delete.png" height="20" width="20" alt="Eliminar" onclick="eliminarTarifa('+data.ratId+')" onmouseover="this.style.cursor=\'hand\';"/>'
+   }
+   row.cells[4].innerHTML= editar + ' ' + eliminar + eliminado;
+   
 }
 
 
 function  eliminarTarifa(ratId){
- 
- if (confirm('¿Esta seguro que desea eliminar la tarifa?') ){
- 
-    towaysDWR.deleterTarifa(ratId,postEliminar); 
- }
-
+if (ratId != null){
+     if (confirm('¿Esta seguro que desea eliminar la tarifa?') ){
+     
+        towaysDWR.deleterTarifa(ratId,postEliminar); 
+     }
+}
+else {
+     alert('Debe seleccionar una tarifa antes de eliminar');
+     }
 }
 
 function postEliminar(data){

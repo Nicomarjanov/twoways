@@ -242,17 +242,15 @@ function cargarDatosColumna(row,data){
    row.cells[2].innerHTML=(data.empMail==null)?'':data.empMail;     
    row.cells[3].innerHTML=(data.empMsn==null)?'':data.empMsn;   
    row.cells[4].innerHTML=(data.empBirth==null)?'':data.empBirth;   
-   /*row.cells[5].innerHTML=(data.usrMobileNumber==null)?'':data.usrMobileNumber;
-   row.cells[6].innerHTML=(data.usrPhoneNumber==null)?'':data.usrPhoneNumber;
-   row.cells[7].innerHTML=(data.usrOfficeNumber==null)?'':data.usrOfficeNumber;   */
+
    var editar = '<img src="img/edit.png"  height="20" width="20"  alt="Editar" onclick="javascript:window.location.href=\'empleados?empId='+data.empId+'\';" onmouseover="this.style.cursor=\'hand\';" /> ';
    var eliminado='';
    var eliminar='';
    if (data.empEraseDate != null){
-         eliminado = '<img  src="img/Erase.png" height="20" width="20"  alt="Empleado eliminado el día: \''+data.empEraseDate+'\'"  />'      
+         eliminado = '<img  src="img/Erase.png" height="20" width="20"  alt="Empleado eliminado el día: \''+data.empEraseDate+'\'"  />';
    }
    else {
-         eliminar = '<img  src="img/Delete.png" height="20" width="20"  alt="Eliminar" onclick="eliminarEmpleado('+data.empId+')" onmouseover="this.style.cursor=\'hand\';" />'
+         eliminar = '<img  src="img/Delete.png" height="20" width="20"  alt="Eliminar" onclick="eliminarEmpleado('+data.empId+')" onmouseover="this.style.cursor=\'hand\';" />';
    }
    row.cells[5].innerHTML= editar + ' ' + eliminar + eliminado;
 }
@@ -591,17 +589,17 @@ function deSeleccionarTodoOpciones(id)
         elementSelect.options[b].selected=false;
 }
 
-function createDynamicDropdown(listaTipoEmpTar, listaTarifa, dropDown3) {
+function createDynamicDropdown(dropDown1, dropDown2, dropDown3) {
 
 /*  dropdown1 = lists all the countries 
     dropdown2 = this drop down is not used by users. Think of it as just a struture that holds ALL the cities for ALL countries from dropdown1. 
     dropdown3 = is a dynamically generated dropdown list which changes based on what is selected in dropdown1. the <option> nodes are copied out from dropdown2 and dynamically rendered in dropdown3.
 */
-        var dropDown1 = document.getElementById(listaTipoEmpTar);
-        var dropDown2 = document.getElementById(listaTarifa);
+        var dropDown1 = document.getElementById(dropDown1);
+        var dropDown2 = document.getElementById(dropDown2);
         var dropDown3 = document.getElementById(dropDown3);
         var allDropDown2Elements = dropDown2.childNodes; // 'childNodes' used so you can also include <optgroup label="xxxxxxx" name="xxx"/> in dropDown2 if required
-  
+
         // remove all <option>s in dropDown3
         while (dropDown3.hasChildNodes()){
             dropDown3.removeChild(dropDown3.firstChild);
@@ -609,12 +607,18 @@ function createDynamicDropdown(listaTipoEmpTar, listaTarifa, dropDown3) {
  
         // loop though and insert into dropDown3 all of the city <option>s in dropdown2 that relate to the country value selected in dropdown1
         for(var i = 0; i < allDropDown2Elements.length; i++){
- 
-                if (allDropDown2Elements[i].nodeType == 1 && allDropDown2Elements[i].getAttribute("name") == dropDown1.value) {
+                if (dropDown1.name == 'listaIdiomas' || dropDown1.name == 'listaLengua1'){
+                    var valorArray = dropDown1.value.split('#');
+                    var valorDrop1 = valorArray[0];
+                }
+                else {var valorDrop1 = dropDown1.value;
+                }
+                if (allDropDown2Elements[i].nodeType == 1 && allDropDown2Elements[i].getAttribute("name") == valorDrop1) {
  
                     newDropDown3Element = allDropDown2Elements[i].cloneNode(true);
                     dropDown3.appendChild(newDropDown3Element);
-                }    
+                }  
+                
  
         } // END - for loop
  

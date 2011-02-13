@@ -82,45 +82,50 @@ function grabar(existe)
         alert(mensajeExisteItem);
     }
     else
-    {
-                
+    {                
         document.getElementById("accion").value='guardar';
         document.forms[0].submit();                
     }
 }
 
 function buscarClientes(){
-     
-   
+        
     var cliId= document.getElementById('cliId').value;
-     var nomCliente= document.getElementById('nomCliente').value;
+    var nomCliente= document.getElementById('nomCliente').value;
+          
+     if(cliId== '' &&  nomCliente.length >2 ){  
      
-     
-     if(cliId== '' &&  nomCliente.length >2 ){ 
-        
-        
         towaysDWR.buscarClientes(nomCliente,buscarClientesCallBack); 
     }
 }
 
 function cargarDatosColumna(row,data){
-
     
    row.cells[0].innerHTML=(data.cliName==null)?'':'<a href="clientes?cliId='+data.cliId+'" >'+data.cliName+'</a>';
    row.cells[1].innerHTML=(data.cliDescription==null)?'':data.cliDescription;
    row.cells[2].innerHTML=(data.cliPhone==null)?'':data.cliPhone;
    row.cells[3].innerHTML=(data.cliMail==null)?'':data.cliMail;
-   var editar = '<img src="img/edit.png"  height="25" width="25"  alt="Editar" onclick="javascript:window.location.href=\'clientes?cliId='+data.cliId+'\'" onmouseover="this.style.cursor=\'hand\';" /> ';
-   var eliminar = '<img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarCliente('+data.cliId+')" onmouseover="this.style.cursor=\'hand\';" />'
-   //row.cells[3].innerHTML='<a href="clientes?cliId='+data.cliId+'" ><img src="img/Edit-Contact.png" height="25" width="25"  alt="Editar" /></a>';
-   row.cells[4].innerHTML= editar + ' ' + eliminar;
+  
+   var editar = '<img src="img/edit.png"  height="20" width="20"  alt="Editar" onclick="javascript:window.location.href=\'clientes?cliId='+data.cliId+'\'" onmouseover="this.style.cursor=\'hand\';" /> ';
+   var eliminado='';
+   var eliminar='';
+   if(data.cliEraseDate != null){
+       eliminado = '<img  src="img/Erase.png" height="20" width="20"  alt="Cliente eliminado el día: \''+data.cliEraseDate+'\'"  />';
+   }
+   else {
+       eliminar = '<img  src="img/Delete.png" height="20" width="20"  alt="Eliminar" onclick="eliminarCliente('+data.cliId+')" onmouseover="this.style.cursor=\'hand\';" />'
+  }
+  row.cells[4].innerHTML= editar + ' ' + eliminar + eliminado;
 }
 
 function  eliminarCliente(cliId){
  
 if (cliId != null){ 
      if (confirm('¿Esta seguro que desea eliminar el cliente?') ){ 
-        towaysDWR.deleterCliente(cliId,postEliminar);      
+        //towaysDWR.deleterCliente(cliId,postEliminar);      
+        document.getElementById("accion").value='eliminar';
+        document.getElementById("cliId").value=cliId;
+        document.forms[0].submit();  
       }
   }
   else {

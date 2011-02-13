@@ -307,7 +307,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                 }     
                 
                 String empleadosTipos[]=request.getParameterValues("listaItemsSelect");
-                List<EmployeesTypesTO> employeesTypesTOList = new   ArrayList<EmployeesTypesTO>();
+                List<EmployeesTypesTO> employeesTypesTOList = new ArrayList<EmployeesTypesTO>();
                 
                 if( empleadosTipos  != null){ 
                                        
@@ -351,13 +351,22 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                          
                          request.setAttribute("empleado",empleado);
                          
-                         traductor = twoWaysBDL.getServiceTwoWays().getTraByEmpId(empId);
-                         if (traductor != null){
-                             request.setAttribute("traductor",traductor);
-                             List idiomasTraductor = null;
-                             idiomasTraductor =  twoWaysBDL.getServiceTwoWays().getLangByTradId(traductor.getTraId());
-                             request.setAttribute("idiomasTraductor",idiomasTraductor); 
-                             
+                         List empTypes = empleado.getEmployeesTypesTOList();
+                         if (empTypes != null && empTypes.size() > 0){                        
+                            for(Object employeesTypesTO: empTypes.toArray() ){ 
+                                EmployeesTypesTO empType = (EmployeesTypesTO)employeesTypesTO;
+                                EmployeeTypeTO etTO = empType.getEmployeeTypeTO();
+                                if (etTO.getEtyName().equalsIgnoreCase("Traductor")){                            
+                                     traductor = twoWaysBDL.getServiceTwoWays().getTraByEmpId(empId);
+                                     if (traductor != null){
+                                         request.setAttribute("traductor",traductor);
+                                         List idiomasTraductor = null;
+                                         idiomasTraductor =  twoWaysBDL.getServiceTwoWays().getLangByTradId(traductor.getTraId());
+                                         request.setAttribute("idiomasTraductor",idiomasTraductor); 
+                                         
+                                     }
+                                }
+                             }
                          }
                          if(empleado == null){
                              request.setAttribute("mensaje","<script>alert('El empleado no existe')</script>"); 
