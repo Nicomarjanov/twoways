@@ -37,4 +37,7 @@ public interface ProjectDAO {
                                           String serv, String proId)throws Exception;
                                           
     public void deleteProjectAssigmentDetailsByPraId(Map params)throws Exception ;
+
+    public void deleteProjectAssigment(Map params)throws Exception ;
+    
 }

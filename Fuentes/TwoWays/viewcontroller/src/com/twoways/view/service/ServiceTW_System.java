@@ -322,6 +322,22 @@ public class ServiceTW_System {
     }
 
 
+    public String quitarAsignacion(String praId,String proId){
+        try {
+            Map params = new HashMap();
+            params.put("praId", praId);
+            params.put("proId", proId);
+            
+            twoWaysBDL.getServiceTwoWays().deleteProjectAssigment(params);
+            return "";
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            log.error(e, e);
+            return e.getMessage();
+        }
+    }
+
     public void setTwoWaysBDL(TwoWaysBDL twoWaysBDL) {
         this.twoWaysBDL = twoWaysBDL;
     }

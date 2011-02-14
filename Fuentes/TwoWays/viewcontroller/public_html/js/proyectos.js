@@ -159,6 +159,26 @@ function editarAsignarProyecto(praId,proId){
 }
 
 
+function quitarAsignacion(praId,proId){
+
+    if(confirm('¿Esta seguro de eliminar la asignación?')){
+        
+        towaysDWR.quitarAsignacion(praId,proId,quitarAsignacionCallBack );   
+         
+    }
+}
+
+function quitarAsignacionCallBack(data){
+
+   if(data ==''){
+        alert('La asignación se elimino con exito');
+   }else{
+        alert('La asignación no pudo eliminarse por : '+ data);
+   }
+   window.location.reload(true);
+}
+
+
 function onClose(){
 
     var proId= document.getElementsById('proId').value;
@@ -234,7 +254,7 @@ function verificarAsignacionCallBack(data){
  
  
 function cancelarAsignacion(){
- alert(document.getElementById('proId').value); 
+ //alert(document.getElementById('proId').value); 
  window.opener.location.href='/twoways/proyectos?proId='+ document.getElementById('proId').value;
  window.close();
 }
@@ -452,7 +472,7 @@ function cambioCheck(id){
    for(var s=0;s < ordersdocsOld.length; s++){
        if(ordersdocsOld[s]== id && check.checked ==false){
           if(confirm('¿Esta seguro que desea eliminar la asignacion de este documento ?\n Esta operacion no puede deshacerse y se eliminaran todos los datos asociados a la misma ')){
-              towaysDWR.quitarDetalle(ordersdocsOld[s],praId, resultadoEliminacionDetalleCallBack); 
+              towaysDWR.quitarDetalle(ordersdocsOld[s],praId, quitarDetalleCallBack); 
           }else{
            check.checked =true;
           }
@@ -473,7 +493,7 @@ function cambioCheck(id){
    }
 }
 
-function resultadoEliminacionDetalleCallBack(data){
+function quitarDetalleCallBack(data){
    if(data ==''){
         alert('El detalle se elimino con exito');
    }else{
@@ -553,3 +573,49 @@ function ocultarDetalle(id){
 }
 
 
+function calcularTotalDetalle(id,praId){
+   var padWCount=document.getElementById('padWCount-'+id); 
+   var padRate=document.getElementById('padRate-'+id); 
+   var tarifXunid=document.getElementById('tarifXunid-'+id); 
+   var banderaMensajeFaltante=false;
+   var mensajeFaltanteAlert='';
+   padWCount.style.background  = '#FFFFFF';
+   padRate.style.background  = '#FFFFFF';
+   
+  if (isNaN(padWCount.value))
+        {
+        padWCount.style.background='Red';
+        mensajeFaltanteAlert+= ' * La cantidad de palabras dee ser numerica \n';
+        banderaMensajeFaltante=true;
+        }
+  if (!(isFloat(padRate.value)))
+        {
+        padRate.style.background='Red';
+        mensajeFaltanteAlert+= ' * El Teléfono debe ser numerico unicamente \n';
+        banderaMensajeFaltante=true;
+        }
+    
+    if(banderaMensajeFaltante){
+            alert(mensajeFaltanteAlert);
+            return ;
+    }
+    
+    tarifXunid.value = parseFloat(padWCount.value)* parseFloat(padRate.value); 
+    
+    calcularTotal(praId);  
+   
+}
+
+
+function calcularTotal(praId){
+
+    var tarifXunid= document.getElementsByName('tarifXunid-'+praId);
+    var totalAmount=document.getElementById('totalAmount-'+praId); 
+    var acum =0; 
+    
+    for(var i=0; i< tarifXunid.length; i++){
+    
+       acum+=parseFloat(tarifXunid[i].value);  
+    }
+    totalAmount.value = acum; 
+}

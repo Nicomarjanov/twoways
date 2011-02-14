@@ -1,9 +1,5 @@
 package com.twoways.dao;
 
-import com.twoways.to.ClientResponsableTO;
-import com.twoways.to.ClientsRatesTO;
-import com.twoways.to.ClientsTO;
-import com.twoways.to.EmployeesRatesProjTO;
 import com.twoways.to.EmployeesRatesTO;
 import com.twoways.to.EmployeesTO;
 import com.twoways.to.LanguaguesAcronymsTO;
@@ -12,19 +8,15 @@ import com.twoways.to.OrdersDocsTO;
 import com.twoways.to.ProAssigmentsDetailsTO;
 import com.twoways.to.ProjectAssignmentsTO;
 import com.twoways.to.ProjectsTO;
-
 import com.twoways.to.RatesTO;
 import com.twoways.to.TranslatorsLanguaguesTO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
-
 import java.util.Map;
 
-import org.springframework.dao.DataAccessException;
-
-import java.util.Iterator;
 
 public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
     public ProjectDAOImpl() {
@@ -144,19 +136,21 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
             ProAssigmentsDetailsTO proAssigmentsDetailsTO = 
                 new ProAssigmentsDetailsTO();
             proAssigmentsDetailsTO.setPadId(Long.parseLong(mapResult.get("PAD_ID").toString()));
-            proAssigmentsDetailsTO.setPranslatorsLanguaguesTO(new TranslatorsLanguaguesTO());
-            if (mapResult.get("TRANSLATORS_LANGUAGUES_TLA_ID") != null && !mapResult.get("TRANSLATORS_LANGUAGUES_TLA_ID").toString().equals("0")) {
+           if (mapResult.get("TRANSLATORS_LANGUAGUES_TLA_ID") != null && !mapResult.get("TRANSLATORS_LANGUAGUES_TLA_ID").toString().equals("0")) {
+                proAssigmentsDetailsTO.setPranslatorsLanguaguesTO(new TranslatorsLanguaguesTO());
                 proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().setTlaId(Long.parseLong(mapResult.get("TRANSLATORS_LANGUAGUES_TLA_ID").toString()));
                 proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().setLangAcronymsTO(new LanguaguesAcronymsTO());
                 proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO().setLanguaguesTO(new LanguaguesTO());
-                proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO().getLanguaguesTO().setLanName("LEN1");
+                proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO().getLanguaguesTO().setLanName(mapResult.get("LEN1").toString());
                 if (mapResult.get("ACRO1") != null) {
                     proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO().setLaaAcronym(mapResult.get("ACRO1").toString());
                 }
                 proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().setLangAcronymsTO1(new LanguaguesAcronymsTO());
                 proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO1().setLanguaguesTO(new LanguaguesTO());
-                proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO1().getLanguaguesTO().setLanName("LEN2");
-                proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO1().setLaaAcronym(mapResult.get("ACRO2").toString());
+                proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO1().getLanguaguesTO().setLanName(mapResult.get("LEN2").toString());
+                if (mapResult.get("ACRO2") != null) {
+                   proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO1().setLaaAcronym(mapResult.get("ACRO2").toString());
+                }
             }
             proAssigmentsDetailsTO.setProjectAssignmentsTO(new ProjectAssignmentsTO());
             proAssigmentsDetailsTO.getProjectAssignmentsTO().setPraId(Long.parseLong(mapResult.get("PROJECT_ASSIGNMENTS_PRA_ID").toString()));
@@ -222,6 +216,15 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
 
     public void deleteProjectAssigmentDetailsByPraId(Map params) throws Exception {
         getSqlMapClientTemplate().delete("deleteProjectAssigmentDetailsByPraId", 
+                                         params);
+    }
+
+    public void deleteProjectAssigment(Map params) {
+        
+        getSqlMapClientTemplate().delete("deleteProjectAssigmentDetailsByAssingPraId", 
+                                         params.get("praId").toString());
+        
+        getSqlMapClientTemplate().delete("deleteProjectAssigmentByPraId", 
                                          params);
     }
 }

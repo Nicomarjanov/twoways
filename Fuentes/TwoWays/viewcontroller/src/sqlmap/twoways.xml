@@ -1142,6 +1142,22 @@
         and  orders_docs_odo_id = #odoId#
                      
     </delete>      
+    
+    <delete id="deleteProjectAssigmentDetailsByAssingPraId" parameterClass="java.lang.String"   >
+     delete  proj_assignments_details
+        where project_assignments_pra_id = #praId# 
+                     
+    </delete>      
+    
+    
+    
+   <delete id="deleteProjectAssigmentByPraId" parameterClass="java.util.Map"   >
+      delete project_assignments
+      where pra_id = #praId# 
+      and projects_pro_id = #proId#
+   </delete> 
+   
+    
   
   <resultMap id="select-projectAssignamentDetails-obj"  class="com.twoways.to.ProAssigmentsDetailsTO" >
       <result property="padId" column="PAD_ID" />
@@ -1181,7 +1197,7 @@
       <result property="padId" column="PAD_ID" />
       <result property="pranslatorsLanguaguesTO.tlaId" column="TRANSLATORS_LANGUAGUES_TLA_ID" />   
       <result property="pranslatorsLanguaguesTO.langAcronymsTO.languaguesTO.lanName" column="LEN1" />  
-      <result property="pranslatorsLanguaguesTO.langAcronymsTO1.languaguesTO.lanName" column="LEN12" />  
+      <result property="pranslatorsLanguaguesTO.langAcronymsTO1.languaguesTO.lanName" column="LEN2" />  
       <result property="pranslatorsLanguaguesTO.langAcronymsTO1.laaAcronym" column="ACRO2" />  
       <result property="pranslatorsLanguaguesTO.langAcronymsTO.laaAcronym" column="ACRO1" />  
       <result property="projectAssignmentsTO.praId"   column="PROJECT_ASSIGNMENTS_PRA_ID" />
@@ -1197,12 +1213,12 @@
   
  
   <select id="getProjectAssigmentDetailsByPadMap" parameterClass="java.lang.Long" resultClass="java.util.HashMap">
-     select pad.* , l1.lan_name as len1 , l2.lan_name as len2, o.odo_name docName , tl.languagues_acronyms_laa_acrony acro1  ,  tl.languagues_acronyms_laa_acron1 acro2,  r.rat_name
-     from ((((proj_assignments_details pad left outer join employees_rates er on pad.employees_rates_employees_emp_ = er.employees_emp_id and pad.employees_rates_rates_rat_id = er.rates_rat_id) left outer join 
+     select pad.* , l1.lan_name  len1 , l2.lan_name  len2, o.odo_name docName , tl.languagues_acronyms_laa_acrony acro1  ,  tl.languagues_acronyms_laa_acron1 acro2,  r.rat_name
+     from ((((((proj_assignments_details pad left outer join employees_rates er on pad.employees_rates_employees_emp_ = er.employees_emp_id and pad.employees_rates_rates_rat_id = er.rates_rat_id) left outer join 
      rates r on  er.rates_rat_id = r.rat_id ) left outer join orders_docs o  on o.odo_id = pad.orders_docs_odo_id and pad.orders_docs_orders_ord_id = o.orders_ord_id ) left outer join
-     translators_languagues tl on pad.translators_languagues_tla_id = tl.tla_id)  , languagues l1 ,  languagues l2
-     where  tl.languagues_acronyms_languagues = l1.lan_id and tl.languagues_acronyms_languague1 = l2.lan_id
-     and pad.project_assignments_pra_id =  #value# 
+     translators_languagues tl on pad.translators_languagues_tla_id = tl.tla_id) )left outer join  languagues l1 on  tl.languagues_acronyms_languagues = l1.lan_id ) left outer join  languagues l2 on 
+     tl.languagues_acronyms_languague1 = l2.lan_id
+     where  pad.project_assignments_pra_id = #value# 
  </select>
  
  <select id="findProjectAssignament" parameterClass="java.util.Map" resultClass="java.lang.Long">
