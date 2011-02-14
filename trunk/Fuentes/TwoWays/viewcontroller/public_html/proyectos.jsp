@@ -6,6 +6,8 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 
+
+
 <html>
   <head>
    <meta http-equiv="Content-Type" content="multipart/form-data"/>
@@ -82,50 +84,69 @@
 
 <c:if test="${not empty project.proId}">
 <div align="center" style="width:100%" >
-<table width="100%" id="tabla-busqueda"  >
+<table width="80%" cellspacing="0" bgcolor="Gray"  border =1  >
   <tr >
-      <th>Fecha de Asignación</th>
-      <th>Empleado</th> 
-      <th>Servicio</th>
-      <th>Cantidad de Palabras</th>
-      <th>Costo total</th> 
-      <th><img id="NuevaAsignacion" alt="Nueva Asignación" title="Nueva Asignación" width="15" height="15"  src="img/asignar.png"  onclick="asignarProyecto('<c:out value="${project.proId}" />');"  onmouseover="this.style.cursor='hand';" /></th>   
+      <th style ="background-color:#80211D;color:#ffffff;align:left" >Fecha de Asignación</th>
+      <th style ="background-color:#80211D;color:#ffffff;align:left">Empleado</th> 
+      <th style ="background-color:#80211D;color:#ffffff;align:left">Servicio</th>
+      <th style ="background-color:#80211D;color:#ffffff;align:left" >Total<br>de<br>Palabras</th>
+      <th style ="background-color:#80211D;color:#ffffff;align:left">Costo total</th> 
+      <th style ="background-color:#80211D;color:#ffffff;align:right"><img id="NuevaAsignacion" alt="Nueva Asignación" align="right" title="Nueva Asignación" width="15" height="15"  src="img/asignar.png"  onclick="asignarProyecto('<c:out value="${project.proId}" />');"  onmouseover="this.style.cursor='hand';" /></th>   
   </tr>
   <c:forEach var="assi" items="${project.projectAssignmentsTOList}" >
      <tr bgcolor="#E8B6B5">
-      <td><fmt:formatDate value="${assi.praAssignDate}"   pattern="dd/MM/yyyy HH:mm"  /> </td>
-      <td><c:out value="${assi.employeesTO.empFirstName}" /> <c:out value="${assi.employeesTO.empLastName}" /></td> 
-      <td><c:out value="${assi.serviceTO.rtyName}" /></td>
-      <td><input type="text"  size="20" name="praTotalAmount"  value="<c:out value="${assi.praTotalAmount}" />" /></td>
-      <td><div id="totakAmount" style="color:#FFFFFF;font-weight:bold" ></div></td>
-      <td  nowrap align="right">
-             <img alt="Editar"  src="img/edit.png" onclick="editarAsignarProyecto(<c:out value="${assi.praId}" />,<c:out value="${project.proId}" />)" ></img>  
-             <img src="img/bottom.png" id="aMas-<c:out value="${assi.praId}" />" onclick="javascript:mostrarDetalle(<c:out value="${assi.praId}" />);"  title="Mostrar detalle" alt="Mostrar detalle " width="15" height="15" onmouseover="this.style.cursor='hand';"/>
+      <th> <fmt:formatDate value="${assi.praAssignDate}"   pattern="dd/MM/yyyy HH:mm"  /></th>
+      <th><c:out value="${assi.employeesTO.empFirstName}" /> <c:out value="${assi.employeesTO.empLastName}" /></th> 
+      <th><c:out value="${assi.serviceTO.rtyName}" /></th>
+      <th align="center" ><input type="text"  style="WIDTH: 70px;text-align:right;"  name="praTotalAmount"  value="<c:out value="${assi.praTotalAmount}" />" /></th>
+      <th align="center"> <input type="text"  style="WIDTH: 70px;text-align:right;"  name="totalAmount-<c:out value="${assi.praId}" />" readonly  id="totalAmount-<c:out value="${assi.praId}" />" value="0" />
+      <th  nowrap align="right">
+             <img alt="Editar"  src="img/edit.png" title="Editar Asignación"  onclick="editarAsignarProyecto(<c:out value="${assi.praId}" />,<c:out value="${project.proId}" />)" width="15" height="15" onmouseover="this.style.cursor='hand';"/></img>  
+             <img alt="Eliminar"  src="img/Delete.png" title="Eliminar Asignación" onclick="quitarAsignacion(<c:out value="${assi.praId}" />,<c:out value="${project.proId}" />)" width="15" height="15" onmouseover="this.style.cursor='hand';"/></img>  
+             <img src="img/bottom.png" id="aMas-<c:out value="${assi.praId}" />" onclick="javascript:mostrarDetalle(<c:out value="${assi.praId}" />);" title="Editar detalle" title="Mostrar detalle" alt="Mostrar detalle " width="15" height="15" onmouseover="this.style.cursor='hand';"/>
              <img id="aMenos-<c:out value="${assi.praId}" />"  style="border:0;display:none"  onclick="javascript:ocultarDetalle(<c:out value="${assi.praId}" />);" title="Contraer detalle" src="img/top.png" alt="Contraer detalle" width="15" height="15" onmouseover="this.style.cursor='hand';"/>
-             
-      </td>
+      </th>
       </tr>
       <tr>
-      <td colspan="100%"  >
-      <table id="tabla-<c:out value="${assi.praId}" />" width="100%"  style="display:none"  border =1  >
+      <td colspan="100%"   >
+      <table id="tabla-<c:out value="${assi.praId}" />" cellspacing="0" width="100%"  style="display:none"  border =1  >
          <tr>
-         <th>Documento</th>
-         <th>Cantidad de Palabras</th>
-         <th>Lenguajes</th>
-         <th>Tipo de Tafifa</th>
-         <th>Tarifa</th>
-         
+         <th style ="background-color:#F8E0E0;color:#585858;align:left">Documento</th>
+         <th style ="background-color:#F8E0E0;color:#585858;align:left">Lenguajes</th>
+         <th style ="background-color:#F8E0E0;color:#585858;align:left" >Unidades<br>de<br>servicio</th>
+         <th style ="background-color:#F8E0E0;color:#585858;align:left">Tipo<br>de<br>Tafifa</th>
+         <th style ="background-color:#F8E0E0;color:#585858;align:center" >Tarifa</th>
+         <th style ="background-color:#F8E0E0;color:#585858;align:center" >Unidades<br>X<br>Tarifa</th>
        </tr>
-       
+       <c:choose>
+       <c:when test="${ not empty assi.proAssigmentsDetailsTO  }">
        <c:forEach var="assiDet" items="${assi.proAssigmentsDetailsTO}" >
           <tr bgcolor="#FCEEED">
          <td><c:out value="${assiDet.ordersDocsTO.odoName}" /></td>
-         <td><input type="text"  size="20" name="padWCount-<c:out value="${assiDet.padId}" />"  value="<c:out value="${assiDet.padWCount}" />" /></td>
-         <td>[<c:out value="${assiDet.pranslatorsLanguaguesTO.langAcronymsTO.languaguesTO.lanName}" /> - <c:out value="${assiDet.pranslatorsLanguaguesTO.langAcronymsTO1.laaAcronym}" />] - [<c:out value="${assiDet.assiDetpranslatorsLanguaguesTO.langAcronymsTO1.languaguesTO.lanName}" /> - <c:out value="${assiDet.pranslatorsLanguaguesTO.langAcronymsTO1.laaAcronym}" />]</td>
+          <td> <c:if test="${not empty assiDet.pranslatorsLanguaguesTO}">
+           [<c:out value="${assiDet.pranslatorsLanguaguesTO.langAcronymsTO.languaguesTO.lanName}" /> - <c:out value="${assiDet.pranslatorsLanguaguesTO.langAcronymsTO.laaAcronym}" />] - [<c:out value="${assiDet.pranslatorsLanguaguesTO.langAcronymsTO1.languaguesTO.lanName}" /> - <c:out value="${assiDet.pranslatorsLanguaguesTO.langAcronymsTO1.laaAcronym}" />]
+           </c:if>
+         </td>
+         <td align="center" ><input type="text" title="Unidades"  onblur="calcularTotalDetalle('<c:out value="${assiDet.padId}" />','<c:out value="${assi.praId}" />')" style="WIDTH: 70px;text-align:right;"  name="padWCount-<c:out value="${assiDet.padId}" />" id="padWCount-<c:out value="${assiDet.padId}" />"  value="<c:out value="${assiDet.padWCount}" />" /></td>
          <td> <c:out value="${assiDet.employeesRatesTO.ratesTO.ratName}" /></td>
-         <td><input type="text"  size="20" name="padRate-<c:out value="${assiDet.padId}" />"  value="<c:out value="${assiDet.padRate}" />" /></td>
+         <td align="center" ><input type="text" style="WIDTH: 70px;text-align:right;" onblur="calcularTotalDetalle('<c:out value="${assiDet.padId}" />','<c:out value="${assi.praId}" />')" name="padRate-<c:out value="${assiDet.padId}" />" id="padRate-<c:out value="${assiDet.padId}" />" value="<c:out value="${assiDet.padRate}" />" /></td>
+         <td>
+             <c:choose>
+             <c:when test="${not empty assiDet.padWCount && not empty assiDet.padRate}">
+                   <input type="text" style="WIDTH: 70px;text-align:right;" readonly  name="tarifXunid-<c:out value="${assi.praId}" />"  id="tarifXunid-<c:out value="${assiDet.padId}" />" value="<c:out value="${assiDet.padWCount * assiDet.padRate}" />" />
+             </c:when>
+             <c:otherwise>
+                   <input type="text" style="WIDTH: 70px;text-align:right;" readonly  name="tarifXunid-<c:out value="${assi.praId}" />"  id="tarifXunid-<c:out value="${assiDet.padId}" />" value="<c:out value="${0}" />" />
+             </c:otherwise>
+             </c:choose>
+          </td>
          </tr>
       </c:forEach>
+      </c:when>
+      <c:otherwise>
+         <tr ><td colspan="100%"  style="color:#FFFFFF " >No hay Documentos Asignados</td> 
+      </c:otherwise>
+      </c:choose>
       </table>
       </td>
       </tr>

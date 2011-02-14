@@ -7,7 +7,7 @@
         <td><a href="javascript:vistaDocumentos()" ><img id="documento+"  style="border:0;" title="Mostrar documentos del cliente" src="img/folder_red.png" alt="Documentos" width="25" height="25" onmouseover="this.style.cursor='hand';"/></a></td>
     </Tr>
   </table>
-  <table id="tabla-documentos" style="display:none" >
+  <table id="tabla-documentos"  >
   <tr>
   <td valign="top" ><a href="javascript:vistaDocumentos()"><img id="documento-"  style="border:0;" title="Ocultar documentos del cliente" src="img/folder_red_open.png" alt="Documentos" width="25" height="25" onmouseover="this.style.cursor='hand';"/></a></td>
   <td valign="top">
@@ -35,7 +35,7 @@
       </c:forEach>
       </tbody>
      </table>
-     </div>
+     
      </td>
      </tr>
      </table>

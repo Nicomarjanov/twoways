@@ -532,6 +532,10 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     public void deleteProjectAssigmentDetailsByPraId(Map params)throws Exception {
         this.projectDao.deleteProjectAssigmentDetailsByPraId(params); 
     }
-}
 
+    public void deleteProjectAssigment(Map params)throws Exception {
+         
+        this.projectDao.deleteProjectAssigment(params);
+    }
+}
 

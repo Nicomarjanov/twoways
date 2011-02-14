@@ -213,10 +213,14 @@ sdfl.parse(request.getParameter("proFinishDate").toString());
                  
                  
                 projectAssignmentsTO.setProAssigmentsDetailsTO(twoWaysBDL.getServiceTwoWays().getProjectAssignmentsDetailsById(projectAssignmentsTO.getPraId()));                       
+                if(projectAssignmentsTO.getProAssigmentsDetailsTO().size() ==0 ){
+                    projectAssignmentsTO.setProAssigmentsDetailsTO(null);
+                }
+            
             
             }
             
-
+            
            
         } catch (Exception e) {
             e.printStackTrace();

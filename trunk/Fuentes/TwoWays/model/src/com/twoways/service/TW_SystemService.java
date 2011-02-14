@@ -186,4 +186,6 @@ public interface TW_SystemService {
     
     public void deleteProjectAssigmentDetailsByPraId(Map params)throws Exception ;
 
+    public void deleteProjectAssigment(Map params) throws Exception ;
+
 }
