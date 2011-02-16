@@ -39,7 +39,7 @@ function grabar(existe)
                 
         document.getElementById("accion").value='guardar';
          
-    
+        parametrizar();
         document.forms[0].submit();                
     }
 }
@@ -73,16 +73,34 @@ function validarCampos()
         fecha.style.background='Red';
         mensajeFaltanteAlert+= ' * La fecha debe ser dd/mm/aaaa \n';
         banderaMensajeFaltante=true;
+        }else{
+        
+        
+           if(compararFecha(fecha.value,document.getElementById('ordDate').value )== -1){
+           fecha.style.background='Red';
+           mensajeFaltanteAlert+= ' * La fecha de inicio debe ser mayor a la fecha de inicio de la orden\n';
+           banderaMensajeFaltante=true;
+           }
+
+           if(compararFecha(fecha.value,document.getElementById('ordFinishDate').value )== 1){
+           fecha.style.background='Red';
+           mensajeFaltanteAlert+= ' * La fecha de inicio debe ser menor a la fecha de entrega de la orden\n';
+           banderaMensajeFaltante=true;
+           }
+        
+        
+        
         }
+        
     }else{
       
        document.getElementById("proStartDate").style.background='Red';
-       mensajeFaltanteAlert+= ' * Fecha de la Orden \n';
+       mensajeFaltanteAlert+= ' * Fecha de inicio del proyecto \n';
        banderaMensajeFaltante=true;
     
     }
     
-var proFinishDate = document.getElementById("ordFinishDate");
+var proFinishDate = document.getElementById("proFinishDate");
     
     
     if(proFinishDate.value != '')
@@ -92,12 +110,44 @@ var proFinishDate = document.getElementById("ordFinishDate");
         ordFinishDate.style.background='Red';
         mensajeFaltanteAlert+= ' * La fecha de entrega debe ser dd/mm/aaaa \n';
         banderaMensajeFaltante=true;
+        }else{
+          
+           if(compararFecha(proFinishDate.value,document.getElementById('ordDate').value )== -1){
+           proFinishDate.style.background='Red';
+           mensajeFaltanteAlert+= ' * La fecha de entrega debe ser mayor a la fecha de inicio de la orden \n';
+           banderaMensajeFaltante=true;
+           }
+
+           if( compararFecha(proFinishDate.value,document.getElementById('ordFinishDate').value )== 1){
+           proFinishDate.style.background='Red';
+           mensajeFaltanteAlert+= ' * La fecha de entrega debe ser menor a la fecha de fin de la orden\n';
+           banderaMensajeFaltante=true;
+           }
+        
         }
+    }else{
+      
+       document.getElementById("proFinishDate").style.background='Red';
+       mensajeFaltanteAlert+= ' * Fecha de entrega del proyecto \n';
+       banderaMensajeFaltante=true;
+    
     }
 
    
-  
+    if(proFinishDate.value != '' &&  fecha.value != '' && (isDate(fecha.value)) && (isDate(proFinishDate.value)) && compararFecha(proFinishDate.value,fecha.value )== -1)
+    {
     
+       document.getElementById("proStartDate").style.background='Red';
+       document.getElementById("proFinishDate").style.background='Red';
+       mensajeFaltanteAlert+= ' * La Fecha de entrega de la Orden debe ser mayor a la fecha de inicio\n';
+       banderaMensajeFaltante=true;
+       
+    
+    }
+    
+    var result =  normatizarCantidades(  banderaMensajeFaltante,  mensajeFaltanteAlert );
+    banderaMensajeFaltante= result[0];
+    mensajeFaltanteAlert=result[1];
     
     if(banderaMensajeFaltante)
         mensajeCampoAlert=mensajeFaltanteAlert + '\n';    
@@ -196,6 +246,32 @@ function onClose(){
     
 }
 
+function existeDisponbilidad(){
+
+    var praDate=document.getElementById('proStartDate').value;  
+       
+      
+        if(isDate(praDate.value) ){
+        var listaEmployees = document.getElementById('listaEmployees');
+        var empId= listaEmployees.options[listaEmployees.selectedIndex].value; 
+        towaysDWR.existeDisponbilidad(praDate,empId,existeDisponbilidadCallBack);
+        }
+    
+}
+
+function existeDisponbilidadCallBack(data){
+   var aceptarButton = document.getElementById('aceptarButton');
+   var msjEmpleado = document.getElementById('msjEmpleadoDisponible'); 
+  // alert(data); 
+  if(!((data == null || (data !=null && data == 0)) && document.getElementById('listaEmployees').selectedIndex > 0 )){
+       aceptarButton.disabled=true;
+       msjEmpleado.innerHTML = (document.getElementById('listaEmployees').options[document.getElementById('listaEmployees').selectedIndex].innerHTML.toUpperCase()+' Ya se encuentra asignado en la fecha');
+    }else{
+       msjEmpleado.innerHTML = '';
+       aceptarButton.disabled=false;
+    }
+
+}
 
 
 function agregarAsignacion(){
@@ -205,11 +281,14 @@ function agregarAsignacion(){
     document.getElementById('listaEmployees').style.background= '#FFFFFF';
     document.getElementById('listaServices').style.background= '#FFFFFF';
     var languaguesList = document.getElementsByName('languagues');
-   
-    for (var j=0 ; j < languaguesList.length; j++){
+    
+    var fin =languaguesList.length;
+    for (var j=0 ; j < fin ; j++){
+     
        var languagues = languaguesList[j];
        languagues.style.background= '#FFFFFF';
     }
+    
     document.getElementById('proStartDate').value     = trim(document.getElementById('proStartDate').value);
     document.getElementById('proFinishDate').value     = trim(document.getElementById('proFinishDate').value);
     
@@ -277,6 +356,7 @@ function changeEmployees(){
     var empId= listaEmployees.options[listaEmployees.selectedIndex].value; 
     towaysDWR.getTranslatorsLanguaguesTOByEmpId(empId,changeEmployeesCallBack);
     towaysDWR.existenTarifas(empId,verificarTarifasCallBack);
+    existeDisponbilidad();
 
 }
 
@@ -354,6 +434,7 @@ function validarAsignacion()
     mensajeCampoAlert='';
     mensajeFaltanteAlert = 'Se tiene que completar los siguientes campos: \n';
     
+    
     /************************************************/
     // valido el que los campos no esten vacíos
     /************************************************/
@@ -416,12 +497,24 @@ function validarAsignacion()
         fecha.style.background='Red';
         mensajeFaltanteAlert+= ' * La fecha debe ser dd/mm/aaaa \n';
         banderaMensajeFaltante=true;
-        }else if( compararFecha(fecha.value,document.getElementById('projectStartDate').value )== -1){
+        }else{
+        
+        
+           if(compararFecha(fecha.value,document.getElementById('projectStartDate').value )== -1){
            fecha.style.background='Red';
            mensajeFaltanteAlert+= ' * La fecha de inicio debe ser mayor a la fecha de inicio del proyecto\n';
            banderaMensajeFaltante=true;
-        }
+           }
+
+           if(compararFecha(fecha.value,document.getElementById('projectFinishDate').value )== 1){
+           fecha.style.background='Red';
+           mensajeFaltanteAlert+= ' * La fecha de inicio debe ser menor a la fecha de entrega del proyecto\n';
+           banderaMensajeFaltante=true;
+           }
         
+        
+        
+        }
         
     }else{
       
@@ -431,22 +524,49 @@ function validarAsignacion()
     
     }
     
+var proFinishDate = document.getElementById("proFinishDate");
     
-    fecha = document.getElementById("proFinishDate");
     
-    
-    if(fecha.value != '')
+    if(proFinishDate.value != '')
     {
-        if (!(isDate(fecha.value)))
+        if (!(isDate(proFinishDate.value)))
         {
-        fecha.style.background='Red';
-        mensajeFaltanteAlert+= ' * La fecha debe ser dd/mm/aaaa \n';
+        ordFinishDate.style.background='Red';
+        mensajeFaltanteAlert+= ' * La fecha de entrega debe ser dd/mm/aaaa \n';
         banderaMensajeFaltante=true;
-        }else if( compararFecha(fecha.value,document.getElementById('proStartDate').value )== -1){
-           fecha.style.background='Red';
-           mensajeFaltanteAlert+= ' * La fecha de fin de la asignación debe ser mayor a la fecha de inicio de la asignación\n';
+        }else{
+          
+           if(compararFecha(proFinishDate.value,document.getElementById('projectStartDate').value )== -1){
+           proFinishDate.style.background='Red';
+           mensajeFaltanteAlert+= ' * La fecha de entrega debe ser mayor a la fecha de inicio del proyecto \n';
            banderaMensajeFaltante=true;
+           }
+
+           if( compararFecha(proFinishDate.value,document.getElementById('projectFinishDate').value )== 1){
+           proFinishDate.style.background='Red';
+           mensajeFaltanteAlert+= ' * La fecha de entrega debe ser menor a la fecha de fin del proyecto \n';
+           banderaMensajeFaltante=true;
+           }
+        
         }
+    }else{
+      
+       document.getElementById("proFinishDate").style.background='Red';
+       mensajeFaltanteAlert+= ' * Fecha de entrega del proyecto \n';
+       banderaMensajeFaltante=true;
+    
+    }
+
+   
+    if(proFinishDate.value != '' &&  fecha.value != '' && (isDate(fecha.value)) && (isDate(proFinishDate.value)) && compararFecha(proFinishDate.value,fecha.value )== -1)
+    {
+    
+       document.getElementById("proStartDate").style.background='Red';
+       document.getElementById("proFinishDate").style.background='Red';
+       mensajeFaltanteAlert+= ' * La Fecha de fin de la asignacion debe ser mayor a la fecha de inicio\n';
+       banderaMensajeFaltante=true;
+       
+    
     }
     
     
@@ -582,16 +702,18 @@ function calcularTotalDetalle(id,praId){
    padWCount.style.background  = '#FFFFFF';
    padRate.style.background  = '#FFFFFF';
    
-  if (isNaN(padWCount.value))
+   
+   
+  if (padWCount.value !='' && !isNumber(trim(padWCount.value)))
         {
         padWCount.style.background='Red';
-        mensajeFaltanteAlert+= ' * La cantidad de palabras dee ser numerica \n';
+        mensajeFaltanteAlert+= ' * La cantidad de palabras debe ser numerica \n';
         banderaMensajeFaltante=true;
         }
-  if (!(isFloat(padRate.value)))
+  if ( padRate.value != '' && !(isFloat(trim(padRate.value))) )
         {
         padRate.style.background='Red';
-        mensajeFaltanteAlert+= ' * El Teléfono debe ser numerico unicamente \n';
+        mensajeFaltanteAlert+= ' * La tarifa debe ser numerica ';
         banderaMensajeFaltante=true;
         }
     
@@ -600,12 +722,38 @@ function calcularTotalDetalle(id,praId){
             return ;
     }
     
-    tarifXunid.value = parseFloat(padWCount.value)* parseFloat(padRate.value); 
+    tarifXunid.value = Math.round((parseFloat(padWCount.value)* parseFloat(padRate.value))*100)/100; 
     
     calcularTotal(praId);  
    
 }
 
+
+function calcularTotalPalabras(praId){
+
+    var padWCount= document.getElementsByName('padWCount-'+praId);
+    var praTotalAmount=document.getElementById('praTotalAmount-'+praId); 
+    var acum =0; 
+    
+    for(var i=0; i< padWCount.length; i++){
+    
+       acum+=parseFloat(padWCount[i].value);  
+    }
+    
+    acum = Math.round(acum* 100)/100;
+    praTotalAmount.value = acum;
+}
+
+function parametrizar(){
+
+    var inputs= document.getElementsByTagName("input");
+  
+    for(var i=0; i< inputs.length; i++){
+    
+      inputs[i].name=inputs[i].id;  
+    }
+  
+}
 
 function calcularTotal(praId){
 
@@ -617,5 +765,42 @@ function calcularTotal(praId){
     
        acum+=parseFloat(tarifXunid[i].value);  
     }
-    totalAmount.value = acum; 
+    
+    acum =  Math.round(acum* 100)/100;
+    totalAmount.value =acum;
+}
+
+
+function normatizarCantidades(  banderaMensajeFaltante,  mensajeFaltanteAlert ){
+
+    var inputs= document.getElementsByTagName('input');
+    var tablas =document.getElementsByTagName('table'); 
+    
+    var result = new Array();
+    var aux = true; 
+    
+    for(var i=0; i< inputs.length; i++){
+    
+      if( ( inputs[i].id.startsWith('tarifXunid') || inputs[i].id.startsWith('padWCount') || inputs[i].id.startsWith('totalAmount') || inputs[i].id.startsWith('praTotalAmount') || inputs[i].id.startsWith('padRate') || inputs[i].id.startsWith('tarifXunid') ) && !isFloat(trim(inputs[i].value)) ){
+      
+         
+          inputs[i].style.background  = 'red';
+          var auxArr=inputs[i].name.split('-');
+          if(auxArr.length > 1 ){ 
+              mostrarDetalle(auxArr[1]);
+          }
+          banderaMensajeFaltante=true;
+          if(aux){
+            mensajeFaltanteAlert +='* Por favor complete todas los valores requeridos.';
+            aux=false;
+          }
+         
+      }else{
+         inputs[i].style.background  = '#FFFFFF';
+      }
+    }
+    result[0]=banderaMensajeFaltante;
+    result[1]=mensajeFaltanteAlert; 
+    
+    return result;
 }

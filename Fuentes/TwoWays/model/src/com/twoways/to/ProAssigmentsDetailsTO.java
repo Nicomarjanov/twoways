@@ -4,7 +4,7 @@ public class ProAssigmentsDetailsTO {
     
     private Long padId; 
     private OrdersDocsTO ordersDocsTO;
-    private Long padWCount; 
+    private Double padWCount; 
     private EmployeesRatesTO employeesRatesTO; 
     private TranslatorsLanguaguesTO pranslatorsLanguaguesTO;
     private Double padRate; 
@@ -26,13 +26,7 @@ public class ProAssigmentsDetailsTO {
         return ordersDocsTO;
     }
 
-    public void setPadWCount(Long padWCount) {
-        this.padWCount = padWCount;
-    }
-
-    public Long getPadWCount() {
-        return padWCount;
-    }
+   
 
     public void setEmployeesRatesTO(EmployeesRatesTO employeesRatesTO) {
         this.employeesRatesTO = employeesRatesTO;
@@ -84,5 +78,13 @@ public class ProAssigmentsDetailsTO {
 
     public Double getPadRate() {
         return padRate;
+    }
+
+    public void setPadWCount(Double padWCount) {
+        this.padWCount = padWCount;
+    }
+
+    public Double getPadWCount() {
+        return padWCount;
     }
 }

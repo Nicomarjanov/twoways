@@ -203,7 +203,25 @@ function validarCampos()
         banderaMensajeFaltante=true;
     }
 
+
+
+
+
     var fecha = document.getElementById("ordDate");
+
+    var ordFinishDate = document.getElementById("ordFinishDate");
+    
+    
+    if(ordFinishDate.value != '' &&  fecha.value != '' && (isDate(fecha.value)) && (isDate(ordFinishDate.value)) && compararFecha(ordFinishDate.value,fecha.value )== -1)
+    {
+    
+       document.getElementById("ordDate").style.background='Red';
+       document.getElementById("ordFinishDate").style.background='Red';
+       mensajeFaltanteAlert+= ' * La Fecha de entrega de la Orden debe ser mayor a la fecha de inicio\n';
+       banderaMensajeFaltante=true;
+       
+    
+    }
     
     
     if(fecha.value != '')
@@ -214,10 +232,11 @@ function validarCampos()
         mensajeFaltanteAlert+= ' * La fecha debe ser dd/mm/aaaa \n';
         banderaMensajeFaltante=true;
         }
+        
     }else{
       
        document.getElementById("ordDate").style.background='Red';
-       mensajeFaltanteAlert+= ' * Fecha de la Orden \n';
+       mensajeFaltanteAlert+= ' * Fecha inicio de la Orden \n';
        banderaMensajeFaltante=true;
     
     }
@@ -232,10 +251,18 @@ var ordFinishDate = document.getElementById("ordFinishDate");
         ordFinishDate.style.background='Red';
         mensajeFaltanteAlert+= ' * La fecha de entrega debe ser dd/mm/aaaa \n';
         banderaMensajeFaltante=true;
+        
         }
+        
+    }else{
+      
+       document.getElementById("ordFinishDate").style.background='Red';
+       mensajeFaltanteAlert+= ' * Fecha de entrega de la Orden \n';
+       banderaMensajeFaltante=true;
+    
     }
 
-   
+       
   
     
     

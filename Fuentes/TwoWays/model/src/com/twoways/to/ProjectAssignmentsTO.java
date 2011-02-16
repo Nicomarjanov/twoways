@@ -15,8 +15,9 @@ public class ProjectAssignmentsTO {
     private EmployeesTO employeesTO;
     private ProjectsTO projectsTO;
     private RateTypesTO serviceTO;
-    private Long praTotalAmount;
+    private Double praTotalAmount;
     private List <ProAssigmentsDetailsTO> proAssigmentsDetailsTO;
+    private Double costAmount;  
 
     public ProjectAssignmentsTO(){
         
@@ -73,19 +74,28 @@ public class ProjectAssignmentsTO {
         return serviceTO;
     }
 
-    public void setPraTotalAmount(Long praTotalAmount) {
-        this.praTotalAmount = praTotalAmount;
-    }
-
-    public Long getPraTotalAmount() {
-        return praTotalAmount;
-    }
-
+   
     public void setProAssigmentsDetailsTO(List<ProAssigmentsDetailsTO> proAssigmentsDetailsTO) {
         this.proAssigmentsDetailsTO = proAssigmentsDetailsTO;
     }
 
     public List<ProAssigmentsDetailsTO> getProAssigmentsDetailsTO() {
         return proAssigmentsDetailsTO;
+    }
+
+    public void setPraTotalAmount(Double praTotalAmount) {
+        this.praTotalAmount = praTotalAmount;
+    }
+
+    public Double getPraTotalAmount() {
+        return praTotalAmount;
+    }
+
+    public void setCostAmount(Double costAmount) {
+        this.costAmount = costAmount;
+    }
+
+    public Double getCostAmount() {
+        return costAmount;
     }
 }

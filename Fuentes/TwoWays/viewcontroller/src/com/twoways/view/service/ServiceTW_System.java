@@ -292,6 +292,13 @@ public class ServiceTW_System {
         return twoWaysBDL.getServiceTwoWays().buscarAssignacion(praDate, emp, 
                                                                 serv, praId);
     }
+    
+    
+    public Long existeDisponbilidad(String praDate, Long emp) throws Exception {
+
+        return twoWaysBDL.getServiceTwoWays().buscarAssignacion(praDate, emp);
+    }
+
 
     public Long existenTarifas(Long empId) {
 

@@ -6,6 +6,7 @@ import com.twoways.to.OrdersDocsTO;
 import com.twoways.to.OrdersRatesTO;
 import com.twoways.to.OrdersTO;
 import com.twoways.to.ProjectAssignmentsTO;
+import com.twoways.to.ProAssigmentsDetailsTO;
 import com.twoways.to.ProjectsTO;
 import com.twoways.to.RateTypesTO;
 import com.twoways.to.RatesTO;
@@ -15,9 +16,12 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import java.lang.reflect.Method;
+
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +32,7 @@ import javax.servlet.http.*;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.log4j.Logger;
+import java.util.Iterator;
 
 public class ProyectosServlet extends AutorizacionServlet {
     private static final String CONTENT_TYPE = 
@@ -52,6 +57,8 @@ public class ProyectosServlet extends AutorizacionServlet {
 
         super.doGet(request, response);
         ProjectsTO project=null;
+      
+        
 
 
         String accion = 
@@ -93,32 +100,24 @@ public class ProyectosServlet extends AutorizacionServlet {
                     if (request.getParameter("proStartDate") != null && 
                         !request.getParameter("proStartDate").toString().equalsIgnoreCase("")) {
                         java.util.Date date;
-                        if (request.getParameter("proStartDate").toString().length() == 
-                            10) {
-                            date = 
-sdfc.parse(request.getParameter("proStartDate").toString());
+                        if (request.getParameter("proStartDate").toString().length() == 10) {
+                            date = sdfc.parse(request.getParameter("proStartDate").toString());
                         } else {
-                            date = 
-sdfl.parse(request.getParameter("proStartDate").toString());
+                            date = sdfl.parse(request.getParameter("proStartDate").toString());
                         }
                         java.sql.Timestamp timest = 
                             new java.sql.Timestamp(date.getTime());
                         project.setProStartDate(timest);
                     }
 
-                    if (request.getParameter("proFinishDate") != null && 
-                        !request.getParameter("proFinishDate").toString().equalsIgnoreCase("")) {
+                    if (request.getParameter("proFinishDate") != null && !request.getParameter("proFinishDate").toString().equalsIgnoreCase("")) {
                         java.util.Date date;
-                        if (request.getParameter("proFinishDate").toString().length() == 
-                            10) {
-                            date = 
-sdfc.parse(request.getParameter("proFinishDate").toString());
+                        if (request.getParameter("proFinishDate").toString().length() == 10) {
+                            date = sdfc.parse(request.getParameter("proFinishDate").toString());
                         } else {
-                            date = 
-sdfl.parse(request.getParameter("proFinishDate").toString());
+                            date = sdfl.parse(request.getParameter("proFinishDate").toString());
                         }
-                        java.sql.Timestamp timest = 
-                            new java.sql.Timestamp(date.getTime());
+                        java.sql.Timestamp timest =  new java.sql.Timestamp(date.getTime());
                         project.setProFinishDate(timest);
                     }
 
@@ -182,14 +181,12 @@ sdfl.parse(request.getParameter("proFinishDate").toString());
 
                 try {
 
-                    if (project.getProId() != null && 
-                        project.getProId().toString().length() > 
-                        0) {
-                        ProjectsTO projectOld = 
-                                twoWaysBDL.getServiceTwoWays().getProjectById(Long.parseLong(request.getParameter("proId").toString()));
-                       
-                        //project = 
+                    if (project.getProId() != null && project.getProId().toString().length() >  0) {
+                        
+                        
                                 twoWaysBDL.getServiceTwoWays().updateProject(project);
+                                
+                                
                         project =  twoWaysBDL.getServiceTwoWays().getProjectByOrdId(project.getOrdersTO().getOrdId());       
 
                     } else {
@@ -198,29 +195,116 @@ sdfl.parse(request.getParameter("proFinishDate").toString());
                         project =  twoWaysBDL.getServiceTwoWays().getProjectByOrdId(project.getOrdersTO().getOrdId());       
                     }
 
-                    
-                
                    
-
+                   
+                    Map <Long,ProjectAssignmentsTO>  projectAssignmentsTOMap = new HashMap<Long,ProjectAssignmentsTO>();      
+                    Map <Long,ProAssigmentsDetailsTO>  proAssigmentsDetailsTOMap = new HashMap<Long,ProAssigmentsDetailsTO>();      
+                   
+                   for (  Enumeration enumeration =request.getParameterNames();enumeration.hasMoreElements();   ){
+                   
+                         String paramName =(enumeration.nextElement().toString());
+                         
+                         if(paramName.startsWith("padRate") || paramName.startsWith("padWCount") ){ 
+                               
+                              String [] arrayAux =   paramName.split("-");
+                              Long id= 0L; 
+                              if(arrayAux.length > 1) {
+                                 id=Long.parseLong(arrayAux[1]);
+                                 Double parametroValue = (request.getParameter(paramName)!=null)?Double.parseDouble(request.getParameter(paramName)):null; 
+                              
+                              ProAssigmentsDetailsTO proAssigmentsDetailsTO =proAssigmentsDetailsTOMap.get(id);
+                              
+                              
+                              
+                              if(proAssigmentsDetailsTO==null){
+                                  proAssigmentsDetailsTO = new ProAssigmentsDetailsTO();
+                                  proAssigmentsDetailsTO.setPadId(id);
+                                  proAssigmentsDetailsTOMap.put(id,proAssigmentsDetailsTO);
+                              }
+                              
+                                 if(arrayAux[0].equals("padRate")){ 
+                              
+                                    proAssigmentsDetailsTO.setPadRate(parametroValue);
+                                 }else  if(arrayAux[0].equals("padWCount")){ 
+                              
+                                    proAssigmentsDetailsTO.setPadWCount(parametroValue);
+                                 }
+                              
+                              }
+                              
+                            
+                              
+                          }else if( paramName.startsWith("praTotalAmount") ){ 
+                                 
+                             String [] arrayAux =   paramName.split("-");
+                             Long id= 0L; 
+                             if(arrayAux.length > 1) {
+                                id=Long.parseLong(arrayAux[1]);
+                                Double parametroValue = (request.getParameter(paramName)!=null)?Double.parseDouble(request.getParameter(paramName)):null; 
+                             
+                             ProjectAssignmentsTO projectAssignmentsTO =projectAssignmentsTOMap.get(id);
+                             
+                             
+                             
+                             if(projectAssignmentsTO==null){
+                                 projectAssignmentsTO = new ProjectAssignmentsTO();
+                                 projectAssignmentsTO.setPraId(id);
+                                 projectAssignmentsTOMap.put(id,projectAssignmentsTO);
+                             }
+                             
+                             
+                                projectAssignmentsTO.setPraTotalAmount(parametroValue);
+                             
+                             
+                            }
+                         
+                         }
+                            
+                   }
+                   
+                   Iterator iterator = proAssigmentsDetailsTOMap.values().iterator();
+                   while	(iterator.hasNext()) {
+                      ProAssigmentsDetailsTO detalle = (ProAssigmentsDetailsTO) iterator.next();
+                       twoWaysBDL.getServiceTwoWays().updateProjectAssigmentDetailsByPadId(detalle);
+                   }
+                   
+                   
+                    iterator = projectAssignmentsTOMap.values().iterator();
+                    while        (iterator.hasNext()) {
+                       ProjectAssignmentsTO asignacion = (ProjectAssignmentsTO) iterator.next();
+                        twoWaysBDL.getServiceTwoWays().updateProjectAssigmentFromDetails(asignacion);
+                    }
+                   
+                   
+                    
+                   
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
             
             project.setProjectAssignmentsTOList(twoWaysBDL.getServiceTwoWays().getProjectAssignmentsByProId(project.getProId()));
+            Map<Long,Double> costos = new HashMap<Long,Double>(); 
             
             for (ProjectAssignmentsTO projectAssignmentsTO:project.getProjectAssignmentsTOList()){
-                 
                  
                 projectAssignmentsTO.setProAssigmentsDetailsTO(twoWaysBDL.getServiceTwoWays().getProjectAssignmentsDetailsById(projectAssignmentsTO.getPraId()));                       
                 if(projectAssignmentsTO.getProAssigmentsDetailsTO().size() ==0 ){
                     projectAssignmentsTO.setProAssigmentsDetailsTO(null);
+                }else{
+                   
+                    Double costo=0.0;
+                    for(ProAssigmentsDetailsTO pa :projectAssignmentsTO.getProAssigmentsDetailsTO() ){
+                        costo += ((pa.getPadRate()!=null)?pa.getPadRate():0.0) * ((pa.getPadWCount()!=null)?pa.getPadWCount():0.0) ;
+                    }
+                    costos.put(projectAssignmentsTO.getPraId(),costo);
+                    
                 }
             
             
             }
             
-            
+            request.setAttribute("costosMap",costos);
            
         } catch (Exception e) {
             e.printStackTrace();

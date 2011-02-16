@@ -319,3 +319,4 @@ function compararFecha(fecha1 , fecha2){
     return 0;
 
 }
+
