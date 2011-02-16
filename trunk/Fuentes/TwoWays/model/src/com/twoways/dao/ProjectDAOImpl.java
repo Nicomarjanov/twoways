@@ -123,6 +123,8 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
 
     public List<ProAssigmentsDetailsTO> getProjectAssignmentsDetailsById(Long praId) throws Exception {
 
+        
+        
         List<ProAssigmentsDetailsTO> result = 
             new ArrayList<ProAssigmentsDetailsTO>();
         List<Map> proAssigmentsDetailsTOListMap = 
@@ -160,7 +162,7 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
             proAssigmentsDetailsTO.getOrdersDocsTO().setOdoName(mapResult.get("DOCNAME").toString());
             if (mapResult.get("PAD_WCOUNT") != null && 
                 mapResult.get("PAD_WCOUNT").toString().length() > 0) {
-                proAssigmentsDetailsTO.setPadWCount(Long.parseLong(mapResult.get("PAD_WCOUNT").toString()));
+                proAssigmentsDetailsTO.setPadWCount(Double.parseDouble(mapResult.get("PAD_WCOUNT").toString()));
             }
             proAssigmentsDetailsTO.setEmployeesRatesTO(new EmployeesRatesTO());
             proAssigmentsDetailsTO.getEmployeesRatesTO().setEmployeesTO(new EmployeesTO());
@@ -202,8 +204,6 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
         Map params = new HashMap();
         params.put("praDate", 
                    (praDate.length() < 10) ? praDate + " 00:00 " : praDate);
-        params.put("praDate", 
-                   (praDate.length() < 10) ? praDate + " 00:00 " : praDate);
         params.put("emp", emp);
         params.put("serv", serv);
         params.put("proId", proId);
@@ -227,5 +227,30 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
         getSqlMapClientTemplate().delete("deleteProjectAssigmentByPraId", 
                                          params);
     }
+
+    public Long findProjectAssignament(String praDate, Long emp) {
+        Map params = new HashMap();
+        params.put("praDate", 
+                   (praDate.length() < 10) ? praDate + " 00:00 " : praDate);
+        params.put("empId", emp);
+       
+
+        return (Long)getSqlMapClientTemplate().queryForObject("findProjectAssignamentAvailability", 
+                                                              params);
+
+    }
+    
+    
+    
+    public void  updateProjectAssigmentFromDetails(ProjectAssignmentsTO projectAssignmentsTO){
+        getSqlMapClientTemplate().update("updateProjectAssigmentFromDetails",projectAssignmentsTO);   
+    }
+    
+    
+    public void updateProjectAssigmentDetailsByPadId(ProAssigmentsDetailsTO proAssigmentsDetailsTO){
+        getSqlMapClientTemplate().update("updateProjectAssigmentDetailsByPadId",proAssigmentsDetailsTO); 
+    }
+    
+    
 }
 

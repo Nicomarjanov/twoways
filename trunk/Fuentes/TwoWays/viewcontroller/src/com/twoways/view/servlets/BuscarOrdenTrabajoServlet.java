@@ -115,8 +115,27 @@ public class BuscarOrdenTrabajoServlet extends AutorizacionServlet {
                List<OrdersTO> orders =  twoWaysBDL.getServiceTwoWays().findOrders(params);
                int  pageTop=(page+1)*10 ;
                int  minPage=(page)*10 ;
-               List<OrdersTO> suborders = (orders.size() > pageTop )?orders.subList(minPage,pageTop):orders.subList(minPage,orders.size());       
-               
+                List<OrdersTO> suborders = null;
+                
+                
+               if(orders.size() > pageTop){ 
+                 suborders = (orders.size() > pageTop )?orders.subList(minPage,pageTop):orders.subList(minPage,orders.size());       
+               }else{
+                   suborders=orders;
+                   pageTop =suborders.size();
+                   minPage=(pageTop/10)*10;
+                   if(pageTop==minPage){
+                       minPage=pageTop-10;
+                   }
+                   if(minPage > 0){ 
+                      suborders = (orders.size() > pageTop )?orders.subList(minPage,pageTop):orders.subList(minPage,orders.size());       
+                   }else{
+                       pageTop=1;
+                       minPage=1; 
+                       page=0;
+                       
+                   }
+               }
                
                
                int maxPage = (int)(orders.size() / 10);

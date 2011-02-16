@@ -39,5 +39,11 @@ public interface ProjectDAO {
     public void deleteProjectAssigmentDetailsByPraId(Map params)throws Exception ;
 
     public void deleteProjectAssigment(Map params)throws Exception ;
+
+    public Long findProjectAssignament(String praDate, Long emp) throws Exception ;
     
+   
+    public void updateProjectAssigmentDetailsByPadId(ProAssigmentsDetailsTO proAssigmentsDetailsTO) throws Exception ;
+   
+    public void updateProjectAssigmentFromDetails(ProjectAssignmentsTO projectAssignmentsTO) throws Exception ;
 }

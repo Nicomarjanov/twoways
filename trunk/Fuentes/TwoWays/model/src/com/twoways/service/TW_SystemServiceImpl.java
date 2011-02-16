@@ -537,5 +537,17 @@ public class TW_SystemServiceImpl implements TW_SystemService{
          
         this.projectDao.deleteProjectAssigment(params);
     }
+
+    public Long buscarAssignacion(String praDate, Long emp)throws Exception {
+        return this.projectDao.findProjectAssignament(praDate,emp);
+    }
+
+    public void updateProjectAssigmentFromDetails(ProjectAssignmentsTO projectAssignmentsTO) throws Exception {
+         this.projectDao.updateProjectAssigmentFromDetails(projectAssignmentsTO);
+    }
+
+    public void updateProjectAssigmentDetailsByPadId(ProAssigmentsDetailsTO proAssigmentsDetailsTO) throws Exception {
+        this.projectDao.updateProjectAssigmentDetailsByPadId(proAssigmentsDetailsTO);
+    }
 }
 

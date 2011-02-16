@@ -34,6 +34,7 @@
   <input type ="hidden" name="accion" id="accion" />
   <input type ="hidden" name="proId" id="proId" value="<c:out value="${projectAssignmentsTO.projectsTO.proId}" />"  />
   <input type ="hidden" name="projectStartDate" id="projectStartDate" value="<fmt:formatDate  value="${projectAssignmentsTO.projectsTO.proStartDate}"   pattern="dd/MM/yyyy HH:mm"  />"  />
+  <input type ="hidden" name="projectFinishDate" id="projectStartDate" value="<fmt:formatDate  value="${projectAssignmentsTO.projectsTO.proFinishDate}"   pattern="dd/MM/yyyy HH:mm"  />"  />
   <c:choose>
   <c:when  test="${projectAssignmentsTO.praId  != null &&    projectAssignmentsTO.praId != 0 }" >  
       <c:set value="${'disabled=disabled'}" scope="page" var="readOnly" /> 
@@ -43,7 +44,7 @@
   </c:otherwise>
   </c:choose>
   <table align="center">
-  <tr><td>Fecha de Asignacion</td><td colspan=3 nowrap ><input type="text" <c:out value="${readOnly}" />  name="proStartDate" id="proStartDate"   value="<fmt:formatDate value="${projectAssignmentsTO.praAssignDate}"    pattern="dd/MM/yyyy HH:mm" />" /><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].proStartDate,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" <c:out value="${readOnly}" /> src="img/cal.png"></img>
+  <tr><td>Fecha de Asignacion</td><td colspan=3 nowrap ><input type="text" <c:out value="${readOnly}" />  name="proStartDate" id="proStartDate"   value="<fmt:formatDate value="${projectAssignmentsTO.praAssignDate}"    pattern="dd/MM/yyyy HH:mm" />" /><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].proStartDate,'selDesde','dd/MM/yyyy'); return existeDisponbilidad();" NAME="selDesde" ID="selDesde"  height="20" width="20"   alt="seleccion" <c:out value="${readOnly}" /> src="img/cal.png"></img>
   </td></tr> 
   <tr><td>Fecha de Fin de Asignacion</td><td colspan=3 nowrap ><input  type="text" class="tw_form" name="proFinishDate" id="proFinishDate"  value="<fmt:formatDate value="${projectAssignmentsTO.praFinishDate}"    pattern="dd/MM/yyyy HH:mm" />" /><div id="divHasta" style="background:#FFFFFF;position:absolute"  ></div> <img onclick="cal1Hasta.select(document.forms[0].proFinishDate,'selHasta','dd/MM/yyyy'); return false;" NAME="selHasta" ID="selHasta"  height="20" width="20"  alt="seleccion"  src="img/cal.png"></img></td></tr> 
   <tr><td>Servicio</td><td colspan=3 >
@@ -98,6 +99,11 @@
    <div id="msjEmpleado" style="color:red"  > </div> 
   </td>
   </tr>
+  <tr>
+  <td  align="left" colspan="100%">
+   <div id="msjEmpleadoDisponible" style="color:red"  > </div> 
+  </td
+  </tr>
   <tr><td colspan="100%" >
   <table align="center" width="50%">
    <tr>
@@ -145,12 +151,12 @@
                    <c:choose>
                     <c:when test="${lanSel == item['TLA_ID']}">
                        <option value="<c:out value="${item['TLA_ID']}" />"  selected="selected">
-                        [<c:out value="${item['LAN_ORIGEN']}" />-<c:out value="${item['ACRON_ORIGEN']}" />]- [<c:out value="${item['LAN_DESTINO']}" />-<c:out value="${item['ACRON_DESTINO']}" />]
+                        [<c:out value="${item['LAN_ORIGEN']}" />-<c:out value="${item['ACRON_ORIGEN']}" />] - [<c:out value="${item['LAN_DESTINO']}" />-<c:out value="${item['ACRON_DESTINO']}" />]
                       </option> 
                     </c:when>
                     <c:otherwise>
                     <option value="<c:out value="${item['TLA_ID']}" />" >
-                         [<c:out value="${item['LAN_ORIGEN']}" />-<c:out value="${item['ACRON_ORIGEN']}" />]- [<c:out value="${item['LAN_DESTINO']}" />-<c:out value="${item['ACRON_DESTINO']}" />]
+                         [<c:out value="${item['LAN_ORIGEN']}" />-<c:out value="${item['ACRON_ORIGEN']}" />] - [<c:out value="${item['LAN_DESTINO']}" />-<c:out value="${item['ACRON_DESTINO']}" />]
                     </option>
                     </c:otherwise>
                     </c:choose>

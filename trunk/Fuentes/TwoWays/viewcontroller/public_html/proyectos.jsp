@@ -77,6 +77,7 @@
       </td>
       <td>&nbsp;</td>
     </tr>
+    <tr>
          <td nowrap align="right" >Descripción:</td>
          <td colspan="6"  ><textarea  rows="3" cols="109"  class="tw_form"  onkeyup="limitarArea()"  name="proDescription" id="proDescription" ><c:out value="${project.proDescription}" /></textarea> </td>
     </tr>
@@ -86,7 +87,8 @@
 <div align="center" style="width:100%" >
 <table width="80%" cellspacing="0" bgcolor="Gray"  border =1  >
   <tr >
-      <th style ="background-color:#80211D;color:#ffffff;align:left" >Fecha de Asignación</th>
+      <th style ="background-color:#80211D;color:#ffffff;align:left" >Fecha de Inicio</th>
+      <th style ="background-color:#80211D;color:#ffffff;align:left" >Fecha de Entrega</th>
       <th style ="background-color:#80211D;color:#ffffff;align:left">Empleado</th> 
       <th style ="background-color:#80211D;color:#ffffff;align:left">Servicio</th>
       <th style ="background-color:#80211D;color:#ffffff;align:left" >Total<br>de<br>Palabras</th>
@@ -96,10 +98,18 @@
   <c:forEach var="assi" items="${project.projectAssignmentsTOList}" >
      <tr bgcolor="#E8B6B5">
       <th> <fmt:formatDate value="${assi.praAssignDate}"   pattern="dd/MM/yyyy HH:mm"  /></th>
-      <th><c:out value="${assi.employeesTO.empFirstName}" /> <c:out value="${assi.employeesTO.empLastName}" /></th> 
-      <th><c:out value="${assi.serviceTO.rtyName}" /></th>
-      <th align="center" ><input type="text"  style="WIDTH: 70px;text-align:right;"  name="praTotalAmount"  value="<c:out value="${assi.praTotalAmount}" />" /></th>
-      <th align="center"> <input type="text"  style="WIDTH: 70px;text-align:right;"  name="totalAmount-<c:out value="${assi.praId}" />" readonly  id="totalAmount-<c:out value="${assi.praId}" />" value="0" />
+      <th><fmt:formatDate value="${assi.praFinishDate}"   pattern="dd/MM/yyyy HH:mm"   />&nbsp;</th>
+      <th><c:out value="${assi.employeesTO.empFirstName}"  /> <c:out value="${assi.employeesTO.empLastName}" /></th> 
+      <th><c:out value="${assi.serviceTO.rtyName}" /><input type="hidden" id ="servicio-<c:out value="${assi.praId}" />" value="<c:out value="${assi.serviceTO.rtyName}" />"  /> </th>
+      <th align="center" >
+          <c:choose>
+          <c:when  test="${assi.serviceTO.rtyName == 'Traductor'}">
+            <input type="text"  style="WIDTH: 70px;text-align:right;"  name="praTotalAmount-<c:out value="${assi.praId}" />"  id="praTotalAmount-<c:out value="${assi.praId}" />" readonly value="<fmt:formatNumber maxFractionDigits="0"  value="${assi.praTotalAmount}" />" />
+          </c:when>
+          <c:otherwise>&nbsp;</c:otherwise>
+         </c:choose>
+      </th>
+      <th align="center"> <input type="text"  style="WIDTH: 70px;text-align:right;"  name="totalAmount-<c:out value="${assi.praId}" />" readonly  id="totalAmount-<c:out value="${assi.praId}" />" value="<fmt:formatNumber  maxFractionDigits="2"  value="${costosMap[assi.praId]}" />" />
       <th  nowrap align="right">
              <img alt="Editar"  src="img/edit.png" title="Editar Asignación"  onclick="editarAsignarProyecto(<c:out value="${assi.praId}" />,<c:out value="${project.proId}" />)" width="15" height="15" onmouseover="this.style.cursor='hand';"/></img>  
              <img alt="Eliminar"  src="img/Delete.png" title="Eliminar Asignación" onclick="quitarAsignacion(<c:out value="${assi.praId}" />,<c:out value="${project.proId}" />)" width="15" height="15" onmouseover="this.style.cursor='hand';"/></img>  
@@ -109,7 +119,7 @@
       </tr>
       <tr>
       <td colspan="100%"   >
-      <table id="tabla-<c:out value="${assi.praId}" />" cellspacing="0" width="100%"  style="display:none"  border =1  >
+      <table   id="tabla-<c:out value="${assi.praId}" />" cellspacing="0" width="100%"  style="display:none"  border =1  >
          <tr>
          <th style ="background-color:#F8E0E0;color:#585858;align:left">Documento</th>
          <th style ="background-color:#F8E0E0;color:#585858;align:left">Lenguajes</th>
@@ -123,20 +133,37 @@
        <c:forEach var="assiDet" items="${assi.proAssigmentsDetailsTO}" >
           <tr bgcolor="#FCEEED">
          <td><c:out value="${assiDet.ordersDocsTO.odoName}" /></td>
-          <td> <c:if test="${not empty assiDet.pranslatorsLanguaguesTO}">
+          <td> 
+          <c:choose>
+          <c:when test="${not empty assiDet.pranslatorsLanguaguesTO}">
            [<c:out value="${assiDet.pranslatorsLanguaguesTO.langAcronymsTO.languaguesTO.lanName}" /> - <c:out value="${assiDet.pranslatorsLanguaguesTO.langAcronymsTO.laaAcronym}" />] - [<c:out value="${assiDet.pranslatorsLanguaguesTO.langAcronymsTO1.languaguesTO.lanName}" /> - <c:out value="${assiDet.pranslatorsLanguaguesTO.langAcronymsTO1.laaAcronym}" />]
-           </c:if>
+           </c:when>
+           <c:otherwise>&nbsp;</c:otherwise>
+           </c:choose>
          </td>
-         <td align="center" ><input type="text" title="Unidades"  onblur="calcularTotalDetalle('<c:out value="${assiDet.padId}" />','<c:out value="${assi.praId}" />')" style="WIDTH: 70px;text-align:right;"  name="padWCount-<c:out value="${assiDet.padId}" />" id="padWCount-<c:out value="${assiDet.padId}" />"  value="<c:out value="${assiDet.padWCount}" />" /></td>
+         <td align="center" >
+         
+         
+          <c:choose>
+             <c:when  test="${assi.serviceTO.rtyName == 'Traductor'}">
+                   <input type="text" title="Unidades"  onblur="calcularTotalDetalle('<c:out value="${assiDet.padId}" />','<c:out value="${assi.praId}" />');calcularTotalPalabras('<c:out value="${assi.praId}" />');" style="WIDTH: 70px;text-align:right;"  name="padWCount-<c:out value="${assi.praId}" />" id="padWCount-<c:out value="${assiDet.padId}" />"  value=" <fmt:formatNumber maxFractionDigits="0"  value="${assiDet.padWCount}"   />"  />
+             </c:when>
+             <c:otherwise>
+                   <input type="text" title="Unidades"  onblur="calcularTotalDetalle('<c:out value="${assiDet.padId}" />','<c:out value="${assi.praId}" />');" style="WIDTH: 70px;text-align:right;"  name="padWCount-<c:out value="${assi.praId}" />" id="padWCount-<c:out value="${assiDet.padId}" />"  value=" <fmt:formatNumber maxFractionDigits="0" value="${assiDet.padWCount}" />" />
+             </c:otherwise>
+             </c:choose>
+         
+         
+         </td>
          <td> <c:out value="${assiDet.employeesRatesTO.ratesTO.ratName}" /></td>
-         <td align="center" ><input type="text" style="WIDTH: 70px;text-align:right;" onblur="calcularTotalDetalle('<c:out value="${assiDet.padId}" />','<c:out value="${assi.praId}" />')" name="padRate-<c:out value="${assiDet.padId}" />" id="padRate-<c:out value="${assiDet.padId}" />" value="<c:out value="${assiDet.padRate}" />" /></td>
+         <td align="center" ><input type="text" style="WIDTH: 70px;text-align:right;" onblur="calcularTotalDetalle('<c:out value="${assiDet.padId}" />','<c:out value="${assi.praId}" />')" name="padRate-<c:out value="${assiDet.padId}" />" id="padRate-<c:out value="${assiDet.padId}" />" value="<fmt:formatNumber maxFractionDigits="2"   value="${assiDet.padRate}" />" /></td>
          <td>
              <c:choose>
              <c:when test="${not empty assiDet.padWCount && not empty assiDet.padRate}">
-                   <input type="text" style="WIDTH: 70px;text-align:right;" readonly  name="tarifXunid-<c:out value="${assi.praId}" />"  id="tarifXunid-<c:out value="${assiDet.padId}" />" value="<c:out value="${assiDet.padWCount * assiDet.padRate}" />" />
+                   <input type="text" style="WIDTH: 70px;text-align:right;" readonly  name="tarifXunid-<c:out value="${assi.praId}" />"  id="tarifXunid-<c:out value="${assiDet.padId}" />" value="<fmt:formatNumber  maxFractionDigits="2"   value="${assiDet.padWCount * assiDet.padRate}" />" />
              </c:when>
              <c:otherwise>
-                   <input type="text" style="WIDTH: 70px;text-align:right;" readonly  name="tarifXunid-<c:out value="${assi.praId}" />"  id="tarifXunid-<c:out value="${assiDet.padId}" />" value="<c:out value="${0}" />" />
+                   <input type="text" style="WIDTH: 70px;text-align:right;" readonly  name="tarifXunid-<c:out value="${assi.praId}" />"  id="tarifXunid-<c:out value="${assiDet.padId}" />" value="<fmt:formatNumber maxFractionDigits="2"  value="${0}" />" />
              </c:otherwise>
              </c:choose>
           </td>
@@ -156,7 +183,9 @@
  </c:if>
 <table width="100%">
   <tr>
-      <td align="right"><input type="button" id="aceptar" value="Aceptar" onclick="agregar()"/></td>   
+      <td align="right">
+           
+            <input type="button" id="aceptar" value="Aceptar" onclick="agregar()"/></td>   
       <td align="left"><input type="button" id="cancel" value="Limpiar" OnClick="cancelar()"/></td>    
   </tr>
 </table>

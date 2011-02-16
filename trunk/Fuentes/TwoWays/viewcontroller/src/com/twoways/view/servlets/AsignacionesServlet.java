@@ -91,35 +91,26 @@ public class AsignacionesServlet extends AutorizacionServlet {
                     SimpleDateFormat sdfl = 
                         new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-                    if (request.getParameter("proStartDate") != null && 
-                        !request.getParameter("proStartDate").toString().equalsIgnoreCase("")) {
+                    if (request.getParameter("proStartDate") != null &&  !request.getParameter("proStartDate").toString().equalsIgnoreCase("")) {
                         java.util.Date date;
-                        if (request.getParameter("proStartDate").toString().length() == 
-                            10) {
-                            date = 
-    sdfc.parse(request.getParameter("proStartDate").toString());
+                        if (request.getParameter("proStartDate").toString().length() ==   10) {
+                            date =  sdfc.parse(request.getParameter("proStartDate").toString());
                         } else {
-                            date = 
-    sdfl.parse(request.getParameter("proStartDate").toString());
+                            date =  sdfl.parse(request.getParameter("proStartDate").toString());
                         }
                         java.sql.Timestamp timest = 
                             new java.sql.Timestamp(date.getTime());
                         projectAssignmentsTO.setPraAssignDate(timest);
                     }
 
-                    if (request.getParameter("proFinishDate") != null && 
-                        !request.getParameter("proFinishDate").toString().equalsIgnoreCase("")) {
+                    if (request.getParameter("proFinishDate") != null &&     !request.getParameter("proFinishDate").toString().equalsIgnoreCase("")) {
                         java.util.Date date;
-                        if (request.getParameter("proFinishDate").toString().length() == 
-                            10) {
-                            date = 
-    sdfc.parse(request.getParameter("proFinishDate").toString());
+                        if (request.getParameter("proFinishDate").toString().length() ==  10) {
+                            date =  sdfc.parse(request.getParameter("proFinishDate").toString());
                         } else {
-                            date = 
-    sdfl.parse(request.getParameter("proFinishDate").toString());
+                            date =   sdfl.parse(request.getParameter("proFinishDate").toString());
                         }
-                        java.sql.Timestamp timest = 
-                            new java.sql.Timestamp(date.getTime());
+                        java.sql.Timestamp timest =                             new java.sql.Timestamp(date.getTime());
                         projectAssignmentsTO.setPraFinishDate(timest);
                     }
 

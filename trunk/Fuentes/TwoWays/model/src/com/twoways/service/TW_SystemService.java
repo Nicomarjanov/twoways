@@ -181,11 +181,18 @@ public interface TW_SystemService {
     public Long buscarAssignacion(String praDate, Long emp, String serv, 
                                   String proId)throws Exception;
                                   
+    public Long buscarAssignacion(String praDate, Long emp)throws Exception;
+                                  
    
     public List<EmployeesRatesTO> getEmpRatesByEmpId(Long empId) throws Exception;
     
     public void deleteProjectAssigmentDetailsByPraId(Map params)throws Exception ;
 
     public void deleteProjectAssigment(Map params) throws Exception ;
+    
+    public void  updateProjectAssigmentFromDetails(ProjectAssignmentsTO projectAssignmentsTO) throws Exception ;
+    
+    public void updateProjectAssigmentDetailsByPadId(ProAssigmentsDetailsTO proAssigmentsDetailsTO) throws Exception ;
 
+   
 }

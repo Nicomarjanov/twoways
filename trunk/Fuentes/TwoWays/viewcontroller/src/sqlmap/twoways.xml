@@ -988,7 +988,7 @@
         pro_total_translator =#proTotalTranslator#,
         pro_start_date =#proStartDate#,
         pro_finish_date =#proFinishDate#,
-        currency_cotizations_cuc_id =#currencyCotizationsCucId#,n
+        currency_cotizations_cuc_id =#currencyCotizationsCucId#,
         users_usr_id =#usersUsrId#,
         currency_cur_id =#currencyTO.curId#,
         orders_ord_id =#ordersTO.ordId#,
@@ -1023,17 +1023,24 @@
   
     <insert id="updateProjectAssigment" parameterClass="com.twoways.to.ProjectAssignmentsTO"   >
       update project_assignments
-       set pra_id = #praId#,
-           employees_emp_id =  #employeesTO.empId#,
+       set employees_emp_id =  #employeesTO.empId#,
            projects_pro_id = #projectsTO.proId#,
            pra_assign_date = #praAssignDate#,
            pra_finish_date = #praFinishDate#,
-           services_ser_id =  #serviceTO.rtyName#,
-           pra_total_amount = #praTotalAmount#
+           services_ser_id =  #serviceTO.rtyName#
          where pra_id =#praId#
            and employees_emp_id = #employeesTO.empId#
            and projects_pro_id = #projectsTO.proId#
          
+  </insert>
+  
+  
+  
+    <insert id="updateProjectAssigmentFromDetails" parameterClass="com.twoways.to.ProjectAssignmentsTO"   >
+      update project_assignments
+       set   pra_total_amount = #praTotalAmount#
+         where pra_id =#praId#
+           
   </insert>      
   
    <statement id="obtenerEspecializacionesByTraId"  resultClass="com.twoways.to.SpecializationsTO" parameterClass="java.lang.Long">
@@ -1106,11 +1113,8 @@
   
     <insert id="updateProjectAssigmentDetails" parameterClass="com.twoways.to.ProAssigmentsDetailsTO"   >
      update proj_assignments_details
-           set pad_id = #padId#,
-               project_assignments_pra_id = #projectAssignmentsTO.praId#,
-               orders_docs_odo_id = #ordersDocsTO.odoId#,
+           set orders_docs_odo_id = #ordersDocsTO.odoId#,
                orders_docs_orders_ord_id = #ordersDocsTO.ordersOrdId#,
-               pad_wcount = #padWCount#,
                employees_rates_rates_rat_id = #employeesRatesTO.ratesTO.ratId# ,
                employees_rates_employees_emp_ = #employeesRatesTO.employeesTO.empId# ,
                translators_languagues_tla_id = #pranslatorsLanguaguesTO.tlaId#,
@@ -1122,6 +1126,16 @@
                and employees_rates_employees_emp_ = #employeesRatesTO.employeesTO.empId#
                      
   </insert>      
+  
+  <insert id="updateProjectAssigmentDetailsByPadId" parameterClass="com.twoways.to.ProAssigmentsDetailsTO"   >
+     update proj_assignments_details
+           set 
+               pad_wcount = #padWCount#,
+               pad_rate = #padRate#
+     where   pad_id = #padId#
+                     
+  </insert>   
+  
   
   
     <insert id="updateProjectAssigmentDetailsLanguage" parameterClass="com.twoways.to.ProAssigmentsDetailsTO"   >
@@ -1228,4 +1242,14 @@
                 and pa.projects_pro_id = #proId#
                 and pa.pra_assign_date = to_date( #praDate#, 'dd/mm/yyyy hh24:mi') 
  </select> 
+ 
+ <select id="findProjectAssignamentAvailability" parameterClass="java.util.Map" resultClass="java.lang.Long">
+     select count(*)
+        from employees e, proj_assignments_details a, project_assignments p
+        where e.emp_id = a.project_assignments_employees_
+        and a.project_assignments_pra_id = p.pra_id
+        and to_date( #praDate#, 'dd/mm/yyyy hh24:mi')  between p.pra_assign_date and p.pra_finish_date
+        and #empId# = e.emp_id 
+ </select> 
+ 
 </sqlMap> 

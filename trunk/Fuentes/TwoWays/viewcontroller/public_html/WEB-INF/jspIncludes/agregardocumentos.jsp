@@ -1,13 +1,14 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page contentType="text/html;charset=windows-1252"%>
+<%@ page isELIgnored="true" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
 <table  id="aDoc" >
     <tr>
         <td><a href="javascript:vistaDocumentos()" ><img id="documento+"  style="border:0;" title="Mostrar documentos del cliente" src="img/folder_red.png" alt="Documentos" width="25" height="25" onmouseover="this.style.cursor='hand';"/></a></td>
     </Tr>
   </table>
-  <table id="tabla-documentos"  >
+  <table id="tabla-documentos"  style ="display:none"   >
   <tr>
   <td valign="top" ><a href="javascript:vistaDocumentos()"><img id="documento-"  style="border:0;" title="Ocultar documentos del cliente" src="img/folder_red_open.png" alt="Documentos" width="25" height="25" onmouseover="this.style.cursor='hand';"/></a></td>
   <td valign="top">
