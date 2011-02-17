@@ -37,6 +37,9 @@ import com.twoways.to.RatesTO;
 import com.twoways.to.TranslatorsTO;
 import com.twoways.to.UsersTO;
 
+import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -361,6 +364,9 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     public LanguagueDAO getLanguagueDao() {
         return languagueDao;
     }
+    
+    
+
 
     public void setOrdersDao(OrdersDAO ordersDao) {
         this.ordersDao = ordersDao;
@@ -558,6 +564,44 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     public void updateProjectAssigmentDetailsByPadId(ProAssigmentsDetailsTO proAssigmentsDetailsTO) throws Exception {
         this.projectDao.updateProjectAssigmentDetailsByPadId(proAssigmentsDetailsTO);
     }
+    
+    
+    public boolean enviarMailAsignacion(Long praId) throws Exception {
+        
+        MessageFormat  msf= new MessageFormat("");
+        ProjectAssignmentsTO  projectAssignmentsTO = this.getProjectAssignmentsById(praId);
+        ProjectsTO project = this.getProjectById(projectAssignmentsTO.getProjectsTO().getProId());
+        List <ProAssigmentsDetailsTO > proAssigmentsDetailsTOList = this.projectDao.getProjectAssignmentsDetailsById(projectAssignmentsTO.getPraId());
+        EmployeesTO employee = this.getEmpById(projectAssignmentsTO.getEmployeesTO().getEmpId().toString()); 
+        List <OrdersDocsTO> ordDocList= new ArrayList<OrdersDocsTO>();
+        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        String texto = "En caso de recibir este email. Es debido un error de sistema. Estamos trabajando en un nuevo sistema. Mil disculpas. "; 
+        String subject = "Fecha de Asignacion : "+ sdf.format(projectAssignmentsTO.getPraAssignDate())+ "  Proyecto :" + project.getProName();  
+        texto+= "\nFecha de Asignacion : #fechaAsignacion#\n" + 
+        "\nFecha de Entrega :  #fechaEntrega#\n" + 
+        "\nServicio  : #servicio#\n";
+        
+        
+        
+       
+        texto =texto.replaceAll("#fechaAsignacion#",sdf.format(projectAssignmentsTO.getPraAssignDate()));
+        texto =texto.replaceAll("#servicio#",projectAssignmentsTO.getServiceTO().getRtyName());
+        texto =texto.replaceAll("#fechaEntrega#",sdf.format(projectAssignmentsTO.getPraFinishDate()));
+        
+        
+        for(ProAssigmentsDetailsTO proAssigmentsDetailsTO: proAssigmentsDetailsTOList ){
+            texto += "\nDocumento: "+ proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName();
+            if(projectAssignmentsTO.getServiceTO().getRtyName().equalsIgnoreCase("Traductor")){ 
+            texto += "\nLenguajes: ["+ proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO().getLanguaguesTO().getLanName() +" - "+proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO().getLaaAcronym() +"] - [ "+ proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO1().getLanguaguesTO().getLanName() +" - "+proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO1().getLaaAcronym() +" ] ";
+            }
+            OrdersDocsTO odo = this.getOrdersDocById(proAssigmentsDetailsTO.getOrdersDocsTO().getOdoId()); 
+            ordDocList.add(odo);
+            
+        }
+        
+        
+        ServiceMail sm = new ServiceMail();
+        sm.sendAttach(employee.getEmpMail(),ordDocList,subject,texto.replaceAll(" null ", " "));
 
 
 
@@ -596,5 +640,8 @@ public class TW_SystemServiceImpl implements TW_SystemService{
           return this.expensesDao.getExpenseById(expId);  
       }    
 
+        return true;
+    }
+    
 }
 

@@ -804,3 +804,17 @@ function normatizarCantidades(  banderaMensajeFaltante,  mensajeFaltanteAlert ){
     
     return result;
 }
+
+
+
+function enviarAsignacion(praId){
+
+
+     towaysDWR.enviarAsignacion(praId, enviarAsignacionCallback);
+
+}
+
+function enviarAsignacionCallback(data){
+
+  alert(data); 
+}

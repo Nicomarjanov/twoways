@@ -415,7 +415,7 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
            query = query.replaceAll("#"+param+"#",orderParameters.get(param).toString());
        }
        
-       query+= " order by o.ord_date" ;
+       query+= " order by o.ord_date desc " ;
         try {
             con = ds.getConnection();
             stm = con.createStatement();
