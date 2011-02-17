@@ -469,3 +469,55 @@ div.fixedHeaderTable {
      _position: relative
  }
 
+div.fixedHeaderTableGasto table {
+      width:100%;
+  }
+  div.fixedHeaderTableGasto tbody {
+      height: 500px;
+     overflow-y: auto;
+     overflow-x: hidden;
+ }
+ /*div.fixedHeaderTable table th {
+     background-color:#CCCCCC;font-weight:bold
+ }
+ div.fixedHeaderTable table td {
+     background-color:#EEEEEE
+ }*/
+ div.fixedHeaderTableGasto thead td, div.fixedHeaderTableGasto thead th {
+     position:relative;
+ }
+ 
+ /* IE7 hacks */
+ div.fixedHeaderTableGasto {
+     *position: relative;
+     *height: 500px;
+     *overflow-y: scroll;
+     *overflow-x: hidden;
+     *padding-right:16px;
+ }
+ 
+ div.fixedHeaderTableGasto thead tr {
+     *position: relative;
+     _position: absolute;
+     *top: expression(this.offsetParent.scrollTop-2);
+     *background:none;
+     background-color:transparent;
+ }
+  
+ div.fixedHeaderTableGasto tbody {
+     *height: auto;
+     *position:absolute;
+     *top:50px;   
+ }
+
+ /* IE6 hacks */
+ div.fixedHeaderTableGasto {
+     _width:expression(this.offsetParent.clientWidth-20);
+     _overflow: auto;
+     _overflow-y: scroll;
+     _overflow-x: hidden;
+ }
+ div.fixedHeaderTableIdiom thead tr {
+     _position: relative
+ }
+

@@ -7,6 +7,8 @@ import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.ClientsTO;
 import com.twoways.to.EmployeesRatesTO;
 import com.twoways.to.EmployeesTO;
+import com.twoways.to.ExpensesTO;
+import com.twoways.to.ItemsExpensesTO;
 import com.twoways.to.ItemsTO;
 import com.twoways.to.OrdersDocsTO;
 import com.twoways.to.OrdersTO;
@@ -96,7 +98,7 @@ public interface TW_SystemService {
     
     public boolean deleteItem(ItemsTO item) throws Exception;
     
-    public List obtenerItem() throws Exception;
+    public List obtenerItem(String itmType) throws Exception;
     
     public ItemsTO getItemById(String itmId)  throws Exception;
 
@@ -187,12 +189,20 @@ public interface TW_SystemService {
     public List<EmployeesRatesTO> getEmpRatesByEmpId(Long empId) throws Exception;
     
     public void deleteProjectAssigmentDetailsByPraId(Map params)throws Exception ;
-
+    
+    public ItemsExpensesTO getItemsExpenseByExpId(Long expId)throws Exception ;
+    
     public void deleteProjectAssigment(Map params) throws Exception ;
     
     public void  updateProjectAssigmentFromDetails(ProjectAssignmentsTO projectAssignmentsTO) throws Exception ;
     
     public void updateProjectAssigmentDetailsByPadId(ProAssigmentsDetailsTO proAssigmentsDetailsTO) throws Exception ;
 
-   
+    public void insertarGasto(ExpensesTO expensesTO) throws Exception;
+    
+    public void updateGasto(ExpensesTO expensesTO) throws Exception;    
+    
+    public boolean deleteGasto(ExpensesTO gasto) throws Exception;
+    
+    public ExpensesTO getExpenseById(Long expId) throws Exception;
 }

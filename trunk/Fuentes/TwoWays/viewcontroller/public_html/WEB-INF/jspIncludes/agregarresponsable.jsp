@@ -79,8 +79,7 @@
         <tbody>
             <c:forEach items="${requestScope.cliente.clientResponsableTOList}" var="item">
             <tr name="item-responsable"  bgcolor="#FFFFF" id="creId-<c:out value="${item.creFirstName}"/>#<c:out value="${item.creLastName}"/>" >            
-                <td width="15%" ><c:out value="${item.creFirstName}" />
-                   <!--<input type="hidden" name="CreResponsable" id="CreResponsable" value="<c:out value="${item.creId}"/>">-->
+                <td width="15%" ><c:out value="${item.creFirstName}" />                   
                    <input type="hidden" name="responsable-hidden"  value="<c:out value="${item.creFirstName}"/>#<c:out value="${item.creLastName}"/>#<c:out value="${item.creEmail}"/>#<c:out value="${item.crePhoneNumber}" />#<c:out value="${item.creMsn}"/>#<c:out value="${item.creSkype}"/>"</td>
                 <td width="15%" ><c:out value="${item.creLastName}" /></td>
                 <td width="15%" ><c:out value="${item.creEmail}" /></td>

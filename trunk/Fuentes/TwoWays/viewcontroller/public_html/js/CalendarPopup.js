@@ -568,7 +568,7 @@ function PopupWindow_setWindowProperties(props) {
 	}
 // Refresh the displayed contents of the popup
 function PopupWindow_refresh() {
-	//alert(this.divName);
+
         if (this.divName != null) {
 		// refresh the DIV object
 		if (this.use_gebi) {
@@ -649,7 +649,9 @@ function PopupWindow_showPopup(anchorname) {
 	}
 // Hide the popup
 function PopupWindow_hidePopup() {
+
 	if (this.divName != null) {
+
 		if (this.use_gebi) {
 			document.getElementById(this.divName).style.visibility = "hidden";
 			}
@@ -1469,4 +1471,4 @@ function CP_getCalendar() {
         
 var cal1Desde = new CalendarPopup("divDesde");
 var cal1Hasta = new CalendarPopup("divHasta");
-
+var callBirth = new CalendarPopup("divBirth");

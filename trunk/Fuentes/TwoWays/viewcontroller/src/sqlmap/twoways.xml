@@ -189,7 +189,8 @@
      select *      
      from 
      Employees
-     where emp_erase_date is null
+     order by emp_last_name desc
+
   </select>
   
  <statement  id="getEmpById" resultMap="select-Employee" parameterClass="java.lang.String" >
@@ -925,6 +926,13 @@
      where acc_id = #value#
  </select>
 
+  <statement id="obtenerAccounts" resultMap="select-Account-List"  parameterClass="java.lang.String" >
+     select *       
+     from accounts     
+     order by ACC_NAME
+     
+  </statement>
+
  <statement id="obtenerEspecializaciones"  resultClass="com.twoways.to.SpecializationsTO" parameterClass="java.lang.String">
      select  spe_Name as speName, 
              spe_description as speDescription 
@@ -1225,7 +1233,6 @@
       <result property="padRate" column="PAD_RATE" /> 
   </resultMap>
   
- 
   <select id="getProjectAssigmentDetailsByPadMap" parameterClass="java.lang.Long" resultClass="java.util.HashMap">
      select pad.* , l1.lan_name  len1 , l2.lan_name  len2, o.odo_name docName , tl.languagues_acronyms_laa_acrony acro1  ,  tl.languagues_acronyms_laa_acron1 acro2,  r.rat_name
      from ((((((proj_assignments_details pad left outer join employees_rates er on pad.employees_rates_employees_emp_ = er.employees_emp_id and pad.employees_rates_rates_rat_id = er.rates_rat_id) left outer join 
@@ -1252,4 +1259,62 @@
         and #empId# = e.emp_id 
  </select> 
  
+
+  <statement id="obtenerItems" resultMap="select-Item-List"  parameterClass="java.lang.String" >
+     select *       
+     from items
+     where upper(items.ITM_TYPE) like '%' || upper( #value#) || '%'
+     and items.itm_erase_date is null
+     order by items.ITM_NAME    
+  </statement>
+  
+  <!-- Expenses-->
+  
+  <select id="expense.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > 
+      select expense_seq.nextval expId from dual
+  </select>   
+  
+  <select id="item_expense.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > 
+      select item_expense_seq.nextval expId from dual
+  </select>   
+  
+  <insert id="insertExpense" parameterClass="com.twoways.to.ExpensesTO" >
+      insert into expenses
+      (exp_id, exp_date, employees_emp_id)
+      values (#expId#, #expDate#, #employeesTO.empId#)
+  </insert>
+  
+  <insert id="insertItemsExpenses" parameterClass="com.twoways.to.ItemsExpensesTO">
+      insert into items_expenses
+      (ite_id, ite_value, items_itm_id, expenses_exp_id, currency_cur_id, accounts_acc_id, users_usr_id)
+      values
+      (#iteId#, #iteValue#, #itemsTO.itmId#, #expensesTO.expId#, #currencyTO.curId#, #accountsTO.accId#, #usersTO.usrId#)
+  </insert>
+  
+  <resultMap id="select-items-expenses" class="com.twoways.to.ItemsExpensesTO">
+        <result property="iteId" column="ITE_ID"  />  
+        <result property="iteValue" column="ITE_VALUE" />     
+        <result property="currencyTO.curId" column="CURRENCY_CUR_ID"  /> 
+        <result property="accountsTO.accId" column="ACCOUNTS_ACC_ID"  /> 
+        <result property="usersTO.usrId" column="USERS_USR_ID"  />   
+  </resultMap>
+  
+  <resultMap id="select-expenses" class="com.twoways.to.ExpensesTO">
+        <result property="expId" column="EXP_ID"  />  
+        <result property="expDate" column="EXP_DATE" />     
+        <result property="expTotal" column="EXP_TOTAL"  /> 
+        <result property="employeesTO.empId" column="EMPLOYEES_EMP_ID"  /> 
+  </resultMap>
+  
+  <select id="getItemsExpenseByExpId" parameterClass="java.lang.Long" resultMap="select-items-expenses">
+       select *
+       from items_expenses
+       where expenses_exp_id=#value#
+  </select>
+  
+    <select id="getExpenseById" parameterClass="java.lang.Long" resultMap="select-expenses">
+       select *
+       from expenses
+       where exp_id=#value#
+  </select>
 </sqlMap> 

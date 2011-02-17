@@ -4,6 +4,8 @@ import com.twoways.dao.AccountDAO;
 import com.twoways.dao.ClientDAO;
 import com.twoways.dao.CurrencyDAO;
 import com.twoways.dao.EmployeeDAO;
+import com.twoways.dao.ExpenseDAO;
+import com.twoways.dao.ExpensesDAOImpl;
 import com.twoways.dao.OrdersDAO;
 import com.twoways.dao.ProjectDAO;
 import com.twoways.dao.RateDAO;
@@ -22,6 +24,8 @@ import com.twoways.to.ClientsTO;
 import com.twoways.to.CurrencyTO;
 import com.twoways.to.EmployeesRatesTO;
 import com.twoways.to.EmployeesTO;
+import com.twoways.to.ExpensesTO;
+import com.twoways.to.ItemsExpensesTO;
 import com.twoways.to.ItemsTO;
 import com.twoways.to.OrdersDocsTO;
 import com.twoways.to.OrdersTO;
@@ -54,6 +58,7 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     private ProjectDAO projectDao;
     private LanguagueDAO languagueDao;
     private AccountDAO accountDao;
+    private ExpenseDAO expensesDao;
 
      
     public TW_SystemServiceImpl() {
@@ -280,8 +285,8 @@ public class TW_SystemServiceImpl implements TW_SystemService{
           return this.itemDao.deleteItem(item);
       }
       
-    public List obtenerItem() throws Exception{
-          return this.itemDao.obtenerItem();
+    public List obtenerItem(String itmType) throws Exception{
+          return this.itemDao.obtenerItem(itmType);
       }      
       
     public ItemsTO getItemById(String itmId) throws Exception{
@@ -532,6 +537,10 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     public void deleteProjectAssigmentDetailsByPraId(Map params)throws Exception {
         this.projectDao.deleteProjectAssigmentDetailsByPraId(params); 
     }
+    
+    public ItemsExpensesTO getItemsExpenseByExpId(Long expId)throws Exception {
+       return this.expensesDao.getItemsExpenseByExpId(expId);
+    }
 
     public void deleteProjectAssigment(Map params)throws Exception {
          
@@ -549,5 +558,43 @@ public class TW_SystemServiceImpl implements TW_SystemService{
     public void updateProjectAssigmentDetailsByPadId(ProAssigmentsDetailsTO proAssigmentsDetailsTO) throws Exception {
         this.projectDao.updateProjectAssigmentDetailsByPadId(proAssigmentsDetailsTO);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    public ExpenseDAO getExpenseDao(){
+        return expensesDao;
+    }
+    
+    public void setExpensesDao(ExpenseDAO expensesDao){
+        this.expensesDao = expensesDao;
+    }
+
+    public void insertarGasto(ExpensesTO expensesTO) throws Exception{
+        this.expensesDao.insertarExpense(expensesTO);
+    }
+
+    public void updateGasto(ExpensesTO expensesTO) throws Exception{
+        this.expensesDao.actualizarExpense(expensesTO);
+    }
+
+    public boolean deleteGasto(ExpensesTO gasto) throws Exception{
+          return this.expensesDao.deleteExpense(gasto);
+      }
+      
+    public ExpensesTO getExpenseById(Long expId) throws Exception{
+          return this.expensesDao.getExpenseById(expId);  
+      }    
+
 }
 

@@ -46,6 +46,9 @@
         <property name="projectDao">
             <ref bean="projectDAO"/>
         </property> 
+        <property name="expensesDao">
+            <ref bean="expensesDAO"/>
+        </property> 
     </bean>
 
     <!-- declaracion de los servicios, utilizando proxy para el manejo de transacciones -->

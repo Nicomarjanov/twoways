@@ -91,7 +91,7 @@ public class AbmTarifasServlet extends AutorizacionServlet {
                          tarifa =  twoWaysBDL.getServiceTwoWays().getRateById(ratId);
                          request.setAttribute("tarifa",tarifa);
                          if(tarifa == null){
-                             request.setAttribute("mensaje","<script>alert('La tarifa no existe')</script>"); 
+                             request.setAttribute("mensaje","<script>alert('La tarifa no existe')</script>");
                          }
                      
                  } catch (Exception e) {
