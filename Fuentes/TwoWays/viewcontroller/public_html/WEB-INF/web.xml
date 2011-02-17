@@ -83,6 +83,10 @@
         <servlet-name>AbmTarifasServlet</servlet-name>
         <servlet-class>com.twoways.view.servlets.AbmTarifasServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AbmGastosServlet</servlet-name>
+        <servlet-class>com.twoways.view.servlets.AbmGastosServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -131,6 +135,10 @@
     <servlet-mapping>
         <servlet-name>AsignacionesServlet</servlet-name>
         <url-pattern>/asignaciones</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AbmGastosServlet</servlet-name>
+        <url-pattern>/gastos</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
     <servlet-name>dwr-invoker</servlet-name>

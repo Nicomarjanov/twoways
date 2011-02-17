@@ -63,9 +63,12 @@
    <tbody>
    <tr>
     <td nowrap>Nombre</td><td colspan="2" ><input type="text" class="tw_form" name="ordName"  id="ordName" value="<c:out value="${order.ordName}" />" style="width:100%"  /></td>
-   </tr><tr><td >Fecha de Inicio</td> <td colspan="2" nowrap>
-   <select id="ordDateOpt" name="ordDateOpt" >
-       <c:forEach items="${optionList}" var="item">
+   </tr>
+   <tr>
+    <td >Fecha de Inicio</td> 
+        <td colspan="2" nowrap>
+           <select id="ordDateOpt" name="ordDateOpt" >
+               <c:forEach items="${optionList}" var="item">
                    <c:choose>
                     <c:when test="${ordDateOpt == item}">
                        <option value="<c:out value="${item}" />" style="background-color:#A4BAC7;" selected="selected">
@@ -78,10 +81,10 @@
                     </option>
                     </c:otherwise>
                     </c:choose>
-                </c:forEach>
-       </select>
-    <input type="text" class="tw_form" name="ordDate"  id="ordDate" value="<c:out value="${ordDate}" />" style="width:200"  /><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].ordDate,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png"></img>
-    </td>
+                 </c:forEach>
+               </select>
+            <input type="text" class="tw_form" name="ordDate"  id="ordDate" value="<c:out value="${ordDate}" />" style="width:200"  /><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].ordDate,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png"></img>
+        </td>
    </tr>
    <tr>
    <td nowrap >Fecha de Entrega </td><td  colspan="2"  nowrap>

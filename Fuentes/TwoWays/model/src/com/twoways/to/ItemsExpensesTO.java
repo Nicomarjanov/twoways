@@ -6,52 +6,28 @@ package com.twoways.to;
 public class ItemsExpensesTO {
     //
     //(name="EXPENSES_EXP_ID", nullable = false, insertable = false, 
-    private Long expensesExpId;
-    private Long itemsItmId;
     //
     //(name="ITE_ID", nullable = false)
     private Long iteId;
     //(name="ITE_VALUE")
-    private Long iteValue;
+    private Double iteValue;
+    
     private AccountsTO accountsTO;
     private CurrencyTO currencyTO;
     private ExpensesTO expensesTO;
     private ItemsTO itemsTO;
+    private UsersTO usersTO;
 
     public ItemsExpensesTO() {
     }
 
 
-    public Long getExpensesExpId() {
-        return expensesExpId;
-    }
-
-    public void setExpensesExpId(Long expensesExpId) {
-        this.expensesExpId = expensesExpId;
-    }
-
-    public Long getItemsItmId() {
-        return itemsItmId;
-    }
-
-    public void setItemsItmId(Long itemsItmId) {
-        this.itemsItmId = itemsItmId;
-    }
-
-    public Long getIteId() {
+     public Long getIteId() {
         return iteId;
     }
 
     public void setIteId(Long iteId) {
         this.iteId = iteId;
-    }
-
-    public Long getIteValue() {
-        return iteValue;
-    }
-
-    public void setIteValue(Long iteValue) {
-        this.iteValue = iteValue;
     }
 
     public AccountsTO getAccountsTO() {
@@ -84,5 +60,21 @@ public class ItemsExpensesTO {
 
     public void setItemsTO(ItemsTO itemsTO) {
         this.itemsTO = itemsTO;
+    }
+
+    public void setUsersTO(UsersTO usersTO) {
+        this.usersTO = usersTO;
+    }
+
+    public UsersTO getUsersTO() {
+        return usersTO;
+    }
+
+    public void setIteValue(Double iteValue) {
+        this.iteValue = iteValue;
+    }
+
+    public Double getIteValue() {
+        return iteValue;
     }
 }

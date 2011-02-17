@@ -24,8 +24,7 @@
 </li> 
 <li><a href="#" >Contables</a> 
     <ul>
-        <li><a href="items">ABM de Items</a></li> 
-        <li><a href="cuentas">ABM de Cuentas</a></li>
+        <li><a href="gastos">Gastos</a></li>      
     </ul>
 </li> 
  <li><a href="login?logout=true">Desconectar</a></li> 

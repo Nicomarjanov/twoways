@@ -31,11 +31,11 @@ public class ItemsDAOImpl extends AbstractDAO  implements ItemDAO {
        return (res > 0); 
     }
 
-    public List obtenerItem() throws Exception {
+    public List obtenerItem(String itmType) throws Exception {
         List ret= null;
         try {
             ret = 
-            getSqlMapClientTemplate().queryForList("obtenerItems","");
+            getSqlMapClientTemplate().queryForList("obtenerItems",itmType);
         } catch (DataAccessException dae) {
 
            dae.printStackTrace();
@@ -54,5 +54,6 @@ public class ItemsDAOImpl extends AbstractDAO  implements ItemDAO {
         }
         return ret;
         }        
+               
 }
 
