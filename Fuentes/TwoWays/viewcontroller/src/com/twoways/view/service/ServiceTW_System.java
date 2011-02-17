@@ -344,6 +344,18 @@ public class ServiceTW_System {
             return e.getMessage();
         }
     }
+    
+    
+    public String enviarAsignacion(Long praId){
+        try {
+            getTwoWaysBDL().getServiceTwoWays().enviarMailAsignacion(praId);
+            return "El email fue marcado para ser enviado";
+        } catch (Exception e) {
+             e.printStackTrace();
+             log.error(e, e);
+             return "El email no pudo ser enviado por el siguiente motivo "+ e.getMessage();
+        }
+    }
 
     public void setTwoWaysBDL(TwoWaysBDL twoWaysBDL) {
         this.twoWaysBDL = twoWaysBDL;

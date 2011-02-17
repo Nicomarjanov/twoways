@@ -144,8 +144,9 @@
     <servlet-name>dwr-invoker</servlet-name>
      <url-pattern>/dwr/*</url-pattern>
    </servlet-mapping>
+    
     <session-config>
-        <session-timeout>35</session-timeout>
+        <session-timeout>350</session-timeout>
     </session-config>
     <mime-mapping>
         <extension>html</extension>
@@ -155,5 +156,9 @@
         <extension>txt</extension>
         <mime-type>text/plain</mime-type>
     </mime-mapping>
+    <welcome-file-list>
+       <welcome-file>/login.jsp</welcome-file>
+    </welcome-file-list>
+
    
 </web-app>

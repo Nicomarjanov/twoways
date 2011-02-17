@@ -63,9 +63,9 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
         Map pRequest =  new HashMap();
         Map mRequest =  new HashMap();
         
+        String script = "<script>onloadOrder();</script>";
         
-        
-       System.out.println(response.getContentType()); 
+        System.out.println(response.getContentType()); 
         
         for(Enumeration obj = request.getHeaderNames(); obj.hasMoreElements()  ;  ){
           String key = obj.nextElement().toString();
@@ -118,7 +118,7 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                  for(RateTypesTO serv: services){
                      
                        
-                         if(serv.getRtyName().equals(servOrd.getRtyName())){
+                         if(serv.getRtyName().equals(servOrd.getRtyName()) || serv.getRtyName().equalsIgnoreCase("Cliente") ){
                              services.remove(serv);
                              break;
                          }
@@ -286,7 +286,17 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                    
                    ordersTO.setOrdersDocsTOList(auxListDoc);
                    
+                   try{
+                   
                    ordersTO = twoWaysBDL.getServiceTwoWays().updateOrder(ordersTO);  
+                   }catch(Exception e){
+                       
+                          if(e.getMessage().contains("ORA-02292")){
+                            script +="<script>alert('El o los documentos no pueden eliminarse de la orden porque ya se encuentran asignados'); " +
+                            "window.location.href='/twoways/ordentrabajo?ordId="+ordersTO.getOrdId() +"';"+
+                            "</script>" ;
+                          }
+                   }
                   
                   
                }else{
@@ -295,10 +305,12 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                 
                 for(RateTypesTO serv: services){
                 
-                  
+                     
                     if(serv.getRtyName().equals(servOrd.getRtyName())){
+                       
                         services.remove(serv);
                         break;
+                      
                     }
                 }
                 }
@@ -309,7 +321,8 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
               e.printStackTrace();
             }
         }
-
+        
+        request.setAttribute("script",script);
         request.getRequestDispatcher("ordentrabajo.jsp").forward(request,response);
     }
 

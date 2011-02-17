@@ -170,5 +170,7 @@
 </table>
 </form>
 </body>
-<script>onloadOrder();</script>
+
+ <c:out value="${script}" escapeXml="false"/>
+
 </html>

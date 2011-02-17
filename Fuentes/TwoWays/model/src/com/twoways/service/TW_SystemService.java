@@ -197,6 +197,8 @@ public interface TW_SystemService {
     public void  updateProjectAssigmentFromDetails(ProjectAssignmentsTO projectAssignmentsTO) throws Exception ;
     
     public void updateProjectAssigmentDetailsByPadId(ProAssigmentsDetailsTO proAssigmentsDetailsTO) throws Exception ;
+    
+    public boolean enviarMailAsignacion(Long praId) throws Exception;
 
     public void insertarGasto(ExpensesTO expensesTO) throws Exception;
     

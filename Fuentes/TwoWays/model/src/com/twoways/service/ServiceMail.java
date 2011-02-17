@@ -1,275 +1,248 @@
 package com.twoways.service;
 
 
+import com.twoways.to.OrdersDocsTO;
 
-import com.sun.mail.pop3.POP3SSLStore;
 import java.io.File;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Date;
+
+import java.net.InetSocketAddress;
+import java.net.ProxySelector;
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import java.security.Security;
+
+import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
-import javax.mail.Address;
-import javax.mail.FetchProfile;
-import javax.mail.Flags;
-import javax.mail.Folder;
+
+import java.util.ResourceBundle;
+
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
+
+import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
-import javax.mail.Part;
-import javax.mail.SendFailedException;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
-import javax.mail.Store;
 import javax.mail.Transport;
-import javax.mail.URLName;
-import javax.mail.internet.ContentType;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.ParseException;
+import javax.mail.internet.MimeMultipart;
+
+import javax.servlet.ServletException;
+
+import org.apache.log4j.Logger;
 
 public class ServiceMail {
-    
-    private Session session = null;
-    private Store store = null;
-    private String username, password;
-    private Folder folder;
-    
-    public ServiceMail() {
-        
-    }
-    
-    public void setUserPass(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-    
-    public void connect() throws Exception {
-        
-        String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
-        
-        Properties pop3Props = new Properties();
-        
-        pop3Props.setProperty("mail.pop3.socketFactory.class", SSL_FACTORY);
-        pop3Props.setProperty("mail.pop3.socketFactory.fallback", "false");
-        pop3Props.setProperty("mail.pop3.port",  "995");
-        pop3Props.setProperty("mail.pop3.socketFactory.port", "995");
-        pop3Props.setProperty("mail.smtp.host", "smtp.gmail.com");
 
-        URLName url = new URLName("pop3", "pop.gmail.com", 995, "",
-                username, password);
-        
-        session = Session.getInstance(pop3Props, null);
-        store = new POP3SSLStore(session, url);
-        store.connect();
-        
-            MimeMessage mensaje = new MimeMessage(session);
-             mensaje.setFrom(new InternetAddress("lucianonicolasfernandez@gmail.com"));
-             mensaje.addRecipient(Message.RecipientType.TO, new InternetAddress("lucianonicolasfernandez@gmail.com"));
-             mensaje.setSubject("Olas al viento");
-             mensaje.setText("El Texto");
+    private static final String SMTP_HOST_NAME = "smtp.gmail.com";
+    private static final String SMTP_PORT = "465";
+    private static final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
+    private static final String TMP_DIR_PATH = "C:\\WINDOWS\\Temp";
 
-             try{
-               Transport mta = session.getTransport("smtp");
-               mta.connect();
-               try{
-                   Transport.send(mensaje);
-               }catch(SendFailedException ex){ex.printStackTrace();;}
-               mta.close();
-             }catch(Exception ex){
-               System.out.println("Cartero: Error al enviar "+ex.toString());
-             }
+    private String[] sendTo = new String[1];
 
-        
-        
-        
-    }
+    ResourceBundle rb = ResourceBundle.getBundle("twoways");
+    String userMail = rb.getString("userMail");
+    String userMailPassword = rb.getString("userMailPassword");
+    String userMailSender = rb.getString("userMailSender");
     
-    public void openFolder(String folderName) throws Exception {
-        
-        // Open the Folder
-        folder = store.getDefaultFolder();
-        
-        folder = folder.getFolder(folderName);
-        
-        if (folder == null) {
-            throw new Exception("Invalid folder");
+    public static void main(String[] args) throws Exception {
+
+        Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+        String [] sender={"lucianonicolasfernandez@gmail.com"};  
+        new ServiceMail().sendSSLMessage(sender, "subject", "Putin",
+                                         "lucianonicolasfernandez@gmail.com");
+        System.out.println("Sucessfully Sent mail to All Users");
+    }
+
+
+    public void sendSSLMessage(String[] recipients, String subject, 
+                               String message, 
+                               String from) throws MessagingException {
+        boolean debug = true;
+        setproxy();
+
+        Properties props = new Properties();
+        props.put("mail.smtp.host", SMTP_HOST_NAME);
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.debug", "true");
+        props.put("mail.smtp.port", SMTP_PORT);
+        props.put("mail.smtp.socketFactory.port", SMTP_PORT);
+        props.put("mail.smtp.socketFactory.class", SSL_FACTORY);
+        props.put("mail.smtp.socketFactory.fallback", "false");
+
+        Session session = 
+            Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(userMail, 
+                                                          userMailPassword);
+                    }
+                });
+
+        session.setDebug(debug);
+
+        Message msg = new MimeMessage(session);
+        InternetAddress addressFrom = new InternetAddress(from);
+        msg.setFrom(addressFrom);
+
+        InternetAddress[] addressTo = new InternetAddress[recipients.length];
+        for (int i = 0; i < recipients.length; i++) {
+            addressTo[i] = new InternetAddress(recipients[i]);
         }
-        
-        // try to open read/write and if that fails try read-only
+        msg.setRecipients(Message.RecipientType.TO, addressTo);
+
+        // Setting the Subject and Content Type
+        msg.setSubject(subject);
+        msg.setContent(message, "text/plain");
+        Transport.send(msg);
+    }
+
+
+    public void sendAttach(String toMail, List<OrdersDocsTO> ordDocList, 
+                    String subject, String message)  throws Exception {
         try {
+
+
+            setproxy();
+
+            Properties props = new Properties();
+            props.put("mail.smtp.host", SMTP_HOST_NAME);
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.debug", "true");
+            props.put("mail.smtp.port", SMTP_PORT);
+            props.put("mail.smtp.socketFactory.port", SMTP_PORT);
+            props.put("mail.smtp.socketFactory.class", SSL_FACTORY);
+            props.put("mail.smtp.socketFactory.fallback", "false");
+
+            Authenticator auth = new Authenticator() {
+
+                    @Override
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(userMail, 
+                                                          userMailPassword);
+                    }
+                };
+            Session session = Session.getDefaultInstance(props, auth);
+            MimeMessage msg = new MimeMessage(session);
+            msg.setFrom(new InternetAddress(userMailSender));
+            msg.setSubject(subject);
+            msg.setRecipient(Message.RecipientType.TO, 
+                             new InternetAddress(toMail));
+            //add atleast simple body
+            MimeBodyPart body = new MimeBodyPart();
+            body.setText(message);
+            //do attachment
             
-            folder.open(Folder.READ_WRITE);
-            
-        } catch (MessagingException ex) {
-            
-            folder.open(Folder.READ_ONLY);
-            
-        }
-    }
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(body);
+            for(OrdersDocsTO ordDoc : ordDocList){
+                
+                MimeBodyPart attachMent = new MimeBodyPart();
+                convertTOFile(ordDoc.getOdoName(),ordDoc.getOdoDoc()); 
+                String strFilePath = TMP_DIR_PATH + "//" + ordDoc.getOdoName();
     
-    public void closeFolder() throws Exception {
-        folder.close(false);
-    }
-    
-    public int getMessageCount() throws Exception {
-        return folder.getMessageCount();
-    }
-    
-    public int getNewMessageCount() throws Exception {
-        return folder.getNewMessageCount();
-    }
-    
-    public void disconnect() throws Exception {
-        store.close();
-    }
-    
-    public void printMessage(int messageNo) throws Exception {
-        System.out.println("Getting message number: " + messageNo);
-        
-        Message m = null;
-        
-        try {
-            m = folder.getMessage(messageNo);
-            dumpPart(m);
-        } catch (IndexOutOfBoundsException iex) {
-            System.out.println("Message number out of range");
-        }
-    }
-    
-    public void printAllMessageEnvelopes() throws Exception {
-        
-        // Attributes & Flags for all messages ..
-        Message[] msgs = folder.getMessages();
-        
-        // Use a suitable FetchProfile
-        FetchProfile fp = new FetchProfile();
-        fp.add(FetchProfile.Item.ENVELOPE);        
-        folder.fetch(msgs, fp);
-        
-        for (int i = 0; i < msgs.length; i++) {
-            System.out.println("--------------------------");
-            System.out.println("MESSAGE #" + (i + 1) + ":");
-            dumpEnvelope(msgs[i]);
-            
-        }
-        
-    }
-    
-    public void printAllMessages() throws Exception {
-     
-        // Attributes & Flags for all messages ..
-        Message[] msgs = folder.getMessages();
-        
-        // Use a suitable FetchProfile
-        FetchProfile fp = new FetchProfile();
-        fp.add(FetchProfile.Item.ENVELOPE);        
-        folder.fetch(msgs, fp);
-        
-        for (int i = 0; i < msgs.length; i++) {
-            System.out.println("--------------------------");
-            System.out.println("MESSAGE #" + (i + 1) + ":");
-            dumpPart(msgs[i]);
-        }
-        
-    
-    }
-    
-    
-    public static void dumpPart(Part p) throws Exception {
-        if (p instanceof Message)
-            dumpEnvelope((Message)p);
-       
-        String ct = p.getContentType();
-        try {
-            pr("CONTENT-TYPE: " + (new ContentType(ct)).toString());
-        } catch (ParseException pex) {
-            pr("BAD CONTENT-TYPE: " + ct);
-        }
-        
-        /*
-         * Using isMimeType to determine the content type avoids
-         * fetching the actual content data until we need it.
-         */
-        if (p.isMimeType("text/plain")) {
-            pr("This is plain text");
-            pr("---------------------------");
-            System.out.println((String)p.getContent());        
-        } else {
-            
-            // just a separator
-            pr("---------------------------");
-            
-        }
-    }
-    
-    public static void dumpEnvelope(Message m) throws Exception {        
-        pr(" ");
-        Address[] a;
-        // FROM
-        if ((a = m.getFrom()) != null) {
-            for (int j = 0; j < a.length; j++)
-                pr("FROM: " + a[j].toString());
-        }
-        
-        // TO
-        if ((a = m.getRecipients(Message.RecipientType.TO)) != null) {
-            for (int j = 0; j < a.length; j++) {
-                pr("TO: " + a[j].toString());                
+                FileDataSource dataSource = 
+                    new FileDataSource(new File(strFilePath));
+                attachMent.setDataHandler(new DataHandler(dataSource));
+                attachMent.setFileName(ordDoc.getOdoName());
+                attachMent.setDisposition(MimeBodyPart.ATTACHMENT);
+                System.out.println("multipart");
+                multipart.addBodyPart(attachMent);
+                
             }
+           
+           
+            System.out.println("multipart2");
+            msg.setContent(multipart);
+            System.out.println("multipart3");
+            Transport.send(msg);
+            System.out.println("termino");
+        } catch (AddressException ex) {
+            ex.printStackTrace();
+        } catch (MessagingException ex) {
+            ex.printStackTrace();
         }
-        
-        // SUBJECT
-        pr("SUBJECT: " + m.getSubject());
-        
-        // DATE
-        Date d = m.getSentDate();
-        pr("SendDate: " +
-                (d != null ? d.toString() : "UNKNOWN"));
-        
+    }
+
+
+    public static void setproxy() {
+       /* System.setProperty("java.net.useSystemProxies", "true");
+        System.out.println("detecting proxies");
+        List l = null;
+        try {
+            l = ProxySelector.getDefault().select(new URI("http://foo/bar"));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        if (l != null) {
+            for (Iterator iter = l.iterator(); iter.hasNext(); ) {
+                java.net.Proxy proxy = (java.net.Proxy)iter.next();
+                System.out.println("proxy hostname : " + proxy.type());
+                InetSocketAddress addr = (InetSocketAddress)proxy.address();
+                if (addr == null) {
+                    System.out.println("No Proxy");
+                } else {
+                    System.out.println("proxy hostname : " + 
+                                       addr.getHostName());
+                    System.setProperty("http.proxyHost", addr.getHostName());
+                    System.out.println("proxy port : " + addr.getPort());
+                    System.setProperty("http.proxyPort", 
+                                       Integer.toString(addr.getPort()));
+                }
+            }
+        }*/
+    }
+
+    public void convertTOFile(String fileName, byte[] file ) {
+
+
+        String strFilePath = TMP_DIR_PATH + "//" + fileName;
+
+
+        try
+
+        {
+
+            FileOutputStream fos = new FileOutputStream(strFilePath);
+            fos.write(file);
+
+            fos.close();
+           
+
+
+        } catch (FileNotFoundException ex)
+
+        {
+
+            System.out.println("FileNotFoundException : " + ex);
+
+        }
+
+        catch (IOException ioe)
+
+        {
+
+            System.out.println("IOException : " + ioe);
+
+        }
+
 
     }
-    
-    static String indentStr = "                                               ";
-    static int level = 0;
-    
-    /**
-     * Print a, possibly indented, string.
-     */
-    public static void pr(String s) {
-        
-        System.out.print(indentStr.substring(0, level * 2));
-        System.out.println(s);
-    }
-    
-  
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        
-        try {
-            
-            ServiceMail gmail = new ServiceMail();
-            gmail.setUserPass("twowaystest@gmail.com", "twowaystest123");
-            gmail.connect();
-            gmail.openFolder("INBOX");
-            
-            int totalMessages = gmail.getMessageCount();
-            int newMessages = gmail.getNewMessageCount();
-            
-            System.out.println("Total messages = " + totalMessages);
-            System.out.println("New messages = " + newMessages);
-            System.out.println("-------------------------------");
-            
-            //gmail.printAllMessageEnvelopes();
-            gmail.printAllMessages();
-            
-        } catch(Exception e) {
-            e.printStackTrace();
-            System.exit(-1);
-        }
-        
-    }
-    
+
+
+   
 }
+
+

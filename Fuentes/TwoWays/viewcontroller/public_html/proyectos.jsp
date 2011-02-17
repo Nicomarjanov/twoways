@@ -111,6 +111,7 @@
       </th>
       <th align="center"> <input type="text"  style="WIDTH: 70px;text-align:right;"  name="totalAmount-<c:out value="${assi.praId}" />" readonly  id="totalAmount-<c:out value="${assi.praId}" />" value="<fmt:formatNumber  maxFractionDigits="2"  value="${costosMap[assi.praId]}" />" />
       <th  nowrap align="right">
+             <img alt="Editar"  src="img/email.png" title="Enviar Asignación"  onclick="enviarAsignacion(<c:out value="${assi.praId}" />)" width="15" height="15" onmouseover="this.style.cursor='hand';"/></img>  
              <img alt="Editar"  src="img/edit.png" title="Editar Asignación"  onclick="editarAsignarProyecto(<c:out value="${assi.praId}" />,<c:out value="${project.proId}" />)" width="15" height="15" onmouseover="this.style.cursor='hand';"/></img>  
              <img alt="Eliminar"  src="img/Delete.png" title="Eliminar Asignación" onclick="quitarAsignacion(<c:out value="${assi.praId}" />,<c:out value="${project.proId}" />)" width="15" height="15" onmouseover="this.style.cursor='hand';"/></img>  
              <img src="img/bottom.png" id="aMas-<c:out value="${assi.praId}" />" onclick="javascript:mostrarDetalle(<c:out value="${assi.praId}" />);" title="Editar detalle" title="Mostrar detalle" alt="Mostrar detalle " width="15" height="15" onmouseover="this.style.cursor='hand';"/>
