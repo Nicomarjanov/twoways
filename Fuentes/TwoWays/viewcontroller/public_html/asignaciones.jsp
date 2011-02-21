@@ -34,7 +34,7 @@
   <input type ="hidden" name="accion" id="accion" />
   <input type ="hidden" name="proId" id="proId" value="<c:out value="${projectAssignmentsTO.projectsTO.proId}" />"  />
   <input type ="hidden" name="projectStartDate" id="projectStartDate" value="<fmt:formatDate  value="${projectAssignmentsTO.projectsTO.proStartDate}"   pattern="dd/MM/yyyy HH:mm"  />"  />
-  <input type ="hidden" name="projectFinishDate" id="projectStartDate" value="<fmt:formatDate  value="${projectAssignmentsTO.projectsTO.proFinishDate}"   pattern="dd/MM/yyyy HH:mm"  />"  />
+  <input type ="hidden" name="projectFinishDate" id="projectFinishDate" value="<fmt:formatDate  value="${projectAssignmentsTO.projectsTO.proFinishDate}"   pattern="dd/MM/yyyy HH:mm"  />"  />
   <c:choose>
   <c:when  test="${projectAssignmentsTO.praId  != null &&    projectAssignmentsTO.praId != 0 }" >  
       <c:set value="${'disabled=disabled'}" scope="page" var="readOnly" /> 
@@ -128,7 +128,7 @@
          
             <c:if test="${det.ordersDocsTO.odoId == item.odoId}">
                <c:set scope="page" value="${'checked=\"checked\"'}" var="check"  />
-               <c:if test="${projectAssignmentsTO.serviceTO.rtyName == 'Traductor'}">
+               <c:if test="${projectAssignmentsTO.serviceTO.rtyName != 'Maquetador'}">
                     <c:set scope="page" value="${''}" var="disa"  />
                </c:if>
              <c:set scope="page" value="${det.pranslatorsLanguaguesTO.tlaId}" var="lanSel"  />
@@ -182,6 +182,7 @@
       <td align="left"><input type="button" id="cancelButton" value="Cerrar" onClick="cancelarAsignacion()"/></td>    
   </tr>
 </table>
+ <c:out value="${script}" escapeXml="false"/>
   </form>
   </body>
 </html>

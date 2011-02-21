@@ -160,7 +160,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                 catch(Exception e) {
                     e.printStackTrace();
                     request.setAttribute("mensaje","<script>alert('El número de Teléfono movil ingresado no es valido')</script>"); 
-                    request.getRequestDispatcher("usuario.jsp").forward(request,response);
+                    request.getRequestDispatcher("empleados.jsp").forward(request,response);
                 }
                 try{
                     if (request.getParameter("empPhoneNumber")!=null && !request.getParameter("empPhoneNumber").equalsIgnoreCase("")){
@@ -170,7 +170,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                 catch(Exception e) {
                     e.printStackTrace();
                     request.setAttribute("mensaje","<script>alert('El número de Teléfono particular ingresado no es valido')</script>"); 
-                    request.getRequestDispatcher("usuario.jsp").forward(request,response);
+                    request.getRequestDispatcher("empleados.jsp").forward(request,response);
                 }
                 try {
                 if(request.getParameter("empBirth")!= null && !request.getParameter("empBirth").equalsIgnoreCase("") ){ 
@@ -183,7 +183,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                 } catch (Exception e) {
                     request.setAttribute("mensaje","<script>alert('La fecha ingresada no es valida')</script>"); 
                     e.printStackTrace();
-                    request.getRequestDispatcher("empleados.jsp").forward(request,response);
+                    
                 }
 
                 try {
@@ -197,7 +197,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                 } catch (Exception e) {
                     e.printStackTrace();
                     request.setAttribute("mensaje","<script>alert('Ocurrió un error al guardar el empleado')</script>");  
-                    request.getRequestDispatcher("empleados.jsp").forward(request,response);
+                    
                 }
                
                 request.setAttribute("mensaje","<script>alert('El empleado se guardo con exito')</script>");
@@ -340,7 +340,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                 catch (Exception e) {
                     e.printStackTrace();
                     request.setAttribute("mensaje","<script>alert('Ocurrió un error al eliminar el empleado')</script>");
-                    request.getRequestDispatcher("empleados.jsp").forward(request,response);
+                    
                 }
                 request.setAttribute("mensaje","<script>alert('El empleado se eliminó con éxito')</script>");
             }
@@ -384,7 +384,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                 request.setAttribute("empId","");
             }
                      
-    request.getRequestDispatcher(paginaSiguiente).forward(request,response);
+    request.getRequestDispatcher("empleados.jsp").forward(request,response);
             
 }
             

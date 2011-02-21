@@ -128,6 +128,8 @@
       <result property="ratesTO.ratDescription" column="RAT_DESCRIPTION"/>
       <result property="ratesTO.ratName"   column="RAT_NAME" />
       <result property="ratesTO.rateTypesTO.rtyName" column="RAT_TYPE"  />
+      <result property="ratesTO.currencyTO.curId" column="cur_id"  />
+      <result property="ratesTO.currencyTO.curSymbol" column="cur_symbol"  />
    </resultMap>
 
    <resultMap id="select-Cli-Responsable" class="com.twoways.to.ClientResponsableTO" >
@@ -141,8 +143,10 @@
    </resultMap>   
   
   <statement  id="getClientRatesByCliId" resultMap="select-Cli-Rates"  parameterClass="com.twoways.to.ClientsTO" >
-     select * from clients_rates cr join rates r on cr.rates_rat_id = r.rat_id 
-     and   cr.clients_cli_id=#cliId#
+     select * from (clients_rates cr join rates r on cr.rates_rat_id = r.rat_id ) left outer join currency cur
+     on r.currency_cur_id =  cur.cur_id
+     where    cr.clients_cli_id=#cliId# 
+    
   </statement>     
 
   <statement  id="getClientResponsableByCliId" resultMap="select-Cli-Responsable"  parameterClass="com.twoways.to.ClientsTO" >
@@ -331,7 +335,17 @@
      join rates r 
      on cr.rates_rat_id = r.rat_id 
      and   cr.employees_emp_id=#empId#
-  </statement>       
+  </statement>     
+  
+  
+  
+   <statement  id="getEmpRatesByEmpRate" resultMap="select-Emp-Rates"  parameterClass="com.twoways.to.EmployeesRatesTO" >
+     select * from employees_rates cr 
+     join rates r
+     on cr.rates_rat_id = r.rat_id 
+     and   cr.employees_emp_id=#employeesTO.empId#
+    where r.rat_type=#ratesTO.rateTypesTO.rtyName#
+  </statement>   
 
   <resultMap id="select-Emp-Types" class="com.twoways.to.EmployeesTypesTO">
       <result property="employeesTO.empId" column="EMPLOYEES_EMP_ID"/>
@@ -357,6 +371,13 @@
      Currency
      where cur_id = #value#
   </statement>   
+  
+   <statement  id="getCurrencyValue" resultClass="java.lang.Double"  parameterClass="java.util.Map" >
+        select cuc_value
+        from currency_cotizations 
+        where currency_cur_id = #curId# and to_Date(#curDate#,'dd/MM/yyyy hh24:mi') > cuc_date 
+        order by cuc_date desc 
+   </statement>     
  
   <statement id="obtenerMonedas"  parameterClass="java.lang.String" resultMap="select-Currency" >
      select *    
@@ -375,6 +396,7 @@
       <result property="rateTypesTO.rtyName" column="RAT_TYPE"  />
       <result property="currencyTO.curName" column="cur_Name" />    
       <result property="currencyTO.curId" column="cur_Id" />
+      <result property="currencyTO.curSymbol" column="cur_symbol" />
   </resultMap>
   
   <select id="obtenerTarifas"  parameterClass="java.lang.String" resultClass="com.twoways.to.RatesTO">
@@ -810,10 +832,14 @@
       <result property="ratesTO.ratDescription" column="RAT_DESCRIPTION"/>
       <result property="ratesTO.ratName"   column="RAT_NAME" />
       <result property="ratesTO.rateTypesTO.rtyName" column="RAT_TYPE"  />
+      <result property="ratesTO.currencyTO.curId" column="cur_id"  />
+      <result property="ratesTO.currencyTO.curSymbol" column="cur_symbol"  />
    </resultMap>
   
   <statement  id="getOrderRatesByOrderId" resultMap="select-Ord-Rates"  parameterClass="com.twoways.to.OrdersTO" >
-     select * from orders_rates ord join rates r on ord.rates_rat_id = r.rat_id and ord.orders_ord_id=#ordId#
+     select * from (orders_rates ord join rates r on ord.rates_rat_id = r.rat_id)left outer join currency cur on 
+     r.currency_cur_id = cur.cur_id
+     where  ord.orders_ord_id=#ordId#
   </statement>    
   
   <insert id="insertOrdersServices" parameterClass="java.util.Map" >
@@ -958,7 +984,9 @@
       <result property="proFinishDate" column="pro_finish_date" />     
       <result property="currencyCotizationsCucId" column="currency_cotizations_cuc_id" /> 
       <result property="usersUsrId" column="users_usr_id" />     
-      <result property="currencyTO.curId" column="currency_cur_id" />     
+      <result property="currencyTO.curId" column="cur_id" />
+      <result property="currencyTO.curName" column="cur_name" />
+      <result property="currencyTO.curSymbol" column="cur_symbol" />
       <result property="ordersTO.ordId"  column="orders_ord_id"/> 
       <result property="proDate" column="pro_date" /> 
       
@@ -967,13 +995,13 @@
   
   <select id="getProjectById" parameterClass="java.lang.Long" resultMap="select-project-obj">
      select *
-     from projects 
+     from projects left outer join currency on currency_cur_id = cur_id 
      where pro_id = #value#
  </select>
  
  <select id="getProjectByOrdId" parameterClass="java.lang.Long" resultMap="select-project-obj">
      select *
-     from projects 
+     from projects  left outer join currency on currency_cur_id = cur_id
      where orders_ord_id = #value#
  </select>
   
@@ -1089,13 +1117,14 @@
       <result property="serviceTO.rtyName" column="services_ser_id" />     
       <result property="praTotalAmount" column="pra_total_amount" />     
       <result property="projectsTO.proId" column="projects_pro_id" />    
-      <result property="projectsTO.proId" column="projects_pro_id" />   
+        
   </resultMap>
   
   <select id="getProjectAssignamentByPraId" parameterClass="java.lang.Long" resultMap="select-projectAssignament-obj">
      select * from (((project_assignments  pa left outer join employees e on pa.employees_emp_id = e.emp_id) left outer join rate_types r  on pa.services_ser_id = r.rty_name) 
      left outer join states s on pa.states_sta_id = s.sta_id) 
      where pra_Id= #value#
+     order by pa.employees_emp_id,pa.pra_assign_date
  </select>
  
  
@@ -1103,6 +1132,7 @@
      select * from (((project_assignments  pa left outer join employees e on pa.employees_emp_id = e.emp_id) left outer join rate_types r  on pa.services_ser_id = r.rty_name) 
      left outer join states s on pa.states_sta_id = s.sta_id) 
      where  pa.projects_pro_id= #value#
+     order by pa.employees_emp_id,pa.pra_assign_date
  </select>
  
   <select id="projectAssDet.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > 
@@ -1234,11 +1264,11 @@
   </resultMap>
   
   <select id="getProjectAssigmentDetailsByPadMap" parameterClass="java.lang.Long" resultClass="java.util.HashMap">
-     select pad.* , l1.lan_name  len1 , l2.lan_name  len2, o.odo_name docName , tl.languagues_acronyms_laa_acrony acro1  ,  tl.languagues_acronyms_laa_acron1 acro2,  r.rat_name
-     from ((((((proj_assignments_details pad left outer join employees_rates er on pad.employees_rates_employees_emp_ = er.employees_emp_id and pad.employees_rates_rates_rat_id = er.rates_rat_id) left outer join 
+     select pad.* , l1.lan_name  len1 , l2.lan_name  len2, o.odo_name docName , tl.languagues_acronyms_laa_acrony acro1  ,  tl.languagues_acronyms_laa_acron1 acro2,  r.rat_name, cu.cur_name , cu.cur_symbol, cu.cur_id
+     from (((((((proj_assignments_details pad left outer join employees_rates er on pad.employees_rates_employees_emp_ = er.employees_emp_id and pad.employees_rates_rates_rat_id = er.rates_rat_id) left outer join 
      rates r on  er.rates_rat_id = r.rat_id ) left outer join orders_docs o  on o.odo_id = pad.orders_docs_odo_id and pad.orders_docs_orders_ord_id = o.orders_ord_id ) left outer join
      translators_languagues tl on pad.translators_languagues_tla_id = tl.tla_id) )left outer join  languagues l1 on  tl.languagues_acronyms_languagues = l1.lan_id ) left outer join  languagues l2 on 
-     tl.languagues_acronyms_languague1 = l2.lan_id
+     tl.languagues_acronyms_languague1 = l2.lan_id ) left outer join currency cu on r.currency_cur_id = cu.cur_id
      where  pad.project_assignments_pra_id = #value# 
  </select>
  

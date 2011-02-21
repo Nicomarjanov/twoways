@@ -198,7 +198,7 @@ public interface TW_SystemService {
     
     public void updateProjectAssigmentDetailsByPadId(ProAssigmentsDetailsTO proAssigmentsDetailsTO) throws Exception ;
     
-    public boolean enviarMailAsignacion(Long praId) throws Exception;
+    public boolean enviarMailAsignacion(Long praId, String message) throws Exception;
 
     public void insertarGasto(ExpensesTO expensesTO) throws Exception;
     
@@ -207,4 +207,6 @@ public interface TW_SystemService {
     public boolean deleteGasto(ExpensesTO gasto) throws Exception;
     
     public ExpensesTO getExpenseById(Long expId) throws Exception;
+   
+    public Map getCostPA(ProjectAssignmentsTO projectAssignmentsTO)throws Exception;
 }

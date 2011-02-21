@@ -82,7 +82,7 @@ function validarEmail(valor) {
 
 function isFloat(campo){
 
-  return (/^\d+(\.\d+)?$/.test(campo));
+  return (/^\d+(\.\d+)?$/.test(trim(campo)));
 }
 
 

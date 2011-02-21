@@ -51,13 +51,15 @@ public class AsignacionesServlet extends AutorizacionServlet {
                                                            IOException {
 
         super.doGet(request, response);
+        boolean reenviar= true;
+        
         ProjectsTO project=null;
         List <EmployeesTO> employeeTOList = null;
         List<OrdersDocsTO> ordersDocsTOList = null; 
         List<RateTypesTO> servicesTOList= null;  
         OrdersTO ordersTO = null;
         ProjectAssignmentsTO projectAssignmentsTO = new  ProjectAssignmentsTO();
-  
+        String script ="<script>alert('La asignación se guardo con exito');</script>";
         String accion = 
             (request.getParameter("accion") != null) ? request.getParameter("accion").toString() : 
             "";
@@ -119,8 +121,12 @@ public class AsignacionesServlet extends AutorizacionServlet {
                     request.setAttribute("mensaje", 
                                          "<script>alert('La fecha ingresada no es valida')</script>");
                     e.printStackTrace();
+                    
+                    if(reenviar){
                     request.getRequestDispatcher("proyectos.jsp").forward(request, 
                                                                              response);
+                                                                             reenviar=false; 
+                    }
                 }
                 
                
@@ -195,11 +201,16 @@ public class AsignacionesServlet extends AutorizacionServlet {
                         
                         
                     }
+                    request.setAttribute("script",script);
                     
                    
                 } catch (Exception e) {
                     e.printStackTrace();
+                    script = "<script>alert('Ocurrio un error no se pudo crear la asignacion')</script>";
+                    request.setAttribute("script",script);
                 }
+                
+               
             }
 
 
@@ -225,7 +236,7 @@ public class AsignacionesServlet extends AutorizacionServlet {
                employeeTOList= twoWaysBDL.getServiceTwoWays().getEmpByRatesName( projectAssignmentsTO.getServiceTO().getRtyName()); 
                request.setAttribute("listaEmployees",employeeTOList);
                
-               if( projectAssignmentsTO.getServiceTO().getRtyName().equals("Traductor")){
+               if(! projectAssignmentsTO.getServiceTO().getRtyName().equals("Maquetador")){
                    
                    TranslatorsTO translatorTO= twoWaysBDL.getServiceTwoWays().getTraByEmpId(String.valueOf(projectAssignmentsTO.getEmployeesTO().getEmpId()));
                    if (translatorTO!=null){
@@ -244,11 +255,14 @@ public class AsignacionesServlet extends AutorizacionServlet {
         }
         
        
-        
+       
         request.setAttribute("projectAssignmentsTO", projectAssignmentsTO);
         //request.setAttribute("project", project);
-        request.getRequestDispatcher("asignaciones.jsp").forward(request, 
+        if(reenviar){ 
+           request.getRequestDispatcher("asignaciones.jsp").forward(request, 
                                                               response);
+                                                              reenviar=false;
+        }                                                      
     }
     
 }

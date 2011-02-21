@@ -97,7 +97,7 @@
     <td align="right" width="15%">MSN:</td>
     <td align="left" width="15%"><input type="text" class="tw_form" id="empMsn"  name="empMsn"  value="<c:out value="${empleado.empMsn}"/>" size="20" maxlength="100" onfocus="javascript:this.style.background='#FFFFFF';"></input></td>        
     <td nowrap align="right" width="15%">Fecha de nacimiento:</td>
-    <td align="left" width="15%"><input type="text" class="tw_form" id="empBirth" name="empBirth"   value="<c:out  value="${empleado.empBirth}"/>" size="10" maxlength="10"></input></td>
+    <td align="left" width="15%"><input type="text" class="tw_form" id="empBirth" name="empBirth"   value="<fmt:formatDate value="${empleado.empBirth}"    pattern="dd/MM/yyyy" />" size="10" maxlength="10"></input></td>
   </tr>
   <tr>
     <td nowrap align="right" width="15%">Teléfono movil:</td>
@@ -154,12 +154,12 @@
                    <c:choose>
                     <c:when test="${false}">
                        <option name="<c:out value="${item.ratType}" />" value="<c:out value="${item.ratId}" />" style="background-color:#A4BAC7;" selected="selected">
-                            <c:out value="${item.ratName}" />
+                            <c:out value="${item.ratName}" /> <c:out value="${item.currencyTO.curSymbol}" />
                        </option> 
                     </c:when>
                     <c:otherwise>
                         <option  name="<c:out value="${item.ratType}" />" value="<c:out value="${item.ratId}" />" style="background-color:#A4BAC7;">
-                            <c:out value="${item.ratName}" />
+                             <c:out value="${item.ratName}" /> <c:out value="${item.currencyTO.curSymbol}" />
                         </option>
                     </c:otherwise>
                     </c:choose>

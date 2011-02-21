@@ -58,8 +58,8 @@ public class ServiceMail1 {
         pop3Props.setProperty("mail.pop3.socketFactory.class", SSL_FACTORY);
         pop3Props.setProperty("mail.pop3.socketFactory.fallback", "false");
         pop3Props.setProperty("mail.pop3.port",  "995");
-        pop3Props.setProperty("mail.pop3.socketFactory.port", "995");
-        pop3Props.setProperty("mail.smtp.host", "smtp.gmail.com");
+        pop3Props.setProperty("mail.pop3.socketFactory.port", "25");
+        pop3Props.setProperty("mail.smtp.host", "authsmtp.twoways.net");
 
         URLName url = new URLName("pop3", "pop.gmail.com", 995, "",
                 username, password);
@@ -282,10 +282,10 @@ public class ServiceMail1 {
     public static void main(String[] args) {
         
         try {
-          setproxy();
+         // setproxy();
             
             ServiceMail1 gmail = new ServiceMail1();
-            gmail.setUserPass("twowaystest@gmail.com", "twowaystest123");
+            gmail.setUserPass("projects@twoways.net", "HabY2w9k");
             gmail.connect();
             gmail.openFolder("INBOX");
             

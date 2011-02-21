@@ -9,6 +9,10 @@ import com.twoways.to.EmployeesRatesTO;
 
 import com.twoways.to.EmployeesTypesTO;
 
+import com.twoways.to.RateTypesTO;
+
+import com.twoways.to.RatesTO;
+
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
@@ -209,5 +213,15 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
         }
         return getEmpById(String.valueOf(employeesTO.getEmpId()));     
         
+    }
+
+    public List<EmployeesRatesTO> getEmpRatesByEmpIdRate(EmployeesTO employeesTO, 
+                                                         RateTypesTO rt) {
+                                                         
+        EmployeesRatesTO employeesRatesTO = new EmployeesRatesTO(); 
+        employeesRatesTO.setEmployeesTO(employeesTO);
+        employeesRatesTO.setRatesTO(new RatesTO());
+        employeesRatesTO.getRatesTO().setRateTypesTO(rt);
+        return  (List<EmployeesRatesTO>) getSqlMapClientTemplate().queryForList("getEmpRatesByEmpRate",employeesRatesTO); 
     }
 }

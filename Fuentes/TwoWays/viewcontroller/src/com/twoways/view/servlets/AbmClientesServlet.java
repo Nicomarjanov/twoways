@@ -101,10 +101,10 @@ public class AbmClientesServlet extends AutorizacionServlet {
                     ClientResponsableTO clientResponsableTO = new ClientResponsableTO();
                     clientResponsableTO.setCreFirstName(atributos[0]);
                     clientResponsableTO.setCreLastName(atributos[1]);
-                    clientResponsableTO.setCreEmail((atributos[2] != null || atributos[2].length()== 0)?atributos[2]:"");
-                    clientResponsableTO.setCrePhoneNumber((atributos[3]!= null || atributos[3].length()== 0)?atributos[3]:"");
-                    clientResponsableTO.setCreMsn((atributos[4]!= null || atributos[4].length()== 0)?atributos[4]:"");
-                    clientResponsableTO.setCreSkype((atributos[5]!= null || atributos[5].length()== 0)?atributos[5]:"");
+                    clientResponsableTO.setCreEmail((atributos[2] != null && atributos[2].length()> 0)?atributos[2]:"");
+                    clientResponsableTO.setCrePhoneNumber((atributos[3]!= null && atributos[3].length()> 0)?atributos[3]:"");
+                    clientResponsableTO.setCreMsn((atributos[4]!= null && atributos[4].length()> 0)?atributos[4]:"");
+                    clientResponsableTO.setCreSkype((atributos[5]!= null && atributos[5].length()> 0)?atributos[5]:"");
                    // clientResponsableTO.setCreId(Long.parseLong((atributos[6]!= null || atributos[6].length()== 0)?atributos[6]:""));
                     clientsResponsableTOList.add(clientResponsableTO);
                     clientResponsableTO.setClientsTO(cliente);
@@ -187,7 +187,7 @@ public class AbmClientesServlet extends AutorizacionServlet {
             catch (Exception e) {
                 e.printStackTrace();
                 request.setAttribute("mensaje","<script>alert('Ocurrió un error al eliminar el cliente')</script>");
-                request.getRequestDispatcher("empleados.jsp").forward(request,response);
+                request.getRequestDispatcher("cliente.jsp").forward(request,response);
             }
             request.setAttribute("mensaje","<script>alert('El cliente se eliminó con éxito')</script>");
         }

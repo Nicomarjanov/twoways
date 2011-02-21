@@ -12,6 +12,8 @@ public class CurrencyTO {
     private String curName;
     //(name="CUR_ORIGIN")
     private String curOrigin;
+    private String curSymbol; 
+    
     private List<PaymentsTO>  paymentsTOList;
     private List<InvoicesTO> invoicesTOList;
     private List<TranslatorsTO> translatorsTOList; 
@@ -204,5 +206,13 @@ public class CurrencyTO {
         getRatesTOList().remove(ratesTO);
         ratesTO.setCurrencyTO(null);
         return ratesTO;
+    }
+
+    public void setCurSymbol(String curSimbol) {
+        this.curSymbol = curSimbol;
+    }
+
+    public String getCurSymbol() {
+        return curSymbol;
     }
 }
