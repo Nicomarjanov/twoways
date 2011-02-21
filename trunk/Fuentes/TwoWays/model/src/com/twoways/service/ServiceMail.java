@@ -17,8 +17,10 @@ import java.net.URISyntaxException;
 
 import java.security.Security;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import java.util.ResourceBundle;
@@ -56,13 +58,14 @@ public class ServiceMail {
     String userMail = rb.getString("userMail");
     String userMailPassword = rb.getString("userMailPassword");
     String userMailSender = rb.getString("userMailSender");
+    String atattachObligatorio =  rb.getString("attachdoc");
     
     public static void main(String[] args) throws Exception {
 
         Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
         String [] sender={"lucianonicolasfernandez@gmail.com"};  
-        new ServiceMail().sendSSLMessage(sender, "subject", "Putin",
-                                         "lucianonicolasfernandez@gmail.com");
+        new ServiceMail().sendSSLMessage(sender, "subject", "juj",
+                                         "projects@twoways.net");
         System.out.println("Sucessfully Sent mail to All Users");
     }
 
@@ -144,11 +147,31 @@ public class ServiceMail {
             MimeBodyPart body = new MimeBodyPart();
             body.setText(message);
             //do attachment
-            
             Multipart multipart = new MimeMultipart();
             multipart.addBodyPart(body);
+            Map docs= new HashMap();
+            
+            if (atattachObligatorio != null && atattachObligatorio.length() > 0){
+                MimeBodyPart attachMent = new MimeBodyPart();
+               
+                String strFilePath = atattachObligatorio;
+                
+                FileDataSource dataSource = 
+                    new FileDataSource(new File(strFilePath));
+                attachMent.setDataHandler(new DataHandler(dataSource));
+                attachMent.setFileName(atattachObligatorio.substring(atattachObligatorio.lastIndexOf("\\")+1));
+                attachMent.setDisposition(MimeBodyPart.ATTACHMENT);
+                System.out.println("multipart");
+                multipart.addBodyPart(attachMent);
+                
+            }
+            
+            
             for(OrdersDocsTO ordDoc : ordDocList){
                 
+                if (docs.get(ordDoc.getOdoId()) == null){
+               
+                docs.put(ordDoc.getOdoId(),ordDoc.getOdoId()); 
                 MimeBodyPart attachMent = new MimeBodyPart();
                 convertTOFile(ordDoc.getOdoName(),ordDoc.getOdoDoc()); 
                 String strFilePath = TMP_DIR_PATH + "//" + ordDoc.getOdoName();
@@ -160,6 +183,8 @@ public class ServiceMail {
                 attachMent.setDisposition(MimeBodyPart.ATTACHMENT);
                 System.out.println("multipart");
                 multipart.addBodyPart(attachMent);
+                
+                }
                 
             }
            

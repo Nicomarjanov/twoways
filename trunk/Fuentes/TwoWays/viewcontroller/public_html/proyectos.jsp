@@ -35,6 +35,7 @@
   <jsp:include page="/WEB-INF/jspIncludes/menu.jsp" /><c:out value="${mensaje}" escapeXml="false"/>
 <form   id="formProyecto"  action="proyectos" method="POST" >  
 <input type ="hidden" name="ordId" id="ordId" value="<c:out value="${project.ordersTO.ordId}" />" /> 
+<input type ="hidden" name="curCotiz" id="curCotiz" value="<c:out value="${cotizaciones[project.currencyTO.curId]}" />" /> 
 <input type ="hidden" name="accion" id="accion" />
 <table width="100%">
   <tr>
@@ -78,6 +79,41 @@
       <td>&nbsp;</td>
     </tr>
     <tr>
+    <td  align="left" colspan="6" nowrap >
+    <table cellpadding=0 cellspacing=0>
+    <thead/>
+    <tbody>
+    <tr align="right" >
+    <td>Cantidad de Palabras</td>
+    <td  align="left"  >&nbsp;<input type="text" style="WIDTH: 70px;text-align:right;" readonly  name="tarifXunid-<c:out value="${assi.praId}" />"  id="tarifXunid-<c:out value="${assiDet.padId}" />" value="<fmt:formatNumber  maxFractionDigits="0"  pattern="##########"    value="${cantidadPalabras}" />" />
+    
+    <td align="right" width="15%">&nbsp;Moneda:</td>
+    <td align="left">       
+       &nbsp;<select name="listaMoneda" id="listaMoneda" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">                
+                <option value="" >Seleccionar</option>
+                <c:forEach items="${listaMoneda}" var="item">
+                   <c:choose>
+                    <c:when test="${item.curId == project.currencyTO.curId}">
+                       <option value="<c:out value="${item.curId}" />" style="background-color:#A4BAC7;" selected="selected">
+                        <c:out value="${item.curName}" />
+                      </option> 
+                    </c:when>
+                    <c:otherwise>
+                    <option value="<c:out value="${item.curId}" />" style="background-color:#A4BAC7;">
+                        <c:out value="${item.curName}" />
+                    </option>
+                    </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+       </select> 
+    </td>
+    <td align="right" >&nbsp;Costo Total</td>
+    <td>&nbsp;<input type="text" style="WIDTH: 70px;text-align:right;" readonly  name="pro-<c:out value="${assi.praId}" />"  id="tarifXunid-<c:out value="${assiDet.padId}" />" value="<fmt:formatNumber  maxFractionDigits="2"  pattern="##########.##"    value="${costoTotalProyecto}" />" /></td>
+    </tr>
+    </tbody>
+    </table>
+    </td>
+    <tr>
          <td nowrap align="right" >Descripción:</td>
          <td colspan="6"  ><textarea  rows="3" cols="109"  class="tw_form"  onkeyup="limitarArea()"  name="proDescription" id="proDescription" ><c:out value="${project.proDescription}" /></textarea> </td>
     </tr>
@@ -93,6 +129,7 @@
       <th style ="background-color:#80211D;color:#ffffff;align:left">Servicio</th>
       <th style ="background-color:#80211D;color:#ffffff;align:left" >Total<br>de<br>Palabras</th>
       <th style ="background-color:#80211D;color:#ffffff;align:left">Costo total</th> 
+      <th style ="background-color:#80211D;color:#ffffff;align:left">Moneda</th> 
       <th style ="background-color:#80211D;color:#ffffff;align:right"><img id="NuevaAsignacion" alt="Nueva Asignación" align="right" title="Nueva Asignación" width="15" height="15"  src="img/asignar.png"  onclick="asignarProyecto('<c:out value="${project.proId}" />');"  onmouseover="this.style.cursor='hand';" /></th>   
   </tr>
   <c:forEach var="assi" items="${project.projectAssignmentsTOList}" >
@@ -104,17 +141,18 @@
       <th align="center" >
           <c:choose>
           <c:when  test="${assi.serviceTO.rtyName == 'Traductor'}">
-            <input type="text"  style="WIDTH: 70px;text-align:right;"  name="praTotalAmount-<c:out value="${assi.praId}" />"  id="praTotalAmount-<c:out value="${assi.praId}" />" readonly value="<fmt:formatNumber maxFractionDigits="0"  value="${assi.praTotalAmount}" />" />
+            <input type="text"  style="WIDTH: 70px;text-align:right;"  name="praTotalAmount-<c:out value="${assi.praId}" />"  id="praTotalAmount-<c:out value="${assi.praId}" />" readonly value="<fmt:formatNumber maxFractionDigits="0"  pattern="##########"  value="${assi.praTotalAmount}" />" />
           </c:when>
           <c:otherwise>&nbsp;</c:otherwise>
          </c:choose>
       </th>
-      <th align="center"> <input type="text"  style="WIDTH: 70px;text-align:right;"  name="totalAmount-<c:out value="${assi.praId}" />" readonly  id="totalAmount-<c:out value="${assi.praId}" />" value="<fmt:formatNumber  maxFractionDigits="2"  value="${costosMap[assi.praId]}" />" />
+      <th align="center"> <input type="text"  style="WIDTH: 70px;text-align:right;"  name="totalAmount-<c:out value="${assi.praId}" />" readonly  id="totalAmount-<c:out value="${assi.praId}" />" value="<fmt:formatNumber  maxFractionDigits="2"  pattern="##########.##"   value="${costosMap[assi.praId]}" />" /></th>
+      <th ><c:out value="${project.currencyTO.curName}" /></th> 
       <th  nowrap align="right">
-             <img alt="Editar"  src="img/email.png" title="Enviar Asignación"  onclick="enviarAsignacion(<c:out value="${assi.praId}" />)" width="15" height="15" onmouseover="this.style.cursor='hand';"/></img>  
+             <img alt="Enviar Mail"  src="img/email.png" title="Enviar Asignación"  onclick="enviarAsignacionOpen(<c:out value="${assi.praId}" />)" width="15" height="15" onmouseover="this.style.cursor='hand';"/></img>  
              <img alt="Editar"  src="img/edit.png" title="Editar Asignación"  onclick="editarAsignarProyecto(<c:out value="${assi.praId}" />,<c:out value="${project.proId}" />)" width="15" height="15" onmouseover="this.style.cursor='hand';"/></img>  
              <img alt="Eliminar"  src="img/Delete.png" title="Eliminar Asignación" onclick="quitarAsignacion(<c:out value="${assi.praId}" />,<c:out value="${project.proId}" />)" width="15" height="15" onmouseover="this.style.cursor='hand';"/></img>  
-             <img src="img/bottom.png" id="aMas-<c:out value="${assi.praId}" />" onclick="javascript:mostrarDetalle(<c:out value="${assi.praId}" />);" title="Editar detalle" title="Mostrar detalle" alt="Mostrar detalle " width="15" height="15" onmouseover="this.style.cursor='hand';"/>
+             <img src="img/bottom.png" id="aMas-<c:out value="${assi.praId}" />" onclick="javascript:mostrarDetalle(<c:out value="${assi.praId}" />);" title="Mostrar detalle" alt="Mostrar detalle " width="15" height="15" onmouseover="this.style.cursor='hand';"/>
              <img id="aMenos-<c:out value="${assi.praId}" />"  style="border:0;display:none"  onclick="javascript:ocultarDetalle(<c:out value="${assi.praId}" />);" title="Contraer detalle" src="img/top.png" alt="Contraer detalle" width="15" height="15" onmouseover="this.style.cursor='hand';"/>
       </th>
       </tr>
@@ -127,6 +165,7 @@
          <th style ="background-color:#F8E0E0;color:#585858;align:left" >Unidades<br>de<br>servicio</th>
          <th style ="background-color:#F8E0E0;color:#585858;align:left">Tipo<br>de<br>Tafifa</th>
          <th style ="background-color:#F8E0E0;color:#585858;align:center" >Tarifa</th>
+         <th style ="background-color:#F8E0E0;color:#585858;align:center" >Moneda</th>
          <th style ="background-color:#F8E0E0;color:#585858;align:center" >Unidades<br>X<br>Tarifa</th>
        </tr>
        <c:choose>
@@ -147,24 +186,25 @@
          
           <c:choose>
              <c:when  test="${assi.serviceTO.rtyName == 'Traductor'}">
-                   <input type="text" title="Unidades"  onblur="calcularTotalDetalle('<c:out value="${assiDet.padId}" />','<c:out value="${assi.praId}" />');calcularTotalPalabras('<c:out value="${assi.praId}" />');" style="WIDTH: 70px;text-align:right;"  name="padWCount-<c:out value="${assi.praId}" />" id="padWCount-<c:out value="${assiDet.padId}" />"  value=" <fmt:formatNumber maxFractionDigits="0"  value="${assiDet.padWCount}"   />"  />
+                   <input type="text" title="Unidades"  onblur="calcularTotalDetalle('<c:out value="${assiDet.padId}" />','<c:out value="${assi.praId}" />');calcularTotalPalabras('<c:out value="${assi.praId}" />');" style="WIDTH: 70px;text-align:right;"  name="padWCount-<c:out value="${assi.praId}" />" id="padWCount-<c:out value="${assiDet.padId}" />"  value="<fmt:formatNumber maxFractionDigits="0"  pattern="##########"  value="${assiDet.padWCount}"   />"  />
              </c:when>
              <c:otherwise>
-                   <input type="text" title="Unidades"  onblur="calcularTotalDetalle('<c:out value="${assiDet.padId}" />','<c:out value="${assi.praId}" />');" style="WIDTH: 70px;text-align:right;"  name="padWCount-<c:out value="${assi.praId}" />" id="padWCount-<c:out value="${assiDet.padId}" />"  value=" <fmt:formatNumber maxFractionDigits="0" value="${assiDet.padWCount}" />" />
+                   <input type="text" title="Unidades"  onblur="calcularTotalDetalle('<c:out value="${assiDet.padId}" />','<c:out value="${assi.praId}" />');" style="WIDTH: 70px;text-align:right;"  name="padWCount-<c:out value="${assi.praId}" />" id="padWCount-<c:out value="${assiDet.padId}" />"  value="<fmt:formatNumber maxFractionDigits="0"  pattern="##########" value="${assiDet.padWCount}" />" />
              </c:otherwise>
              </c:choose>
          
          
          </td>
          <td> <c:out value="${assiDet.employeesRatesTO.ratesTO.ratName}" /></td>
-         <td align="center" ><input type="text" style="WIDTH: 70px;text-align:right;" onblur="calcularTotalDetalle('<c:out value="${assiDet.padId}" />','<c:out value="${assi.praId}" />')" name="padRate-<c:out value="${assiDet.padId}" />" id="padRate-<c:out value="${assiDet.padId}" />" value="<fmt:formatNumber maxFractionDigits="2"   value="${assiDet.padRate}" />" /></td>
+         <td align="center" ><input type="text" style="WIDTH: 70px;text-align:right;" onblur="calcularTotalDetalle('<c:out value="${assiDet.padId}" />','<c:out value="${assi.praId}" />')" name="padRate-<c:out value="${assiDet.padId}" />" id="padRate-<c:out value="${assiDet.padId}" />" value="<fmt:formatNumber maxFractionDigits="2"  pattern="##########.##"    value="${assiDet.padRate}" />" /></td>
+         <td align="center" ><input type="hidden"  id="curId-<c:out value="${assiDet.padId}" />" value="<c:out   value="${cotizaciones[assiDet.employeesRatesTO.ratesTO.currencyTO.curId]}" />" /><c:out   value="${assiDet.employeesRatesTO.ratesTO.currencyTO.curSymbol}" /></td>
          <td>
              <c:choose>
              <c:when test="${not empty assiDet.padWCount && not empty assiDet.padRate}">
-                   <input type="text" style="WIDTH: 70px;text-align:right;" readonly  name="tarifXunid-<c:out value="${assi.praId}" />"  id="tarifXunid-<c:out value="${assiDet.padId}" />" value="<fmt:formatNumber  maxFractionDigits="2"   value="${assiDet.padWCount * assiDet.padRate}" />" />
+                   <input type="text" style="WIDTH: 70px;text-align:right;" readonly  name="tarifXunid-<c:out value="${assi.praId}" />"  id="tarifXunid-<c:out value="${assiDet.padId}" />" value="<fmt:formatNumber  maxFractionDigits="2"  pattern="##########.##"    value="${assiDet.padWCount * assiDet.padRate}" />" />
              </c:when>
              <c:otherwise>
-                   <input type="text" style="WIDTH: 70px;text-align:right;" readonly  name="tarifXunid-<c:out value="${assi.praId}" />"  id="tarifXunid-<c:out value="${assiDet.padId}" />" value="<fmt:formatNumber maxFractionDigits="2"  value="${0}" />" />
+                   <input type="text" style="WIDTH: 70px;text-align:right;" readonly  name="tarifXunid-<c:out value="${assi.praId}" />"  id="tarifXunid-<c:out value="${assiDet.padId}" />" value="<fmt:formatNumber maxFractionDigits="2"   pattern="##########.##"  value="${0}" />" />
              </c:otherwise>
              </c:choose>
           </td>
@@ -190,8 +230,29 @@
       <td align="left"><input type="button" id="cancel" value="Limpiar" OnClick="cancelar()"/></td>    
   </tr>
 </table>
-
+ 
+ <div  id="divMail" style="align:center;width:600px;position:absolute;left:25%;top:30%;display:none;border:solid 2px #FFFFFF;" >
+  <input id="parIdMail" type="hidden" value="0">
+ <table bgcolor="#82AEC5"  align="center" cellspacing="0" cellpadding="0"   width="400px"   >
+ <thead >
+ <tr bgcolor="#80211D"  >
+ <th   align="left" style="color:#FFFFFF"  width="99%">
+  Mensaje
+  </th>
+  <th style="align:right;width:1%;height:15" ><a href="#" style="width:20;height:20" onclick="cerrarEnviarAsignacion()" >X</a>
+ </th></tr>
+ </thead>
+ <tbody>
+ <tr><td colspan="2" ><textarea id="messageMail" rows="20" cols="70"  class="tw_form"   ></textarea></td>
+ </tr>
+ <tr><td colspan="100%" align="right" ><input type="button"  onclick="enviarAsignacion();" value="Enviar" /></td></tr>
+ </tbody>
+ </table>
+ </div>
 </form>
+
 </body>
-<script>onloadOrder();</script>
+ <c:out value="${script}" escapeXml="false"/>
+
+ 
 </html>

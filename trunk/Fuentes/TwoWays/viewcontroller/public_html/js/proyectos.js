@@ -49,6 +49,11 @@ function validarCampos()
     var banderaMensajeFaltante=false;
     mensajeCampoAlert='';
     mensajeFaltanteAlert = 'Se tiene que completar los siguientes campos: \n';
+    var listaMoneda = document.getElementById('listaMoneda'); 
+    listaMoneda.style.background='#FFFFFF';
+    
+    var curId= listaMoneda.options[listaMoneda.selectedIndex].value; 
+    
     
     /************************************************/
     // valido el que los campos no esten vacíos
@@ -145,6 +150,15 @@ var proFinishDate = document.getElementById("proFinishDate");
     
     }
     
+    if( document.getElementById("listaMoneda").selectedIndex == -1  || document.getElementById("listaMoneda").selectedIndex == 0)
+    {
+        document.getElementById("listaMoneda").style.background='Red';
+        mensajeFaltanteAlert+= '* Moneda \n';
+        banderaMensajeFaltante=true;
+    }
+     
+     
+    
     var result =  normatizarCantidades(  banderaMensajeFaltante,  mensajeFaltanteAlert );
     banderaMensajeFaltante= result[0];
     mensajeFaltanteAlert=result[1];
@@ -231,7 +245,7 @@ function quitarAsignacionCallBack(data){
 
 function onClose(){
 
-    var proId= document.getElementsById('proId').value;
+//    var proId= document.getElementsById('proId').value;
     
     var inputs =  window.opener.document.getElementsByTagName('input');
     for (var i=0 ; i < inputs.length; i++ ){
@@ -460,7 +474,7 @@ function validarAsignacion()
             var serv= document.getElementById("listaServices").options[document.getElementById("listaServices").selectedIndex].value;
            
             
-            if (serv=='Traductor'){
+            if (serv!='Maquetador'){
                  
                  
                   var languaguesList = document.getElementsByName('languagues');
@@ -601,7 +615,7 @@ function cambioCheck(id){
    }
    
    
-   if (serv=='Traductor'){
+   if (serv !='Maquetador'){
        var combo = document.getElementById('languagues'+id);
        
        if( check.checked ==true || check.checked =='checked' ){
@@ -628,7 +642,7 @@ function habilitarLanguagues(){
    
    var serv= document.getElementById("listaServices").options[document.getElementById("listaServices").selectedIndex].value;
    
-   if (serv=='Traductor'){
+   if (serv!='Maquetador'){
    
    
         for (var j=0 ; j < languaguesList.length; j++){
@@ -657,7 +671,7 @@ function prepararLanguagues(){
   
    var languaguesList = document.getElementsByName('languagues');
    var serv= document.getElementById("listaServices").options[document.getElementById("listaServices").selectedIndex].value;
-   if (serv=='Traductor'){
+   if (serv!='Maquetador'){
          for (var j=0 ;j <languaguesList.length  ;  j++){
            var languagues = languaguesList[j];
            var check = document.getElementById(languagues.id.replace('languagues','listdocs-')); 
@@ -671,24 +685,36 @@ function prepararLanguagues(){
 
 
 function mostrarDetalle(id){
+  
    var btnMas=document.getElementById('aMas-'+id); 
    var btnMenos=document.getElementById('aMenos-'+id); 
    var tabla=document.getElementById('tabla-'+id); 
-   
-   btnMas.style.display='none';
-   btnMenos.style.display='';
-   tabla.style.display='';
+   if(btnMas!= null){
+    btnMas.style.display='none';
+   }
+   if(btnMenos!= null){
+    btnMenos.style.display='';
+   }
+   if(tabla!= null){
+    tabla.style.display='';
+   }
    
 }
-
 
 function ocultarDetalle(id){
    var btnMas=document.getElementById('aMas-'+id); 
    var btnMenos=document.getElementById('aMenos-'+id); 
    var tabla=document.getElementById('tabla-'+id); 
-   btnMas.style.display='';
-   btnMenos.style.display='none';
-   tabla.style.display='none';
+   if(btnMas!= null){
+    btnMas.style.display='';
+   }
+   if(btnMenos!= null){
+    btnMenos.style.display='none';
+   }
+  
+   if(tabla!= null){
+    tabla.style.display='none';
+   }
    
 }
 
@@ -710,7 +736,10 @@ function calcularTotalDetalle(id,praId){
         mensajeFaltanteAlert+= ' * La cantidad de palabras debe ser numerica \n';
         banderaMensajeFaltante=true;
         }
-  if ( padRate.value != '' && !(isFloat(trim(padRate.value))) )
+        
+        
+       
+  if ( padRate.value != '' && !(isFloat(trim(padRate.value.replace(',','.')))) )
         {
         padRate.style.background='Red';
         mensajeFaltanteAlert+= ' * La tarifa debe ser numerica ';
@@ -722,7 +751,7 @@ function calcularTotalDetalle(id,praId){
             return ;
     }
     
-    tarifXunid.value = Math.round((parseFloat(padWCount.value)* parseFloat(padRate.value))*100)/100; 
+    tarifXunid.value = Math.round((parseFloat(padWCount.value)* parseFloat(padRate.value.replace(',','.')))*100)/100; 
     
     calcularTotal(praId);  
    
@@ -736,8 +765,8 @@ function calcularTotalPalabras(praId){
     var acum =0; 
     
     for(var i=0; i< padWCount.length; i++){
-    
-       acum+=parseFloat(padWCount[i].value);  
+       
+       acum+=parseFloat((padWCount[i].value=='')?padWCount[i].value:0);  
     }
     
     acum = Math.round(acum* 100)/100;
@@ -760,16 +789,24 @@ function calcularTotal(praId){
     var tarifXunid= document.getElementsByName('tarifXunid-'+praId);
     var totalAmount=document.getElementById('totalAmount-'+praId); 
     var acum =0; 
+    var curCotiz =document.getElementById('curCotiz').value;
     
     for(var i=0; i< tarifXunid.length; i++){
-    
-       acum+=parseFloat(tarifXunid[i].value);  
+       var id = tarifXunid[i].id.split('-');
+       var cotiB= parseFloat(document.getElementById("curId-"+ id[1] ).value);
+       var aux =  convertirCotiz(curCotiz,cotiB,parseFloat(tarifXunid[i].value));
+       acum+=aux;  
     }
     
     acum =  Math.round(acum* 100)/100;
     totalAmount.value =acum;
 }
 
+
+function convertirCotiz(cotiA,cotiB, acum){
+
+     return (cotiB* acum)/cotiA; 
+}
 
 function normatizarCantidades(  banderaMensajeFaltante,  mensajeFaltanteAlert ){
 
@@ -780,13 +817,19 @@ function normatizarCantidades(  banderaMensajeFaltante,  mensajeFaltanteAlert ){
     var aux = true; 
     
     for(var i=0; i< inputs.length; i++){
-    
-      if( ( inputs[i].id.startsWith('tarifXunid') || inputs[i].id.startsWith('padWCount') || inputs[i].id.startsWith('totalAmount') || inputs[i].id.startsWith('praTotalAmount') || inputs[i].id.startsWith('padRate') || inputs[i].id.startsWith('tarifXunid') ) && !isFloat(trim(inputs[i].value)) ){
       
-         
+       if (inputs[i].value==''){
+         inputs[i].value=0;
+       
+      }
+      
+      if( ( inputs[i].id.startsWith('tarifXunid') || inputs[i].id.startsWith('padWCount') || inputs[i].id.startsWith('totalAmount') || inputs[i].id.startsWith('praTotalAmount') || inputs[i].id.startsWith('padRate') || inputs[i].id.startsWith('tarifXunid') ) && !isFloat(trim(inputs[i].value.replace(',','.'))) ){
+      
+          alert(inputs[i].value);
           inputs[i].style.background  = 'red';
           var auxArr=inputs[i].name.split('-');
           if(auxArr.length > 1 ){ 
+             
               mostrarDetalle(auxArr[1]);
           }
           banderaMensajeFaltante=true;
@@ -807,12 +850,28 @@ function normatizarCantidades(  banderaMensajeFaltante,  mensajeFaltanteAlert ){
 
 
 
-function enviarAsignacion(praId){
+function enviarAsignacionOpen(praId){
+
+     document.getElementById('parIdMail').value=praId;
+      document.getElementById('divMail').style.display = 'block'; 
+}
 
 
-     towaysDWR.enviarAsignacion(praId, enviarAsignacionCallback);
+function cerrarEnviarAsignacion(){
+
+     document.getElementById('parIdMail').value='';
+      document.getElementById('divMail').style.display = 'none'; 
+}
+
+function enviarAsignacion(){
+
+     var praId=document.getElementById('parIdMail').value;
+     var mensaje=document.getElementById('messageMail').value;
+     document.getElementById('divMail').style.display = 'none'; 
+     towaysDWR.enviarAsignacion(praId,mensaje,enviarAsignacionCallback);
 
 }
+
 
 function enviarAsignacionCallback(data){
 

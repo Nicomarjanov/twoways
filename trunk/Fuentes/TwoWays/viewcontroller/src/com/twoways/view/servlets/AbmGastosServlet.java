@@ -3,20 +3,10 @@ package com.twoways.view.servlets;
 import com.twoways.core.bdl.TwoWaysBDL;
 import com.twoways.to.AccountsTO;
 import com.twoways.to.CurrencyTO;
-import com.twoways.to.EmployeeTypeTO;
-import com.twoways.to.EmployeesRatesTO;
 import com.twoways.to.EmployeesTO;
-import com.twoways.to.EmployeesTypesTO;
 import com.twoways.to.ExpensesTO;
 import com.twoways.to.ItemsExpensesTO;
 import com.twoways.to.ItemsTO;
-
-import com.twoways.to.LanguaguesAcronymsTO;
-import com.twoways.to.LanguaguesTO;
-import com.twoways.to.RateTypesTO;
-
-import com.twoways.to.RatesTO;
-import com.twoways.to.TranslatorsLanguaguesTO;
 
 import com.twoways.to.UsersTO;
 
@@ -56,6 +46,9 @@ public class AbmGastosServlet extends AutorizacionServlet {
         ExpensesTO gasto = new ExpensesTO(); 
 
         String expId = request.getParameter("expId"); 
+        String empId = request.getParameter("empId");
+        String itmDate = request.getParameter("itmDate");
+        //String usuario = request.getSession().getAttribute("userSession");
         
         TwoWaysBDL twoWaysBDL=null;
         
@@ -72,7 +65,10 @@ public class AbmGastosServlet extends AutorizacionServlet {
         
         cuentas =  twoWaysBDL.getServiceTwoWays().obtenerAccount();
         request.setAttribute("listaCuentas",cuentas);        
-
+        
+        UsersTO userTO= (UsersTO)request.getSession().getAttribute("userSession"); 
+        request.setAttribute("expUsuario",userTO.getUsrId());
+        
        
     } catch (Exception e) {
        e.printStackTrace();
@@ -115,7 +111,7 @@ public class AbmGastosServlet extends AutorizacionServlet {
                accTO.setAccId(Long.parseLong(atribs[2]));
                itmExpTO.setAccountsTO(accTO);    
                itmExpTO.setIteValue(Double.parseDouble(atribs[3].replaceAll(",",".")));                              
-               UsersTO user= (UsersTO)request.getSession().getAttribute("userSession"); 
+               UsersTO user= new UsersTO(); 
                itmExpTO.setUsersTO(user);
                itmExpTOList.add(itmExpTO);                 
            }                     
@@ -135,8 +131,7 @@ public class AbmGastosServlet extends AutorizacionServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-    
+      }    
       else if(expId != null && expId.length() > 0  && (accion!=null && accion.equalsIgnoreCase("eliminar")) ){
           try {
                if(expId != null && expId.length() > 0 ) 
@@ -173,7 +168,7 @@ public class AbmGastosServlet extends AutorizacionServlet {
           catch (Exception e) {
               e.printStackTrace();
               request.setAttribute("mensaje","<script>alert('Ocurrió un error al eliminar el item de gasto')</script>");
-              request.getRequestDispatcher("empleados.jsp").forward(request,response);
+              //request.getRequestDispatcher("gastos.jsp").forward(request,response);
           }
           request.setAttribute("mensaje","<script>alert('El item de gasto se eliminó con éxito')</script>");
       }
@@ -201,6 +196,32 @@ public class AbmGastosServlet extends AutorizacionServlet {
               // request.getRequestDispatcher("empleados.jsp").forward(request,response);
            }
       }
+      else if(empId != null && empId.length() > 0  && (accion != null  && accion.equalsIgnoreCase("buscarItemEmpleado") ))//|| (accion!=null && !accion.equalsIgnoreCase("cancelar")) ))
+       {                        
+            try {
+                    /*gasto =  twoWaysBDL.getServiceTwoWays().getExpenseById(Long.parseLong(expId));
+                    
+                    request.setAttribute("gasto",gasto);*/
+                                        
+                    List itmExpEmp = null;                    
+                    
+                   // itmExpEmp =  twoWaysBDL.getServiceTwoWays().getItemsExpenseByEmpId(empId,itmDate);  
+                                        
+                    if (itmExpEmp != null){
+                        request.setAttribute("itemsExpense",itmExpEmp);
+                    }
+                    if(gasto == null){
+                        request.setAttribute("mensaje","<script>alert('El item de gasto no existe')</script>"); 
+                    }else{
+                        request.setAttribute("script","<script>init();</script>");
+                    }
+                
+            } catch (Exception e) {
+                e.printStackTrace();                 
+                request.setAttribute("mensaje","<script>alert('Error al cargar el item de gasto')</script>"); 
+               // request.getRequestDispatcher("empleados.jsp").forward(request,response);
+            }
+       }
       else {
           request.setAttribute("expId","");
       }        

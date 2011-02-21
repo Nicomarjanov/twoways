@@ -650,9 +650,11 @@ function PopupWindow_showPopup(anchorname) {
 // Hide the popup
 function PopupWindow_hidePopup() {
 
-	if (this.divName != null) {
+	try{
+        if (this.divName != null) {
 
 		if (this.use_gebi) {
+                       
 			document.getElementById(this.divName).style.visibility = "hidden";
 			}
 		else if (this.use_css) {
@@ -668,7 +670,12 @@ function PopupWindow_hidePopup() {
 			this.popupWindow = null;
 			}
 		}
+                
+         }catch(e){
+           
+         }
 	}
+        
 // Pass an event and return whether or not it was the popup DIV that was clicked
 function PopupWindow_isClicked(e) {
 	if (this.divName != null) {

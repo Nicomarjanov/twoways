@@ -1,5 +1,6 @@
 package com.twoways.dao;
 
+import com.twoways.to.CurrencyTO;
 import com.twoways.to.EmployeesRatesTO;
 import com.twoways.to.EmployeesTO;
 import com.twoways.to.LanguaguesAcronymsTO;
@@ -170,6 +171,13 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
             proAssigmentsDetailsTO.getEmployeesRatesTO().setRatesTO(new RatesTO());
             proAssigmentsDetailsTO.getEmployeesRatesTO().getRatesTO().setRatId(Long.parseLong(mapResult.get("EMPLOYEES_RATES_RATES_RAT_ID").toString()));
             proAssigmentsDetailsTO.getEmployeesRatesTO().getRatesTO().setRatName(mapResult.get("RAT_NAME").toString());
+            
+            if (mapResult.get("CUR_ID") != null &&  mapResult.get("CUR_ID").toString().length() > 0) {
+                proAssigmentsDetailsTO.getEmployeesRatesTO().getRatesTO().setCurrencyTO(new CurrencyTO());
+                proAssigmentsDetailsTO.getEmployeesRatesTO().getRatesTO().getCurrencyTO().setCurId(Long.parseLong(mapResult.get("CUR_ID").toString()));
+                proAssigmentsDetailsTO.getEmployeesRatesTO().getRatesTO().getCurrencyTO().setCurName(mapResult.get("CUR_NAME").toString());
+                proAssigmentsDetailsTO.getEmployeesRatesTO().getRatesTO().getCurrencyTO().setCurSymbol(mapResult.get("CUR_SYMBOL").toString());
+            }    
             if (mapResult.get("PAD_RATE") != null && 
                 mapResult.get("PAD_RATE").toString().length() > 0) {
                 proAssigmentsDetailsTO.setPadRate(Double.parseDouble(mapResult.get("PAD_RATE").toString()));

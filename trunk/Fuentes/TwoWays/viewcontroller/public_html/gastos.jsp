@@ -24,18 +24,21 @@
   <form name="gasto" action="gastos" method="POST">
   <input type="hidden" id="accion" name="accion" value=""/>
   <input type="hidden" id="itmId" name="itmId" value="<c:out value="${item.itmId}"/>"/>
+  <input type="hidden" id="empId" name="empId" value="<c:out value="${gasto.EmployeesTO.empId}"/>"/>  
+  <input type="hidden" id="itmDate" name="itmDate" value="<c:out value="${gasto.expDate}"/>"/>  
   <table width="50%" align="center">
   <tr>
-    <th colspan="4" align="center" class="tw_form">Ingrese los campos con los datos de los Gastos</th>
+    <th colspan="5" align="center" class="tw_form">Ingrese los campos con los datos de los Gastos</th>
   </tr>
   <tr>
-    <td width="25%" align="right">Fecha</td>
-    <td width="25%" align="left"><input type="text" class="tw_form" id="expFecha" name="expFecha"   value="<c:out  value="${gastos.expFecha}"/>" size="10" maxlength="10" onfocus="javascript:this.style.background='#FFFFFF';"></input>
+    <td width="25%" align="right" style ="background-color:#80211D;color:#ffffff;align:left">Fecha:</td>
+    <td width="25%" align="left" style ="background-color:#80211D;color:#ffffff;align:left">
+        <input type="text" class="tw_form" id="expFecha" name="expFecha"   value="<c:out  value="${gastos.expFecha}"/>" size="10" maxlength="10" onfocus="javascript:this.style.background='#FFFFFF';"></input>
           <!--<div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> 
           <img  onclick="callDesde.select(document.forms[0].expFecha,'selGasto','dd/MM/yyyy'); return false;" NAME="selGasto" ID="selGasto"  height="20" width="20" alt="seleccion" src="img/cal.png"></img>
    --> </td>
-    <td nowrap width="25%" align="right">Nombre del empleado:</td>
-    <td width="25%" align="left">
+    <td nowrap width="25%" align="right" style ="background-color:#80211D;color:#ffffff;align:left">Nombre del empleado:</td>
+    <td width="25%" align="left" style ="background-color:#80211D;color:#ffffff;align:left">
         <select name="nombreEmp" id="nombreEmp" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">            
         <option value="" selected="selected">Seleccionar</option>
             <c:forEach items="${listaEmpleados}" var="item">
@@ -45,21 +48,24 @@
             </c:forEach>
        </select>
     </td>
+    <td><input type="button" size="5" value="Buscar" id="BuscarBoton" onClick="BuscarItemEmpleado()"/>
+    </td>
   </tr>
   </table>
 <table id="tabla-gastos" align="center" width="53%">
  <tr>
  <td>  
   <table id="tabla-gastos-head" align="center" width="100%">
-  <tr>
-    <th nowrap width="20%" align="center">Nombre del Item</th>
-    <th width="20%" align="center">Moneda</th>
-    <th width="20%" align="center">Monto</th>
+  <tr bgcolor="#E8B6B5">
+    <th nowrap width="25%" align="center">Nombre del Item</th>
+    <th width="15%" align="center">Moneda</th>
+    <th width="10%" align="center">Monto</th>
     <th width="20%" align="center">Cuenta</th>
-    <th width="6%">&nbsp;</th>
+    <th width="20%" align="center">¿Quién lo cargó?</th>
+    <th width="10%">&nbsp;</th>
   </tr>
   <tr>
-    <td width="20%" align="center">
+    <td width="25%" align="center"  style ="background-color:#F8E0E0;color:#585858;align:left">
        <select name="listaItems" id="listaItems" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">            
         <option value="" selected="selected">Seleccionar</option>
             <c:forEach items="${listaItems}" var="item">
@@ -69,7 +75,7 @@
             </c:forEach>
        </select> 
     </td>
-    <td width="20%" align="center">       
+    <td width="15%" align="center"  style ="background-color:#F8E0E0;color:#585858;align:left">       
        <select name="listaMoneda" id="listaMoneda" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">                
                 <option value="" >Seleccionar</option>
                 <c:forEach items="${listaMoneda}" var="item">
@@ -79,10 +85,10 @@
                 </c:forEach>
        </select> 
     </td>
-    <td width="20%" align="center">
-        <input type="text" id="expMonto" name="expMonto" class="tw_form" onfocus="javascript:this.style.background='#FFFFFF';"></input>
+    <td width="10%" align="center"  style ="background-color:#F8E0E0;color:#585858;align:left">
+        <input type="text" size="7" id="expMonto" name="expMonto" class="tw_form" onfocus="javascript:this.style.background='#FFFFFF';" style="text-align:right;"></input>
     </td>
-    <td width="20%" align="center">
+    <td width="20%" align="center"  style ="background-color:#F8E0E0;color:#585858;align:left">
        <select name="listaCuentas" id="listaCuentas" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">                
                 <option value="" >Seleccionar</option>
                 <c:forEach items="${listaCuentas}" var="item">
@@ -92,8 +98,11 @@
                 </c:forEach>
        </select> 
     </td>
-    <td width="6%" align="center">
-        <img  src="img/Add.png" alt=">" width="20" height="20" title="Agregar Gasto" onclick="agregarItemGasto()" onmouseover="this.style.cursor='hand';"/>
+    <td width="20%" align="center"  style ="background-color:#F8E0E0;color:#585858;align:left">
+        <input readonly size="15" type="text" id="expUsuario" name="expUsuario" class="tw_form" onfocus="javascript:this.style.background='#FFFFFF';" value="<c:out value="${expUsuario}" />" ></input>
+    </td>
+    <td width="10%" align="center"  style ="background-color:#F8E0E0;color:#585858;align:left">
+        <img  src="img/Add.png" alt=">" width="20" height="20" title="Agregar Item de Gasto" onclick="agregarItemGasto()" onmouseover="this.style.cursor='hand';"/>
     </td>
   </tr>
  </table>
@@ -109,30 +118,32 @@
          <table id="tabla-gastos-body" width="100%">
       </c:otherwise>
     </c:choose>-->
-    <table id="tabla-gastos-body" width="100%" >
+    <table id="tabla-gastos-body" width="100%" bgcolor="grey">
       <tr>
         <td>
         <div class="fixedHeaderTableGastos">
         <table id="list-gastos-body" align="center" width="100%" cellSpacing="1" >
         <thead>     
         <tr style="display:block; background-color='transparent'">
-            <th nowrap width="20%" align="center"></th>
-            <th width="20%" align="center"></th>
-            <th width="20%" align="center"></th>
-            <th width="20%" align="center"></th>
-            <th width="6%">&nbsp;</th>
+            <th width="25%"></th>
+            <th width="15%"></th>
+            <th width="10%"></th>
+            <th width="20%"></th>
+            <th width="20%"></th>
+            <th width="10%"></th>
         </tr>
         </thead>  
         <tbody>
             <c:forEach items="${itemsExpense}" var="item">
-            <tr name="item-gastos"  bgcolor="#FFFFF" id="itmExpId-<c:out value="${item.iteId}"/>" >            
-                <td width="20%" ><c:out value="${item.itemsTO.itmId}" />
-                  <input type="hidden" name="item-gasto-hidden"  value="<c:out value="${item.iteId}"/>"</td>
-                <td width="20%" ><c:out value="${item.currencyTO.curId}" /></td>
-                <td width="20%" ><c:out value="${item.iteValue}" /></td>
-                <td width="20%" ><c:out value="${item.accountsTO.accId}" /></td>                                   
-                <td width="6%" bgcolor="transparent">
-                    <img  src="img/del2.png" height="15" width="15"  alt="Eliminar" onclick="eliminarItemExp('itmExpId-<c:out value="${item.iteId}"/>#<c:out value="${item.creLastName}" />')" onmouseover="this.style.cursor='hand';" />    <img  src="img/Edit2.png" height="15" width="15"  alt="Editar" onclick="editarResponsable('<c:out value="${item.creFirstName}"/>#<c:out value="${item.creLastName}"/>#<c:out value="${item.creEmail}"/>#<c:out value="${item.crePhoneNumber}"/>#<c:out value="${item.creMsn}"/>#<c:out value="${item.creSkype}"/>#')" onmouseover="this.style.cursor='hand';" /></td>
+            <tr name="item-gastos"  bgcolor="#FCEEED" id="itmExpId-<c:out value="${item[\'ITM_ID\']}" />#<c:out value="${item[\'CUR_ID\']}" />#<c:out value="${item[\'ITE_VALUE\']}" />#<c:out value="${item[\'ACC_ID\']}" />#<c:out value="${item[\'USR_ID\']}" />" >            
+                <td width="25%" ><c:out value="${item[\'ITM_NAME\']}" />
+                  <input type="hidden" name="item-gasto-hidden"  value="<c:out value="${item[\'ITM_ID\']}" />#<c:out value="${item[\'CUR_ID\']}" />#<c:out value="${item[\'ITE_VALUE\']}" />#<c:out value="${item[\'ACC_ID\']}" />#<c:out value="${item[\'USR_ID\']}" />"</td>
+                <td width="15%" ><c:out value="${item[\'CUR_NAME\']}" /></td>
+                <td width="10%" ><c:out value="${item[\'ITE_VALUE\']}" /></td>
+                <td width="20%" ><c:out value="${item[\'ACC_NAME\']}" /></td>
+                <td width="20%" ><c:out value="${item[\'USR_ID\']}" /></td>                                   
+                <td width="10%">
+                    <img  src="img/del2.png" height="15" width="15"  alt="Eliminar" onclick="eliminarItemExp('<c:out value="${item[\'ITM_ID\']}" />')" onmouseover="this.style.cursor='hand';" />    <img  src="img/Edit2.png" height="15" width="15"  alt="Editar" onclick="editarResponsable('<c:out value="${item[\'ITM_NAME\']}"/>#<c:out value="${item[\'CUR_NAME\']}"/>#<c:out value="${item[\'ITE_VALUE\']}"/>#<c:out value="${item[\'ACC_NAME\']}"/>#<c:out value="${item[\'USR_ID\']}"/>#')" onmouseover="this.style.cursor='hand';" /></td>
             </tr>           
             </c:forEach>
         </tbody>

@@ -2,6 +2,7 @@ package com.twoways.view.servlets;
 
 import com.twoways.core.bdl.TwoWaysBDL;
 import com.twoways.to.ClientsTO;
+import com.twoways.to.CurrencyTO;
 import com.twoways.to.OrdersDocsTO;
 import com.twoways.to.OrdersRatesTO;
 import com.twoways.to.OrdersTO;
@@ -57,18 +58,26 @@ public class ProyectosServlet extends AutorizacionServlet {
 
         super.doGet(request, response);
         ProjectsTO project=null;
-      
+        List<CurrencyTO> monedas = null;
+        Double costoTotalProyecto=  0.0;
+        Double cantidadPalabras =0.0;
         
+        boolean reenviar = true;
 
 
-        String accion = 
-            (request.getParameter("accion") != null) ? request.getParameter("accion").toString() : 
+        String accion =  (request.getParameter("accion") != null) ? request.getParameter("accion").toString() : 
             "";
 
         TwoWaysBDL twoWaysBDL = null;
+        
+        String script ="<script>onloadOrder();</script>";
 
         try {
             twoWaysBDL = new TwoWaysBDL();
+            
+            monedas =  twoWaysBDL.getServiceTwoWays().obtenerMonedas(); 
+             
+             
              
             Long ordId = null ; 
             
@@ -84,6 +93,7 @@ public class ProyectosServlet extends AutorizacionServlet {
                 project = new ProjectsTO();
                 project.setOrdersTO(twoWaysBDL.getServiceTwoWays().getOrderById(ordId));
                 project.setProStartDate(project.getOrdersTO().getOrdDate());
+                project.setProName(project.getOrdersTO().getOrdName());
             }
 
             if (accion != null && accion.equalsIgnoreCase("guardar")) {
@@ -120,63 +130,40 @@ public class ProyectosServlet extends AutorizacionServlet {
                         java.sql.Timestamp timest =  new java.sql.Timestamp(date.getTime());
                         project.setProFinishDate(timest);
                     }
+                    
+                    
 
 
                 } catch (Exception e) {
                     request.setAttribute("mensaje", 
                                          "<script>alert('La fecha ingresada no es valida')</script>");
                     e.printStackTrace();
+                    if(reenviar){ 
                     request.getRequestDispatcher("proyectos.jsp").forward(request, 
                                                                              response);
+                        reenviar=false;                                                      
+                    }
                 }
 
                 project.setProName((request.getParameter("proName") != null) ? 
                                    request.getParameter("proName").toString() : 
                                    "");
                                    
-                /*                   
-                project.setCurrencyCotizationsCucId(Long.parseLong(((request.getParameter("currencyCotizationsCucId") != 
-                                                                     null && 
-                                                                     request.getParameter("currencyCotizationsCucId").toString().length() > 
-                                                                     0) ? 
-                                                                    request.getParameter("currencyCotizationsCucId").toString() : 
-                                                                    "0")));
-                project.setProDescription((request.getParameter("proDescription") != 
-                                           null) ? 
-                                          request.getParameter("proDescription").toString() : 
-                                          "");
-                */                          
+               
                 project.setProStatus((request.getParameter("proStatus") != 
                                       null) ? 
                                      request.getParameter("proStatus").toString() : 
                                      "");
-                /*
-                project.setProTotalCliWcount(Long.parseLong(((request.getParameter("proTotalCliWcount") != 
-                                                              null && 
-                                                              request.getParameter("proTotalCliWcount").toString().length() > 
-                                                              0) ? 
-                                                             request.getParameter("proTotalCliWcount").toString() : 
-                                                             "0")));
-                project.setProTotalClient(Long.parseLong(((request.getParameter("proTotalClient") != 
-                                                           null && 
-                                                           request.getParameter("proTotalClient").toString().length() > 
-                                                           0) ? 
-                                                          request.getParameter("proTotalClient").toString() : 
-                                                          "0")));
-                project.setProTotalTranWcount(Long.parseLong(((request.getParameter("proTotalTranWcount") != 
-                                                               null && 
-                                                               request.getParameter("proTotalTranWcount").toString().length() > 
-                                                               0) ? 
-                                                              request.getParameter("proTotalTranWcount").toString() : 
-                                                              "0")));
-                project.setProTotalTranslator(Long.parseLong(((request.getParameter("proTotalTranslator") != 
-                                                               null && 
-                                                               request.getParameter("proTotalTranslator").toString().length() > 
-                                                               0) ? 
-                                                              request.getParameter("proTotalTranslator").toString() : 
-                                                              "0")));
+                if(request.getParameter("listaMoneda") != 
+                                      null){ 
+                                      
+                    CurrencyTO currencyTO= new CurrencyTO();                      
+                    currencyTO.setCurId(Long.parseLong(request.getParameter("listaMoneda")));
+                    project.setCurrencyTO(currencyTO);
+                         
+                                         
+                }
                                                               
-                */                                              
                 project.setUsersUsrId(this.getUser().getUsrId());
 
                 try {
@@ -210,7 +197,7 @@ public class ProyectosServlet extends AutorizacionServlet {
                               Long id= 0L; 
                               if(arrayAux.length > 1) {
                                  id=Long.parseLong(arrayAux[1]);
-                                 Double parametroValue = (request.getParameter(paramName)!=null)?Double.parseDouble(request.getParameter(paramName)):null; 
+                                 Double parametroValue = (request.getParameter(paramName)!=null)?Double.parseDouble(request.getParameter(paramName).replaceAll(",",".")):null; 
                               
                               ProAssigmentsDetailsTO proAssigmentsDetailsTO =proAssigmentsDetailsTOMap.get(id);
                               
@@ -280,38 +267,68 @@ public class ProyectosServlet extends AutorizacionServlet {
                    
                 } catch (Exception e) {
                     e.printStackTrace();
+                    request.setAttribute("script","<script>alert('Ocurrió un error : "+ e.getMessage()+"')</script>");
+                    if(reenviar){ 
+                    request.getRequestDispatcher("error.jsp").forward(request, 
+                                                                             response);
+                        reenviar=false;                                                      
+                    }
                 }
             }
             
             project.setProjectAssignmentsTOList(twoWaysBDL.getServiceTwoWays().getProjectAssignmentsByProId(project.getProId()));
             Map<Long,Double> costos = new HashMap<Long,Double>(); 
+            Map costoMap = new HashMap();
+          
             
             for (ProjectAssignmentsTO projectAssignmentsTO:project.getProjectAssignmentsTOList()){
                  
                 projectAssignmentsTO.setProAssigmentsDetailsTO(twoWaysBDL.getServiceTwoWays().getProjectAssignmentsDetailsById(projectAssignmentsTO.getPraId()));                       
+                
+                cantidadPalabras+= (projectAssignmentsTO.getPraTotalAmount()!=null)?projectAssignmentsTO.getPraTotalAmount():0.0;
+                
+                
                 if(projectAssignmentsTO.getProAssigmentsDetailsTO().size() ==0 ){
                     projectAssignmentsTO.setProAssigmentsDetailsTO(null);
                 }else{
-                   
-                    Double costo=0.0;
-                    for(ProAssigmentsDetailsTO pa :projectAssignmentsTO.getProAssigmentsDetailsTO() ){
-                        costo += ((pa.getPadRate()!=null)?pa.getPadRate():0.0) * ((pa.getPadWCount()!=null)?pa.getPadWCount():0.0) ;
-                    }
-                    costos.put(projectAssignmentsTO.getPraId(),costo);
-                    
+                    projectAssignmentsTO.setProjectsTO(project);
+                    Map auxCostoMap=twoWaysBDL.getServiceTwoWays().getCostPA(projectAssignmentsTO);
+                    Double value = (Double)auxCostoMap.get("costo");
+                    costoTotalProyecto +=value;
+                    costos.put(projectAssignmentsTO.getPraId(),value);
+                    costoMap.putAll((Map)auxCostoMap.get("cotizaciones"));
                 }
+                
+               
+                    
+                  
+               
             
             
             }
             
+            request.setAttribute("costoTotalProyecto",costoTotalProyecto);
+            request.setAttribute("cantidadPalabras",cantidadPalabras);
+            request.setAttribute("cotizaciones",costoMap);
+            request.setAttribute("listaMoneda",monedas);
             request.setAttribute("costosMap",costos);
            
         } catch (Exception e) {
             e.printStackTrace();
+            request.setAttribute("script","<script>alert('Ocurrió un error : "+ e.getMessage()+"')</script>");
+            if(reenviar){ 
+            request.getRequestDispatcher("error.jsp").forward(request, 
+                                                                     response);
+                reenviar=false;                                                      
+            }
         }
+        request.setAttribute("script", script);
         request.setAttribute("project", project);
+        if(reenviar){ 
         request.getRequestDispatcher("proyectos.jsp").forward(request, 
-                                                              response);
+                                                                 response);
+            reenviar=false;                                                      
+        }
     }
     
     

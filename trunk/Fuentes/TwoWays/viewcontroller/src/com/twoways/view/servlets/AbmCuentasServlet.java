@@ -85,7 +85,10 @@ public class AbmCuentasServlet extends AutorizacionServlet {
 
         request.getRequestDispatcher("cuentas.jsp").forward(request,response);    
     }
-    
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            response.setContentType(CONTENT_TYPE);
+            doGet(request,response); 
+            }
     
 }
 

@@ -18,7 +18,7 @@ function agregarItemGasto(){
        var index = tablaGastos.rows.length;       
 
        var newRow = tablaGastos.insertRow(index);  
-       newRow.bgColor = "transparent";
+       newRow.bgColor ="#FCEEED";
        insertarColumnas(tablaGastos.rows[index],tablaGastos.rows[0].cells.length); 
        cargarItemGasto(tablaGastos.rows[index]);
        document.getElementById('listaItems').value="";
@@ -87,26 +87,32 @@ function cargarItemGasto(row){
    var nomMoneda= document.getElementById('listaMoneda').options[document.getElementById('listaMoneda').selectedIndex].value.split('#');
    var nomCuenta= document.getElementById('listaCuentas').options[document.getElementById('listaCuentas').selectedIndex].value.split('#');
    var valorMonto= trim((document.getElementById('expMonto').value == null)?'':document.getElementById('expMonto').value);
-
+   var numUser= trim((document.getElementById('expUsuario').value == null)?'':document.getElementById('expUsuario').value);
+   
    row.name = 'item-gasto'; 
 
    if (document.getElementById('list-gastos-body').rows.length > 1){
             document.getElementById('tabla-gastos-body').style.display='';      
     }
     
-    var valor=nomItem[0]+'#'+nomMoneda[0]+'#'+nomCuenta[0]+'#'+valorMonto+'#';
-
+    var valor=nomItem[0]+'#'+nomMoneda[0]+'#'+nomCuenta[0]+'#'+valorMonto+'#'+numUser+'#';
+    var valorEditar=nomItem[1]+'#'+nomMoneda[1]+'#'+nomCuenta[1]+'#'+valorMonto+'#'+numUser+'#';
+    alert(valorEditar);
     row.id= 'itmExpId-'+ valor;   
 
     row.cells[0].innerHTML= nomItem[1] + '<input type="hidden" name="item-gasto-hidden"  value="'+valor+'" />';
     row.cells[1].innerHTML= nomMoneda[1];
     row.cells[2].innerHTML= valorMonto;
     row.cells[3].innerHTML= nomCuenta[1];
-    row.cells[4].innerHTML= '<img src="img/del2.png" height="15" width="15"  alt="Eliminar" onclick="eliminarGasto(\''+row.id+'\')" onmouseover="this.style.cursor=\'hand\';" />    <img  src="img/Edit2.png" height="15" width="15"  alt="Editar Gasto" onclick="editarGasto(\''+valor+'\')" onmouseover="this.style.cursor=\'hand\';" />';
-    row.cells[0].bgColor="#fffff";
-    row.cells[1].bgColor="#fffff";
-    row.cells[2].bgColor="#fffff";
-    row.cells[3].bgColor="#fffff";
+    row.cells[4].innerHTML= numUser;
+    row.cells[5].innerHTML= '<img src="img/del2.png" height="15" width="15"  alt="Eliminar" onclick="eliminarGasto(\''+row.id+'\')" onmouseover="this.style.cursor=\'hand\';" />    <img  src="img/Edit2.png" height="15" width="15"  alt="Editar Gasto" onclick="editarGasto(\''+valorEditar+'\')" onmouseover="this.style.cursor=\'hand\';" />';
+    row.cells[0].width="25%";
+    row.cells[1].width="15%";
+    row.cells[2].width="10%";
+    row.cells[2].style.align="rigth";
+    row.cells[3].width="20%";
+    row.cells[4].width="20%";
+    row.cells[5].width="10%";
 }
 
 
@@ -146,4 +152,14 @@ function agregar()
 {
    document.getElementById("accion").value='guardar';
    document.forms[0].submit();                   
+}
+
+function BuscarItemEmpleado(){
+   var empId = document.getElementById("nombreEmp").value;
+   var expFecha = document.getElementById("expFecha").value;  
+   
+   document.getElementById("empId").value=empId;
+   document.getElementById("itmDate").value=expFecha;
+   document.getElementById("accion").value='buscarItemEmpleado';
+   document.forms[0].submit(); 
 }

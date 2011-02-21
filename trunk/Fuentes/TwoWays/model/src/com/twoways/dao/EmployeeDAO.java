@@ -3,6 +3,8 @@ package com.twoways.dao;
 import com.twoways.to.EmployeesRatesTO;
 import com.twoways.to.EmployeesTO;
 
+import com.twoways.to.RateTypesTO;
+
 import java.util.List;
 
 public interface EmployeeDAO {
@@ -15,5 +17,9 @@ public interface EmployeeDAO {
     public boolean deleteEmployee(EmployeesTO employee)  throws Exception;    
     public List obtenerTipoEmpleado() throws Exception;
     public List obtenerTipoEmpleadoById(String empId) throws Exception;    
-    public List<EmployeesRatesTO> getEmpRatesByEmpId(EmployeesTO employeesTO)throws Exception; 
+    public List<EmployeesRatesTO> getEmpRatesByEmpId(EmployeesTO employeesTO)throws Exception;
+
+    public List<EmployeesRatesTO> getEmpRatesByEmpIdRate(EmployeesTO employeesTO, 
+                                                         RateTypesTO rt)throws Exception;
+    
 }

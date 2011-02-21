@@ -69,16 +69,29 @@ function agregarResponsable(){
 
 function cargarItemResponsable(row){
 
-   var nomResp= ((document.getElementById('NomResponsable').value == null)?'':document.getElementById('NomResponsable').value); 
-   var apeResp= ((document.getElementById('ApeResponsable').value == null)?'':document.getElementById('ApeResponsable').value);
-   var mailResp= ((document.getElementById('MailResponsable').value == null)?'':document.getElementById('MailResponsable').value);
-   var telResp= ((document.getElementById('PhoneResponsable').value == null)?'':document.getElementById('PhoneResponsable').value);
-   var msnResp= ((document.getElementById('MsnResponsable').value == null)?'':document.getElementById('MsnResponsable').value);  
-   var skypeResp= ((document.getElementById('SkypeResponsable').value == null)?'':document.getElementById('SkypeResponsable').value);  
+   var nomResp= ((document.getElementById('NomResponsable').value == null)?"":document.getElementById('NomResponsable').value); 
+   var apeResp= ((document.getElementById('ApeResponsable').value == null)?"":document.getElementById('ApeResponsable').value);
+   var mailResp= ((document.getElementById('MailResponsable').value == null)?" ":document.getElementById('MailResponsable').value);
+   var telResp= ((document.getElementById('PhoneResponsable').value == null)?" ":document.getElementById('PhoneResponsable').value);
+   var msnResp= ((document.getElementById('MsnResponsable').value == null)?" ":document.getElementById('MsnResponsable').value);  
+   var skypeResp= ((document.getElementById('SkypeResponsable').value == null)?" ":document.getElementById('SkypeResponsable').value);  
    //var creResp= document.getElementById('CreResponsable').value;
    row.name = 'item-responsable'; 
-
- 
+   
+   /*if (mailResp == null && mailResp.length == 0 ){
+        mailResp = " ";
+   }
+   if (telResp == null && telResp.length == 0){
+        telResp = " ";
+   }
+   if (msnResp == null && msnResp.length == 0){
+        msnResp = " ";
+   }*/
+   if (skypeResp == null || skypeResp.length == 0){
+        skypeResp = " ";
+        alert(skypeResp);
+   }
+  alert(skypeResp);
     if(document.getElementById('creId-'+ nomResp +'#'+ apeResp)){
        alert('Ya existe un responsable con ese Nombre y Apellido'); 
        document.getElementById('list-responsables-body').deleteRow(row.rowIndex);       
