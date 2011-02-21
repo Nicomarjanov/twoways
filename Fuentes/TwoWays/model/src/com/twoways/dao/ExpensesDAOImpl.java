@@ -5,7 +5,10 @@ import com.twoways.to.ExpensesTO;
 
 import com.twoways.to.ItemsExpensesTO;
 
+import java.util.HashMap;
 import java.util.List;
+
+import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
@@ -48,6 +51,20 @@ public class ExpensesDAOImpl extends AbstractDAO  implements ExpenseDAO {
        int res =  getSqlMapClientTemplate().delete("deleteExpense",gasto);
        return (res > 0); 
     }
+    
+    public List getItemsExpenseByEmpId(String empId, String itmFecha) throws Exception{
+    
+        Map param = new HashMap();
+        param.put("empId",empId);
+        param.put("itmFecha",itmFecha);
+        List ret= null;
+        try {
+            ret = getSqlMapClientTemplate().queryForList("getItemsExpenseByEmpId",param);
+            } catch (DataAccessException dae) {
 
+           dae.printStackTrace();
+        }
+        return ret;
+        }
 
 }

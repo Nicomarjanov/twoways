@@ -275,7 +275,7 @@ public class ServiceTW_System {
             if (translatorTO != null) {
 
                 List result = 
-                    twoWaysBDL.getServiceTwoWays().getLangByTradId(translatorTO.getTraId());
+                    twoWaysBDL.getServiceTwoWays().getLangByEmpId(Long.parseLong(empId));
                 return result;
             }
         } catch (Exception e) {

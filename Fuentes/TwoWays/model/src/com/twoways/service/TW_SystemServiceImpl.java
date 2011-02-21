@@ -487,8 +487,8 @@ public class TW_SystemServiceImpl implements TW_SystemService {
         return projectDao.insertProject(projectsTO);
     }
 
-    public List getLangByTradId(Long tradId) throws Exception {
-        return this.translatorDao.getLangByTradId(tradId);
+    public List getLangByEmpId(Long empId) throws Exception{
+        return this.employeeDao.getLangByEmpId(empId);
     }
 
     public List getEmpByRatesName(String rateName) throws Exception {

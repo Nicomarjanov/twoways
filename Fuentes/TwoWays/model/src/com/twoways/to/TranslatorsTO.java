@@ -11,7 +11,7 @@ public class TranslatorsTO {
     //(name="TRA_SPECIALIZATION")
     private EmployeesTO employeesTO;
     private List<TranslatorsSpecializationsTO> transSpecializationTOList;
-    private List<TranslatorsLanguaguesTO> transLanguaguesTOList;
+   // private List<TranslatorsLanguaguesTO> transLanguaguesTOList;
 
 
     public TranslatorsTO() {
@@ -41,12 +41,12 @@ public class TranslatorsTO {
         return transSpecializationTOList;
     }
 
-    public void setTransLanguaguesTOList(List<TranslatorsLanguaguesTO> transLanguaguesTOList) {
+  /*  public void setTransLanguaguesTOList(List<TranslatorsLanguaguesTO> transLanguaguesTOList) {
         this.transLanguaguesTOList = transLanguaguesTOList;
     }
 
     public List<TranslatorsLanguaguesTO> getTransLanguaguesTOList() {
         return transLanguaguesTOList;
-    }
+    }*/
 
 }

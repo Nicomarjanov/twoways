@@ -241,7 +241,7 @@ public class AsignacionesServlet extends AutorizacionServlet {
                    TranslatorsTO translatorTO= twoWaysBDL.getServiceTwoWays().getTraByEmpId(String.valueOf(projectAssignmentsTO.getEmployeesTO().getEmpId()));
                    if (translatorTO!=null){
                      
-                       List  resultLanguajes = twoWaysBDL.getServiceTwoWays().getLangByTradId(translatorTO.getTraId());
+                       List  resultLanguajes = twoWaysBDL.getServiceTwoWays().getLangByEmpId(Long.parseLong((projectAssignmentsTO.getEmployeesTO().getEmpId())));
                        request.setAttribute("languagues",resultLanguajes);
                    }
                    

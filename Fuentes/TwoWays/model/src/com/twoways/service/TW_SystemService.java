@@ -154,7 +154,7 @@ public interface TW_SystemService {
     
     public ProjectsTO insertProject(ProjectsTO projectsTO) throws Exception;
     
-    public List getLangByTradId(Long tradId) throws Exception; 
+    public List getLangByEmpId(Long empId) throws Exception; 
 
     public List obtenerEspecializaciones() throws Exception;
 
@@ -209,4 +209,6 @@ public interface TW_SystemService {
     public ExpensesTO getExpenseById(Long expId) throws Exception;
    
     public Map getCostPA(ProjectAssignmentsTO projectAssignmentsTO)throws Exception;
+    
+   // public List getItemsExpenseByEmpId(String empId,String itmFecha) throws Exception;
 }
