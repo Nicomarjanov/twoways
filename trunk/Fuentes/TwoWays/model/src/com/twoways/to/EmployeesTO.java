@@ -40,6 +40,8 @@ public class EmployeesTO {
     private List<ProjectAssignmentsTO> projectAssignmentsTOList;
     private List<EmployeesRatesTO> employeesRatesTOList;
     private List<EmployeesTypesTO> employeesTypesTOList;
+    
+    private List<TranslatorsLanguaguesTO> transLanguaguesTOList;
 
     private RatesTO ratesTO;
    
@@ -248,5 +250,13 @@ public class EmployeesTO {
 
     public Timestamp getEmpEraseDate() {
         return empEraseDate;
+    }
+
+    public void setTransLanguaguesTOList(List<TranslatorsLanguaguesTO> transLanguaguesTOList) {
+        this.transLanguaguesTOList = transLanguaguesTOList;
+    }
+
+    public List<TranslatorsLanguaguesTO> getTransLanguaguesTOList() {
+        return transLanguaguesTOList;
     }
 }

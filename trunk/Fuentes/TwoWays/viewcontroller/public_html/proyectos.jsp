@@ -158,7 +158,7 @@
       </tr>
       <tr>
       <td colspan="100%"   >
-      <table   id="tabla-<c:out value="${assi.praId}" />" cellspacing="0" width="100%"  style="display:none"  border =1  >
+      <table id="tabla-<c:out value="${assi.praId}" />" cellspacing="0" width="100%"  style="display:none"  border =1  >
          <tr>
          <th style ="background-color:#F8E0E0;color:#585858;align:left">Documento</th>
          <th style ="background-color:#F8E0E0;color:#585858;align:left">Lenguajes</th>

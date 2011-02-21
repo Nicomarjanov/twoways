@@ -12,4 +12,5 @@ public interface ExpenseDAO {
     public boolean deleteExpense(ExpensesTO gasto)  throws Exception; 
     public ExpensesTO getExpenseById(Long expId) throws Exception;    
     public ItemsExpensesTO getItemsExpenseByExpId(Long expId) throws Exception;
+    public List getItemsExpenseByEmpId(String empId, String itmFecha) throws Exception;
 }

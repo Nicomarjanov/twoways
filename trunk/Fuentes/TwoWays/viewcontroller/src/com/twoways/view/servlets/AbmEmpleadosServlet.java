@@ -204,41 +204,43 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                 
                 if( empleadosTipos  != null){ 
                                        
-                    for(String aux:empleadosTipos){                                                                
-                        if (aux.equalsIgnoreCase("Traductor")){
-                             String traId = request.getParameter("traId");
-
-                             String lenguasHidden[]=request.getParameterValues("lenguas-hidden");
-                             List<TranslatorsLanguaguesTO> transLangTOList = new ArrayList<TranslatorsLanguaguesTO>();
+                    /*for(String aux:empleadosTipos){                                                                
+                        if (aux.equalsIgnoreCase("Traductor")){*/
                              
-                             if( lenguasHidden  != null){ 
-                                                   
-                                for(String auxLang:lenguasHidden){
-                                    
-                                    String atribs[]= auxLang.split("#");
-                                    LanguaguesTO langTO = new LanguaguesTO();
-                                    langTO.setLanId(Long.parseLong(atribs[0]));                                     
-                                    LanguaguesAcronymsTO langAcronTO = new LanguaguesAcronymsTO();
-                                    langAcronTO.setLanguaguesTO(langTO);            
-                                    if (atribs[0].equalsIgnoreCase("2")){
-                                       langAcronTO.setLaaAcronym(atribs[1]);   
-                                    }                                    
-                                    TranslatorsLanguaguesTO transLangTO = new TranslatorsLanguaguesTO();                                    
-                                    transLangTO.setLangAcronymsTO(langAcronTO);
-                                    LanguaguesTO langTO1 = new LanguaguesTO();
-                                    LanguaguesAcronymsTO langAcronTO1 = new LanguaguesAcronymsTO();
-                                    langTO1.setLanId(Long.parseLong(atribs[2]));                                    
-                                    langAcronTO1.setLanguaguesTO(langTO1);
-                                    if (atribs[2].equalsIgnoreCase("2")){
-                                       langAcronTO1.setLaaAcronym(atribs[3]);   
-                                    }                                    
-                                    transLangTO.setLangAcronymsTO1(langAcronTO1);;
-                                    transLangTOList.add(transLangTO);
-                                                                    
-                                }                     
-                                traductor.setTransLanguaguesTOList(transLangTOList);
-                            }   
+
+                     String lenguasHidden[]=request.getParameterValues("lenguas-hidden");
+                     List<TranslatorsLanguaguesTO> transLangTOList = new ArrayList<TranslatorsLanguaguesTO>();
+                     
+                     if( lenguasHidden  != null){ 
+                                           
+                        for(String auxLang:lenguasHidden){
                             
+                            String atribs[]= auxLang.split("#");
+                            LanguaguesTO langTO = new LanguaguesTO();
+                            langTO.setLanId(Long.parseLong(atribs[0]));                                     
+                            LanguaguesAcronymsTO langAcronTO = new LanguaguesAcronymsTO();
+                            langAcronTO.setLanguaguesTO(langTO);            
+                            if (atribs[0].equalsIgnoreCase("2")){
+                               langAcronTO.setLaaAcronym(atribs[1]);   
+                            }                                    
+                            TranslatorsLanguaguesTO transLangTO = new TranslatorsLanguaguesTO();                                    
+                            transLangTO.setLangAcronymsTO(langAcronTO);
+                            LanguaguesTO langTO1 = new LanguaguesTO();
+                            LanguaguesAcronymsTO langAcronTO1 = new LanguaguesAcronymsTO();
+                            langTO1.setLanId(Long.parseLong(atribs[2]));                                    
+                            langAcronTO1.setLanguaguesTO(langTO1);
+                            if (atribs[2].equalsIgnoreCase("2")){
+                               langAcronTO1.setLaaAcronym(atribs[3]);   
+                            }                                    
+                            transLangTO.setLangAcronymsTO1(langAcronTO1);;
+                            transLangTOList.add(transLangTO);
+                                                            
+                        }                     
+                        empleado.setTransLanguaguesTOList(transLangTOList);
+                    }   
+                    for(String aux:empleadosTipos){                                                                
+                       if (aux.equalsIgnoreCase("Traductor")){
+                            String traId = request.getParameter("traId");
                             String spezialHidden[]=request.getParameterValues("listaSpecialTradSelect");
                             List<TranslatorsSpecializationsTO> transSpezialTOList = new ArrayList<TranslatorsSpecializationsTO>();
                             
@@ -252,10 +254,10 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                                    spezialTO.setSpeName(auxiliar);
                                    transSpezialTO.setSpecializationsTO(spezialTO);
                                    transSpezialTOList.add(transSpezialTO);
- 
+                            
                                }
                                 traductor.setTransSpecializationTOList(transSpezialTOList);
-                            }
+                            }                                                           
                                                       
                              traductor.setEmployeesTO(empleado);
 
@@ -267,12 +269,6 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                                      twoWaysBDL.getServiceTwoWays().insertarTraductor(traductor);           
                                  }
 
-                             /*request.setAttribute("traductor",traductor); 
-                             
-                             List idiomasTraductor = null;
-                             idiomasTraductor =  twoWaysBDL.getServiceTwoWays().getLangByTradId(traductor.getTraId());
-                             request.setAttribute("idiomasTraductor",idiomasTraductor); 
-                             */
                              } catch (Exception e) {
                                 e.printStackTrace();
                              }                            
@@ -351,6 +347,10 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                          
                          request.setAttribute("empleado",empleado);
                          
+                         List idiomasTraductor = null;
+                         idiomasTraductor =  twoWaysBDL.getServiceTwoWays().getLangByEmpId(Long.parseLong(empId));
+                         request.setAttribute("idiomasTraductor",idiomasTraductor); 
+                         /*
                          List empTypes = empleado.getEmployeesTypesTOList();
                          if (empTypes != null && empTypes.size() > 0){                        
                             for(Object employeesTypesTO: empTypes.toArray() ){ 
@@ -367,7 +367,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                                      }
                                 }
                              }
-                         }
+                         }*/
                          if(empleado == null){
                              request.setAttribute("mensaje","<script>alert('El empleado no existe')</script>"); 
                          }else{

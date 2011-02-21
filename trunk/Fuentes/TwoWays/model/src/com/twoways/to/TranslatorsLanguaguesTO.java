@@ -3,12 +3,12 @@ package com.twoways.to;
 public class TranslatorsLanguaguesTO {
     
     private Long tlaId;
-    private Long translatorsTraId;
+   /* private Long employId;
     private Long languaguesLanId;
     private Long languaguesLanId1;
     private String langAcronLaaAcronym;
-    private String langAcronLaaAcronym1;
-    private TranslatorsTO translatorsTO;
+    private String langAcronLaaAcronym1;*/
+    private EmployeesTO employeesTO;
     private LanguaguesAcronymsTO langAcronymsTO;
     private LanguaguesAcronymsTO langAcronymsTO1;
 
@@ -16,7 +16,7 @@ public class TranslatorsLanguaguesTO {
     public TranslatorsLanguaguesTO() {
     }
 
-    public void setTranslatorsTO(TranslatorsTO translatorsTO) {
+   /* public void setTranslatorsTO(TranslatorsTO translatorsTO) {
         this.translatorsTO = translatorsTO;
     }
 
@@ -46,7 +46,7 @@ public class TranslatorsLanguaguesTO {
 
     public Long getLanguaguesLanId1() {
         return languaguesLanId1;
-    }
+    }*/
 
     public void setTlaId(Long tlaId) {
         this.tlaId = tlaId;
@@ -56,7 +56,7 @@ public class TranslatorsLanguaguesTO {
         return tlaId;
     }
 
-    public void setLangAcronLaaAcronym(String langAcronLaaAcronym) {
+   /* public void setLangAcronLaaAcronym(String langAcronLaaAcronym) {
         this.langAcronLaaAcronym = langAcronLaaAcronym;
     }
 
@@ -70,7 +70,7 @@ public class TranslatorsLanguaguesTO {
 
     public String getLangAcronLaaAcronym1() {
         return langAcronLaaAcronym1;
-    }
+    }*/
 
     public void setLangAcronymsTO(LanguaguesAcronymsTO langAcronymsTO) {
         this.langAcronymsTO = langAcronymsTO;
@@ -86,5 +86,13 @@ public class TranslatorsLanguaguesTO {
 
     public LanguaguesAcronymsTO getLangAcronymsTO1() {
         return langAcronymsTO1;
+    }
+
+    public void setEmployeesTO(EmployeesTO employeesTO) {
+        this.employeesTO = employeesTO;
+    }
+
+    public EmployeesTO getEmployeesTO() {
+        return employeesTO;
     }
 }

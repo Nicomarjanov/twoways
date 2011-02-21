@@ -9,6 +9,8 @@ import com.twoways.to.EmployeesRatesTO;
 
 import com.twoways.to.EmployeesTypesTO;
 
+import com.twoways.to.TranslatorsLanguaguesTO;
+
 import com.twoways.to.RateTypesTO;
 
 import com.twoways.to.RatesTO;
@@ -129,6 +131,17 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
              getSqlMapClientTemplate().insert("insertEmployeesTypes",(EmployeesTypesTO)employeesTypesTO);
         }      
         
+        List transLanguagues = employeesTO.getTransLanguaguesTOList();
+        if ( transLanguagues != null && transLanguagues.size() > 0 ){
+            for(Object transLanguaguesTO: transLanguagues.toArray() ){
+                 Long tlaId = (Long) getSqlMapClientTemplate().queryForObject("trans_lang.seq","");
+                 TranslatorsLanguaguesTO auxTrans = (TranslatorsLanguaguesTO)transLanguaguesTO;
+                 auxTrans.setTlaId(tlaId);
+                 auxTrans.setEmployeesTO(employeesTO);
+                 getSqlMapClientTemplate().insert("insertTransLanguagues",auxTrans);
+            }
+        }        
+        
         return getEmpById(String.valueOf(empId)); 
         
     }
@@ -152,6 +165,10 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
            List empRates = employeesTO.getEmployeesRatesTOList();
            
            List empTypes = employeesTO.getEmployeesTypesTOList();
+           
+           List transLang = employeesTO.getTransLanguaguesTOList();
+           
+           List<TranslatorsLanguaguesTO> oldTransLang = (List<TranslatorsLanguaguesTO>) getSqlMapClientTemplate().queryForList("getOldTransLangByEmpId",employeesTO.getEmpId()); 
            
           // insertar tarifas nuevas 
           
@@ -204,6 +221,20 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
              for(Object employeesTypesTO: empTypes.toArray() ){
                  getSqlMapClientTemplate().insert("insertEmployeesTypes",(EmployeesTypesTO)employeesTypesTO);
              }
+            //borrar lenguajes viejos
+             //Long traId=employeesTO.getEmpId();
+             for(Object oldTranLang: oldTransLang.toArray() ){
+                   getSqlMapClientTemplate().delete("deleteTranslatorsLangs",(TranslatorsLanguaguesTO)oldTranLang);
+             }    
+            // insertar lenguajes nuevos 
+            
+             for(Object transLangTO: transLang.toArray() ){
+                 Long tlaId = (Long) getSqlMapClientTemplate().queryForObject("trans_lang.seq","");
+                 TranslatorsLanguaguesTO auxTrans = (TranslatorsLanguaguesTO)transLangTO;
+                 auxTrans.setTlaId(tlaId);
+                 auxTrans.setEmployeesTO(employeesTO);
+                 getSqlMapClientTemplate().insert("insertTransLanguagues",auxTrans);
+             }
                  
         } catch (Exception ex)  {
                //  getSqlMapClientTemplate().getSqlMapClient().endTransaction();
@@ -224,4 +255,15 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
         employeesRatesTO.getRatesTO().setRateTypesTO(rt);
         return  (List<EmployeesRatesTO>) getSqlMapClientTemplate().queryForList("getEmpRatesByEmpRate",employeesRatesTO); 
     }
+    
+    public List getLangByEmpId(Long empId) throws Exception{
+        List ret= null;
+        try {
+            ret = getSqlMapClientTemplate().queryForList("getTransLangByEmpId",empId);
+            } catch (DataAccessException dae) {
+
+           dae.printStackTrace();
+        }
+        return ret;
+        }
 }

@@ -578,13 +578,13 @@
       WHERE  itm_id = #itmId#                     
   </update>  
   
-  <resultMap id="select-Item-List"  class="com.twoways.to.ItemsTO" >
-      <result property="itmName" column="ITM_NAME" />
-      <result property="itmId"   column="ITM_ID" />
-      <result property="itmType" column="ITM_TYPE"  />
-      <result property="itmDescription" column="ITM_DESCRIPTION" />
-      <result property="itmEraseDate" column="ITM_ERASE_DATE" />      
-  </resultMap>
+      <resultMap id="select-Item-List"  class="com.twoways.to.ItemsTO" >
+          <result property="itmName" column="ITM_NAME" />
+          <result property="itmId"   column="ITM_ID" />
+          <result property="itmType" column="ITM_TYPE"  />
+          <result property="itmDescription" column="ITM_DESCRIPTION" />
+          <result property="itmEraseDate" column="ITM_ERASE_DATE" />      
+      </resultMap>
     
   <statement id="buscarItems" resultMap="select-Item-List"  parameterClass="java.lang.String" >
      select *       
@@ -620,9 +620,9 @@
    
   <insert id="insertTransLanguagues" parameterClass="com.twoways.to.TranslatorsLanguaguesTO">
         insert into translators_languagues
-            (tla_id, translators_tra_id, languagues_acronyms_languagues,languagues_acronyms_laa_acrony, languagues_acronyms_languague1,languagues_acronyms_laa_acron1)
+            (tla_id, employees_emp_id, languagues_acronyms_languagues,languagues_acronyms_laa_acrony, languagues_acronyms_languague1,languagues_acronyms_laa_acron1)
           values
-            (#tlaId#, #translatorsTraId#,#langAcronymsTO.languaguesTO.lanId#,#langAcronymsTO.laaAcronym#,#langAcronymsTO1.languaguesTO.lanId#,#langAcronymsTO1.laaAcronym#)
+            (#tlaId#, #employeesEmpId#,#langAcronymsTO.languaguesTO.lanId#,#langAcronymsTO.laaAcronym#,#langAcronymsTO1.languaguesTO.lanId#,#langAcronymsTO1.laaAcronym#)
   </insert>
 
   <insert id="insertTransSpecializations" parameterClass="com.twoways.to.TranslatorsSpecializationsTO">
@@ -646,7 +646,7 @@
       <result property="specializationsTO.speName"  column="specializations_Spe_Name" />
   </resultMap>
   
-  <statement  id="getTransLangByTransId" resultClass="java.util.HashMap"  parameterClass="java.lang.Long" >
+  <statement  id="getTransLangByEmpId" resultClass="java.util.HashMap"  parameterClass="java.lang.Long" >
      select t.languagues_acronyms_languagues as lan_id_origen,
             (select l.lan_name from languagues l where l.lan_id=t.languagues_acronyms_languagues) as lan_origen,
             t.languagues_acronyms_laa_acrony as acron_origen,
@@ -654,7 +654,7 @@
             (select l.lan_name from languagues l where l.lan_id=t.languagues_acronyms_languague1) as lan_destino,
             t.languagues_acronyms_laa_acron1 as acron_destino,t.tla_id 
      from translators_languagues t 
-     where t.translators_tra_id =  #traId#
+     where t.employees_emp_id =  #empId#
      and t.tla_erase_Date is null
   </statement>  
     
@@ -1033,9 +1033,9 @@
      
   </insert>      
    
-  <select id="getOldTransLangByTransId" parameterClass="java.lang.Long" resultMap="select-Trans-Lang">
+  <select id="getOldTransLangByEmpId" parameterClass="java.lang.Long" resultMap="select-Trans-Lang">
      select * from translators_languagues t
-     where t.translators_tra_id=#traId#
+     where t.employees_emp_id=#empId#
      and t.tla_erase_Date is null
   </select>
   
@@ -1336,15 +1336,38 @@
         <result property="employeesTO.empId" column="EMPLOYEES_EMP_ID"  /> 
   </resultMap>
   
-  <select id="getItemsExpenseByExpId" parameterClass="java.lang.Long" resultMap="select-items-expenses">
+  <!--<select id="getItemsExpenseByExpId" parameterClass="java.lang.Long" resultMap="select-items-expenses">
        select *
        from items_expenses
        where expenses_exp_id=#value#
-  </select>
+  </select>-->
   
     <select id="getExpenseById" parameterClass="java.lang.Long" resultMap="select-expenses">
        select *
        from expenses
        where exp_id=#value#
+  </select>
+
+  <select  id="getItemsExpenseByEmpId" resultClass="java.util.HashMap"  parameterClass="java.util.HashMap" >
+       select s.itm_name as itm_name, 
+       c.cur_name as cur_name, 
+       i.ite_value as ite_value, 
+       a.acc_name as acc_name, 
+       u.usr_id as usr_id, 
+       e.exp_date as exp_date, 
+       m.emp_first_name ||' '||m.emp_last_name as usr_name,
+       i.items_itm_id as itm_id,
+       i.currency_cur_id as cur_id,
+       i.accounts_acc_id as acc_id
+       from items_expenses i, accounts a, users u, currency c, expenses e, items s, employees m
+       where i.expenses_exp_id=e.exp_id
+       and i.items_itm_id=s.itm_id
+       and i.expenses_exp_id=e.exp_id
+       and i.currency_cur_id=c.cur_id
+       and i.users_usr_id=u.usr_id
+       and i.accounts_acc_id = a.acc_id       
+       and e.employees_emp_id= m.emp_id
+       and e.employees_emp_id= #empId#
+       and e.exp_date = to_date(#itmFecha#,'dd/mm/rrrr')
   </select>
 </sqlMap> 

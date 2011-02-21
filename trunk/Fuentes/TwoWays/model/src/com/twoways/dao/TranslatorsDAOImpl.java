@@ -56,7 +56,7 @@ public class TranslatorsDAOImpl extends AbstractDAO  implements TranslatorDAO{
         translatorsTO.setTraId(traId);        
         getSqlMapClientTemplate().insert("insertarTraductor",translatorsTO);  
         
-        List transLanguagues = translatorsTO.getTransLanguaguesTOList();
+       /* List transLanguagues = translatorsTO.getTransLanguaguesTOList();
         if ( transLanguagues != null && transLanguagues.size() > 0 ){
             for(Object transLanguaguesTO: transLanguagues.toArray() ){
                  Long tlaId = (Long) getSqlMapClientTemplate().queryForObject("trans_lang.seq","");
@@ -66,7 +66,7 @@ public class TranslatorsDAOImpl extends AbstractDAO  implements TranslatorDAO{
                  getSqlMapClientTemplate().insert("insertTransLanguagues",auxTrans);
             }
         }
-    
+    */
         List transSpezial = translatorsTO.getTransSpecializationTOList();
         if ( transSpezial != null && transSpezial.size() > 0 ){
             for(Object TransSpecializationTO: transSpezial.toArray() ){
@@ -79,19 +79,19 @@ public class TranslatorsDAOImpl extends AbstractDAO  implements TranslatorDAO{
     }
 
     public TranslatorsTO updateTraductor(TranslatorsTO translatorsTO) throws Exception {                    
-        List<TranslatorsLanguaguesTO> oldTransLang = (List<TranslatorsLanguaguesTO>) getSqlMapClientTemplate().queryForList("getOldTransLangByTransId",translatorsTO.getTraId()); 
+        //List<TranslatorsLanguaguesTO> oldTransLang = (List<TranslatorsLanguaguesTO>) getSqlMapClientTemplate().queryForList("getOldTransLangByTransId",translatorsTO.getTraId()); 
         List<TranslatorsSpecializationsTO> oldTransSpezial = (List<TranslatorsSpecializationsTO>) getSqlMapClientTemplate().queryForList("getTransSpezialByTransId",translatorsTO.getTraId()); 
-        List transLang = translatorsTO.getTransLanguaguesTOList();
+        //List transLang = translatorsTO.getTransLanguaguesTOList();
         List transSpezial = translatorsTO.getTransSpecializationTOList();
         
         //getSqlMapClientTemplate().update("updateTraductor",translatorsTO);        
         
-         //borrar lenguajes viejos
+         /*borrar lenguajes viejos
           Long traId=translatorsTO.getTraId();
           for(Object oldTranLang: oldTransLang.toArray() ){
                 getSqlMapClientTemplate().delete("deleteTranslatorsLangs",(TranslatorsLanguaguesTO)oldTranLang);
           }        
-         // insertar lenguajes nuevos 
+          insertar lenguajes nuevos 
          
           for(Object transLangTO: transLang.toArray() ){
               Long tlaId = (Long) getSqlMapClientTemplate().queryForObject("trans_lang.seq","");
@@ -99,7 +99,7 @@ public class TranslatorsDAOImpl extends AbstractDAO  implements TranslatorDAO{
               auxTrans.setTlaId(tlaId);
               auxTrans.setTranslatorsTraId(traId);
               getSqlMapClientTemplate().insert("insertTransLanguagues",auxTrans);
-          }
+          }*/
          //borrar especializaciones viejos
           for(Object oldTranSpezial: oldTransSpezial.toArray() ){
                 getSqlMapClientTemplate().delete("deleteTranslatorsSpezials",(TranslatorsSpecializationsTO)oldTranSpezial);
@@ -127,7 +127,7 @@ public class TranslatorsDAOImpl extends AbstractDAO  implements TranslatorDAO{
         }
         return ret;        
     }
-    public List getLangByTradId(Long tradId) throws Exception{
+  /*  public List getLangByTradId(Long tradId) throws Exception{
         List ret= null;
         try {
             ret = getSqlMapClientTemplate().queryForList("getTransLangByTransId",tradId);
@@ -137,7 +137,7 @@ public class TranslatorsDAOImpl extends AbstractDAO  implements TranslatorDAO{
         }
         return ret;
         }
-        
+        */
    public Long obtenerTraductorByEmpId(String empId) throws Exception{
        Long ret = null;
        try {

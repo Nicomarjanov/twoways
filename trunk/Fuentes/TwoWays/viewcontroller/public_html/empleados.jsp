@@ -217,101 +217,18 @@
      </table>
      </div>
      </td>
+     
      </tr>
      </table>
   </td>
-  </tr>
-  </table>
-  <hr>
-  <table id="aTrad">
-    <tr>
-        <c:choose>
-        <c:when test="${traductor.transLanguaguesTOList != null}">
-            <td valign="top" align="left"><a href="javascript:vistaTraductor()" >
-                    <img id="traductor+"  style="border:0;" title="Mostrar traductor del empleado" src="img/lang+.png" alt="Traductor" onmouseover="this.style.cursor='hand';"/></a>
-            </td>
-        </c:when>
-        <c:otherwise>
-            <td valign="top" align="left"><a href="javascript:vistaTraductor()" >
-                    <img id="traductor+"  style="border:0;" title="Mostrar traductor del empleado" src="img/lang.png" alt="Traductor" onmouseover="this.style.cursor='hand';"/></a>
-            </td>
-        </c:otherwise>
-        </c:choose>
-    </Tr>
-  </table>
-  <table id="tabla-traductor"  style="display:none" align="center" width="100%">
-      <tr>
-          <td valign="top" align="left"><a href="javascript:vistaTraductor()">       
-            <img id="traductor-"  style="border:0;" title="Ocultar traductor del empleado" src="img/lang-.png" alt="Traductor" onmouseover="this.style.cursor='hand';"/></a>
-          </td>
-      </tr>
-  </table>
-  <table id="tabla-trad-titulo" style="display:none" align="center" width="50%">
-      <tr>      
-          <td align="center" style="font-size: 15px; font-weight:bold; color: #80211D;">Ingrese los datos del traductor</td>      
-      </tr>
-  </table>
-  <table id="tabla-trad-especial" style="display:none" align="center" width="100%">
-  <tr>
-  <td width="50%">
-      <table id="tabla-trad-especial1" align="left" width="100%">
-        <tr>
-            <th colspan=3 align="center" style="font-size:10px;">
-                <b>Seleccione las especialidades del traductor:</b>
-            </th>
-        </tr>
-        <tr>
-            <td style="font-size:10px;" align="right"><b>Especialidades disponibles</b></td>
-            <td></td>
-            <td style="font-size:10px;"  align="left"><b>Especialidades asigandas</b></td>
-        </tr>
-        <tr>
-           <td rowspan=3 align="right">
-               <select multiple="multiple" size="5" name="listaSpecialTrad" id="listaSpecialTrad" style="border:solid 1px #005C8D;width:200px; font-size: 9px;" onfocus="javascript:this.style.background='#FFFFFF';">                                            
-                <c:forEach items="${listaSpecialTrad}" var="item">
-                       <option value="<c:out value="${item.speName}"/>" title="<c:out value="${item.speName}"/>">
-                        <c:out value="${item.speName}" />
-                      </option> 
-                </c:forEach>
-              </select>      
-            </td>
-            <td align="center">
-            <table>
-              <tr>
-                <td>
-                <a href="javascript: asignarSpecial();"><img style="border:0;" title="Asignar" alt=">" width="17" height="17" src="img/play.png" onmouseover="this.style.cursor='hand';"></img></a>
-                </td>
-              <tr>
-                <td>
-                <a href="javascript: desAsignarSpecial();"><img style="border:0;" title="Desasignar" alt="<" width="17" height="17" src="img/back.png" onmouseover="this.style.cursor='hand';"></img></a>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                <a href="javascript: desAsignarTodoSpecial();"><img style="border:0;" title="Desasignar todo" alt="|<" width="17" height="17" src="img/player_start.png" onmouseover="this.style.cursor='hand';"></img></a>
-                </td>
-              </tr>
-            </table>
-            <td rowspan=3 align="left">
-                <select name="listaSpecialTradSelect" id="listaSpecialTradSelect" size="5" multiple="multiple" style="border:solid 1px #005C8D;width:200px; font-size: 9px;">                
-                <c:forEach items="${traductor.transSpecializationTOList}" var="item">
-                       <option value="<c:out value="${item.specializationsTO.speName}"/>" title="<c:out value="${item.specializationsTO.speName}"/>">
-                           <c:out value="${item.specializationsTO.speName}" />
-                      </option> 
-                </c:forEach>
-                </select>
-            </td>
-         </tr>
-     </table>
-  </td>
-  <td width="50%">
+ <td width="50%">
        <table id="tabla-trad-idiomas" align="center" width="50%">
          <tr>
           <td>
              <table id="tabla-trad-idiomas" width="100%">
                 <tr>
                     <th colspan=5 align="center" style="font-size:10px;">
-                        <b>Seleccione los pares de idiomas del traductor:</b>
+                        <b>Seleccione los pares de idiomas del empleado:</b>
                     </th>
                 </tr>
                 <tr>
@@ -409,6 +326,91 @@
              </tr>
              </table>
           </td>
+  </tr>
+  </table>
+  <hr>
+  <table id="aTrad">
+    <tr>
+        <c:choose>
+        <c:when test="${traductor.transLanguaguesTOList != null}">
+            <td valign="top" align="left"><a href="javascript:vistaTraductor()" >
+                    <img id="traductor+"  style="border:0;" title="Mostrar traductor del empleado" src="img/lang+.png" alt="Traductor" onmouseover="this.style.cursor='hand';"/></a>
+            </td>
+        </c:when>
+        <c:otherwise>
+            <td valign="top" align="left"><a href="javascript:vistaTraductor()" >
+                    <img id="traductor+"  style="border:0;" title="Mostrar traductor del empleado" src="img/lang.png" alt="Traductor" onmouseover="this.style.cursor='hand';"/></a>
+            </td>
+        </c:otherwise>
+        </c:choose>
+    </Tr>
+  </table>
+  <table id="tabla-traductor"  style="display:none" align="center" width="100%">
+      <tr>
+          <td valign="top" align="left"><a href="javascript:vistaTraductor()">       
+            <img id="traductor-"  style="border:0;" title="Ocultar traductor del empleado" src="img/lang-.png" alt="Traductor" onmouseover="this.style.cursor='hand';"/></a>
+          </td>
+      </tr>
+  </table>
+  <table id="tabla-trad-titulo" style="display:none" align="center" width="50%">
+      <tr>      
+          <td align="center" style="font-size: 15px; font-weight:bold; color: #80211D;">Ingrese los datos del traductor</td>      
+      </tr>
+  </table>
+  <table id="tabla-trad-especial" style="display:none" align="center" width="100%">
+  <tr>
+  <td width="50%">
+      <table id="tabla-trad-especial1" align="left" width="100%">
+        <tr>
+            <th colspan=3 align="center" style="font-size:10px;">
+                <b>Seleccione las especialidades del traductor:</b>
+            </th>
+        </tr>
+        <tr>
+            <td style="font-size:10px;" align="right"><b>Especialidades disponibles</b></td>
+            <td></td>
+            <td style="font-size:10px;"  align="left"><b>Especialidades asigandas</b></td>
+        </tr>
+        <tr>
+           <td rowspan=3 align="right">
+               <select multiple="multiple" size="5" name="listaSpecialTrad" id="listaSpecialTrad" style="border:solid 1px #005C8D;width:200px; font-size: 9px;" onfocus="javascript:this.style.background='#FFFFFF';">                                            
+                <c:forEach items="${listaSpecialTrad}" var="item">
+                       <option value="<c:out value="${item.speName}"/>" title="<c:out value="${item.speName}"/>">
+                        <c:out value="${item.speName}" />
+                      </option> 
+                </c:forEach>
+              </select>      
+            </td>
+            <td align="center">
+            <table>
+              <tr>
+                <td>
+                <a href="javascript: asignarSpecial();"><img style="border:0;" title="Asignar" alt=">" width="17" height="17" src="img/play.png" onmouseover="this.style.cursor='hand';"></img></a>
+                </td>
+              <tr>
+                <td>
+                <a href="javascript: desAsignarSpecial();"><img style="border:0;" title="Desasignar" alt="<" width="17" height="17" src="img/back.png" onmouseover="this.style.cursor='hand';"></img></a>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                <a href="javascript: desAsignarTodoSpecial();"><img style="border:0;" title="Desasignar todo" alt="|<" width="17" height="17" src="img/player_start.png" onmouseover="this.style.cursor='hand';"></img></a>
+                </td>
+              </tr>
+            </table>
+            <td rowspan=3 align="left">
+                <select name="listaSpecialTradSelect" id="listaSpecialTradSelect" size="5" multiple="multiple" style="border:solid 1px #005C8D;width:200px; font-size: 9px;">                
+                <c:forEach items="${traductor.transSpecializationTOList}" var="item">
+                       <option value="<c:out value="${item.specializationsTO.speName}"/>" title="<c:out value="${item.specializationsTO.speName}"/>">
+                           <c:out value="${item.specializationsTO.speName}" />
+                      </option> 
+                </c:forEach>
+                </select>
+            </td>
+         </tr>
+     </table>
+  </td>
+  
         </tr>
       </table>
    </td>

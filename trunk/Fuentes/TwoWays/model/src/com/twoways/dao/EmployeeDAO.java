@@ -22,4 +22,5 @@ public interface EmployeeDAO {
     public List<EmployeesRatesTO> getEmpRatesByEmpIdRate(EmployeesTO employeesTO, 
                                                          RateTypesTO rt)throws Exception;
     
+    public List getLangByEmpId(Long empId) throws Exception;
 }

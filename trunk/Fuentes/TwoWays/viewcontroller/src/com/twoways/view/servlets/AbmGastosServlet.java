@@ -205,7 +205,7 @@ public class AbmGastosServlet extends AutorizacionServlet {
                                         
                     List itmExpEmp = null;                    
                     
-                   // itmExpEmp =  twoWaysBDL.getServiceTwoWays().getItemsExpenseByEmpId(empId,itmDate);  
+                    itmExpEmp =  twoWaysBDL.getServiceTwoWays().getItemsExpenseByEmpId(empId,itmDate);  
                                         
                     if (itmExpEmp != null){
                         request.setAttribute("itemsExpense",itmExpEmp);

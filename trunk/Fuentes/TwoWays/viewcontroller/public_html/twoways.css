@@ -473,7 +473,7 @@ div.fixedHeaderTableGasto table {
       width:100%;
   }
   div.fixedHeaderTableGasto tbody {
-      height: 500px;
+      height: 400px;
      overflow-y: auto;
      overflow-x: hidden;
  }
@@ -490,7 +490,7 @@ div.fixedHeaderTableGasto table {
  /* IE7 hacks */
  div.fixedHeaderTableGasto {
      *position: relative;
-     *height: 500px;
+     *height: 400px;
      *overflow-y: scroll;
      *overflow-x: hidden;
      *padding-right:16px;
