@@ -699,6 +699,10 @@ public class TW_SystemServiceImpl implements TW_SystemService {
         return (cotizOtraMoneda * valores) /cotizPeso; 
     }
     
+    public List getItemsExpenseByEmpId(String empId,String itmFecha) throws Exception{
+        return this.expensesDao.getItemsExpenseByEmpId(empId,itmFecha);
+    }
+    
     
 }
 
