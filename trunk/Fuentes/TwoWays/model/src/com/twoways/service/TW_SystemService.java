@@ -210,5 +210,5 @@ public interface TW_SystemService {
    
     public Map getCostPA(ProjectAssignmentsTO projectAssignmentsTO)throws Exception;
     
-   // public List getItemsExpenseByEmpId(String empId,String itmFecha) throws Exception;
+    public List getItemsExpenseByEmpId(String empId,String itmFecha) throws Exception;
 }

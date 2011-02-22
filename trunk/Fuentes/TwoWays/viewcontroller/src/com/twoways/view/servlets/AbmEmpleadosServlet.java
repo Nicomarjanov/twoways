@@ -185,6 +185,44 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                     e.printStackTrace();
                     
                 }
+                
+                if( empleadosTipos  != null){ 
+                                       
+                    /*for(String aux:empleadosTipos){                                                                
+                        if (aux.equalsIgnoreCase("Traductor")){*/
+                             
+
+                     String lenguasHidden[]=request.getParameterValues("lenguas-hidden");
+                     List<TranslatorsLanguaguesTO> transLangTOList = new ArrayList<TranslatorsLanguaguesTO>();
+                     
+                     if( lenguasHidden  != null){ 
+                                           
+                        for(String auxLang:lenguasHidden){
+                            
+                            String atribs[]= auxLang.split("#");
+                            LanguaguesTO langTO = new LanguaguesTO();
+                            langTO.setLanId(Long.parseLong(atribs[0]));                                     
+                            LanguaguesAcronymsTO langAcronTO = new LanguaguesAcronymsTO();
+                            langAcronTO.setLanguaguesTO(langTO);            
+                            if (atribs[0].equalsIgnoreCase("2") || atribs[0].equalsIgnoreCase("1")){
+                               langAcronTO.setLaaAcronym(atribs[1]);    
+                            }     
+                            TranslatorsLanguaguesTO transLangTO = new TranslatorsLanguaguesTO();                                    
+                            transLangTO.setLangAcronymsTO(langAcronTO);
+                            LanguaguesTO langTO1 = new LanguaguesTO();
+                            LanguaguesAcronymsTO langAcronTO1 = new LanguaguesAcronymsTO();
+                            langTO1.setLanId(Long.parseLong(atribs[2]));                                    
+                            langAcronTO1.setLanguaguesTO(langTO1);
+                            if (atribs[2].equalsIgnoreCase("2") || atribs[2].equalsIgnoreCase("1")){
+                                langAcronTO1.setLaaAcronym(atribs[3]);   
+                            }
+                            transLangTO.setLangAcronymsTO1(langAcronTO1);;
+                            transLangTOList.add(transLangTO);
+                                                            
+                        }                     
+                        empleado.setTransLanguaguesTOList(transLangTOList);
+                    }
+                }
 
                 try {
                     if(empId != null && empId.length() > 0 ){ 
@@ -205,7 +243,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                 if( empleadosTipos  != null){ 
                                        
                     /*for(String aux:empleadosTipos){                                                                
-                        if (aux.equalsIgnoreCase("Traductor")){*/
+                        if (aux.equalsIgnoreCase("Traductor")){
                              
 
                      String lenguasHidden[]=request.getParameterValues("lenguas-hidden");
@@ -237,7 +275,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                                                             
                         }                     
                         empleado.setTransLanguaguesTOList(transLangTOList);
-                    }   
+                    }   */
                     for(String aux:empleadosTipos){                                                                
                        if (aux.equalsIgnoreCase("Traductor")){
                             String traId = request.getParameter("traId");
@@ -347,10 +385,10 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                          
                          request.setAttribute("empleado",empleado);
                          
-                         List idiomasTraductor = null;
-                         idiomasTraductor =  twoWaysBDL.getServiceTwoWays().getLangByEmpId(Long.parseLong(empId));
-                         request.setAttribute("idiomasTraductor",idiomasTraductor); 
-                         /*
+                         List idiomasEmpleado = null;
+                         idiomasEmpleado =  twoWaysBDL.getServiceTwoWays().getLangByEmpId(Long.parseLong(empId));
+                         request.setAttribute("idiomasTraductor",idiomasEmpleado); 
+                         
                          List empTypes = empleado.getEmployeesTypesTOList();
                          if (empTypes != null && empTypes.size() > 0){                        
                             for(Object employeesTypesTO: empTypes.toArray() ){ 
@@ -360,14 +398,14 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                                      traductor = twoWaysBDL.getServiceTwoWays().getTraByEmpId(empId);
                                      if (traductor != null){
                                          request.setAttribute("traductor",traductor);
-                                         List idiomasTraductor = null;
+                                        /* List idiomasTraductor = null;
                                          idiomasTraductor =  twoWaysBDL.getServiceTwoWays().getLangByTradId(traductor.getTraId());
-                                         request.setAttribute("idiomasTraductor",idiomasTraductor); 
+                                         request.setAttribute("idiomasTraductor",idiomasTraductor); */
                                          
                                      }
                                 }
                              }
-                         }*/
+                         }
                          if(empleado == null){
                              request.setAttribute("mensaje","<script>alert('El empleado no existe')</script>"); 
                          }else{

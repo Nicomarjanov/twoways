@@ -123,8 +123,8 @@
     <td colspan="100%" ><textarea  rows="3" cols="40" class="tw_form" id="empObservations"  onkeyup="limitarArea()" name="empObservations" ><c:out value="${empleado.empObservations}"/></textarea></td>    
   </tr>
   </table>
-  <br>
-  <hr class="tw_hr">
+<br>
+<hr>
   <table id="aTar">
     <tr>
         <td valign="top" align="left"><a href="javascript:vistaTarifas()" >
@@ -134,10 +134,10 @@
   </table>
   <table id="tabla-tarifas"  style="display:none">
   <tr>
-  <td valign="top" align="left"><a href="javascript:vistaTarifas()">
+  <td valign="top" align="left" width="2%"><a href="javascript:vistaTarifas()">
     <img id="tarifa-"  style="border:0;" title="Ocultar tarifa del empleado" src="img/currency_dollar blue.png" alt="Tarifas" width="25" height="25" onmouseover="this.style.cursor='hand';"/></a>
   </td>
-  <td valign="top" align="right" width="35%">
+  <td valign="top" align="right" width="10%">
         <select name="listaTipoEmpTar" id="listaTipoEmpTar" style="border:solid 1px #005C8D;width:200px; font-size: 13px;" onfocus="javascript:this.style.background='#FFFFFF';createDynamicDropdown('listaTipoEmpTar', 'listaTarifa', 'dropDown3');" onchange="createDynamicDropdown('listaTipoEmpTar', 'listaTarifa', 'dropDown3');">                                            
             <c:forEach items="${empleado.employeesTypesTOList}" var="item">
                    <option value="<c:out value="${item.employeeTypeTO.etyName}"/>" title="<c:out value="${item.employeeTypeTO.etyDescription}"/>">
@@ -146,7 +146,7 @@
             </c:forEach>
         </select> 
   </td>
-  <td valign="top">
+  <td valign="top" width="8%">
          <select name="listaTarifa" id="listaTarifa" style="display:none;">              
                 <option value="">Seleccionar</option>
                 <c:forEach items="${listaTarifa}" var="item">
@@ -180,52 +180,52 @@
                 </c:choose>
        </select>
   </td> 
-    <td align="left" valign="top">
+  <td align="left" valign="top" width="7%">
     <input type="text" class="tw_form" id="tar_val" size=10  onkeydown="keyTarifa()" />
     
-    </td>
-    <td align="left" valign="top">
+  </td>
+  <td align="left" valign="top" width="3%">
         <img  src="img/next.png" alt=">" width="20" height="20" title="Agregar Tarifa" onclick="agregarTarifa()" onmouseover="this.style.cursor='hand';"/>
-    </td>
-  <td colspan="100%">
+  </td>
+  <td colspan="100%" width="50%">
     <table cellpadding="0" cellspacing="0"  style="background:gray">
     <tr>
     <td>
      <table id="list-tarifas" >
-     <tr>
-         <th width="130">Tipo</th><th width="130">Tarifa</th><th width="40">valor</th><th width="25"></th>
-     </tr>
-     <tr>
-        <td width="130"></td><td width="130"></td><td width="40"></td><td width="25"></td>
-     </tr>
+         <tr>
+             <th width="130">Tipo</th><th width="130">Tarifa</th><th width="40">valor</th><th width="25"></th>
+         </tr>
+         <tr>
+            <td width="130"></td><td width="130"></td><td width="40"></td><td width="25"></td>
+         </tr>
      </table>
-     </td></tr><tr><td>
-     <div style="width:100%;height:100px;overflow-x: hidden;overflow-y:auto ;" >
-     <table id="list-tarifas-body" align="right" width="100%">
-     <tr style="display:none">
-        <th width="130">Tipo</th><th width="130">Tarifa</th><th width="40">valor</th><th width="25"></th>
-     </tr>
-     <c:forEach items="${empleado.employeesRatesTOList}" var="item">
-       <tr name="item-tarifa"  bgcolor="#FFFFFF" id="tarId-<c:out value="${item.ratesTO.ratId}" />" >
-            <td width="130" ><c:out value="${item.ratesTO.rateTypesTO.rtyName}" /></td>
-            <td width="130" ><c:out value="${item.ratesTO.ratName}" /></td>
-            <td width="40" align="right" ><c:out value="${item.emrValue}" />
-                <input type="hidden" name="tarifas-hidden"  value="<c:out value="${item.ratesTO.ratId}" />#<c:out value="${item.emrValue}" />" /></td>
-            <td width="25" ><img  src="img/Delete.png" height="18" width="18"  alt="Eliminar" onclick="eliminarTarifa('tarId-<c:out value="${item.ratesTO.ratId}" />')" onmouseover="this.style.cursor='hand';" /></td>
-        </tr>           
-      </c:forEach>
-     </table>
-     </div>
-     </td>
-     
+    </td></tr><tr>
+    <td>
+        <div style="width:100%;height:100px;overflow-x: hidden;overflow-y:auto ;" >
+        <table id="list-tarifas-body" align="right" width="100%">
+             <tr style="display:none">
+                <th width="130">Tipo</th><th width="130">Tarifa</th><th width="40">valor</th><th width="25"></th>
+             </tr>
+             <c:forEach items="${empleado.employeesRatesTOList}" var="item">
+             <tr name="item-tarifa"  bgcolor="#FFFFFF" id="tarId-<c:out value="${item.ratesTO.ratId}" />" >
+                    <td width="130" ><c:out value="${item.ratesTO.rateTypesTO.rtyName}" /></td>
+                    <td width="130" ><c:out value="${item.ratesTO.ratName}" /></td>
+                    <td width="40" align="right" ><c:out value="${item.emrValue}" />
+                        <input type="hidden" name="tarifas-hidden"  value="<c:out value="${item.ratesTO.ratId}" />#<c:out value="${item.emrValue}" />" /></td>
+                    <td width="25" ><img  src="img/Delete.png" height="18" width="18"  alt="Eliminar" onclick="eliminarTarifa('tarId-<c:out value="${item.ratesTO.ratId}" />')" onmouseover="this.style.cursor='hand';" /></td>
+              </tr>           
+              </c:forEach>
+         </table>
+         </div>
+     </td>   
      </tr>
      </table>
   </td>
- <td width="50%">
-       <table id="tabla-trad-idiomas" align="center" width="50%">
+  <td valign="top" width="20%">
+       <table id="tabla-trad-idiomas" align="center" width="100%">
          <tr>
           <td>
-             <table id="tabla-trad-idiomas" width="100%">
+             <table width="100%">
                 <tr>
                     <th colspan=5 align="center" style="font-size:10px;">
                         <b>Seleccione los pares de idiomas del empleado:</b>
@@ -237,7 +237,7 @@
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
-                    <td valign="top" align="left">
+                    <td valign="top" align="left" width="30%">
                       <select name="listaIdiomas" id="listaIdiomas" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';"  onchange="createDynamicDropdown('listaIdiomas', 'listaAcron','listaAcronOrigen')">
                         <option value="" >Seleccionar</option>
                         <c:forEach items="${listaIdiomas}" var="item">
@@ -247,9 +247,10 @@
                         </c:forEach>
                       </select>
                     </td>                
-                    <td valign="top" align="center">
+                    <td valign="top" align="center" width="15%">
                     
                       <select name="listaAcron" id="listaAcron" style="display:none;">
+                         <option value="-1"></option>
                          <c:forEach items="${listaAcron}" var="item">
                             <option name="<c:out value="${item.languaguesTO.lanId}"/>" value="<c:out value="${item.laaAcronym}"/>" style="background-color:#A4BAC7;">
                                 <c:out value="${item.laaAcronym}" />
@@ -260,7 +261,7 @@
                                                 
                       </select>
                     </td>
-                    <td valign="top" align="left">
+                    <td valign="top" align="left" width="30%">
                       <select  name="listaLengua1" id="listaLengua1" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';" onchange="createDynamicDropdown('listaLengua1', 'listaAcron1','listaAcronDestino')">                
                         <option value="" >Seleccionar</option>
                         <c:forEach items="${listaLengua1}" var="item">
@@ -270,8 +271,10 @@
                         </c:forEach>
                       </select> 
                     </td>
-                    <td valign="top" align="center">
+                    <td valign="top" align="center" width="15%">
+                    
                       <select name="listaAcron1" id="listaAcron1" style="display:none;">
+                      <option value="-1"></option>
                          <c:forEach items="${listaAcron1}" var="item">
                             <option  name="<c:out value="${item.languaguesTO.lanId}"/>" value="<c:out value="${item.laaAcronym}"/>" style="background-color:#A4BAC7;">
                                 <c:out value="${item.laaAcronym}" />
@@ -282,11 +285,15 @@
                                                 
                       </select>
                     </td>                    
-                    <td align="left" valign="top">
+                    <td align="left" valign="top" width="10%">
                         <img  src="img/Add.png" alt=">" width="20" height="20" title="Agregar relación de idiomas" onclick="agregarIdiomas()" onmouseover="this.style.cursor='hand';"/>
                     </td>
                 </tr>
             </table>
+          </td>
+        </tr>
+        <tr>
+          <td>
             <c:choose>
               <c:when test="${empty idiomasTraductor}">
                 <table id="tabla-result-idiomas" width="100%" style="display:none">
@@ -295,44 +302,47 @@
                  <table id="tabla-result-idiomas" width="100%">
               </c:otherwise>
             </c:choose>
-            <tr>
-            <td>
-             <div class="fixedHeaderTableIdiom">
-             <table cellpadding="0" cellspacing="1" id="list-idiomas-body" align="right" width="100%">
-             <thead>     
-               <tr style="display:block; background-color='transparent'">
-                    <th width="15%"></th>
-                    <th width="15%"></th>
-                    <th width="15%"></th>
-                    <th width="15%"></th>
-                    <th width="2%"></th></tr>
-             </thead>  
-             <tbody>
-               <c:forEach items="${idiomasTraductor}" var="item">
-               <tr name="item-idiomas" id="tlaId-<c:out value="${item[\'LAN_ID_ORIGEN\']}"/>#<c:out value="${item[\'ACRON_ORIGEN\']}"/>#<c:out value="${item[\'LAN_ID_DESTINO\']}"/>#<c:out value="${item[\'ACRON_DESTINO\']}"/>" >
-                    <td width="15%" bgcolor="#FFFFF"><c:out value="${item[\'LAN_ORIGEN\']}" />     
-                       <input type="hidden" name="lenguas-hidden"  value="<c:out value="${item[\'LAN_ID_ORIGEN\']}"/>#<c:out value="${item[\'ACRON_ORIGEN\']}"/>#<c:out value="${item[\'LAN_ID_DESTINO\']}"/>#<c:out value="${item[\'ACRON_DESTINO\']}"/>"></td>                 
-                    <!--<td width="15%"><%=((Map)pageContext.getAttribute("item")).get("lan_id_origen")%><c:out value="${item.lan_id_origen}" /></td> -->
-                    <td width="15%" bgcolor="#FFFFF"><c:out value="${item[\'ACRON_ORIGEN\']}" /></td>     
-                    <td width="15%" bgcolor="#FFFFF"><c:out value="${item[\'LAN_DESTINO\']}" /></td>     
-                    <td width="15%" bgcolor="#FFFFF"><c:out value="${item[\'ACRON_DESTINO\']}" /></td>          
-                    <td width="2%"><img  src="img/del2.png" height="15" width="15"  alt="Eliminar relación de idiomas" onclick="eliminarIdiomas('tlaId-<c:out value="${item[\'LAN_ID_ORIGEN\']}"/>#<c:out value="${item[\'ACRON_ORIGEN\']}"/>#<c:out value="${item[\'LAN_ID_DESTINO\']}"/>#<c:out value="${item[\'ACRON_DESTINO\']}"/>')" onmouseover="this.style.cursor='hand';" /></td>
-                </tr>           
-              </c:forEach>
-              </tbody>
-             </table>
-             </div>
-             </td>
-             </tr>
-             </table>
-          </td>
-  </tr>
+                <tr>
+                    <td>
+                     <div class="fixedHeaderTableIdiom">
+                         <table cellpadding="0" cellspacing="1" id="list-idiomas-body" align="right" width="100%">
+                         <thead>     
+                           <tr style="display:block; background-color='transparent'">
+                                <th width="30%"></th>
+                                <th width="15%"></th>
+                                <th width="30%"></th>
+                                <th width="15%"></th>
+                                <th width="10%"></th></tr>
+                         </thead>  
+                         <tbody>
+                           <c:forEach items="${idiomasTraductor}" var="item">
+                           <tr name="item-idiomas" id="tlaId-<c:out value="${item[\'LAN_ID_ORIGEN\']}"/>#<c:out value="${item[\'ACRON_ORIGEN\']}"/>#<c:out value="${item[\'LAN_ID_DESTINO\']}"/>#<c:out value="${item[\'ACRON_DESTINO\']}"/>" >
+                                <td width="30%" bgcolor="#FFFFF"><c:out value="${item[\'LAN_ORIGEN\']}" />     
+                                   <input type="hidden" name="lenguas-hidden"  value="<c:out value="${item[\'LAN_ID_ORIGEN\']}"/>#<c:out value="${item[\'ACRON_ORIGEN\']}"/>#<c:out value="${item[\'LAN_ID_DESTINO\']}"/>#<c:out value="${item[\'ACRON_DESTINO\']}"/>"></td>                 
+                                <!--<td width="15%"><%=((Map)pageContext.getAttribute("item")).get("lan_id_origen")%><c:out value="${item.lan_id_origen}" /></td> -->
+                                <td width="15%" bgcolor="#FFFFF"><c:out value="${item[\'ACRON_ORIGEN\']}" /></td>     
+                                <td width="30%" bgcolor="#FFFFF"><c:out value="${item[\'LAN_DESTINO\']}" /></td>     
+                                <td width="15%" bgcolor="#FFFFF"><c:out value="${item[\'ACRON_DESTINO\']}" /></td>          
+                                <td width="10%"><img  src="img/del2.png" height="15" width="15"  alt="Eliminar relación de idiomas" onclick="eliminarIdiomas('tlaId-<c:out value="${item[\'LAN_ID_ORIGEN\']}"/>#<c:out value="${item[\'ACRON_ORIGEN\']}"/>#<c:out value="${item[\'LAN_ID_DESTINO\']}"/>#<c:out value="${item[\'ACRON_DESTINO\']}"/>')" onmouseover="this.style.cursor='hand';" /></td>
+                            </tr>           
+                          </c:forEach>
+                          </tbody>
+                         </table>
+                     </div>
+                   </td>
+                </tr>
+                </table>
+           </td>
+         </tr>
+      </table>
+   </td>
+   </tr>
   </table>
   <hr>
   <table id="aTrad">
     <tr>
         <c:choose>
-        <c:when test="${traductor.transLanguaguesTOList != null}">
+        <c:when test="${traductor.transSpecializationTOList != null}">
             <td valign="top" align="left"><a href="javascript:vistaTraductor()" >
                     <img id="traductor+"  style="border:0;" title="Mostrar traductor del empleado" src="img/lang+.png" alt="Traductor" onmouseover="this.style.cursor='hand';"/></a>
             </td>
@@ -382,22 +392,23 @@
               </select>      
             </td>
             <td align="center">
-            <table>
-              <tr>
-                <td>
-                <a href="javascript: asignarSpecial();"><img style="border:0;" title="Asignar" alt=">" width="17" height="17" src="img/play.png" onmouseover="this.style.cursor='hand';"></img></a>
-                </td>
-              <tr>
-                <td>
-                <a href="javascript: desAsignarSpecial();"><img style="border:0;" title="Desasignar" alt="<" width="17" height="17" src="img/back.png" onmouseover="this.style.cursor='hand';"></img></a>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                <a href="javascript: desAsignarTodoSpecial();"><img style="border:0;" title="Desasignar todo" alt="|<" width="17" height="17" src="img/player_start.png" onmouseover="this.style.cursor='hand';"></img></a>
-                </td>
-              </tr>
-            </table>
+                <table>
+                  <tr>
+                    <td>
+                    <a href="javascript: asignarSpecial();"><img style="border:0;" title="Asignar" alt=">" width="17" height="17" src="img/play.png" onmouseover="this.style.cursor='hand';"></img></a>
+                    </td>
+                  <tr>
+                    <td>
+                    <a href="javascript: desAsignarSpecial();"><img style="border:0;" title="Desasignar" alt="<" width="17" height="17" src="img/back.png" onmouseover="this.style.cursor='hand';"></img></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                    <a href="javascript: desAsignarTodoSpecial();"><img style="border:0;" title="Desasignar todo" alt="|<" width="17" height="17" src="img/player_start.png" onmouseover="this.style.cursor='hand';"></img></a>
+                    </td>
+                  </tr>
+                </table>
+            </td>
             <td rowspan=3 align="left">
                 <select name="listaSpecialTradSelect" id="listaSpecialTradSelect" size="5" multiple="multiple" style="border:solid 1px #005C8D;width:200px; font-size: 9px;">                
                 <c:forEach items="${traductor.transSpecializationTOList}" var="item">
@@ -410,13 +421,10 @@
          </tr>
      </table>
   </td>
-  
-        </tr>
-      </table>
-   </td>
-   </tr>
+  </tr>
   </table>
-  <hr>
+
+<hr>
   <table width="25%" align="center">
       <tr>
           <td align="right"><input type="button" id="aceptar" value="Aceptar" onclick="agregar()"/></td>   

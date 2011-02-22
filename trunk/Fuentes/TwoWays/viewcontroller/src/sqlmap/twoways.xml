@@ -622,7 +622,7 @@
         insert into translators_languagues
             (tla_id, employees_emp_id, languagues_acronyms_languagues,languagues_acronyms_laa_acrony, languagues_acronyms_languague1,languagues_acronyms_laa_acron1)
           values
-            (#tlaId#, #employeesEmpId#,#langAcronymsTO.languaguesTO.lanId#,#langAcronymsTO.laaAcronym#,#langAcronymsTO1.languaguesTO.lanId#,#langAcronymsTO1.laaAcronym#)
+            (#tlaId#, #employeesTO.empId#,#langAcronymsTO.languaguesTO.lanId#,#langAcronymsTO.laaAcronym#,#langAcronymsTO1.languaguesTO.lanId#,#langAcronymsTO1.laaAcronym#)
   </insert>
 
   <insert id="insertTransSpecializations" parameterClass="com.twoways.to.TranslatorsSpecializationsTO">
@@ -633,7 +633,7 @@
   </insert>
   
   <resultMap id="select-Trans-Lang" class="com.twoways.to.TranslatorsLanguaguesTO">
-      <result property="translatorsTO.traId" column="translators_tra_id" />  
+      <result property="employeesTO.empId" column="employees_emp_id" />  
       <result property="langAcronymsTO.languaguesTO.lanId"   column="languagues_acronyms_languagues" />
       <result property="langAcronymsTO.laaAcronym"   column="languagues_acronyms_laa_acrony" />
       <result property="langAcronymsTO1.languaguesTO.lanId" column="languagues_acronyms_languague1"  />

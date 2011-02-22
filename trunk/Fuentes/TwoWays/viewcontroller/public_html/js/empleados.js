@@ -40,10 +40,11 @@ function vistaTraductor(){
    var listaEmp = document.getElementById("listaItemsSelect");
    var bandera = 0;
     if (listaEmp.options.length > 0 ){        
+        
         for(var i=0;i<listaEmp.options.length;i++)
         {
             if(listaEmp.options[i].value == 'Traductor')
-            {  bandera = 1;          
+            {  bandera = 1;         
                var tabla=document.getElementById('tabla-traductor');    
                if(tabla.style.display =='none'){
                    tabla.style.display='';
@@ -457,34 +458,44 @@ function desAsignar()
         {
             var asig = document.getElementById("listaTipoEmp");
             var option =  new Option(document.getElementById("listaItemsSelect").options[i].text,document.getElementById("listaItemsSelect").options[i].value);
-            asig.options[asig.length] = option;
-            quitar = quitar+document.getElementById("listaItemsSelect").options[i].value+'-';
+            
+            
             if(document.getElementById("listaItemsSelect").options[i].value == 'Traductor'){
+               
                 if (confirm('Al desasignar la especialidad Traductor del empleado eliminará los datos cargados del traductor')){
+
+                    quitar = quitar+document.getElementById("listaItemsSelect").options[i].value+'-';
                     document.getElementById('traductor+').src="img/lang.png";
                     document.getElementById('tabla-traductor').style.display='none';
-                    document.getElementById('aTrad').style.display='';                                    
+                    document.getElementById('aTrad').style.display='';  
+                    asig.options[asig.length] = option;
+
                 }
-            }            
+            }else{
+                quitar = quitar+document.getElementById("listaItemsSelect").options[i].value+'-';
+                asig.options[asig.length] = option;
+            }
         }
     }
-    var arrai = quitar.split('-');
-    for(var j=0;j<arrai.length;j++)
-    {
-        for(var i=0;i<document.getElementById("listaItemsSelect").options.length;i++)
+    if (quitar != null){
+        var arrai = quitar.split('-');
+        for(var j=0;j<arrai.length;j++)
         {
-            if(document.getElementById("listaItemsSelect").options[i].value == arrai[j])                
-                document.getElementById("listaItemsSelect").options[i] = null;  
+            for(var i=0;i<document.getElementById("listaItemsSelect").options.length;i++)
+            {
+                if(document.getElementById("listaItemsSelect").options[i].value == arrai[j])                
+                    document.getElementById("listaItemsSelect").options[i] = null;  
+            }
+            for(var i=0;i<document.getElementById("listaTipoEmpTar").options.length;i++)
+            {
+                if(document.getElementById("listaTipoEmpTar").options[i].value == arrai[j])                               
+                    document.getElementById("listaTipoEmpTar").options[i] = null;  
+            }        
         }
-        for(var i=0;i<document.getElementById("listaTipoEmpTar").options.length;i++)
-        {
-            if(document.getElementById("listaTipoEmpTar").options[i].value == arrai[j])                               
-                document.getElementById("listaTipoEmpTar").options[i] = null;  
-        }        
+        deselectDynamicDropDown ();
+        createDynamicDropdown("listaTipoEmpTar", "listaTarifa", "dropDown3");
+        sortSelect(document.getElementById("listaTipoEmp"));
     }
-    deselectDynamicDropDown ();
-    createDynamicDropdown("listaTipoEmpTar", "listaTarifa", "dropDown3");
-    sortSelect(document.getElementById("listaTipoEmp"));
 }
 
 function desAsignarTodo()

@@ -60,18 +60,16 @@ function cargarItemIdiomas(row){
    
    var idiomaOrigen = document.getElementById('listaIdiomas').options[document.getElementById('listaIdiomas').selectedIndex].value;
    var idiomaDestino = document.getElementById('listaLengua1').options[document.getElementById('listaLengua1').selectedIndex].value;   
-   var acronimoOrigen = document.getElementById('listaAcronOrigen').options[document.getElementById('listaAcronOrigen').selectedIndex].value;
-   var acronimoDestino = document.getElementById('listaAcronDestino').options[document.getElementById('listaAcronDestino').selectedIndex].value;
    row.name = 'item-idiomas'; 
 
    idiomaOrigenArr = idiomaOrigen.split('#');
    idiomaDestinoArr = idiomaDestino.split('#');   
    
-   if (document.getElementById('listaAcronOrigen').disabled == false){
-      idiomaOrigenArr[2]=acronimoOrigen;
+   if (document.getElementById('listaAcronOrigen').disabled == false && document.getElementById('listaAcronOrigen').options.length > 0){
+      idiomaOrigenArr[2]=document.getElementById('listaAcronOrigen').options[document.getElementById('listaAcronOrigen').selectedIndex].value;
    }else idiomaOrigenArr[2] = ' ';
-   if (document.getElementById('listaAcronDestino').disabled == false){
-      idiomaDestinoArr[2]=acronimoDestino;
+   if (document.getElementById('listaAcronDestino').disabled == false && document.getElementById('listaAcronDestino').options.length > 0){
+      idiomaDestinoArr[2]=document.getElementById('listaAcronDestino').options[document.getElementById('listaAcronDestino').selectedIndex].value;
    }else idiomaDestinoArr[2] = ' ';
     
    if(document.getElementById('tlaId-'+idiomaOrigenArr[1]+'#'+idiomaOrigenArr[2]+'#'+idiomaDestinoArr[1]+'#'+idiomaDestinoArr[2])){
@@ -82,7 +80,7 @@ function cargarItemIdiomas(row){
        row.cells[1].innerHTML= idiomaOrigenArr[2]
        row.cells[2].innerHTML= idiomaDestinoArr[1]; 
        row.cells[3].innerHTML= idiomaDestinoArr[2]; 
-       row.cells[4].innerHTML= '<img  src="img/del2.png" height="15" width="15"  alt="Eliminar responsable" onclick="eliminarIdiomas(\''+row.id+'\')" onmouseover="this.style.cursor=\'hand\';" />';
+       row.cells[4].innerHTML= '<img  src="img/del2.png" height="15" width="15"  alt="Eliminar relación de idiomas" onclick="eliminarIdiomas(\''+row.id+'\')" onmouseover="this.style.cursor=\'hand\';" />';
        row.cells[0].bgColor="#fffff";
        row.cells[1].bgColor="#fffff";
        row.cells[2].bgColor="#fffff";
