@@ -228,7 +228,7 @@ function grabar(existe)
 }
 
 function buscarEmpleados(){
-     
+
      var empId= document.getElementById('empId').value;
      var nomEmp= document.getElementById('empFirstName').value;
 
@@ -238,11 +238,28 @@ function buscarEmpleados(){
 
 function cargarDatosColumna(row,data){
    
+   var month=new Array(12);
+    month[0]="01";
+    month[1]="02";
+    month[2]="03";
+    month[3]="04";
+    month[4]="05";
+    month[5]="06";
+    month[6]="07";
+    month[7]="08";
+    month[8]="09";
+    month[9]="10";
+    month[10]="11";
+    month[11]="12";
    row.cells[0].innerHTML=(data.empFirstName==null)?'':'<a href="empleados?empId='+data.empId+'" >'+data.empFirstName+'</a>';   
    row.cells[1].innerHTML=(data.empLastName==null)?'':data.empLastName;   
    row.cells[2].innerHTML=(data.empMail==null)?'':data.empMail;     
    row.cells[3].innerHTML=(data.empMsn==null)?'':data.empMsn;   
-   row.cells[4].innerHTML=(data.empBirth==null)?'':data.empBirth;   
+   var fecha = new Date((data.empBirth==null)?'':data.empBirth);   
+
+   if (fecha != '' && fecha != null){
+        row.cells[4].innerHTML = fecha.getDate()+'/'+month[fecha.getMonth()]+'/'+fecha.getFullYear();
+   }
 
    var editar = '<img src="img/edit.png"  height="20" width="20"  alt="Editar" onclick="javascript:window.location.href=\'empleados?empId='+data.empId+'\';" onmouseover="this.style.cursor=\'hand\';" /> ';
    var eliminado='';

@@ -419,11 +419,13 @@ div.fixedHeaderTable {
   }
   div.fixedHeaderTableIdiom table {
       width:100%;
+      background-color:gray;
   }
   div.fixedHeaderTableIdiom tbody {
       height: 60px;
      overflow-y: auto;
      overflow-x: hidden;
+     background-color:gray;
  }
  /*div.fixedHeaderTable table th {
      background-color:#CCCCCC;font-weight:bold
@@ -449,13 +451,14 @@ div.fixedHeaderTable {
      _position: absolute;
      *top: expression(this.offsetParent.scrollTop-2);
      *background:none;
-     background-color:transparent;
+     background-color:gray;
  }
   
  div.fixedHeaderTableIdiom tbody {
      *height: auto;
      *position:absolute;
      *top:50px;   
+     background-color:gray;
  }
 
  /* IE6 hacks */
@@ -476,6 +479,7 @@ div.fixedHeaderTableGasto table {
       height: 400px;
      overflow-y: auto;
      overflow-x: hidden;
+     
  }
  /*div.fixedHeaderTable table th {
      background-color:#CCCCCC;font-weight:bold
@@ -501,7 +505,7 @@ div.fixedHeaderTableGasto table {
      _position: absolute;
      *top: expression(this.offsetParent.scrollTop-2);
      *background:none;
-     background-color:transparent;
+     background-color:gray;
  }
   
  div.fixedHeaderTableGasto tbody {

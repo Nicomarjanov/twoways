@@ -97,7 +97,7 @@
     <td align="right" width="15%">MSN:</td>
     <td align="left" width="15%"><input type="text" class="tw_form" id="empMsn"  name="empMsn"  value="<c:out value="${empleado.empMsn}"/>" size="20" maxlength="100" onfocus="javascript:this.style.background='#FFFFFF';"></input></td>        
     <td nowrap align="right" width="15%">Fecha de nacimiento:</td>
-    <td align="left" width="15%"><input type="text" class="tw_form" id="empBirth" name="empBirth"   value="<fmt:formatDate value="${empleado.empBirth}"    pattern="dd/MM/yyyy" />" size="10" maxlength="10"></input></td>
+    <td align="left" width="15%"><input type="text" class="tw_form" id="empBirth" name="empBirth"   value="<fmt:formatDate value="${empleado.empBirth}" pattern="dd/MM/yyyy" />" size="10" maxlength="10"></input></td>
   </tr>
   <tr>
     <td nowrap align="right" width="15%">Teléfono movil:</td>
@@ -134,10 +134,10 @@
   </table>
   <table id="tabla-tarifas"  style="display:none">
   <tr>
-  <td valign="top" align="left" width="2%"><a href="javascript:vistaTarifas()">
+  <td valign="top" align="left" width="3"><a href="javascript:vistaTarifas()">
     <img id="tarifa-"  style="border:0;" title="Ocultar tarifa del empleado" src="img/currency_dollar blue.png" alt="Tarifas" width="25" height="25" onmouseover="this.style.cursor='hand';"/></a>
   </td>
-  <td valign="top" align="right" width="10%">
+  <td valign="top" align="right" width="150">
         <select name="listaTipoEmpTar" id="listaTipoEmpTar" style="border:solid 1px #005C8D;width:200px; font-size: 13px;" onfocus="javascript:this.style.background='#FFFFFF';createDynamicDropdown('listaTipoEmpTar', 'listaTarifa', 'dropDown3');" onchange="createDynamicDropdown('listaTipoEmpTar', 'listaTarifa', 'dropDown3');">                                            
             <c:forEach items="${empleado.employeesTypesTOList}" var="item">
                    <option value="<c:out value="${item.employeeTypeTO.etyName}"/>" title="<c:out value="${item.employeeTypeTO.etyDescription}"/>">
@@ -146,19 +146,19 @@
             </c:forEach>
         </select> 
   </td>
-  <td valign="top" width="8%">
+  <td valign="top" width="50">
          <select name="listaTarifa" id="listaTarifa" style="display:none;">              
                 <option value="">Seleccionar</option>
                 <c:forEach items="${listaTarifa}" var="item">
                    <c:out value="${item.ratId}" />
                    <c:choose>
                     <c:when test="${false}">
-                       <option name="<c:out value="${item.ratType}" />" value="<c:out value="${item.ratId}" />" style="background-color:#A4BAC7;" selected="selected">
+                       <option name="<c:out value="${item.rateTypesTO.rtyName}" />" value="<c:out value="${item.ratId}" />" style="background-color:#A4BAC7;" selected="selected">
                             <c:out value="${item.ratName}" /> <c:out value="${item.currencyTO.curSymbol}" />
                        </option> 
                     </c:when>
                     <c:otherwise>
-                        <option  name="<c:out value="${item.ratType}" />" value="<c:out value="${item.ratId}" />" style="background-color:#A4BAC7;">
+                        <option  name="<c:out value="${item.rateTypesTO.rtyName}" />" value="<c:out value="${item.ratId}" />" style="background-color:#A4BAC7;">
                              <c:out value="${item.ratName}" /> <c:out value="${item.currencyTO.curSymbol}" />
                         </option>
                     </c:otherwise>
@@ -180,14 +180,14 @@
                 </c:choose>
        </select>
   </td> 
-  <td align="left" valign="top" width="7%">
+  <td align="left" valign="top" width="20">
     <input type="text" class="tw_form" id="tar_val" size=10  onkeydown="keyTarifa()" />
     
   </td>
-  <td align="left" valign="top" width="3%">
+  <td align="left" valign="top" width="5">
         <img  src="img/next.png" alt=">" width="20" height="20" title="Agregar Tarifa" onclick="agregarTarifa()" onmouseover="this.style.cursor='hand';"/>
   </td>
-  <td colspan="100%" width="50%">
+  <td colspan="100%" width="400">
     <table cellpadding="0" cellspacing="0"  style="background:gray">
     <tr>
     <td>
@@ -221,7 +221,7 @@
      </tr>
      </table>
   </td>
-  <td valign="top" width="20%">
+  <td valign="top" width="350">
        <table id="tabla-trad-idiomas" align="center" width="100%">
          <tr>
           <td>
@@ -247,7 +247,7 @@
                         </c:forEach>
                       </select>
                     </td>                
-                    <td valign="top" align="center" width="15%">
+                    <td valign="top" align="left" width="15%">
                     
                       <select name="listaAcron" id="listaAcron" style="display:none;">
                          <option value="-1"></option>
@@ -271,7 +271,7 @@
                         </c:forEach>
                       </select> 
                     </td>
-                    <td valign="top" align="center" width="15%">
+                    <td valign="top" align="left" width="15%">
                     
                       <select name="listaAcron1" id="listaAcron1" style="display:none;">
                       <option value="-1"></option>
@@ -437,7 +437,7 @@
   <br>
   <h2 class="tw">Opciones encontradas</h2>
   <table id ="tabla-busqueda">
-    <tr><th>Nombre</th><th>Apellido</th><th>Mail</th><th>Msn</th><th>Fecha nacimiento<th>&nbsp;</th></tr>
+    <tr><th>Nombre</th><th>Apellido</th><th>Mail</th><th>MSN</th><th>Fecha nacimiento<th>&nbsp;</th></tr>
   </table>
   </div>
   

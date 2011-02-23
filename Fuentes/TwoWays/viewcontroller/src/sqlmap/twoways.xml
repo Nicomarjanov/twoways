@@ -399,17 +399,11 @@
       <result property="currencyTO.curSymbol" column="cur_symbol" />
   </resultMap>
   
-  <select id="obtenerTarifas"  parameterClass="java.lang.String" resultClass="com.twoways.to.RatesTO">
-     select 
-        RAT_ID as ratId,
-        RAT_NAME as ratName,
-        RAT_TYPE as ratType,
-        RAT_DESCRIPTION as ratDescription,
-        CUR_NAME as curName
+  <select id="obtenerTarifas"  parameterClass="java.lang.String" resultMap="select-Rate-List">
+     select *
      from 
      Rates r, Currency c
-     where r.currency_cur_id = c.cur_id
-     
+     where r.currency_cur_id = c.cur_id     
   </select>
   
   <select  id="rates.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > 
