@@ -1,16 +1,13 @@
 package com.twoways.view.servlets;
 
 import com.twoways.core.bdl.TwoWaysBDL;
-import com.twoways.to.EmployeesTO;
-import com.twoways.to.RatesTO;
 import com.twoways.to.EmployeeTypeTO;
-
 import com.twoways.to.EmployeesRatesTO;
-
+import com.twoways.to.EmployeesTO;
 import com.twoways.to.EmployeesTypesTO;
-
 import com.twoways.to.LanguaguesAcronymsTO;
 import com.twoways.to.LanguaguesTO;
+import com.twoways.to.RatesTO;
 import com.twoways.to.SpecializationsTO;
 import com.twoways.to.TranslatorsLanguaguesTO;
 import com.twoways.to.TranslatorsSpecializationsTO;
@@ -21,11 +18,13 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 
 public class AbmEmpleadosServlet extends AutorizacionServlet {
     private static final String CONTENT_TYPE = "text/html; charset=windows-1252";
@@ -57,9 +56,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
             
             List<LanguaguesAcronymsTO> acronimos= null;
             List<LanguaguesAcronymsTO> acronimos1= null;
-            
-            String paginaSiguiente = "empleados.jsp";
-           
+
             TwoWaysBDL twoWaysBDL=null;
             
             try {
@@ -71,7 +68,6 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                     tipo = twoWaysBDL.getServiceTwoWays().obtenerTipoEmpleado();  
                 }
                 request.setAttribute("listaTipoEmp",tipo);
-                //request.setAttribute("listaTipoEmpTar",tipo);
                 
                 tarifas = twoWaysBDL.getServiceTwoWays().obtenerTarifas();
                 request.setAttribute("listaTarifa",tarifas);
@@ -182,15 +178,10 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                 
                 } catch (Exception e) {
                     request.setAttribute("mensaje","<script>alert('La fecha ingresada no es valida')</script>"); 
-                    e.printStackTrace();
-                    
+                    e.printStackTrace();                    
                 }
                 
                 if( empleadosTipos  != null){ 
-                                       
-                    /*for(String aux:empleadosTipos){                                                                
-                        if (aux.equalsIgnoreCase("Traductor")){*/
-                             
 
                      String lenguasHidden[]=request.getParameterValues("lenguas-hidden");
                      List<TranslatorsLanguaguesTO> transLangTOList = new ArrayList<TranslatorsLanguaguesTO>();
@@ -241,41 +232,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                 request.setAttribute("mensaje","<script>alert('El empleado se guardo con exito')</script>");
                 
                 if( empleadosTipos  != null){ 
-                                       
-                    /*for(String aux:empleadosTipos){                                                                
-                        if (aux.equalsIgnoreCase("Traductor")){
-                             
-
-                     String lenguasHidden[]=request.getParameterValues("lenguas-hidden");
-                     List<TranslatorsLanguaguesTO> transLangTOList = new ArrayList<TranslatorsLanguaguesTO>();
-                     
-                     if( lenguasHidden  != null){ 
-                                           
-                        for(String auxLang:lenguasHidden){
-                            
-                            String atribs[]= auxLang.split("#");
-                            LanguaguesTO langTO = new LanguaguesTO();
-                            langTO.setLanId(Long.parseLong(atribs[0]));                                     
-                            LanguaguesAcronymsTO langAcronTO = new LanguaguesAcronymsTO();
-                            langAcronTO.setLanguaguesTO(langTO);            
-                            if (atribs[0].equalsIgnoreCase("2")){
-                               langAcronTO.setLaaAcronym(atribs[1]);   
-                            }                                    
-                            TranslatorsLanguaguesTO transLangTO = new TranslatorsLanguaguesTO();                                    
-                            transLangTO.setLangAcronymsTO(langAcronTO);
-                            LanguaguesTO langTO1 = new LanguaguesTO();
-                            LanguaguesAcronymsTO langAcronTO1 = new LanguaguesAcronymsTO();
-                            langTO1.setLanId(Long.parseLong(atribs[2]));                                    
-                            langAcronTO1.setLanguaguesTO(langTO1);
-                            if (atribs[2].equalsIgnoreCase("2")){
-                               langAcronTO1.setLaaAcronym(atribs[3]);   
-                            }                                    
-                            transLangTO.setLangAcronymsTO1(langAcronTO1);;
-                            transLangTOList.add(transLangTO);
-                                                            
-                        }                     
-                        empleado.setTransLanguaguesTOList(transLangTOList);
-                    }   */
+  
                     for(String aux:empleadosTipos){                                                                
                        if (aux.equalsIgnoreCase("Traductor")){
                             String traId = request.getParameter("traId");
@@ -324,12 +281,10 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                 String tarifasHidden[]=request.getParameterValues("tarifas-hidden");
                 List<EmployeesRatesTO> employeesRatesTOList = new   ArrayList<EmployeesRatesTO>();
                 
-                if( tarifasHidden  != null){ 
-                                       
+                if( tarifasHidden  != null){                                        
                     for(String aux:tarifasHidden){
                         
-                        String atribs[]= aux.split("#");
-                        
+                        String atribs[]= aux.split("#");                        
                         EmployeesRatesTO employeesRatesTO = new EmployeesRatesTO();
                         employeesRatesTO.setEmrValue(Double.parseDouble(atribs[1].replaceAll(",",".")));
                         RatesTO rtTO= new RatesTO();
@@ -381,14 +336,11 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
             else if(empId != null && empId.length() > 0  && (accion == null ))//|| (accion!=null && !accion.equalsIgnoreCase("cancelar")) ))
             {                        
                  try {
-                         empleado =  twoWaysBDL.getServiceTwoWays().getEmpById(empId);
-                         
-                         request.setAttribute("empleado",empleado);
-                         
+                         empleado =  twoWaysBDL.getServiceTwoWays().getEmpById(empId);                         
+                         request.setAttribute("empleado",empleado);                         
                          List idiomasEmpleado = null;
                          idiomasEmpleado =  twoWaysBDL.getServiceTwoWays().getLangByEmpId(Long.parseLong(empId));
-                         request.setAttribute("idiomasTraductor",idiomasEmpleado); 
-                         
+                         request.setAttribute("idiomasTraductor",idiomasEmpleado);                         
                          List empTypes = empleado.getEmployeesTypesTOList();
                          if (empTypes != null && empTypes.size() > 0){                        
                             for(Object employeesTypesTO: empTypes.toArray() ){ 
@@ -398,10 +350,6 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                                      traductor = twoWaysBDL.getServiceTwoWays().getTraByEmpId(empId);
                                      if (traductor != null){
                                          request.setAttribute("traductor",traductor);
-                                        /* List idiomasTraductor = null;
-                                         idiomasTraductor =  twoWaysBDL.getServiceTwoWays().getLangByTradId(traductor.getTraId());
-                                         request.setAttribute("idiomasTraductor",idiomasTraductor); */
-                                         
                                      }
                                 }
                              }
