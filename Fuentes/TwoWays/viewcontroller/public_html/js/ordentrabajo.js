@@ -193,8 +193,9 @@ function validarCampos()
         mensajeFaltanteAlert+=' * Seleccionar un cliente del combo \n';    
         banderaMensajeFaltante=true;
     }
-
     
+    
+        
     if( document.getElementById("ordDescription").value == '')
     {
        
@@ -203,7 +204,13 @@ function validarCampos()
         banderaMensajeFaltante=true;
     }
 
-
+    if( document.getElementById("ordWoNumber").value != '' && !isFloat(document.getElementById("ordWoNumber").value) )
+    {
+       
+       document.getElementById("ordWoNumber").style.background='Red';
+        mensajeFaltanteAlert+= ' * "WO Number debe ser numerico \n';
+        banderaMensajeFaltante=true;
+    }
 
 
 

@@ -300,11 +300,11 @@ public class ServiceTW_System {
     }
 
 
-    public Long existenTarifas(Long empId) {
+    public Long existenTarifas(Long empId, String serv) {
 
         List<EmployeesRatesTO> emps = new ArrayList();
         try {
-            emps = twoWaysBDL.getServiceTwoWays().getEmpRatesByEmpId(empId);
+            emps = twoWaysBDL.getServiceTwoWays().getEmpRatesByEmpId(empId,serv);
         } catch (Exception e) {
             e.printStackTrace();
             log.error(e, e);

@@ -3,6 +3,7 @@ package com.twoways.view.servlets;
 import com.twoways.core.bdl.TwoWaysBDL;
 import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.ClientsTO;
+import com.twoways.to.DocTypes;
 import com.twoways.to.OrdersDocsTO;
 import com.twoways.to.OrdersRatesTO;
 import com.twoways.to.OrdersTO;
@@ -12,6 +13,9 @@ import com.twoways.to.RatesTO;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.FileOutputStream;
+
+import java.io.FileWriter;
 
 import java.text.SimpleDateFormat;
 
@@ -84,9 +88,18 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
         
         
         List<FileItem> files= (List<FileItem>) pRequest.get("Files");
+        Map docTypesMap = new HashMap();
+        
+        if(files !=null){
+            for(FileItem file : files){
+                
+                docTypesMap.put(file.getName(),mRequest.get(file.getName())); 
+            }
+        }
         String accion=(mRequest.get("accion")!= null )?mRequest.get("accion").toString():"";
         List<ClientsTO> clientes = null;
         List<RateTypesTO> services = null;
+        List  <DocTypes>  docTypes= null;
        /* ClientsTO cliente = new Clients
         * TO(); 
         String cliId = request.getParameter("cliId"); 
@@ -101,12 +114,14 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
            rateType.setRtyName("Cliente");
            tarifas =  twoWaysBDL.getServiceTwoWays().getRateByType(rateType);
            clientes= twoWaysBDL.getServiceTwoWays().obtenerClientes();
-           //services= twoWaysBDL.getServiceTwoWays().obtenerServicios();
-           services = twoWaysBDL.getServiceTwoWays().obtenerTipoTarifas();
+           services= twoWaysBDL.getServiceTwoWays().obtenerServicios();
+           docTypes = twoWaysBDL.getServiceTwoWays().obtenerTipoDocumentos();
+           //services = twoWaysBDL.getServiceTwoWays().obtenerTipoTarifas();
             
            request.setAttribute("listaTarifa",tarifas);
            request.setAttribute("listaCliente",clientes);
            request.setAttribute("listaService",services);
+           request.setAttribute("listaDocTypes",docTypes);
             String ordId = request.getParameter("ordId");
             OrdersTO order=  null;
             if (ordId != null &&  ordId.length() > 0 ){
@@ -186,6 +201,7 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
             ordersTO.setOrdJobName((mRequest.get("ordJobName")!= null )?mRequest.get("ordJobName").toString():""); 
             ordersTO.setOrdName((mRequest.get("ordName")!= null )?mRequest.get("ordName").toString():"");
             ordersTO.setFiles(files);
+            ordersTO.setDocTypesSelected(docTypesMap);
             Object tarifasHidden[]=null;
             
             if(mRequest.get("tarifas-hidden") != null && mRequest.get("tarifas-hidden") instanceof ArrayList){
@@ -361,8 +377,26 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                              * Handle Form Fields.
                              */
                             
-                            if(item.isFormField()) {
+                             if (item.getFieldName().startsWith("file") ){
+                                 File file = new File(TMP_DIR_PATH+"\\"+ item.getFieldName());
+                                 
+                                 FileOutputStream fos= new FileOutputStream(file);
+                                 fos.write("Por favor descargue el archivo desde nuestro FTP".getBytes());
+                                 fos.close();
+                                 item.setFormField(false);
+                                
+                                try {
+                                    item.write(file);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                             }
                             
+                            
+                            if(item.isFormField()) {
+                                 
+                                
+                                 
                                  if (parametros.get(item.getFieldName()) ==null){
                                     parametros.put(item.getFieldName(),item.getString());
                                  }else{

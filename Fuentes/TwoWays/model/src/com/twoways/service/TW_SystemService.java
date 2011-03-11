@@ -5,6 +5,7 @@ import com.twoways.to.AccountsTO;
 import com.twoways.to.ClientResponsableTO;
 import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.ClientsTO;
+import com.twoways.to.DocTypes;
 import com.twoways.to.EmployeesRatesTO;
 import com.twoways.to.EmployeesTO;
 import com.twoways.to.ExpensesTO;
@@ -20,6 +21,8 @@ import com.twoways.to.RatesTO;
 
 import com.twoways.to.TranslatorsTO;
 import com.twoways.to.UsersTO;
+
+import java.sql.SQLException;
 
 import java.util.List;
 import java.util.Map;
@@ -211,4 +214,8 @@ public interface TW_SystemService {
     public Map getCostPA(ProjectAssignmentsTO projectAssignmentsTO)throws Exception;
     
     public List getItemsExpenseByEmpId(String empId,String itmFecha) throws Exception;
+
+    public List<EmployeesRatesTO> getEmpRatesByEmpId(Long empId, String serv) throws Exception;
+    
+    public List<DocTypes> obtenerTipoDocumentos() throws Exception;
 }

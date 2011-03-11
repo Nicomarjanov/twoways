@@ -79,17 +79,17 @@
     </tr>
     <tr>
          <td colspan="100%" align="left">
-            <img style="position:absolute"  src="img/bottom.png" id="aMas" onclick="javascript:mostrarOpcionales();"  title="Agregar más datos" alt="Mas datos " width="15" height="15" onmouseover="this.style.cursor='hand';"/>
-            <img id="aMenos"  style="border:0;display:none;position:absolute"  onclick="javascript:ocultarOpcionales();" title="Contraer" src="img/top.png" alt="Menos" width="15" height="15" onmouseover="this.style.cursor='hand';"/>
+            <img style="position:absolute;display:none;"  src="img/bottom.png" id="aMas" onclick="javascript:mostrarOpcionales();"  title="Agregar más datos" alt="Mas datos " width="15" height="15" onmouseover="this.style.cursor='hand';"/>
+            <img id="aMenos"  style="border:0;display:block;position:absolute"  onclick="javascript:ocultarOpcionales();" title="Contraer" src="img/top.png" alt="Menos" width="15" height="15" onmouseover="this.style.cursor='hand';"/>
          </td>
     </tr>
-    <tr id="trOpcionales1" style="display:none">
+    <tr id="trOpcionales1" style="display:block">
          <td nowrap align="right" >Proyecto:</td><td><input type="text" class="tw_form" name="ordProjId" id="ordProjId"  value="<c:out value="${order.ordProjId}" />"  /> </td>
          <td nowrap align="right" >WO Number</td><td><input type="text" class="tw_form" name="ordWoNumber" id="ordWoNumber" size="10"  value="<c:out value="${order.ordWoNumber}" />"  /> </td>
          <td nowrap align="right" >Job Id:</td><td><input type="text" class="tw_form" name="ordJobId" id="ordJobId"  value="<c:out value="${order.ordJobId}" />" /> </td>
          <td nowrap align="right" >Job Name:</td><td><input type="text" class="tw_form" name="ordJobName" id="ordJobName"  value="<c:out value="${order.ordJobName}" />" /></td>
     </tr>
-    <tr id="trOpcionales2" style="display:none">
+    <tr id="trOpcionales2" style="display:block">
         <td nowrap align="right" >Job Description:</td>
         <td colspan="7"><textarea  rows="3" cols="109"   onkeyup="limitarArea()" class="tw_form" name="ordJobDescription" id="ordJobDescription" ><c:out value="${order.ordJobDescription}" /></textarea></td>
     </tr>    
@@ -109,7 +109,7 @@
                    <select multiple="multiple" size="4"  name="listaServices" id="listaServices" style="border:solid 1px #005C8D;width:200px; font-size: 9px;" onfocus="javascript:this.style.background='#FFFFFF';">                                            
                     <c:forEach items="${listaService}" var="item">
                           <option value="<c:out value="${item.rtyName}" />" style="background-color:#A4BAC7;">
-                            <c:out value="${item.rtyName}" />
+                            <c:out value="${item.rtyAlternativeName}" />
                         </option> 
                     </c:forEach>
                   </select>      
@@ -130,7 +130,7 @@
                     <select name="listaItemsSelect" id="listaItemsSelect" size="4" multiple="multiple" style="border:solid 1px #005C8D;width:200px; font-size: 9px;" >
                     <c:forEach items="${order.servicesTOList}" var="item">
                            <option value="<c:out value="${item.rtyName}" />" title="<c:out value="${item.rtyName}"/>">
-                             <c:out value="${item.rtyName}" />
+                             <c:out value="${item.rtyAlternativeName}" />
                           </option> 
                     </c:forEach>
                     </select>

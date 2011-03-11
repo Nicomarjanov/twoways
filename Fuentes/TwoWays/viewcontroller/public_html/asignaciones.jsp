@@ -57,12 +57,12 @@
                    <c:choose>
                     <c:when test="${projectAssignmentsTO.serviceTO.rtyName == item.rtyName}">
                        <option value="<c:out value="${item.rtyName}" />"  selected="selected">
-                        <c:out value="${item.rtyName}" />
+                        <c:out value="${item.rtyAlternativeName}" />
                       </option> 
                     </c:when>
                     <c:otherwise>
                     <option value="<c:out value="${item.rtyName}" />" >
-                        <c:out value="${item.rtyName}" />
+                        <c:out value="${item.rtyAlternativeName}" />
                     </option>
                     </c:otherwise>
                     </c:choose>

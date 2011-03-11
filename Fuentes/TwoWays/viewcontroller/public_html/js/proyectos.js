@@ -365,11 +365,12 @@ function findEmployees(){
 
 
 function changeEmployees(){
-    
+    var listaServices = document.getElementById('listaServices');
+    var rateName= listaServices.options[listaServices.selectedIndex].value; 
     var listaEmployees = document.getElementById('listaEmployees');
     var empId= listaEmployees.options[listaEmployees.selectedIndex].value; 
     towaysDWR.getTranslatorsLanguaguesTOByEmpId(empId,changeEmployeesCallBack);
-    towaysDWR.existenTarifas(empId,verificarTarifasCallBack);
+    towaysDWR.existenTarifas(empId,rateName,verificarTarifasCallBack);
     existeDisponbilidad();
 
 }
@@ -759,17 +760,19 @@ function calcularTotalDetalle(id,praId){
 
 
 function calcularTotalPalabras(praId){
-
+    
     var padWCount= document.getElementsByName('padWCount-'+praId);
+    
     var praTotalAmount=document.getElementById('praTotalAmount-'+praId); 
+    
     var acum =0; 
     
     for(var i=0; i< padWCount.length; i++){
-       
-       acum+=parseFloat((padWCount[i].value=='')?padWCount[i].value:0);  
+       acum+=parseFloat((padWCount[i].value!='')?padWCount[i].value:0);  
     }
     
     acum = Math.round(acum* 100)/100;
+    
     praTotalAmount.value = acum;
 }
 

@@ -490,6 +490,16 @@
    </hash>
    <hash n="oracle.jdevimpl.webapp.jsp.libraries.model.ProjectTagLibraries">
       <hash n="libraries">
+         <hash n="WEB-INF\fn.tld">
+            <value n="jspVersion" v=""/>
+            <value n="name" v="JSTL Functions"/>
+            <value n="prefix" v="fn"/>
+            <value n="runInEditor" v="false"/>
+            <value n="showInPalette" v="false"/>
+            <value n="tldURL" v="WEB-INF/fn.tld"/>
+            <value n="URI" v="http://java.sun.com/jsp/jstl/functions"/>
+            <value n="version" v="1.1"/>
+         </hash>
          <hash n="WEB-INF\lib\spring-1.2.8.jar!\META-INF\spring.tld">
             <value n="jspVersion" v="1.2"/>
             <value n="name" v="spring"/>

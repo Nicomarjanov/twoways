@@ -108,7 +108,7 @@
        </select> 
     </td>
     <td align="right" >&nbsp;Costo Total</td>
-    <td>&nbsp;<input type="text" style="WIDTH: 70px;text-align:right;" readonly  name="pro-<c:out value="${assi.praId}" />"  id="tarifXunid-<c:out value="${assiDet.padId}" />" value="<fmt:formatNumber  maxFractionDigits="2"  pattern="##########.##"    value="${costoTotalProyecto}" />" /></td>
+    <td>&nbsp;<input type="text" style="WIDTH: 70px;text-align:right;" readonly  name="pro-<c:out value="${assi.praId}" />"  id="tarifXunid-<c:out value="${assiDet.padId}" />" value="<fmt:formatNumber  maxFractionDigits="2"  pattern="##########.#####"    value="${costoTotalProyecto}" />" /></td>
     </tr>
     </tbody>
     </table>
@@ -146,7 +146,7 @@
           <c:otherwise>&nbsp;</c:otherwise>
          </c:choose>
       </th>
-      <th align="center"> <input type="text"  style="WIDTH: 70px;text-align:right;"  name="totalAmount-<c:out value="${assi.praId}" />" readonly  id="totalAmount-<c:out value="${assi.praId}" />" value="<fmt:formatNumber  maxFractionDigits="2"  pattern="##########.##"   value="${costosMap[assi.praId]}" />" /></th>
+      <th align="center"> <input type="text"  style="WIDTH: 70px;text-align:right;"  name="totalAmount-<c:out value="${assi.praId}" />" readonly  id="totalAmount-<c:out value="${assi.praId}" />" value="<fmt:formatNumber  maxFractionDigits="2"  pattern="##########.#####"   value="${costosMap[assi.praId]}" />" /></th>
       <th ><c:out value="${project.currencyTO.curName}" /></th> 
       <th  nowrap align="right">
              <img alt="Enviar Mail"  src="img/email.png" title="Enviar Asignación"  onclick="enviarAsignacionOpen(<c:out value="${assi.praId}" />)" width="15" height="15" onmouseover="this.style.cursor='hand';"/></img>  
@@ -196,15 +196,15 @@
          
          </td>
          <td> <c:out value="${assiDet.employeesRatesTO.ratesTO.ratName}" /></td>
-         <td align="center" ><input type="text" style="WIDTH: 70px;text-align:right;" onblur="calcularTotalDetalle('<c:out value="${assiDet.padId}" />','<c:out value="${assi.praId}" />')" name="padRate-<c:out value="${assiDet.padId}" />" id="padRate-<c:out value="${assiDet.padId}" />" value="<fmt:formatNumber maxFractionDigits="2"  pattern="##########.##"    value="${assiDet.padRate}" />" /></td>
+         <td align="center" ><input type="text" style="WIDTH: 70px;text-align:right;" onblur="calcularTotalDetalle('<c:out value="${assiDet.padId}" />','<c:out value="${assi.praId}" />')" name="padRate-<c:out value="${assiDet.padId}" />" id="padRate-<c:out value="${assiDet.padId}" />" value="<fmt:formatNumber maxFractionDigits="2"  pattern="##########.#####"    value="${assiDet.padRate}" />" /></td>
          <td align="center" ><input type="hidden"  id="curId-<c:out value="${assiDet.padId}" />" value="<c:out   value="${cotizaciones[assiDet.employeesRatesTO.ratesTO.currencyTO.curId]}" />" /><c:out   value="${assiDet.employeesRatesTO.ratesTO.currencyTO.curSymbol}" /></td>
          <td>
              <c:choose>
              <c:when test="${not empty assiDet.padWCount && not empty assiDet.padRate}">
-                   <input type="text" style="WIDTH: 70px;text-align:right;" readonly  name="tarifXunid-<c:out value="${assi.praId}" />"  id="tarifXunid-<c:out value="${assiDet.padId}" />" value="<fmt:formatNumber  maxFractionDigits="2"  pattern="##########.##"    value="${assiDet.padWCount * assiDet.padRate}" />" />
+                   <input type="text" style="WIDTH: 70px;text-align:right;" readonly  name="tarifXunid-<c:out value="${assi.praId}" />"  id="tarifXunid-<c:out value="${assiDet.padId}" />" value="<fmt:formatNumber  maxFractionDigits="2"  pattern="##########.#####"    value="${assiDet.padWCount * assiDet.padRate}" />" />
              </c:when>
              <c:otherwise>
-                   <input type="text" style="WIDTH: 70px;text-align:right;" readonly  name="tarifXunid-<c:out value="${assi.praId}" />"  id="tarifXunid-<c:out value="${assiDet.padId}" />" value="<fmt:formatNumber maxFractionDigits="2"   pattern="##########.##"  value="${0}" />" />
+                   <input type="text" style="WIDTH: 70px;text-align:right;" readonly  name="tarifXunid-<c:out value="${assi.praId}" />"  id="tarifXunid-<c:out value="${assiDet.padId}" />" value="<fmt:formatNumber maxFractionDigits="2"   pattern="##########.#####"  value="${0}" />" />
              </c:otherwise>
              </c:choose>
           </td>
