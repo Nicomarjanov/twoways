@@ -18,6 +18,20 @@ public class RateTypesDAOImpl  extends AbstractDAO  implements RateTypesDAO {
         }
         return ret;
     }
+    
+    
+    public List obtenerTipoServicios() throws Exception {
+        List ret= null;
+        try {
+            ret = 
+            getSqlMapClientTemplate().queryForList("obtenerServicios","");
+        } catch (DataAccessException dae) {
+
+           dae.printStackTrace();
+        }
+        return ret;
+    }
+
 
 
 }

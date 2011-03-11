@@ -10,6 +10,7 @@ import com.twoways.service.CalendarGoogleService;
 import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.ClientsTO;
 
+import com.twoways.to.DocTypes;
 import com.twoways.to.OrdersDocsTO;
 import com.twoways.to.OrdersRatesTO;
 import com.twoways.to.OrdersTO;
@@ -56,8 +57,8 @@ import org.apache.log4j.Logger;
 public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
     public OrdersDAOImpl() {
     }
-
-
+    
+   
     private void insertFiles(OrdersTO order) throws IOException {
 
         List<FileItem> files = order.getFiles();
@@ -78,6 +79,10 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
                                                                    "");
                 ordersDocsTO.setOrdersOrdId(order.getOrdId());
                 ordersDocsTO.setOdoId(odoId);
+                
+                DocTypes auxDocType= new DocTypes();
+                auxDocType.setDotId(order.getDocTypesSelected().get(file.getName()).toString());
+                ordersDocsTO.setDocType(auxDocType);
 
                 try {
                     byte[] b = new byte[(int)file.getSize()];
@@ -476,6 +481,9 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
       
         return results;
     }
+    
+    
+  
 
 
 }

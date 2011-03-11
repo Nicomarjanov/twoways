@@ -49,6 +49,10 @@
         <property name="expensesDao">
             <ref bean="expensesDAO"/>
         </property> 
+         <property name="docTypesDao">
+            <ref bean="docTypesDAO"/>
+        </property> 
+        
     </bean>
 
     <!-- declaracion de los servicios, utilizando proxy para el manejo de transacciones -->

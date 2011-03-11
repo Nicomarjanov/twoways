@@ -22,6 +22,13 @@ function agregarDocumento(){
      return;
    }
    
+   if(document.getElementById("listaDocTypes").selectedIndex==0)
+    {
+        alert('Seleccione el tipo de documento'); 
+        return;  
+    }
+
+   
     
     
    if(document.getElementById('ordId-'+idDoc)){
@@ -34,7 +41,7 @@ function agregarDocumento(){
        var newRow = tablaDocumentos.insertRow(index);  
         
        newRow.bgColor = "#FFFFFF";
-       insertarColumnas(tablaDocumentos.rows[index],2); 
+       insertarColumnas(tablaDocumentos.rows[index],3); 
        cargarItemDocumento(tablaDocumentos.rows[index]);
      
        
@@ -45,10 +52,11 @@ function agregarDocumento(){
 function cargarItemDocumento(row){
    
    var nameDoc=document.getElementById('doc_name');
+   var typeDoc= document.getElementById("listaDocTypes").options[ document.getElementById("listaDocTypes").selectedIndex];
    var idDoc= nameDoc.value.substring( nameDoc.value.lastIndexOf("\\")+1) ;
    row.name = 'item-documento'; 
    row.id= 'ordId-'+ idDoc;
-   row.cells[1].innerHTML= idDoc + '<span style="display:none" ><input type="text" name="documentos-hidden"  value="'+nameDoc.value+'" /></span> ';
+   row.cells[1].innerHTML= idDoc + '<span style="display:none" ><input type="text" name="documentos-hidden"  value="'+nameDoc.value+'" /><input type="text" name="'+idDoc+'"  value="'+typeDoc.value+'" /></span>';
    nameDoc.id='file'+idDoc;
    nameDoc.name='file'+idDoc;
    nameDoc.style.display='none';
@@ -58,9 +66,13 @@ function cargarItemDocumento(row){
    row.cells[0].width=46;
    row.cells[0].align='right';
    nameDoc.src='';
+   row.cells[2].innerHTML= typeDoc.text;  
    var tdIn=document.getElementById('tdIn');
-   tdIn.innerHTML='<input type="file"   onchange="agregarDocumento()" class="tw_form" id="doc_name" size=30    /> '; 
-  
+   if(typeDoc.value =='FTP'){
+    tdIn.innerHTML='<input type="text"  class="tw_form" id="doc_name" size=30    /> '; 
+   }else{
+    tdIn.innerHTML='<input type="file"  class="tw_form" id="doc_name" size=30    /> '; 
+   }
    
 }
 
@@ -72,4 +84,21 @@ function eliminarDocumento(id){
    
    tablaDocumentos.deleteRow(row.rowIndex);
   
+}
+
+
+function cambioTipo(){
+ 
+ var typeDoc= document.getElementById("listaDocTypes").options[ document.getElementById("listaDocTypes").selectedIndex];
+ var tdIn=document.getElementById('tdIn');
+  
+ if(typeDoc.value =='FTP' ){
+     tdIn.innerHTML='<input type="text"  class="tw_form" id="doc_name" size=30    /> '; 
+ 
+ }else{
+     tdIn.innerHTML='<input type="file"  class="tw_form" id="doc_name" size=30    /> '; 
+  
+ }
+ 
+ 
 }

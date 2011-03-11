@@ -10,6 +10,8 @@ public class OrdersDocsTO {
     private String odoName;
     private Long ordersOrdId;
     private byte[] odoDoc; 
+    private DocTypes docType;
+    
 
     public OrdersDocsTO() {
     }
@@ -47,5 +49,13 @@ public class OrdersDocsTO {
 
     public byte[] getOdoDoc() {
         return odoDoc;
+    }
+
+    public void setDocType(DocTypes docType) {
+        this.docType = docType;
+    }
+
+    public DocTypes getDocType() {
+        return docType;
     }
 }

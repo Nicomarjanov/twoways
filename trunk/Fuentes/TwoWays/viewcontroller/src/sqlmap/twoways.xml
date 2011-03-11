@@ -17,6 +17,7 @@
      from 
      Clients 
      WHERE CLI_ERASE_DATE is null
+     order by CLI_NAME
      
   </select>  
   
@@ -127,7 +128,8 @@
       <result property="ratesTO.ratId" column="RAT_ID" />
       <result property="ratesTO.ratDescription" column="RAT_DESCRIPTION"/>
       <result property="ratesTO.ratName"   column="RAT_NAME" />
-      <result property="ratesTO.rateTypesTO.rtyName" column="RAT_TYPE"  />
+      <result property="ratesTO.rateTypesTO.rtyName" column="RAT_TYPE"  /> 
+      <result property="ratesTO.rateTypesTO.rtyAlternativeName" column="RTY_ALERNATIVE_NAME"  />
       <result property="ratesTO.currencyTO.curId" column="cur_id"  />
       <result property="ratesTO.currencyTO.curSymbol" column="cur_symbol"  />
    </resultMap>
@@ -143,8 +145,8 @@
    </resultMap>   
   
   <statement  id="getClientRatesByCliId" resultMap="select-Cli-Rates"  parameterClass="com.twoways.to.ClientsTO" >
-     select * from (clients_rates cr join rates r on cr.rates_rat_id = r.rat_id ) left outer join currency cur
-     on r.currency_cur_id =  cur.cur_id
+     select * from ((clients_rates cr join rates r on cr.rates_rat_id = r.rat_id ) left outer join currency cur
+     on r.currency_cur_id =  cur.cur_id ) left outer join rate_types rt on rt.rty_name = r.rat_type
      where    cr.clients_cli_id=#cliId# 
     
   </statement>     
@@ -194,6 +196,14 @@
      from 
      Employees
      order by emp_last_name desc
+
+  </select>
+  
+  
+  <select id="obtenerTiposDocumentos"  resultClass="com.twoways.to.DocTypes" parameterClass="java.lang.String">
+     select dot_id as dotId, dot_name as dotName, dot_description as dotDescription  
+     from doc_types t
+     order by dot_name 
 
   </select>
   
@@ -394,6 +404,7 @@
       <result property="ratName"   column="RAT_NAME" />
       <result property="ratEraseDate" column="RAT_ERASE_DATE" />
       <result property="rateTypesTO.rtyName" column="RAT_TYPE"  />
+      <result property="rateTypesTO.rtyAlternativeName" column="RTY_ALERNATIVE_NAME"  />
       <result property="currencyTO.curName" column="cur_Name" />    
       <result property="currencyTO.curId" column="cur_Id" />
       <result property="currencyTO.curSymbol" column="cur_symbol" />
@@ -402,8 +413,8 @@
   <select id="obtenerTarifas"  parameterClass="java.lang.String" resultMap="select-Rate-List">
      select *
      from 
-     Rates r, Currency c
-     where r.currency_cur_id = c.cur_id     
+     Rates r, Currency c, rate_types rt
+     where r.currency_cur_id = c.cur_id and rt.rty_name = r.rat_type    
   </select>
   
   <select  id="rates.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > 
@@ -430,21 +441,35 @@
   <select id="obtenerTipoTarifas"  parameterClass="java.lang.String" resultClass="com.twoways.to.RateTypesTO">
      select 
         RTY_NAME as rtyName,
-        RTY_DESCRIPTION as rtyDescription
+        RTY_DESCRIPTION as rtyDescription,
+        RTY_ALERNATIVE_NAME as rtyAlternativeName
      from 
      Rate_Types
      
   </select>
+  
+    <select id="obtenerServicios"  parameterClass="java.lang.String" resultClass="com.twoways.to.RateTypesTO">
+     select 
+        RTY_NAME as rtyName,
+        RTY_DESCRIPTION as rtyDescription,
+        RTY_ALERNATIVE_NAME as rtyAlternativeName
+     from 
+     Rate_Types
+     where upper(RTY_NAME) <![CDATA[ <> ]]> 'CLIENTE'
+     
+  </select>
+  
+  
     
  <select  id="getRatesByType" parameterClass="com.twoways.to.RateTypesTO" resultMap="select-Rate-List">
      select *
-     from Rates r left outer  join Currency c on r.currency_cur_id = c.cur_id
+     from (Rates r left outer  join Currency c on r.currency_cur_id = c.cur_id)  left outer join rate_types rt on r.rat_type = rt.rty_name
      where rat_type = #rtyName#
  </select>   
     
  <select  id="getRateById" parameterClass="java.lang.String" resultMap="select-Rate-List">
      select *
-     from Rates r left outer  join Currency c on r.currency_cur_id = c.cur_id
+     from (Rates r left outer  join Currency c on r.currency_cur_id = c.cur_id )  left outer join rate_types rt on r.rat_type = rt.rty_name
      where rat_id = #value#
  </select>
 
@@ -456,8 +481,9 @@
 
   <statement id="buscarTarifas" resultMap="select-Rate-List"  parameterClass="java.lang.String" >
      select *       
-     from rates, currency 
+     from rates, currency  , rate_types
      where rates.currency_cur_id = currency.cur_id
+     and rates.rat_type= rate_types.rty_name 
      and upper(rates.RAT_NAME) like '%' || upper( #value#) || '%'
      order by rates.RAT_NAME
      
@@ -739,7 +765,9 @@
  <select id="obtenerServices"  parameterClass="java.lang.String" resultClass="com.twoways.to.ServicesTO">
      select ser_id as serId , ser_name as serName , ser_description  as serDescription from services
      
-  </select>  
+  </select> 
+  
+  
   
   
   <select  id="orders.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > 
@@ -763,9 +791,9 @@
       
   <insert id="insertOrderDoc" parameterClass="com.twoways.to.OrdersDocsTO" >
     insert into orders_docs
-      (odo_id, odo_name, orders_ord_id, odo_doc)
+      (odo_id, odo_name, orders_ord_id, odo_doc,doc_types_dot_id)
      values
-      (#odoId#, #odoName#, #ordersOrdId#,  #odoDoc#)
+      (#odoId#, #odoName#, #ordersOrdId#,  #odoDoc#, #docType.dotId#)
   </insert>
   
   
@@ -798,6 +826,8 @@
       <result property="odoId" column="odo_id" />
       <result property="odoName" column="odo_name"/>
       <result property="ordersOrdId"   column="orders_Ord_Id" />
+      <result property="docType.dotId"   column="dot_id" />
+      <result property="docType.dotName"   column="dot_name" />
       <result property="odoDoc" column="odo_doc"  jdbcType="BLOB" />
   </resultMap>
   
@@ -810,12 +840,12 @@
   </statement>
   
   <statement id="getOrderDocById" parameterClass="java.lang.Long" resultMap="select-order-doc" >
-    select * from  orders_docs
+    select * from  orders_docs  odo left outer join doc_types dot  on odo.doc_types_dot_id = dot_id
     where odo_id = #odoId#
   </statement>
   
   <statement id="getOrderDocByOrder" parameterClass="java.lang.Long" resultMap="select-order-doc" >
-    select * from  orders_docs
+    select * from  orders_docs odo left outer join doc_types dot  on odo.doc_types_dot_id = dot_id
     where orders_Ord_Id = #ordersOrdId#
   </statement>
   
@@ -826,13 +856,14 @@
       <result property="ratesTO.ratDescription" column="RAT_DESCRIPTION"/>
       <result property="ratesTO.ratName"   column="RAT_NAME" />
       <result property="ratesTO.rateTypesTO.rtyName" column="RAT_TYPE"  />
+      <result property="ratesTO.rateTypesTO.rtyAlternativeName" column="RTY_ALERNATIVE_NAME"  />
       <result property="ratesTO.currencyTO.curId" column="cur_id"  />
       <result property="ratesTO.currencyTO.curSymbol" column="cur_symbol"  />
    </resultMap>
   
   <statement  id="getOrderRatesByOrderId" resultMap="select-Ord-Rates"  parameterClass="com.twoways.to.OrdersTO" >
-     select * from (orders_rates ord join rates r on ord.rates_rat_id = r.rat_id)left outer join currency cur on 
-     r.currency_cur_id = cur.cur_id
+     select * from ((orders_rates ord join rates r on ord.rates_rat_id = r.rat_id)left outer join currency cur on 
+     r.currency_cur_id = cur.cur_id)  left outer join rate_types rt on  r.rat_type= rt.rty_name
      where  ord.orders_ord_id=#ordId#
   </statement>    
   
@@ -845,8 +876,7 @@
   </insert>
   
     <statement  id="getOrderServicesByOrderId" resultClass="com.twoways.to.RateTypesTO"   parameterClass="com.twoways.to.OrdersTO"  >
-            select s.rty_name as rtyName,
-            s.rty_description as  rtyDescription
+            select s.rty_name as rtyName,s.rty_description as  rtyDescription,s.RTY_ALERNATIVE_NAME  as rtyAlternativeName
             from order_services ord join rate_types s on ord.rate_types_rty_name = s.rty_name and ord.orders_ord_id=#ordId#
   </statement> 
     

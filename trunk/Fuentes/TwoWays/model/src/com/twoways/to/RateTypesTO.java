@@ -4,6 +4,7 @@ public class RateTypesTO {
 
     private String rtyName;
     private String rtyDescription;
+    private String rtyAlternativeName;
     
     public RateTypesTO() {    
     }
@@ -21,5 +22,13 @@ public class RateTypesTO {
     
     public void setRtyDescription(String rtyDescription){
         this.rtyDescription = rtyDescription;
-    }    
+    }
+
+    public void setRtyAlternativeName(String rtyAleternativeName) {
+        this.rtyAlternativeName = rtyAleternativeName;
+    }
+
+    public String getRtyAlternativeName() {
+        return rtyAlternativeName;
+    }
 }

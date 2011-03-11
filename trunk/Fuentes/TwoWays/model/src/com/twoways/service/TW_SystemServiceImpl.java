@@ -3,6 +3,7 @@ package com.twoways.service;
 import com.twoways.dao.AccountDAO;
 import com.twoways.dao.ClientDAO;
 import com.twoways.dao.CurrencyDAO;
+import com.twoways.dao.DocTypesDAO;
 import com.twoways.dao.EmployeeDAO;
 import com.twoways.dao.ExpenseDAO;
 import com.twoways.dao.ExpensesDAOImpl;
@@ -22,6 +23,7 @@ import com.twoways.to.ClientResponsableTO;
 import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.ClientsTO;
 import com.twoways.to.CurrencyTO;
+import com.twoways.to.DocTypes;
 import com.twoways.to.EmployeesRatesTO;
 import com.twoways.to.EmployeesTO;
 import com.twoways.to.ExpensesTO;
@@ -37,6 +39,7 @@ import com.twoways.to.RatesTO;
 import com.twoways.to.TranslatorsTO;
 import com.twoways.to.UsersTO;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
 
 import java.text.MessageFormat;
@@ -65,6 +68,7 @@ public class TW_SystemServiceImpl implements TW_SystemService {
     private LanguagueDAO languagueDao;
     private AccountDAO accountDao;
     private ExpenseDAO expensesDao;
+    private DocTypesDAO docTypesDao;
 
 
     public TW_SystemServiceImpl() {
@@ -312,7 +316,9 @@ public class TW_SystemServiceImpl implements TW_SystemService {
     }
 
     public List obtenerServicios() throws Exception {
-        return serviceDao.obtenerServices();
+        
+       
+        return this.rateTypesDao.obtenerTipoServicios();
     }
 
     public void setTranslatorDao(TranslatorDAO translatorDao) {
@@ -702,8 +708,23 @@ public class TW_SystemServiceImpl implements TW_SystemService {
     public List getItemsExpenseByEmpId(String empId,String itmFecha) throws Exception{
         return this.expensesDao.getItemsExpenseByEmpId(empId,itmFecha);
     }
+
+
+    public List<EmployeesRatesTO> getEmpRatesByEmpId(Long empId, String serv) throws Exception {
+        return this.getEmpRatesByEmpIdRateName(empId,serv);
+    }
     
-    
+    public List<DocTypes> obtenerTipoDocumentos() throws Exception{
+         return this.docTypesDao.obtenerTipoDocumentos(); 
+    }
+
+    public void setDocTypesDao(DocTypesDAO docTypesDao) {
+        this.docTypesDao = docTypesDao;
+    }
+
+    public DocTypesDAO getDocTypesDao() {
+        return docTypesDao;
+    }
 }
 
 

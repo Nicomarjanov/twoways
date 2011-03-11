@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 
 import java.util.List;
 
+import java.util.Map;
+
 import org.apache.commons.fileupload.FileItem;
 
 
@@ -14,7 +16,7 @@ public class OrdersTO {
     private Timestamp ordStartDate;
     private Timestamp ordFinishDate;
     private Timestamp ordDeadLineDate;
-    
+   
     
     //(name="ORD_DESCRIPTION")
     private String ordDescription;
@@ -42,6 +44,8 @@ public class OrdersTO {
     private List<RateTypesTO> servicesTOList;
     
     private List<FileItem> files; 
+    private Map docTypesSelected;
+    
 
     public OrdersTO() {
     }
@@ -231,5 +235,13 @@ public class OrdersTO {
 
     public List<RateTypesTO> getServicesTOList() {
         return servicesTOList;
+    }
+
+    public void setDocTypesSelected(Map docTypesSelected) {
+        this.docTypesSelected = docTypesSelected;
+    }
+
+    public Map getDocTypesSelected() {
+        return docTypesSelected;
     }
 }
