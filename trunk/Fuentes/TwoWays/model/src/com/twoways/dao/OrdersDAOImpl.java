@@ -71,8 +71,8 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
                 //statement= con.createStatement(); 
                 OrdersDocsTO ordersDocsTO = new OrdersDocsTO();
 
-                ordersDocsTO.setOdoName(file.getName().substring(file.getName().lastIndexOf("\\") + 
-                                                                 1));
+                 
+                                                                 
 
                 Long odoId = 
                     (Long)getSqlMapClientTemplate().queryForObject("order.seq", 
@@ -83,6 +83,12 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
                 DocTypes auxDocType= new DocTypes();
                 auxDocType.setDotId(order.getDocTypesSelected().get(file.getName()).toString());
                 ordersDocsTO.setDocType(auxDocType);
+                if(ordersDocsTO.getDocType().getDotId().equals("FTP")){ 
+                  ordersDocsTO.setOdoName(file.getName() + ".txt");
+                }else{
+                 ordersDocsTO.setOdoName(file.getName().substring(file.getName().lastIndexOf("\\") + 
+                                                                   1));
+                }
 
                 try {
                     byte[] b = new byte[(int)file.getSize()];
