@@ -32,6 +32,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.FileUpload;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -377,20 +379,16 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                              * Handle Form Fields.
                              */
                             
-                             if (item.getFieldName().startsWith("file") ){
+                             if (item.getFieldName().startsWith("file") && item.isFormField() ){
                                  File file = new File(TMP_DIR_PATH+"\\"+ item.getFieldName());
                                  
-                                 FileOutputStream fos= new FileOutputStream(file);
-                                 fos.write("Por favor descargue el archivo desde nuestro FTP".getBytes());
-                                 fos.close();
-                                 item.setFormField(false);
-                                
-                                try {
-                                    item.write(file);
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                             }
+                                 
+                                 FileItemFactory fac= new DiskFileItemFactory();
+                                 
+                                 FileItem fi = fac.createItem(item.getFieldName().replaceFirst("file",""),item.getContentType(),false,item.getFieldName().replaceFirst("file",""));
+                                 fi.getOutputStream().write(("Por favor descargue el archivo ["+ fi.getFieldName()+ "] desde nuestro  FTP").getBytes());
+                                 item =fi;
+                           }
                             
                             
                             if(item.isFormField()) {

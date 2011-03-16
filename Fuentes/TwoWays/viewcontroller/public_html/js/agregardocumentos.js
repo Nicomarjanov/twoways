@@ -68,11 +68,13 @@ function cargarItemDocumento(row){
    nameDoc.src='';
    row.cells[2].innerHTML= typeDoc.text;  
    var tdIn=document.getElementById('tdIn');
-   if(typeDoc.value =='FTP'){
-    tdIn.innerHTML='<input type="text"  class="tw_form" id="doc_name" size=30    /> '; 
-   }else{
-    tdIn.innerHTML='<input type="file"  class="tw_form" id="doc_name" size=30    /> '; 
-   }
+   if(typeDoc.value =='FTP' ){
+     tdIn.innerHTML='<input type="text"  class="tw_form" id="doc_name" size=30  onkeypress="agregarDocumentoFtp(event)"    /> '; 
+ 
+     }else{
+         tdIn.innerHTML='<input type="file"  class="tw_form" id="doc_name" size=30  onchange="agregarDocumento()"   /> '; 
+      
+     }
    
 }
 
@@ -93,12 +95,19 @@ function cambioTipo(){
  var tdIn=document.getElementById('tdIn');
   
  if(typeDoc.value =='FTP' ){
-     tdIn.innerHTML='<input type="text"  class="tw_form" id="doc_name" size=30    /> '; 
+     tdIn.innerHTML='<input type="text"  class="tw_form" id="doc_name" size=30  onkeypress="agregarDocumentoFtp(event)"    /> '; 
  
  }else{
-     tdIn.innerHTML='<input type="file"  class="tw_form" id="doc_name" size=30    /> '; 
+     tdIn.innerHTML='<input type="file"  class="tw_form" id="doc_name" size=30  onchange="agregarDocumento()"   /> '; 
   
  }
  
  
+}
+
+function agregarDocumentoFtp(e){
+   
+  var  tecla = (document.all) ? e.keyCode : e.which;
+  if (tecla==13) agregarDocumento() ;
+
 }

@@ -14,8 +14,7 @@
   <td valign="top">
     <table >
       <tr>
-      <td >Documento:</td><td id="tdIn" ><input type="file" class="tw_form" id="doc_name" size=30   /> </td>
-      <td>
+         <td>
        <select name="listaDocTypes" id="listaDocTypes" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';" onchange="cambioTipo()">                
                 <option value="" >Seleccionar</option>
                 <c:forEach items="${listaDocTypes}" var="item">
@@ -25,11 +24,13 @@
                 </c:forEach>
        </select> 
      </td>
+      <td >Documento:</td><td id="tdIn" ><input type="file" class="tw_form" id="doc_name" size=30   onchange="agregarDocumento()" /> </td>
+   
       </tr>
     </table>
   </td>
   
-      <td align="left" valign="top"><img  src="img/next.png" alt=">"   width="20" height="20" title="Agregar Documento" onclick="agregarDocumento()" onmouseover="this.style.cursor='hand';"/>
+      <!--td align="left" valign="top"><img  src="img/next.png" alt=">"   width="20" height="20" title="Agregar Documento" onclick="agregarDocumento()" onmouseover="this.style.cursor='hand';"/-->
     </td>
   <td colspan="100%">
     <table cellpadding="0" cellspacing="0"  style="background:gray">
