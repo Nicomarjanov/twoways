@@ -49,6 +49,11 @@
             <url n="sourceOwnerURL" path="../TwoWays.jws"/>
             <url n="sourceURL" path="../model/model.jpr"/>
          </hash>
+         <hash>
+            <value n="class" v="oracle.jdeveloper.library.ProjectLibrary"/>
+            <url n="sourceOwnerURL" path="../TwoWays.jws"/>
+            <url n="sourceURL" protocol="file" path="/commons-fileupload-1.2.2/commons-fileupload-1.2.2.jpr"/>
+         </hash>
       </list>
    </hash>
    <hash n="oracle.ide.model.ResourcePaths">

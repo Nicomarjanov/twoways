@@ -17,9 +17,12 @@ import java.io.FileOutputStream;
 
 import java.io.FileWriter;
 
+import java.sql.Timestamp;
+
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -125,7 +128,7 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
            request.setAttribute("listaService",services);
            request.setAttribute("listaDocTypes",docTypes);
             String ordId = request.getParameter("ordId");
-            OrdersTO order=  null;
+            OrdersTO order=  new OrdersTO();
             if (ordId != null &&  ordId.length() > 0 ){
                  try{
                  order =twoWaysBDL.getServiceTwoWays().getOrderById(Long.parseLong(ordId) );
@@ -146,7 +149,13 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                  }catch(Exception e){
                      e.printStackTrace();
                  }
+            }else{
+            
+                order.setOrdDate(new Timestamp(new Date().getTime()));
+                request.setAttribute("order",order);
             }
+            
+            
            
            
            
