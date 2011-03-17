@@ -136,7 +136,6 @@
         <ref local="twowaysSqlMapConfig"/>
       </property>
     </bean>
-    </bean>  
     <bean id="docTypesDAO" class="com.twoways.dao.DocTypesDAOImpl">
        <property name="dataSource">
           <ref bean="dataSource"/>
