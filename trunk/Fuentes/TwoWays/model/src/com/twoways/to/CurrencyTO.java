@@ -14,7 +14,7 @@ public class CurrencyTO {
     private String curOrigin;
     private String curSymbol; 
     
-    private List<PaymentsTO>  paymentsTOList;
+    private List<IncomesTO>  paymentsTOList;
     private List<InvoicesTO> invoicesTOList;
     private List<TranslatorsTO> translatorsTOList; 
     private List<ClientsTO> clientsTOList;
@@ -50,21 +50,21 @@ public class CurrencyTO {
         this.curOrigin = curOrigin;
     }
 
-    public List<PaymentsTO> getPaymentsTOList() {
+    public List<IncomesTO> getPaymentsTOList() {
         return paymentsTOList;
     }
 
-    public void setPaymentsTOList(List<PaymentsTO> paymentsTOList) {
+    public void setPaymentsTOList(List<IncomesTO> paymentsTOList) {
         this.paymentsTOList = paymentsTOList;
     }
 
-    public PaymentsTO addPaymentsTO(PaymentsTO paymentsTO) {
+    public IncomesTO addPaymentsTO(IncomesTO paymentsTO) {
         getPaymentsTOList().add(paymentsTO);
         paymentsTO.setCurrencyTO(this);
         return paymentsTO;
     }
 
-    public PaymentsTO removePaymentsTO(PaymentsTO paymentsTO) {
+    public IncomesTO removePaymentsTO(IncomesTO paymentsTO) {
         getPaymentsTOList().remove(paymentsTO);
         paymentsTO.setCurrencyTO(null);
         return paymentsTO;

@@ -13,6 +13,7 @@ import com.twoways.to.ItemsExpensesTO;
 import com.twoways.to.ItemsTO;
 import com.twoways.to.OrdersDocsTO;
 import com.twoways.to.OrdersTO;
+import com.twoways.to.PaymentsTO;
 import com.twoways.to.ProAssigmentsDetailsTO;
 import com.twoways.to.ProjectAssignmentsTO;
 import com.twoways.to.ProjectsTO;
@@ -207,13 +208,24 @@ public interface TW_SystemService {
     
     public void updateGasto(ExpensesTO expensesTO) throws Exception;    
     
-    public boolean deleteGasto(ExpensesTO gasto) throws Exception;
+    public boolean deleteGasto(String expId) throws Exception;
     
     public ExpensesTO getExpenseById(Long expId) throws Exception;
    
     public Map getCostPA(ProjectAssignmentsTO projectAssignmentsTO)throws Exception;
     
-    public List getItemsExpenseByEmpId(String empId,String itmFecha) throws Exception;
+    public List getItemsExpenseByDate(String itmFecha) throws Exception;
+
+    public List buscarListaEmpleados(String search) throws Exception;
+
+    public List <EmployeesTO> findEmployees(Map employParameters)  throws Exception;
+
+    public List getProjectAssignmentsByEmpId(Long empId) throws Exception;
+    
+    public void insertarPago(PaymentsTO paymentsTO) throws Exception;
+    
+    public PaymentsTO getPaymentById(Long payId) throws Exception;
+    
 
     public List<EmployeesRatesTO> getEmpRatesByEmpId(Long empId, String serv) throws Exception;
     

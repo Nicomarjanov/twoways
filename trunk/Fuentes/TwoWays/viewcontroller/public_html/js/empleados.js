@@ -13,7 +13,7 @@ function init(){
     
     if (  document.getElementById('empId').value != ''){    
          vistaTarifas(); 
-         mostrarOpcionales();  
+         //mostrarOpcionales();  
     }
 }
 
@@ -121,7 +121,7 @@ function cargarItemTarifa(row){
    row.cells[2].width=40;
    row.cells[2].align='right';
   
-}0
+}
 
 function eliminarTarifa(id){
 
@@ -147,6 +147,16 @@ function cancelar()
         document.getElementById("traId").value="";        
         document.forms[0].submit();
     }
+}
+
+function limpiar()
+{
+
+        document.getElementById("accion").value='cancelar';
+        document.getElementById("empId").value="";
+        document.getElementById("traId").value="";        
+        document.forms[0].submit();
+
 }
 
 function ocultarOpcionales(){
@@ -255,9 +265,10 @@ function cargarDatosColumna(row,data){
    row.cells[1].innerHTML=(data.empLastName==null)?'':data.empLastName;   
    row.cells[2].innerHTML=(data.empMail==null)?'':data.empMail;     
    row.cells[3].innerHTML=(data.empMsn==null)?'':data.empMsn;   
-   var fecha = new Date((data.empBirth==null)?'':data.empBirth);   
+   var aux = (data.empBirth==null)?'':data.empBirth;   
 
-   if (fecha != '' && fecha != null){
+   if (aux != '' || aux.length > 0){
+        var fecha = new Date(aux);
         row.cells[4].innerHTML = fecha.getDate()+'/'+month[fecha.getMonth()]+'/'+fecha.getFullYear();
    }
 

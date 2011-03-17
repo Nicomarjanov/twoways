@@ -39,6 +39,9 @@
       <hash n="ejbIdToEjbNameMap">
          <value n="3e443cff-012c-1000-800b-0a0000031cde" v="com.twoways.to.EmployeeTypeTO"/>
          <value n="3e443d12-012c-1000-800c-0a0000031cde" v="com.twoways.to.EmployeeTypesTO"/>
+         <value n="ad924245-012e-1000-8001-0a00000347f9" v="com.twoways.to.PaymentsTO"/>
+         <value n="bc81ec61-012e-1000-8008-0a000003c221" v="com.twoways.to.ProjAssignPaysTO"/>
+         <value n="bc81ec71-012e-1000-8009-0a000003c221" v="com.twoways.to.ProjAssignPays"/>
          <value n="d30d129e-012d-1000-8002-c0a80165f65b" v="com.twoways.view.servlets.ProyectosServlet"/>
          <value n="d30d129e-012d-1000-8003-c0a80165f65b" v="com.twoways.view.servlets.ProjectosServlet"/>
          <value n="ebe1b726-012b-1000-8001-c87f29d8d888" v="com.twoways.to.AccountsTO"/>
@@ -56,7 +59,7 @@
          <value n="ebe1bd02-012b-1000-800d-c87f29d8d888" v="com.twoways.to.LanguaguesTO"/>
          <value n="ebe1bd40-012b-1000-800e-c87f29d8d888" v="com.twoways.to.OrdersTO"/>
          <value n="ebe1bdbd-012b-1000-800f-c87f29d8d888" v="com.twoways.to.OrdersDocsTO"/>
-         <value n="ebe1be3a-012b-1000-8010-c87f29d8d888" v="com.twoways.to.PaymentsTO"/>
+         <value n="ebe1be3a-012b-1000-8010-c87f29d8d888" v="com.twoways.to.IncomesTO"/>
          <value n="ebe1be88-012b-1000-8011-c87f29d8d888" v="com.twoways.to.ProjectsTO"/>
          <value n="ebe1bf34-012b-1000-8012-c87f29d8d888" v="com.twoways.to.ProjectsRatesTO"/>
          <value n="ebe1bfa1-012b-1000-8013-c87f29d8d888" v="com.twoways.to.ProjectAssignmentsTO"/>

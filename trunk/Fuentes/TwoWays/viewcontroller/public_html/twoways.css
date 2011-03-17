@@ -521,7 +521,66 @@ div.fixedHeaderTableGasto table {
      _overflow-y: scroll;
      _overflow-x: hidden;
  }
- div.fixedHeaderTableIdiom thead tr {
+ div.fixedHeaderTableGasto thead tr {
      _position: relative
  }
+ 
+ 
+/*div.fixedHeaderTablePago table {
+      width:75%;
+  }*/
+  div.fixedHeaderTablePago tbody {
+      height: 200px;
+     overflow-y: auto;
+     overflow-x: hidden;
+     
+ }
+ /*div.fixedHeaderTable table th {
+     background-color:#CCCCCC;font-weight:bold
+ }
+ div.fixedHeaderTable table td {
+     background-color:#EEEEEE
+ }*/
+ div.fixedHeaderTablePago thead td, div.fixedHeaderTablePago thead th {
+     position:relative;
+ }
+ 
+div.fixedHeaderTablePago thead th {
+    font-weight:normal;
+    font-size: 11px;    
+    color:#FFFFFF;
+    padding: 5px 5px 5px 5px;
+    bgcolor="#80211D";
+ }
+ /* IE7 hacks */
+ div.fixedHeaderTablePago {
+     *position: relative;
+     *height: 200px;
+     *overflow-y: scroll;
+     *overflow-x: hidden;
+     *padding-right:16px;
+ }
+ 
+ div.fixedHeaderTablePago thead tr {
+     *position: relative;
+     _position: absolute;
+     *top: expression(this.offsetParent.scrollTop-2);
+     *background:none;
+ }
+  
+ div.fixedHeaderTablePago tbody {
+     *height: auto;
+     *position:absolute;
+     *top:50px;   
+ }
 
+ /* IE6 hacks */
+ div.fixedHeaderTablePago {
+     _width:expression(this.offsetParent.clientWidth-20);
+     _overflow: auto;
+     _overflow-y: scroll;
+     _overflow-x: hidden;
+ }
+ div.fixedHeaderTablePago thead tr {
+     _position: relative
+ }

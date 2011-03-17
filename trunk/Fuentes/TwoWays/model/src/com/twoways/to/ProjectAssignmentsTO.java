@@ -17,7 +17,8 @@ public class ProjectAssignmentsTO {
     private RateTypesTO serviceTO;
     private Double praTotalAmount;
     private List <ProAssigmentsDetailsTO> proAssigmentsDetailsTO;
-    private Double costAmount;  
+    private Double costAmount; 
+    private StatesTO statesTO;
 
     public ProjectAssignmentsTO(){
         
@@ -97,5 +98,14 @@ public class ProjectAssignmentsTO {
 
     public Double getCostAmount() {
         return costAmount;
+    }
+
+
+    public void setStatesTO(StatesTO statesTO) {
+        this.statesTO = statesTO;
+    }
+
+    public StatesTO getStatesTO() {
+        return statesTO;
     }
 }

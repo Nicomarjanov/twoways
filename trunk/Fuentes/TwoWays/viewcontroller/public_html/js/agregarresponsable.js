@@ -40,13 +40,18 @@ function agregarResponsable(){
       document.getElementById('ApeResponsable').focus();
      return;
    }
-   
+   if(document.getElementById('MailResponsable').value != ''){ 
+       if(!(validarEmail(document.getElementById('MailResponsable').value))){
+           mensajeFaltanteAlert+= 'La dirección de email es incorrecta';
+           document.getElementById('MailResponsable').focus();
+           return; 
+       }
+   }
    if( document.getElementById('MailResponsable').value == '' && document.getElementById('PhoneResponsable').value == '' && document.getElementById('MsnResponsable').value == '' && document.getElementById('SkypeResponsable').value == ''){ 
-      alert('Debe ingresar algún medio de comunicación con el responsable: Mail, teléfono, msn o skype');  
-      document.getElementById('MailResponsable').focus();
-     return;
+         alert('Debe ingresar algún medio de comunicación con el responsable: Mail, teléfono, msn o skype');  
+         document.getElementById('MailResponsable').focus();
+         return;      
    }else{
-
        var tablaResponsables = document.getElementById('list-responsables-body');
        
        var index = tablaResponsables.rows.length;       

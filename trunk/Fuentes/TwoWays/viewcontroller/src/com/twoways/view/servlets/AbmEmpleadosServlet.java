@@ -269,7 +269,8 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                              }                            
                         }                       
                     }
-                }                                                 
+                }     
+                request.setAttribute("script","<script>limpiar();</script>");  
             }
             else if(empId != null && empId.length() > 0  && (accion!=null && accion.equalsIgnoreCase("eliminar")) ){
                 try {
@@ -369,7 +370,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
             else {
                 request.setAttribute("empId","");
             }
-                     
+               
     request.getRequestDispatcher("empleados.jsp").forward(request,response);
             
 }

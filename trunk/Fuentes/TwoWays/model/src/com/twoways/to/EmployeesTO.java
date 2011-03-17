@@ -43,7 +43,8 @@ public class EmployeesTO {
     
     private List<TranslatorsLanguaguesTO> transLanguaguesTOList;
 
-    private RatesTO ratesTO;
+    private ProjectAssignmentsTO projectAssignmentsTO;
+    private EmployeeTypeTO employeeTypeTO;
    
     public EmployeesTO() {
     }
@@ -174,13 +175,11 @@ public class EmployeesTO {
 
     public ExpensesTO addExpensesTO(ExpensesTO expensesTO) {
         getExpensesTOList().add(expensesTO);
-        expensesTO.setEmployeesTO(this);
         return expensesTO;
     }
 
     public ExpensesTO removeExpensesTO(ExpensesTO expensesTO) {
         getExpensesTOList().remove(expensesTO);
-        expensesTO.setEmployeesTO(null);
         return expensesTO;
     }
 
@@ -258,5 +257,21 @@ public class EmployeesTO {
 
     public List<TranslatorsLanguaguesTO> getTransLanguaguesTOList() {
         return transLanguaguesTOList;
+    }
+
+    public void setProjectAssignmentsTO(ProjectAssignmentsTO projectAssignmentsTO) {
+        this.projectAssignmentsTO = projectAssignmentsTO;
+    }
+
+    public ProjectAssignmentsTO getProjectAssignmentsTO() {
+        return projectAssignmentsTO;
+    }
+
+    public void setEmployeeTypeTO(EmployeeTypeTO employeeTypeTO) {
+        this.employeeTypeTO = employeeTypeTO;
+    }
+
+    public EmployeeTypeTO getEmployeeTypeTO() {
+        return employeeTypeTO;
     }
 }

@@ -49,9 +49,14 @@
         <property name="expensesDao">
             <ref bean="expensesDAO"/>
         </property> 
+
+         <property name="paymentDao">
+            <ref bean="paymentDAO"/>
+        </property>
          <property name="docTypesDao">
             <ref bean="docTypesDAO"/>
         </property> 
+        
         
     </bean>
 

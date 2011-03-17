@@ -18,6 +18,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.dao.DataAccessException;
+
 
 public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
     public ProjectDAOImpl() {
@@ -259,6 +261,17 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
         getSqlMapClientTemplate().update("updateProjectAssigmentDetailsByPadId",proAssigmentsDetailsTO); 
     }
     
-    
+    public List getProjectAssignmentsByEmpId(Long empId) throws Exception {
+        List ret= null;
+        try {
+            ret = getSqlMapClientTemplate().queryForList("getProjectAssignamentByEmpId", 
+                                                                           empId);
+        
+        }catch (DataAccessException dae) {
+
+           dae.printStackTrace();
+        }
+        return ret;
+    }
 }
 
