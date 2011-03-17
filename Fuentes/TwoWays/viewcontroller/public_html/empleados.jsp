@@ -29,7 +29,6 @@
   <input type="hidden" id="accion" name="accion" value=""/>
   <input type="hidden" id="empId" name="empId" value="<c:out value="${empleado.empId}"/>"/>
   <input type="hidden" id="traId" name="traId" value="<c:out value="${traductor.traId}"/>"/>  
-
   <table width="100%" >
   <tr>
     <th colspan="6" class="tw_form">Ingrese los campos con los datos de los empleados</th>
@@ -44,7 +43,7 @@
         <tr>
             <td style="font-size:10px;" align="right"><b>Especialidades disponibles</b></td>
             <td></td>
-            <td style="font-size:10px;"  align="left"><b>Especialidades asigandas</b></td>
+            <td style="font-size:10px;"  align="left"><b>Especialidades asignadas</b></td>
         </tr>
         <tr>
            <td rowspan=3 align="right">
@@ -105,18 +104,18 @@
     <td nowrap align="right" width="15%">Teléfono fijo:</td>
     <td align="left" width="15%"><input type="text" class="tw_form" id="empPhoneNumber" name="empPhoneNumber"  value="<c:out value="${empleado.empPhoneNumber}"/>"  size="15" maxlength="25"></input></td>
   </tr>   
-   <tr>
+  <!-- <tr>
     <td colspan="100%" align="left">
     <img src="img/bottom.png" id="aMas" onclick="javascript:mostrarOpcionales();"  title="Agregar más datos" alt="Mas datos " width="15" height="15" onmouseover="this.style.cursor='hand';"/>
     <img id="aMenos"  style="border:0;display:none"  onclick="javascript:ocultarOpcionales();" title="Contraer" src="img/top.png" alt="Menos" width="15" height="15" onmouseover="this.style.cursor='hand';"/></td>
-  </tr>
-  <tr id="trOpcionales1" style="display:none">    
+  </tr>-->
+  <tr>    
     <td nowrap align="right" width="15%">Dirección:</td>
     <td align="left" width="30%"><input type="text" class="tw_form" id="empAddress" name="empAddress"  value="<c:out value="${empleado.empAddress}"/>"  size="40" maxlength="150"></input></td>  
     <td nowrap align="right" width="15%">Ubicación:</td>
     <td colspan=2 align="left"><input type="text" class="tw_form" id="empLocation" name="empLocation"  value="<c:out value="${empleado.empLocation}"/>"  size="25" maxlength="25"></input></td>
   </tr>
-  <tr id="trOpcionales2" style="display:none" > 
+  <tr> 
     <td nowrap valign="top" align="right" width="15%">Disponibilidad:</td>
     <td valign="top" align="left" width="30%"><input type="text" class="tw_form" id="empAvailability" name="empAvailability"  value="<c:out value="${empleado.empAvailability}"/>"  size="40" maxlength="150"></input>
     <td nowrap valign="top" align="right" width="15%">Observaciones:</td>

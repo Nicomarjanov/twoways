@@ -87,6 +87,14 @@
         <servlet-name>AbmGastosServlet</servlet-name>
         <servlet-class>com.twoways.view.servlets.AbmGastosServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListaEmpleadosServlet</servlet-name>
+        <servlet-class>com.twoways.view.servlets.ListaEmpleadosServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AbmPagosServlet</servlet-name>
+        <servlet-class>com.twoways.view.servlets.AbmPagosServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -144,7 +152,14 @@
     <servlet-name>dwr-invoker</servlet-name>
      <url-pattern>/dwr/*</url-pattern>
    </servlet-mapping>
-    
+    <servlet-mapping>
+        <servlet-name>ListaEmpleadosServlet</servlet-name>
+        <url-pattern>/listaEmpleados</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AbmPagosServlet</servlet-name>
+        <url-pattern>/pagos</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>-1</session-timeout>
     </session-config>

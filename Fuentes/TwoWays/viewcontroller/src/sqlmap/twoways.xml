@@ -353,8 +353,8 @@
      select * from employees_rates cr 
      join rates r
      on cr.rates_rat_id = r.rat_id 
-     and   cr.employees_emp_id=#employeesTO.empId#
-    where r.rat_type=#ratesTO.rateTypesTO.rtyName#
+     and cr.employees_emp_id=#employeesTO.empId#
+     where r.rat_type=#ratesTO.rateTypesTO.rtyName#
   </statement>   
 
   <resultMap id="select-Emp-Types" class="com.twoways.to.EmployeesTypesTO">
@@ -682,7 +682,6 @@
      select *
      from translators_specializations t
      where t.translators_tra_id = #traId#
-     and t.trs_erase_Date is null
   </statement>  
   
   <resultMap id="select-TradId-List"  class="com.twoways.to.TranslatorsTO" >
@@ -699,8 +698,7 @@
  </update> 
  
   <update id="deleteTranslatorsSpezials" parameterClass="com.twoways.to.TranslatorsSpecializationsTO">
-        UPDATE translators_specializations 
-        SET TRS_ERASE_DATE = sysdate        
+        delete from translators_specializations 
         WHERE  translators_tra_id = #translatorsTO.traId#   
         and specializations_spe_name = #specializationsTO.speName#
  </update> 
@@ -1108,8 +1106,7 @@
              spe_description as speDescription 
      from Specializations  s
      where s.spe_name not in (select t.specializations_spe_name from translators_specializations t
-                              where t.translators_tra_id = #traId#
-                              and t.trs_erase_date is null)
+                              where t.translators_tra_id = #traId#)
   </statement>  
   
   <update  id="updateClientsResponsable" parameterClass="com.twoways.to.ClientResponsableTO"   >
@@ -1334,8 +1331,8 @@
   
   <insert id="insertExpense" parameterClass="com.twoways.to.ExpensesTO" >
       insert into expenses
-      (exp_id, exp_date, employees_emp_id)
-      values (#expId#, #expDate#, #employeesTO.empId#)
+      (exp_id, exp_date)
+      values (#expId#, #expDate#)
   </insert>
   
   <insert id="insertItemsExpenses" parameterClass="com.twoways.to.ItemsExpensesTO">
@@ -1348,6 +1345,7 @@
   <resultMap id="select-items-expenses" class="com.twoways.to.ItemsExpensesTO">
         <result property="iteId" column="ITE_ID"  />  
         <result property="iteValue" column="ITE_VALUE" />     
+        <result property="itemsTO.itmId" column="ITEMS_ITM_ID"  />
         <result property="currencyTO.curId" column="CURRENCY_CUR_ID"  /> 
         <result property="accountsTO.accId" column="ACCOUNTS_ACC_ID"  /> 
         <result property="usersTO.usrId" column="USERS_USR_ID"  />   
@@ -1357,41 +1355,137 @@
         <result property="expId" column="EXP_ID"  />  
         <result property="expDate" column="EXP_DATE" />     
         <result property="expTotal" column="EXP_TOTAL"  /> 
-        <result property="employeesTO.empId" column="EMPLOYEES_EMP_ID"  /> 
   </resultMap>
   
-  <!--<select id="getItemsExpenseByExpId" parameterClass="java.lang.Long" resultMap="select-items-expenses">
-       select *
-       from items_expenses
-       where expenses_exp_id=#value#
-  </select>-->
-  
-    <select id="getExpenseById" parameterClass="java.lang.Long" resultMap="select-expenses">
+  <select id="getExpenseById" parameterClass="java.lang.Long" resultMap="select-expenses">
        select *
        from expenses
        where exp_id=#value#
+       and exp_erase_date is null
   </select>
 
-  <select  id="getItemsExpenseByEmpId" resultClass="java.util.HashMap"  parameterClass="java.util.HashMap" >
-       select s.itm_name as itm_name, 
+  <select  id="getItemsExpenseByDate" resultClass="java.util.HashMap"  parameterClass="java.lang.String" >
+       select e.exp_id as exp_id,
+       i.ite_id as ite_id,
+       s.itm_name as itm_name, 
        c.cur_name as cur_name, 
        i.ite_value as ite_value, 
        a.acc_name as acc_name, 
        u.usr_id as usr_id, 
        e.exp_date as exp_date, 
-       m.emp_first_name ||' '||m.emp_last_name as usr_name,
        i.items_itm_id as itm_id,
        i.currency_cur_id as cur_id,
        i.accounts_acc_id as acc_id
-       from items_expenses i, accounts a, users u, currency c, expenses e, items s, employees m
+       from items_expenses i, accounts a, users u, currency c, expenses e, items s
        where i.expenses_exp_id=e.exp_id
        and i.items_itm_id=s.itm_id
        and i.expenses_exp_id=e.exp_id
        and i.currency_cur_id=c.cur_id
        and i.users_usr_id=u.usr_id
        and i.accounts_acc_id = a.acc_id       
-       and e.employees_emp_id= m.emp_id
-       and e.employees_emp_id= #empId#
        and e.exp_date = to_date(#itmFecha#,'dd/mm/rrrr')
+       and e.exp_erase_date is null
   </select>
+
+  <update  id="deleteExpense" parameterClass="java.lang.Long"   >
+     update expenses
+     set exp_erase_date = sysdate
+     where exp_id=#expId#
+  </update>
+  
+  <update  id="updateExpense" parameterClass="com.twoways.to.ExpensesTO"   >
+     update expenses
+     set exp_erase_date = null,
+     exp_date = #expDate#
+     where exp_id=#expId#
+  </update>
+  
+    <insert id="updateItemsExpenses" parameterClass="com.twoways.to.ItemsExpensesTO">
+        update items_expenses
+        set ite_value = #iteValue#,
+            items_itm_id = #itemsTO.itmId#,
+            expenses_exp_id = #expensesTO.expId#,
+            currency_cur_id = #currencyTO.curId#,
+            accounts_acc_id = #accountsTO.accId#,
+            users_usr_id = #usersTO.usrId#
+        where ite_id = #iteId#
+    </insert>
+    
+    <delete id="deleteItemsExpenses" parameterClass="com.twoways.to.ItemsExpensesTO">
+        delete from items_expenses
+        where ite_id = #iteId#
+    </delete>
+
+    
+    <select id="getItemsExpensesByItmId"  parameterClass="com.twoways.to.ExpensesTO" resultMap="select-items-expenses">
+        select *
+        from items_expenses
+        where expenses_exp_id=#expId#
+    </select>
+
+  <statement id="buscarListaEmpleados" resultClass="java.util.HashMap"  parameterClass="java.lang.String" >
+        select empId,
+               empFirstName,
+               empLastName,
+               empMail,
+               empMobile,
+               empType,
+               pa.states_sta_id         as empState,
+               pa.pra_assign_date       as empAssDate,
+               pa.pra_finish_date       as empFinDate,
+               p.pro_name               as projName,
+               p.states_sta_id          as projState,
+               p.pro_start_date         as projStartDate            
+        from (select e.emp_id           as empId,
+               e.emp_first_name         as empFirstName,
+               e.emp_last_name          as empLastName,
+               e.emp_mail               as empMail,
+               e.emp_mobile_number      as empMobile,
+               t.employee_type_ety_name as empType
+               from employees e, employees_types t
+               where ((upper(EMP_FIRST_NAME) like '%' || upper(#value#) || '%')or
+                      (upper(EMP_LAST_NAME) like '%' || upper('#value#') || '%'))
+               and e.emp_id = t.employees_emp_id) q
+        left outer join 
+        project_assignments pa
+        on q.empid = pa.employees_emp_id
+        and q.empType = pa.services_ser_id
+        left outer join projects p 
+        on pa.projects_pro_id = p.pro_id
+  </statement>
+ 
+  <select id="getProjectAssignamentByEmpId" parameterClass="java.lang.Long" resultClass="java.util.HashMap">
+        select pa.pra_id as praId,
+               pa.pra_assign_date as praAssDate,       
+               pa.states_sta_id as praAssState,
+               p.pro_id as projId,
+               p.pro_name as projName,
+               p.states_sta_id as projState,
+               o.ord_name as ordName,
+               c.cli_name as cliName,
+               pa.pra_total_amount as praTotal,
+               pa.employees_emp_id as empId
+          from project_assignments pa , projects p, orders o, clients c
+         where pa.employees_emp_id = #empId#
+         and pa.projects_pro_id = p.pro_id
+         and p.orders_ord_id = o.ord_id
+         and o.clients_cli_id = c.cli_id
+         order by pa.pra_assign_date
+  </select>
+
+  <select id="payment.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > 
+      select payment_seq.nextval payId from dual
+  </select>   
+  
+  <insert id="insertPayment" parameterClass="com.twoways.to.PaymentsTO" >
+      insert into payments
+      (pay_id, pay_date, pay_description, pay_observation, pay_amount, accounts_acc_id, currency_cur_id, employees_emp_id)
+      values (#payId#, #payDate#, #payDescription#, #payObservation#, #payAmount#, #accountsTO.accId#, #currencyTO.curId#, #employeeTO.empId#)
+  </insert>
+  
+    <insert id="insertProjAssignPay" parameterClass="com.twoways.to.ProjAssignPaysTO" >
+      insert into proj_assign_pays
+      (payments_pay_id, project_assignments_pra_id, project_assignments_employees_, project_assignments_project_p)
+      values (#paymentsTO.payId#, #projectAssignmentsTO.praId#, #projectAssignmentsTO.employeesTO.empId#, #projectAssignmentsTO.projectsTO.proId#)
+  </insert>
 </sqlMap> 

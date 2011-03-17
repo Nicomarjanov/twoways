@@ -16,6 +16,7 @@ import com.twoways.dao.UserDAO;
 import com.twoways.dao.RolesDAO;
 import com.twoways.dao.ItemDAO;
 import com.twoways.dao.LanguagueDAO;
+import com.twoways.dao.PaymentDAO;
 import com.twoways.dao.TranslatorDAO;
 
 import com.twoways.to.AccountsTO;
@@ -31,6 +32,7 @@ import com.twoways.to.ItemsExpensesTO;
 import com.twoways.to.ItemsTO;
 import com.twoways.to.OrdersDocsTO;
 import com.twoways.to.OrdersTO;
+import com.twoways.to.PaymentsTO;
 import com.twoways.to.ProAssigmentsDetailsTO;
 import com.twoways.to.ProjectAssignmentsTO;
 import com.twoways.to.ProjectsTO;
@@ -68,8 +70,8 @@ public class TW_SystemServiceImpl implements TW_SystemService {
     private LanguagueDAO languagueDao;
     private AccountDAO accountDao;
     private ExpenseDAO expensesDao;
+    private PaymentDAO paymentDao;
     private DocTypesDAO docTypesDao;
-
 
     public TW_SystemServiceImpl() {
     }
@@ -661,8 +663,8 @@ public class TW_SystemServiceImpl implements TW_SystemService {
         this.expensesDao.actualizarExpense(expensesTO);
     }
 
-    public boolean deleteGasto(ExpensesTO gasto) throws Exception {
-        return this.expensesDao.deleteExpense(gasto);
+    public boolean deleteGasto(String expId) throws Exception {
+        return this.expensesDao.deleteExpense(expId);
     }
 
     public ExpensesTO getExpenseById(Long expId) throws Exception {
@@ -705,13 +707,21 @@ public class TW_SystemServiceImpl implements TW_SystemService {
         return (cotizOtraMoneda * valores) /cotizPeso; 
     }
     
-    public List getItemsExpenseByEmpId(String empId,String itmFecha) throws Exception{
-        return this.expensesDao.getItemsExpenseByEmpId(empId,itmFecha);
+    public List getItemsExpenseByDate(String itmFecha) throws Exception{
+        return this.expensesDao.getItemsExpenseByDate(itmFecha);
     }
 
 
     public List<EmployeesRatesTO> getEmpRatesByEmpId(Long empId, String serv) throws Exception {
         return this.getEmpRatesByEmpIdRateName(empId,serv);
+    }
+    
+    public List buscarListaEmpleados(String empName) throws Exception{
+        return this.employeeDao.buscarListaEmpleados(empName);
+    }
+
+    public List <EmployeesTO> findEmployees(Map employParameters) throws Exception {
+        return this.employeeDao.findEmployees(employParameters);
     }
     
     public List<DocTypes> obtenerTipoDocumentos() throws Exception{
@@ -724,6 +734,29 @@ public class TW_SystemServiceImpl implements TW_SystemService {
 
     public DocTypesDAO getDocTypesDao() {
         return docTypesDao;
+    }
+    public List getProjectAssignmentsByEmpId(Long empId) throws Exception {
+        return this.projectDao.getProjectAssignmentsByEmpId(empId);
+    }
+
+    public void insertarPago(PaymentsTO paymentsTO) throws Exception {
+        this.paymentDao.insertarPago(paymentsTO);
+    }
+
+    public ExpenseDAO getExpensesDao() {
+        return expensesDao;
+    }
+
+    public void setPaymentDao(PaymentDAO paymentDao) {
+        this.paymentDao = paymentDao;
+    }
+
+    public PaymentDAO getPaymentDao() {
+        return paymentDao;
+    }
+    
+    public PaymentsTO getPaymentById(Long payId) throws Exception {
+        return this.paymentDao.getPaymentById(payId);
     }
 }
 

@@ -16,7 +16,7 @@ public class InvoicesTO {
     private Long invTotal;
     private CurrencyTO currencyTO;
     private List<ItemsInvoicesTO> itemsInvoicesTOList;
-    private List<PaymentsTO> paymentsTOList;
+    private List<IncomesTO> paymentsTOList;
     private OrdersTO ordersTO;
 
     public InvoicesTO() {
@@ -76,21 +76,21 @@ public class InvoicesTO {
         return itemsInvoicesTO;
     }
 
-    public List<PaymentsTO> getPaymentsTOList() {
+    public List<IncomesTO> getPaymentsTOList() {
         return paymentsTOList;
     }
 
-    public void setPaymentsTOList(List<PaymentsTO> paymentsTOList) {
+    public void setPaymentsTOList(List<IncomesTO> paymentsTOList) {
         this.paymentsTOList = paymentsTOList;
     }
 
-    public PaymentsTO addPaymentsTO(PaymentsTO paymentsTO) {
+    public IncomesTO addPaymentsTO(IncomesTO paymentsTO) {
         getPaymentsTOList().add(paymentsTO);
         paymentsTO.setInvoicesTO(this);
         return paymentsTO;
     }
 
-    public PaymentsTO removePaymentsTO(PaymentsTO paymentsTO) {
+    public IncomesTO removePaymentsTO(IncomesTO paymentsTO) {
         getPaymentsTOList().remove(paymentsTO);
         paymentsTO.setInvoicesTO(null);
         return paymentsTO;

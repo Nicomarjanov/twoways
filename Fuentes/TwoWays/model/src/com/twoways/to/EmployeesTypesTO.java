@@ -1,32 +1,14 @@
 package com.twoways.to;
 
-import java.util.List;
-
 public class EmployeesTypesTO {
 
-    private Long employeesEmpId;
+    private Long empId;
     private String etyName;
     private EmployeeTypeTO employeeTypeTO;
     private EmployeesTO employeesTO;
 
 
     public EmployeesTypesTO() {
-    }
-
-    public Long getEmployeesEmpId() {
-        return employeesEmpId;
-    }
-
-    public void setEmployeesEmpId(Long employeesEmpId) {
-        this.employeesEmpId = employeesEmpId;
-    }
-
-    public String getEtyName() {
-        return etyName;
-    }
-
-    public void setEtyName(String etyName) {
-        this.etyName = etyName;
     }
 
     public EmployeeTypeTO getEmployeeTypeTO() {
@@ -44,6 +26,21 @@ public class EmployeesTypesTO {
     public void setEmployeesTO(EmployeesTO employeesTO) {
         this.employeesTO = employeesTO;
     }
-    
 
+
+    public void setEmpId(Long empId) {
+        this.empId = empId;
+    }
+
+    public Long getEmpId() {
+        return empId;
+    }
+
+    public void setEtyName(String etyName) {
+        this.etyName = etyName;
+    }
+
+    public String getEtyName() {
+        return etyName;
+    }
 }

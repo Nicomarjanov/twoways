@@ -4,7 +4,7 @@
         <li><a href="clientes">ABM de Clientes</a></li> 
         <li><a href="empleados">ABM de Empleados</a></li>        
         <li><a href="tarifas">ABM de Tarifas</a></li>
-        <li><a href="#" >Contables</a>
+        <li><a href="#" >ABM Contables</a>
             <ul>
                 <li><a href="items">ABM de Items</a></li> 
                 <li><a href="cuentas">ABM de Cuentas</a></li>
@@ -24,7 +24,13 @@
 </li> 
 <li><a href="#" >Contables</a> 
     <ul>
-        <li><a href="gastos">Gastos</a></li>      
+        <li><a href="gastos">Ingresar Gastos</a></li> 
+        <li><a href="pagos">Pagos</a></li>          
+    </ul>
+</li>
+<li><a href="#" >Listados</a> 
+    <ul>
+        <li><a href="listaEmpleados">Lista Empleados</a></li>      
     </ul>
 </li> 
  <li><a href="login?logout=true">Desconectar</a></li> 

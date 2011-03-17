@@ -17,7 +17,7 @@ public class AccountsTO {
     private String accNumber;  
 
     private List<ItemsExpensesTO> itemsExpensesTOList;
-    private List<PaymentsTO>  paymentsTOList;
+    private List<IncomesTO>  paymentsTOList;
     private List<ItemsInvoicesTO> itemsInvoicesTOList;    
     private Timestamp accEraseDate;
   
@@ -77,21 +77,21 @@ public class AccountsTO {
         return itemsExpensesTO;
     }
 
-    public List<PaymentsTO> getPaymentsTOList() {
+    public List<IncomesTO> getPaymentsTOList() {
         return paymentsTOList;
     }
 
-    public void setPaymentsTOList(List<PaymentsTO> paymentsTOList) {
+    public void setPaymentsTOList(List<IncomesTO> paymentsTOList) {
         this.paymentsTOList = paymentsTOList;
     }
 
-    public PaymentsTO addPaymentsTO(PaymentsTO paymentsTO) {
+    public IncomesTO addPaymentsTO(IncomesTO paymentsTO) {
         getPaymentsTOList().add(paymentsTO);
         paymentsTO.setAccountsTO(this);
         return paymentsTO;
     }
 
-    public PaymentsTO removePaymentsTO(PaymentsTO paymentsTO) {
+    public IncomesTO removePaymentsTO(IncomesTO paymentsTO) {
         getPaymentsTOList().remove(paymentsTO);
         paymentsTO.setAccountsTO(null);
         return paymentsTO;

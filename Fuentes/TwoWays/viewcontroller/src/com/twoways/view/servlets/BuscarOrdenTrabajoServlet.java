@@ -3,10 +3,8 @@ package com.twoways.view.servlets;
 import com.twoways.core.bdl.TwoWaysBDL;
 import com.twoways.to.ClientsTO;
 import com.twoways.to.OrdersTO;
-import com.twoways.to.RateTypesTO;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -25,7 +25,7 @@ public class ClientsTO {
     private String cliPostalCode;
     private List<ClientResponsableTO> clientResponsableTOList;
     private List<OrdersTO> ordersTOList;
-    private List<PaymentsTO> paymentsTOList;
+    private List<IncomesTO> paymentsTOList;
     private CurrencyTO currencyTO;
     private List<ClientsRatesTO> clientsRatesTOList;
     private Timestamp cliEraseDate;    
@@ -138,21 +138,21 @@ public class ClientsTO {
         return ordersTO;
     }
 
-    public List<PaymentsTO> getPaymentsTOList() {
+    public List<IncomesTO> getPaymentsTOList() {
         return paymentsTOList;
     }
 
-    public void setPaymentsTOList(List<PaymentsTO> paymentsTOList) {
+    public void setPaymentsTOList(List<IncomesTO> paymentsTOList) {
         this.paymentsTOList = paymentsTOList;
     }
 
-    public PaymentsTO addPaymentsTO(PaymentsTO paymentsTO) {
+    public IncomesTO addPaymentsTO(IncomesTO paymentsTO) {
         getPaymentsTOList().add(paymentsTO);
         paymentsTO.setClientsTO(this);
         return paymentsTO;
     }
 
-    public PaymentsTO removePaymentsTO(PaymentsTO paymentsTO) {
+    public IncomesTO removePaymentsTO(IncomesTO paymentsTO) {
         getPaymentsTOList().remove(paymentsTO);
         paymentsTO.setClientsTO(null);
         return paymentsTO;

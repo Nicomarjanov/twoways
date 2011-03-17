@@ -2,88 +2,92 @@ package com.twoways.to;
 
 import java.sql.Timestamp;
 
-
+import java.util.List;
 
 public class PaymentsTO {
-    //(name="PAY_DATE", nullable = false)
-    private Timestamp payDate;
-    //(name="PAY_DESCRIPTION")
-    private String payDescription;
-    //
-    //(name="PAY_ID", nullable = false)
     private Long payId;
-    //(name="PAY_TOTAL")
-    private Long payTotal;
+    private Timestamp payDate;
+    private String payDescription;
+    private Long payAmount;
+    private String payObservation;
+    
+    private EmployeesTO employeeTO;
     private CurrencyTO currencyTO;
     private AccountsTO accountsTO;
-    private ClientsTO clientsTO;
-    private InvoicesTO invoicesTO;
-
+    private List<ProjAssignPaysTO> projAssignTOList;
+    
     public PaymentsTO() {
-    }
-
-
-    public Timestamp getPayDate() {
-        return payDate;
-    }
-
-    public void setPayDate(Timestamp payDate) {
-        this.payDate = payDate;
-    }
-
-    public String getPayDescription() {
-        return payDescription;
-    }
-
-    public void setPayDescription(String payDescription) {
-        this.payDescription = payDescription;
-    }
-
-    public Long getPayId() {
-        return payId;
     }
 
     public void setPayId(Long payId) {
         this.payId = payId;
     }
 
-    public Long getPayTotal() {
-        return payTotal;
+    public Long getPayId() {
+        return payId;
     }
 
-    public void setPayTotal(Long payTotal) {
-        this.payTotal = payTotal;
+    public void setPayDate(Timestamp payDate) {
+        this.payDate = payDate;
     }
 
-    public CurrencyTO getCurrencyTO() {
-        return currencyTO;
+    public Timestamp getPayDate() {
+        return payDate;
+    }
+
+    public void setPayDescription(String payDescription) {
+        this.payDescription = payDescription;
+    }
+
+    public String getPayDescription() {
+        return payDescription;
+    }
+
+    public void setPayAmount(Long payAmount) {
+        this.payAmount = payAmount;
+    }
+
+    public Long getPayAmount() {
+        return payAmount;
+    }
+
+    public void setPayObservation(String payObservation) {
+        this.payObservation = payObservation;
+    }
+
+    public String getPayObservation() {
+        return payObservation;
     }
 
     public void setCurrencyTO(CurrencyTO currencyTO) {
         this.currencyTO = currencyTO;
     }
 
-    public AccountsTO getAccountsTO() {
-        return accountsTO;
+    public CurrencyTO getCurrencyTO() {
+        return currencyTO;
     }
 
     public void setAccountsTO(AccountsTO accountsTO) {
         this.accountsTO = accountsTO;
     }
 
-    public ClientsTO getClientsTO() {
-        return clientsTO;
+    public AccountsTO getAccountsTO() {
+        return accountsTO;
     }
 
-    public void setClientsTO(ClientsTO clientsTO) {
-        this.clientsTO = clientsTO;
+    public void setEmployeeTO(EmployeesTO employeeTO) {
+        this.employeeTO = employeeTO;
     }
 
-    public InvoicesTO getInvoicesTO() {
-        return invoicesTO;
+    public EmployeesTO getEmployeeTO() {
+        return employeeTO;
     }
 
-    public void setInvoicesTO(InvoicesTO invoicesTO) {
-        this.invoicesTO = invoicesTO;
+    public void setProjAssignTOList(List<ProjAssignPaysTO> projAssignTOList) {
+        this.projAssignTOList = projAssignTOList;
+    }
+
+    public List<ProjAssignPaysTO> getProjAssignTOList() {
+        return projAssignTOList;
     }
 }

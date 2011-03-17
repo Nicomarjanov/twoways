@@ -50,6 +50,7 @@ function borrarFilas(tabla){
 }
 
 function insertarFila(tabla,data){
+
    var index = tabla.rows.length;
    var newRow = tabla.insertRow(index); 
    if (index % 2 !=0)newRow.bgColor = "#FCEEED";

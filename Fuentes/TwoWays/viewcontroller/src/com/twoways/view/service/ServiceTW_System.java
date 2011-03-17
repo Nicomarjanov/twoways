@@ -357,6 +357,18 @@ public class ServiceTW_System {
         }
     }
 
+
+    public List buscarListaEmpleados(String search) {
+        try {
+            return twoWaysBDL.getServiceTwoWays().buscarListaEmpleados(search);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error(e, e);
+        }
+        return null;
+
+    } 
+    
     public void setTwoWaysBDL(TwoWaysBDL twoWaysBDL) {
         this.twoWaysBDL = twoWaysBDL;
     }

@@ -127,6 +127,15 @@
       <property name="sqlMapClient">
         <ref local="twowaysSqlMapConfig"/>
       </property>
+    </bean>
+    <bean id="paymentDAO" class="com.twoways.dao.PaymentDAOImpl">
+       <property name="dataSource">
+          <ref bean="dataSource"/>
+      </property>
+      <property name="sqlMapClient">
+        <ref local="twowaysSqlMapConfig"/>
+      </property>
+    </bean>
     </bean>  
     <bean id="docTypesDAO" class="com.twoways.dao.DocTypesDAOImpl">
        <property name="dataSource">
@@ -136,6 +145,8 @@
         <ref local="twowaysSqlMapConfig"/>
       </property>
     </bean>    
+    
+    
     
     
 	<!--  Web SqlMap setup for iBATIS Database Layer -->

@@ -15,7 +15,6 @@ public class ExpensesTO {
     private Long expId;
     //(name="EXP_TOTAL")
     private Long expTotal;
-    private EmployeesTO employeesTO;
     private List<ItemsExpensesTO> itemsExpensesTOList;
 
     public ExpensesTO() {
@@ -44,14 +43,6 @@ public class ExpensesTO {
 
     public void setExpTotal(Long expTotal) {
         this.expTotal = expTotal;
-    }
-
-    public EmployeesTO getEmployeesTO() {
-        return employeesTO;
-    }
-
-    public void setEmployeesTO(EmployeesTO employeesTO) {
-        this.employeesTO = employeesTO;
     }
 
     public List<ItemsExpensesTO> getItemsExpensesTOList() {

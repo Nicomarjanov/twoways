@@ -40,6 +40,7 @@ public class ProjectsTO {
     private OrdersTO ordersTO;
     private CurrencyTO currencyTO;
     private List<ProjectAssignmentsTO> projectAssignmentsTOList;
+    private StatesTO statesTO;
 
     public ProjectsTO() {
     }
@@ -204,5 +205,13 @@ public class ProjectsTO {
 
     public Timestamp getProDate() {
         return proDate;
+    }
+
+    public void setStatesTO(StatesTO statesTO) {
+        this.statesTO = statesTO;
+    }
+
+    public StatesTO getStatesTO() {
+        return statesTO;
     }
 }
