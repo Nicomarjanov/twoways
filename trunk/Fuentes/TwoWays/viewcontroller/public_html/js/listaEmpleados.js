@@ -1,42 +1,6 @@
 
 function buscarEmpleados(){
-
-     
-    /*var empFirstName = document.getElementById('empFirstName');
-    var ordDate =document.getElementById('ordDate');
-    var banderaMensajeFaltante=false;
-    var mensajeCampoAlert='';
-    var mensajeFaltanteAlert = 'Se tiene que completar los siguientes campos: \n';
     
-    
-    if(empFirstName.value != '')
-    {
-       if (!(isDate(empFirstName.value)))
-        {
-        //ordDate.style.background='Red';
-        mensajeFaltanteAlert+= ' * La fecha de inicio debe ser dd/mm/aaaa \n';
-        banderaMensajeFaltante=true;
-        }
-    }
-    
-    if(ordFinishDate.value != '')
-    {
-        if (!(isDate(ordFinishDate.value)))
-        {
-        //ordFinishDate.style.background='Red';
-        mensajeFaltanteAlert+= ' * La fecha de entrega debe ser dd/mm/aaaa \n';
-        banderaMensajeFaltante=true;
-        }
-    }
-    
-     
-    if(banderaMensajeFaltante){
-        mensajeCampoAlert=mensajeFaltanteAlert + '\n';  
-        alert(mensajeCampoAlert);
-        return; 
-    }
-    
-    */
   document.getElementById('accion').value='buscar';  
   var frmlistEmpleado = document.getElementById('frmlistEmpleado');
   frmlistEmpleado.submit();
@@ -99,4 +63,17 @@ function cargarDatosColumna(row,data){
         row.cells[10].innerHTML = fecha.getDate()+'/'+month[fecha.getMonth()]+'/'+fecha.getFullYear();
    }
 
+}
+
+function back(){
+  
+  var pageId = document.getElementById('pageId')   
+  pageId.value =parseInt(pageId.value) -1;
+  buscarEmpleados();
+}
+
+function next(){
+  var pageId = document.getElementById('pageId')   
+  pageId.value = parseInt(pageId.value) +1;
+  buscarEmpleados();
 }

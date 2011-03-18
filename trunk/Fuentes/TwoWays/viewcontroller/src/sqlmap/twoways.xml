@@ -195,7 +195,7 @@
      select *      
      from 
      Employees
-     order by emp_last_name desc
+     order by emp_first_name desc
 
   </select>
   
@@ -1485,7 +1485,7 @@
   
     <insert id="insertProjAssignPay" parameterClass="com.twoways.to.ProjAssignPaysTO" >
       insert into proj_assign_pays
-      (payments_pay_id, project_assignments_pra_id, project_assignments_employees_, project_assignments_project_p)
+      (payments_pay_id, project_assignments_pra_id, project_assignments_employees_, project_assignments_projects_p)
       values (#paymentsTO.payId#, #projectAssignmentsTO.praId#, #projectAssignmentsTO.employeesTO.empId#, #projectAssignmentsTO.projectsTO.proId#)
   </insert>
 </sqlMap> 

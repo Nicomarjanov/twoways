@@ -321,22 +321,27 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
             (employParameters.get("PDTP") != null && employParameters.get("PDTP").toString().length() > 0) ||
             (employParameters.get("Proofer") != null && employParameters.get("Proofer").toString().length() > 0)){
                  query += " and t.employee_type_ety_name in (";
-             if (employParameters.get("Traductor") != null && employParameters.get("Traductor").toString().length() > 0) {
-                 query += "'#Traductor#'";
+            if (employParameters.get("Traductor") != null && employParameters.get("Traductor").toString().length() > 0) {
+                 query += "'#Traductor#',";
              }
-             if (employParameters.get("Editor") != null && employParameters.get("Editor").toString().length() > 0) {
-                 query += ",'#Editor#'";
+            if (employParameters.get("Editor") != null && employParameters.get("Editor").toString().length() > 0) {
+                 query += "'#Editor#',";
              }
-             if (employParameters.get("Revisor") != null && employParameters.get("Revisor").toString().length() > 0) {
-                 query += ",'#Revisor#'";
+            if (employParameters.get("Revisor") != null && employParameters.get("Revisor").toString().length() > 0) {
+                 query += "'#Revisor#',";
              }
+            if (employParameters.get("Maquetador") != null && employParameters.get("Maquetador").toString().length() > 0) {
+                query += "'#Maquetador#',";
+            }
             if (employParameters.get("PDTP") != null && employParameters.get("PDTP").toString().length() > 0) {
-                query += ",'#PDTP#'";
+                query += "'#PDTP#',";
             }    
             if (employParameters.get("Proofer") != null && employParameters.get("Proofer").toString().length() > 0) {
-                query += ",'#Proofer#'";
+                query += "'#Proofer#',";
             }
-        }                            
+            query += ")";
+            query = query.replace(",)",")");
+        }                                    
                             
         if(employParameters.get("empFirstName") != null && employParameters.get("empFirstName").toString().length() > 0){
             if(employParameters.get("empLastName") != null && employParameters.get("empLastName").toString().length() > 0){
@@ -350,9 +355,18 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
         query +=" ) q left outer join \n" + 
         "project_assignments pa \n" + 
         "on q.empid = pa.employees_emp_id \n" + 
-        "and q.empType = pa.services_ser_id \n" + 
-        "left outer join projects p \n" + 
-        "on pa.projects_pro_id = p.pro_id";
+        "and q.empType = pa.services_ser_id \n";
+        
+        if (employParameters.get("ProName") != null && employParameters.get("ProName").toString().length() > 0){
+            query += "join projects p \n" + 
+            "on pa.projects_pro_id = p.pro_id \n" + 
+            "and upper(p.pro_name) like '%' || upper('#ProName#') || '%' ";            
+        }else{
+            query += "left outer join projects p \n" + 
+            "on pa.projects_pro_id = p.pro_id \n";                        
+        }
+        
+        query += " order by empfirstname";
         
         for (Iterator i = employParameters.keySet().iterator();i.hasNext();){
             String param = (String)i.next();
@@ -362,7 +376,6 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
             con = ds.getConnection();
             stm = con.createStatement();
             System.out.println(query);
-            System.out.println(query);
             rs = stm.executeQuery(query);
             
             while(rs.next()){
@@ -371,8 +384,9 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
                 employee.setEmpFirstName(rs.getString("empFirstName"));
                 employee.setEmpLastName(rs.getString("empLastName"));
                 employee.setEmpMail(rs.getString("empMail"));
-                employee.setEmpMobileNumber(rs.getLong("empMobile"));
-                
+                if (rs.getLong("empMobile") > 0){
+                    employee.setEmpMobileNumber(rs.getLong("empMobile"));
+                }
                 EmployeeTypeTO empType = new EmployeeTypeTO();
                 empType.setEtyName(rs.getString("empType"));
                 employee.setEmployeeTypeTO(empType);
@@ -383,26 +397,26 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
                 projAss.setStatesTO(state);
                 if(rs.getTime("empAssDate") !=null ){ 
                        java.sql.Timestamp timest = rs.getTimestamp("empAssDate"); 
-                        projAss.setPraAssignDate(timest);                                     
+                       projAss.setPraAssignDate(timest);                                     
                 }
                 if(rs.getTime("empFinDate") !=null ){ 
                        java.sql.Timestamp timest = rs.getTimestamp("empFinDate"); 
-                        projAss.setPraFinishDate(timest);                                     
-                }   
-                employee.setProjectAssignmentsTO(projAss);
-                
+                       projAss.setPraFinishDate(timest);                                     
+                }                                   
                 ProjectsTO project = new ProjectsTO();
                 project.setProName(rs.getString("projName"));
                 
                 StatesTO proState = new StatesTO();
                 proState.setStaId(rs.getString("projState"));
                 project.setStatesTO(proState);
+                
                 if(rs.getTime("projStartDate") !=null ){ 
                        java.sql.Timestamp timest = rs.getTimestamp("projStartDate"); 
                         project.setProStartDate(timest);                                     
                 }
+                projAss.setProjectsTO(project);
+                employee.setProjectAssignmentsTO(projAss);
                 results.add(employee);    
-               // results.add(project);
             }
     
         } catch (SQLException e) {

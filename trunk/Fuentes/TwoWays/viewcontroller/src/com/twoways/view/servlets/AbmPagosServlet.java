@@ -83,6 +83,11 @@ public class AbmPagosServlet extends AutorizacionServlet {
             try{
                 List projAssignEmpId = null; 
                 projAssignEmpId = twoWaysBDL.getServiceTwoWays().getProjectAssignmentsByEmpId(Long.parseLong(empId));
+               /* if (projAssignEmpId != null){
+                    for (String aux:projAssignEmpId){
+                        System.out.println(aux);
+                    } 
+                }*/
                 request.setAttribute("projectAssignnments",projAssignEmpId);
                 request.setAttribute("empId",empId);
                 empleados =  twoWaysBDL.getServiceTwoWays().obtenerEmpleados();

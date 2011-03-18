@@ -43,16 +43,16 @@ public class ListaEmpleadosServlet extends AutorizacionServlet {
         if(accion !=null && accion.equalsIgnoreCase("buscar")){
             request.setAttribute("accion",accion);
            // EmployeesTO employeeTO = new EmployeesTO();            
-            Map params= new  HashMap();            
-            params.put("empFirstName",request.getParameter("empFirstName"));  
-            params.put("empLastName",request.getParameter("empLastName"));  
-            params.put("ProjId",request.getParameter("ProjId"));
-            params.put("Traductor",request.getParameter("Traductor"));
-            params.put("Editor",request.getParameter("Editor"));
-            params.put("Revisor",request.getParameter("Revisor"));
-            params.put("Maquetador",request.getParameter("Maquetador"));
-            params.put("PDTP",request.getParameter("PDTP"));
-            params.put("Proofer",request.getParameter("Proofer"));
+            Map params= new  HashMap();          
+            if (request.getParameter("empFirstName") != null && request.getParameter("empFirstName").length() > 0) params.put("empFirstName",request.getParameter("empFirstName")); 
+            if (request.getParameter("empLastName") != null && request.getParameter("empLastName").length() > 0) params.put("empLastName",request.getParameter("empLastName")); 
+            if (request.getParameter("ProName") != null && request.getParameter("ProName").length() > 0) params.put("ProjId",request.getParameter("ProjId"));
+            if (request.getParameter("Traductor") != null && request.getParameter("Traductor").length() > 0) params.put("Traductor",request.getParameter("Traductor"));
+            if (request.getParameter("Editor") != null) params.put("Editor",request.getParameter("Editor"));
+            if (request.getParameter("Revisor") != null) params.put("Revisor",request.getParameter("Revisor")+" Final");
+            if (request.getParameter("Maquetador") != null) params.put("Maquetador",request.getParameter("Maquetador"));
+            if (request.getParameter("PDTP") != null) params.put("PDTP",request.getParameter("PDTP"));
+            if (request.getParameter("Proofer") != null) params.put("Proofer",request.getParameter("Proofer"));
         try{
            List<EmployeesTO> empleados =  twoWaysBDL.getServiceTwoWays().findEmployees(params);
            int  pageTop=(page+1)*10 ;
