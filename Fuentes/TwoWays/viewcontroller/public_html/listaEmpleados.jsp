@@ -41,15 +41,15 @@
        </thead>
        <tbody>
        <tr>
-        <td nowrap>Nombre</td><td colspan="2" ><input type="text" class="tw_form" name="empFirstName"  id="empFirstName" value="<c:out value="${empList.empFirstName}" />" style="width:100%"  /></td>
+        <td nowrap>Nombre</td><td colspan="2" ><input type="text" class="tw_form" name="empFirstName"  id="empFirstName" style="width:100%"  /></td>
        </tr>
        <tr>
-        <td nowrap>Apellido</td><td colspan="2" ><input type="text" class="tw_form" name="empLastName"  id="empLastName" value="<c:out value="${empList.empLastName}" />" style="width:100%"  /></td>
+        <td nowrap>Apellido</td><td colspan="2" ><input type="text" class="tw_form" name="empLastName"  id="empLastName" style="width:100%"  /></td>
        </tr>   
        <tr>
         <td >Especialidades</td> 
             <td colspan="2" nowrap>
-               <table>
+               <table style="border-left-style:solid; border-left-width:1px; font-size:9px;">
                     <tr>
                         <td>Traductor</td><td><input type="checkbox" name="Traductor" value="Traductor"></input></td>
                         <td>Editor</td><td><input type="checkbox" name="Editor" value="Editor"></input></td>
@@ -67,7 +67,7 @@
        </tr>
        <tr>
        <td nowrap >Proyecto</td>
-       <td colspan="2" ><input type="text" class="tw_form" name="ProjId"  id="ProjId"  value="<c:out value="${empList.ProjId}" />" style="width:100%"  /></td> 
+       <td colspan="2" ><input type="text" class="tw_form" name="ProName"  id="ProName" style="width:100%"  /></td> 
        </tr>
        <tr  >
        <td colspan="100%"  valign="top" align="right" ><input type="button" value="Buscar" onclick="buscarEmpleados()"  /></td>
@@ -80,7 +80,7 @@
        </td><td align="left" width="100%" valign="top" >
         <table id ="tabla-busqueda">
             <thead>
-            <tr><th>Nombre</th><th>Apellido</th><th>Mail</th><th>Mobil</th><th>Especialidad</th><th>Estado</th><th>Fecha Asignación</th><th>Fecha Fin Asignación</th><th>Proyecto</th><th>Estado Proyecto</th><th>Fecha inicio Proyecto</th></tr>
+            <tr><th>Nombre</th><th>Apellido</th><th>Mail</th><th>Mobil</th><th>Especialidad</th><th>Estado Asignación</th><th>Fecha Asignación</th><th>Fecha Fin Asignación</th><th>Proyecto</th><th>Estado Proyecto</th><th>Fecha inicio Proyecto</th></tr>
             </thead>
           <c:choose   >
           <c:when test="${not empty listaEmpleados}">
@@ -90,17 +90,17 @@
             <c:forEach items="${listaEmpleados}" var="empleado" varStatus="status" >     
            
             <tr bgcolor="<c:out value="${color_row}"/>" >
-                <td nowrap ><a href="empleados?empId=${empleado.empId}"><c:out value="${empleado.empFirstName}" /></a></td>
+                <td nowrap ><a href="empleados?empId=<c:out value="${empleado.empId}" />"><c:out value="${empleado.empFirstName}" /></a></td>
                 <td nowrap ><c:out value="${empleado.empLastName}" /></td>
                 <td nowrap ><c:out value="${empleado.empMail}" /></td>
-                <td nowrap ><c:out value="${empleado.empMobile}" /></td>
-                <td nowrap ><c:out value="${empleado.empType}" /></td>
-                <td nowrap ><c:out value="${empleado.empState}" /></td>
-                <td nowrap ><fmt:formatDate value="${empleado.empAssDate}"    pattern="dd/MM/yyyy HH:mm" /></td>
-                <td nowrap ><fmt:formatDate value="${empleado.empFinDate}"    pattern="dd/MM/yyyy HH:mm" /></td>
-                <td nowrap ><c:out value="${empleado.projName}" /></td>
-                <td nowrap ><c:out value="${empleado.projState}" /></td>        
-                <td nowrap ><fmt:formatDate value="${empleado.projStartDate}"    pattern="dd/MM/yyyy HH:mm" /></td>
+                <td nowrap ><c:out value="${empleado.empMobileNumber}" /></td>
+                <td nowrap ><c:out value="${empleado.employeeTypeTO.etyName}" /></td>
+                <td nowrap ><c:out value="${empleado.projectAssignmentsTO.statesTO.staId}" /></td>
+                <td nowrap ><fmt:formatDate value="${empleado.projectAssignmentsTO.praAssignDate}"    pattern="dd/MM/yyyy HH:mm" /></td>
+                <td nowrap ><fmt:formatDate value="${empleado.projectAssignmentsTO.praFinishDate}"    pattern="dd/MM/yyyy HH:mm" /></td>
+                <td nowrap ><c:out value="${empleado.projectAssignmentsTO.projectsTO.proName}" /></td>
+                <td nowrap ><c:out value="${empleado.projectAssignmentsTO.projectsTO.statesTO.staId}" /></td>        
+                <td nowrap ><fmt:formatDate value="${empleado.projectAssignmentsTO.projectsTO.proStartDate}"    pattern="dd/MM/yyyy HH:mm" /></td>
             </tr> 
              <c:choose>
             <c:when test="${status.index % 2 == 0}">  
@@ -119,7 +119,7 @@
                         <c:if test="${page != 0}">
                             <img src="img/player_start.png" height="20" width="20" onclick="back()" alt="<"/>
                         </c:if>
-                           </td><td>Pagina <fmt:formatNumber type="number" minFractionDigits="0" value="${page + 1 }" /> de <fmt:formatNumber type="number" minFractionDigits="0" value="${maxPage + 1 }" />
+                           </td><td>Pagina <fmt:formatNumber type="number" minFractionDigits="0" value="${page + 1 }" /> de <fmt:formatNumber type="number" minFractionDigits="0" value="${maxPage }" />
                            </td><td>
                            
                         <c:if test="${page < maxPage}"> 
