@@ -23,7 +23,7 @@
       <mainClass/>
    </archiveOptions>
    <contextRoot/>
-   <defaultConnection>Tomcat_Connection</defaultConnection>
+   <defaultConnection>Tompcat</defaultConnection>
    <deployClientMaxHeapSize/>
    <earURL path="deploy/Twoways.ear"/>
    <enterpriseAppName>twoways</enterpriseAppName>

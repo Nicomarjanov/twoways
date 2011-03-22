@@ -202,7 +202,7 @@ public interface TW_SystemService {
     
     public void updateProjectAssigmentDetailsByPadId(ProAssigmentsDetailsTO proAssigmentsDetailsTO) throws Exception ;
     
-    public boolean enviarMailAsignacion(Long praId, String message) throws Exception;
+    public boolean enviarMailAsignacion(Long praId, String message, UsersTO user) throws Exception;
 
     public void insertarGasto(ExpensesTO expensesTO) throws Exception;
     
@@ -230,4 +230,6 @@ public interface TW_SystemService {
     public List<EmployeesRatesTO> getEmpRatesByEmpId(Long empId, String serv) throws Exception;
     
     public List<DocTypes> obtenerTipoDocumentos() throws Exception;
+
+    
 }

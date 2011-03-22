@@ -322,6 +322,8 @@ public class ProyectosServlet extends AutorizacionServlet {
                 reenviar=false;                                                      
             }
         }
+        
+        request.setAttribute("userId", this.getUser().getUsrId());
         request.setAttribute("script", script);
         request.setAttribute("project", project);
         if(reenviar){ 
