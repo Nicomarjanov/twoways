@@ -261,11 +261,16 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
         getSqlMapClientTemplate().update("updateProjectAssigmentDetailsByPadId",proAssigmentsDetailsTO); 
     }
     
-    public List getProjectAssignmentsByEmpId(Long empId) throws Exception {
+    public List getProjectAssignmentsByEmpId(Long empId, Long mesId) throws Exception {
+        
+        Map params = new HashMap();
+        params.put("mesId",mesId); 
+        params.put("empId", empId);
+    
         List ret= null;
         try {
             ret = getSqlMapClientTemplate().queryForList("getProjectAssignamentByEmpId", 
-                                                                           empId);
+                                                                           params);
         
         }catch (DataAccessException dae) {
 

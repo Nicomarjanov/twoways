@@ -237,6 +237,10 @@
             <value n="id" v="Commons-fileupload-1.2.2.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
+         <hash>
+            <value n="id" v="IText-5.0.6.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
       </list>
       <hash n="internalDefinitions">
          <list n="libraryDefinitions">
@@ -395,6 +399,15 @@
             </hash>
             <hash>
                <list n="classPath">
+                  <url path="public_html/WEB-INF/lib/iText-5.0.6.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="IText-5.0.6.jar"/>
+               <value n="id" v="IText-5.0.6.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
                   <url path="public_html/WEB-INF/lib/commons-fileupload-1.2.2.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
@@ -499,6 +512,10 @@
          </hash>
          <hash>
             <value n="id" v="Commons-fileupload-1.2.2.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="IText-5.0.6.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>

@@ -14,6 +14,7 @@ public class PaymentsTO {
     private EmployeesTO employeeTO;
     private CurrencyTO currencyTO;
     private AccountsTO accountsTO;
+    private UsersTO userTO;
     private List<ProjAssignPaysTO> projAssignTOList;
     
     public PaymentsTO() {
@@ -89,5 +90,13 @@ public class PaymentsTO {
 
     public List<ProjAssignPaysTO> getProjAssignTOList() {
         return projAssignTOList;
+    }
+
+    public void setUserTO(UsersTO userTO) {
+        this.userTO = userTO;
+    }
+
+    public UsersTO getUserTO() {
+        return userTO;
     }
 }

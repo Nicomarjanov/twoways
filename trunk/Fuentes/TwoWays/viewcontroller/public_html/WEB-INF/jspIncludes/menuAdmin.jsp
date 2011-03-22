@@ -6,31 +6,31 @@
         <li><a href="tarifas">ABM de Tarifas</a></li>
         <li><a href="#" >ABM Contables</a>
             <ul>
-                <li><a href="items">ABM de Items</a></li> 
-                <li><a href="cuentas">ABM de Cuentas</a></li>
+                <li><a href="items">ABM de items</a></li> 
+                <li><a href="cuentas">ABM de cuentas</a></li>
             </ul>
         </li>
     </ul>
  </li>
 <li><a href="#" >Actividades</a> 
  <ul>
-     <li><a href="ordentrabajo" >Ordenes de Trabajo</a>
+     <li><a href="ordentrabajo" >Ordenes de trabajo</a>
           <ul>
-              <li><a href="buscarordentrabajo">Buscar Ordenes de Trabajo</a></li>
-              <li><a href="ordentrabajo">Nueva Orden de Trabajo</a></li>
+              <li><a href="buscarordentrabajo">Buscar ordenes de trabajo</a></li>
+              <li><a href="ordentrabajo">Nueva orden de trabajo</a></li>
           </ul>
     </li>  
  </ul>
 </li> 
 <li><a href="#" >Contables</a> 
     <ul>
-        <li><a href="gastos">Ingresar Gastos</a></li> 
-        <li><a href="pagos">Pagos</a></li>          
+        <li><a href="gastos">Ingresar gastos</a></li> 
+        <li><a href="pagos">Registrar pago empleado</a></li>          
     </ul>
 </li>
 <li><a href="#" >Listados</a> 
     <ul>
-        <li><a href="listaEmpleados">Lista Empleados</a></li>      
+        <li><a href="listaEmpleados">Lista empleados</a></li>      
     </ul>
 </li> 
  <li><a href="login?logout=true">Desconectar</a></li> 

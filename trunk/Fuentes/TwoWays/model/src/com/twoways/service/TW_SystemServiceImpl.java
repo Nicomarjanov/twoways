@@ -746,8 +746,8 @@ public class TW_SystemServiceImpl implements TW_SystemService {
     public DocTypesDAO getDocTypesDao() {
         return docTypesDao;
     }
-    public List getProjectAssignmentsByEmpId(Long empId) throws Exception {
-        return this.projectDao.getProjectAssignmentsByEmpId(empId);
+    public List getProjectAssignmentsByEmpId(Long empId, Long mesId) throws Exception {
+        return this.projectDao.getProjectAssignmentsByEmpId(empId,mesId);
     }
 
     public void insertarPago(PaymentsTO paymentsTO) throws Exception {

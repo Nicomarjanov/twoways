@@ -31,13 +31,13 @@
         <td colspan="100%" >&nbsp;</td>
       </tr>
       <tr>
-      <td id="mostrar-filtro" style="display:none" valign="top" ><img src="img/filter.png" width="20" height="20" alt="Filtros"  onclick="document.getElementById('table-filtros').style.display='block';document.getElementById('mostrar-filtro').style.display='none'" ></img></td>
+      <td id="mostrar-filtro" style="display:none" valign="top" ><img src="img/filter.png" width="20" height="20" alt="Filtros"  onclick="document.getElementById('table-filtros').style.display='block';document.getElementById('mostrar-filtro').style.display='none'" onmouseover="this.style.cursor='hand';"></img></td>
       <td  id="table-filtros" valign="top" align="left"  >  
        <div style="border: 1px solid;border-color:#FFFFFf;padding:2;spacing:2" >
        <table ><tr><td>
        <table  width="200px"  cellpadding="0" cellspacing="0">
        <thead >
-       <tr ><td colspan="100%" style="font-size:1.1em;padding-top:5px;padding-bottom:4px;background-color:#80211D;color:#ffffff;" >Filtros de Busqueda</td><td style="font-size:1.1em;padding-top:5px;padding-bottom:4px;background-color:#80211D;color:#ffffff;" ><div style="background-color:Gray;width:20;height:20" onclick="document.getElementById('table-filtros').style.display='none';document.getElementById('mostrar-filtro').style.display='block'" >X</div></td> </tr>
+       <tr ><td colspan="100%" style="font-size:1.1em;padding-top:5px;padding-bottom:4px;background-color:#80211D;color:#ffffff;" >Filtros de Busqueda</td><td style="font-size:1.1em;padding-top:5px;padding-bottom:4px;background-color:#80211D;color:#ffffff;" ><div style="background-color:Gray;width:20;height:20" onclick="document.getElementById('table-filtros').style.display='none';document.getElementById('mostrar-filtro').style.display='block'" onmouseover="this.style.cursor='hand';" >X</div></td> </tr>
        </thead>
        <tbody>
        <tr>
@@ -80,7 +80,7 @@
        </td><td align="left" width="100%" valign="top" >
         <table id ="tabla-busqueda">
             <thead>
-            <tr><th>Nombre</th><th>Apellido</th><th>Mail</th><th>Mobil</th><th>Especialidad</th><th>Estado Asignación</th><th>Fecha Asignación</th><th>Fecha Fin Asignación</th><th>Proyecto</th><th>Estado Proyecto</th><th>Fecha inicio Proyecto</th></tr>
+            <tr><th>Nombre</th><th>Apellido</th><th>Especialidad</th><th>Estado asignación</th><th>Fecha asignación</th><th>Fin asignación</th><th>Proyecto</th><th>Estado proyecto</th><th>Fin proyecto</th></tr>
             </thead>
           <c:choose   >
           <c:when test="${not empty listaEmpleados}">
@@ -92,15 +92,13 @@
             <tr bgcolor="<c:out value="${color_row}"/>" >
                 <td nowrap ><a href="empleados?empId=<c:out value="${empleado.empId}" />"><c:out value="${empleado.empFirstName}" /></a></td>
                 <td nowrap ><c:out value="${empleado.empLastName}" /></td>
-                <td nowrap ><c:out value="${empleado.empMail}" /></td>
-                <td nowrap ><c:out value="${empleado.empMobileNumber}" /></td>
                 <td nowrap ><c:out value="${empleado.employeeTypeTO.etyName}" /></td>
                 <td nowrap ><c:out value="${empleado.projectAssignmentsTO.statesTO.staId}" /></td>
                 <td nowrap ><fmt:formatDate value="${empleado.projectAssignmentsTO.praAssignDate}"    pattern="dd/MM/yyyy HH:mm" /></td>
                 <td nowrap ><fmt:formatDate value="${empleado.projectAssignmentsTO.praFinishDate}"    pattern="dd/MM/yyyy HH:mm" /></td>
                 <td nowrap ><c:out value="${empleado.projectAssignmentsTO.projectsTO.proName}" /></td>
                 <td nowrap ><c:out value="${empleado.projectAssignmentsTO.projectsTO.statesTO.staId}" /></td>        
-                <td nowrap ><fmt:formatDate value="${empleado.projectAssignmentsTO.projectsTO.proStartDate}"    pattern="dd/MM/yyyy HH:mm" /></td>
+                <td nowrap ><fmt:formatDate value="${empleado.projectAssignmentsTO.projectsTO.proFinishDate}"    pattern="dd/MM/yyyy HH:mm" /></td>
             </tr> 
              <c:choose>
             <c:when test="${status.index % 2 == 0}">  
@@ -119,7 +117,7 @@
                         <c:if test="${page != 0}">
                             <img src="img/player_start.png" height="20" width="20" onclick="back()" alt="<"/>
                         </c:if>
-                           </td><td>Pagina <fmt:formatNumber type="number" minFractionDigits="0" value="${page + 1 }" /> de <fmt:formatNumber type="number" minFractionDigits="0" value="${maxPage }" />
+                           </td><td>Página <fmt:formatNumber type="number" minFractionDigits="0" value="${page + 1 }" /> de <fmt:formatNumber type="number" minFractionDigits="0" value="${maxPage }" />
                            </td><td>
                            
                         <c:if test="${page < maxPage}"> 
@@ -135,7 +133,7 @@
           <c:otherwise>
            <c:if test="${not empty accion}">
            <tbody>
-            <tr><td colspan="100%">La busqueda no arrojo resultados</td></tr> 
+            <tr><td colspan="100%">La búsqueda no arrojo resultados</td></tr> 
            </tbody>
            </c:if>
           </c:otherwise>

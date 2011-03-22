@@ -2,6 +2,7 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page contentType="text/html;charset=windows-1252"%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252"/>
@@ -20,11 +21,11 @@
   <input type="hidden" id="accion" name="accion" value=""/>
   <input type="hidden" id="payId" name="payId" value="<c:out value="${pago.payId}"/>"/>
   <input type="hidden" id="empId" name="empId" value="<c:out value="${pago.employeeTO.empId}"/>"/>
-
+  <input type="hidden" id="mesId" name="mesId" value="<c:out value="${empId}"/>"/>
   <table width="80%" align="center">
       <thead>
       <tr>
-        <th colspan="4" class="tw_form">Ingrese los campos con los datos del Pago a realizar</th>
+        <th colspan="6" class="tw_form">Ingrese los campos con los datos del pago a realizar</th>
       </tr>
       </thead>
       <tbody>
@@ -33,7 +34,7 @@
       <tr>
         <td nowrap align="right" width="25%">Empleado:</td>
         <td align="left" width="25%">
-           <select name="listaEmpleados" id="listaEmpleados" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';" onchange="buscarAsignaciones()">            
+           <select name="listaEmpleados" id="listaEmpleados" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">            
                 <option value="" selected="selected">Seleccionar</option>
                 <c:forEach items="${listaEmpleados}" var="item">
                    <c:choose>
@@ -55,8 +56,28 @@
                     </c:choose>
                 </c:forEach>
            </select>
-        </td>    
-        <td nowrap align="right" width="25%">Fecha:</td>
+        </td>   
+        <td nowrap align="right" width="25%">Mes de pago:</td>
+        <td align="left" width="25%">
+           <select name="listaMes" id="listaMes" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';" onchange="buscarAsignaciones()">            
+                <option value="" selected="selected">Seleccionar</option>
+                <option value="1" >Enero</option>
+                <option value="2" >Febrero</option>
+                <option value="3" >Marzo</option>
+                <option value="4" >Abril</option>
+                <option value="5" >Mayo</option>
+                <option value="6" >Junio</option>
+                <option value="7" >Julio</option>
+                <option value="8" >Agosto</option>
+                <option value="9" >Septiembre</option>
+                <option value="10" >Octubre</option>
+                <option value="11" >Noviembre</option>
+                <option value="12" >Diciembre</option>
+                
+        </select>
+        </td> 
+         
+        <td nowrap align="right" width="25%">Fecha de pago:</td>
         <td align="left" width="25%">
             <c:choose>
                 <c:when test="${auxDate != null && auxDate !=''}"> 
@@ -70,29 +91,28 @@
       </tr>
       <tr>
         <td nowrap align="right" width="25%">Descripción:</td>
-        <td colspan="3" align="left">
+        <td colspan="5" align="left">
               <input type="text" class="tw_form" id="payDescription" name="payDescription"   value="<c:out  value="${pago.payDescription}"/>" size="100" maxlength="250" onfocus="javascript:this.style.background='#FFFFFF';"></input>
         </td> 
       </tr>
       <tr>
         <td nowrap align="right" width="25%">Observación:</td>
-        <td colspan="3" align="left">
-              <textarea rows="3" cols="40" class="tw_form" id="payObservation" name="payObservation"><c:out value="${pago.payObservation}"/></textarea>
+        <td colspan="5" align="left">
+              <textarea rows="3" cols="50" class="tw_form" id="payObservation" name="payObservation"><c:out value="${pago.payObservation}"/></textarea>
         </td> 
       </tr>
       <tr>
-        <td colspan="4" align="center" width="70%">
+        <td colspan="6" align="center" width="70%">
          <div class="fixedHeaderTablePago">
-             <table cellpadding="0" cellspacing="1" align="center" width="100%">
+             <table id="tabla-asignaciones" name="tabla-asignaciones" cellpadding="0" cellspacing="1" align="center" width="100%">
              <thead>     
                <tr style="display:block; background-color='transparent'">
-                    <th width="10%" bgcolor="#80211D">Fecha Asignación</th>
-                    <th width="10%" bgcolor="#80211D">Estado Asignación</th>
-                    <th width="10%" bgcolor="#80211D">Nombre Proyecto</th>
-                    <th width="10%" bgcolor="#80211D">Estado Proyecto</th>
-                    <th width="10%" bgcolor="#80211D">Nombre Orden</th>
-                    <th width="10%" bgcolor="#80211D">Cliente</th>
-                    <th width="10%" bgcolor="#80211D">Total Asignación</th>
+                    <th width="10%" bgcolor="#80211D">Fecha asignación</th>
+                    <th width="10%" bgcolor="#80211D">Nombre proyecto</th>
+                    <th width="10%" bgcolor="#80211D">Tipo tarifa</th>
+                    <th width="10%" bgcolor="#80211D">Monto tarifa</th>
+                    <th width="10%" bgcolor="#80211D">Total unidades</th>                    
+                    <th width="10%" bgcolor="#80211D">Total asignación</th>
                     <th width="2%" bgcolor="#80211D"></th>
                 </tr>
              </thead>  
@@ -100,17 +120,16 @@
                <c:when test="${not empty projectAssignnments}">
              <tbody>
                <c:forEach items="${projectAssignnments}" var="item">
-               <tr name="item-idiomas" id="praId-<c:out value="${item[\'PRAID\']}"/>" >
-                    <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'PRAASSDATE\']}" />
+               <tr name="item-idiomas" id="<c:out value="${item[\'PADID\']}"/>" >
+                    <td width="10%" bgcolor="#FFFFF"><fmt:formatDate value="${item[\'PRAASSDATE\']}"  pattern="dd/MM/yyyy HH:mm" />
                        <input type="hidden" name="item-pago-hidden"  value="<c:out value="${item[\'PRAID\']}" />#<c:out value="${item[\'EMPID\']}" />#<c:out value="${item[\'PROJID\']}"/>"</td>     
-                    <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'PRAASSSTATE\']}" /></td>     
-                    <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'PROJNAME\']}" /></td>     
-                    <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'PROJSTATE\']}" /></td> 
-                    <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'ORDNAME\']}" /></td>  
-                    <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'CLINAME\']}" /></td>       
+                    <td width="10%" bgcolor="#FFFFF"><a href="proyectos?ordId=<c:out value="${item[\'PROJID\']}" />"><c:out value="${item[\'PROJNAME\']}" /></a></td>     
+                    <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'RATNAME\']}" /></td> 
+                    <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'RATVALUE\']}" /></td>  
+                    <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'WCOUNT\']}" /></td>       
                     <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'PRATOTAL\']}" /></td>                        
-                    <td width="2%" bgcolor="#FFFFF">
-                        <img  src="img/del2.png" height="15" width="15"  alt="Eliminar" onclick="eliminarPagoAsignacion('<c:out value="${item[\'PRAID\']}" />')" onmouseover="this.style.cursor='hand';" /></td>
+                    <td width="2%">
+                        <img  src="img/del2.png" height="15" width="15"  alt="Eliminar" onclick="eliminarPagoAsignacion('<c:out value="${item[\'PADID\']}" />','<c:out value="${item[\'PRATOTAL\']}" />')" onmouseover="this.style.cursor='hand';" /></td>
                 </tr>           
               </c:forEach>
               </tbody>
@@ -140,7 +159,7 @@
   <table align="center" width="50%">
       <tr>
         <td nowrap align="right" width="10%"><b>Total:</b></td>
-        <td width="20%" align="left"><input type="text" class="tw_form" id="payAmount"  name="payAmount"  value="<c:out value="${gasto.payAmount}"/>" size="10" maxlength="10"></input></td>    
+        <td width="20%" align="left"><input type="text" class="tw_form" id="payAmount"  name="payAmount" value="<fmt:formatNumber maxFractionDigits="2"  pattern="#########.####"  value="${payAmount}"/>"  size="10" maxlength="15" style="text-align:right;"></input></td>    
         <td nowrap align="right" width="10%">Moneda:</td>
         <td width="20%" align="leftx">
            <select name="listaMoneda" id="listaMoneda" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">                

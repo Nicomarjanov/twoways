@@ -304,7 +304,8 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
         "               pa.pra_finish_date       as empFinDate,\n" + 
         "               p.pro_name               as projName,\n" + 
         "               p.states_sta_id          as projState,\n" + 
-        "               p.pro_start_date         as projStartDate\n" + 
+        "               p.pro_start_date         as projStartDate,\n" +
+        "               p.pro_finish_date        as proEndDate\n" +
         "        from (select e.emp_id           as empId,\n" + 
         "               e.emp_first_name         as empFirstName,\n" + 
         "               e.emp_last_name          as empLastName,\n" + 
