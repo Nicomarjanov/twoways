@@ -142,11 +142,11 @@ function postEliminar(data){
   
    var tablaTarifas= document.getElementById('tabla-busqueda'); 
    if(data){
-      alert('La Tarifa se elimino con exito ');
+      alert('La tarifa se eliminó con éxito ');
       borrarFilas(tablaTarifas);
       window.location.href='tarifas';
    }else{
-      alert('La Tarifa no se pudo eliminar ');
+      alert('La tarifa no se pudo eliminar ');
    }
 }
 

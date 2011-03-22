@@ -47,5 +47,5 @@ public interface ProjectDAO {
    
     public void updateProjectAssigmentFromDetails(ProjectAssignmentsTO projectAssignmentsTO) throws Exception ;
     
-    public List getProjectAssignmentsByEmpId(Long empId) throws Exception;  
+    public List getProjectAssignmentsByEmpId(Long empId, Long mesId) throws Exception;  
 }

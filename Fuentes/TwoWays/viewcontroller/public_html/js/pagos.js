@@ -14,8 +14,11 @@ function cancelar()
 function buscarAsignaciones(){
 
     var empId=document.getElementById('listaEmpleados').options[document.getElementById('listaEmpleados').selectedIndex].value;
+    var mes=document.getElementById('listaMes').options[document.getElementById('listaMes').selectedIndex].value;
+
     document.getElementById('accion').value='buscarAsignaciones';  
     document.getElementById('empId').value=empId;
+    document.getElementById('mesId').value=mes;
     document.forms[0].submit();
 }
 
@@ -102,4 +105,17 @@ function grabar(existe)
         document.getElementById("empId").value=document.getElementById('listaEmpleados').options[document.getElementById('listaEmpleados').selectedIndex].value;
         document.forms[0].submit();                
     }
+}
+
+function eliminarPagoAsignacion(padId,praTotal){
+   var tabla = document.getElementById('tabla-asignaciones');
+   var row = document.getElementById(padId);   
+   var total = document.getElementById("payAmount").value;
+
+   tabla.deleteRow(row.rowIndex);
+   if (praTotal > 0){
+   alert(praTotal);
+   alert(total);
+        document.getElementById("payAmount").value= total - praTotal;
+   }
 }

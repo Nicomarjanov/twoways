@@ -14,6 +14,8 @@ import com.twoways.to.ProjectAssignmentsTO;
 
 import com.twoways.to.ProjectsTO;
 
+import com.twoways.to.UsersTO;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -22,7 +24,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+
+import java.util.Map;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -49,6 +55,7 @@ public class AbmPagosServlet extends AutorizacionServlet {
         List<EmployeesTO> empleados = null;
         
         String empId = request.getParameter("empId");
+        String mesId = request.getParameter("mesId");        
             
         Calendar c = new GregorianCalendar();
         String dia;
@@ -82,14 +89,24 @@ public class AbmPagosServlet extends AutorizacionServlet {
         if (accion!=null && accion.equalsIgnoreCase("buscarAsignaciones") && empId != null){
             try{
                 List projAssignEmpId = null; 
-                projAssignEmpId = twoWaysBDL.getServiceTwoWays().getProjectAssignmentsByEmpId(Long.parseLong(empId));
+                projAssignEmpId = twoWaysBDL.getServiceTwoWays().getProjectAssignmentsByEmpId(Long.parseLong(empId),Long.parseLong(mesId));
                /* if (projAssignEmpId != null){
                     for (String aux:projAssignEmpId){
                         System.out.println(aux);
                     } 
                 }*/
                 request.setAttribute("projectAssignnments",projAssignEmpId);
+                Double auxAmount= 0.0;
+                Map auxMap = new HashMap();
+                Iterator iterador = projAssignEmpId.listIterator();
+                while( iterador.hasNext() ) {
+                    auxMap =(HashMap)iterador.next();
+                    auxAmount = auxAmount + Double.parseDouble(auxMap.get("PRATOTAL").toString());
+                }
                 request.setAttribute("empId",empId);
+                request.setAttribute("mesId",mesId);
+                if (auxAmount > 0.0)
+                    request.setAttribute("payAmount",auxAmount);
                 empleados =  twoWaysBDL.getServiceTwoWays().obtenerEmpleados();
                 request.setAttribute("listaEmpleados",empleados);
             } catch (Exception e) {
@@ -107,10 +124,13 @@ public class AbmPagosServlet extends AutorizacionServlet {
                 }
             
             } catch (Exception e) {
-                request.setAttribute("mensaje","<script>alert('La fecha ingresada no es valida')</script>"); 
+                request.setAttribute("mensaje","<script>alert('La fecha ingresada no es válida')</script>"); 
                 e.printStackTrace();
                 request.getRequestDispatcher("pagos.jsp").forward(request,response);
-            }                           
+            }   
+            
+            request.setAttribute("mesId",mesId);
+            
             EmployeesTO empIdTO = new EmployeesTO();
             empIdTO.setEmpId(Long.parseLong(request.getParameter("empId")));
             pago.setEmployeeTO(empIdTO);
@@ -157,6 +177,10 @@ public class AbmPagosServlet extends AutorizacionServlet {
                }
                 pago.setProjAssignTOList(projAssTOList);
             }
+            
+            UsersTO userTO= (UsersTO)request.getSession().getAttribute("userSession"); 
+            pago.setUserTO(userTO);
+            
             try {             
                     twoWaysBDL.getServiceTwoWays().insertarPago(pago); 
                     request.setAttribute("mensaje","<script>alert('El registro del pago se guardó con éxito')</script>");
