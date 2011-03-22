@@ -90,11 +90,7 @@ public class AbmPagosServlet extends AutorizacionServlet {
             try{
                 List projAssignEmpId = null; 
                 projAssignEmpId = twoWaysBDL.getServiceTwoWays().getProjectAssignmentsByEmpId(Long.parseLong(empId),Long.parseLong(mesId));
-               /* if (projAssignEmpId != null){
-                    for (String aux:projAssignEmpId){
-                        System.out.println(aux);
-                    } 
-                }*/
+
                 request.setAttribute("projectAssignnments",projAssignEmpId);
                 Double auxAmount= 0.0;
                 Map auxMap = new HashMap();
@@ -188,7 +184,19 @@ public class AbmPagosServlet extends AutorizacionServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }            
+        }   else if (accion!=null && accion.equalsIgnoreCase("imprimirPago") && empId != null){
             
+            String empProjAssignment[] = request.getParameterValues("print-pago-hidden");
+            String payAmount = request.getParameter("payAmount");
+            System.out.println("empId: "+empId+" mesId: "+mesId+" total: "+payAmount);
+            if( empProjAssignment  != null){ 
+                                  
+               for(String aux:empProjAssignment){               
+                   String atribs[]= aux.split("#");
+                   System.out.println(atribs[0]);
+               }
+            }
+        
         }
             else if ((empId == null || empId.equalsIgnoreCase("")) && (accion==null || accion.equalsIgnoreCase("cancelar"))){
             try{

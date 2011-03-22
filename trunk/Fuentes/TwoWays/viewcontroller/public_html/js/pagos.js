@@ -114,8 +114,13 @@ function eliminarPagoAsignacion(padId,praTotal){
 
    tabla.deleteRow(row.rowIndex);
    if (praTotal > 0){
-   alert(praTotal);
-   alert(total);
-        document.getElementById("payAmount").value= total - praTotal;
+        document.getElementById("payAmount").value= (total - praTotal).toFixed(2);
    }
+}
+
+function ImprimirPago(){
+        document.getElementById("accion").value='imprimirPago';
+        document.getElementById("empId").value=document.getElementById('listaEmpleados').options[document.getElementById('listaEmpleados').selectedIndex].value;        
+        
+        document.forms[0].submit();    
 }

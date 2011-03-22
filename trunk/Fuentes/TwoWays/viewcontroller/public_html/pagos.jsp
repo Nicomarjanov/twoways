@@ -122,7 +122,8 @@
                <c:forEach items="${projectAssignnments}" var="item">
                <tr name="item-idiomas" id="<c:out value="${item[\'PADID\']}"/>" >
                     <td width="10%" bgcolor="#FFFFF"><fmt:formatDate value="${item[\'PRAASSDATE\']}"  pattern="dd/MM/yyyy HH:mm" />
-                       <input type="hidden" name="item-pago-hidden"  value="<c:out value="${item[\'PRAID\']}" />#<c:out value="${item[\'EMPID\']}" />#<c:out value="${item[\'PROJID\']}"/>"</td>     
+                       <input type="hidden" name="item-pago-hidden"  value="<c:out value="${item[\'PRAID\']}" />#<c:out value="${item[\'EMPID\']}" />#<c:out value="${item[\'PROJID\']}"/>"></input>
+                       <input type="hidden" name="print-pago-hidden"  value="<c:out value="${item[\'PRAASSDATE\']}" />#<c:out value="${item[\'PROJNAME\']}" />#<c:out value="${item[\'RATNAME\']}"/>#<c:out value="${item[\'RATVALUE\']}" />#<c:out value="${item[\'WCOUNT\']}"/>#<c:out value="${item[\'PRATOTAL\']}"/>"</input></td>     
                     <td width="10%" bgcolor="#FFFFF"><a href="proyectos?ordId=<c:out value="${item[\'PROJID\']}" />"><c:out value="${item[\'PROJNAME\']}" /></a></td>     
                     <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'RATNAME\']}" /></td> 
                     <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'RATVALUE\']}" /></td>  
@@ -159,7 +160,9 @@
   <table align="center" width="50%">
       <tr>
         <td nowrap align="right" width="10%"><b>Total:</b></td>
-        <td width="20%" align="left"><input type="text" class="tw_form" id="payAmount"  name="payAmount" value="<fmt:formatNumber maxFractionDigits="2"  pattern="#########.####"  value="${payAmount}"/>"  size="10" maxlength="15" style="text-align:right;"></input></td>    
+        <td width="20%" align="left"><input readonly type="text" class="tw_form" id="payAmount"  name="payAmount" value="<c:out value="${payAmount}" />" size="10" maxlength="15" style="text-align:right;"></input>
+         <input type="hidden" name="print-total-hidden"  value="<c:out value="${payAmount}" />"></td>    
+        
         <td nowrap align="right" width="10%">Moneda:</td>
         <td width="20%" align="leftx">
            <select name="listaMoneda" id="listaMoneda" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">                
@@ -190,7 +193,7 @@
           <tr>
               <td align="right"><input type="button" id="aceptar" value="Aceptar" onclick="cargar()"/></td>   
               <td align="center"><input type="button" id="cancel" value="Limpiar" OnClick="cancelar()"/></td>   
-              <td align="left"><input type="button" id="eliminar" value="Eliminar" OnClick="eliminarPago(<c:out value="${payId}"/>)"/></td>
+              <td align="left"><input type="button" id="eliminar" value="Imprimir" OnClick="ImprimirPago()"/></td>
           </tr>
       </table>
   </form>

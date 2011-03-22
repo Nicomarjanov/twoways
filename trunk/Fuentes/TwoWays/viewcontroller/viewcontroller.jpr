@@ -89,6 +89,7 @@
       <value n="j2eeWebContextRoot" v="twoways"/>
       <hash n="webContentSet">
          <list n="pattern-filters">
+            <string v="-WEB-INF/classes/part1/"/>
             <string v="-asignar_tarifa.jsp"/>
             <string v="-img/Language.png"/>
             <string v="-traductor.jsp"/>
@@ -105,6 +106,7 @@
    <hash n="oracle.jdeveloper.model.PathsConfiguration">
       <hash n="javaContentSet">
          <list n="pattern-filters">
+            <string v="-com/twoways/view/servlets/HelloWorld.java"/>
             <string v="-servlets/"/>
             <string v="-com/twoways/view/servlets/AbmTraductoresServlet.java"/>
             <string v="-com/twoways/view/servlets/AbmUsuarioServlet.java"/>
