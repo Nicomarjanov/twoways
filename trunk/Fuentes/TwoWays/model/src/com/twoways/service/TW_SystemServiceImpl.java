@@ -587,7 +587,7 @@ public class TW_SystemServiceImpl implements TW_SystemService {
     }
 
 
-    public boolean enviarMailAsignacion(Long praId, String message) throws Exception {
+    public boolean enviarMailAsignacion(Long praId, String message, UsersTO user) throws Exception {
 
         MessageFormat msf = new MessageFormat("");
         ProjectAssignmentsTO projectAssignmentsTO = 
@@ -600,28 +600,30 @@ public class TW_SystemServiceImpl implements TW_SystemService {
             this.getEmpById(projectAssignmentsTO.getEmployeesTO().getEmpId().toString());
         List<OrdersDocsTO> ordDocList = new ArrayList<OrdersDocsTO>();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        String texto = message ;
+        String texto = "" ;
         String subject = 
-            "\n Fecha de Asignacion : " + sdf.format(projectAssignmentsTO.getPraAssignDate()) + 
-            "  Proyecto :" + project.getProName();
+            "next assignment: " + project.getProName() +" Delivery date: " + sdf.format(projectAssignmentsTO.getPraFinishDate()) ;
         texto += 
-                "\nFecha de Asignacion : #fechaAsignacion#\n" + "\nFecha de Entrega :  #fechaEntrega#\n" + 
-                "\nServicio  : #servicio#\n";
+                "\nFecha de asignación: #fechaAsignacion#\n" +
+                "\nServicio: #servicio#\n";
 
 
         texto = 
                 texto.replaceAll("#fechaAsignacion#", sdf.format(projectAssignmentsTO.getPraAssignDate()));
         texto = 
                 texto.replaceAll("#servicio#", projectAssignmentsTO.getServiceTO().getRtyName());
-        texto = 
-                texto.replaceAll("#fechaEntrega#", sdf.format(projectAssignmentsTO.getPraFinishDate()));
-
+        Map enviados = new HashMap(); 
 
         for (ProAssigmentsDetailsTO proAssigmentsDetailsTO: 
              proAssigmentsDetailsTOList) {
             texto += 
                     "\nDocumento: " + proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName();
-            if (!projectAssignmentsTO.getServiceTO().getRtyName().equalsIgnoreCase("Maquetador")) {
+                    
+                    
+            if (!projectAssignmentsTO.getServiceTO().getRtyName().equalsIgnoreCase("Maquetador") ) {
+                
+                if(enviados.get(proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName().toString())!=null){ 
+                
                 texto += 
                         "\nLenguajes: [" + proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO().getLanguaguesTO().getLanName() + 
                         " - " + 
@@ -631,6 +633,9 @@ public class TW_SystemServiceImpl implements TW_SystemService {
                         " - " + 
                         proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO1().getLaaAcronym() + 
                         " ] ";
+                }else{
+                    enviados.put(proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName().toString(),"");
+                }
             }
             OrdersDocsTO odo = 
                 this.getOrdersDocById(proAssigmentsDetailsTO.getOrdersDocsTO().getOdoId());
@@ -638,10 +643,16 @@ public class TW_SystemServiceImpl implements TW_SystemService {
 
         }
 
-
+        texto+= "\nAdditional information: "+message;
+        
+        String firma = user.getUsrFirstName() +" "+ user.getUsrLastName()+ "\n " +
+        ((user.getRolesTO() != null )? user.getRolesTO().getRolName() +"\n":"")+
+        user.getUsrMail()+"\n"; 
+        texto+=firma;    
+        
         ServiceMail sm = new ServiceMail();
         sm.sendAttach(employee.getEmpMail(), ordDocList, subject, 
-                      texto.replaceAll(" null ", " "));
+                      texto.replaceAll("null", " "));
 
 
         return true;

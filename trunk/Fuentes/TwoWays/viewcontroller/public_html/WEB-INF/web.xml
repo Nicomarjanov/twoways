@@ -2,18 +2,6 @@
 <!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
 <web-app>
     <description>TwoWays Application</description>
-    <filter>
-        <filter-name>adfFaces</filter-name>
-        <filter-class>oracle.adf.view.faces.webapp.AdfFacesFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>adfFaces</filter-name>
-        <servlet-name>*.jsp</servlet-name>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>adfFaces</filter-name>
-        <url-pattern>*.jspx</url-pattern>
-    </filter-mapping>
     <servlet>
         <servlet-name>Log4jSetupServlet</servlet-name>
         <servlet-class>com.twoways.util.Log4jSetupServlet</servlet-class>

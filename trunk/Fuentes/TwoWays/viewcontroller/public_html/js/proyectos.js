@@ -870,8 +870,10 @@ function enviarAsignacion(){
 
      var praId=document.getElementById('parIdMail').value;
      var mensaje=document.getElementById('messageMail').value;
+     var uaid=document.getElementById('uaid').value;
+     
      document.getElementById('divMail').style.display = 'none'; 
-     towaysDWR.enviarAsignacion(praId,mensaje,enviarAsignacionCallback);
+     towaysDWR.enviarAsignacion(praId,mensaje,uaid,enviarAsignacionCallback);
 
 }
 
