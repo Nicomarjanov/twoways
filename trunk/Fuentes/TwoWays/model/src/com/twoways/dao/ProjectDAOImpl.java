@@ -238,7 +238,7 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
                                          params);
     }
 
-  /*  public Long findProjectAssignament(String praDate, Long emp) {
+    public Long findProjectAssignament(String praDate, Long emp) {
         Map params = new HashMap();
         params.put("praDate", 
                    (praDate.length() < 10) ? praDate + " 00:00 " : praDate);
@@ -248,7 +248,7 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
         return (Long)getSqlMapClientTemplate().queryForObject("findProjectAssignamentAvailability", 
                                                               params);
 
-    }*/
+    }
     
     
     
@@ -261,12 +261,13 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
         getSqlMapClientTemplate().update("updateProjectAssigmentDetailsByPadId",proAssigmentsDetailsTO); 
     }
     
-    public List getProjectAssignmentsByEmpId(Long empId, String mesId) throws Exception {
+    public List getProjectAssignmentsByEmpId(Long empId, String mesId, String anioId) throws Exception {
         
         Map params = new HashMap();
         params.put("mesId",mesId); 
-        params.put("empId", empId);
-    
+        params.put("empId", empId);        
+        params.put("anioId", anioId);
+        
         List ret= null;
         try {
             ret = getSqlMapClientTemplate().queryForList("getProjectAssignamentByEmpId", 

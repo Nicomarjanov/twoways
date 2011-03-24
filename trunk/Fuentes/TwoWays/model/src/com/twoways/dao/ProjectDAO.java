@@ -40,12 +40,12 @@ public interface ProjectDAO {
 
     public void deleteProjectAssigment(Map params)throws Exception ;
 
-   // public Long findProjectAssignament(String praDate, Long emp) throws Exception ;
+    public Long findProjectAssignament(String praDate, Long emp) throws Exception ;
     
    
     public void updateProjectAssigmentDetailsByPadId(ProAssigmentsDetailsTO proAssigmentsDetailsTO) throws Exception ;
    
     public void updateProjectAssigmentFromDetails(ProjectAssignmentsTO projectAssignmentsTO) throws Exception ;
     
-    public List getProjectAssignmentsByEmpId(Long empId, String mesId) throws Exception;  
+    public List getProjectAssignmentsByEmpId(Long empId, String mesId, String anio) throws Exception;  
 }

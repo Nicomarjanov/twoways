@@ -574,10 +574,10 @@ public class TW_SystemServiceImpl implements TW_SystemService {
         this.projectDao.deleteProjectAssigment(params);
     }
 
-  /*  public Long buscarAssignacion(String praDate, Long emp) throws Exception {
+    public Long buscarAssignacion(String praDate, Long emp) throws Exception {
         return this.projectDao.findProjectAssignament(praDate, emp);
     }
-*/
+
     public void updateProjectAssigmentFromDetails(ProjectAssignmentsTO projectAssignmentsTO) throws Exception {
         this.projectDao.updateProjectAssigmentFromDetails(projectAssignmentsTO);
     }
@@ -746,8 +746,8 @@ public class TW_SystemServiceImpl implements TW_SystemService {
     public DocTypesDAO getDocTypesDao() {
         return docTypesDao;
     }
-    public List getProjectAssignmentsByEmpId(Long empId, String mesId) throws Exception {
-        return this.projectDao.getProjectAssignmentsByEmpId(empId,mesId);
+    public List getProjectAssignmentsByEmpId(Long empId, String mesId,String anioId) throws Exception {
+        return this.projectDao.getProjectAssignmentsByEmpId(empId,mesId,anioId);
     }
 
     public void insertarPago(PaymentsTO paymentsTO) throws Exception {
@@ -768,6 +768,12 @@ public class TW_SystemServiceImpl implements TW_SystemService {
     
     public PaymentsTO getPaymentById(Long payId) throws Exception {
         return this.paymentDao.getPaymentById(payId);
+    }
+    
+    public Double getCurrencyCotizationValue(Timestamp date, Long curId, Double value)throws Exception {
+        
+        Double cotization = this.getCurrencyDao().getCurrencyValue(date,curId);
+        return value * cotization;
     }
 }
 

@@ -25,6 +25,8 @@ import com.twoways.to.UsersTO;
 
 import java.sql.SQLException;
 
+import java.sql.Timestamp;
+
 import java.util.List;
 import java.util.Map;
 
@@ -220,7 +222,7 @@ public interface TW_SystemService {
 
     public List <EmployeesTO> findEmployees(Map employParameters)  throws Exception;
 
-    public List getProjectAssignmentsByEmpId(Long empId, String mesId) throws Exception;
+    public List getProjectAssignmentsByEmpId(Long empId, String mesId, String anioId) throws Exception;
     
     public void insertarPago(PaymentsTO paymentsTO) throws Exception;
     
@@ -231,5 +233,6 @@ public interface TW_SystemService {
     
     public List<DocTypes> obtenerTipoDocumentos() throws Exception;
 
+    public Double getCurrencyCotizationValue(Timestamp date, Long curId, Double value)throws Exception;
     
 }

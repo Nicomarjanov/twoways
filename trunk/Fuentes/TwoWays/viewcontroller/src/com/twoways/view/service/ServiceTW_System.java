@@ -21,6 +21,11 @@ import com.twoways.to.TranslatorsLanguaguesTO;
 import com.twoways.to.TranslatorsTO;
 import com.twoways.to.UsersTO;
 
+import java.sql.Timestamp;
+
+import java.text.SimpleDateFormat;
+
+import java.util.Date;
 import java.util.List;
 
 public class ServiceTW_System {
@@ -378,4 +383,21 @@ public class ServiceTW_System {
     public TwoWaysBDL getTwoWaysBDL() {
         return twoWaysBDL;
     }
+    
+    public Double cotizar(String mes, String anio, Long curId, Double value){
+    try {
+        SimpleDateFormat formatoDeFecha = new SimpleDateFormat("d/M/y");
+        Date fechaAss = formatoDeFecha.parse("01/"+mes+"/"+anio);
+        System.out.println(fechaAss);
+        Timestamp timestamp = new Timestamp(fechaAss.getTime());
+        Double cotization = twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp,curId,value);
+        return value * cotization;
+    
+    } catch (Exception e) {
+        e.printStackTrace();
+        log.error(e, e);
+    }
+    return null;
+    }
+    
 }
