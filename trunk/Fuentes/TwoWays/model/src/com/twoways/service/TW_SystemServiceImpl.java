@@ -587,7 +587,7 @@ public class TW_SystemServiceImpl implements TW_SystemService {
     }
 
 
-    public boolean enviarMailAsignacion(Long praId, String message, UsersTO user) throws Exception {
+    public boolean enviarMailAsignacion(Long praId, String message, UsersTO user, String otrosDestinatarios) throws Exception {
 
         MessageFormat msf = new MessageFormat("");
         ProjectAssignmentsTO projectAssignmentsTO = 
@@ -643,15 +643,15 @@ public class TW_SystemServiceImpl implements TW_SystemService {
 
         }
 
-        texto+= "\nAdditional information: "+message;
+        texto+= "\nAdditional information: "+message+"\n";
         
-        String firma = user.getUsrFirstName() +" "+ user.getUsrLastName()+ "\n " +
+        String firma = "\n\n\n\n\n*"+user.getUsrFirstName() +" "+ user.getUsrLastName()+ "*\n" +
         ((user.getRolesTO() != null )? user.getRolesTO().getRolName() +"\n":"")+
         user.getUsrMail()+"\n"; 
         texto+=firma;    
         
         ServiceMail sm = new ServiceMail();
-        sm.sendAttach(employee.getEmpMail(), ordDocList, subject, 
+        sm.sendAttach(employee.getEmpMail(), ordDocList, subject,otrosDestinatarios, 
                       texto.replaceAll("null", " "));
 
 
@@ -694,17 +694,18 @@ public class TW_SystemServiceImpl implements TW_SystemService {
         for(ProAssigmentsDetailsTO pa :projectAssignmentsTO.getProAssigmentsDetailsTO() ){
            
             Double cotiB = 0.0; 
-            if(cotiz.get(pa.getEmployeesRatesTO().getRatesTO().getCurrencyTO().getCurId())!=null){
-              cotiB= cotiz.get(pa.getEmployeesRatesTO().getRatesTO().getCurrencyTO().getCurId());
-            }else{
-              cotiB = this.getCurrencyDao().getCurrencyValue(date,pa.getEmployeesRatesTO().getRatesTO().getCurrencyTO().getCurId() );    
-              cotiz.put(pa.getEmployeesRatesTO().getRatesTO().getCurrencyTO().getCurId(),cotiB);
-            } 
-            
-           Double costoUnitOriginal = ((pa.getPadRate()!=null)?pa.getPadRate():0.0) * ((pa.getPadWCount()!=null)?pa.getPadWCount():0.0) ;
-           
-           costo+= convert(cotiA,cotiB,costoUnitOriginal);
-           
+            if(pa.getEmployeesRatesTO().getRatesTO().getCurrencyTO()!=null){ 
+                if(cotiz.get(pa.getEmployeesRatesTO().getRatesTO().getCurrencyTO().getCurId())!=null){
+                  cotiB= cotiz.get(pa.getEmployeesRatesTO().getRatesTO().getCurrencyTO().getCurId());
+                }else{
+                  cotiB = this.getCurrencyDao().getCurrencyValue(date,pa.getEmployeesRatesTO().getRatesTO().getCurrencyTO().getCurId() );    
+                  cotiz.put(pa.getEmployeesRatesTO().getRatesTO().getCurrencyTO().getCurId(),cotiB);
+                } 
+                
+               Double costoUnitOriginal = ((pa.getPadRate()!=null)?pa.getPadRate():0.0) * ((pa.getPadWCount()!=null)?pa.getPadWCount():0.0) ;
+               
+               costo+= convert(cotiA,cotiB,costoUnitOriginal);
+            }
         }
         
         Map result = new HashMap(); 

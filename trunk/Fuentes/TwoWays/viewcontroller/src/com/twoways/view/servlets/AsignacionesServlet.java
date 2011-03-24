@@ -59,7 +59,7 @@ public class AsignacionesServlet extends AutorizacionServlet {
         List<RateTypesTO> servicesTOList= null;  
         OrdersTO ordersTO = null;
         ProjectAssignmentsTO projectAssignmentsTO = new  ProjectAssignmentsTO();
-        String script ="<script>alert('La asignación se guardo con exito');</script>";
+        String script ="<script>alert('La asignación se guardo con exito');\ncancelarAsignacion();</script>";
         String accion = 
             (request.getParameter("accion") != null) ? request.getParameter("accion").toString() : 
             "";
@@ -177,9 +177,7 @@ public class AsignacionesServlet extends AutorizacionServlet {
                         if (doc !=null && doc.startsWith("listdocs-") && request.getParameter(doc).equalsIgnoreCase("on") ){
                             ProAssigmentsDetailsTO detail = new ProAssigmentsDetailsTO();
                             detail.setProjectAssignmentsTO(projectAssignmentsTO);
-                            OrdersDocsTO ordersDocsTO= new OrdersDocsTO(); 
-                            ordersDocsTO.setOdoId(Long.parseLong(doc.split("-")[1]));
-                            ordersDocsTO.setOrdersOrdId(projectAssignmentsTO.getProjectsTO().getOrdersTO().getOrdId());
+                            OrdersDocsTO ordersDocsTO= twoWaysBDL.getServiceTwoWays().getOrdersDocById(Long.parseLong(doc.split("-")[1])); 
                             detail.setOrdersDocsTO(ordersDocsTO);
                             String languaje = doc.replaceAll("listdocs-","languagues");
                             if(request.getParameter(languaje) != null && request.getParameter(languaje).length() > 0  ){     

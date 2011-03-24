@@ -751,6 +751,9 @@ function calcularTotalDetalle(id,praId){
             alert(mensajeFaltanteAlert);
             return ;
     }
+    if(padWCount.value==''){
+      padWCount.value=0;
+    }
     
     tarifXunid.value = Math.round((parseFloat(padWCount.value)* parseFloat(padRate.value.replace(',','.')))*100)/100; 
     
@@ -871,9 +874,9 @@ function enviarAsignacion(){
      var praId=document.getElementById('parIdMail').value;
      var mensaje=document.getElementById('messageMail').value;
      var uaid=document.getElementById('uaid').value;
-     
+     var otrosDestinatarios= document.getElementById('otrosDestinatarios').value; 
      document.getElementById('divMail').style.display = 'none'; 
-     towaysDWR.enviarAsignacion(praId,mensaje,uaid,enviarAsignacionCallback);
+     towaysDWR.enviarAsignacion(praId,mensaje,uaid,otrosDestinatarios,enviarAsignacionCallback);
 
 }
 

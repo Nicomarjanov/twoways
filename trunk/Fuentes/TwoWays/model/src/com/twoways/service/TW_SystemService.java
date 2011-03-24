@@ -204,7 +204,7 @@ public interface TW_SystemService {
     
     public void updateProjectAssigmentDetailsByPadId(ProAssigmentsDetailsTO proAssigmentsDetailsTO) throws Exception ;
     
-    public boolean enviarMailAsignacion(Long praId, String message, UsersTO user) throws Exception;
+    public boolean enviarMailAsignacion(Long praId, String message, UsersTO user,String otrosDestinatarios) throws Exception;
 
     public void insertarGasto(ExpensesTO expensesTO) throws Exception;
     

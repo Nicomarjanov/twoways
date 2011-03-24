@@ -28,6 +28,7 @@ import java.util.ResourceBundle;
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
 
+import javax.mail.Address;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -114,7 +115,7 @@ public class ServiceMail {
 
 
     public void sendAttach(String toMail, List<OrdersDocsTO> ordDocList, 
-                    String subject, String message)  throws Exception {
+                    String subject, String otrosDestinatarios, String message)  throws Exception {
         try {
 
 
@@ -140,12 +141,23 @@ public class ServiceMail {
             Session session = Session.getDefaultInstance(props, auth);
             MimeMessage msg = new MimeMessage(session);
             msg.setFrom(new InternetAddress(userMailSender));
+            String otros[] = otrosDestinatarios.split(",");
+            Address[] cc = new  InternetAddress[otros.length+1];
+            cc[0]=new  InternetAddress(userMailSender);
+            int i=1;
+            for(String dir : otros){
+                cc[i++]=new  InternetAddress(dir);
+            }
+            
+           
             msg.setSubject(subject);
             msg.setRecipient(Message.RecipientType.TO, 
                              new InternetAddress(toMail));
+            msg.setRecipients(Message.RecipientType.CC,cc);                 
             //add atleast simple body
             MimeBodyPart body = new MimeBodyPart();
             body.setText(message);
+           
             //do attachment
             Multipart multipart = new MimeMultipart();
             multipart.addBodyPart(body);

@@ -1236,6 +1236,7 @@
       <result property="padId" column="PAD_ID" />
       <result property="projectAssignmentsTO.praId"   column="PROJECT_ASSIGNMENTS_PRA_ID" />
       <result property="ordersDocsTO.odoId" column="ORDERS_DOCS_ODO_ID" />     
+      <result property="ordersDocsTO.docType.dotId" column="DOC_TYPES_DOT_ID" />     
       <result property="padWCount" column="PAD_WCOUNT" />     
       <result property="ordersDocsTO.ordersOrdId" column="orders_docs_orders_ord_id" />  
       <result property="employeesRatesTO.ratesTO.ratId" column="employees_rates_rates_rat_id" />
@@ -1246,7 +1247,9 @@
   
   <select id="getProjectAssigmentDetailsByPraId" parameterClass="java.lang.Long" resultMap="select-projectAssignamentDetails-obj">
      select *
-     from proj_assignments_details
+     from proj_assignments_details pa, orders_docs odo
+     where odo.odo_id = pa.orders_docs_odo_id
+     and odo.orders_ord_id = pa.orders_docs_orders_ord_id
      where project_assignments_pra_id = #value#
  </select>
  
@@ -1256,8 +1259,10 @@
  
    <select id="getProjectAssigmentDetailsByPad" parameterClass="com.twoways.to.ProAssigmentsDetailsTO" resultMap="select-projectAssignamentDetails-obj">
      select *
-     from proj_assignments_details
-     where project_assignments_pra_id = #projectAssignmentsTO.praId# 
+     from proj_assignments_details pa, orders_docs odo
+     where odo.odo_id = pa.orders_docs_odo_id
+     and odo.orders_ord_id = pa.orders_docs_orders_ord_id
+     and project_assignments_pra_id = #projectAssignmentsTO.praId# 
      and  orders_docs_odo_id = #ordersDocsTO.odoId#
      and  orders_docs_orders_ord_id = #ordersDocsTO.ordersOrdId#
      and employees_rates_rates_rat_id = #employeesRatesTO.ratesTO.ratId# 
@@ -1285,12 +1290,12 @@
   </resultMap>
   
   <select id="getProjectAssigmentDetailsByPadMap" parameterClass="java.lang.Long" resultClass="java.util.HashMap">
-     select pad.* , l1.lan_name  len1 , l2.lan_name  len2, o.odo_name docName , tl.languagues_acronyms_laa_acrony acro1  ,  tl.languagues_acronyms_laa_acron1 acro2,  r.rat_name, cu.cur_name , cu.cur_symbol, cu.cur_id
+     select pad.* , l1.lan_name  len1 , l2.lan_name  len2, o.odo_name docName , tl.languagues_acronyms_laa_acrony acro1  ,  tl.languagues_acronyms_laa_acron1 acro2,  r.rat_name, cu.cur_name , cu.cur_symbol, cu.cur_id , o.doc_types_dot_id
      from (((((((proj_assignments_details pad left outer join employees_rates er on pad.employees_rates_employees_emp_ = er.employees_emp_id and pad.employees_rates_rates_rat_id = er.rates_rat_id) left outer join 
      rates r on  er.rates_rat_id = r.rat_id ) left outer join orders_docs o  on o.odo_id = pad.orders_docs_odo_id and pad.orders_docs_orders_ord_id = o.orders_ord_id ) left outer join
      translators_languagues tl on pad.translators_languagues_tla_id = tl.tla_id) )left outer join  languagues l1 on  tl.languagues_acronyms_languagues = l1.lan_id ) left outer join  languagues l2 on 
      tl.languagues_acronyms_languague1 = l2.lan_id ) left outer join currency cu on r.currency_cur_id = cu.cur_id
-     where  pad.project_assignments_pra_id = #value# 
+     where  pad.project_assignments_pra_id = #value# order by o.odo_name
  </select>
  
  <select id="findProjectAssignament" parameterClass="java.util.Map" resultClass="java.lang.Long">

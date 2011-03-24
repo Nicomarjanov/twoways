@@ -1,6 +1,7 @@
 package com.twoways.dao;
 
 import com.twoways.to.CurrencyTO;
+import com.twoways.to.DocTypes;
 import com.twoways.to.EmployeesRatesTO;
 import com.twoways.to.EmployeesTO;
 import com.twoways.to.LanguaguesAcronymsTO;
@@ -90,6 +91,34 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
     public void insertProjectAssignamentDetails(ProAssigmentsDetailsTO proAssigmentsDetailsTO, 
                                                 List<EmployeesRatesTO> employeesRatesTOList) throws Exception {
 
+       
+       
+       if (!proAssigmentsDetailsTO.getOrdersDocsTO().getDocType().getDotId().equals("Source") ){
+           
+           Long praaId = 
+               (Long)getSqlMapClientTemplate().queryForObject("projectAssDet.seq", 
+                                                              "");
+           EmployeesRatesTO employeesRatesTO= new EmployeesRatesTO();                                                 
+           RatesTO rateTO= new RatesTO(); 
+           rateTO.setRatId(new Long(0));
+           EmployeesTO employeeTO= proAssigmentsDetailsTO.getProjectAssignmentsTO().getEmployeesTO();
+           employeesRatesTO.setEmployeesTO(employeeTO);
+           proAssigmentsDetailsTO.setPadId(praaId);
+           proAssigmentsDetailsTO.setEmployeesRatesTO(employeesRatesTO);
+           ProAssigmentsDetailsTO proAssigmentsDetailsTOOld = 
+               getProjectAssignmentsDetailsById(proAssigmentsDetailsTO);
+           if (proAssigmentsDetailsTOOld == null) {
+               getSqlMapClientTemplate().insert("insertProjectAssigmentDetails", 
+                                                proAssigmentsDetailsTO);
+           } else {
+               proAssigmentsDetailsTOOld.setPranslatorsLanguaguesTO(proAssigmentsDetailsTO.getPranslatorsLanguaguesTO());
+               getSqlMapClientTemplate().update("updateProjectAssigmentDetailsLanguage", 
+                                                proAssigmentsDetailsTOOld);
+           }
+           
+           
+       }else{
+       
         for (EmployeesRatesTO employeesRatesTO: employeesRatesTOList) {
 
             Long praaId = 
@@ -111,6 +140,8 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
 
             //   
         }
+        
+       }
 
     }
     /*
@@ -163,6 +194,8 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
             proAssigmentsDetailsTO.getOrdersDocsTO().setOdoId(Long.parseLong(mapResult.get("ORDERS_DOCS_ODO_ID").toString()));
             proAssigmentsDetailsTO.getOrdersDocsTO().setOrdersOrdId(Long.parseLong(mapResult.get("ORDERS_DOCS_ORDERS_ORD_ID").toString()));
             proAssigmentsDetailsTO.getOrdersDocsTO().setOdoName(mapResult.get("DOCNAME").toString());
+            proAssigmentsDetailsTO.getOrdersDocsTO().setDocType(new DocTypes());
+            proAssigmentsDetailsTO.getOrdersDocsTO().getDocType().setDotId(mapResult.get("DOC_TYPES_DOT_ID").toString());
             if (mapResult.get("PAD_WCOUNT") != null && 
                 mapResult.get("PAD_WCOUNT").toString().length() > 0) {
                 proAssigmentsDetailsTO.setPadWCount(Double.parseDouble(mapResult.get("PAD_WCOUNT").toString()));
@@ -171,8 +204,8 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
             proAssigmentsDetailsTO.getEmployeesRatesTO().setEmployeesTO(new EmployeesTO());
             proAssigmentsDetailsTO.getEmployeesRatesTO().getEmployeesTO().setEmpId(Long.parseLong(mapResult.get("EMPLOYEES_RATES_EMPLOYEES_EMP_").toString()));
             proAssigmentsDetailsTO.getEmployeesRatesTO().setRatesTO(new RatesTO());
-            proAssigmentsDetailsTO.getEmployeesRatesTO().getRatesTO().setRatId(Long.parseLong(mapResult.get("EMPLOYEES_RATES_RATES_RAT_ID").toString()));
-            proAssigmentsDetailsTO.getEmployeesRatesTO().getRatesTO().setRatName(mapResult.get("RAT_NAME").toString());
+            proAssigmentsDetailsTO.getEmployeesRatesTO().getRatesTO().setRatId(Long.parseLong((mapResult.get("EMPLOYEES_RATES_RATES_RAT_ID")!=null)?mapResult.get("EMPLOYEES_RATES_RATES_RAT_ID").toString():"0"));
+            proAssigmentsDetailsTO.getEmployeesRatesTO().getRatesTO().setRatName((mapResult.get("RAT_NAME")!=null)?mapResult.get("RAT_NAME").toString():"");
             
             if (mapResult.get("CUR_ID") != null &&  mapResult.get("CUR_ID").toString().length() > 0) {
                 proAssigmentsDetailsTO.getEmployeesRatesTO().getRatesTO().setCurrencyTO(new CurrencyTO());
