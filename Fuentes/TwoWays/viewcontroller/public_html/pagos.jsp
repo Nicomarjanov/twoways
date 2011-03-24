@@ -24,11 +24,12 @@
   <input type="hidden" id="payId" name="payId" value="<c:out value="${pago.payId}"/>"/>
   <input type="hidden" id="empId" name="empId" value="<c:out value="${empId}"/>"/>
   <input type="hidden" id="mesId" name="mesId" value="<c:out value="${mesId}"/>"/>
+  <input type="hidden" id="anioId" name="anioId" value="<c:out value="${anioId}"/>"/>  
   <input type="hidden" id="empName" name="empName" value="<c:out value="${empName}"/>"/>
   <table width="80%" align="center">
       <thead>
       <tr>
-        <th colspan="6" class="tw_form">Ingrese los campos con los datos del pago a realizar</th>
+        <th colspan="7" class="tw_form">Ingrese los campos con los datos del pago a realizar</th>
       </tr>
       </thead>
       <tbody>
@@ -60,9 +61,9 @@
                 </c:forEach>
            </select>
         </td>   
-        <td nowrap align="right" width="25%">Mes de pago:</td>
+        <td nowrap align="right" width="25%">Seleccione fecha:</td>
         <td align="left" width="25%">
-            <select name="listaMes" id="listaMes" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';" onchange="buscarAsignaciones()">
+            <select name="listaMes" id="listaMes" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';" >
                 <option value="" selected="selected">Seleccionar</option>
                 <option value="Enero" >Enero</option>
                 <option value="Febrero" >Febrero</option>
@@ -88,7 +89,33 @@
                 </script>
             </c:if>
         </td>
-
+        <td>
+            <select name="listaAnio" id="listaAnio" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';" onchange="buscarAsignaciones()">
+                <option value="" selected="selected">Seleccionar</option>
+                <option value="2010" >2010</option>
+                <option value="2011" >2011</option>
+                <option value="2012" >2012</option>
+                <option value="2013" >2013</option>
+                <option value="2014" >2014</option>
+                <option value="2015" >2015</option>
+                <option value="2016" >2016</option>
+                <option value="2017" >2017</option>
+                <option value="2018" >2018</option>
+                <option value="2019" >2019</option>
+                <option value="2020" >2020</option>
+            
+            </select>
+            <c:if test="${anioId != null}">
+                <script type="text/javascript">
+                    for (var i=1; i < 11; i++){
+                        if (document.getElementById('listaAnio').options[i].value =="<c:out value="${anioId}"/>"){
+                            document.getElementById('listaAnio').selectedIndex=i;
+                        }
+                    }
+                </script>
+            </c:if>
+        </td>
+        
          
         <td nowrap align="right" width="25%">Fecha de pago:</td>
         <td align="left" width="25%">
@@ -104,7 +131,7 @@
       </tr>
       <tr>
         <td nowrap align="right" width="25%">Descripción:</td>
-        <td colspan="5" align="left">
+        <td colspan="6" align="left">
               <input type="text" class="tw_form" id="payDescription" name="payDescription"   value="<c:out  value="${pago.payDescription}"/>" size="100" maxlength="250" onfocus="javascript:this.style.background='#FFFFFF';"></input>
         </td> 
       </tr>
@@ -115,7 +142,7 @@
         </td> 
       </tr>
       <tr>
-        <td colspan="6" align="center" width="70%">
+        <td colspan="7" align="center" width="70%">
          <div class="fixedHeaderTablePago">
              <table id="tabla-asignaciones" name="tabla-asignaciones" cellpadding="0" cellspacing="1" align="center" width="100%">
              <thead>     
@@ -174,7 +201,7 @@
       <tr>
         <td nowrap align="right" width="10%">Moneda:</td>
         <td width="20%" align="leftx">
-           <select name="listaMoneda" id="listaMoneda" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">                
+           <select name="listaMoneda" id="listaMoneda" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';" onchange="cotizar()">                
                     <option value="" >Seleccionar</option>
                     <c:forEach items="${listaMoneda}" var="item">
                         <c:choose>

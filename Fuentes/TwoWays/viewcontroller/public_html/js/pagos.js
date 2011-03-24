@@ -12,12 +12,14 @@ function cancelar()
 }
 
 function recargar(){
-    if(confirm('Perderá los datos ingresados. ¿Desea recagar la página?'))
-    {   
-        document.getElementById("accion").value='cancelar';
-        document.getElementById("empId").value="";
-        document.getElementById("payId").value="";        
-        document.forms[0].submit();
+    if (document.getElementById('listaEmpleados').options[document.getElementById('listaEmpleados').selectedIndex].value == ""){
+        if(confirm('Perderá los datos ingresados. ¿Desea recagar la página?'))
+        {   
+            document.getElementById("accion").value='cancelar';
+            document.getElementById("empId").value="";
+            document.getElementById("payId").value="";        
+            document.forms[0].submit();
+        }
     }
 }
 
@@ -25,12 +27,14 @@ function buscarAsignaciones(){
 
     var empArray=document.getElementById('listaEmpleados').options[document.getElementById('listaEmpleados').selectedIndex].value;
     var mes=document.getElementById('listaMes').options[document.getElementById('listaMes').selectedIndex].value;
+    var anio=document.getElementById('listaAnio').options[document.getElementById('listaAnio').selectedIndex].value;    
     var empId = empArray.split('#');
 
     document.getElementById('accion').value='buscarAsignaciones';  
     document.getElementById('empId').value=empId[0];
     document.getElementById('empName').value=empId[1];
     document.getElementById('mesId').value=mes;
+    document.getElementById('anioId').value=anio;
     document.forms[0].submit();
 }
 
@@ -139,4 +143,22 @@ function ImprimirPago(){
         document.getElementById("empId").value=document.getElementById('listaEmpleados').options[document.getElementById('listaEmpleados').selectedIndex].value;        
         
         document.forms[0].submit();    
+}
+
+function cotizar(){
+    var total = document.getElementById("payAmount").value;
+    var mes = document.getElementById("mesId").value;
+    var anio = document.getElementById("anioId").value;    
+    var currency = document.getElementById("listaMoneda").value;
+    var curId = currency.split("#");
+
+    total=total.replace(",",".");
+
+    towaysDWR.cotizar('02',anio,curId[0], total,valorCotizacioncallBack);
+}
+
+function valorCotizacioncallBack(data){
+
+alert(data);
+    document.getElementById("payAmount").value=data;
 }
