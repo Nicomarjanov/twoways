@@ -574,10 +574,10 @@ public class TW_SystemServiceImpl implements TW_SystemService {
         this.projectDao.deleteProjectAssigment(params);
     }
 
-    public Long buscarAssignacion(String praDate, Long emp) throws Exception {
+  /*  public Long buscarAssignacion(String praDate, Long emp) throws Exception {
         return this.projectDao.findProjectAssignament(praDate, emp);
     }
-
+*/
     public void updateProjectAssigmentFromDetails(ProjectAssignmentsTO projectAssignmentsTO) throws Exception {
         this.projectDao.updateProjectAssigmentFromDetails(projectAssignmentsTO);
     }
@@ -746,7 +746,7 @@ public class TW_SystemServiceImpl implements TW_SystemService {
     public DocTypesDAO getDocTypesDao() {
         return docTypesDao;
     }
-    public List getProjectAssignmentsByEmpId(Long empId, Long mesId) throws Exception {
+    public List getProjectAssignmentsByEmpId(Long empId, String mesId) throws Exception {
         return this.projectDao.getProjectAssignmentsByEmpId(empId,mesId);
     }
 

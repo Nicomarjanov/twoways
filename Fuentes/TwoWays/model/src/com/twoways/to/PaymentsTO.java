@@ -8,7 +8,7 @@ public class PaymentsTO {
     private Long payId;
     private Timestamp payDate;
     private String payDescription;
-    private Long payAmount;
+    private Double payAmount;
     private String payObservation;
     
     private EmployeesTO employeeTO;
@@ -44,11 +44,11 @@ public class PaymentsTO {
         return payDescription;
     }
 
-    public void setPayAmount(Long payAmount) {
+    public void setPayAmount(Double payAmount) {
         this.payAmount = payAmount;
     }
 
-    public Long getPayAmount() {
+    public Double getPayAmount() {
         return payAmount;
     }
 

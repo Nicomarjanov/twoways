@@ -220,7 +220,7 @@ public interface TW_SystemService {
 
     public List <EmployeesTO> findEmployees(Map employParameters)  throws Exception;
 
-    public List getProjectAssignmentsByEmpId(Long empId, Long mesId) throws Exception;
+    public List getProjectAssignmentsByEmpId(Long empId, String mesId) throws Exception;
     
     public void insertarPago(PaymentsTO paymentsTO) throws Exception;
     

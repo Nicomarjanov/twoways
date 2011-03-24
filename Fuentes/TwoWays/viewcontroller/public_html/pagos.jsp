@@ -1,6 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page contentType="text/html;charset=windows-1252"%>
+<%@ page errorPage="error.jsp" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 <html>
@@ -19,9 +20,11 @@
   <c:out value="${mensaje}" escapeXml="false"/>
   <form name="pago" action="pagos" method="POST">
   <input type="hidden" id="accion" name="accion" value=""/>
+  <input type="hidden" id="imprimir" name="imprimir" value=""/>  
   <input type="hidden" id="payId" name="payId" value="<c:out value="${pago.payId}"/>"/>
-  <input type="hidden" id="empId" name="empId" value="<c:out value="${pago.employeeTO.empId}"/>"/>
-  <input type="hidden" id="mesId" name="mesId" value="<c:out value="${empId}"/>"/>
+  <input type="hidden" id="empId" name="empId" value="<c:out value="${empId}"/>"/>
+  <input type="hidden" id="mesId" name="mesId" value="<c:out value="${mesId}"/>"/>
+  <input type="hidden" id="empName" name="empName" value="<c:out value="${empName}"/>"/>
   <table width="80%" align="center">
       <thead>
       <tr>
@@ -34,22 +37,22 @@
       <tr>
         <td nowrap align="right" width="25%">Empleado:</td>
         <td align="left" width="25%">
-           <select name="listaEmpleados" id="listaEmpleados" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">            
+           <select name="listaEmpleados" id="listaEmpleados" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';" onchange="recargar()">            
                 <option value="" selected="selected">Seleccionar</option>
                 <c:forEach items="${listaEmpleados}" var="item">
                    <c:choose>
                     <c:when test="${pago.employeesTO.empId == item.empId}">
-                       <option value="<c:out value="${item.empId}" />" style="background-color:#A4BAC7;" selected="selected">
+                       <option value="<c:out value="${item.empId}" />#<c:out value="${item.empFirstName}" /> <c:out value="${item.empLastName}" />" style="background-color:#A4BAC7;" selected="selected">
                         <c:out value="${item.empFirstName}" /> <c:out value="${item.empLastName}" />
                       </option> 
                     </c:when>
                     <c:when test="${empId == item.empId}">
-                       <option value="<c:out value="${item.empId}" />" style="background-color:#A4BAC7;" selected="selected">
+                       <option value="<c:out value="${item.empId}" />#<c:out value="${item.empFirstName}" /> <c:out value="${item.empLastName}" />" style="background-color:#A4BAC7;" selected="selected">
                         <c:out value="${item.empFirstName}" /> <c:out value="${item.empLastName}" />
                       </option> 
                     </c:when>
                     <c:otherwise>
-                    <option value="<c:out value="${item.empId}" />" style="background-color:#A4BAC7;">
+                    <option value="<c:out value="${item.empId}" />#<c:out value="${item.empFirstName}" /> <c:out value="${item.empLastName}" />" style="background-color:#A4BAC7;">
                         <c:out value="${item.empFirstName}" /> <c:out value="${item.empLastName}" />
                     </option>
                     </c:otherwise>
@@ -59,34 +62,44 @@
         </td>   
         <td nowrap align="right" width="25%">Mes de pago:</td>
         <td align="left" width="25%">
-           <select name="listaMes" id="listaMes" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';" onchange="buscarAsignaciones()">            
+            <select name="listaMes" id="listaMes" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';" onchange="buscarAsignaciones()">
                 <option value="" selected="selected">Seleccionar</option>
-                <option value="1" >Enero</option>
-                <option value="2" >Febrero</option>
-                <option value="3" >Marzo</option>
-                <option value="4" >Abril</option>
-                <option value="5" >Mayo</option>
-                <option value="6" >Junio</option>
-                <option value="7" >Julio</option>
-                <option value="8" >Agosto</option>
-                <option value="9" >Septiembre</option>
-                <option value="10" >Octubre</option>
-                <option value="11" >Noviembre</option>
-                <option value="12" >Diciembre</option>
-                
-        </select>
-        </td> 
+                <option value="Enero" >Enero</option>
+                <option value="Febrero" >Febrero</option>
+                <option value="Marzo" >Marzo</option>
+                <option value="Abril" >Abril</option>
+                <option value="Mayo" >Mayo</option>
+                <option value="Junio" >Junio</option>
+                <option value="Julio" >Julio</option>
+                <option value="Agosto" >Agosto</option>
+                <option value="Septiembre" >Septiembre</option>
+                <option value="Octubre" >Octubre</option>
+                <option value="Noviembre" >Noviembre</option>
+                <option value="Diciembre" >Diciembre</option>
+            
+            </select>
+            <c:if test="${mesId != null}">
+                <script type="text/javascript">
+                    for (var i=1; i < 13; i++){
+                        if (document.getElementById('listaMes').options[i].value =="<c:out value="${mesId}"/>"){
+                            document.getElementById('listaMes').selectedIndex=i;
+                        }
+                    }
+                </script>
+            </c:if>
+        </td>
+
          
         <td nowrap align="right" width="25%">Fecha de pago:</td>
         <td align="left" width="25%">
-            <c:choose>
-                <c:when test="${auxDate != null && auxDate !=''}"> 
+           <!-- <c:choose>
+                <c:when test="${auxDate != null && auxDate !=''}"> -->
                     <input type="text" class="tw_form" id="payDate" name="payDate"   value="<c:out  value="${auxDate}"/>" size="10" maxlength="10" onfocus="javascript:this.style.background='#FFFFFF';"></input>
-                </c:when>
+               <!-- </c:when>
                 <c:otherwise>
                     <input type="text" class="tw_form" id="payDate" name="payDate"   value="<c:out  value="${pago.payDate}"/>" size="10" maxlength="10" onfocus="javascript:this.style.background='#FFFFFF';"></input>
                 </c:otherwise>
-            </c:choose>
+            </c:choose>-->
         </td> 
       </tr>
       <tr>
@@ -126,7 +139,7 @@
                        <input type="hidden" name="print-pago-hidden"  value="<c:out value="${item[\'PRAASSDATE\']}" />#<c:out value="${item[\'PROJNAME\']}" />#<c:out value="${item[\'RATNAME\']}"/>#<c:out value="${item[\'RATVALUE\']}" />#<c:out value="${item[\'WCOUNT\']}"/>#<c:out value="${item[\'PRATOTAL\']}"/>"</input></td>     
                     <td width="10%" bgcolor="#FFFFF"><a href="proyectos?ordId=<c:out value="${item[\'PROJID\']}" />"><c:out value="${item[\'PROJNAME\']}" /></a></td>     
                     <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'RATNAME\']}" /></td> 
-                    <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'RATVALUE\']}" /></td>  
+                    <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'EMPCURSYMBOL\']}" /> <c:out value="${item[\'RATVALUE\']}" /></td>  
                     <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'WCOUNT\']}" /></td>       
                     <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'PRATOTAL\']}" /></td>                        
                     <td width="2%">
@@ -159,19 +172,28 @@
   <hr>
   <table align="center" width="50%">
       <tr>
-        <td nowrap align="right" width="10%"><b>Total:</b></td>
-        <td width="20%" align="left"><input readonly type="text" class="tw_form" id="payAmount"  name="payAmount" value="<c:out value="${payAmount}" />" size="10" maxlength="15" style="text-align:right;"></input>
-         <input type="hidden" name="print-total-hidden"  value="<c:out value="${payAmount}" />"></td>    
-        
         <td nowrap align="right" width="10%">Moneda:</td>
         <td width="20%" align="leftx">
            <select name="listaMoneda" id="listaMoneda" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">                
                     <option value="" >Seleccionar</option>
                     <c:forEach items="${listaMoneda}" var="item">
-                        <option value="<c:out value="${item.curId}" />#<c:out value="${item.curName}" />" style="background-color:#A4BAC7;">
-                            <c:out value="${item.curName}" />
-                        </option>
-                        
+                        <c:choose>
+                            <c:when test="${item.curId == 4}">
+                                <option value="<c:out value="${item.curId}" />#<c:out value="${item.curSymbol}" />" style="background-color:#A4BAC7;" selected="selected">
+                                    <c:out value="${item.curName}" />
+                                </option>
+                            </c:when>
+                            <c:when test="${item.curId == idMoneda}">
+                                <option value="<c:out value="${item.curId}" />#<c:out value="${item.curSymbol}" />" style="background-color:#A4BAC7;" selected="selected">
+                                    <c:out value="${item.curName}" />
+                                </option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="<c:out value="${item.curId}" />#<c:out value="${item.curSymbol}" />" style="background-color:#A4BAC7;">
+                                    <c:out value="${item.curName}" />
+                                </option>
+                            </c:otherwise>
+                        </c:choose>
                     </c:forEach>
            </select>
         </td>
@@ -185,15 +207,18 @@
                         </option>
                     </c:forEach>
            </select> 
-        </td>        
+        </td>    
+        <td nowrap align="right" width="10%"><b>Total:</b></td>
+        <td width="20%" align="left"><input readonly type="text" class="tw_form" id="payAmount"  name="payAmount" value="<c:out value="${payAmount}" />" size="10" maxlength="15" style="text-align:right;"></input>
+         <input type="hidden" name="print-total-hidden"  value="<c:out value="${payAmount}" />"></input></td>    
+                
       </tr>
   </table>
   <hr class="tw_hr">
-      <table width="25%" align="center">
+      <table width="20%" align="center">
           <tr>
               <td align="right"><input type="button" id="aceptar" value="Aceptar" onclick="cargar()"/></td>   
-              <td align="center"><input type="button" id="cancel" value="Limpiar" OnClick="cancelar()"/></td>   
-              <td align="left"><input type="button" id="eliminar" value="Imprimir" OnClick="ImprimirPago()"/></td>
+              <td align="left"><input type="button" id="cancel" value="Limpiar" OnClick="cancelar()"/></td>   
           </tr>
       </table>
   </form>
