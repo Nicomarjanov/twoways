@@ -47,4 +47,17 @@ public class CurrencyDAOImpl extends AbstractDAO  implements CurrencyDAO{
        return (resultado.size() > 0)?(Double) (resultado.get(0)):0L;  
       
     }
+    
+    public Double getCurrencyPayValue(Timestamp date, Long curId, Double value)  throws Exception{
+       
+       Map params= new HashMap();
+       params.put("curId",curId); 
+       SimpleDateFormat sdf= new SimpleDateFormat("dd/MM/yyyy HH:mm"); 
+       params.put("curDate",sdf.format(date));   
+       List resultado = getSqlMapClientTemplate().queryForList("getCurrencyValue",params);
+       
+       
+       return (resultado.size() > 0)?(Double) (resultado.get(0)):0L;  
+      
+    }
 }

@@ -11,13 +11,25 @@ function cancelar()
     }
 }
 
+function recargar(){
+    if(confirm('Perderá los datos ingresados. ¿Desea recagar la página?'))
+    {   
+        document.getElementById("accion").value='cancelar';
+        document.getElementById("empId").value="";
+        document.getElementById("payId").value="";        
+        document.forms[0].submit();
+    }
+}
+
 function buscarAsignaciones(){
 
-    var empId=document.getElementById('listaEmpleados').options[document.getElementById('listaEmpleados').selectedIndex].value;
+    var empArray=document.getElementById('listaEmpleados').options[document.getElementById('listaEmpleados').selectedIndex].value;
     var mes=document.getElementById('listaMes').options[document.getElementById('listaMes').selectedIndex].value;
+    var empId = empArray.split('#');
 
     document.getElementById('accion').value='buscarAsignaciones';  
-    document.getElementById('empId').value=empId;
+    document.getElementById('empId').value=empId[0];
+    document.getElementById('empName').value=empId[1];
     document.getElementById('mesId').value=mes;
     document.forms[0].submit();
 }
@@ -103,6 +115,9 @@ function grabar(existe)
     {                
         document.getElementById("accion").value='guardar';
         document.getElementById("empId").value=document.getElementById('listaEmpleados').options[document.getElementById('listaEmpleados').selectedIndex].value;
+        if(confirm("Desea imprimir el recibo de pago")){
+            document.getElementById("imprimir").value='imprimirPago';
+        }
         document.forms[0].submit();                
     }
 }
@@ -111,6 +126,7 @@ function eliminarPagoAsignacion(padId,praTotal){
    var tabla = document.getElementById('tabla-asignaciones');
    var row = document.getElementById(padId);   
    var total = document.getElementById("payAmount").value;
+   total = total.replace(",",".");
 
    tabla.deleteRow(row.rowIndex);
    if (praTotal > 0){
