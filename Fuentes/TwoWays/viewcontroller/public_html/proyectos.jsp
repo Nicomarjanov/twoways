@@ -37,7 +37,7 @@
 <input type ="hidden" name="ordId" id="ordId" value="<c:out value="${project.ordersTO.ordId}" />" /> 
 <input type ="hidden" name="curCotiz" id="curCotiz" value="<c:out value="${cotizaciones[project.currencyTO.curId]}" />" /> 
 <input type ="hidden" name="accion" id="accion" />
-<input type ="hidden" name="uaid" id="<c:out value="${userId}" />" />
+<input type ="hidden" name="uaid" id="uaid" value="<c:out value="${userId}" />" />
 <table width="100%">
   <tr>
     <th class="tw_form">Ingrese los campos con los datos del Proyecto</th>
@@ -182,9 +182,11 @@
            <c:otherwise>&nbsp;</c:otherwise>
            </c:choose>
          </td>
+         <c:choose>
+          <c:when test="${assiDet.ordersDocsTO.docType.dotId=='Source'}">
+          
+         
          <td align="center" >
-         
-         
           <c:choose>
              <c:when  test="${assi.serviceTO.rtyName == 'Traductor'}">
                    <input type="text" title="Unidades"  onblur="calcularTotalDetalle('<c:out value="${assiDet.padId}" />','<c:out value="${assi.praId}" />');calcularTotalPalabras('<c:out value="${assi.praId}" />');" style="WIDTH: 70px;text-align:right;"  name="padWCount-<c:out value="${assi.praId}" />" id="padWCount-<c:out value="${assiDet.padId}" />"  value="<fmt:formatNumber maxFractionDigits="0"  pattern="##########"  value="${assiDet.padWCount}"   />"  />
@@ -209,6 +211,12 @@
              </c:otherwise>
              </c:choose>
           </td>
+          </c:when>
+          <c:otherwise>
+          <td colspan="5">&nbsp;</td>
+          </c:otherwise>
+          </c:choose>
+          
          </tr>
       </c:forEach>
       </c:when>
@@ -237,14 +245,16 @@
  <table bgcolor="#82AEC5"  align="center" cellspacing="0" cellpadding="0"   width="400px"   >
  <thead >
  <tr bgcolor="#80211D"  >
- <th   align="left" style="color:#FFFFFF"  width="99%">
+ <th   align="left" style="color:#FFFFFF"  width="390px">
   Mensaje
   </th>
-  <th style="align:right;width:1%;height:15" ><a href="#" style="width:20;height:20" onclick="cerrarEnviarAsignacion()" >X</a>
+  <th style="align:right;width:1%;height:15" ><a href="#" style="width:20;height:20;align:right" onclick="cerrarEnviarAsignacion()" >X</a>
  </th></tr>
  </thead>
  <tbody>
- <tr><td colspan="2" ><textarea id="messageMail" rows="20" cols="70"  class="tw_form"   ></textarea></td>
+ <tr><td  colspan="2"  align="right" >CC <input type="text" id="otrosDestinatarios" style="width:90%"  /></td></tr>
+ <tr>
+ <td colspan="2" ><textarea id="messageMail" rows="20" cols="70"  class="tw_form"   ></textarea></td>
  </tr>
  <tr><td colspan="100%" align="right" ><input type="button"  onclick="enviarAsignacion();" value="Enviar" /></td></tr>
  </tbody>

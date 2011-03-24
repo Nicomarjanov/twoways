@@ -351,11 +351,11 @@ public class ServiceTW_System {
     }
     
     
-    public String enviarAsignacion(Long praId,String message,String userId ){
+    public String enviarAsignacion(Long praId,String message,String userId,String otrosDestinatarios ){
         try {
         
             UsersTO user= getTwoWaysBDL().getServiceTwoWays().getUserById(userId);
-            getTwoWaysBDL().getServiceTwoWays().enviarMailAsignacion(praId,message,user);
+            getTwoWaysBDL().getServiceTwoWays().enviarMailAsignacion(praId,message,user,otrosDestinatarios);
             return "El email fue marcado para ser enviado";
         } catch (Exception e) {
              e.printStackTrace();
