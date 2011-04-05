@@ -11,31 +11,57 @@ function cancelar()
     }
 }
 
-function recargar(){
-    if (document.getElementById('listaEmpleados').options[document.getElementById('listaEmpleados').selectedIndex].value == ""){
-        if(confirm('Perderá los datos ingresados. ¿Desea recagar la página?'))
-        {   
-            document.getElementById("accion").value='cancelar';
-            document.getElementById("empId").value="";
-            document.getElementById("payId").value="";        
-            document.forms[0].submit();
-        }
-    }
+function nuevaBusqueda()
+{
+    document.getElementById("accion").value='cancelar';
+    document.getElementById("empId").value="";
+    document.getElementById("payId").value="";        
+    document.forms[0].submit();
+    
 }
 
 function buscarAsignaciones(){
 
+    var banderaMensajeFaltante=false;
+    mensajeCampoAlert='';
+    mensajeFaltanteAlert = 'Se tiene que completar los siguientes campos: \n';
+
     var empArray=document.getElementById('listaEmpleados').options[document.getElementById('listaEmpleados').selectedIndex].value;
     var mes=document.getElementById('listaMes').options[document.getElementById('listaMes').selectedIndex].value;
     var anio=document.getElementById('listaAnio').options[document.getElementById('listaAnio').selectedIndex].value;    
-    var empId = empArray.split('#');
+    
+   if(empArray == ""){
+        document.getElementById("listaEmpleados").style.background='red';
+        mensajeFaltanteAlert+=' * Seleccionar un empleado de la lista \n';    
+        banderaMensajeFaltante=true;
+    }
 
-    document.getElementById('accion').value='buscarAsignaciones';  
-    document.getElementById('empId').value=empId[0];
-    document.getElementById('empName').value=empId[1];
-    document.getElementById('mesId').value=mes;
-    document.getElementById('anioId').value=anio;
-    document.forms[0].submit();
+   if(mes == ""){
+        document.getElementById("listaMes").style.background='red';
+        mensajeFaltanteAlert+=' * Seleccionar un mes de la lista \n';    
+        banderaMensajeFaltante=true;
+    }    
+    
+   if(anio == ""){
+        document.getElementById("listaAnio").style.background='red';
+        mensajeFaltanteAlert+=' * Seleccionar un año de la lista \n';    
+        banderaMensajeFaltante=true;
+    }  
+    
+    if (banderaMensajeFaltante){
+        var mensajeCampoAlert2 = mensajeFaltanteAlert + '\n';
+        alert(mensajeCampoAlert2);
+    }else{
+
+        var empId = empArray.split('#');
+
+        document.getElementById('accion').value='buscarAsignaciones';  
+        document.getElementById('empId').value=empId[0];
+        document.getElementById('empName').value=empId[1];
+        document.getElementById('mesId').value=mes;
+        document.getElementById('anioId').value=anio;
+        document.forms[0].submit();
+    }
 }
 
 function cargar(){
@@ -44,7 +70,7 @@ function cargar(){
     document.getElementById('payAmount').value    = trim(document.getElementById('payAmount').value);
 
     if(validarCampos())
-        alert(mensajeCampoAlert);
+        grabar(true);
     else
         grabar(false);
 }
@@ -118,8 +144,8 @@ function grabar(existe)
     else
     {                
         document.getElementById("accion").value='guardar';
-        document.getElementById("empId").value=document.getElementById('listaEmpleados').options[document.getElementById('listaEmpleados').selectedIndex].value;
-        if(confirm("Desea imprimir el recibo de pago")){
+        document.getElementById("empId").value=document.getElementById('empId').value;
+        if(confirm("¿Desea imprimir el recibo de pago?")){
             document.getElementById("imprimir").value='imprimirPago';
         }
         document.forms[0].submit();                
@@ -138,27 +164,26 @@ function eliminarPagoAsignacion(padId,praTotal){
    }
 }
 
-function ImprimirPago(){
-        document.getElementById("accion").value='imprimirPago';
-        document.getElementById("empId").value=document.getElementById('listaEmpleados').options[document.getElementById('listaEmpleados').selectedIndex].value;        
-        
-        document.forms[0].submit();    
-}
-
 function cotizar(){
     var total = document.getElementById("payAmount").value;
+    var curIdOrigen = document.getElementById("curIdOrigen").value;    
     var mes = document.getElementById("mesId").value;
     var anio = document.getElementById("anioId").value;    
     var currency = document.getElementById("listaMoneda").value;
     var curId = currency.split("#");
 
     total=total.replace(",",".");
-
-    towaysDWR.cotizar('02',anio,curId[0], total,valorCotizacioncallBack);
+    for (var i=1; i < 13; i++){
+        if (document.getElementById('listaMes').options[i].value ==mes){
+            if (i < 10) var mesId ='0'+i;
+            else var mesId =i;
+        }
+    }
+    towaysDWR.cotizar('02', anio,  curId[0], curIdOrigen, total, valorCotizacioncallBack);
+    document.getElementById("curIdOrigen").value=curId[0];
 }
 
 function valorCotizacioncallBack(data){
 
-alert(data);
-    document.getElementById("payAmount").value=data;
+    document.getElementById("payAmount").value=data.toFixed(2);
 }

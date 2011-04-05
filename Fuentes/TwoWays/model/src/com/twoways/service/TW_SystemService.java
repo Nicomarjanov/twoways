@@ -233,6 +233,6 @@ public interface TW_SystemService {
     
     public List<DocTypes> obtenerTipoDocumentos() throws Exception;
 
-    public Double getCurrencyCotizationValue(Timestamp date, Long curId, Double value)throws Exception;
+    public Double getCurrencyCotizationValue(Timestamp date, Long curId, Long curIdOrigen, Double value)throws Exception;
     
 }

@@ -771,10 +771,13 @@ public class TW_SystemServiceImpl implements TW_SystemService {
         return this.paymentDao.getPaymentById(payId);
     }
     
-    public Double getCurrencyCotizationValue(Timestamp date, Long curId, Double value)throws Exception {
+    public Double getCurrencyCotizationValue(Timestamp date, Long curId, Long curIdOrigen, Double value)throws Exception {
+        
+        Double cotOrigen = this.getCurrencyDao().getCurrencyValue(date,curIdOrigen);
+        Double valorPesos = value * cotOrigen;
         
         Double cotization = this.getCurrencyDao().getCurrencyValue(date,curId);
-        return value * cotization;
+        return valorPesos / cotization;
     }
 }
 

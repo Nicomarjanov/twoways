@@ -384,14 +384,13 @@ public class ServiceTW_System {
         return twoWaysBDL;
     }
     
-    public Double cotizar(String mes, String anio, Long curId, Double value){
+    public Double cotizar(String mes, String anio, Long curId, Long curIdOrigen, Double value){
     try {
         SimpleDateFormat formatoDeFecha = new SimpleDateFormat("d/M/y");
         Date fechaAss = formatoDeFecha.parse("01/"+mes+"/"+anio);
-        System.out.println(fechaAss);
         Timestamp timestamp = new Timestamp(fechaAss.getTime());
-        Double cotization = twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp,curId,value);
-        return value * cotization;
+        Double cotization = twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp,curId, curIdOrigen, value);
+        return cotization;
     
     } catch (Exception e) {
         e.printStackTrace();

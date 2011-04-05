@@ -2,18 +2,10 @@ package com.twoways.to;
 
 public class ProjAssignPaysTO {   
     
-    private ProjectAssignmentsTO projectAssignmentsTO;
+    private ProAssigmentsDetailsTO proAssigmentsDetailsTO;
     private PaymentsTO paymentsTO;
 
     public ProjAssignPaysTO() {
-    }
-
-    public void setProjectAssignmentsTO(ProjectAssignmentsTO projectAssignmentsTO) {
-        this.projectAssignmentsTO = projectAssignmentsTO;
-    }
-
-    public ProjectAssignmentsTO getProjectAssignmentsTO() {
-        return projectAssignmentsTO;
     }
 
     public void setPaymentsTO(PaymentsTO paymentsTO) {
@@ -22,5 +14,13 @@ public class ProjAssignPaysTO {
 
     public PaymentsTO getPaymentsTO() {
         return paymentsTO;
+    }
+
+    public void setProAssigmentsDetailsTO(ProAssigmentsDetailsTO proAssigmentsDetailsTO) {
+        this.proAssigmentsDetailsTO = proAssigmentsDetailsTO;
+    }
+
+    public ProAssigmentsDetailsTO getProAssigmentsDetailsTO() {
+        return proAssigmentsDetailsTO;
     }
 }
