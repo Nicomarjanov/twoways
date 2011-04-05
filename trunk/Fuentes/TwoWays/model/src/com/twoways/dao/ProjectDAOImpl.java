@@ -297,9 +297,9 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
     public List getProjectAssignmentsByEmpId(Long empId, String mesId, String anioId) throws Exception {
         
         Map params = new HashMap();
-        params.put("mesId",mesId); 
+        params.put("mesId",mesId+anioId); 
         params.put("empId", empId);        
-        params.put("anioId", anioId);
+        //params.put("anioId", anioId);
         
         List ret= null;
         try {

@@ -17,7 +17,7 @@
   <body>
     <jsp:include page="/WEB-INF/jspIncludes/menu.jsp" />
     <c:out value="${mensaje}" escapeXml="false"/>
-    <form name="frmlistEmpleado" action="listaEmpleados" method="POST">
+    <form id="frmlistEmpleado" name="frmlistEmpleado" action="listaEmpleados" method="POST">
     <input type="hidden"  name="accion"  id="accion"  value=""   />
     <input type="hidden"  name="pageId"  id="pageId" value="<c:out value="${pageId}" />" >
     <table width="100%">

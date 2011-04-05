@@ -373,6 +373,7 @@
        
       <result property="curId" column="cur_id" />
       <result property="curName" column="cur_Name" />
+      <result property="curSymbol" column="cur_Symbol" />      
   </resultMap> 
    
   <statement  id="getCurrencyId" resultMap="select-Currency"  parameterClass="java.lang.Integer" >
@@ -1479,8 +1480,10 @@
          and pd.project_assignments_employees_ = pa.employees_emp_id
          and pd.project_assignments_projects_p = pa.projects_pro_id
          and r.rat_id = pd.employees_rates_rates_rat_id
-         and pa.pra_finish_date between to_date(#mesId##anioId#,'MMYYYY') and last_day(to_date(#mesId##anioId#,'MMYYYY'))
-         and r.currency_cur_id=c.cur_id         
+         and pa.pra_finish_date between to_date(#mesId#,'MMyyyy') and last_day(to_date(#mesId#,'MMyyyy'))
+         and r.currency_cur_id=c.cur_id
+         and pd.pad_id not in(select pp.proj_assignments_details_pad_i
+                                                  from proj_assign_pays pp)
          order by pa.pra_assign_date
   </select>
 
@@ -1490,13 +1493,13 @@
   
   <insert id="insertPayment" parameterClass="com.twoways.to.PaymentsTO" >
       insert into payments
-      (pay_id, pay_date, pay_description, pay_observation, pay_amount, accounts_acc_id, currency_cur_id, employees_emp_id, usersUsrId)
+      (pay_id, pay_date, pay_description, pay_observation, pay_amount, accounts_acc_id, currency_cur_id, employees_emp_id, users_Usr_Id)
       values (#payId#, #payDate#, #payDescription#, #payObservation#, #payAmount#, #accountsTO.accId#, #currencyTO.curId#, #employeeTO.empId#, #userTO.usrId#)
   </insert>
   
     <insert id="insertProjAssignPay" parameterClass="com.twoways.to.ProjAssignPaysTO" >
       insert into proj_assign_pays
-      (payments_pay_id, project_assignments_pra_id, project_assignments_employees_, project_assignments_projects_p)
-      values (#paymentsTO.payId#, #projectAssignmentsTO.praId#, #projectAssignmentsTO.employeesTO.empId#, #projectAssignmentsTO.projectsTO.proId#)
+      (payments_pay_id, proj_assignments_details_pad_i)
+      values (#paymentsTO.payId#, #proAssigmentsDetailsTO.padId#)
   </insert>
 </sqlMap> 

@@ -376,7 +376,7 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
         try {
             con = ds.getConnection();
             stm = con.createStatement();
-            System.out.println(query);
+           // System.out.println(query);
             rs = stm.executeQuery(query);
             
             while(rs.next()){

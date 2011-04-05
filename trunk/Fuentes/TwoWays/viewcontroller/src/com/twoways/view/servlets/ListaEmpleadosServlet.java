@@ -46,7 +46,7 @@ public class ListaEmpleadosServlet extends AutorizacionServlet {
             Map params= new  HashMap();          
             if (request.getParameter("empFirstName") != null && request.getParameter("empFirstName").length() > 0) params.put("empFirstName",request.getParameter("empFirstName")); 
             if (request.getParameter("empLastName") != null && request.getParameter("empLastName").length() > 0) params.put("empLastName",request.getParameter("empLastName")); 
-            if (request.getParameter("ProName") != null && request.getParameter("ProName").length() > 0) params.put("ProjId",request.getParameter("ProjId"));
+            if (request.getParameter("ProName") != null && request.getParameter("ProName").length() > 0) params.put("ProName",request.getParameter("ProName"));
             if (request.getParameter("Traductor") != null && request.getParameter("Traductor").length() > 0) params.put("Traductor",request.getParameter("Traductor"));
             if (request.getParameter("Editor") != null) params.put("Editor",request.getParameter("Editor"));
             if (request.getParameter("Revisor") != null) params.put("Revisor",request.getParameter("Revisor")+" Final");
