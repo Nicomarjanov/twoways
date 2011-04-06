@@ -182,11 +182,12 @@
            <c:otherwise>&nbsp;</c:otherwise>
            </c:choose>
          </td>
-         <c:choose>
-          <c:when test="${assiDet.ordersDocsTO.docType.dotId=='Source'}">
-          
+         <c:set value="${assiDet.ordersDocsTO.docType.dotId}" scope="page" var="dotId" />
          
-         <td align="center" >
+         <% pageContext.setAttribute("isSource",pageContext.getAttribute("dotId").toString().contains("Source"));%>
+         <c:choose>
+          <c:when test="${isSource=='true' || isSource}">
+          <td align="center" >
           <c:choose>
              <c:when  test="${assi.serviceTO.rtyName == 'Traductor'}">
                    <input type="text" title="Unidades"  onblur="calcularTotalDetalle('<c:out value="${assiDet.padId}" />','<c:out value="${assi.praId}" />');calcularTotalPalabras('<c:out value="${assi.praId}" />');" style="WIDTH: 70px;text-align:right;"  name="padWCount-<c:out value="${assi.praId}" />" id="padWCount-<c:out value="${assiDet.padId}" />"  value="<fmt:formatNumber maxFractionDigits="0"  pattern="##########"  value="${assiDet.padWCount}"   />"  />
