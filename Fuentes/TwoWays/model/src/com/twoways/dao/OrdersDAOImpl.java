@@ -81,9 +81,15 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
                 ordersDocsTO.setOdoId(odoId);
                 
                 DocTypes auxDocType= new DocTypes();
-                auxDocType.setDotId(order.getDocTypesSelected().get(file.getName()).toString());
+                
+                if( order.getDocTypesSelected().get(file.getName()) != null){ 
+                    auxDocType.setDotId(order.getDocTypesSelected().get(file.getName()).toString());
+                }else{
+                    String id =   file.getFieldName().substring("file".length());
+                    auxDocType.setDotId(order.getDocTypesSelected().get(id).toString());
+                }
                 ordersDocsTO.setDocType(auxDocType);
-                if(ordersDocsTO.getDocType().getDotId().equals("FTP")){ 
+                if(ordersDocsTO.getDocType().getDotId().startsWith("FTP-")){ 
                   ordersDocsTO.setOdoName(file.getName() + ".txt");
                 }else{
                  ordersDocsTO.setOdoName(file.getName().substring(file.getName().lastIndexOf("\\") + 

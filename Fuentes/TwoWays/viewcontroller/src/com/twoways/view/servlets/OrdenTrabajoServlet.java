@@ -98,7 +98,17 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
         if(files !=null){
             for(FileItem file : files){
                 
-                docTypesMap.put(file.getName(),mRequest.get(file.getName())); 
+                if(mRequest.get(file.getName()) !=null){
+                    docTypesMap.put(file.getName(),mRequest.get(file.getName())); 
+                }else{
+                    //if(){ 
+                   
+                    String id =   file.getFieldName().substring("file".length());
+                    docTypesMap.put(id,mRequest.get(id)); 
+                    System.out.println("file.getFieldName() : "+id);
+                     //}
+                    
+                }
             }
         }
         String accion=(mRequest.get("accion")!= null )?mRequest.get("accion").toString():"";

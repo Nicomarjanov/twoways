@@ -93,7 +93,7 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
 
        
        
-       if (!proAssigmentsDetailsTO.getOrdersDocsTO().getDocType().getDotId().equals("Source") ){
+       if (!proAssigmentsDetailsTO.getOrdersDocsTO().getDocType().getDotId().contains("Source") ){
            
            Long praaId = 
                (Long)getSqlMapClientTemplate().queryForObject("projectAssDet.seq", 
@@ -193,9 +193,9 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
             proAssigmentsDetailsTO.setOrdersDocsTO(new OrdersDocsTO());
             proAssigmentsDetailsTO.getOrdersDocsTO().setOdoId(Long.parseLong(mapResult.get("ORDERS_DOCS_ODO_ID").toString()));
             proAssigmentsDetailsTO.getOrdersDocsTO().setOrdersOrdId(Long.parseLong(mapResult.get("ORDERS_DOCS_ORDERS_ORD_ID").toString()));
-            proAssigmentsDetailsTO.getOrdersDocsTO().setOdoName(mapResult.get("DOCNAME").toString());
+            proAssigmentsDetailsTO.getOrdersDocsTO().setOdoName((mapResult.get("DOCNAME")!=null)?mapResult.get("DOCNAME").toString():"");
             proAssigmentsDetailsTO.getOrdersDocsTO().setDocType(new DocTypes());
-            proAssigmentsDetailsTO.getOrdersDocsTO().getDocType().setDotId(mapResult.get("DOC_TYPES_DOT_ID").toString());
+            proAssigmentsDetailsTO.getOrdersDocsTO().getDocType().setDotId((mapResult.get("DOC_TYPES_DOT_ID")!=null)?mapResult.get("DOC_TYPES_DOT_ID").toString():"");
             if (mapResult.get("PAD_WCOUNT") != null && 
                 mapResult.get("PAD_WCOUNT").toString().length() > 0) {
                 proAssigmentsDetailsTO.setPadWCount(Double.parseDouble(mapResult.get("PAD_WCOUNT").toString()));

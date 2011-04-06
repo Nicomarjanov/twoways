@@ -68,7 +68,7 @@ function cargarItemDocumento(row){
    nameDoc.src='';
    row.cells[2].innerHTML= typeDoc.text;  
    var tdIn=document.getElementById('tdIn');
-   if(typeDoc.value =='FTP' ){
+   if(typeDoc.value.startsWith('FTP-') ){
      tdIn.innerHTML='<input type="text"  class="tw_form" id="doc_name" size=30  onkeypress="agregarDocumentoFtp(event)"    /> '; 
  
      }else{
@@ -94,7 +94,7 @@ function cambioTipo(){
  var typeDoc= document.getElementById("listaDocTypes").options[ document.getElementById("listaDocTypes").selectedIndex];
  var tdIn=document.getElementById('tdIn');
   
- if(typeDoc.value =='FTP' ){
+ if(typeDoc.value.startsWith('FTP-')){
      tdIn.innerHTML='<input type="text"  class="tw_form" id="doc_name" size=30  onkeypress="agregarDocumentoFtp(event)"    /> '; 
  
  }else{

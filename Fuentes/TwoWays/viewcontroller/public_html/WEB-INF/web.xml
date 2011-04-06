@@ -19,8 +19,7 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
-    
-     <servlet>
+ <servlet>
   <servlet-name>dwr-invoker</servlet-name>
   <display-name>DWR Servlet</display-name>
   <servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
@@ -32,7 +31,6 @@
       <param-name>crossDomainSessionSecurity</param-name>
       <param-value>false</param-value>
  </init-param>
-
 </servlet>
     <servlet>
         <servlet-name>AbmClientesServlet</servlet-name>
@@ -93,10 +91,6 @@
     <servlet>
         <servlet-name>AbmPagosServlet</servlet-name>
         <servlet-class>com.twoways.view.servlets.AbmPagosServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>resources</servlet-name>
-        <servlet-class>oracle.adf.view.faces.webapp.ResourceServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -163,10 +157,6 @@
         <servlet-name>AbmPagosServlet</servlet-name>
         <url-pattern>/pagos</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>resources</servlet-name>
-        <url-pattern>/adf/*</url-pattern>
-    </servlet-mapping>
     <session-config>
         <session-timeout>-1</session-timeout>
     </session-config>
@@ -181,6 +171,4 @@
     <welcome-file-list>
        <welcome-file>/login.jsp</welcome-file>
     </welcome-file-list>
-
-   
 </web-app>
