@@ -151,8 +151,8 @@
                         </td>
                      </tr>
                      <tr>
-                       <td colspan="50%"  valign="top" align="right" ><input type="button" value="Buscar" onclick="buscarAsignaciones()"  /></td>
-                       <td colspan="50%"  valign="top" align="left" ><input type="button" value="Nueva Búsqueda" onclick="nuevaBusqueda()"  /></td>                     
+                       <td width="50%"  valign="top" align="right" ><input type="button" value="Buscar" onclick="buscarAsignaciones()"  /></td>
+                       <td width="50%"  valign="top" align="left" ><input type="button" value="Nueva Búsqueda" onclick="nuevaBusqueda()"  /></td>                     
                      </tr>       
                    </tbody>
                </table>        
@@ -187,7 +187,7 @@
                         <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'WCOUNT\']}" /></td>       
                         <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'PRATOTAL\']}" /></td>                        
                         <td width="2%">
-                            <img  src="img/del2.png" height="15" width="15"  alt="Eliminar" onclick="eliminarPagoAsignacion('<c:out value="${item[\'PADID\']}" />','<c:out value="${item[\'PRATOTAL\']}" />')" onmouseover="this.style.cursor='hand';" /></td>
+                            <img  src="img/del2.png" height="15" width="15"  alt="Eliminar" onclick="eliminarPagoAsignacion(<c:out value="${item[\'PADID\']}" />,<c:out value="${item[\'PRATOTAL\']}" />)" onmouseover="this.style.cursor='hand';" /></td>
                     </tr>           
                   </c:forEach>
                   </tbody>
@@ -247,11 +247,6 @@
                     <c:forEach items="${listaMoneda}" var="item">
                         <c:choose>
                             <c:when test="${item.curId == 4}">
-                                <option value="<c:out value="${item.curId}" />#<c:out value="${item.curSymbol}" />" style="background-color:#A4BAC7;" selected="selected">
-                                    <c:out value="${item.curName}" />
-                                </option>
-                            </c:when>
-                            <c:when test="${item.curId == idMoneda}">
                                 <option value="<c:out value="${item.curId}" />#<c:out value="${item.curSymbol}" />" style="background-color:#A4BAC7;" selected="selected">
                                     <c:out value="${item.curName}" />
                                 </option>

@@ -285,14 +285,18 @@ var ordFinishDate = document.getElementById("ordFinishDate");
 
 function cambioCliente(){
 
+   document.getElementById("accion").value='buscarResponsables';
+   document.forms[0].submit();
+   
+}
+
+function cambioResponsable(){
    var cliente = document.getElementById('listaClientes');
    towaysDWR.getTarifaClienteById(cliente.value,agregarTarifaCliente); 
    var tabla=document.getElementById('tabla-tarifas'); 
    tabla.style.display='';
    document.getElementById('aTar').style.display='none';
-   
 }
-
 function onloadOrder(){
 
    

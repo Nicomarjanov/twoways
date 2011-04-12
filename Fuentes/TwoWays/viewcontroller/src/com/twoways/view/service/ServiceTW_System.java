@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import com.twoways.core.bdl.TwoWaysBDL;
 import com.twoways.to.AccountsTO;
 import com.twoways.to.ClientsRatesTO;
+import com.twoways.to.CotizationsTO;
 import com.twoways.to.EmployeesRatesTO;
 import com.twoways.to.EmployeesTO;
 
@@ -384,12 +385,12 @@ public class ServiceTW_System {
         return twoWaysBDL;
     }
     
-    public Double cotizar(String mes, String anio, Long curId, Long curIdOrigen, Double value){
+    public Double cotizarPago(String mes, String anio, Long curIdDesde, Long curIdHasta, Double value){
     try {
-        SimpleDateFormat formatoDeFecha = new SimpleDateFormat("d/M/y");
+        SimpleDateFormat formatoDeFecha = new SimpleDateFormat("dd/MM/yyyy");
         Date fechaAss = formatoDeFecha.parse("01/"+mes+"/"+anio);
         Timestamp timestamp = new Timestamp(fechaAss.getTime());
-        Double cotization = twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp,curId, curIdOrigen, value);
+        Double cotization = twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, curIdDesde, curIdHasta, value);
         return cotization;
     
     } catch (Exception e) {
@@ -398,5 +399,43 @@ public class ServiceTW_System {
     }
     return null;
     }
+
+    public List buscarCotizaciones(String search) {
+        try {
+            return twoWaysBDL.getServiceTwoWays().buscarCotizaciones(search);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error(e, e);
+        }
+        return null;
+
+    }    
     
+    public boolean deleteCotizacion(String cucId) {
+        try {
+
+            CotizationsTO cotizationTO = new CotizationsTO();
+            cotizationTO.setCucId(Long.parseLong(cucId));
+            return twoWaysBDL.getServiceTwoWays().eliminarCotizacion(cotizationTO);
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            log.error(e, e);
+        }
+        return false;
+    }    
+    
+    public Double cotizarFactura(Date fecha, Long curIdDesde, Long curIdHasta, Double value){
+    try {
+        //SimpleDateFormat formatoDeFecha = new SimpleDateFormat("dd/MM/yyyy");
+        Timestamp timestamp = new Timestamp(fecha.getTime());
+        Double cotization = twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, curIdDesde, curIdHasta, value);
+        return cotization;
+    
+    } catch (Exception e) {
+        e.printStackTrace();
+        log.error(e, e);
+    }
+    return null;
+    }
 }

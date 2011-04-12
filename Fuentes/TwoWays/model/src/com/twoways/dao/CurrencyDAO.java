@@ -10,4 +10,5 @@ public interface CurrencyDAO {
     public List obtenerMonedas() throws Exception;
     public CurrencyTO getCurrencyById(String curId)  throws Exception;
     public Double getCurrencyValue(Timestamp date, Long curId)  throws Exception;
+
 }

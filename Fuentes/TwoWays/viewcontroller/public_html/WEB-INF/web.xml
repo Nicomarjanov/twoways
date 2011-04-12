@@ -92,6 +92,14 @@
         <servlet-name>AbmPagosServlet</servlet-name>
         <servlet-class>com.twoways.view.servlets.AbmPagosServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AbmCotizacionesServlet</servlet-name>
+        <servlet-class>com.twoways.view.servlets.AbmCotizacionesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AbmFacturacionServlet</servlet-name>
+        <servlet-class>com.twoways.view.servlets.AbmFacturacionServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -156,6 +164,14 @@
     <servlet-mapping>
         <servlet-name>AbmPagosServlet</servlet-name>
         <url-pattern>/pagos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AbmCotizacionesServlet</servlet-name>
+        <url-pattern>/cotizaciones</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AbmFacturacionServlet</servlet-name>
+        <url-pattern>/facturacion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>-1</session-timeout>

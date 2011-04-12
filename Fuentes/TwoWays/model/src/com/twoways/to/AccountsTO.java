@@ -105,7 +105,7 @@ public class AccountsTO {
         this.itemsInvoicesTOList = itemsInvoicesTOList;
     }
 
-    public ItemsInvoicesTO addItemsInvoicesTO(ItemsInvoicesTO itemsInvoicesTO) {
+  /*  public ItemsInvoicesTO addItemsInvoicesTO(ItemsInvoicesTO itemsInvoicesTO) {
         getItemsInvoicesTOList().add(itemsInvoicesTO);
         itemsInvoicesTO.setAccountsTO(this);
         return itemsInvoicesTO;
@@ -116,7 +116,7 @@ public class AccountsTO {
         itemsInvoicesTO.setAccountsTO(null);
         return itemsInvoicesTO;
     }
-
+*/
     public void setAccEraseDate(Timestamp accEraseDate) {
         this.accEraseDate = accEraseDate;
     }

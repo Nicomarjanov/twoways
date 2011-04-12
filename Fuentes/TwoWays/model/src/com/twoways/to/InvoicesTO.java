@@ -13,11 +13,15 @@ public class InvoicesTO {
     //(name="INV_ID", nullable = false)
     private Long invId;
     //(name="INV_TOTAL")
-    private Long invTotal;
+    private Double invTotal;
+
+    private UsersTO usersTO;    
     private CurrencyTO currencyTO;
+    private AccountsTO accountsTO;
+    private ClientsTO clientsTO;
+
     private List<ItemsInvoicesTO> itemsInvoicesTOList;
     private List<IncomesTO> paymentsTOList;
-    private OrdersTO ordersTO;
 
     public InvoicesTO() {
     }
@@ -39,11 +43,11 @@ public class InvoicesTO {
         this.invId = invId;
     }
 
-    public Long getInvTotal() {
+    public Double getInvTotal() {
         return invTotal;
     }
 
-    public void setInvTotal(Long invTotal) {
+    public void setInvTotal(Double invTotal) {
         this.invTotal = invTotal;
     }
 
@@ -96,11 +100,27 @@ public class InvoicesTO {
         return paymentsTO;
     }
 
-    public OrdersTO getOrdersTO() {
-        return ordersTO;
+    public AccountsTO getAccountsTO() {
+        return accountsTO;
     }
 
-    public void setOrdersTO(OrdersTO ordersTO) {
-        this.ordersTO = ordersTO;
+    public void setAccountsTO(AccountsTO accountsTO) {
+        this.accountsTO = accountsTO;
+    }
+
+    public void setClientsTO(ClientsTO clientsTO) {
+        this.clientsTO = clientsTO;
+    }
+
+    public ClientsTO getClientsTO() {
+        return clientsTO;
+    }
+
+    public void setUsersTO(UsersTO usersTO) {
+        this.usersTO = usersTO;
+    }
+
+    public UsersTO getUsersTO() {
+        return usersTO;
     }
 }

@@ -116,7 +116,10 @@ public class AbmPagosServlet extends AutorizacionServlet {
             request.setAttribute("listaMoneda",monedas);            
             
             cuentas =  twoWaysBDL.getServiceTwoWays().obtenerAccount();
-            request.setAttribute("listaCuentas",cuentas);        
+            request.setAttribute("listaCuentas",cuentas); 
+            
+            empleados =  twoWaysBDL.getServiceTwoWays().obtenerEmpleados();
+            request.setAttribute("listaEmpleados",empleados);
             
         } catch (Exception e) {
            e.printStackTrace();
@@ -127,6 +130,7 @@ public class AbmPagosServlet extends AutorizacionServlet {
                 projAssignEmpId = twoWaysBDL.getServiceTwoWays().getProjectAssignmentsByEmpId(Long.parseLong(empId),mesId,anioId);
                 
                 if (projAssignEmpId != null && projAssignEmpId.size() > 0){
+                    String curIdOrigen = null;
                     request.setAttribute("projectAssignnments",projAssignEmpId);
                     Double auxAmount= 0.0;
                     SimpleDateFormat formatoDeFecha = new SimpleDateFormat("yyyy-MM-dd");
@@ -138,7 +142,17 @@ public class AbmPagosServlet extends AutorizacionServlet {
                         if (Double.parseDouble(auxMap.get("PRATOTAL").toString()) > 0.0){
                             Date fechaAss = formatoDeFecha.parse(auxMap.get("PRAASSDATE").toString());
                             Timestamp timestamp = new Timestamp(fechaAss.getTime());
-                            auxAmount += twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, Long.parseLong(auxMap.get("CURID").toString()), 4L ,Double.parseDouble(auxMap.get("PRATOTAL").toString()));
+                            String listaMoneda = request.getParameter("listaMoneda");
+                            if (listaMoneda != null) {
+                                String atribs[]= listaMoneda.split("#");
+                                curIdOrigen = atribs[0];
+                                auxAmount += twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, Long.parseLong(auxMap.get("CURID").toString()), Long.parseLong(curIdOrigen) ,Double.parseDouble(auxMap.get("PRATOTAL").toString()));
+                            }
+                            else{
+                            //Si no hay moneda seleccionada se pasa todo a pesos
+                                auxAmount += twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, Long.parseLong(auxMap.get("CURID").toString()), 4L,Double.parseDouble(auxMap.get("PRATOTAL").toString()));
+                                curIdOrigen = "4";
+                            }
                         }
                         //auxAmount = auxAmount + Double.parseDouble(auxMap.get("PRATOTAL").toString());
                     }
@@ -151,13 +165,12 @@ public class AbmPagosServlet extends AutorizacionServlet {
                     if (auxAmount > 0.0){
                         NumberFormat formatter = new DecimalFormat("#0.00");
                         request.setAttribute("payAmount",formatter.format(auxAmount));
-                        request.setAttribute("curIdOrigen",4);
+                        request.setAttribute("curIdOrigen",curIdOrigen);
                     }
-                    empleados =  twoWaysBDL.getServiceTwoWays().obtenerEmpleados();
-                    request.setAttribute("listaEmpleados",empleados);
+                   /* empleados =  twoWaysBDL.getServiceTwoWays().obtenerEmpleados();
+                    request.setAttribute("listaEmpleados",empleados);*/
                 }else {
-                    empleados =  twoWaysBDL.getServiceTwoWays().obtenerEmpleados();
-                    request.setAttribute("listaEmpleados",empleados);
+
                     request.setAttribute("mensaje","<script>alert('No se encontraron asignaciones para ese empleado')</script>"); 
                 }
                 
@@ -243,12 +256,12 @@ public class AbmPagosServlet extends AutorizacionServlet {
                     
                     twoWaysBDL.getServiceTwoWays().insertarPago(pago); 
                     request.setAttribute("mensaje","<script>alert('El registro del pago se guardó con éxito')</script>");
-                    try{
+                   /*try{
                         empleados =  twoWaysBDL.getServiceTwoWays().obtenerEmpleados();
                         request.setAttribute("listaEmpleados",empleados);
                     } catch (Exception e) {
                        e.printStackTrace();
-                    }
+                    }*/
                     if (imprimir!=null && imprimir.equalsIgnoreCase("imprimirPago") && empId != null){
                             
                             try {
@@ -266,14 +279,14 @@ public class AbmPagosServlet extends AutorizacionServlet {
                 e.printStackTrace();
             }                        
         }
-            else if ((empId == null || empId.equalsIgnoreCase("")) && (accion==null || accion.equalsIgnoreCase("cancelar"))){
+           /* else if ((empId == null || empId.equalsIgnoreCase("")) && (accion==null || accion.equalsIgnoreCase("cancelar"))){
             try{
                 empleados =  twoWaysBDL.getServiceTwoWays().obtenerEmpleados();
                 request.setAttribute("listaEmpleados",empleados);
             } catch (Exception e) {
                e.printStackTrace();
             }
-        }
+        }*/
         request.getRequestDispatcher("pagos.jsp").forward(request,response);
         
     }

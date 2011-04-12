@@ -28,7 +28,7 @@ public class PaymentDAOImpl extends AbstractDAO  implements PaymentDAO{
     }
 
     public PaymentsTO getPaymentById(Long payId) throws Exception {
-       PaymentsTO pago =  (PaymentsTO)getSqlMapClientTemplate().queryForObject("getExpenseById",payId);
+       PaymentsTO pago =  (PaymentsTO)getSqlMapClientTemplate().queryForObject("getPaymentById",payId);
        return pago;
     }
     

@@ -166,11 +166,11 @@ function eliminarPagoAsignacion(padId,praTotal){
 
 function cotizar(){
     var total = document.getElementById("payAmount").value;
-    var curIdOrigen = document.getElementById("curIdOrigen").value;    
+    var curIdDesde = document.getElementById("curIdOrigen").value;    
     var mes = document.getElementById("mesId").value;
     var anio = document.getElementById("anioId").value;    
     var currency = document.getElementById("listaMoneda").value;
-    var curId = currency.split("#");
+    var curIdHasta = currency.split("#");
 
     total=total.replace(",",".");
     for (var i=1; i < 13; i++){
@@ -179,7 +179,8 @@ function cotizar(){
             else var mesId =i;
         }
     }
-    towaysDWR.cotizar('02', anio,  curId[0], curIdOrigen, total, valorCotizacioncallBack);
+    alert(mesId);
+    towaysDWR.cotizarPago(mesId, anio, curIdDesde, curIdHasta[0], total, valorCotizacioncallBack);
     document.getElementById("curIdOrigen").value=curId[0];
 }
 

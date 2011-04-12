@@ -37,6 +37,7 @@ public class OrdersTO {
     private Long ordWoNumber;
     private List<OrdersDocsTO> ordersDocsTOList;
     private ClientsTO clientsTO;
+    private ClientResponsableTO cliResponsableTO;
     private List<ProjectsTO> projectsTOList;
     private List<InvoicesTO> invoicesTOList;
     private List<OrdersRatesTO> orderRatesTOList;
@@ -177,7 +178,7 @@ public class OrdersTO {
         this.invoicesTOList = invoicesTOList;
     }
 
-    public InvoicesTO addInvoicesTO(InvoicesTO invoicesTO) {
+    /*public InvoicesTO addInvoicesTO(InvoicesTO invoicesTO) {
         getInvoicesTOList().add(invoicesTO);
         invoicesTO.setOrdersTO(this);
         return invoicesTO;
@@ -188,7 +189,7 @@ public class OrdersTO {
         invoicesTO.setOrdersTO(null);
         return invoicesTO;
     }
-
+*/
     public void setFiles(List<FileItem> files) {
         this.files = files;
     }
@@ -243,5 +244,13 @@ public class OrdersTO {
 
     public Map getDocTypesSelected() {
         return docTypesSelected;
+    }
+
+    public void setCliResponsableTO(ClientResponsableTO cliResponsableTO) {
+        this.cliResponsableTO = cliResponsableTO;
+    }
+
+    public ClientResponsableTO getCliResponsableTO() {
+        return cliResponsableTO;
     }
 }

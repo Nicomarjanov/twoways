@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=utf-8"%>
 <li><a href="#" >ABMs</a>
     <ul> <!--Ahora un submenu nivel 1 para Blogger con un par de opciones --> 
         <li><a href="usuarios">ABM de Usuarios</a></li>        
@@ -8,6 +9,7 @@
             <ul>
                 <li><a href="items">ABM de items</a></li> 
                 <li><a href="cuentas">ABM de cuentas</a></li>
+                <li><a href="cotizaciones">ABM de cotizaciones</a></li>                
             </ul>
         </li>
     </ul>
@@ -25,7 +27,8 @@
 <li><a href="#" >Contables</a> 
     <ul>
         <li><a href="gastos">Ingresar gastos</a></li> 
-        <li><a href="pagos">Registrar pago empleado</a></li>          
+        <li><a href="pagos">Registrar pago empleado</a></li>   
+        <li><a href="facturacion">Facturación</a></li>         
     </ul>
 </li>
 <li><a href="#" >Listados</a> 

@@ -10,7 +10,7 @@ public class ItemsInvoicesTO {
     private Long itiValue;
     private InvoicesTO invoicesTO;
     private ItemsTO itemsTO;
-    private AccountsTO accountsTO;
+    private OrdersRatesTO ordersRatesTO;
 
     public ItemsInvoicesTO() {
     }
@@ -48,11 +48,11 @@ public class ItemsInvoicesTO {
         this.itemsTO = itemsTO;
     }
 
-    public AccountsTO getAccountsTO() {
-        return accountsTO;
+    public void setOrdersRatesTO(OrdersRatesTO ordersRatesTO) {
+        this.ordersRatesTO = ordersRatesTO;
     }
 
-    public void setAccountsTO(AccountsTO accountsTO) {
-        this.accountsTO = accountsTO;
+    public OrdersRatesTO getOrdersRatesTO() {
+        return ordersRatesTO;
     }
 }
