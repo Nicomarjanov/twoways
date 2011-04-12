@@ -1,10 +1,10 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
-<%@ page contentType="text/html;charset=windows-1252"%>
+<%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
 <html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link href="./twoways.css" rel="stylesheet" type="text/css"/>
     <script  type='text/javascript' src="./js/item.js"></script>
     <script type='text/javascript' src="./js/utils.js"></script>    
@@ -30,7 +30,7 @@
     <td align="left"><input type="text" class="tw_form" id="itmNombre" name="itmNombre"  value="<c:out value="${item.itmName}"/>"  size="50" maxlength="100" onkeyup="buscarItems()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
   </tr>
   <tr>
-    <td align="right" width="25%">Descripción:</td>
+    <td align="right" width="25%">DescripciÃ³n:</td>
     <td align="left"><input type="text" class="tw_form" id="descItem"  name="descItem"  value="<c:out value="${item.itmDescription}"/>" size="100" maxlength="350"></input></td>    
   </tr>
   <tr>
@@ -42,16 +42,16 @@
                 <c:when test="${item.itmType != null}">
                     <c:if test="${item.itmType == 'Gastos'}">
                         <option value="Gastos" style="background-color:#A4BAC7;" selected="selected">Gastos</option> 
-                        <option value="Facturacion" style="background-color:#A4BAC7;">Facturacion</option>
+                        <option value="Ingresos" style="background-color:#A4BAC7;">Ingresos</option>
                     </c:if>
-                    <c:if test="${item.itmType == 'Facturacion'}">
+                    <c:if test="${item.itmType == 'Ingresos'}">
                         <option value="Gastos" style="background-color:#A4BAC7;" >Gastos</option> 
-                        <option value="Facturacion" style="background-color:#A4BAC7;" selected="selected">Facturacion</option>
+                        <option value="Ingresos" style="background-color:#A4BAC7;" selected="selected">Ingresos</option>
                     </c:if>
                 </c:when>
                 <c:otherwise>
                         <option value="Gastos" style="background-color:#A4BAC7;" >Gastos</option> 
-                        <option value="Facturacion" style="background-color:#A4BAC7;">Facturacion</option>                
+                        <option value="Ingresos" style="background-color:#A4BAC7;">Ingresos</option>                
                 </c:otherwise>
             </c:choose>
        </select> 
@@ -73,7 +73,7 @@
   <hr class="tw_hr">
   <h2 class="tw">Opciones encontradas</h2>
   <table id ="tabla-busqueda">
-    <tr><th>Nombre Item</th><th>Tipo de Item</th><th>Descripción</th><th>&nbsp;</th></tr>
+    <tr><th>Nombre Item</th><th>Tipo de Item</th><th>DescripciÃ³n</th><th>&nbsp;</th></tr>
   </table>
   </div>
   </form>

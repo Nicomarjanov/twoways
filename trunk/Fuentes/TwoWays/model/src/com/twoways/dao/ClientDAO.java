@@ -1,5 +1,6 @@
 package com.twoways.dao;
 
+import com.twoways.to.ClientResponsableTO;
 import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.ClientsTO;
 
@@ -14,4 +15,5 @@ public interface ClientDAO {
     public boolean  deleteClients(ClientsTO client)  throws Exception;
     public ClientsTO getClientByName(String name)  throws Exception;
     public List<ClientsRatesTO> getTarifaClienteById(Long cliId)  throws Exception;
+    public List getClientResponsableByCliId(ClientsTO clientsTO);
 }

@@ -41,23 +41,53 @@
   <table align="center" width="50%">
     <tr>
         <td nowrap align="right" >Nombre:</td>
-        <td colspan="7"><input type="text" size="145"  class="tw_form" name="ordName" id="ordName"  value="<c:out value="${order.ordName}" />" /></td>
+        <td colspan="7">
+            <c:choose>
+                <c:when test="${auxOrdName != null}">
+                    <input type="text" size="145"  class="tw_form" name="ordName" id="ordName"  value="<c:out value="${auxOrdName}" />" />                
+                </c:when>
+                <c:otherwise>
+                    <input type="text" size="145"  class="tw_form" name="ordName" id="ordName"  value="<c:out value="${order.ordName}" />" />
+                </c:otherwise>
+            </c:choose>
+        </td>
      </tr>
      <tr>
         <td nowrap align="right" >Fecha Inicio:</td>
-        <td><input type="text" class="tw_form" name="ordDate" id="ordDate"  value="<fmt:formatDate value="${order.ordDate}"    pattern="dd/MM/yyyy HH:mm" />" /><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].ordDate,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png"></img> </td>
-     </tr>
-     <tr>
+        <td>
+           <c:choose>
+                <c:when test="${auxOrdDate != null}">        
+                    <input type="text" class="tw_form" name="ordDate" id="ordDate"  value="<c:out value="${auxOrdDate}"/>" /><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].ordDate,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png"></img>
+                </c:when>
+                <c:otherwise>     
+                    <input type="text" class="tw_form" name="ordDate" id="ordDate"  value="<fmt:formatDate value="${order.ordDate}"    pattern="dd/MM/yyyy HH:mm" />" /><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].ordDate,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png"></img> 
+                </c:otherwise>
+            </c:choose> 
+        </td>
         <td nowrap align="right" >Fecha de Entrega:</td>
-        <td><input type="text" class="tw_form" name="ordFinishDate" id="ordFinishDate"  value="<fmt:formatDate value="${order.ordFinishDate}"    pattern="dd/MM/yyyy HH:mm" />" /><div id="divHasta" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Hasta.select(document.forms[0].ordFinishDate,'selHasta','dd/MM/yyyy'); return false;" NAME="selHasta" ID="selHasta"  height="20" width="20" alt="seleccion" src="img/cal.png"></img></td>
+        <td>
+            <c:choose>
+                <c:when test="${auxFinishDate != null}">        
+                    <input type="text" class="tw_form" name="ordFinishDate" id="ordFinishDate"  value="<c:out value="${auxFinishDate}" />" /><div id="divHasta" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Hasta.select(document.forms[0].ordFinishDate,'selHasta','dd/MM/yyyy'); return false;" NAME="selHasta" ID="selHasta"  height="20" width="20" alt="seleccion" src="img/cal.png"></img>
+                </c:when>
+                <c:otherwise>     
+                    <input type="text" class="tw_form" name="ordFinishDate" id="ordFinishDate"  value="<fmt:formatDate value="${order.ordFinishDate}"    pattern="dd/MM/yyyy HH:mm" />" /><div id="divHasta" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Hasta.select(document.forms[0].ordFinishDate,'selHasta','dd/MM/yyyy'); return false;" NAME="selHasta" ID="selHasta"  height="20" width="20" alt="seleccion" src="img/cal.png"></img>
+                </c:otherwise>
+            </c:choose>                
+        </td>
     </tr>
     <tr>
         <td nowrap align="right" >Cliente:</td>
-        <td><select name="listaClientes" id="listaClientes" style="border:solid 1px #005C8D;"  onchange="cambioCliente()" onfocus="javascript:this.style.background='#FFFFFF';">               
+        <td align="left"><select name="listaClientes" id="listaClientes" style="border:solid 1px #005C8D;"  onchange="cambioCliente()" onfocus="javascript:this.style.background='#FFFFFF';">               
                 <option value=""  >Seleccionar</option>
                 <c:forEach items="${listaCliente}" var="item">
                    <c:out value="${item.cliId}" />
                    <c:choose>
+                   <c:when test="${auxCliId == item.cliId}">
+                       <option value="<c:out value="${item.cliId}" />" style="background-color:#A4BAC7;" selected="selected">
+                        <c:out value="${item.cliName}" />
+                      </option> 
+                    </c:when>
                     <c:when test="${order.clientsTO.cliId == item.cliId}">
                        <option value="<c:out value="${item.cliId}" />" style="background-color:#A4BAC7;" selected="selected">
                         <c:out value="${item.cliName}" />
@@ -72,13 +102,47 @@
                 </c:forEach>
            </select>
         </td>
+        <td nowrap align="right" >Responsable:</td>
+        <td align="left"><select name="listaRespClientes" id="listaRespClientes" style="border:solid 1px #005C8D;" onchange="cambioResponsable()" onfocus="javascript:this.style.background='#FFFFFF';">               
+                <option value=""  >Seleccionar</option>
+                <c:forEach items="${listaRespClientes}" var="item">
+                   <c:out value="${item.creId}" />
+                   <c:choose>
+                    <c:when test="${order.cliResponsableTO.creId == item.creId}">
+                       <option value="<c:out value="${item.creId}" />" style="background-color:#A4BAC7;" selected="selected">
+                        <c:out value="${item.creFirstName}" /> <c:out value="${item.creLastName}" />
+                      </option> 
+                    </c:when>
+                    <c:otherwise>
+                    <option value="<c:out value="${item.creId}" />" style="background-color:#A4BAC7;">
+                        <c:out value="${item.creFirstName}" /> <c:out value="${item.creLastName}" />
+                    </option>
+                    </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+           </select>
+           <!--<select id="dropDown3" name="dropDown3" style="border:solid 1px #005C8D; font-size: 12px;" onfocus="createDynamicDropdown('listaClientes', 'listaRespClientes', 'dropDown3');">
+                <c:choose>
+                <c:when test="${empleado.employeesRatesTOList} == null">
+                    <option>Cargando...</option>
+                </c:when>
+                <c:otherwise>
+                    <c:forEach items="${empleado.employeesRatesTOList}" var="item">                       
+                       <option value="<c:out value="${item.ratesTO.ratName}"/>" title="<c:out value="${item.ratesTO.ratName}"/>">
+                            <c:out value="${item.ratesTO.ratName}"/>
+                        </option> 
+                     </c:forEach>
+                </c:otherwise>
+                </c:choose>
+       </select>-->
+        </td>
     </tr>
     <tr>
          <td nowrap align="right" >Descripción:</td>
          <td colspan="7"  ><textarea  rows="3" cols="109"  class="tw_form"  onkeyup="limitarArea()"  name="ordDescription" id="ordDescription" ><c:out value="${order.ordDescription}" /></textarea> </td>
     </tr>
     <tr>
-         <td colspan="100%" align="left">
+         <td colspan="7" align="left">
             <img style="position:absolute;display:none;"  src="img/bottom.png" id="aMas" onclick="javascript:mostrarOpcionales();"  title="Agregar más datos" alt="Mas datos " width="15" height="15" onmouseover="this.style.cursor='hand';"/>
             <img id="aMenos"  style="border:0;display:block;position:absolute"  onclick="javascript:ocultarOpcionales();" title="Contraer" src="img/top.png" alt="Menos" width="15" height="15" onmouseover="this.style.cursor='hand';"/>
          </td>
@@ -94,7 +158,7 @@
         <td colspan="7"><textarea  rows="3" cols="109"   onkeyup="limitarArea()" class="tw_form" name="ordJobDescription" id="ordJobDescription" ><c:out value="${order.ordJobDescription}" /></textarea></td>
     </tr>    
     <tr>
-        <td colspan="100%">
+        <td colspan="7">
             <table align="center" width="50%">
             <tr>
                 <th colspan=3 align="center" style="font-size:10px;"><b>Seleccione los servicios</b></th>
@@ -140,7 +204,7 @@
         </td>
     </tr> 
     <tr>
-        <td colspan="100%" style="padding:0;spacing:0" >
+        <td colspan="7" style="padding:0;spacing:0" >
          <br>   
          <hr class="tw_hr">
          <c:set scope="request"     var="ratesTOList" value="${order.orderRatesTOList}" /> 
@@ -148,7 +212,7 @@
         </td>
     </tr>
     <tr>
-         <td colspan="100%" style="padding:0;spacing:0" >
+         <td colspan="7" style="padding:0;spacing:0" >
          <br>   
          <hr class="tw_hr">
          <c:set scope="request"     var="docList" value="${order.ordersDocsTOList}" /> 

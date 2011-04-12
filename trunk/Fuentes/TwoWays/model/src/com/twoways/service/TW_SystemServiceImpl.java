@@ -2,11 +2,13 @@ package com.twoways.service;
 
 import com.twoways.dao.AccountDAO;
 import com.twoways.dao.ClientDAO;
+import com.twoways.dao.CotizationDAO;
 import com.twoways.dao.CurrencyDAO;
 import com.twoways.dao.DocTypesDAO;
 import com.twoways.dao.EmployeeDAO;
 import com.twoways.dao.ExpenseDAO;
 import com.twoways.dao.ExpensesDAOImpl;
+import com.twoways.dao.InvoiceDAO;
 import com.twoways.dao.OrdersDAO;
 import com.twoways.dao.ProjectDAO;
 import com.twoways.dao.RateDAO;
@@ -23,11 +25,13 @@ import com.twoways.to.AccountsTO;
 import com.twoways.to.ClientResponsableTO;
 import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.ClientsTO;
+import com.twoways.to.CotizationsTO;
 import com.twoways.to.CurrencyTO;
 import com.twoways.to.DocTypes;
 import com.twoways.to.EmployeesRatesTO;
 import com.twoways.to.EmployeesTO;
 import com.twoways.to.ExpensesTO;
+import com.twoways.to.InvoicesTO;
 import com.twoways.to.ItemsExpensesTO;
 import com.twoways.to.ItemsTO;
 import com.twoways.to.OrdersDocsTO;
@@ -72,6 +76,8 @@ public class TW_SystemServiceImpl implements TW_SystemService {
     private ExpenseDAO expensesDao;
     private PaymentDAO paymentDao;
     private DocTypesDAO docTypesDao;
+    private CotizationDAO cotizationsDao;
+    private InvoiceDAO invoiceDao;
 
     public TW_SystemServiceImpl() {
     }
@@ -771,13 +777,64 @@ public class TW_SystemServiceImpl implements TW_SystemService {
         return this.paymentDao.getPaymentById(payId);
     }
     
-    public Double getCurrencyCotizationValue(Timestamp date, Long curId, Long curIdOrigen, Double value)throws Exception {
+    public Double getCurrencyCotizationValue(Timestamp date, Long curIdDesde, Long curIdHasta, Double value)throws Exception {
         
-        Double cotOrigen = this.getCurrencyDao().getCurrencyValue(date,curIdOrigen);
-        Double valorPesos = value * cotOrigen;
+    if (curIdHasta == 4L){
+        Double cotDesde = this.getCurrencyDao().getCurrencyValue(date,curIdDesde);
+        return value * cotDesde;
+    }
+    else if (curIdDesde == 4L){
+        Double cotHasta = this.getCurrencyDao().getCurrencyValue(date,curIdHasta);
+        return value / cotHasta;
+    }
+    else{
+        Double cotDesde = this.getCurrencyDao().getCurrencyValue(date,curIdDesde);
+        Double aux = value / cotDesde;
+
+        Double cotHasta = this.getCurrencyDao().getCurrencyValue(date,curIdHasta);
+        Double aux1 = aux * cotHasta;        
         
-        Double cotization = this.getCurrencyDao().getCurrencyValue(date,curId);
-        return valorPesos / cotization;
+        return aux1;                                   
+    }
+}
+    public List buscarCotizaciones(String search) throws Exception {
+        return this.cotizationsDao.buscarCotizaciones(search);
+    }
+    
+    public CotizationsTO insertarCotizacion(CotizationsTO cotizationsTO) throws Exception {
+        return this.cotizationsDao.insertarCotizacion(cotizationsTO);
+    }
+    
+    public boolean eliminarCotizacion(CotizationsTO cotizationsTO) throws Exception {
+        return this.cotizationsDao.eliminarCotizacion(cotizationsTO);
+    }
+
+    public void setCotizationsDao(CotizationDAO cotizationsDao) {
+        this.cotizationsDao = cotizationsDao;
+    }
+
+    public CotizationDAO getCotizationsDao() {
+        return cotizationsDao;
+    }
+    
+    public List getClientResponsableByCliId(ClientsTO clientsTO){
+        return this.clientDao.getClientResponsableByCliId(clientsTO);
+    }
+    
+    public List getOrdersByCliId(Long search)throws Exception{
+        return this.ordersDao.getOrdersByCliId(search);
+    }
+
+    public void setInvoiceDao(InvoiceDAO invoiceDao) {
+        this.invoiceDao = invoiceDao;
+    }
+
+    public InvoiceDAO getInvoiceDao() {
+        return invoiceDao;
+    }
+    
+    public void insertarFactura(InvoicesTO factura) throws Exception{
+        this.invoiceDao.insertarFactura(factura);
     }
 }
 

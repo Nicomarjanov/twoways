@@ -54,6 +54,8 @@ import javax.sql.DataSource;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.log4j.Logger;
 
+import org.springframework.dao.DataAccessException;
+
 public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
     public OrdersDAOImpl() {
     }
@@ -495,7 +497,17 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
     }
     
     
-  
+    public List getOrdersByCliId(Long cliId)throws Exception{
+        List ret = null;
+        try {
+            ret = 
+            getSqlMapClientTemplate().queryForList("getOrdersByCliId",cliId);
+        } catch (DataAccessException dae) {
+
+           dae.printStackTrace();
+        }
+        return ret;
+    }
 
 
 }

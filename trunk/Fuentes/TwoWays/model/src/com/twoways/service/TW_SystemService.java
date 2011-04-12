@@ -5,10 +5,12 @@ import com.twoways.to.AccountsTO;
 import com.twoways.to.ClientResponsableTO;
 import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.ClientsTO;
+import com.twoways.to.CotizationsTO;
 import com.twoways.to.DocTypes;
 import com.twoways.to.EmployeesRatesTO;
 import com.twoways.to.EmployeesTO;
 import com.twoways.to.ExpensesTO;
+import com.twoways.to.InvoicesTO;
 import com.twoways.to.ItemsExpensesTO;
 import com.twoways.to.ItemsTO;
 import com.twoways.to.OrdersDocsTO;
@@ -234,5 +236,16 @@ public interface TW_SystemService {
     public List<DocTypes> obtenerTipoDocumentos() throws Exception;
 
     public Double getCurrencyCotizationValue(Timestamp date, Long curId, Long curIdOrigen, Double value)throws Exception;
+
+    public CotizationsTO insertarCotizacion(CotizationsTO cotizationsTO) throws Exception;    
+
+    public List buscarCotizaciones(String search) throws Exception;
     
+    public boolean eliminarCotizacion(CotizationsTO cotizationsTO) throws Exception;
+    
+    public List getClientResponsableByCliId(ClientsTO clientsTO);
+    
+    public List getOrdersByCliId(Long search)throws Exception;
+    
+    public void insertarFactura(InvoicesTO factura) throws Exception;
 }

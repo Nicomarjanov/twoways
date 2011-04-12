@@ -1,6 +1,7 @@
 package com.twoways.view.servlets;
 
 import com.twoways.core.bdl.TwoWaysBDL;
+import com.twoways.to.ClientResponsableTO;
 import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.ClientsTO;
 import com.twoways.to.DocTypes;
@@ -115,6 +116,7 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
         List<ClientsTO> clientes = null;
         List<RateTypesTO> services = null;
         List  <DocTypes>  docTypes= null;
+
        /* ClientsTO cliente = new Clients
         * TO(); 
         String cliId = request.getParameter("cliId"); 
@@ -127,8 +129,8 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
            twoWaysBDL = new TwoWaysBDL();
            RateTypesTO rateType = new RateTypesTO();
            rateType.setRtyName("Cliente");
-           tarifas =  twoWaysBDL.getServiceTwoWays().getRateByType(rateType);
-           clientes= twoWaysBDL.getServiceTwoWays().obtenerClientes();
+           tarifas = twoWaysBDL.getServiceTwoWays().getRateByType(rateType);
+           clientes= twoWaysBDL.getServiceTwoWays().obtenerClientes();         
            services= twoWaysBDL.getServiceTwoWays().obtenerServicios();
            docTypes = twoWaysBDL.getServiceTwoWays().obtenerTipoDocumentos();
            //services = twoWaysBDL.getServiceTwoWays().obtenerTipoTarifas();
@@ -146,8 +148,7 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
              for (RateTypesTO servOrd:order.getServicesTOList()){
                      
                  for(RateTypesTO serv: services){
-                     
-                       
+                                           
                          if(serv.getRtyName().equals(servOrd.getRtyName()) || serv.getRtyName().equalsIgnoreCase("Cliente") ){
                              services.remove(serv);
                              break;
@@ -164,22 +165,42 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                 order.setOrdDate(new Timestamp(new Date().getTime()));
                 request.setAttribute("order",order);
             }
-            
-            
-           
-           
            
         } catch (Exception e) {
            e.printStackTrace();
         }
         
-        if(accion != null && accion.equalsIgnoreCase("guardar")){
+        if(accion != null && accion.equalsIgnoreCase("buscarResponsables")){
+            List <ClientResponsableTO> cliResponsables = null;
+
+            ClientsTO clientsTO = new ClientsTO(); 
+            Long auxCliId = Long.parseLong((mRequest.get("listaClientes")!= null )?mRequest.get("listaClientes").toString():"");
+            clientsTO.setCliId(auxCliId);
+            cliResponsables = twoWaysBDL.getServiceTwoWays().getClientResponsableByCliId(clientsTO);
+            if (cliResponsables.size()> 0){
+                request.setAttribute("listaRespClientes",cliResponsables);
+            }else{
+                ClientResponsableTO auxCliRespTO = new ClientResponsableTO();
+                auxCliRespTO.setCreFirstName("No existen responsables");
+                cliResponsables.add(0,auxCliRespTO);
+                request.setAttribute("listaRespClientes",cliResponsables);
+            }
+            request.setAttribute("auxCliId",auxCliId);
+            request.setAttribute("auxOrdName",(mRequest.get("ordName")!= null )?mRequest.get("ordName").toString():"");
+            request.setAttribute("auxFinishDate",(mRequest.get("ordFinishDate")!= null )?mRequest.get("ordFinishDate").toString():"");
+            request.setAttribute("auxOrdDate",(mRequest.get("ordDate")!= null )?mRequest.get("ordDate").toString():"");
+        }
+        else if(accion != null && accion.equalsIgnoreCase("guardar")){
             
             OrdersTO  ordersTO = new OrdersTO();
-            ClientsTO clientsTO = new ClientsTO(); 
+            ClientsTO clientsTO = new ClientsTO();             
             clientsTO.setCliId(Long.parseLong((mRequest.get("listaClientes")!= null )?mRequest.get("listaClientes").toString():""));
             ordersTO.setClientsTO(clientsTO);
-            
+            ClientResponsableTO cliResponsableTO = new ClientResponsableTO();
+            if (mRequest.get("listaRespClientes")!= null && !mRequest.get("listaRespClientes").toString().equalsIgnoreCase("") ){
+                cliResponsableTO.setCreId(Long.parseLong((mRequest.get("listaRespClientes")!= null )?mRequest.get("listaRespClientes").toString():""));
+                ordersTO.setCliResponsableTO(cliResponsableTO);
+            }
             try {
             
                 SimpleDateFormat sdfc = new SimpleDateFormat("dd/MM/yyyy");
@@ -334,15 +355,12 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                             "</script>" ;
                           }
                    }
-                  
-                  
+                                    
                }else{
                   ordersTO = twoWaysBDL.getServiceTwoWays().insertarOrder(ordersTO);
                } for (RateTypesTO servOrd:ordersTO.getServicesTOList()){
                 
                 for(RateTypesTO serv: services){
-                
-                     
                     if(serv.getRtyName().equals(servOrd.getRtyName())){
                        
                         services.remove(serv);

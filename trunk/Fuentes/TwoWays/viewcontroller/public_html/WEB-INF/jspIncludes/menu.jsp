@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+<%@ page contentType="text/html;charset=utf-8"%>
 <Html>
 <Head>
 <Title>Menu</title>
@@ -6,7 +7,7 @@
 <style type="text/css">
 
 
-/* Estilos de configuraci�n del men� desplegable.*/
+/* Estilos de configuraci?n del men? desplegable.*/
 
 #dhtmlgoodies_menu ul li ul{
 display:none; /* Necesario para visualizarse bien en opera */
@@ -27,22 +28,22 @@ margin:0px;
 padding:0px;
 }
 
-/* Estilos de la est�tica del men�. Aqu� puedes modificarlos de acuerdo al estilo de tu web
-Estilos que se aplican a todo el men�*/
+/* Estilos de la est?tica del men?. Aqu? puedes modificarlos de acuerdo al estilo de tu web
+Estilos que se aplican a todo el men?*/
 
 #dhtmlgoodies_menu ul{
 border:1px solid #000;
 background-color:#FFF;
 padding:1px;
 }
-#dhtmlgoodies_menu ul.menuBlock1{ /* Barra de men� - elementos del menu principal*/
+#dhtmlgoodies_menu ul.menuBlock1{ /* Barra de men? - elementos del menu principal*/
 border:0px;
 padding:1px;
 border:1px solid #317082;
 background-color:#E2EBED;
 overflow:visible;
 }
-#dhtmlgoodies_menu ul.menuBlock2{ /* Barra de men� - elementos del menu principal*/
+#dhtmlgoodies_menu ul.menuBlock2{ /* Barra de men? - elementos del menu principal*/
 border:0px;
 padding:1px;
 border:1px solid #555;
@@ -54,7 +55,7 @@ padding-left:2px;
 padding-right:2px;
 }
 
-/* Estilos del men� principal. El que esta siempre visible */
+/* Estilos del men? principal. El que esta siempre visible */
 
 #dhtmlgoodies_menu .currentDepth1{
 padding-left:5px;

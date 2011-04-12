@@ -384,10 +384,12 @@
   </statement>   
   
    <statement  id="getCurrencyValue" resultClass="java.lang.Double"  parameterClass="java.util.Map" >
-        select cuc_value
+    select cuc_value from (
+        select cuc_value,to_Date(#curDate#,'dd/MM/yyyy hh24:mi')-cuc_date as diferencia
         from currency_cotizations 
-        where currency_cur_id = #curId# and to_Date(#curDate#,'dd/MM/yyyy hh24:mi') >= cuc_date 
-        order by cuc_date desc 
+        where currency_cur_id = #curId# 
+        and to_Date(#curDate#,'dd/MM/yyyy hh24:mi') >= cuc_date 
+        order by diferencia )
    </statement>     
  
   <statement id="obtenerMonedas"  parameterClass="java.lang.String" resultMap="select-Currency" >
@@ -780,9 +782,9 @@
   <insert id="insertOrders" parameterClass="com.twoways.to.OrdersTO" >
        
   insert into orders
-       (ord_id, ord_name, ord_description, ord_date, ord_finish_date, clients_cli_id, ord_proj_id, ord_wo_number, ord_job_id, ord_job_name, ord_job_description)
+       (ord_id, ord_name, ord_description, ord_date, ord_finish_date, clients_cli_id, ord_proj_id, ord_wo_number, ord_job_id, ord_job_name, ord_job_description, client_responsable_cre_id)
      values
-       (#ordId#, #ordName#, #ordDescription#, #ordDate#, #ordFinishDate#,  #clientsTO.cliId#, #ordProjId#, #ordWoNumber#, #ordJobId#, #ordJobName#, #ordJobDescription#)
+       (#ordId#, #ordName#, #ordDescription#, #ordDate#, #ordFinishDate#,  #clientsTO.cliId#, #ordProjId#, #ordWoNumber#, #ordJobId#, #ordJobName#, #ordJobDescription#,  #cliResponsableTO.creId#)
        
    
   </insert>
@@ -817,6 +819,7 @@
       <result property="ordJobName" column="ord_job_name" />
       <result property="ordJobDescription" column="ord_job_description" />
       <result property="clientsTO.cliName" column="cli_name" />
+      <result property="cliResponsableTO.creId" column="client_responsable_cre_id"  />      
   </resultMap>
   
   
@@ -890,8 +893,8 @@
                    ord_job_id = #ordJobId#,
                    ord_job_name = #ordJobName#,
                    ord_job_description = #ordJobDescription#,
-                   ord_finish_date = #ordFinishDate#
-                   
+                   ord_finish_date = #ordFinishDate#,
+                   client_responsable_cre_id = #cliResponsableTO.creId#
              where ord_id =#ordId#
   </update>
   
@@ -1502,4 +1505,68 @@
       (payments_pay_id, proj_assignments_details_pad_i)
       values (#paymentsTO.payId#, #proAssigmentsDetailsTO.padId#)
   </insert>
+
+  <resultMap id="select-Cotization" class="com.twoways.to.CotizationsTO" >
+      <result property="cucId" column="cuc_Id" />  
+      <result property="cucDate" column="cuc_Date" />
+      <result property="cucValue" column="cuc_Value" />
+      <result property="currencyTO.curName" column="cur_Name" />  
+  </resultMap> 
+
+   <statement  id="buscarCotizaciones" resultMap="select-Cotization"  parameterClass="java.lang.String" >
+        select cuc_id, cuc_date, cuc_value, cur_name
+        from currency_cotizations cuc, currency c 
+        where currency_cur_id =  #curId#
+        and currency_cur_id=cur_Id
+        order by cuc_date desc 
+   </statement>     
+ 
+  <select  id="currency_cot.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > 
+        select CURRENCY_COT_SEQ.nextval cucId from dual
+  </select> 
+ 
+  <insert id="insertarCotizacion" parameterClass="com.twoways.to.CotizationsTO"   >
+       
+      insert into currency_cotizations
+          (cuc_id, cuc_date, cuc_value, currency_cur_id)
+        values
+          (#cucId#, #cucDate#, #cucValue#,#currencyTO.curId#)
+         
+  </insert>      
+
+  <delete id="deleteCotizacion" parameterClass="com.twoways.to.CotizationsTO"   >
+    delete  currency_cotizations
+    where
+    cuc_id = #cucId#          
+  </delete> 
+
+  <select id="getOrdersByCliId" parameterClass="java.lang.Long" resultClass="java.util.HashMap" >
+          select o.ord_id as ordId,
+               o.ord_name as ordName,
+               o.ord_description as ordDescription,
+               o.ord_date as ordDate,
+               o.ord_proj_id as ordProjId,
+               o.ord_wo_number as ordWoNumber,
+               o.ord_job_id as ordJobId,
+               o.ord_job_name as ordJobName,
+               o.ord_job_description as ordJobDescription,
+               t.rat_id as ratId,
+               t.rat_name as ratName,
+               y.cur_id as curId,
+               y.cur_symbol as curSymbol,
+               r.orr_value as orrValue,
+               r.orr_wcount as orrWcount,
+               cr.cre_first_name||' '||cr.cre_last_name as creName,
+               e.rty_alernative_name as rateTypeName,
+               (r.orr_value * r.orr_wcount) as ordTotal
+        from orders o, orders_rates r, client_responsable cr, order_services os, rates t, currency y, rate_types e
+        where o.ord_id = r.orders_ord_id
+        and o.client_responsable_cre_id=cr.cre_id
+        and o.ord_id = os.orders_ord_id
+        and o.clients_cli_id = #cliId#
+        and r.rates_rat_id = t.rat_id
+        and t.currency_cur_id = y.cur_id
+        and os.rate_types_rty_name = e.rty_name
+  </select>
+
 </sqlMap> 

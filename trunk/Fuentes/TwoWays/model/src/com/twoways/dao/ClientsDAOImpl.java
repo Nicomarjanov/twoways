@@ -203,4 +203,16 @@ public class ClientsDAOImpl extends AbstractDAO  implements ClientDAO{
         return getClientById(String.valueOf(clientsTO.getCliId()));     
         
     }
+    
+    public List getClientResponsableByCliId(ClientsTO clientsTO){
+        List ret= null;
+        try {
+            ret  = getSqlMapClientTemplate().queryForList("getClientResponsableByCliId",clientsTO); 
+        } catch (DataAccessException dae) {
+
+           dae.printStackTrace();
+        }
+        return ret;
+        }
+        
 }

@@ -57,7 +57,12 @@
             <ref bean="docTypesDAO"/>
         </property> 
         
-        
+        <property name="cotizationsDao">
+            <ref bean="cotizationsDAO"/>
+        </property> 
+        <property name="invoiceDao">
+            <ref bean="invoiceDAO"/>
+        </property>                 
     </bean>
 
     <!-- declaracion de los servicios, utilizando proxy para el manejo de transacciones -->
