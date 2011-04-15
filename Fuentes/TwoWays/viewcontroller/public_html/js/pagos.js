@@ -1,5 +1,5 @@
 var mensajeCampoAlert;
-
+var curIdOrigen;
 function cancelar()
 {
     if(confirm('¿Desea cancelar la carga del pago?'))
@@ -12,7 +12,7 @@ function cancelar()
 }
 
 function nuevaBusqueda()
-{
+{  // document.getElementById('buscar').disabled=false;
     document.getElementById("accion").value='cancelar';
     document.getElementById("empId").value="";
     document.getElementById("payId").value="";        
@@ -29,6 +29,7 @@ function buscarAsignaciones(){
     var empArray=document.getElementById('listaEmpleados').options[document.getElementById('listaEmpleados').selectedIndex].value;
     var mes=document.getElementById('listaMes').options[document.getElementById('listaMes').selectedIndex].value;
     var anio=document.getElementById('listaAnio').options[document.getElementById('listaAnio').selectedIndex].value;    
+
     
    if(empArray == ""){
         document.getElementById("listaEmpleados").style.background='red';
@@ -52,7 +53,7 @@ function buscarAsignaciones(){
         var mensajeCampoAlert2 = mensajeFaltanteAlert + '\n';
         alert(mensajeCampoAlert2);
     }else{
-
+        
         var empId = empArray.split('#');
 
         document.getElementById('accion').value='buscarAsignaciones';  
@@ -139,7 +140,7 @@ function grabar(existe)
 {
     if(existe)
     {
-        alert(mensajeExisteItem);
+        alert(mensajeFaltanteAlert);
     }
     else
     {                
@@ -152,36 +153,38 @@ function grabar(existe)
     }
 }
 
-function eliminarPagoAsignacion(padId,praTotal){
+function eliminarPagoAsignacion(rowId, praTotal, curIdDesde, fecha){
    var tabla = document.getElementById('tabla-asignaciones');
-   var row = document.getElementById(padId);   
-   var total = document.getElementById("payAmount").value;
-   total = total.replace(",",".");
-
+   var row = document.getElementById(rowId);   
+   var curHasta = document.getElementById("listaMoneda").value;
+   var curIdHasta = curHasta.split("#");
+   
    tabla.deleteRow(row.rowIndex);
    if (praTotal > 0){
-        document.getElementById("payAmount").value= (total - praTotal).toFixed(2);
+        towaysDWR.cotizar(fecha, curIdDesde, curIdHasta[0], praTotal, postEliminar);
    }
 }
 
-function cotizar(){
-    var total = document.getElementById("payAmount").value;
-    var curIdDesde = document.getElementById("curIdOrigen").value;    
-    var mes = document.getElementById("mesId").value;
-    var anio = document.getElementById("anioId").value;    
-    var currency = document.getElementById("listaMoneda").value;
-    var curIdHasta = currency.split("#");
+function postEliminar(data){
+   var total = document.getElementById("payAmount").value;
+   total = total.replace(",",".");
+   document.getElementById("payAmount").value= (total - data).toFixed(2);
 
+}
+
+function guardarValor(valor){
+    curIdOrigen = valor;
+}
+function cambioValorTotal(valor){
+
+    var total = document.getElementById("payAmount").value;    
+    var fecha = document.getElementById("payDate").value;  
+    var curIdHasta = valor.split("#");
+    var curIdDesde = curIdOrigen.split("#");
     total=total.replace(",",".");
-    for (var i=1; i < 13; i++){
-        if (document.getElementById('listaMes').options[i].value ==mes){
-            if (i < 10) var mesId ='0'+i;
-            else var mesId =i;
-        }
-    }
-    alert(mesId);
-    towaysDWR.cotizarPago(mesId, anio, curIdDesde, curIdHasta[0], total, valorCotizacioncallBack);
-    document.getElementById("curIdOrigen").value=curId[0];
+        
+    towaysDWR.cotizar(fecha, curIdDesde[0], curIdHasta[0], total, valorCotizacioncallBack);
+
 }
 
 function valorCotizacioncallBack(data){

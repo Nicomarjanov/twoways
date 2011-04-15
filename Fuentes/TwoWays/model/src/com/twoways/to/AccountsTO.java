@@ -14,8 +14,16 @@ public class AccountsTO {
     private Long accId;
    //(name="ACC_NAME", nullable = false)
     private String accName;
-    private String accNumber;  
-
+    private String accNumber;
+    private String accBank;
+    private String accHolder;
+    private String accSwiftCode;
+    private String accWireTransfer;
+    private String accDirection;
+    private String accZipCode;
+    private String accCountry;
+    private String accCity;
+    
     private List<ItemsExpensesTO> itemsExpensesTOList;
     private List<IncomesTO>  paymentsTOList;
     private List<ItemsInvoicesTO> itemsInvoicesTOList;    
@@ -132,5 +140,69 @@ public class AccountsTO {
 
     public String getAccNumber() {
         return accNumber;
+    }
+
+    public void setAccBank(String accBank) {
+        this.accBank = accBank;
+    }
+
+    public String getAccBank() {
+        return accBank;
+    }
+
+    public void setAccHolder(String accHolder) {
+        this.accHolder = accHolder;
+    }
+
+    public String getAccHolder() {
+        return accHolder;
+    }
+
+    public void setAccSwiftCode(String accSwiftCode) {
+        this.accSwiftCode = accSwiftCode;
+    }
+
+    public String getAccSwiftCode() {
+        return accSwiftCode;
+    }
+
+    public void setAccWireTransfer(String accWireTransfer) {
+        this.accWireTransfer = accWireTransfer;
+    }
+
+    public String getAccWireTransfer() {
+        return accWireTransfer;
+    }
+
+    public void setAccDirection(String accDirection) {
+        this.accDirection = accDirection;
+    }
+
+    public String getAccDirection() {
+        return accDirection;
+    }
+
+    public void setAccZipCode(String accZipCode) {
+        this.accZipCode = accZipCode;
+    }
+
+    public String getAccZipCode() {
+        return accZipCode;
+    }
+
+    public void setAccCountry(String accCountry) {
+        this.accCountry = accCountry;
+    }
+
+    public String getAccCountry() {
+        return accCountry;
+    }
+
+    public void setAccCity(String accCity) {
+        this.accCity = accCity;
+    }
+
+    public String getAccCity() {
+        return accCity;
     }
 }

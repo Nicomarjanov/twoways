@@ -425,10 +425,12 @@ public class ServiceTW_System {
         return false;
     }    
     
-    public Double cotizarFactura(Date fecha, Long curIdDesde, Long curIdHasta, Double value){
+    public Double cotizar(String fecha, Long curIdDesde, Long curIdHasta, Double value){
     try {
-        //SimpleDateFormat formatoDeFecha = new SimpleDateFormat("dd/MM/yyyy");
-        Timestamp timestamp = new Timestamp(fecha.getTime());
+    
+        SimpleDateFormat formatoDeFecha = new SimpleDateFormat("dd/MM/yyyy");
+        Date fechaAss = formatoDeFecha.parse(fecha);
+        Timestamp timestamp = new Timestamp(fechaAss.getTime());
         Double cotization = twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, curIdDesde, curIdHasta, value);
         return cotization;
     

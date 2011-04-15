@@ -8,20 +8,20 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252"/>
     <link href="./twoways.css" rel="stylesheet" type="text/css"/>
-    <script  type='text/javascript' src="./js/pagos.js"></script>
+    <script  type='text/javascript' src="./js/cobros.js"></script>
     <script type='text/javascript' src="./js/utils.js"></script>    
     <script type='text/javascript' src='/twoways/dwr/interface/towaysDWR.js'></script>
     <script type='text/javascript' src='/twoways/dwr/engine.js'></script>
     <script type='text/javascript' src='/twoways/dwr/util.js'></script>
-    <title>Pagos</title>
+    <title>Cobros</title>
   </head>
   <body >
   <jsp:include page="/WEB-INF/jspIncludes/menu.jsp" />
   <c:out value="${mensaje}" escapeXml="false"/>
-  <form name="pago" action="pagos" method="POST">
+  <form name="cobro" action="cobros" method="POST">
   <input type="hidden" id="accion" name="accion" value=""/>
   <input type="hidden" id="imprimir" name="imprimir" value=""/>  
-  <input type="hidden" id="payId" name="payId" value="<c:out value="${pago.payId}"/>"/>
+  <input type="hidden" id="payId" name="payId" value="<c:out value="${cobro.Id}"/>"/>
   <input type="hidden" id="empId" name="empId" value="<c:out value="${empId}"/>"/>
   <input type="hidden" id="mesId" name="mesId" value="<c:out value="${mesId}"/>"/>
   <input type="hidden" id="anioId" name="anioId" value="<c:out value="${anioId}"/>"/>    
@@ -151,15 +151,8 @@
                         </td>
                      </tr>
                      <tr>
-                     <c:choose>
-                            <c:when test="${not empty projectAssignnments}">
-                                <td width="50%"  valign="top" align="right" ><input disabled="disabled" type="button" id="buscar" value="Buscar" onclick="buscarAsignaciones()"  /></td>
-                            </c:when>
-                            <c:otherwise>
-                                <td width="50%"  valign="top" align="right" ><input type="button" id="buscar" value="Buscar" onclick="buscarAsignaciones()"  /></td>
-                            </c:otherwise>
-                    </c:choose>
-                       <td width="50%"  valign="top" align="left" ><input type="button" id="nueva" value="Nueva Búsqueda" onclick="nuevaBusqueda()"  /></td>                     
+                       <td colspan="50%"  valign="top" align="right" ><input type="button" value="Buscar" onclick="buscarAsignaciones()"  /></td>
+                       <td colspan="50%"  valign="top" align="left" ><input type="button" value="Nueva Búsqueda" onclick="nuevaBusqueda()"  /></td>                     
                      </tr>       
                    </tbody>
                </table>        
@@ -194,7 +187,7 @@
                         <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'WCOUNT\']}" /></td>       
                         <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'PRATOTAL\']}" /></td>                        
                         <td width="2%">
-                            <img  src="img/del2.png" height="15" width="15"  alt="Eliminar" onclick="eliminarPagoAsignacion('<c:out value="${item[\'PADID\']}" />','<c:out value="${item[\'PRATOTAL\']}" />','<c:out value="${item[\'CURID\']}" />','<fmt:formatDate value="${item[\'PRAASSDATE\']}"  pattern="dd/MM/yyyy HH:mm" />')" onmouseover="this.style.cursor='hand';" /></td>
+                            <img  src="img/del2.png" height="15" width="15"  alt="Eliminar" onclick="eliminarPagoAsignacion('<c:out value="${item[\'PADID\']}" />','<c:out value="${item[\'PRATOTAL\']}" />')" onmouseover="this.style.cursor='hand';" /></td>
                     </tr>           
                   </c:forEach>
                   </tbody>
@@ -247,23 +240,18 @@
         </td> 
       </tr>
       <tr>
-        <td nowrap align="right" width="10%">Cuenta:</td>        
-        <td width="20%" align="left">
-           <select name="listaCuentas" id="listaCuentas" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">                
-                    <option value="" >Seleccionar</option>
-                    <c:forEach items="${listaCuentas}" var="item">
-                        <option value="<c:out value="${item.accId}" />#<c:out value="${item.accName}" />" style="background-color:#A4BAC7;">
-                            <c:out value="${item.accName}" />
-                        </option>
-                    </c:forEach>
-           </select> 
-        </td>
         <td nowrap align="right" width="10%">Moneda:</td>
         <td width="20%" align="leftx">
-           <select name="listaMoneda" id="listaMoneda" style="border:solid 1px #005C8D;" onfocus="guardarValor(this.value)" onchange="cambioValorTotal(this.value)">                
+           <select name="listaMoneda" id="listaMoneda" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';" onchange="cotizar()">                
+                    <option value="" >Seleccionar</option>
                     <c:forEach items="${listaMoneda}" var="item">
                         <c:choose>
                             <c:when test="${item.curId == 4}">
+                                <option value="<c:out value="${item.curId}" />#<c:out value="${item.curSymbol}" />" style="background-color:#A4BAC7;" selected="selected">
+                                    <c:out value="${item.curName}" />
+                                </option>
+                            </c:when>
+                            <c:when test="${item.curId == idMoneda}">
                                 <option value="<c:out value="${item.curId}" />#<c:out value="${item.curSymbol}" />" style="background-color:#A4BAC7;" selected="selected">
                                     <c:out value="${item.curName}" />
                                 </option>
@@ -277,11 +265,21 @@
                     </c:forEach>
            </select>
         </td>
-        <td nowrap align="right" width="10%"><b>Total:</b></td>
+        <td nowrap align="right" width="10%">Cuenta:</td>        
         <td width="20%" align="left">
-            <input readonly type="text" class="tw_form" id="payAmount"  name="payAmount" value="<c:out value="${payAmount}" />" size="10" maxlength="15" style="text-align:right;"></input>
-            <input type="hidden" name="print-total-hidden"  value="<c:out value="${payAmount}" />"></input>
-         </td>    
+           <select name="listaCuentas" id="listaCuentas" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">                
+                    <option value="" >Seleccionar</option>
+                    <c:forEach items="${listaCuentas}" var="item">
+                        <option value="<c:out value="${item.accId}" />#<c:out value="${item.accName}" />" style="background-color:#A4BAC7;">
+                            <c:out value="${item.accName}" />
+                        </option>
+                    </c:forEach>
+           </select> 
+        </td>    
+        <td nowrap align="right" width="10%"><b>Total:</b></td>
+        <td width="20%" align="left"><input readonly type="text" class="tw_form" id="payAmount"  name="payAmount" value="<c:out value="${payAmount}" />" size="10" maxlength="15" style="text-align:right;"></input>
+         <input type="hidden" name="print-total-hidden"  value="<c:out value="${payAmount}" />"></input>
+         <input type="hidden" name="curIdOrigen" id="curIdOrigen" value="<c:out value="${curIdOrigen}" />"></input></td>    
       </tr>
   </table>
   <hr class="tw_hr">
