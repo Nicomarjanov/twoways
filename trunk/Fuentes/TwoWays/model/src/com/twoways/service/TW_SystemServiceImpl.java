@@ -788,11 +788,11 @@ public class TW_SystemServiceImpl implements TW_SystemService {
         return value / cotHasta;
     }
     else{
-        Double cotDesde = this.getCurrencyDao().getCurrencyValue(date,curIdDesde);
-        Double aux = value / cotDesde;
-
         Double cotHasta = this.getCurrencyDao().getCurrencyValue(date,curIdHasta);
-        Double aux1 = aux * cotHasta;        
+        Double aux = value / cotHasta;
+
+        Double cotDesde = this.getCurrencyDao().getCurrencyValue(date,curIdDesde);
+        Double aux1 = aux * cotDesde;        
         
         return aux1;                                   
     }
@@ -833,8 +833,8 @@ public class TW_SystemServiceImpl implements TW_SystemService {
         return invoiceDao;
     }
     
-    public void insertarFactura(InvoicesTO factura) throws Exception{
-        this.invoiceDao.insertarFactura(factura);
+    public Long insertarFactura(InvoicesTO factura) throws Exception{
+        return this.invoiceDao.insertarFactura(factura);
     }
 }
 

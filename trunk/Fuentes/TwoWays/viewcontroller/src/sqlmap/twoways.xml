@@ -956,7 +956,15 @@
       <result property="accId"   column="ACC_ID" />
       <result property="accNumber" column="ACC_NUMBER"  />
       <result property="accDescription" column="ACC_DESCRIPTION" />
-      <result property="accDetails" column="ACC_DETAILS" />      
+      <result property="accDetails" column="ACC_DETAILS" /> 
+      <result property="accBank" column="ACC_BANK" />
+      <result property="accHolder" column="ACC_HOLDER"  />
+      <result property="accSwiftCode" column="ACC_SWIFT_CODE" />
+      <result property="accWireTransfer" column="ACC_WIRE_TRANSFER" /> 
+      <result property="accDirection" column="ACC_DIRECTION" />      
+        <result property="accZipCode" column="ACC_ZIP_CODE" />
+      <result property="accCountry" column="ACC_COUNTRY" /> 
+      <result property="accCity" column="ACC_CITY" />     
   </resultMap>
     
   <statement id="buscarAccounts" resultMap="select-Account-List"  parameterClass="java.lang.String" >

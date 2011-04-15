@@ -247,5 +247,5 @@ public interface TW_SystemService {
     
     public List getOrdersByCliId(Long search)throws Exception;
     
-    public void insertarFactura(InvoicesTO factura) throws Exception;
+    public Long insertarFactura(InvoicesTO factura) throws Exception;
 }
