@@ -156,6 +156,7 @@
        <property name="dataSource">
           <ref bean="dataSource"/>
       </property>
+
       <property name="sqlMapClient">
         <ref local="twowaysSqlMapConfig"/>
       </property>

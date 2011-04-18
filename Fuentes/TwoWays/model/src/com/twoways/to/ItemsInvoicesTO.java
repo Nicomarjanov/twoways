@@ -7,10 +7,11 @@ public class ItemsInvoicesTO {
     //(name="ITI_ID", nullable = false)
     private Long itiId;
     //(name="ITI_VALUE")
-    private Long itiValue;
+    private Double itiValue;
     private InvoicesTO invoicesTO;
     private ItemsTO itemsTO;
     private OrdersRatesTO ordersRatesTO;
+    private CurrencyTO currencyTO;    
 
     public ItemsInvoicesTO() {
     }
@@ -24,11 +25,11 @@ public class ItemsInvoicesTO {
         this.itiId = itiId;
     }
 
-    public Long getItiValue() {
+    public Double getItiValue() {
         return itiValue;
     }
 
-    public void setItiValue(Long itiValue) {
+    public void setItiValue(Double itiValue) {
         this.itiValue = itiValue;
     }
 
@@ -54,5 +55,13 @@ public class ItemsInvoicesTO {
 
     public OrdersRatesTO getOrdersRatesTO() {
         return ordersRatesTO;
+    }
+
+    public void setCurrencyTO(CurrencyTO currencyTO) {
+        this.currencyTO = currencyTO;
+    }
+
+    public CurrencyTO getCurrencyTO() {
+        return currencyTO;
     }
 }

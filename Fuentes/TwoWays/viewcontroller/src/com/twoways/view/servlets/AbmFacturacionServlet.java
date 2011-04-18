@@ -150,8 +150,8 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
                         request.setAttribute("invTotal",formatter.format(auxAmount));
                        // request.setAttribute("curIdOrigen",curIdOrigen);
                     }
-                    
-                    request.setAttribute("cliId",auxCliId[0]);
+                    request.setAttribute("cliId",cliId);
+                    request.setAttribute("auxCliId",auxCliId[0]);
                     
                 }else {
                     request.setAttribute("mensaje","<script>alert('No se encontraron ordenes para ese cliente')</script>"); 
@@ -178,8 +178,9 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
                 e.printStackTrace();
                 request.getRequestDispatcher("facturacion.jsp").forward(request,response);
             }   
+            request.setAttribute("cliId",cliId);
             String auxCliId[] = cliId.split("#");        
-            request.setAttribute("cliId",auxCliId[0]);
+            request.setAttribute("auxCliId",auxCliId[0]);
             
             ClientsTO cliIdTO = new ClientsTO();
             cliIdTO.setCliId(Long.parseLong(auxCliId[0]));
@@ -209,7 +210,7 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
             List<ItemsInvoicesTO> itemsFacturaList = new ArrayList<ItemsInvoicesTO>();
             
             if( ordClients  != null){ 
-                                  
+               Integer indice = 0;                   
                for(String aux:ordClients){ 
                    String auxArray[] = aux.split("#"); 
                    OrdersTO orderTO = new OrdersTO();
@@ -222,12 +223,21 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
                    orderRateTO.setRatesTO(rateTO);
                    ItemsInvoicesTO itemFacturaTO = new ItemsInvoicesTO();
                    
-                   itemFacturaTO.setOrdersRatesTO(orderRateTO);
+                   itemFacturaTO.setOrdersRatesTO(orderRateTO);     
                    
-                   String nomLista = "listaItems"+auxArray[0]+auxArray[1];
-                   String itemLista = request.getParameter(nomLista);
+                   CurrencyTO currencyTO = new CurrencyTO();
+                   currencyTO.setCurId(Long.parseLong(auxArray[2]));
+                   itemFacturaTO.setCurrencyTO(currencyTO);
+                   
+                   itemFacturaTO.setItiValue(Double.parseDouble(auxArray[3]));
+                   
+                   String itemLista[] = request.getParameterValues("listaItems");
+
                    ItemsTO item = new ItemsTO();
-                   item.setItmId(Long.parseLong(itemLista));                   
+                   String auxItem = itemLista[indice];
+                   String itemId[] = auxItem.split("#");
+                   item.setItmId(Long.parseLong(itemId[0]));     
+                   indice +=1;
                    itemFacturaTO.setItemsTO(item);
                    
                    itemsFacturaList.add(itemFacturaTO); 
@@ -248,7 +258,8 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
                         if (imprimir!=null && imprimir.equalsIgnoreCase("imprimirFactura") && cliId != null){
                                 
                                 try {
-                                     AbmFacturacionServlet.createPdf(request,response);
+                                    
+                                     AbmFacturacionServlet.createPdf(request,response,invId);
                                      request.getRequestDispatcher("facturacion.jsp").forward(request,response);                                 
                                 }
                                  catch (Exception e) {
@@ -273,7 +284,7 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
             doGet(request,response); 
             }
             
-        public static void createPdf(HttpServletRequest request,HttpServletResponse response)
+        public static void createPdf(HttpServletRequest request,HttpServletResponse response, Long invId)
            throws IOException, DocumentException {
            // step 1
             Document document = new Document(PageSize.A4.rotate());
@@ -282,55 +293,55 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
            response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
            String cliName[]= request.getParameter("cliId").split("#");
            
-           SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-           java.util.Date fechaImp = null;
-            try {
-                fechaImp = sdf.parse(request.getParameter("invDate"));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+           String invDate = request.getParameter("invDate");
+           invDate.replace("/","");
 
-           String disposition = "attachment; filename= Invoice_" + cliName[1]+"_"+fechaImp+".pdf";
+           String disposition = "attachment; filename= Invoice_" + cliName[1]+"_"+invDate+".pdf";
            response.setHeader("Content-disposition", disposition); 
            PdfWriter.getInstance(document, response.getOutputStream());
            // step 3
            document.open();
            // step 4
+           document.add(createTableEncabezado(request,invId));
            document.add(createTable(request));
            // step 5
            document.close();
         }
         
-        public static PdfPTable createTable(HttpServletRequest request) throws IOException, DocumentException{
+        public static PdfPTable createTableEncabezado(HttpServletRequest request, Long invId) throws IOException, DocumentException{
           
-        String printOrden[] = request.getParameterValues("print-orden-hidden");        
-        String invTotal = request.getParameter("invTotal");    
-        String empName = request.getParameter("empName");
         String invDate = request.getParameter("invDate");
-        String invId = request.getParameter("invId");
-       // String curId = request.getParameter("curIdOrigen");
-        String curSymbol[] =request.getParameter("listaMoneda").split("#");        
+        String cliId = request.getParameter("auxCliId");
+   
         String accId =request.getParameter("listaCuentas");
         
-        PdfPTable table = new PdfPTable(6);
+        PdfPTable table = new PdfPTable(4);
         PdfPCell cell; 
         BaseFont bf = BaseFont.createFont();   
         Font ft = new Font(bf,15,Font.BOLD);         
+        
         //imagen
         table.setWidthPercentage(100f);
         cell = new PdfPCell(Image.getInstance(RESOURCE),true);
         cell.setBorder(PdfPCell.NO_BORDER);
-        cell.setColspan(6);
-        cell.setPadding(20);
+      //  cell.setColspan(1);
+        //cell.setPadding(20);
         table.addCell(cell);
+        cell = new PdfPCell(new Phrase(""));
+        cell.setBorder(PdfPCell.NO_BORDER);
+        cell.setColspan(3);
+        //cell.setPadding(20);
+        table.addCell(cell);      
         
         //fecha de pago
         cell = new PdfPCell(new Phrase("Date: "+invDate,ft));    
         //cell = new PdfPCell();
         cell.setHorizontalAlignment(Element.ALIGN_LEFT);
         cell.setVerticalAlignment(Element.ALIGN_TOP);
-        cell.setColspan(3);
-        //cell.setBorder(PdfPCell.NO_BORDER);
+        cell.setColspan(2);
+        cell.setBorder(PdfPCell.NO_BORDER);
+        cell.setPaddingBottom(20);       
+        cell.setPaddingTop(15);        
         table.addCell(cell);
         
         //Numero de factura
@@ -338,87 +349,198 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
         //cell = new PdfPCell();
         cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
         cell.setVerticalAlignment(Element.ALIGN_TOP);
-        cell.setColspan(3);
-        //cell.setBorder(PdfPCell.NO_BORDER);
+        cell.setColspan(2);
+        cell.setBorder(PdfPCell.NO_BORDER);
+        cell.setPaddingBottom(20);
+        cell.setPaddingTop(15);
         table.addCell(cell);        
         
-        //Datos de cuenta
+        //Datos de cuenta y cliente
          TwoWaysBDL twoWaysBDL=null;
          AccountsTO cuenta = new AccountsTO(); 
+         ClientsTO cliente = new ClientsTO();
          try {
              twoWaysBDL = new TwoWaysBDL();
-             cuenta =   twoWaysBDL.getServiceTwoWays().getAccountById(accId);
-             request.setAttribute("listaMoneda",cuenta); 
+             cuenta = twoWaysBDL.getServiceTwoWays().getAccountById(accId);
+             cliente = twoWaysBDL.getServiceTwoWays().getClientById(cliId);
             } catch (Exception e) {
                 e.printStackTrace();
             } 
-        if (cuenta != null){
-            cell = new PdfPCell(new Phrase(cuenta.getAccHolder()));
+        if (cuenta != null && cliente != null){
+            cell = new PdfPCell(new Phrase("Account holder: "+((cuenta.getAccHolder()!=null)?cuenta.getAccHolder():"")));
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setColspan(2);
+            cell.setBorder(PdfPCell.NO_BORDER);
             table.addCell(cell);
-         
+        
+            cell = new PdfPCell(new Phrase("COMPANY INFORMATION"));
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            cell.setColspan(2);
+            cell.setBorder(PdfPCell.NO_BORDER);
+            table.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase("Checking account: "+((cuenta.getAccNumber()!=null)?cuenta.getAccNumber():"")));
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setColspan(2);
+            cell.setBorder(PdfPCell.NO_BORDER);
+            table.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase((cliente.getCliName()!=null)?cliente.getCliName():""));
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            cell.setColspan(2);
+            cell.setBorder(PdfPCell.NO_BORDER);
+            table.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase("SWIFT code: "+((cuenta.getAccSwiftCode()!=null)?cuenta.getAccSwiftCode():"")));
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setColspan(2);
+            cell.setBorder(PdfPCell.NO_BORDER);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase((cliente.getCliAddress()!=null)?cliente.getCliAddress():""));
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            cell.setColspan(2);
+            cell.setBorder(PdfPCell.NO_BORDER);
+            table.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase(((cuenta.getAccBank()!=null)?cuenta.getAccBank():"")));
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setColspan(2);
+            cell.setBorder(PdfPCell.NO_BORDER);
+            table.addCell(cell); 
+            
+            cell = new PdfPCell(new Phrase((cliente.getCliPostalCode()!=null)?cliente.getCliPostalCode():""));
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            cell.setColspan(2);
+            cell.setBorder(PdfPCell.NO_BORDER);
+            table.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase(((cuenta.getAccZipCode()!=null)?cuenta.getAccZipCode():"")));
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setColspan(2);
+            cell.setBorder(PdfPCell.NO_BORDER);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase((cliente.getCliCountry()!=null)?cliente.getCliCountry():""));
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            cell.setColspan(2);
+            cell.setBorder(PdfPCell.NO_BORDER);
+            table.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase(((cuenta.getAccDirection()!=null)?cuenta.getAccDirection():"")));
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setColspan(4);
+            cell.setBorder(PdfPCell.NO_BORDER);
+            table.addCell(cell);            
+            
+            cell = new PdfPCell(new Phrase(((cuenta.getAccCity()!=null)?cuenta.getAccCity():"")));
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setColspan(4);
+            cell.setBorder(PdfPCell.NO_BORDER);
+            table.addCell(cell);
+            
+            cell = new PdfPCell(new Phrase(((cuenta.getAccCountry()!=null)?cuenta.getAccCountry():"")));
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            cell.setColspan(4);
+            cell.setBorder(PdfPCell.NO_BORDER);
+            table.addCell(cell);
+        }
+    /*Fila en blanco
+     cell = new PdfPCell(new Phrase(""));
+     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+     cell.setColspan(2);
+     cell.setBorder(PdfPCell.NO_BORDER);
+     table.addCell(cell);
+     */
+    return table;
+        
+    }
+
+     public static PdfPTable createTable(HttpServletRequest request) throws IOException, DocumentException{
        
-
-        //Font f = new Font(bf,24,Font.BOLD,new BaseColor(0xC2,0x33,0x30));        
-       /* Paragraph p = new Paragraph ("Recibo de pago de "+empName+" del mes de "+mesId,f);
-        p.setAlignment(Element.ALIGN_CENTER);
-        p.setSpacingBefore(5);
-        p.setSpacingAfter(5);
-        cell.addElement(p);
-        cell.setBorder(PdfPCell.NO_BORDER);
-        cell.setColspan(6);
-        cell.setPadding(15);
-        table.addCell(cell);*/
-        //
-
+        String printOrden[] = request.getParameterValues("print-ordenes-hidden");        
+        String invTotal = request.getParameter("invTotal");    
+        String curSymbol[] =request.getParameter("listaMoneda").split("#");     
+            
+        PdfPTable table = new PdfPTable(10);
+        table.setWidthPercentage(100f);
+        PdfPCell cell; 
+        BaseFont bfc = BaseFont.createFont(BaseFont.HELVETICA,BaseFont.CP1250,BaseFont.NOT_EMBEDDED);     
+        Font ft = new Font(bfc,15,Font.BOLD); 
+        Font cf = new Font(bfc,10); 
+        
         table.getDefaultCell().setPadding(3);
         table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
         table.getDefaultCell().setColspan(1);
         table.getDefaultCell().setBackgroundColor(new GrayColor(0.825f));
+        table.setSpacingBefore(10);
         
-        table.addCell("Fecha asignación");
-        table.addCell("Nombre proyecto");
-        table.addCell("Tipo tarifa");
-        table.addCell("Monto tarifa");
-        table.addCell("Total unidades");
-        table.addCell("Total asignación");
-
+        table.addCell("PO #");
+        table.addCell("Job #");
+        table.addCell("WO #");
+        table.addCell("Job Name");
+        table.addCell("Job Description");
+        table.addCell("Item Description");
+        table.addCell("# of Words");
+        table.addCell("Per word rate");
+        table.addCell("Total Due");            
+        table.addCell("Project Manager"); 
+        
         table.getDefaultCell().setBackgroundColor(null);
 
         if( printOrden  != null){ 
-                
-         for(String aux:printOrden){               
+            Integer indice = 0;       
+         for(String aux:printOrden){      
+
              String atribs[]= aux.split("#");
-             cell = new PdfPCell(new Phrase(atribs[0]));
+             String itemLista[] = request.getParameterValues("listaItems");
+             String auxItem = itemLista[indice];
+             indice +=1;
+             String itemId[] = auxItem.split("#");
+
+             cell = new PdfPCell(new Phrase(atribs[0],cf));
              cell.setHorizontalAlignment(Element.ALIGN_LEFT);
              table.addCell(cell);
-             cell = new PdfPCell(new Phrase(atribs[1]));
+             cell = new PdfPCell(new Phrase(atribs[1],cf));
              cell.setHorizontalAlignment(Element.ALIGN_LEFT);
              table.addCell(cell);
-             cell = new PdfPCell(new Phrase(atribs[2]));
+             cell = new PdfPCell(new Phrase(atribs[2],cf));
              cell.setHorizontalAlignment(Element.ALIGN_LEFT);
              table.addCell(cell);
-             cell = new PdfPCell(new Phrase(atribs[6]+" "+atribs[3]));
-             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+             cell = new PdfPCell(new Phrase(atribs[3],cf));
+             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
              table.addCell(cell);
-             cell = new PdfPCell(new Phrase(atribs[4]));
-             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+             cell = new PdfPCell(new Phrase(atribs[4],cf));
+             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
              table.addCell(cell);
-             cell = new PdfPCell(new Phrase(atribs[5]));
-             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+             cell = new PdfPCell(new Phrase(itemId[1],cf));
+             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
              table.addCell(cell);             
+             cell = new PdfPCell(new Phrase(atribs[5],cf));
+             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+             table.addCell(cell);     
+             cell = new PdfPCell(new Phrase(atribs[6],cf));
+             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+             table.addCell(cell);
+             cell = new PdfPCell(new Phrase(atribs[7],cf));
+             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+             table.addCell(cell);
+             cell = new PdfPCell(new Phrase(atribs[8],cf));
+             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+             table.addCell(cell);
          }
          
             //Total a pagar
             cell = new PdfPCell(new Phrase("Total: ",ft));           
             cell.setBorder(PdfPCell.NO_BORDER);
-            cell.setColspan(5);
+            cell.setColspan(8);
             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
             table.addCell(cell); 
             if (curSymbol[1] != null){
                 cell = new PdfPCell(new Phrase(curSymbol[1]+" "+invTotal,ft));
                 cell.setBorder(PdfPCell.NO_BORDER);
                 cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                cell.setColspan(2);
                 table.addCell(cell);  
             }
         }

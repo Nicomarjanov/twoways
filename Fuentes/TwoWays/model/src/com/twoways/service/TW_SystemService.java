@@ -21,6 +21,7 @@ import com.twoways.to.ProjectAssignmentsTO;
 import com.twoways.to.ProjectsTO;
 import com.twoways.to.RateTypesTO;
 import com.twoways.to.RatesTO;
+import com.twoways.to.ItemsInvoicesTO;
 
 import com.twoways.to.TranslatorsTO;
 import com.twoways.to.UsersTO;

@@ -936,16 +936,23 @@
 
   <insert id="insertAccount" parameterClass="com.twoways.to.AccountsTO" >
       insert into accounts
-          (acc_id, acc_name, acc_number, acc_description, acc_details)
+          (acc_id, acc_name, acc_number, acc_holder, acc_swift_code, acc_wire_transfer, acc_bank, acc_direction, acc_zip_code, acc_country, accCity, acc_details)
         values
-          (#accId#, #accName#, #accNumber#, #accDescription#, #accDetails#)                        
+          (#accId#, #accName#, #accNumber#, #accHolder#, #accSwiftCode#, #accWireTransfer#, #accBank#, #accDirection#, #accZipCode#, #accCountry#, #accCity#, #accDetails#)                        
   </insert>
 
   <update  id="updateAccount" parameterClass="com.twoways.to.AccountsTO">
       UPDATE accounts
          SET acc_name = #accName#, 
              acc_number = #accNumber#,
-             acc_description = #accDescription#,
+             acc_holder = #accHolder#,
+             acc_Swift_Code = #accSwiftCode#,
+             acc_wire_transfer =#accWireTransfer#,
+             acc_bank = #accBank#,
+             acc_direction= #accDirection#,
+             acc_zip_code = #accZipCode#,
+             acc_country = #accCountry#,
+             acc_city = #accCity#,
              acc_details = #accDetails#,
              acc_erase_Date=sysdate
       WHERE  acc_id = #accId#                     
@@ -1575,6 +1582,27 @@
         and r.rates_rat_id = t.rat_id
         and t.currency_cur_id = y.cur_id
         and os.rate_types_rty_name = e.rty_name
+        and o.ord_id||t.rat_id not in(select i.orders_rates_orders_ord_id||i.orders_rates_rates_rat_id
+                              from items_invoices i)
   </select>
 
+  <select id="invoice.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > 
+      select invoice_seq.nextval invId from dual
+  </select>   
+  
+  <insert id="insertInvoice" parameterClass="com.twoways.to.InvoicesTO" >
+      insert into invoices
+      (inv_id, inv_date, inv_total, accounts_acc_id, currency_cur_id, clients_cli_id, users_Usr_Id)
+      values (#invId#, #invDate#, #invTotal#, #accountsTO.accId#, #currencyTO.curId#, #clientsTO.cliId#, #usersTO.usrId#)
+  </insert>
+
+  <select id="iteminvoice.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > 
+      select item_invoice_seq.nextval itmInvId from dual
+  </select>   
+  
+    <insert id="insertItemsInvoices" parameterClass="com.twoways.to.ItemsInvoicesTO" >
+      insert into items_invoices
+      (iti_id, iti_value, items_itm_id, invoices_inv_id, orders_rates_orders_ord_id, orders_rates_rates_rat_id, currency_cur_id)
+      values (#itiId#, #itiValue#, #itemsTO.itmId#, #invoicesTO.invId#, #ordersRatesTO.ordersTO.ordId#, #ordersRatesTO.ratesTO.ratId#, #currencyTO.curId#)
+  </insert>
 </sqlMap> 

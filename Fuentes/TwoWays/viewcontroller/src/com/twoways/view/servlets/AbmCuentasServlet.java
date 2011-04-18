@@ -45,10 +45,17 @@ public class AbmCuentasServlet extends AutorizacionServlet {
                                 
 //            currency.setCurId((request.getParameter("listaMoneda")!= null && request.getParameter("listaMoneda").length() > 0 )?Long.parseLong(request.getParameter("listaMoneda")):0);
             cuenta.setAccName((request.getParameter("accNombre")!= null )?request.getParameter("accNombre"):"");
-            cuenta.setAccNumber((request.getParameter("accNumero")!= null )?request.getParameter("accNumero"):"");
-            cuenta.setAccDescription((request.getParameter("descAcc")!= null )?request.getParameter("descAcc"):"");
-            cuenta.setAccDetails((request.getParameter("detalleAcc")!= null )?request.getParameter("detalleAcc"):"");
-
+            cuenta.setAccNumber((request.getParameter("accNumber")!= null )?request.getParameter("accNumber"):"");
+            //cuenta.setAccDescription((request.getParameter("descAcc")!= null )?request.getParameter("descAcc"):"");
+            cuenta.setAccDetails((request.getParameter("accDetails")!= null )?request.getParameter("accDetails"):"");
+            cuenta.setAccHolder((request.getParameter("accHolder")!= null )?request.getParameter("accHolder"):"");
+            cuenta.setAccSwiftCode((request.getParameter("accSwiftCode")!= null )?request.getParameter("accSwiftCode"):"");
+            cuenta.setAccWireTransfer((request.getParameter("accWireTransfer")!= null )?request.getParameter("accWireTransfer"):"");
+            cuenta.setAccBank((request.getParameter("accBank")!= null )?request.getParameter("accBank"):"");
+            cuenta.setAccZipCode((request.getParameter("accZipCode")!= null )?request.getParameter("accZipCode"):"");
+            cuenta.setAccDirection((request.getParameter("accDirection")!= null )?request.getParameter("accDirection"):"");
+            cuenta.setAccCountry((request.getParameter("accCountry")!= null )?request.getParameter("accCountry"):"");
+            cuenta.setAccCity((request.getParameter("accCity")!= null )?request.getParameter("accCity"):"");
             try {
                 
                 if(accId != null && accId.length() > 0 ){ 
