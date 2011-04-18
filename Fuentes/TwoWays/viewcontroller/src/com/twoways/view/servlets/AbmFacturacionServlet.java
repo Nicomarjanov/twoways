@@ -253,25 +253,26 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
                         String imprimir = request.getParameter("imprimir");
                         Long invId = twoWaysBDL.getServiceTwoWays().insertarFactura(factura); 
                         request.setAttribute("invId",invId);
-                        request.setAttribute("mensaje","<script>alert('El registro del pago se guardó con éxito')</script>");
     
                         if (imprimir!=null && imprimir.equalsIgnoreCase("imprimirFactura") && cliId != null){
                                 
                                 try {
                                     
                                      AbmFacturacionServlet.createPdf(request,response,invId);
-                                     request.getRequestDispatcher("facturacion.jsp").forward(request,response);                                 
+                                                                      
                                 }
                                  catch (Exception e) {
                                         request.setAttribute("mensaje","<script>alert('Error al crea el PDF')</script>"); 
                                         e.printStackTrace();
-                                        request.getRequestDispatcher("facturacion.jsp").forward(request,response);
+                                        
                                     }               
-    
-                        }          
+                            request.setAttribute("mensaje","<script>alert('El registro del pago se guardó con éxito')</script>");    
+                        }    
+                    
                 } catch (Exception e) {
                     e.printStackTrace();
-                } 
+                }
+
             }
         }
 

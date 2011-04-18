@@ -13,6 +13,8 @@
     <script type='text/javascript' src='/twoways/dwr/interface/towaysDWR.js'></script>
     <script type='text/javascript' src='/twoways/dwr/engine.js'></script>
     <script type='text/javascript' src='/twoways/dwr/util.js'></script>
+    <script type='text/javascript' src="./js/commons.js"></script>  
+    <script type='text/javascript' src="./js/CalendarPopup.js"></script>    
     <title>Facturacion</title>
   </head>
   <body >
@@ -180,7 +182,7 @@
       <tr>
         <td nowrap align="right" width="25%">Fecha:</td>
         <td align="left" width="25%">
-           <input type="text" class="tw_form" id="invDate" name="invDate"   value="<c:out  value="${auxDate}"/>" size="10" maxlength="10" onfocus="javascript:this.style.background='#FFFFFF';"></input>
+           <input type="text" class="tw_form" id="invDate" name="invDate"   value="<c:out  value="${auxDate}"/>" size="10" maxlength="10" onfocus="javascript:this.style.background='#FFFFFF';"></input><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].invDate,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png" onmouseover="this.style.cursor='hand';"></img>
         </td> 
         <td nowrap align="right" width="10%">Cuenta:</td>        
         <td width="20%" align="left">

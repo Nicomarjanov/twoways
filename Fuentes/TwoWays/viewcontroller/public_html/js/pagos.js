@@ -1,5 +1,6 @@
 var mensajeCampoAlert;
 var curIdOrigen;
+
 function cancelar()
 {
     if(confirm('¿Desea cancelar la carga del pago?'))

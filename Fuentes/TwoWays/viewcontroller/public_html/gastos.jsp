@@ -11,11 +11,8 @@
     <script type='text/javascript' src='/twoways/dwr/interface/towaysDWR.js'></script>
     <script type='text/javascript' src='/twoways/dwr/engine.js'></script>
     <script type='text/javascript' src='/twoways/dwr/util.js'></script>
-   <!-- <script type='text/javascript' src="./js/commons.js"></script>  
-    <script type='text/javascript' src="./js/CalendarPopup.js"></script>    
-    <script>
-        writeSource('jscallDesde');
-    </script>-->
+    <script type='text/javascript' src="./js/commons.js"></script>  
+    <script type='text/javascript' src="./js/CalendarPopup.js"></script>   
     <title>Gastos</title>
   </head>
   <body>
@@ -41,7 +38,7 @@
                 <input type="text" class="tw_form" id="expFecha" name="expFecha"   value="<c:out  value="${auxDate}"/>" size="10" maxlength="10" onfocus="javascript:this.style.background='#FFFFFF';"></input>
             </c:when>
             <c:otherwise>
-                <input type="text" class="tw_form" id="expFecha" name="expFecha"   value="<c:out  value="${gastos.expFecha}"/>" size="10" maxlength="10" onfocus="javascript:this.style.background='#FFFFFF';"></input>
+                <input type="text" class="tw_form" id="expFecha" name="expFecha"   value="<c:out  value="${gastos.expFecha}"/>" size="10" maxlength="10" onfocus="javascript:this.style.background='#FFFFFF';"></input><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].expFecha,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png" onmouseover="this.style.cursor='hand';"></img>
             </c:otherwise>
         </c:choose>
           <!--<div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> 
