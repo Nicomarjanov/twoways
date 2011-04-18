@@ -1,5 +1,7 @@
 package com.twoways.to;
 
+import java.sql.Timestamp;
+
 public class ProAssigmentsDetailsTO {
     
     private Long padId; 
@@ -10,6 +12,7 @@ public class ProAssigmentsDetailsTO {
     private Double padRate; 
     private ProjectsRatesTO projectsRatesTO;
     private ProjectAssignmentsTO projectAssignmentsTO;
+    private Timestamp padPayDate;
     
     
     public ProAssigmentsDetailsTO() {
@@ -86,5 +89,13 @@ public class ProAssigmentsDetailsTO {
 
     public Double getPadWCount() {
         return padWCount;
+    }
+
+    public void setPadPayDate(Timestamp padPayDate) {
+        this.padPayDate = padPayDate;
+    }
+
+    public Timestamp getPadPayDate() {
+        return padPayDate;
     }
 }

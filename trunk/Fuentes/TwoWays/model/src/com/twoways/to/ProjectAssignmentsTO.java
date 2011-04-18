@@ -20,6 +20,7 @@ public class ProjectAssignmentsTO {
     private Double costAmount; 
     private StatesTO statesTO;
 
+
     public ProjectAssignmentsTO(){
         
     }
@@ -108,4 +109,5 @@ public class ProjectAssignmentsTO {
     public StatesTO getStatesTO() {
         return statesTO;
     }
+
 }

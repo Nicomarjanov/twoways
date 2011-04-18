@@ -243,29 +243,27 @@ public class AbmPagosServlet extends AutorizacionServlet {
                     String imprimir = request.getParameter("imprimir");
                     
                     twoWaysBDL.getServiceTwoWays().insertarPago(pago); 
-                    request.setAttribute("mensaje","<script>alert('El registro del pago se guardó con éxito')</script>");
-                   /*try{
-                        empleados =  twoWaysBDL.getServiceTwoWays().obtenerEmpleados();
-                        request.setAttribute("listaEmpleados",empleados);
-                    } catch (Exception e) {
-                       e.printStackTrace();
-                    }*/
+
                     if (imprimir!=null && imprimir.equalsIgnoreCase("imprimirPago") && empId != null){
                             
                             try {
-                                 AbmPagosServlet.createPdf(request,response);
-                                 request.getRequestDispatcher("pagos.jsp").forward(request,response);                                 
+                                 createPdf(request,response);
+                        
                             }
                              catch (Exception e) {
                                     request.setAttribute("mensaje","<script>alert('Error al crea el PDF')</script>"); 
                                     e.printStackTrace();
-                                    request.getRequestDispatcher("pagos.jsp").forward(request,response);
+
                                 }               
 
-                    }          
+                    }
+
+             //   request.setAttribute("mensaje","<script>alert('El registro del pago se guardó con éxito')</script>");
+
             } catch (Exception e) {
                 e.printStackTrace();
-            }                        
+            } 
+
         }
            /* else if ((empId == null || empId.equalsIgnoreCase("")) && (accion==null || accion.equalsIgnoreCase("cancelar"))){
             try{
@@ -276,7 +274,7 @@ public class AbmPagosServlet extends AutorizacionServlet {
             }
         }*/
         request.getRequestDispatcher("pagos.jsp").forward(request,response);
-        
+       
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -284,7 +282,7 @@ public class AbmPagosServlet extends AutorizacionServlet {
             doGet(request,response); 
             }
             
-    public static void createPdf(HttpServletRequest request,HttpServletResponse response)
+    public void createPdf(HttpServletRequest request,HttpServletResponse response)
            throws IOException, DocumentException {
            // step 1
             Document document = new Document(PageSize.A4.rotate());
@@ -300,9 +298,10 @@ public class AbmPagosServlet extends AutorizacionServlet {
            document.add(createTable(request));
            // step 5
            document.close();
+
        }
        
-    public static PdfPTable createTable(HttpServletRequest request) throws IOException, DocumentException{
+    public PdfPTable createTable(HttpServletRequest request) throws IOException, DocumentException{
           
         String empProjAssignment[] = request.getParameterValues("print-pago-hidden");        
         String payAmount = request.getParameter("payAmount");    

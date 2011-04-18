@@ -22,6 +22,8 @@ public class PaymentDAOImpl extends AbstractDAO  implements PaymentDAO{
                  ProjAssignPaysTO auxProjAssPay = (ProjAssignPaysTO)projAssListTO;  
                  auxProjAssPay.setPaymentsTO(paymentTO);
                  getSqlMapClientTemplate().insert("insertProjAssignPay",auxProjAssPay);
+                 Long padId = auxProjAssPay.getProAssigmentsDetailsTO().getPadId();
+                 getSqlMapClientTemplate().update("updateProjAssign",padId);
              }      
          }   
          return getPaymentById(payId);

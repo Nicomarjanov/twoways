@@ -13,6 +13,8 @@
     <script type='text/javascript' src='/twoways/dwr/interface/towaysDWR.js'></script>
     <script type='text/javascript' src='/twoways/dwr/engine.js'></script>
     <script type='text/javascript' src='/twoways/dwr/util.js'></script>
+    <script type='text/javascript' src="./js/commons.js"></script>  
+    <script type='text/javascript' src="./js/CalendarPopup.js"></script>    
     <title>Pagos</title>
   </head>
   <body >
@@ -188,7 +190,7 @@
                         <td width="10%" bgcolor="#FFFFF"><fmt:formatDate value="${item[\'PRAASSDATE\']}"  pattern="dd/MM/yyyy HH:mm" />
                            <input type="hidden" name="item-pago-hidden" id="item-pago-hidden"  value="<c:out value="${item[\'PADID\']}" />"></input>
                            <input type="hidden" name="print-pago-hidden"  value="<c:out value="${item[\'PRAASSDATE\']}" />#<c:out value="${item[\'PROJNAME\']}" />#<c:out value="${item[\'RATNAME\']}"/>#<c:out value="${item[\'RATVALUE\']}" />#<c:out value="${item[\'WCOUNT\']}"/>#<c:out value="${item[\'PRATOTAL\']}"/>#<c:out value="${item[\'CURSYMBOL\']}" />"</input></td>     
-                        <td width="10%" bgcolor="#FFFFF"><a href="proyectos?ordId=<c:out value="${item[\'PROJID\']}" />"><c:out value="${item[\'PROJNAME\']}" /></a></td>     
+                        <td width="10%" bgcolor="#FFFFF"><a href="/twoways/proyectos?ordId=<c:out value="${item[\'ORDID\']}" />"><c:out value="${item[\'PROJNAME\']}" /></a></td>     
                         <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'RATNAME\']}" /></td> 
                         <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'CURSYMBOL\']}" /> <c:out value="${item[\'RATVALUE\']}" /></td>  
                         <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'WCOUNT\']}" /></td>       
@@ -231,7 +233,7 @@
       <tr>
         <td nowrap align="right" width="25%">Fecha de pago:</td>
         <td align="left" width="25%">
-           <input type="text" class="tw_form" id="payDate" name="payDate"   value="<c:out  value="${auxDate}"/>" size="10" maxlength="10" onfocus="javascript:this.style.background='#FFFFFF';"></input>
+           <input type="text" class="tw_form" id="payDate" name="payDate"   value="<c:out  value="${auxDate}"/>" size="10" maxlength="10" onfocus="javascript:this.style.background='#FFFFFF';"></input><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].payDate,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png" onmouseover="this.style.cursor='hand';"></img>
         </td> 
       </tr>
       <tr>

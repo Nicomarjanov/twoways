@@ -1,8 +1,12 @@
 package com.twoways.to;
 
+import java.sql.Timestamp;
+
 public class OrdersRatesTO {
     //
     private Double clrValue;
+    private Long orrWcount;
+    private Timestamp orrPayDate;
     private RatesTO ratesTO;
     private OrdersTO ordersTO;
 
@@ -34,5 +38,21 @@ public class OrdersRatesTO {
 
     public OrdersTO getOrdersTO() {
         return ordersTO;
+    }
+
+    public void setOrrWcount(Long orrWcount) {
+        this.orrWcount = orrWcount;
+    }
+
+    public Long getOrrWcount() {
+        return orrWcount;
+    }
+
+    public void setOrrPayDate(Timestamp orrPayDate) {
+        this.orrPayDate = orrPayDate;
+    }
+
+    public Timestamp getOrrPayDate() {
+        return orrPayDate;
     }
 }

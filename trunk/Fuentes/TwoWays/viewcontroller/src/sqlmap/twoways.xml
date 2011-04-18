@@ -1490,7 +1490,8 @@
                decode(pd.pad_wcount,1,pd.pad_rate,null,0,(pd.pad_rate * pd.pad_wcount)) as praTotal,
                pa.employees_emp_id as empId,
                pd.pad_id as padid,
-               c.cur_id as curId
+               c.cur_id as curId,
+               p.orders_ord_id as ordId
           from project_assignments pa , projects p, proj_assignments_details pd, rates r, currency c
          where pa.employees_emp_id = #empId#
          and pa.projects_pro_id = p.pro_id
@@ -1500,8 +1501,7 @@
          and r.rat_id = pd.employees_rates_rates_rat_id
          and pa.pra_finish_date between to_date(#mesId#,'MMyyyy') and last_day(to_date(#mesId#,'MMyyyy'))
          and r.currency_cur_id=c.cur_id
-         and pd.pad_id not in(select pp.proj_assignments_details_pad_i
-                                                  from proj_assign_pays pp)
+         and pd.pad_pay_date is null
          order by pa.pra_assign_date
   </select>
 
@@ -1582,8 +1582,7 @@
         and r.rates_rat_id = t.rat_id
         and t.currency_cur_id = y.cur_id
         and os.rate_types_rty_name = e.rty_name
-        and o.ord_id||t.rat_id not in(select i.orders_rates_orders_ord_id||i.orders_rates_rates_rat_id
-                              from items_invoices i)
+        and r.orr_pay_date is null
   </select>
 
   <select id="invoice.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > 
@@ -1605,4 +1604,23 @@
       (iti_id, iti_value, items_itm_id, invoices_inv_id, orders_rates_orders_ord_id, orders_rates_rates_rat_id, currency_cur_id)
       values (#itiId#, #itiValue#, #itemsTO.itmId#, #invoicesTO.invId#, #ordersRatesTO.ordersTO.ordId#, #ordersRatesTO.ratesTO.ratId#, #currencyTO.curId#)
   </insert>
+  
+  <update id="updateProjAssign" parameterClass="java.lang.Long" >
+    update proj_assignments_details
+    set pad_pay_date=sysdate
+    where pad_id=#padId#
+  </update>
+  
+  <select id="getPaymentById"  parameterClass="java.lang.Long" resultClass="com.twoways.to.PaymentsTO">
+        select *
+        from payments
+        where pay_id=#payId#
+  </select>
+  
+    <update id="updateOrderRatePayDate" parameterClass="com.twoways.to.OrdersRatesTO" >
+    update orders_rates
+    set orr_pay_date=sysdate
+    where orders_ord_id= #ordersTO.ordId#
+    and rates_rat_id = #ratesTO.ratId#
+  </update>
 </sqlMap> 
