@@ -23,7 +23,7 @@
   <input type="hidden" id="imprimir" name="imprimir" value=""/>  
   <input type="hidden" id="invId" name="invId" value="<c:out value="${facturacion.invId}"/>"/>
   <input type="hidden" id="cliId" name="cliId" value="<c:out value="${cliId}"/>"/>
-
+  <input type="hidden" id="auxCliId" name="auxCliId" value="<c:out value="${auxCliId}"/>"/>
   <table width="100%" align="center">
       <thead>
       <tr>
@@ -60,7 +60,7 @@
                                         <option value="" selected="selected">Seleccionar</option>
                                         <c:forEach items="${listaClientes}" var="item">
                                            <c:choose>
-                                            <c:when test="${cliId == item.cliId}">
+                                            <c:when test="${auxCliId == item.cliId}">
                                                <option value="<c:out value="${item.cliId}" />#<c:out value="${item.cliName}" />" selected="selected">
                                                 <c:out value="${item.cliName}" />
                                               </option> 
@@ -121,8 +121,8 @@
                         <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'ORDNAME\']}" /></td>
                         <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'CRENAME\']}" /></td>                         
                         <td width="10%" bgcolor="#FFFFF"><fmt:formatDate value="${item[\'ORDDATE\']}"  pattern="dd/MM/yyyy HH:mm" />
-                           <input type="hidden" name="item-ordenes-hidden"   value="<c:out value="${item[\'ORDID\']}" />#<c:out value="${item[\'RATID\']}"/>"></input>
-                           <input type="hidden" name="print-ordenes-hidden"  value="<c:out value="${item[\'ORDNAME\']}" />#<c:out value="${item[\'ORDJOBID\']}" />#<c:out value="${item[\'ORDWONUMBER\']}"/>#<c:out value="${item[\'ORDJOBNAME\']}"/>#<c:out value="${item[\'ORDJOBDESCRIPTION\']}" />#<c:out value="${item[\'ORDDATE\']}"/>#<c:out value="${item[\'RATNAME\']}"/>#<c:out value="${item[\'ORRWCOUNT\']}"/>#<c:out value="${item[\'ORRVALUE\']}"/>#<c:out value="${item[\'RATETYPENAME\']}"/>#<c:out value="${item[\'CRENAME\']}" />"</input></td>     
+                           <input type="hidden" name="item-ordenes-hidden"   value="<c:out value="${item[\'ORDID\']}" />#<c:out value="${item[\'RATID\']}"/>#<c:out value="${item[\'CURID\']}" />#<c:out value="${item[\'ORDTOTAL\']}" />"></input>
+                           <input type="hidden" name="print-ordenes-hidden"  value="<c:out value="${item[\'ORDNAME\']}" />#<c:out value="${item[\'ORDJOBID\']}" />#<c:out value="${item[\'ORDWONUMBER\']}"/>#<c:out value="${item[\'ORDJOBNAME\']}"/>#<c:out value="${item[\'ORDJOBDESCRIPTION\']}" />#<c:out value="${item[\'ORRWCOUNT\']}"/>#<c:out value="${item[\'CURSYMBOL\']}" /> <c:out value="${item[\'ORRVALUE\']}"/>#<c:out value="${item[\'ORDTOTAL\']}"/>#<c:out value="${item[\'CRENAME\']}" />"</input></td>     
                         <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'ORDWONUMBER\']}" /></td> 
                         <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'ORDJOBID\']}" /></td>  
                         <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'ORDJOBNAME\']}" /></td>       
@@ -137,7 +137,7 @@
                            <select name="listaItems" id="listaItems<c:out value="${item[\'ORDID\']}"/><c:out value="${item[\'RATID\']}"/>" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">                
                                 <option value="0" selected="selected">Seleccionar</option>
                                 <c:forEach items="${listaItems}" var="item">
-                                    <option value="<c:out value="${item.itmId}" />" style="background-color:#A4BAC7;">
+                                    <option value="<c:out value="${item.itmId}" />#<c:out value="${item.itmName}" />" style="background-color:#A4BAC7;">
                                        <c:out value="${item.itmName}" />
                                     </option>
                                     

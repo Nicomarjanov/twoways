@@ -11,13 +11,22 @@ function agregar()
 {
   
     document.getElementById('accNombre').style.background  = '#FFFFFF';
-    document.getElementById('descAcc').style.background  = '#FFFFFF';
-    document.getElementById('accNumero').style.background  = '#FFFFFF';
-    document.getElementById('detalleAcc').style.background  = '#FFFFFF';
+
+    document.getElementById('accNumber').style.background  = '#FFFFFF';
+    document.getElementById('accDetails').style.background  = '#FFFFFF';
+    document.getElementById('accHolder').value     = trim(document.getElementById('accHolder').value);
+    document.getElementById('accSwiftCode').value     = trim(document.getElementById('accSwiftCode').value);
+    document.getElementById('accWireTransfer').value     = trim(document.getElementById('accWireTransfer').value);
+    document.getElementById('accBank').value     = trim(document.getElementById('accBank').value);   
+    document.getElementById('accZipCode').value     = trim(document.getElementById('accZipCode').value);
+
+    document.getElementById('accDirection').value     = trim(document.getElementById('accDirection').value);
+    document.getElementById('accCountry').value     = trim(document.getElementById('accCountry').value);   
     document.getElementById('accNombre').value     = trim(document.getElementById('accNombre').value);
-    document.getElementById('descAcc').value     = trim(document.getElementById('descAcc').value);
-    document.getElementById('accNumero').value     = trim(document.getElementById('accNumero').value);
-    document.getElementById('detalleAcc').value     = trim(document.getElementById('detalleAcc').value);   
+    //document.getElementById('descAcc').value     = trim(document.getElementById('descAcc').value);
+    document.getElementById('accNumber').value     = trim(document.getElementById('accNumber').value);
+    document.getElementById('accDetails').value     = trim(document.getElementById('accDetails').value);   
+    document.getElementById('accCity').value     = trim(document.getElementById('accCity').value);   
     
     if(validarCampos())
     {
@@ -57,6 +66,12 @@ function validarCampos()
     {
         document.getElementById("accNombre").style.background='Red';
         mensajeFaltanteAlert+= '* Nombre de la cuenta \n';
+        banderaMensajeFaltante=true;
+    }
+    if( document.getElementById("accHolder").value == '')
+    {
+        document.getElementById("accHolder").style.background='Red';
+        mensajeFaltanteAlert+= '* Dueño de la cuenta \n';
         banderaMensajeFaltante=true;
     }
     

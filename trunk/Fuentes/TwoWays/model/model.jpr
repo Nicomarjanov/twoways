@@ -83,6 +83,7 @@
             </hash>
          </list>
          <list n="pattern-filters">
+            <string v="-DER_TwoWays.oxd_db"/>
             <string v="-model/"/>
             <string v="+**"/>
          </list>

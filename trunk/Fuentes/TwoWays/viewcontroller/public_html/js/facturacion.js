@@ -133,8 +133,8 @@ function grabar(existe)
     {
         document.getElementById("accion").value='guardar';
         document.getElementById("cliId").value=document.getElementById('cliId').value;
-        if(confirm("¿Desea imprimir el recibo de pago?")){
-            document.getElementById("imprimir").value='imprimirPago';
+        if(confirm("¿Desea imprimir la factura?")){
+            document.getElementById("imprimir").value='imprimirFactura';
         }
         document.forms[0].submit();                
     }    

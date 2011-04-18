@@ -26,21 +26,49 @@
   <tr>
   </tr>
   <tr>
-    <td nowrap align="right" width="25%">Nombre de la Cuenta:</td>
+    <td nowrap align="right" width="25%">Nombre identificador de la Cuenta:</td>
     <td align="left"><input type="text" class="tw_form" id="accNombre" name="accNombre"  value="<c:out value="${cuenta.accName}"/>"  size="50" maxlength="100" onkeyup="buscarCuentas()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
   </tr>
   <tr>
-    <td nowrap align="right" width="25%">Número de Cuenta:</td>
-    <td align="left"><input type="text" class="tw_form" id="accNumero" name="accNumero"  value="<c:out value="${cuenta.accNumber}"/>"  size="25" maxlength="30" onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
+    <td align="right" width="25%">Dueño de la cuenta:</td>
+    <td align="left"><input type="text" class="tw_form" id="accHolder"  name="accHolder"  value="<c:out value="${cuenta.accHolder}"/>" size="100" maxlength="250"></input></td>    
+  </tr>  
+  <tr>
+    <td align="right" width="25%">Número de la cuenta:</td>
+    <td align="left"><input type="text" class="tw_form" id="accNumber"  name="accNumber"  value="<c:out value="${cuenta.accNumber}"/>" size="100" maxlength="250"></input></td>    
+  </tr>  
+  <tr>
+    <td nowrap align="right" width="25%">SWIFT code:</td>
+    <td align="left"><input type="text" class="tw_form" id="accSwiftCode" name="accSwiftCode"  value="<c:out value="${cuenta.accSwiftCode}"/>"  size="25" maxlength="25" onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
+  </tr>
+  <tr>
+    <td align="right" width="25%">Wire transfer:</td>
+    <td align="left"><input type="text" class="tw_form" id="accWireTransfer"  name="accWireTransfer"  value="<c:out value="${cuenta.accWireTransfer }"/>" size="25" maxlength="25"></input></td>       
+  </tr>
 
+  <tr>
+    <td nowrap align="right" width="25%">Banco:</td>
+    <td align="left"><input type="text" class="tw_form" id="accBank" name="accBank"  value="<c:out value="${cuenta.accBank}"/>"  size="30" maxlength="150" onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
   </tr>
   <tr>
-    <td align="right" width="25%">Descripción:</td>
-    <td align="left"><input type="text" class="tw_form" id="descAcc"  name="descAcc"  value="<c:out value="${cuenta.accDescription}"/>" size="100" maxlength="350"></input></td>    
+    <td align="right" width="25%">Codigo postal:</td>
+    <td align="left"><input type="text" class="tw_form" id="accZipCode"  name="accZipCode"  value="<c:out value="${cuenta.accZipCode}"/>" size="20" maxlength="20"></input></td>       
   </tr>
   <tr>
-    <td align="right" width="25%">Detalles de la cuenta:</td>
-    <td align="left"><input type="text" class="tw_form" id="detalleAcc"  name="detalleAcc"  value="<c:out value="${cuenta.accDetails}"/>" size="100" maxlength="350"></input></td>       
+    <td align="right" width="25%">Dirección:</td>
+    <td align="left"><input type="text" class="tw_form" id="accDirection"  name="accDirection"  value="<c:out value="${cuenta.accDirection}"/>" size="100" maxlength="350"></input></td>    
+  </tr>
+  <tr>
+    <td align="right" width="25%">País:</td>
+    <td align="left"><input type="text" class="tw_form" id="accCountry"  name="accCountry"  value="<c:out value="${cuenta.accCountry}"/>" size="35" maxlength="150"></input></td>       
+  </tr>  
+  <tr>
+    <td align="right" width="25%">Ciudad:</td>
+    <td align="left"><input type="text" class="tw_form" id="accCity"  name="accCity"  value="<c:out value="${cuenta.accCity}"/>" size="35" maxlength="150"></input></td>       
+  </tr>
+  <tr>
+    <td align="right" width="25%">Otros detalles:</td>
+    <td align="left"><input type="text" class="tw_form" id="accDetails"  name="accDetails"  value="<c:out value="${cuenta.accDetails}"/>" size="100" maxlength="250"></input></td>       
   </tr>
   </table>
   <br>

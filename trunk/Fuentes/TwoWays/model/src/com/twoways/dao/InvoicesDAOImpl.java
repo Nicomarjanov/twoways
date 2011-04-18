@@ -26,6 +26,8 @@ public class InvoicesDAOImpl extends AbstractDAO implements InvoiceDAO {
              for(Object itemsInvoice: itemInvoiceList.toArray() ){
                  ItemsInvoicesTO auxItemsInvoicesTO = (ItemsInvoicesTO)itemsInvoice;  
                  auxItemsInvoicesTO.setInvoicesTO(factura);
+                 Long itiId = (Long) getSqlMapClientTemplate().queryForObject("iteminvoice.seq","");
+                 auxItemsInvoicesTO.setItiId(itiId);  
                  getSqlMapClientTemplate().insert("insertItemsInvoices",auxItemsInvoicesTO);
              }      
          }   

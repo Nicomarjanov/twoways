@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
-<%@ page contentType="text/html;charset=utf-8"%>
+<%@ page contentType="text/html;charset=windows-1252"%>
 <Html>
 <Head>
 <Title>Menu</title>

@@ -44,6 +44,7 @@ import com.twoways.to.RateTypesTO;
 import com.twoways.to.RatesTO;
 import com.twoways.to.TranslatorsTO;
 import com.twoways.to.UsersTO;
+import com.twoways.to.ItemsInvoicesTO;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
