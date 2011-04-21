@@ -13,6 +13,8 @@ import com.twoways.to.RateTypesTO;
 import com.twoways.to.RatesTO;
 import com.twoways.to.ServicesTO;
 
+import com.twoways.to.StatesTO;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -59,6 +61,7 @@ public class ProyectosServlet extends AutorizacionServlet {
         super.doGet(request, response);
         ProjectsTO project=null;
         List<CurrencyTO> monedas = null;
+        List<StatesTO > estadosList= null;
         Double costoTotalProyecto=  0.0;
         Double cantidadPalabras =0.0;
         
@@ -76,7 +79,7 @@ public class ProyectosServlet extends AutorizacionServlet {
             twoWaysBDL = new TwoWaysBDL();
             
             monedas =  twoWaysBDL.getServiceTwoWays().obtenerMonedas(); 
-             
+            estadosList= twoWaysBDL.getServiceTwoWays().getStatesListByType("Proyecto");
              
              
             Long ordId = null ; 
@@ -144,6 +147,15 @@ public class ProyectosServlet extends AutorizacionServlet {
                         reenviar=false;                                                      
                     }
                 }
+                
+                
+                StatesTO stateProject= new StatesTO();
+                
+                stateProject.setStaId((request.getParameter("listaEstados") != null) ? 
+                                   request.getParameter("listaEstados").toString() : 
+                                   "");
+                
+                project.setStatesTO(stateProject);
 
                 project.setProName((request.getParameter("proName") != null) ? 
                                    request.getParameter("proName").toString() : 
@@ -311,6 +323,7 @@ public class ProyectosServlet extends AutorizacionServlet {
             request.setAttribute("cantidadPalabras",cantidadPalabras);
             request.setAttribute("cotizaciones",costoMap);
             request.setAttribute("listaMoneda",monedas);
+            request.setAttribute("listaEstados",estadosList);
             request.setAttribute("costosMap",costos);
            
         } catch (Exception e) {

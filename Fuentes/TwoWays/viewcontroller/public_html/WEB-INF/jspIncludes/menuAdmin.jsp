@@ -20,8 +20,10 @@
           <ul>
               <li><a href="buscarordentrabajo">Buscar ordenes de trabajo</a></li>
               <li><a href="ordentrabajo">Nueva orden de trabajo</a></li>
+              
           </ul>
-    </li>  
+    </li>
+    <li><a href="gestionarproyecto">Gestionar Proyecto</a></li>
  </ul>
 </li> 
 <li><a href="#" >Contables</a> 

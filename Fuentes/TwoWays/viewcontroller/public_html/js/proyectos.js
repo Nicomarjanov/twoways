@@ -112,7 +112,7 @@ var proFinishDate = document.getElementById("proFinishDate");
     {
         if (!(isDate(proFinishDate.value)))
         {
-        ordFinishDate.style.background='Red';
+        proFinishDate.style.background='Red';
         mensajeFaltanteAlert+= ' * La fecha de entrega debe ser dd/mm/aaaa \n';
         banderaMensajeFaltante=true;
         }else{

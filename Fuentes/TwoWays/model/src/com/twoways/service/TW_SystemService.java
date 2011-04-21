@@ -23,6 +23,7 @@ import com.twoways.to.RateTypesTO;
 import com.twoways.to.RatesTO;
 import com.twoways.to.ItemsInvoicesTO;
 
+import com.twoways.to.StatesTO;
 import com.twoways.to.TranslatorsTO;
 import com.twoways.to.UsersTO;
 
@@ -249,4 +250,6 @@ public interface TW_SystemService {
     public List getOrdersByCliId(Long search)throws Exception;
     
     public Long insertarFactura(InvoicesTO factura) throws Exception;
+      
+    public List<StatesTO> getStatesListByType(String type) throws Exception;
 }

@@ -4,7 +4,7 @@ public class StatesTO {
     private String staId;
     private String staName;
     private String staDescription;
-
+    private String staType;
     public StatesTO() {
     }
 
@@ -31,5 +31,13 @@ public class StatesTO {
 
     public String getStaDescription() {
         return staDescription;
+    }
+
+    public void setStaType(String staType) {
+        this.staType = staType;
+    }
+
+    public String getStaType() {
+        return staType;
     }
 }
