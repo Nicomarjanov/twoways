@@ -14,6 +14,7 @@ import com.twoways.dao.ProjectDAO;
 import com.twoways.dao.RateDAO;
 import com.twoways.dao.RateTypesDAO;
 import com.twoways.dao.ServiceDAO;
+import com.twoways.dao.StatesDAO;
 import com.twoways.dao.UserDAO;
 import com.twoways.dao.RolesDAO;
 import com.twoways.dao.ItemDAO;
@@ -42,6 +43,7 @@ import com.twoways.to.ProjectAssignmentsTO;
 import com.twoways.to.ProjectsTO;
 import com.twoways.to.RateTypesTO;
 import com.twoways.to.RatesTO;
+import com.twoways.to.StatesTO;
 import com.twoways.to.TranslatorsTO;
 import com.twoways.to.UsersTO;
 import com.twoways.to.ItemsInvoicesTO;
@@ -79,6 +81,7 @@ public class TW_SystemServiceImpl implements TW_SystemService {
     private DocTypesDAO docTypesDao;
     private CotizationDAO cotizationsDao;
     private InvoiceDAO invoiceDao;
+    private StatesDAO statesDao;
 
     public TW_SystemServiceImpl() {
     }
@@ -836,6 +839,18 @@ public class TW_SystemServiceImpl implements TW_SystemService {
     
     public Long insertarFactura(InvoicesTO factura) throws Exception{
         return this.invoiceDao.insertarFactura(factura);
+    }
+
+    public void setStatesDao(StatesDAO statesDao) {
+        this.statesDao = statesDao;
+    }
+
+    public StatesDAO getStatesDao() {
+        return statesDao;
+    }
+
+    public List<StatesTO> getStatesListByType(String type) {
+        return statesDao.getStatesByType(type);
     }
 }
 

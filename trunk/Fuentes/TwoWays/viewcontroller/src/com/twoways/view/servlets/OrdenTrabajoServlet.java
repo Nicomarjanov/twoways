@@ -245,6 +245,7 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
             ordersTO.setFiles(files);
             ordersTO.setDocTypesSelected(docTypesMap);
             Object tarifasHidden[]=null;
+            Object wordCountHidden[]=null;
             
             if(mRequest.get("tarifas-hidden") != null && mRequest.get("tarifas-hidden") instanceof ArrayList){
                 List aux =(ArrayList) mRequest.get("tarifas-hidden");
@@ -254,7 +255,15 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                 tarifasHidden[0]=mRequest.get("tarifas-hidden").toString();
             }
             
-                 
+            if(mRequest.get("wordCount-hidden") != null && mRequest.get("wordCount-hidden") instanceof ArrayList){
+                List aux =(ArrayList) mRequest.get("wordCount-hidden");
+                wordCountHidden=aux.toArray();
+            }else if (mRequest.get("wordCount-hidden")!=null){
+                wordCountHidden = new String[1];
+                wordCountHidden[0]=mRequest.get("wordCount-hidden").toString();
+            }
+            
+            
             if( tarifasHidden  != null){ 
                 
                 List<OrdersRatesTO> ordersRatesTOList = new   ArrayList<OrdersRatesTO>();
@@ -265,6 +274,11 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                     
                     OrdersRatesTO orderRatesTO = new OrdersRatesTO();
                     orderRatesTO.setClrValue(Double.parseDouble(atribs[1].replaceAll(",",".")));
+                   if (atribs.length >2 ){
+                       orderRatesTO.setOrrWcount(new Long (atribs[2])); 
+                   }else{
+                       orderRatesTO.setOrrWcount(new Long (0));
+                   } 
                     RatesTO rtTO= new RatesTO();
                     rtTO.setRatId(Long.parseLong(atribs[0]));
                     orderRatesTO.setRatesTO(rtTO );
@@ -273,7 +287,10 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                 }
                 
                 ordersTO.setOrderRatesTOList(ordersRatesTOList);
-            }        
+            }   
+            
+                 
+                  
             
             Object listaItemsSelect[]={" "};
             

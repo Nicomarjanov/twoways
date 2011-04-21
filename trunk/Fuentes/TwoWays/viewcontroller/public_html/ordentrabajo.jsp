@@ -12,6 +12,7 @@
     <link href="./twoways.css" rel="stylesheet" type="text/css"/>
     <script type='text/javascript' src="./js/ordentrabajo.js"></script>
     <script type='text/javascript' src="./js/agregartarifa.js"></script>
+    <script type='text/javascript' src="./js/agregartarifaOrden.js"></script>
     <script type='text/javascript' src="./js/agregardocumentos.js"></script>
     <script type='text/javascript' src="./js/utils.js"></script>
     <script type='text/javascript' src='/twoways/dwr/interface/towaysDWR.js'></script>
@@ -208,7 +209,7 @@
          <br>   
          <hr class="tw_hr">
          <c:set scope="request"     var="ratesTOList" value="${order.orderRatesTOList}" /> 
-         <jsp:include page="/WEB-INF/jspIncludes/agregartarifas.jsp"/>
+         <jsp:include page="/WEB-INF/jspIncludes/agregartarifasOrden.jsp"/>
         </td>
     </tr>
     <tr>

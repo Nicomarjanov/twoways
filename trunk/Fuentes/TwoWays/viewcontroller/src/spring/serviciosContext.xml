@@ -62,7 +62,11 @@
         </property> 
         <property name="invoiceDao">
             <ref bean="invoiceDAO"/>
-        </property>                 
+        </property>  
+        <property name="statesDao">
+            <ref bean="statesDAO"/>
+        </property>  
+        
     </bean>
 
     <!-- declaracion de los servicios, utilizando proxy para el manejo de transacciones -->

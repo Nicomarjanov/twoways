@@ -46,8 +46,28 @@
   
   <table align="center" width="70%">
      <tr>
-        <td nowrap align="right" >Proyecto:</td><td colspan="7">
-        <input type="text" size="145"   class="tw_form" name="proName" id="proName"  value="<c:out value="${project.proName}" />" /></td>
+        <td nowrap align="right" >Proyecto:</td><td >
+        <input type="text" size="75"   class="tw_form" name="proName" id="proName"  value="<c:out value="${project.proName}" />" /></td>
+        <td nowrap align="right" >Estado:</td>
+       <td  nowrap>   
+          <select name="listaEstados" id="listaEstados" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">                
+                <c:forEach items="${listaEstados}" var="item">
+                   <c:choose>
+                    <c:when test="${item.staId == project.statesTO.staId}">
+                       <option value="<c:out value="${item.staId}" />" style="background-color:#A4BAC7;" selected="selected">
+                        <c:out value="${item.staName}" />
+                      </option> 
+                    </c:when>
+                    <c:otherwise>
+                    <option value="<c:out value="${item.staId}" />" style="background-color:#A4BAC7;">
+                        <c:out value="${item.staName}" />
+                    </option>
+                    </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+       </select> 
+    </td>
+        
      </tr>
      <tr>
      <td nowrap align="right" >Orden:</td>

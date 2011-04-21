@@ -800,9 +800,9 @@
   
   <insert id="insertOrdersRates" parameterClass="com.twoways.to.OrdersRatesTO" >
     insert into orders_rates
-           (orders_ord_id, orr_value, rates_rat_id)
+           (orders_ord_id, orr_value, rates_rat_id, orr_wcount)
             values
-           (#ordersTO.ordId#,#clrValue# ,#ratesTO.ratId#)
+           (#ordersTO.ordId#,#clrValue# ,#ratesTO.ratId#,#orrWcount#)
       
   </insert>
 
@@ -853,6 +853,8 @@
   
      <resultMap id="select-Ord-Rates" class="com.twoways.to.OrdersRatesTO" >
       <result property="clrValue" column="orr_value" />
+      <result property="orrWcount" column="orr_wcount" />
+      <result property="orrPayDate" column="orr_pay_date" />
       <result property="ordersTO.ordId" column="orders_ord_id"/>
       <result property="ratesTO.ratId" column="RAT_ID" />
       <result property="ratesTO.ratDescription" column="RAT_DESCRIPTION"/>
@@ -902,7 +904,8 @@
  
    <update id="updateOrdersRates" parameterClass="com.twoways.to.OrdersRatesTO" >
           update  orders_rates
-                  set  orr_value= #clrValue#
+                  set  orr_value= #clrValue#, 
+                  orr_wcount = #orrWcount#  
                   where
                   orders_ord_id = #ordersTO.ordId#  and  
                   rates_rat_id = #ratesTO.ratId#
@@ -1029,6 +1032,8 @@
       <result property="currencyTO.curName" column="cur_name" />
       <result property="currencyTO.curSymbol" column="cur_symbol" />
       <result property="ordersTO.ordId"  column="orders_ord_id"/> 
+      <result property="statesTO.staId"  column="sta_id"/> 
+      <result property="statesTO.staName"  column="sta_name"/> 
       <result property="proDate" column="pro_date" /> 
       
   </resultMap>
@@ -1036,29 +1041,28 @@
   
   <select id="getProjectById" parameterClass="java.lang.Long" resultMap="select-project-obj">
      select *
-     from projects left outer join currency on currency_cur_id = cur_id 
+     from (projects left outer join currency on currency_cur_id = cur_id) left outer join states on states_sta_id = states.sta_Id 
      where pro_id = #value#
  </select>
  
  <select id="getProjectByOrdId" parameterClass="java.lang.Long" resultMap="select-project-obj">
      select *
-     from projects  left outer join currency on currency_cur_id = cur_id
+     from (projects  left outer join currency on currency_cur_id = cur_id) left outer join states on states_sta_id = states.sta_Id 
      where orders_ord_id = #value#
  </select>
   
    <insert id="insertProject" parameterClass="com.twoways.to.ProjectsTO"   >
        
       insert into projects
-          (pro_id, pro_name, pro_description, states_sta_id, pro_total_cli_wcount, pro_total_client, pro_total_tran_wcount, pro_total_translator, pro_start_date, pro_finish_date, currency_cotizations_cuc_id, users_usr_id, currency_cur_id, orders_ord_id, pro_date)
+          (pro_id, pro_name, pro_description,  pro_total_cli_wcount, pro_total_client, pro_total_tran_wcount, pro_total_translator, pro_start_date, pro_finish_date, currency_cotizations_cuc_id, users_usr_id, currency_cur_id, orders_ord_id, pro_date, states_sta_id)
         values
-          (#proId#, #proName#, #proDescription#, #proStatus#,#proTotalCliWcount#,#proTotalClient#,#proTotalTranWcount#,#proTotalTranslator#,#proStartDate#,#proFinishDate#,#currencyCotizationsCucId#,#usersUsrId#,#currencyTO.curId#,#ordersTO.ordId#,#proDate#)  
+          (#proId#, #proName#, #proDescription#,#proTotalCliWcount#,#proTotalClient#,#proTotalTranWcount#,#proTotalTranslator#,#proStartDate#,#proFinishDate#,#currencyCotizationsCucId#,#usersUsrId#,#currencyTO.curId#,#ordersTO.ordId#,#proDate#,#statesTO.staId#)  
   </insert>      
     <insert id="updateProject" parameterClass="com.twoways.to.ProjectsTO"   >
        update projects
     set pro_id = #proId#,
         pro_name =#proName#,
         pro_description =#proDescription#,
-        states_sta_id =#proStatus#,
         pro_total_cli_wcount =#proTotalCliWcount#,
         pro_total_client =#proTotalClient#,
         pro_total_tran_wcount =#proTotalTranWcount#,
@@ -1069,7 +1073,8 @@
         users_usr_id =#usersUsrId#,
         currency_cur_id =#currencyTO.curId#,
         orders_ord_id =#ordersTO.ordId#,
-        pro_date =#proDate#
+        pro_date =#proDate#,
+        states_sta_id = #statesTO.staId#
   where pro_id =#proId#
      
   </insert>      
@@ -1623,4 +1628,17 @@
     where orders_ord_id= #ordersTO.ordId#
     and rates_rat_id = #ratesTO.ratId#
   </update>
+  
+  
+  <select id="getStatesByType"  parameterClass="java.lang.String" resultClass="com.twoways.to.StatesTO">
+       select sta_id as staId,
+              sta_name as staName,
+              sta_type as staType,
+              sta_description staDescription  
+              from states 
+              where sta_type = #value#
+  </select>
+  
+  
+  
 </sqlMap> 
