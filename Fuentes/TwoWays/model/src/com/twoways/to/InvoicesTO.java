@@ -14,6 +14,7 @@ public class InvoicesTO {
     private Long invId;
     //(name="INV_TOTAL")
     private Double invTotal;
+    private String invInvoiced;
 
     private UsersTO usersTO;    
     private CurrencyTO currencyTO;
@@ -122,5 +123,13 @@ public class InvoicesTO {
 
     public UsersTO getUsersTO() {
         return usersTO;
+    }
+
+    public void setInvInvoiced(String invInvoiced) {
+        this.invInvoiced = invInvoiced;
+    }
+
+    public String getInvInvoiced() {
+        return invInvoiced;
     }
 }

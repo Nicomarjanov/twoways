@@ -23,13 +23,14 @@
   <form name="facturacion" action="facturacion" method="POST">
   <input type="hidden" id="accion" name="accion" value=""/>
   <input type="hidden" id="imprimir" name="imprimir" value=""/>  
+  <input type="hidden" id="facturar" name="facturar" value=""/> 
   <input type="hidden" id="invId" name="invId" value="<c:out value="${facturacion.invId}"/>"/>
   <input type="hidden" id="cliId" name="cliId" value="<c:out value="${cliId}"/>"/>
   <input type="hidden" id="auxCliId" name="auxCliId" value="<c:out value="${auxCliId}"/>"/>
   <table width="100%" align="center">
       <thead>
       <tr>
-        <th colspan="2" class="tw_form">Ingrese los campos con los datos de la factura a emitir</th>
+        <th colspan="2" class="tw_form">Ingrese los campos con los datos del cobro a realizar</th>
       </tr>
       </thead>
       <tbody>
@@ -75,10 +76,8 @@
                                             </c:choose>
                                         </c:forEach>
                                    </select>
-                                </td>   
-                              </tr>
-                             
-                             <tr>
+                                </td>
+                             </tr>   
                                <c:choose>
                                     <c:when test="${not empty finishedOrders}">
                                         <td width="50%"  valign="top" align="right" ><input disabled="disabled" type="button" value="Buscar" onclick="buscarOrdenes()"  /></td>
@@ -124,7 +123,7 @@
                         <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'CRENAME\']}" /></td>                         
                         <td width="10%" bgcolor="#FFFFF"><fmt:formatDate value="${item[\'ORDDATE\']}"  pattern="dd/MM/yyyy HH:mm" />
                            <input type="hidden" name="item-ordenes-hidden"   value="<c:out value="${item[\'ORDID\']}" />#<c:out value="${item[\'RATID\']}"/>#<c:out value="${item[\'CURID\']}" />#<c:out value="${item[\'ORDTOTAL\']}" />"></input>
-                           <input type="hidden" name="print-ordenes-hidden"  value="<c:out value="${item[\'ORDNAME\']}" />#<c:out value="${item[\'ORDJOBID\']}" />#<c:out value="${item[\'ORDWONUMBER\']}"/>#<c:out value="${item[\'ORDJOBNAME\']}"/>#<c:out value="${item[\'ORDJOBDESCRIPTION\']}" />#<c:out value="${item[\'ORRWCOUNT\']}"/>#<c:out value="${item[\'CURSYMBOL\']}" /> <c:out value="${item[\'ORRVALUE\']}"/>#<c:out value="${item[\'ORDTOTAL\']}"/>#<c:out value="${item[\'CRENAME\']}" />"</input></td>     
+                           <input type="hidden" name="print-ordenes-hidden"  value="<c:out value="${item[\'ORDPROJID\']}" />#<c:out value="${item[\'ORDJOBID\']}" />#<c:out value="${item[\'ORDWONUMBER\']}"/>#<c:out value="${item[\'ORDJOBNAME\']}"/>#<c:out value="${item[\'ORDJOBDESCRIPTION\']}" />#<c:out value="${item[\'ORRWCOUNT\']}"/>#<c:out value="${item[\'CURSYMBOL\']}" /> <c:out value="${item[\'ORRVALUE\']}"/>#<c:out value="${item[\'ORDTOTAL\']}"/>#<c:out value="${item[\'CRENAME\']}" />"</input></td>     
                         <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'ORDWONUMBER\']}" /></td> 
                         <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'ORDJOBID\']}" /></td>  
                         <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'ORDJOBNAME\']}" /></td>       

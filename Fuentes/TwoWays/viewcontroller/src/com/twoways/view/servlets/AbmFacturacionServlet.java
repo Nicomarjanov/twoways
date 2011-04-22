@@ -78,6 +78,7 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
         List<ItemsTO> items = null;
         
         String cliId = request.getParameter("cliId");
+        String facturar = request.getParameter("facturar");
            
         Calendar c = new GregorianCalendar();
         String dia;
@@ -152,6 +153,7 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
                     }
                     request.setAttribute("cliId",cliId);
                     request.setAttribute("auxCliId",auxCliId[0]);
+                    request.setAttribute("facturar",facturar);
                     
                 }else {
                     request.setAttribute("mensaje","<script>alert('No se encontraron ordenes para ese cliente')</script>"); 
@@ -162,8 +164,7 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
             }
         }
         else if (accion!=null && accion.equalsIgnoreCase("guardar") && cliId != null){
-            
-            String bandera = null;        
+                    
             InvoicesTO factura = new InvoicesTO();
             try {              
                 if(request.getParameter("invDate")!= null && !request.getParameter("invDate").equalsIgnoreCase("") ){ 
@@ -181,6 +182,7 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
             request.setAttribute("cliId",cliId);
             String auxCliId[] = cliId.split("#");        
             request.setAttribute("auxCliId",auxCliId[0]);
+            request.setAttribute("facturar",facturar);
             
             ClientsTO cliIdTO = new ClientsTO();
             cliIdTO.setCliId(Long.parseLong(auxCliId[0]));
@@ -205,6 +207,7 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
             }
             
             factura.setInvTotal(Double.parseDouble(request.getParameter("invTotal").replace(",",".")));
+            factura.setInvInvoiced(facturar);
             
             String ordClients[]=request.getParameterValues("item-ordenes-hidden");
             List<ItemsInvoicesTO> itemsFacturaList = new ArrayList<ItemsInvoicesTO>();
@@ -242,38 +245,36 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
                    
                    itemsFacturaList.add(itemFacturaTO); 
                }
-                if (bandera == null)
-                    factura.setItemsInvoicesTOList(itemsFacturaList);
+                factura.setItemsInvoicesTOList(itemsFacturaList);
             }
-            if (bandera == null){
-                UsersTO userTO= (UsersTO)request.getSession().getAttribute("userSession"); 
-                factura.setUsersTO(userTO);
-                
-                try {       
-                        String imprimir = request.getParameter("imprimir");
-                        Long invId = twoWaysBDL.getServiceTwoWays().insertarFactura(factura); 
-                        request.setAttribute("invId",invId);
-    
-                        if (imprimir!=null && imprimir.equalsIgnoreCase("imprimirFactura") && cliId != null){
-                                
-                                try {
-                                    
-                                     AbmFacturacionServlet.createPdf(request,response,invId);
-                                                                      
-                                }
-                                 catch (Exception e) {
-                                        request.setAttribute("mensaje","<script>alert('Error al crea el PDF')</script>"); 
-                                        e.printStackTrace();
-                                        
-                                    }               
-                            request.setAttribute("mensaje","<script>alert('El registro del pago se guardó con éxito')</script>");    
-                        }    
-                    
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
 
-            }
+            UsersTO userTO= (UsersTO)request.getSession().getAttribute("userSession"); 
+            factura.setUsersTO(userTO);
+            
+            try {       
+                    String imprimir = request.getParameter("imprimir");
+                    Long invId = twoWaysBDL.getServiceTwoWays().insertarFactura(factura); 
+                    request.setAttribute("invId",invId);
+
+                    if (imprimir!=null && imprimir.equalsIgnoreCase("imprimirFactura") && cliId != null && facturar.equalsIgnoreCase("si")){
+                            
+                            try {
+                                
+                                 AbmFacturacionServlet.createPdf(request,response,invId);
+                                                                  
+                            }
+                             catch (Exception e) {
+                                    request.setAttribute("mensaje","<script>alert('Error al crea el PDF')</script>"); 
+                                    e.printStackTrace();
+                                    
+                                }               
+                           
+                    }   
+                    request.setAttribute("mensaje","<script>alert('El registro de cobro se guardó con éxito')</script>"); 
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+            }            
         }
 
         request.getRequestDispatcher("facturacion.jsp").forward(request,response);
@@ -368,7 +369,7 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
                 e.printStackTrace();
             } 
         if (cuenta != null && cliente != null){
-            cell = new PdfPCell(new Phrase("Account holder: "+((cuenta.getAccHolder()!=null)?cuenta.getAccHolder():"")));
+            cell = new PdfPCell(new Phrase((cuenta.getAccHolder()!=null)?"Account holder: "+cuenta.getAccHolder():""));
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setColspan(2);
             cell.setBorder(PdfPCell.NO_BORDER);
@@ -380,7 +381,7 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
             cell.setBorder(PdfPCell.NO_BORDER);
             table.addCell(cell);
             
-            cell = new PdfPCell(new Phrase("Checking account: "+((cuenta.getAccNumber()!=null)?cuenta.getAccNumber():"")));
+            cell = new PdfPCell(new Phrase((cuenta.getAccNumber()!=null)?"Checking account: "+cuenta.getAccNumber():""));
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setColspan(2);
             cell.setBorder(PdfPCell.NO_BORDER);
@@ -392,7 +393,7 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
             cell.setBorder(PdfPCell.NO_BORDER);
             table.addCell(cell);
             
-            cell = new PdfPCell(new Phrase("SWIFT code: "+((cuenta.getAccSwiftCode()!=null)?cuenta.getAccSwiftCode():"")));
+            cell = new PdfPCell(new Phrase((cuenta.getAccSwiftCode()!=null)?"SWIFT code: "+cuenta.getAccSwiftCode():""));
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setColspan(2);
             cell.setBorder(PdfPCell.NO_BORDER);
