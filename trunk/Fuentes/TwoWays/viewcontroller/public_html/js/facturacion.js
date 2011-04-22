@@ -133,10 +133,16 @@ function grabar(existe)
     {
         document.getElementById("accion").value='guardar';
         document.getElementById("cliId").value=document.getElementById('cliId').value;
-        if(confirm("¿Desea imprimir la factura?")){
-            document.getElementById("imprimir").value='imprimirFactura';
+        if (confirm("¿Desea facturar las ordenes de trabajo?")){
+            document.getElementById("facturar").value='si';
+            if(confirm("¿Desea imprimir la factura ahora?")){
+                document.getElementById("imprimir").value='imprimirFactura';
+            }
+        }else{
+            document.getElementById("facturar").value='no';
         }
-        document.forms[0].submit();                
+    document.forms[0].submit();        
+        
     }    
 }
 
@@ -180,3 +186,5 @@ function valorCotizacioncallBack(data){
 
     document.getElementById("invTotal").value=data.toFixed(2);
 }
+
+

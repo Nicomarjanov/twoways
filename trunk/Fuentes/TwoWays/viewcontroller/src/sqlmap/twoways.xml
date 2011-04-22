@@ -1596,8 +1596,8 @@
   
   <insert id="insertInvoice" parameterClass="com.twoways.to.InvoicesTO" >
       insert into invoices
-      (inv_id, inv_date, inv_total, accounts_acc_id, currency_cur_id, clients_cli_id, users_Usr_Id)
-      values (#invId#, #invDate#, #invTotal#, #accountsTO.accId#, #currencyTO.curId#, #clientsTO.cliId#, #usersTO.usrId#)
+      (inv_id, inv_date, inv_total, accounts_acc_id, currency_cur_id, clients_cli_id, users_Usr_Id, inv_invoiced)
+      values (#invId#, #invDate#, #invTotal#, #accountsTO.accId#, #currencyTO.curId#, #clientsTO.cliId#, #usersTO.usrId#, #invInvoiced#)
   </insert>
 
   <select id="iteminvoice.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > 
@@ -1628,6 +1628,30 @@
     where orders_ord_id= #ordersTO.ordId#
     and rates_rat_id = #ratesTO.ratId#
   </update>
+  
+  <select id="getAllOrdersByCliId" parameterClass="java.lang.Long" resultClass="java.util.HashMap" >
+    select t.inv_id as invId,
+           i.iti_id as itiId,
+           c.cli_name as cliName,
+           o.ord_name as ordName,
+           t.inv_date as invDate,
+           o.ord_proj_id as po,
+           o.ord_job_id as jobId,
+           o.ord_wo_number as wo,
+           o.ord_job_name as jobName,
+           a.acc_name as accName,
+           y.cur_name as curName,
+           t.inv_total as invTotal,
+           t.inv_invoiced as invInvoiced
+    from invoices t, items_invoices i, clients c, orders o, accounts a, currency y
+    where t.inv_id = i.invoices_inv_id
+    and i.orders_rates_orders_ord_id=o.ord_id
+    and t.clients_cli_id=c.cli_id
+    and t.accounts_acc_id=a.acc_id
+    and t.currency_cur_id=y.cur_id
+  </select>
+  
+
   
   
   <select id="getStatesByType"  parameterClass="java.lang.String" resultClass="com.twoways.to.StatesTO">

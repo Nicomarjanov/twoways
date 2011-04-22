@@ -117,6 +117,10 @@
         <servlet-class>com.twoways.view.servlets.AbmFacturacionServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ListaCobrosServlet</servlet-name>
+        <servlet-class>com.twoways.view.servlets.ListaCobrosServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>resources</servlet-name>
         <servlet-class>oracle.adf.view.faces.webapp.ResourceServlet</servlet-class>
     </servlet>
@@ -196,6 +200,10 @@
     <servlet-mapping>
         <servlet-name>AbmFacturacionServlet</servlet-name>
         <url-pattern>/facturacion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListaCobrosServlet</servlet-name>
+        <url-pattern>/listaFacturas</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>resources</servlet-name>
