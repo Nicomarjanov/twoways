@@ -95,7 +95,7 @@ public class ProyectosServlet extends AutorizacionServlet {
             if(project == null ) {
                 project = new ProjectsTO();
                 project.setOrdersTO(twoWaysBDL.getServiceTwoWays().getOrderById(ordId));
-                project.setProStartDate(project.getOrdersTO().getOrdDate());
+                project.setProStartDate(project.getOrdersTO().getOrdStartDate());
                 project.setProName(project.getOrdersTO().getOrdName());
             }
 
@@ -139,7 +139,7 @@ public class ProyectosServlet extends AutorizacionServlet {
 
                 } catch (Exception e) {
                     request.setAttribute("mensaje", 
-                                         "<script>alert('La fecha ingresada no es valida')</script>");
+                                         "<script>alert('La fecha ingresada no es válida')</script>");
                     e.printStackTrace();
                     if(reenviar){ 
                     request.getRequestDispatcher("proyectos.jsp").forward(request, 
@@ -166,8 +166,7 @@ public class ProyectosServlet extends AutorizacionServlet {
                                       null) ? 
                                      request.getParameter("proStatus").toString() : 
                                      "");
-                if(request.getParameter("listaMoneda") != 
-                                      null){ 
+                if(request.getParameter("listaMoneda") != null && !request.getParameter("listaMoneda").toString().equalsIgnoreCase("")){ 
                                       
                     CurrencyTO currencyTO= new CurrencyTO();                      
                     currencyTO.setCurId(Long.parseLong(request.getParameter("listaMoneda")));

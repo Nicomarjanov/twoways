@@ -94,9 +94,9 @@ function cargarItemResponsable(row){
    }*/
    if (skypeResp == null || skypeResp.length == 0){
         skypeResp = " ";
-        alert(skypeResp);
+
    }
-  alert(skypeResp);
+
     if(document.getElementById('creId-'+ nomResp +'#'+ apeResp)){
        alert('Ya existe un responsable con ese Nombre y Apellido'); 
        document.getElementById('list-responsables-body').deleteRow(row.rowIndex);       

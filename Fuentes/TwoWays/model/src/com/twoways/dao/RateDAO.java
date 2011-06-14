@@ -12,6 +12,6 @@ public interface RateDAO {
     public RatesTO getRateById(String ratId) throws Exception;
     public boolean  deleteRate(RatesTO rate)  throws Exception; 
     public List buscarTarifas(String search) throws Exception; 
-    public List getRatesByType(RateTypesTO rateTypesTO) throws Exception;
+    public List getRatesByType() throws Exception;
     
 }

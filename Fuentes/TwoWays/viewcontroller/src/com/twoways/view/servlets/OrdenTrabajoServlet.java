@@ -116,6 +116,7 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
         List<ClientsTO> clientes = null;
         List<RateTypesTO> services = null;
         List  <DocTypes>  docTypes= null;
+        List<ClientResponsableTO> responsables = null;
 
        /* ClientsTO cliente = new Clients
         * TO(); 
@@ -127,18 +128,20 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
         
         try {
            twoWaysBDL = new TwoWaysBDL();
-           RateTypesTO rateType = new RateTypesTO();
+   /*        RateTypesTO rateType = new RateTypesTO();
            rateType.setRtyName("Cliente");
-           tarifas = twoWaysBDL.getServiceTwoWays().getRateByType(rateType);
+           tarifas = twoWaysBDL.getServiceTwoWays().getRateByType(rateType);*/
+    tarifas = twoWaysBDL.getServiceTwoWays().getRateByType();
            clientes= twoWaysBDL.getServiceTwoWays().obtenerClientes();         
            services= twoWaysBDL.getServiceTwoWays().obtenerServicios();
            docTypes = twoWaysBDL.getServiceTwoWays().obtenerTipoDocumentos();
-           //services = twoWaysBDL.getServiceTwoWays().obtenerTipoTarifas();
+           responsables = twoWaysBDL.getServiceTwoWays().obtenerResponsables();
             
            request.setAttribute("listaTarifa",tarifas);
            request.setAttribute("listaCliente",clientes);
            request.setAttribute("listaService",services);
            request.setAttribute("listaDocTypes",docTypes);
+           request.setAttribute("listaRespClientes",responsables);
             String ordId = request.getParameter("ordId");
             OrdersTO order=  new OrdersTO();
             if (ordId != null &&  ordId.length() > 0 ){
@@ -162,7 +165,7 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                  }
             }else{
             
-                order.setOrdDate(new Timestamp(new Date().getTime()));
+                order.setOrdStartDate(new Timestamp(new Date().getTime()));
                 request.setAttribute("order",order);
             }
            
@@ -170,7 +173,7 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
            e.printStackTrace();
         }
         
-        if(accion != null && accion.equalsIgnoreCase("buscarResponsables")){
+     /*   if(accion != null && accion.equalsIgnoreCase("buscarResponsables")){
             List <ClientResponsableTO> cliResponsables = null;
 
             ClientsTO clientsTO = new ClientsTO(); 
@@ -190,7 +193,8 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
             request.setAttribute("auxFinishDate",(mRequest.get("ordFinishDate")!= null )?mRequest.get("ordFinishDate").toString():"");
             request.setAttribute("auxOrdDate",(mRequest.get("ordDate")!= null )?mRequest.get("ordDate").toString():"");
         }
-        else if(accion != null && accion.equalsIgnoreCase("guardar")){
+        else */
+        if(accion != null && accion.equalsIgnoreCase("guardar")){
             
             OrdersTO  ordersTO = new OrdersTO();
             ClientsTO clientsTO = new ClientsTO();             
@@ -206,15 +210,15 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                 SimpleDateFormat sdfc = new SimpleDateFormat("dd/MM/yyyy");
                 SimpleDateFormat sdfl = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                 
-                if(mRequest.get("ordDate")!= null && !mRequest.get("ordDate").toString().equalsIgnoreCase("") ){ 
+                if(mRequest.get("ordStartDate")!= null && !mRequest.get("ordStartDate").toString().equalsIgnoreCase("") ){ 
                     java.util.Date date ;
-                    if(mRequest.get("ordDate").toString().length() == 10 ){ 
-                       date = sdfc.parse(mRequest.get("ordDate").toString());
+                    if(mRequest.get("ordStartDate").toString().length() == 10 ){ 
+                       date = sdfc.parse(mRequest.get("ordStartDate").toString());
                     }else{
-                       date = sdfl.parse(mRequest.get("ordDate").toString());  
+                       date = sdfl.parse(mRequest.get("ordStartDate").toString());  
                     }
                     java.sql.Timestamp timest = new java.sql.Timestamp(date.getTime()); 
-                    ordersTO.setOrdDate(timest);
+                    ordersTO.setOrdStartDate(timest);
                 }
                 
                 if(mRequest.get("ordFinishDate")!= null && !mRequest.get("ordFinishDate").toString().equalsIgnoreCase("") ){ 
@@ -239,13 +243,14 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
             ordersTO.setOrdJobId((mRequest.get("ordJobId")!= null )?mRequest.get("ordJobId").toString():"");    
             ordersTO.setOrdJobDescription((mRequest.get("ordJobDescription")!= null )?mRequest.get("ordJobDescription").toString():"");    
             ordersTO.setOrdDescription((mRequest.get("ordDescription")!= null )?mRequest.get("ordDescription").toString():"");    
-            ordersTO.setOrdWoNumber(Long.parseLong(((mRequest.get("ordWoNumber")!= null  && mRequest.get("ordWoNumber").toString().length() > 0 )?mRequest.get("ordWoNumber").toString():"0")));    
+            ordersTO.setOrdWoNumber(((mRequest.get("ordWoNumber")!= null  && mRequest.get("ordWoNumber").toString().length() > 0 )?mRequest.get("ordWoNumber").toString():""));    
             ordersTO.setOrdJobName((mRequest.get("ordJobName")!= null )?mRequest.get("ordJobName").toString():""); 
             ordersTO.setOrdName((mRequest.get("ordName")!= null )?mRequest.get("ordName").toString():"");
             ordersTO.setFiles(files);
             ordersTO.setDocTypesSelected(docTypesMap);
             Object tarifasHidden[]=null;
             Object wordCountHidden[]=null;
+            
             
             if(mRequest.get("tarifas-hidden") != null && mRequest.get("tarifas-hidden") instanceof ArrayList){
                 List aux =(ArrayList) mRequest.get("tarifas-hidden");
@@ -263,35 +268,50 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                 wordCountHidden[0]=mRequest.get("wordCount-hidden").toString();
             }
             
-            
+   
             if( tarifasHidden  != null){ 
+                ArrayList cantPalAux = null;
+                String cantPalAuxString = null;
+                if (mRequest.get("cantPalabras") != null && mRequest.get("cantPalabras") instanceof ArrayList){
+                    cantPalAux = (ArrayList) mRequest.get("cantPalabras");
+                }else if(mRequest.get("cantPalabras") != null){
+                    cantPalAuxString = mRequest.get("cantPalabras").toString();
+                }
                 
                 List<OrdersRatesTO> ordersRatesTOList = new   ArrayList<OrdersRatesTO>();
-                
+                int indice=0;
                 for(Object aux:tarifasHidden){
-                    
-                    String atribs[]= ((String)aux).split("#");
-                    
+                    String atribs[]= ((String)aux).split("#");                   
                     OrdersRatesTO orderRatesTO = new OrdersRatesTO();
                     orderRatesTO.setClrValue(Double.parseDouble(atribs[1].replaceAll(",",".")));
-                   if (atribs.length >2 ){
+                   /*if (atribs.length >2 ){
                        orderRatesTO.setOrrWcount(new Long (atribs[2])); 
-                   }else{
-                       orderRatesTO.setOrrWcount(new Long (0));
-                   } 
+                   }else{*/
+                       if (cantPalAux != null && cantPalAux.size() > 0){ 
+                           String palabras= (cantPalAux.get(indice).toString().length() > 0)?cantPalAux.get(indice).toString():"0";
+                          // System.out.println("pal: "+palabras);
+                           orderRatesTO.setOrrWcount(Long.parseLong(palabras));
+                       }
+                       else if (cantPalAuxString != null){
+                           orderRatesTO.setOrrWcount(Long.parseLong(cantPalAuxString));
+                       }else{
+                           orderRatesTO.setOrrWcount(new Long (0));
+                       }
+                   //} 
                     RatesTO rtTO= new RatesTO();
                     rtTO.setRatId(Long.parseLong(atribs[0]));
                     orderRatesTO.setRatesTO(rtTO );
+                    
                     ordersRatesTOList.add(orderRatesTO);
                     orderRatesTO.setOrdersTO(ordersTO);
+                    indice +=1;
                 }
                 
                 ordersTO.setOrderRatesTOList(ordersRatesTOList);
+                
             }   
             
-                 
-                  
-            
+                             
             Object listaItemsSelect[]={" "};
             
             if(mRequest.get("listaItemsSelect") != null && mRequest.get("listaItemsSelect") instanceof ArrayList){

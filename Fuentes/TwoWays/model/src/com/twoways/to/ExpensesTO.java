@@ -14,7 +14,7 @@ public class ExpensesTO {
     //(name="EXP_ID", nullable = false)
     private Long expId;
     //(name="EXP_TOTAL")
-    private Long expTotal;
+    private Double expTotal;
     private List<ItemsExpensesTO> itemsExpensesTOList;
 
     public ExpensesTO() {
@@ -37,11 +37,11 @@ public class ExpensesTO {
         this.expId = expId;
     }
 
-    public Long getExpTotal() {
+    public Double getExpTotal() {
         return expTotal;
     }
 
-    public void setExpTotal(Long expTotal) {
+    public void setExpTotal(Double expTotal) {
         this.expTotal = expTotal;
     }
 

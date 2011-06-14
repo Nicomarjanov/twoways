@@ -998,13 +998,13 @@ function CalendarPopup() {
 	c.disabledDatesExpression = "";
 	c.yearSelectStartOffset = 2;
 	c.currentDate = null;
-	c.todayText="Today";
+	c.todayText="Hoy";
 	c.cssPrefix="";
 	c.isShowNavigationDropdowns=false;
 	c.isShowYearNavigationInput=false;
 	window.CP_calendarObject = null;
 	window.CP_targetInput = null;
-	window.CP_dateFormat = "MM/dd/yyyy";
+	window.CP_dateFormat = "dd/MM/yyyy";
 	// Method mappings
 	c.copyMonthNamesToWindow = CP_copyMonthNamesToWindow;
 	c.setReturnFunction = CP_setReturnFunction;
@@ -1051,7 +1051,7 @@ function CP_tmpReturnFunction(y,m,d) {
 	if (window.CP_targetInput!=null) {
 		var dt = new Date(y,m-1,d,0,0,0);
 		if (window.CP_calendarObject!=null) { window.CP_calendarObject.copyMonthNamesToWindow(); }
-		window.CP_targetInput.value = formatDate(dt,window.CP_dateFormat);
+                window.CP_targetInput.value = formatDate(dt,window.CP_dateFormat)+' 00:00';
 		}
 	else {
 		alert('Use setReturnFunction() to define which function will get the clicked results!'); 

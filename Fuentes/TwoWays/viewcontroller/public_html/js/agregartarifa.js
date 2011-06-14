@@ -83,6 +83,7 @@ function cargarItemTarifa(row){
    
    var optionSelected=document.getElementById('listaTarifa').options[document.getElementById('listaTarifa').selectedIndex];
    var tarVal= document.getElementById('tar_val').value;
+
    row.cells[0].innerHTML= optionSelected.text; 
    row.name = 'item-tarifa'; 
    
@@ -102,14 +103,16 @@ function cargarItemTarifaCliente(row,tarifa){
    //alert(dwr.util.toDescriptiveString(tarifa));
    var tarVal= tarifa.clrValue;
    
-   row.cells[0].innerHTML= tarifa.ratesTO.ratName; 
+   row.cells[0].innerHTML=tarifa.ratesTO.rateTypesTO.rtyAlternativeName+'-' + tarifa.ratesTO.ratName +' '+ tarifa.ratesTO.currencyTO.curSymbol; 
    row.name = 'item-tarifa'; 
    
    row.id= 'tarId-'+ tarifa.ratesTO.ratId;
    row.cells[1].innerHTML= tarVal + '<input type="hidden" name="tarifas-hidden"  value="'+tarifa.ratesTO.ratId+'#'+tarVal+'" />';
-   row.cells[2].innerHTML= '<img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarTarifa(\''+row.id+'\')" onmouseover="this.style.cursor=\'hand\';" />';
+   row.cells[2].innerHTML= '<input type="text" id="cantPalabras" name="cantPalabras" size="8" maxlength="8" value="" style="font-size:10px;font-family:verdana;"/>';
+   row.cells[3].innerHTML= '<img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarTarifa(\''+row.id+'\')" onmouseover="this.style.cursor=\'hand\';" />';
    row.cells[0].width=203;
    row.cells[1].width=60;
+   row.cells[2].width=60;
    row.cells[1].align='right';
    
    

@@ -189,6 +189,8 @@ function cambioValorTotal(valor){
 }
 
 function valorCotizacioncallBack(data){
-
+    var aux = document.getElementById("listaMoneda").value;
+    var simbolo = aux.split("#");
+    alert('La moneda ha cambiado. El nuevo Total a pagar es: '+simbolo[1]+' '+data.toFixed(2));
     document.getElementById("payAmount").value=data.toFixed(2);
 }

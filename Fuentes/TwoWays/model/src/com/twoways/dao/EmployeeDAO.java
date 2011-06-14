@@ -27,4 +27,5 @@ public interface EmployeeDAO {
     public List getLangByEmpId(Long empId) throws Exception;
     public List buscarListaEmpleados(String search) throws Exception;
     public List <EmployeesTO> findEmployees(Map employParameters) throws Exception;
+    public List<EmployeesTO> getEditorByDocId(Long praId,Long docId) throws Exception;
 }

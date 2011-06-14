@@ -14,6 +14,6 @@ public interface OrdersDAO {
    public OrdersTO updateOrder(OrdersTO ordersTO) throws Exception;
    public OrdersDocsTO getOrdersDocById(Long docId)  throws Exception;
    public List <OrdersTO> findOrders(Map orderParameters) throws Exception;
-   public List getOrdersByCliId(Long cliId)throws Exception;
-    
+   public List getOrdersByCliId(Long cliId, String mesId, String anioId)throws Exception;
+   public List getOrdersByCliIdInvId(Long cliId,Long invoiceId)throws Exception;
 }

@@ -10,12 +10,12 @@ function agregarTarifaOrden(){
       document.getElementById('tar_val').focus();
      return;
    }
-   if( document.getElementById('tar_wordCount').value == '' || !isNumber(document.getElementById('tar_wordCount').value)){ 
+  /* if( document.getElementById('tar_wordCount').value == '' || !isNumber(document.getElementById('tar_wordCount').value)){ 
       alert('Ingrese una cantidad de palabras válida');  
       document.getElementById('tar_wordCount').focus();
      return;
    }
-   
+   */
    
    if(document.getElementById('tarId-'+document.getElementById('listaTarifa').options[document.getElementById('listaTarifa').selectedIndex].value)){
    
@@ -38,13 +38,13 @@ function cargarItemTarifaOrden(row){
    
    var optionSelected=document.getElementById('listaTarifa').options[document.getElementById('listaTarifa').selectedIndex];
    var tarVal= document.getElementById('tar_val').value;
-   var tarWordCount= document.getElementById('tar_wordCount').value;
+   //var tarWordCount= document.getElementById('tar_wordCount').value;
    row.cells[0].innerHTML= optionSelected.text; 
    row.name = 'item-tarifa'; 
-   
+
    row.id= 'tarId-'+ optionSelected.value;
-   row.cells[1].innerHTML= tarVal + '<input type="hidden" name="tarifas-hidden"  value="'+optionSelected.value+'#'+tarVal+'#'+tarWordCount+'" />';
-   row.cells[2].innerHTML= tarWordCount + '<input type="hidden" name="wordCount-hidden"  value="'+optionSelected.value+'#'+tarWordCount+'" />';
+   row.cells[1].innerHTML= tarVal + '<input type="hidden" name="tarifas-hidden"  value="'+optionSelected.value+'#'+tarVal+'" />';
+   row.cells[2].innerHTML= '<input type="text" id="cantPalabras" name="cantPalabras" size="8" maxlength="8" value="" style="font-size:10px;font-family:verdana;" />';//<input type="hidden" name="wordCount-hidden"  value="'+optionSelected.value+'#'+tarWordCount+'" />';
    row.cells[3].innerHTML= '<img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarTarifaOrden(\''+row.id+'\')" onmouseover="this.style.cursor=\'hand\';" />';
    row.cells[0].width=203;
    row.cells[1].width=60;
@@ -63,7 +63,7 @@ function eliminarTarifaOrden(id){
    
  
    document.getElementById('tar_val').value= row.cells[1].innerHTML.substring(0, row.cells[1].innerHTML.indexOf('<INPUT'));
-   document.getElementById('tar_wordCount').value= row.cells[2].innerHTML.substring(0, row.cells[2].innerHTML.indexOf('<INPUT'));
+   //document.getElementById('tar_wordCount').value= row.cells[2].innerHTML.substring(0, row.cells[2].innerHTML.indexOf('<INPUT'));
    
    for(var i = 0 ; i <   document.getElementById('listaTarifa').length ;i++){
       if(document.getElementById('listaTarifa').options[i].value == row.id.substring(6)){

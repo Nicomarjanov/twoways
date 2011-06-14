@@ -33,7 +33,10 @@
   
   <body id="proyecto-body"   >
   <jsp:include page="/WEB-INF/jspIncludes/menu.jsp" /><c:out value="${mensaje}" escapeXml="false"/>
-<form   id="formProyecto"  action="proyectos" method="POST" >  
+  <div class="transbox">
+    <img id="progress" src="img/29.GIF" style="display:none;"/>
+  </div>
+<form   id="formProyecto" name="formProyecto" action="proyectos" method="POST" >  
 <input type ="hidden" name="ordId" id="ordId" value="<c:out value="${project.ordersTO.ordId}" />" /> 
 <input type ="hidden" name="curCotiz" id="curCotiz" value="<c:out value="${cotizaciones[project.currencyTO.curId]}" />" /> 
 <input type ="hidden" name="accion" id="accion" />
@@ -82,7 +85,7 @@
       <td nowrap align="right" >
        Fecha Inicio Orden:</td> 
       <td>
-      <input type="text" class="tw_form" name="ordDate" readonly="readonly" id="ordDate"  value="<fmt:formatDate value="${project.ordersTO.ordDate}"    pattern="dd/MM/yyyy HH:mm" />" /> </td><td nowrap align="right" >Fecha de Entrega Orden:</td><td ><input type="text" class="tw_form" name="ordFinishDate" readonly="readonly" id="ordFinishDate"  value="<fmt:formatDate value="${project.ordersTO.ordFinishDate}"    pattern="dd/MM/yyyy HH:mm" />" /> 
+      <input type="text" class="tw_form" name="ordStartDate" readonly="readonly" id="ordStartDate"  value="<fmt:formatDate value="${project.ordersTO.ordStartDate}"    pattern="dd/MM/yyyy HH:mm" />" /> </td><td nowrap align="right" >Fecha de Entrega Orden:</td><td ><input type="text" class="tw_form" name="ordFinishDate" readonly="readonly" id="ordFinishDate"  value="<fmt:formatDate value="${project.ordersTO.ordFinishDate}"    pattern="dd/MM/yyyy HH:mm" />" /> 
       </td>
       <td>&nbsp;</td>
     </tr>
@@ -204,7 +207,11 @@
          </td>
          <c:set value="${assiDet.ordersDocsTO.docType.dotId}" scope="page" var="dotId" />
          
-         <% pageContext.setAttribute("isSource",pageContext.getAttribute("dotId").toString().contains("Source"));%>
+         <% Boolean docTipo = new Boolean ("false");           
+          if (pageContext.getAttribute("dotId").toString().contains("Source") || pageContext.getAttribute("dotId").toString().contains("FTP")){
+                docTipo = new Boolean ("true");
+            }
+            pageContext.setAttribute("isSource",docTipo);%>
          <c:choose>
           <c:when test="${isSource=='true' || isSource}">
           <td align="center" >
@@ -257,7 +264,7 @@
       <td align="right">
            
             <input type="button" id="aceptar" value="Aceptar" onclick="agregar()"/></td>   
-      <td align="left"><input type="button" id="cancel" value="Limpiar" OnClick="cancelar()"/></td>    
+      <td align="left"><input type="button" id="cancel" value="Cancelar" OnClick="cancelar()"/></td>    
   </tr>
 </table>
  

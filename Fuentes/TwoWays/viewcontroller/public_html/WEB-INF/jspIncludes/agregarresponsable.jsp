@@ -2,11 +2,23 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page contentType="text/html;charset=windows-1252"%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
-<table  id="aResp" >
-    <tr>
-        <td><a href="javascript:vistaResponsablesCliente()" ><img id="responsable+"  style="border:0;" title="Mostrar responsables del cliente" src="img/Person-add-white.png" alt="Responsable" width="25" height="25" onmouseover="this.style.cursor='hand';"/></a></td>
-    </Tr>
-</table>
+
+<c:choose>
+  <c:when test="${empty requestScope.cliente.clientResponsableTOList}">
+        <table  id="aResp" >
+            <tr>
+                <td><a href="javascript:vistaResponsablesCliente()" ><img id="responsable+"  style="border:0;" title="Mostrar responsables del cliente" src="img/Person-add-white.png" alt="Responsable" width="25" height="25" onmouseover="this.style.cursor='hand';"/></a></td>
+            </Tr>
+        </table>
+  </c:when>
+  <c:otherwise>
+        <table  id="aResp" >
+            <tr>
+                <td><a href="javascript:vistaResponsablesCliente()" ><img id="responsable+"  style="border:0;" title="Mostrar responsables del cliente" src="img/Person-add.png" alt="Responsable" width="25" height="25" onmouseover="this.style.cursor='hand';"/></a></td>
+            </Tr>
+        </table>
+  </c:otherwise>
+</c:choose>
 <table id="dResp" style="display:none" >
     <tr>
         <th><a href="javascript:vistaResponsablesCliente()"><img id="responsable-"  style="border:0;" title="Ocultar responsables del cliente" src="img/Person-add-black.png" alt="Responsable" width="25" height="25" onmouseover="this.style.cursor='hand';"/></a></th>

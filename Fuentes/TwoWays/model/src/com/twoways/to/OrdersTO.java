@@ -34,7 +34,7 @@ public class OrdersTO {
     //(name="ORD_PROJ_ID")
     private String ordProjId;
     //(name="ORD_WO_NUMBER")
-    private Long ordWoNumber;
+    private String ordWoNumber;
     private List<OrdersDocsTO> ordersDocsTOList;
     private ClientsTO clientsTO;
     private ClientResponsableTO cliResponsableTO;
@@ -116,11 +116,11 @@ public class OrdersTO {
         this.ordProjId = ordProjId;
     }
 
-    public Long getOrdWoNumber() {
+    public String getOrdWoNumber() {
         return ordWoNumber;
     }
 
-    public void setOrdWoNumber(Long ordWoNumber) {
+    public void setOrdWoNumber(String ordWoNumber) {
         this.ordWoNumber = ordWoNumber;
     }
 

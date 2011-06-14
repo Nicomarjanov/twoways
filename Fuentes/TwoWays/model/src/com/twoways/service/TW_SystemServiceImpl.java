@@ -51,12 +51,14 @@ import com.twoways.to.ItemsInvoicesTO;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -197,8 +199,8 @@ public class TW_SystemServiceImpl implements TW_SystemService {
         return this.rateDao.getRateById(ratId);
     }
 
-    public List getRateByType(RateTypesTO rateTypesTO) throws Exception {
-        return this.rateDao.getRatesByType(rateTypesTO);
+    public List getRateByType() throws Exception {
+        return this.rateDao.getRatesByType();
     }
 
     public boolean deleteRate(RatesTO rate) throws Exception {
@@ -531,8 +533,7 @@ public class TW_SystemServiceImpl implements TW_SystemService {
 
     public void insertProjectAssignamentDetails(ProAssigmentsDetailsTO proAssigmentsDetailsTO) throws Exception {
 
-        List<EmployeesRatesTO> employeesRatesTOList = 
-            employeeDao.getEmpRatesByEmpIdRate(proAssigmentsDetailsTO.getProjectAssignmentsTO().getEmployeesTO(),proAssigmentsDetailsTO.getProjectAssignmentsTO().getServiceTO());
+        List<EmployeesRatesTO> employeesRatesTOList = employeeDao.getEmpRatesByEmpIdRate(proAssigmentsDetailsTO.getProjectAssignmentsTO().getEmployeesTO(),proAssigmentsDetailsTO.getProjectAssignmentsTO().getServiceTO());
         this.projectDao.insertProjectAssignamentDetails(proAssigmentsDetailsTO, 
                                                         employeesRatesTOList);
     }
@@ -609,61 +610,80 @@ public class TW_SystemServiceImpl implements TW_SystemService {
         EmployeesTO employee = 
             this.getEmpById(projectAssignmentsTO.getEmployeesTO().getEmpId().toString());
         List<OrdersDocsTO> ordDocList = new ArrayList<OrdersDocsTO>();
+        List<EmployeesTO> empList = new ArrayList<EmployeesTO>();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         String texto = "" ;
         String subject = 
-            "next assignment: " + project.getProName() +" Delivery date: " + sdf.format(projectAssignmentsTO.getPraFinishDate()) ;
+            "next assignment: " + project.getProName() +". Deadline: " + sdf.format(projectAssignmentsTO.getPraFinishDate());
         texto += 
-                "\nFecha de asignación: #fechaAsignacion#\n" +
-                "\nServicio: #servicio#\n";
+                //"\nFecha de asignación: #fechaAsignacion#\n" +
+                "<P>Hola "+projectAssignmentsTO.getEmployeesTO().getEmpFirstName()+" "+projectAssignmentsTO.getEmployeesTO().getEmpLastName()
+                +",</P><BR><TABLE><TR><TD><B>Servicio: </B>"+projectAssignmentsTO.getServiceTO().getRtyAlternativeName()+"</TD></TR>";
 
 
-        texto = 
-                texto.replaceAll("#fechaAsignacion#", sdf.format(projectAssignmentsTO.getPraAssignDate()));
-        texto = 
-                texto.replaceAll("#servicio#", projectAssignmentsTO.getServiceTO().getRtyName());
-        Map enviados = new HashMap(); 
-
-        for (ProAssigmentsDetailsTO proAssigmentsDetailsTO: 
-             proAssigmentsDetailsTOList) {
-            texto += 
-                    "\nDocumento: " + proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName();
-                    
-                    
-            if (!projectAssignmentsTO.getServiceTO().getRtyName().equalsIgnoreCase("Maquetador") ) {
+        //texto = texto.replaceAll("#fechaAsignacion#", sdf.format(projectAssignmentsTO.getPraAssignDate()));
+        //texto = texto.replaceAll("#servicio#", projectAssignmentsTO.getServiceTO().getRtyAlternativeName());
+        //Map enviados = new HashMap(); 
+        String prevFileName="";
+        DecimalFormat df = new DecimalFormat("#");
+        for (ProAssigmentsDetailsTO proAssigmentsDetailsTO: proAssigmentsDetailsTOList) {
+             if (prevFileName != null && proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName().toString().equalsIgnoreCase(prevFileName))
+                texto += df.format(Double.parseDouble((proAssigmentsDetailsTO.getPadWCount()!=null)?proAssigmentsDetailsTO.getPadWCount().toString():"0"))+"/"+proAssigmentsDetailsTO.getEmployeesRatesTO().getRatesTO().getRatName()+" ";
+             else {
+                texto += "<TR><TD><B>File Name:</B> " + proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName()+"</TD></TR><TR><TD><B>Word count: </B>";
+                texto += df.format(Double.parseDouble((proAssigmentsDetailsTO.getPadWCount()!=null)?proAssigmentsDetailsTO.getPadWCount().toString():"0"))+"/"+proAssigmentsDetailsTO.getEmployeesRatesTO().getRatesTO().getRatName()+" ";
                 
-                if(enviados.get(proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName().toString())!=null){ 
-                
-                texto += 
-                        "\nLenguajes: [" + proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO().getLanguaguesTO().getLanName() + 
-                        " - " + 
-                        proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO().getLaaAcronym() + 
-                        "] - [ " + 
-                        proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO1().getLanguaguesTO().getLanName() + 
-                        " - " + 
-                        proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO1().getLaaAcronym() + 
-                        " ] ";
-                }else{
-                    enviados.put(proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName().toString(),"");
-                }
-            }
-            OrdersDocsTO odo = 
-                this.getOrdersDocById(proAssigmentsDetailsTO.getOrdersDocsTO().getOdoId());
+                prevFileName= proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName();    
+                 if (!projectAssignmentsTO.getServiceTO().getRtyName().equalsIgnoreCase("Maquetador") ) {
+                     
+                    // if(enviados.get(proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName().toString())!=null){ 
+                     
+                     subject += 
+                             " ["+proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO().getLanguaguesTO().getLanShortName() + "-"+
+                                proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO().getLaaAcronym() +
+                             "] > [" + proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO1().getLanguaguesTO().getLanShortName() + "-"+ 
+                                        proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO1().getLaaAcronym() +
+                             "] ";
+                    /* }else{
+                         enviados.put(proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName().toString(),"");
+                     }*/
+                 }
+             
+            
+            OrdersDocsTO odo = this.getOrdersDocById(proAssigmentsDetailsTO.getOrdersDocsTO().getOdoId());
             ordDocList.add(odo);
-
+            }
         }
 
-        texto+= "\nAdditional information: "+message+"\n";
-        
-        String firma = "\n\n\n\n\n*"+user.getUsrFirstName() +" "+ user.getUsrLastName()+ "*\n" +
-        ((user.getRolesTO() != null )? user.getRolesTO().getRolName() +"\n":"")+
-        user.getUsrMail()+"\n"; 
+        if (message != null)
+            texto+= "</TD></TR></TABLE><BR><TABLE><TR><TD align=left><B>Additional information: </B></TD></TR><TR><TD align=left>"+message.replaceAll("\n","<BR>")+"</TD></TR></TABLE>";
+        else 
+            texto+= "</TD></TR></TABLE>";
+            
+        String firma = "<BR><TABLE style='color:#808080;'><TR><TD><B>"+user.getUsrFirstName() +" "+ user.getUsrLastName()+ "</B></TD></TR>" +
+        ((user.getRolesTO() != null )? "<TR><TD>"+user.getRolesTO().getRolName() +"</TD></TR>":"")+
+        "<TR><TD>Two Ways Translation Services</TD></TR>" +
+        ((user.getUsrMail() != null ) ?"<TR><TD>E-mail: "+user.getUsrMail() +"</TD></TR>":"")+
+        ((user.getUsrOfficeNumber() != null ) ?"<TR><TD>Tel: "+user.getUsrOfficeNumber() +"</TD></TR>":"")+        
+        ((user.getUsrMobileNumber() != null ) ?"<TR><TD>Mobile: "+user.getUsrMobileNumber() +"</TD></TR>":"")+
+        "<TR><TD><A HREF='http://www.twoways.net/'>www.twoways.net</A></TD></TR></TABLE>"+
+        "<BR><P STYLE='font-family:verdana;font-size:12px;color:green;font-weight:bold;'><I>Our business hours are Monday through Friday, from 08:00 AM to 09:00 PM local time (-03:00 GMT) / 7:00 AM to 8:00 PM EST</I></P>"; 
         texto+=firma;    
-        
+        //Si es traductor busco si tiene un editor para enviar copia del mail
+        if (projectAssignmentsTO.getServiceTO().getRtyName().equalsIgnoreCase("Traductor") ) {
+            for(OrdersDocsTO ordDoc : ordDocList){
+                empList = this.getEditorByDocId(projectAssignmentsTO.getPraId(),ordDoc.getOdoId());
+            }
+        }
+        if (empList.size() > 0){
+            for(EmployeesTO empTO : empList){
+                if (otrosDestinatarios != null && !otrosDestinatarios.equalsIgnoreCase(""))
+                    otrosDestinatarios += ","+empTO.getEmpMail();
+                else otrosDestinatarios = empTO.getEmpMail();
+            }
+        }
         ServiceMail sm = new ServiceMail();
-        sm.sendAttach(employee.getEmpMail(), ordDocList, subject,otrosDestinatarios, 
-                      texto.replaceAll("null", " "));
-
+        sm.sendAttach(employee.getEmpMail(), ordDocList, subject,otrosDestinatarios,texto.replaceAll("null", " "));
 
         return true;
     }
@@ -783,13 +803,16 @@ public class TW_SystemServiceImpl implements TW_SystemService {
     
     public Double getCurrencyCotizationValue(Timestamp date, Long curIdDesde, Long curIdHasta, Double value)throws Exception {
         
-    if (curIdHasta == 4L){
+        if (curIdHasta == 4L){
         Double cotDesde = this.getCurrencyDao().getCurrencyValue(date,curIdDesde);
         return value * cotDesde;
     }
     else if (curIdDesde == 4L){
         Double cotHasta = this.getCurrencyDao().getCurrencyValue(date,curIdHasta);
         return value / cotHasta;
+    }
+    else if (curIdDesde == curIdHasta){
+        return value;
     }
     else{
         Double cotHasta = this.getCurrencyDao().getCurrencyValue(date,curIdHasta);
@@ -825,8 +848,8 @@ public class TW_SystemServiceImpl implements TW_SystemService {
         return this.clientDao.getClientResponsableByCliId(clientsTO);
     }
     
-    public List getOrdersByCliId(Long search)throws Exception{
-        return this.ordersDao.getOrdersByCliId(search);
+    public List getOrdersByCliId(Long search,String mesId,String anioId)throws Exception{
+        return this.ordersDao.getOrdersByCliId(search,mesId,anioId);
     }
 
     public void setInvoiceDao(InvoiceDAO invoiceDao) {
@@ -851,6 +874,46 @@ public class TW_SystemServiceImpl implements TW_SystemService {
 
     public List<StatesTO> getStatesListByType(String type) {
         return statesDao.getStatesByType(type);
+    }
+    
+    public List <InvoicesTO> findInvoices(Map invoiceParameters) throws Exception {
+        return this.invoiceDao.findInvoices(invoiceParameters);
+    }
+   
+    public List getOrdersByCliIdInvId(Long cliId,Long invoiceId)throws Exception{
+        return this.ordersDao.getOrdersByCliIdInvId(cliId,invoiceId);
+    }
+    
+    public void actualizarFactura(InvoicesTO factura) throws Exception{
+        this.invoiceDao.actualizarFactura(factura);
+    }
+    
+    public List obtenerItemsFactura(Long invId) throws Exception{
+        return this.invoiceDao.obtenerItemsFactura(invId);
+    }
+    
+    public List obtenerResponsables() throws Exception{
+        return this.clientDao.obtenerResponsables();
+    }
+    
+    public List <ProjectsTO> findProjects(Map projParameters){
+        return this.projectDao.findProjects(projParameters);
+    }
+    
+    public List <InvoicesTO> findIncomesByClient(Map invoiceParameters) throws Exception{
+        return this.invoiceDao.findIncomesByClient(invoiceParameters);
+    }
+    
+    public List findIncomes(Map invoiceParameters) throws Exception{
+        return this.invoiceDao.findIncomes(invoiceParameters);
+    }    
+    
+    public List <ItemsExpensesTO>findExpenses(Map expensesParameters) throws Exception{
+        return this.expensesDao.findExpenses(expensesParameters);
+    }
+    
+    public List<EmployeesTO> getEditorByDocId(Long praId,Long docId) throws Exception{
+        return this.employeeDao.getEditorByDocId(praId,docId);
     }
 }
 

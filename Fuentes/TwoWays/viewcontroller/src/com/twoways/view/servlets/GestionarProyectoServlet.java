@@ -4,6 +4,10 @@ import com.twoways.core.bdl.TwoWaysBDL;
 import com.twoways.to.ClientsTO;
 import com.twoways.to.OrdersTO;
 
+import com.twoways.to.ProjectsTO;
+
+import com.twoways.to.StatesTO;
+
 import java.io.IOException;
 
 import java.text.ParseException;
@@ -49,7 +53,6 @@ public class GestionarProyectoServlet extends AutorizacionServlet {
            request.setAttribute("listaCliente",clientes);
            request.setAttribute("optionList",optionList); 
            
-           
         }catch(Exception e){
             request.getRequestDispatcher("error.jsp").forward(request,response);    
             request.setAttribute("exception",e);
@@ -57,76 +60,99 @@ public class GestionarProyectoServlet extends AutorizacionServlet {
         
         if(accion !=null && accion.equalsIgnoreCase("buscar")){
             request.setAttribute("accion",accion);
-            OrdersTO orderTO = new OrdersTO();
+            ProjectsTO projectTO = new ProjectsTO();
             SimpleDateFormat sdfch = new SimpleDateFormat("dd/MM/yyyy HH:mm");
             SimpleDateFormat sdfsh = new SimpleDateFormat("dd/MM/yyyy");
             Map params= new  HashMap();
              
             java.util.Date date;
-            orderTO.setOrdName(request.getParameter("ordName"));
-            params.put("ordName",request.getParameter("ordName"));
-            params.put("ordProjId",request.getParameter("ordProjId"));
-            orderTO.setOrdProjId(request.getParameter("ordProjId"));
-            ClientsTO cliente = new ClientsTO(); 
+
+            if (request.getParameter("projName") != null && request.getParameter("projName").length() > 0) {
+                projectTO.setProName(request.getParameter("projName"));
+                params.put("projName",request.getParameter("projName"));
+            }
+            
+            ClientsTO clienteTO = new ClientsTO(); 
+            OrdersTO orderTO = new OrdersTO();
             if(request.getParameter("listaClientes") != null && request.getParameter("listaClientes").length() > 0  ){ 
              
               long cliId= Long.parseLong(request.getParameter("listaClientes"));
-              cliente.setCliId(cliId);
+              clienteTO.setCliId(cliId);
               params.put("cliId",cliId);
-              
-            }else{
-              params.put("cliId",0);
+              orderTO.setClientsTO(clienteTO);              
+              projectTO.setOrdersTO(orderTO);
             }
-            orderTO.setClientsTO(cliente);
             
-            if(request.getParameter("ordFinishDate") !=null &&( request.getParameter("ordFinishDate").length() == 10 || request.getParameter("ordFinishDate").length() == 16)){ 
+            if (request.getParameter("ordName") != null && request.getParameter("ordName").length() > 0) {
+                orderTO.setOrdName(request.getParameter("ordName"));
+                projectTO.setOrdersTO(orderTO);
+                params.put("ordName",request.getParameter("ordName"));
+            }
+            
+            if (request.getParameter("Iniciado") != null && request.getParameter("Iniciado").length() > 0) {
+                params.put("Iniciado",request.getParameter("Iniciado"));
+                request.setAttribute("Iniciado",request.getParameter("Iniciado"));
+            }
+            if (request.getParameter("Finalizado") != null && request.getParameter("Finalizado").length() > 0) {
+                params.put("Finalizado",request.getParameter("Finalizado"));
+                request.setAttribute("Finalizado",request.getParameter("Finalizado"));
+            }
+            if (request.getParameter("POPendiente") != null && request.getParameter("POPendiente").length() > 0) {
+                params.put("POPendiente",request.getParameter("POPendiente"));
+                request.setAttribute("POPendiente",request.getParameter("POPendiente"));
+            }
+            if (request.getParameter("POEnviado") != null && request.getParameter("POEnviado").length() > 0) {
+                params.put("POEnviado",request.getParameter("POEnviado"));
+                request.setAttribute("POEnviado",request.getParameter("POEnviado"));
+            }
+            
+            if(request.getParameter("projFinishDate") !=null &&( request.getParameter("projFinishDate").length() == 10 || request.getParameter("projFinishDate").length() == 16)){ 
                 try {
                     
-                    date = (request.getParameter("ordFinishDate").length() ==10 )?sdfsh.parse(request.getParameter("ordFinishDate")):sdfch.parse(request.getParameter("ordFinishDate"));
+                    date = (request.getParameter("projFinishDate").length() ==10 )?sdfsh.parse(request.getParameter("projFinishDate")):sdfch.parse(request.getParameter("projFinishDate"));
                     java.sql.Timestamp timest = new java.sql.Timestamp(date.getTime()); 
                     orderTO.setOrdFinishDate(timest);
-                    params.put("ordFinishDate",request.getParameter("ordFinishDate"));
-                    params.put("ordFinishDateOpt",request.getParameter("ordFinishDateOpt"));
-                    request.setAttribute("ordFinishDate",request.getParameter("ordFinishDate")); 
-                    request.setAttribute("ordFinishDateOpt",request.getParameter("ordFinishDateOpt")); 
+                    params.put("projFinishDate",request.getParameter("projFinishDate"));
+                    params.put("projFinishDateOpt",request.getParameter("projFinishDateOpt"));
+                    request.setAttribute("projFinishDate",request.getParameter("projFinishDate")); 
+                    request.setAttribute("projFinishDateOpt",request.getParameter("projFinishDateOpt")); 
                 } catch (ParseException e) {
                    e.printStackTrace();
                 }
-            }
-       System.out.println(request.getParameter("ordDate").length());     
-            if(request.getParameter("ordDate") !=null &&( request.getParameter("ordDate").length() == 10 || request.getParameter("ordDate").length() == 16)){ 
+            }  
+            if(request.getParameter("projDate") !=null &&( request.getParameter("projDate").length() == 10 || request.getParameter("projDate").length() == 16)){ 
                  try {
-                     date = (request.getParameter("ordDate").length() ==10 )?sdfsh.parse(request.getParameter("ordDate")):sdfch.parse(request.getParameter("ordDate"));
+                     date = (request.getParameter("projDate").length() ==10 )?sdfsh.parse(request.getParameter("projDate")):sdfch.parse(request.getParameter("projDate"));
                      java.sql.Timestamp timest = new java.sql.Timestamp(date.getTime()); 
                      orderTO.setOrdDate(timest);
-                     params.put("ordDate",request.getParameter("ordDate"));
-                     params.put("ordDateOpt",request.getParameter("ordDateOpt"));
-                     request.setAttribute("ordDate",request.getParameter("ordDate")); 
-                     request.setAttribute("ordDateOpt",request.getParameter("ordDateOpt")); 
+                     params.put("projDate",request.getParameter("projDate"));
+                     params.put("projDateOpt",request.getParameter("projDateOpt"));
+                     request.setAttribute("projDate",request.getParameter("projDate")); 
+                     request.setAttribute("projDateOpt",request.getParameter("projDateOpt")); 
                  } catch (ParseException e) {
                      e.printStackTrace();
                  }
              }
              
-            request.setAttribute("order",orderTO); 
+            request.setAttribute("project",projectTO); 
             try{
-               List<OrdersTO> orders =  twoWaysBDL.getServiceTwoWays().findOrders(params);
+               List<ProjectsTO> projects =  twoWaysBDL.getServiceTwoWays().findProjects(params);
                int  pageTop=(page+1)*10 ;
                int  minPage=(page)*10 ;
-                List<OrdersTO> suborders = null;
+               List<ProjectsTO> subprojects = null;
                 
                 
-               if(orders.size() > pageTop){ 
-                 suborders = (orders.size() > pageTop )?orders.subList(minPage,pageTop):orders.subList(minPage,orders.size());       
+               if(projects.size() > pageTop){ 
+                 subprojects = (projects.size() > pageTop )?projects.subList(minPage,pageTop):projects.subList(minPage,projects.size());       
                }else{
-                   suborders=orders;
-                   pageTop =suborders.size();
+                   subprojects=projects;
+                   pageTop =subprojects.size();
                    minPage=(pageTop/10)*10;
                    if(pageTop==minPage){
                        minPage=pageTop-10;
                    }
                    if(minPage > 0){ 
-                      suborders = (orders.size() > pageTop )?orders.subList(minPage,pageTop):orders.subList(minPage,orders.size());       
+                      subprojects = (projects.size() > pageTop )?projects.subList(minPage,pageTop):projects.subList(minPage,projects.size());       
                    }else{
                        pageTop=1;
                        minPage=1; 
@@ -136,13 +162,10 @@ public class GestionarProyectoServlet extends AutorizacionServlet {
                }
                
                
-               int maxPage = (int)(orders.size() / 10);
-               request.setAttribute("listaOrden",suborders);
+               int maxPage = (int)(projects.size() / 10);
+               request.setAttribute("listaProyectos",subprojects);
                request.setAttribute("maxPage",maxPage);
                request.setAttribute("page",page);
-                  
-               
-              
                request.setAttribute("pageId",page); 
                
             }catch(Exception e){
@@ -150,9 +173,6 @@ public class GestionarProyectoServlet extends AutorizacionServlet {
             }
             
         }
-        
-        
-        
         request.getRequestDispatcher("gestionarProyectos.jsp").forward(request,response); 
     }
 

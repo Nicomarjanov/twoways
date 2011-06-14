@@ -129,7 +129,7 @@
       <result property="ratesTO.ratDescription" column="RAT_DESCRIPTION"/>
       <result property="ratesTO.ratName"   column="RAT_NAME" />
       <result property="ratesTO.rateTypesTO.rtyName" column="RAT_TYPE"  /> 
-      <result property="ratesTO.rateTypesTO.rtyAlternativeName" column="RTY_ALERNATIVE_NAME"  />
+      <result property="ratesTO.rateTypesTO.rtyAlternativeName" column="RTY_ALTERNATIVE_NAME"  />
       <result property="ratesTO.currencyTO.curId" column="cur_id"  />
       <result property="ratesTO.currencyTO.curSymbol" column="cur_symbol"  />
    </resultMap>
@@ -141,6 +141,7 @@
       <result property="crePhoneNumber" column="CRE_PHONE_NUMBER" />
       <result property="creMsn" column="CRE_MSN"  />
       <result property="creSkype" column="CRE_SKYPE"  />
+      <result property="creEmail" column="CRE_EMAIL"  />
       <result property="clientsTO.cliId" column="CLIENTS_CLI_ID"/>      
    </resultMap>   
   
@@ -154,6 +155,7 @@
   <statement  id="getClientResponsableByCliId" resultMap="select-Cli-Responsable"  parameterClass="com.twoways.to.ClientsTO" >
      select * from client_responsable cr 
      where   cr.clients_cli_id=#cliId#
+     and cr.cre_erase_date is null
     
   </statement>   
   
@@ -338,23 +340,25 @@
       <result property="ratesTO.ratDescription" column="RAT_DESCRIPTION"/>
       <result property="ratesTO.ratName"   column="RAT_NAME" />
       <result property="ratesTO.rateTypesTO.rtyName" column="RAT_TYPE"  />
+      <result property="ratesTO.currencyTO.curSymbol" column="CUR_SYMBOL"  />
   </resultMap>
   
   <statement  id="getEmpRatesByEmpId" resultMap="select-Emp-Rates"  parameterClass="com.twoways.to.EmployeesTO" >
-     select * from employees_rates cr 
-     join rates r 
-     on cr.rates_rat_id = r.rat_id 
+     select * from employees_rates cr,rates r , currency y
+     where cr.rates_rat_id = r.rat_id 
      and   cr.employees_emp_id=#empId#
+     and r.currency_cur_id=y.cur_id
   </statement>     
   
   
   
    <statement  id="getEmpRatesByEmpRate" resultMap="select-Emp-Rates"  parameterClass="com.twoways.to.EmployeesRatesTO" >
-     select * from employees_rates cr 
-     join rates r
-     on cr.rates_rat_id = r.rat_id 
+     select * from employees_rates cr, rates r, currency c
+     where cr.rates_rat_id = r.rat_id 
      and cr.employees_emp_id=#employeesTO.empId#
-     where r.rat_type=#ratesTO.rateTypesTO.rtyName#
+     and r.rat_type=#ratesTO.rateTypesTO.rtyName#
+     and r.currency_cur_id=c.cur_id
+
   </statement>   
 
   <resultMap id="select-Emp-Types" class="com.twoways.to.EmployeesTypesTO">
@@ -407,7 +411,7 @@
       <result property="ratName"   column="RAT_NAME" />
       <result property="ratEraseDate" column="RAT_ERASE_DATE" />
       <result property="rateTypesTO.rtyName" column="RAT_TYPE"  />
-      <result property="rateTypesTO.rtyAlternativeName" column="RTY_ALERNATIVE_NAME"  />
+      <result property="rateTypesTO.rtyAlternativeName" column="RTY_ALTERNATIVE_NAME"  />
       <result property="currencyTO.curName" column="cur_Name" />    
       <result property="currencyTO.curId" column="cur_Id" />
       <result property="currencyTO.curSymbol" column="cur_symbol" />
@@ -445,7 +449,7 @@
      select 
         RTY_NAME as rtyName,
         RTY_DESCRIPTION as rtyDescription,
-        RTY_ALERNATIVE_NAME as rtyAlternativeName
+        RTY_ALTERNATIVE_NAME as rtyAlternativeName
      from 
      Rate_Types
      
@@ -455,7 +459,7 @@
      select 
         RTY_NAME as rtyName,
         RTY_DESCRIPTION as rtyDescription,
-        RTY_ALERNATIVE_NAME as rtyAlternativeName
+        RTY_ALTERNATIVE_NAME as rtyAlternativeName
      from 
      Rate_Types
      where upper(RTY_NAME) <![CDATA[ <> ]]> 'CLIENTE'
@@ -464,10 +468,11 @@
   
   
     
- <select  id="getRatesByType" parameterClass="com.twoways.to.RateTypesTO" resultMap="select-Rate-List">
+ <select  id="getRatesByType" resultMap="select-Rate-List">
      select *
-     from (Rates r left outer  join Currency c on r.currency_cur_id = c.cur_id)  left outer join rate_types rt on r.rat_type = rt.rty_name
-     where rat_type = #rtyName#
+     from (Rates r left outer  join Currency c on r.currency_cur_id = c.cur_id)  
+     left outer join rate_types rt on r.rat_type = rt.rty_name
+
  </select>   
     
  <select  id="getRateById" parameterClass="java.lang.String" resultMap="select-Rate-List">
@@ -782,9 +787,9 @@
   <insert id="insertOrders" parameterClass="com.twoways.to.OrdersTO" >
        
   insert into orders
-       (ord_id, ord_name, ord_description, ord_date, ord_finish_date, clients_cli_id, ord_proj_id, ord_wo_number, ord_job_id, ord_job_name, ord_job_description, client_responsable_cre_id)
+       (ord_id, ord_name, ord_description, ord_date, ord_start_date, ord_finish_date, clients_cli_id, ord_proj_id, ord_wo_number, ord_job_id, ord_job_name, ord_job_description, client_responsable_cre_id)
      values
-       (#ordId#, #ordName#, #ordDescription#, #ordDate#, #ordFinishDate#,  #clientsTO.cliId#, #ordProjId#, #ordWoNumber#, #ordJobId#, #ordJobName#, #ordJobDescription#,  #cliResponsableTO.creId#)
+       (#ordId#, #ordName#, #ordDescription#,sysdate, #ordStartDate#, #ordFinishDate#,  #clientsTO.cliId#, #ordProjId#, #ordWoNumber#, #ordJobId#, #ordJobName#, #ordJobDescription#,  #cliResponsableTO.creId#)
        
    
   </insert>
@@ -809,7 +814,7 @@
    <resultMap id="select-Order" class="com.twoways.to.OrdersTO" >
       <result property="ordId" column="ord_id" />
       <result property="ordName" column="ord_name"/>
-      <result property="ordDate"   column="ord_date" />
+      <result property="ordStartDate"   column="ord_start_date" />
       <result property="ordFinishDate"   column="ord_finish_date" />
       <result property="ordDescription"   column="ord_description" />
       <result property="clientsTO.cliId" column="clients_cli_id"  />
@@ -860,7 +865,7 @@
       <result property="ratesTO.ratDescription" column="RAT_DESCRIPTION"/>
       <result property="ratesTO.ratName"   column="RAT_NAME" />
       <result property="ratesTO.rateTypesTO.rtyName" column="RAT_TYPE"  />
-      <result property="ratesTO.rateTypesTO.rtyAlternativeName" column="RTY_ALERNATIVE_NAME"  />
+      <result property="ratesTO.rateTypesTO.rtyAlternativeName" column="RTY_ALTERNATIVE_NAME"  />
       <result property="ratesTO.currencyTO.curId" column="cur_id"  />
       <result property="ratesTO.currencyTO.curSymbol" column="cur_symbol"  />
    </resultMap>
@@ -880,7 +885,7 @@
   </insert>
   
     <statement  id="getOrderServicesByOrderId" resultClass="com.twoways.to.RateTypesTO"   parameterClass="com.twoways.to.OrdersTO"  >
-            select s.rty_name as rtyName,s.rty_description as  rtyDescription,s.RTY_ALERNATIVE_NAME  as rtyAlternativeName
+            select s.rty_name as rtyName,s.rty_description as  rtyDescription,s.RTY_ALTERNATIVE_NAME  as rtyAlternativeName
             from order_services ord join rate_types s on ord.rate_types_rty_name = s.rty_name and ord.orders_ord_id=#ordId#
   </statement> 
     
@@ -888,7 +893,7 @@
          update orders
                set ord_name = #ordName#,
                    ord_description = #ordDescription#,
-                   ord_date = #ordDate#,
+                   ord_start_date = #ordStartDate#,
                    clients_cli_id = #clientsTO.cliId#,
                    ord_proj_id = #ordProjId#,
                    ord_wo_number = #ordWoNumber#,
@@ -1056,7 +1061,7 @@
       insert into projects
           (pro_id, pro_name, pro_description,  pro_total_cli_wcount, pro_total_client, pro_total_tran_wcount, pro_total_translator, pro_start_date, pro_finish_date, currency_cotizations_cuc_id, users_usr_id, currency_cur_id, orders_ord_id, pro_date, states_sta_id)
         values
-          (#proId#, #proName#, #proDescription#,#proTotalCliWcount#,#proTotalClient#,#proTotalTranWcount#,#proTotalTranslator#,#proStartDate#,#proFinishDate#,#currencyCotizationsCucId#,#usersUsrId#,#currencyTO.curId#,#ordersTO.ordId#,#proDate#,#statesTO.staId#)  
+          (#proId#, #proName#, #proDescription#,#proTotalCliWcount#,#proTotalClient#,#proTotalTranWcount#,#proTotalTranslator#,#proStartDate#,#proFinishDate#,#currencyCotizationsCucId#,#usersUsrId#,#currencyTO.curId#,#ordersTO.ordId#,sysdate,#statesTO.staId#)  
   </insert>      
     <insert id="updateProject" parameterClass="com.twoways.to.ProjectsTO"   >
        update projects
@@ -1162,7 +1167,7 @@
       <result property="serviceTO.rtyName" column="services_ser_id" />     
       <result property="praTotalAmount" column="pra_total_amount" />     
       <result property="projectsTO.proId" column="projects_pro_id" />    
-        
+      <result property="serviceTO.rtyAlternativeName" column="rty_alternative_name" />    
   </resultMap>
   
   <select id="getProjectAssignamentByPraId" parameterClass="java.lang.Long" resultMap="select-projectAssignament-obj">
@@ -1178,6 +1183,7 @@
      left outer join states s on pa.states_sta_id = s.sta_id) 
      where  pa.projects_pro_id= #value#
      order by pa.employees_emp_id,pa.pra_assign_date
+
  </select>
  
   <select id="projectAssDet.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > 
@@ -1299,7 +1305,9 @@
       <result property="padId" column="PAD_ID" />
       <result property="pranslatorsLanguaguesTO.tlaId" column="TRANSLATORS_LANGUAGUES_TLA_ID" />   
       <result property="pranslatorsLanguaguesTO.langAcronymsTO.languaguesTO.lanName" column="LEN1" />  
-      <result property="pranslatorsLanguaguesTO.langAcronymsTO1.languaguesTO.lanName" column="LEN2" />  
+      <result property="pranslatorsLanguaguesTO.langAcronymsTO.languaguesTO.lanShortName" column="LSHNAME1" />   
+      <result property="pranslatorsLanguaguesTO.langAcronymsTO1.languaguesTO.lanName" column="LEN2" />    
+      <result property="pranslatorsLanguaguesTO.langAcronymsTO1.languaguesTO.lanShortName" column="LSHNAME2" />         
       <result property="pranslatorsLanguaguesTO.langAcronymsTO1.laaAcronym" column="ACRO2" />  
       <result property="pranslatorsLanguaguesTO.langAcronymsTO.laaAcronym" column="ACRO1" />  
       <result property="projectAssignmentsTO.praId"   column="PROJECT_ASSIGNMENTS_PRA_ID" />
@@ -1314,7 +1322,7 @@
   </resultMap>
   
   <select id="getProjectAssigmentDetailsByPadMap" parameterClass="java.lang.Long" resultClass="java.util.HashMap">
-     select pad.* , l1.lan_name  len1 , l2.lan_name  len2, o.odo_name docName , tl.languagues_acronyms_laa_acrony acro1  ,  tl.languagues_acronyms_laa_acron1 acro2,  r.rat_name, cu.cur_name , cu.cur_symbol, cu.cur_id , o.doc_types_dot_id
+     select pad.* , l1.lan_name  len1 ,l1.lan_short_name LSHNAME1 , l2.lan_name  len2, l2.lan_short_name LSHNAME2, o.odo_name docName , tl.languagues_acronyms_laa_acrony acro1  ,  tl.languagues_acronyms_laa_acron1 acro2,  r.rat_name, cu.cur_name , cu.cur_symbol, cu.cur_id , o.doc_types_dot_id
      from (((((((proj_assignments_details pad left outer join employees_rates er on pad.employees_rates_employees_emp_ = er.employees_emp_id and pad.employees_rates_rates_rat_id = er.rates_rat_id) left outer join 
      rates r on  er.rates_rat_id = r.rat_id ) left outer join orders_docs o  on o.odo_id = pad.orders_docs_odo_id and pad.orders_docs_orders_ord_id = o.orders_ord_id ) left outer join
      translators_languagues tl on pad.translators_languagues_tla_id = tl.tla_id) )left outer join  languagues l1 on  tl.languagues_acronyms_languagues = l1.lan_id ) left outer join  languagues l2 on 
@@ -1504,7 +1512,7 @@
          and pd.project_assignments_employees_ = pa.employees_emp_id
          and pd.project_assignments_projects_p = pa.projects_pro_id
          and r.rat_id = pd.employees_rates_rates_rat_id
-         and pa.pra_finish_date between to_date(#mesId#,'MMyyyy') and last_day(to_date(#mesId#,'MMyyyy'))
+         and pa.pra_assign_date between to_date(#mesId#,'MMyyyy') and last_day(to_date(#mesId#,'MMyyyy'))
          and r.currency_cur_id=c.cur_id
          and pd.pad_pay_date is null
          order by pa.pra_assign_date
@@ -1560,11 +1568,11 @@
     cuc_id = #cucId#          
   </delete> 
 
-  <select id="getOrdersByCliId" parameterClass="java.lang.Long" resultClass="java.util.HashMap" >
+  <select id="getOrdersByCliId" parameterClass="java.util.Map" resultClass="java.util.HashMap" >
           select o.ord_id as ordId,
                o.ord_name as ordName,
                o.ord_description as ordDescription,
-               o.ord_date as ordDate,
+               o.ord_start_date as ordStartDate,
                o.ord_proj_id as ordProjId,
                o.ord_wo_number as ordWoNumber,
                o.ord_job_id as ordJobId,
@@ -1577,17 +1585,19 @@
                r.orr_value as orrValue,
                r.orr_wcount as orrWcount,
                cr.cre_first_name||' '||cr.cre_last_name as creName,
-               e.rty_alernative_name as rateTypeName,
+               p.rty_alternative_name as rateTypeName,
                (r.orr_value * r.orr_wcount) as ordTotal
-        from orders o, orders_rates r, client_responsable cr, order_services os, rates t, currency y, rate_types e
+        from orders o, orders_rates r, client_responsable cr, rates t, currency y, order_services os, rate_types p
         where o.ord_id = r.orders_ord_id
         and o.client_responsable_cre_id=cr.cre_id
         and o.ord_id = os.orders_ord_id
         and o.clients_cli_id = #cliId#
         and r.rates_rat_id = t.rat_id
         and t.currency_cur_id = y.cur_id
-        and os.rate_types_rty_name = e.rty_name
+        and os.rate_types_rty_name = t.rat_type
+        and os.rate_types_rty_name=p.rty_name
         and r.orr_pay_date is null
+        and o.ord_start_date between to_date(#mesId#,'MMyyyy') and last_day(to_date(#mesId#,'MMyyyy'))
   </select>
 
   <select id="invoice.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > 
@@ -1663,6 +1673,104 @@
               where sta_type = #value#
   </select>
   
+  <select id="getOrdersByCliIdInvId" parameterClass="java.util.Map" resultClass="java.util.HashMap" >
+            select o.ord_id as ordId,
+               o.ord_name as ordName,
+               o.ord_description as ordDescription,
+               o.ord_start_date as ordStartDate,
+               o.ord_proj_id as ordProjId,
+               o.ord_wo_number as ordWoNumber,
+               o.ord_job_id as ordJobId,
+               o.ord_job_name as ordJobName,
+               o.ord_job_description as ordJobDescription,
+               t.rat_id as ratId,
+               t.rat_name as ratName,
+               y.cur_id as curId,
+               y.cur_symbol as curSymbol,
+               r.orr_value as orrValue,
+               r.orr_wcount as orrWcount,
+               cr.cre_first_name||' '||cr.cre_last_name as creName,
+               e.rty_alternative_name as rateTypeName,
+               (r.orr_value * r.orr_wcount) as ordTotal,
+               s.itm_name as itmName
+        from orders o, orders_rates r, client_responsable cr, order_services os, rates t, currency y, rate_types e, items_invoices i, items s
+        where o.ord_id = r.orders_ord_id
+        and o.client_responsable_cre_id = cr.cre_id
+        and o.ord_id = os.orders_ord_id
+        and o.clients_cli_id = #cliId#
+        and r.rates_rat_id = t.rat_id
+        and t.currency_cur_id = y.cur_id
+        and os.rate_types_rty_name = e.rty_name
+        and i.orders_rates_orders_ord_id = r.orders_ord_id
+        and i.orders_rates_rates_rat_id = r.rates_rat_id
+        and i.items_itm_id = s.itm_id        
+        and i.invoices_inv_id = #invoiceId#
+  </select>
   
+  <update id="updateInvoice" parameterClass="java.lang.Long" >
+    update invoices
+    set inv_invoiced='si'
+    where inv_id=#invId#
+  </update>
   
+  <select id="getClientName" parameterClass="java.lang.Long" resultClass="java.lang.String">
+    select cli_name as cliName
+    from clients
+    where cli_id=#cliId#
+  </select>
+  
+  <select id="getItemsInvoiceByInvId" parameterClass="java.lang.Long" resultClass="java.util.HashMap" >
+    select o.ord_name as ordName,
+           o.ord_proj_id as projId,
+           o.ord_wo_number as woNumber,
+           o.ord_job_id as jobId,
+           o.ord_job_name as jobName,
+           o.ord_start_date as ordStartDate,
+           o.ord_job_description as jobDesc,
+           i.itm_name as itmName,
+           r.rat_name as ratName,
+           l.orr_wcount as orrWcount,
+           c.cur_symbol||' '|| l.orr_value as orrValue,
+           (l.orr_wcount*l.orr_value) as itemTotal,
+           p.cre_first_name||' '||p.cre_last_name as cliResp
+    from invoices u, items_invoices t, items i, orders o, rates r, currency c, client_responsable p, orders_rates l
+    where t.invoices_inv_id = #invId#
+    and t.items_itm_id=i.itm_id
+    and t.orders_rates_orders_ord_id=o.ord_id
+    and t.orders_rates_rates_rat_id=r.rat_id
+    and t.currency_cur_id=c.cur_id
+    and t.invoices_inv_id=u.inv_id
+    and o.client_responsable_cre_id=p.cre_id
+    and l.orders_ord_id=o.ord_id
+    and l.rates_rat_id=r.rat_id
+    </select>
+    
+    <resultMap id="select-client-responsables" class="com.twoways.to.ClientResponsableTO" >
+      <result property="creId" column="cre_Id" />  
+      <result property="creFirstName" column="cre_First_Name" />
+      <result property="creLastName" column="cre_Last_Name" />
+      <result property="clientsTO.cliId" column="clients_cli_id" />
+
+    </resultMap>
+  
+    <select id="obtenerClientResponsables" resultMap="select-client-responsables">
+        select * 
+        from client_responsable
+        where cre_erase_date is null
+    </select>
+    
+    <select id="existeTraductor" parameterClass="com.twoways.to.TranslatorsTO" resultClass="java.lang.Long">
+        select tra_id
+        from translators
+        where employees_emp_id=#employeesTO.empId#
+    </select>
+    
+    
+    <select id="getEditorByDocId" parameterClass="java.util.Map" resultMap="select-Employee">
+        select e.*
+        from employees e,proj_assignments_details t
+        where t.project_assignments_pra_id != #praId#
+        and t.orders_docs_odo_id = #docId#
+        and e.emp_id=t.employees_rates_employees_emp_
+    </select>
 </sqlMap> 

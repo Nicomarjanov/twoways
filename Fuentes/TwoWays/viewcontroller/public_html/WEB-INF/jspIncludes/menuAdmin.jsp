@@ -1,15 +1,15 @@
 <%@ page contentType="text/html;charset=windows-1252"%>
-<li><a href="#" >ABMs</a>
+<li><a href="#" >Administración</a>
     <ul> <!--Ahora un submenu nivel 1 para Blogger con un par de opciones --> 
-        <li><a href="usuarios">ABM de Usuarios</a></li>        
-        <li><a href="clientes">ABM de Clientes</a></li> 
-        <li><a href="empleados">ABM de Empleados</a></li>        
-        <li><a href="tarifas">ABM de Tarifas</a></li>
-        <li><a href="#" >ABM Contables</a>
+        <li><a href="usuarios">De usuarios</a></li>        
+        <li><a href="clientes">De clientes</a></li> 
+        <li><a href="empleados">De empleados</a></li>        
+        <li><a href="#" >Contables</a>
             <ul>
-                <li><a href="items">ABM de items</a></li> 
-                <li><a href="cuentas">ABM de cuentas</a></li>
-                <li><a href="cotizaciones">ABM de cotizaciones</a></li>                
+                <li><a href="items">De items</a></li> 
+                <li><a href="tarifas">De tarifas</a></li>
+                <li><a href="cuentas">De cuentas</a></li>
+                <li><a href="cotizaciones">De cotizaciones</a></li>                
             </ul>
         </li>
     </ul>
@@ -23,19 +23,22 @@
               
           </ul>
     </li>
-    <li><a href="gestionarproyecto">Gestionar Proyecto</a></li>
+    <li><a href="gestionarProyecto">Gestionar proyecto</a></li>
  </ul>
 </li> 
 <li><a href="#" >Contables</a> 
     <ul>
-        <li><a href="gastos">Ingresar gastos</a></li> 
+        <li><a href="gastos">Registrar gastos</a></li> 
         <li><a href="pagos">Registrar pago empleado</a></li>   
-        <li><a href="facturacion">Facturación</a></li>         
+        <li><a href="facturacion">Facturación</a></li>      
     </ul>
 </li>
 <li><a href="#" >Listados</a> 
     <ul>
-        <li><a href="listaEmpleados">Lista empleados</a></li>      
+        <li><a href="listaEmpleados">Empleados</a></li>    
+        <li><a href="listaFacturas">Cobros realizados</a></li>
+        <li><a href="ingresosxcliente">Ingresos por cliente</a></li>
+        <li><a href="balance">Ingresos/Egresos</a></li>        
     </ul>
 </li> 
  <li><a href="login?logout=true">Desconectar</a></li> 

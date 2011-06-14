@@ -54,10 +54,10 @@ public class AbmClientesServlet extends AutorizacionServlet {
            twoWaysBDL = new TwoWaysBDL();
            monedas =  twoWaysBDL.getServiceTwoWays().obtenerMonedas();
            request.setAttribute("listaMoneda",monedas);
-           
+           /*
            RateTypesTO rateType = new RateTypesTO();
-           rateType.setRtyName("Cliente");
-           tarifas =  twoWaysBDL.getServiceTwoWays().getRateByType(rateType);
+           rateType.setRtyName("Cliente");*/
+           tarifas =  twoWaysBDL.getServiceTwoWays().getRateByType();
            request.setAttribute("listaTarifa",tarifas);
            
         } catch (Exception e) {
@@ -151,7 +151,7 @@ public class AbmClientesServlet extends AutorizacionServlet {
                 request.getRequestDispatcher("cliente.jsp").forward(request,response);
             }
             request.setAttribute("script","<script>init();</script>");
-            request.setAttribute("mensaje","<script>alert('El cliente se guardo con exito')</script>");
+            request.setAttribute("mensaje","<script>alert('El cliente se guardó con éxito')</script>");
    
         }
         else if(cliId != null && cliId.length() > 0  && (accion!=null && accion.equalsIgnoreCase("eliminar")) ){

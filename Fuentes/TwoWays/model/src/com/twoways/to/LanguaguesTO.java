@@ -10,6 +10,7 @@ public class LanguaguesTO {
     private Long lanId;
     //(name="LAN_NAME")
     private String lanName;
+    private String lanShortName;
     private List<TranslatorsLanguaguesTO> translatorsLanguaguesTOList;
     private List<TranslatorsLanguaguesTO> translatorsLanguaguesTOList1;
 
@@ -55,5 +56,13 @@ public class LanguaguesTO {
 
     public List<TranslatorsLanguaguesTO> getTranslatorsLanguaguesTOList1() {
         return translatorsLanguaguesTOList1;
+    }
+
+    public void setLanShortName(String lanShortName) {
+        this.lanShortName = lanShortName;
+    }
+
+    public String getLanShortName() {
+        return lanShortName;
     }
 }

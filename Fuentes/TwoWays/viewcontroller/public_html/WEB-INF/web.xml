@@ -2,18 +2,6 @@
 <!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
 <web-app>
     <description>TwoWays Application</description>
-    <filter>
-        <filter-name>adfFaces</filter-name>
-        <filter-class>oracle.adf.view.faces.webapp.AdfFacesFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>adfFaces</filter-name>
-        <servlet-name>*.jsp</servlet-name>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>adfFaces</filter-name>
-        <url-pattern>*.jspx</url-pattern>
-    </filter-mapping>
     <servlet>
         <servlet-name>Log4jSetupServlet</servlet-name>
         <servlet-class>com.twoways.util.Log4jSetupServlet</servlet-class>
@@ -121,8 +109,16 @@
         <servlet-class>com.twoways.view.servlets.ListaCobrosServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>resources</servlet-name>
-        <servlet-class>oracle.adf.view.faces.webapp.ResourceServlet</servlet-class>
+        <servlet-name>ListaItemsFacturaServlet</servlet-name>
+        <servlet-class>com.twoways.view.servlets.ListaItemsFacturaServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>IngresosxClienteServlet</servlet-name>
+        <servlet-class>com.twoways.view.servlets.IngresosxClienteServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BalanceServlet</servlet-name>
+        <servlet-class>com.twoways.view.servlets.BalanceServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -167,7 +163,7 @@
     </servlet-mapping>
      <servlet-mapping>
         <servlet-name>GestionarProyectoServlet</servlet-name>
-        <url-pattern>/gestionarproyecto</url-pattern>
+        <url-pattern>/gestionarProyecto</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProyectoServlet</servlet-name>
@@ -206,8 +202,16 @@
         <url-pattern>/listaFacturas</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>resources</servlet-name>
-        <url-pattern>/adf/*</url-pattern>
+        <servlet-name>ListaItemsFacturaServlet</servlet-name>
+        <url-pattern>/listaItemsFactura</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>IngresosxClienteServlet</servlet-name>
+        <url-pattern>/ingresosxcliente</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BalanceServlet</servlet-name>
+        <url-pattern>/balance</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>-1</session-timeout>

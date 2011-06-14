@@ -1,6 +1,15 @@
 var mensajeCampoAlert;
 rowId=0;
 
+function keyTarifa(e) {
+        var keycode;
+        if (window.event) keycode = window.event.keyCode;
+        else if (e) keycode = e.which;
+        if( keycode == 13){
+           agregarTarifa();
+        }    
+}     
+
 function cancelar()
 {
     if(confirm('¿Desea cancelar la carga del item de gasto?'))
