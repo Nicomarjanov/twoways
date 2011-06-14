@@ -48,4 +48,6 @@ public interface ProjectDAO {
     public void updateProjectAssigmentFromDetails(ProjectAssignmentsTO projectAssignmentsTO) throws Exception ;
     
     public List getProjectAssignmentsByEmpId(Long empId, String mesId, String anio) throws Exception;  
+    
+    public List <ProjectsTO> findProjects(Map projParameters);
 }

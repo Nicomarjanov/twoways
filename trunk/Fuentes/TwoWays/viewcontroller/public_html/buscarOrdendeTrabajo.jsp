@@ -58,7 +58,7 @@
    <table ><tr><td>
    <table  width="200px"  cellpadding="0" cellspacing="0">
    <thead >
-   <tr ><td colspan="100%" style="font-size:1.1em;padding-top:5px;padding-bottom:4px;background-color:#80211D;color:#ffffff;" >Filtros de Busqueda</td><td style="font-size:1.1em;padding-top:5px;padding-bottom:4px;background-color:#80211D;color:#ffffff;" ><div style="background-color:Gray;width:20;height:20" onclick="document.getElementById('table-filtros').style.display='none';document.getElementById('mostrar-filtro').style.display='block'" onmouseover="this.style.cursor='hand';" >X</div></td> </tr>
+   <tr ><td colspan="100%" style="font-size:1.1em;padding-top:5px;padding-bottom:4px;background-color:#80211D;color:#ffffff;" >Filtros de búsqueda</td><td style="font-size:1.1em;padding-top:5px;padding-bottom:4px;background-color:#80211D;color:#ffffff;" ><div style="background-color:Gray;width:20;height:20" onclick="document.getElementById('table-filtros').style.display='none';document.getElementById('mostrar-filtro').style.display='block'" onmouseover="this.style.cursor='hand';" >X</div></td> </tr>
    </thead>
    <tbody>
    <tr>
@@ -83,7 +83,7 @@
                     </c:choose>
                  </c:forEach>
                </select>
-            <input type="text" class="tw_form" name="ordDate"  id="ordDate" value="<c:out value="${ordDate}" />" style="width:200"  /><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].ordDate,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png" onmouseover="this.style.cursor='hand';"></img>
+            <input type="text" class="tw_form" name="ordStartDate"  id="ordStartDate" value="<c:out value="${ordStartDate}" />" style="width:200"  /><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].ordStartDate,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png" onmouseover="this.style.cursor='hand';"></img>
         </td>
    </tr>
    <tr>
@@ -147,26 +147,39 @@
    </td><td align="left" width="100%" valign="top" >
    <table id ="tabla-busqueda" width="100%" >
     <thead>
-      <tr><th nowrap >Nombre</th><th nowrap >Fecha de Inicio</th><th  nowrap >Fecha de Entrega</th><th nowrap >Cliente</th><th nowrap>Proyecto</th><th nowrap >Editar</th><th nowrap >Ir al Proyecto</th></tr> 
+      <tr>
+        <th nowrap >Nombre</th>
+        <th nowrap >Fecha de Inicio</th>
+        <th nowrap >Fecha de Entrega</th>
+        <th nowrap >Cliente</th>
+        <th nowrap>Proyecto</th>
+        <th nowrap >Editar</th>
+        <th nowrap >Ir al Proyecto</th>
+      </tr> 
     </thead>
       <c:choose   >
       <c:when test="${not empty listaOrden}">
        <tbody>
         <c:set scope="page" var="color_row" value="${'#E8B6B5'}" />
         
-        <c:forEach items="${listaOrden}" var="order" varStatus="status" >
-       
-       
-        <tr bgcolor="<c:out value="${color_row}"/>" ><td nowrap ><c:out value="${order.ordName}" /></td><td nowrap ><fmt:formatDate value="${order.ordDate}"    pattern="dd/MM/yyyy HH:mm" /></td><td nowrap ><fmt:formatDate value="${order.ordFinishDate}"    pattern="dd/MM/yyyy HH:mm" /></td><td nowrap ><c:out value="${order.clientsTO.cliName}" /></td><td nowrap ><c:out value="${order.ordProjId}" /></td><td nowrap align="center"><img src="img/edit.png" width=15 height=15 onmouseover="this.style.cursor='hand';" onclick="editarOrden('<c:out value="${order.ordId}" />')"  alt="Editar" ></td><td align="center" nowrap ><img src="img/go.png" width=15 height=15 onmouseover="this.style.cursor='hand';" onclick="editarProyecto('<c:out value="${order.ordId}" />')" alt="Proyecto" ></td></tr> 
+        <c:forEach items="${listaOrden}" var="order" varStatus="status" >          
+            <tr bgcolor="<c:out value="${color_row}"/>" >
+                <td nowrap ><c:out value="${order.ordName}" /></td>
+                <td nowrap ><fmt:formatDate value="${order.ordStartDate}"    pattern="dd/MM/yyyy HH:mm" /></td>
+                <td nowrap ><fmt:formatDate value="${order.ordFinishDate}"    pattern="dd/MM/yyyy HH:mm" /></td>
+                <td nowrap ><c:out value="${order.clientsTO.cliName}" /></td>
+                <td nowrap ><c:out value="${order.ordProjId}" /></td>
+                <td nowrap align="center"><img src="img/edit.png" width=15 height=15 onmouseover="this.style.cursor='hand';" onclick="editarOrden('<c:out value="${order.ordId}" />')"  alt="Editar" ></td>
+                <td nowrap align="center"><img src="img/go.png" width=15 height=15 onmouseover="this.style.cursor='hand';" onclick="editarProyecto('<c:out value="${order.ordId}" />')" alt="Proyecto" ></td>
+            </tr> 
          <c:choose>
-        <c:when test="${status.index % 2 == 0}">  
-          <c:set scope="page" var="color_row" value="${'#FCEEED'}" />
-        </c:when>
-        <c:otherwise>
-          <c:set scope="page" var="color_row" value="${'#E8B6B5'}" /> 
-        </c:otherwise>
-        </c:choose>
-        
+            <c:when test="${status.index % 2 == 0}">  
+              <c:set scope="page" var="color_row" value="${'#FCEEED'}" />
+            </c:when>
+            <c:otherwise>
+              <c:set scope="page" var="color_row" value="${'#E8B6B5'}" /> 
+            </c:otherwise>
+         </c:choose>        
        </c:forEach>
        <tr bgcolor="<c:out value="${color_row}"/>" >
           <td colspan="7" align="center" >

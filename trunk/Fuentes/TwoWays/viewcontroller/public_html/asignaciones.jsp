@@ -44,13 +44,17 @@
   </c:otherwise>
   </c:choose>
   <table align="center">
-  <tr><td>Fecha de Asignacion</td><td colspan=3 nowrap ><input type="text" <c:out value="${readOnly}" />  name="proStartDate" id="proStartDate"   value="<fmt:formatDate value="${projectAssignmentsTO.praAssignDate}"    pattern="dd/MM/yyyy HH:mm" />" /><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].proStartDate,'selDesde','dd/MM/yyyy'); return existeDisponbilidad();" NAME="selDesde" ID="selDesde"  height="20" width="20"   alt="seleccion" <c:out value="${readOnly}" /> src="img/cal.png"></img>
+  <tr>
+    <td>Fecha de Asignacion</td>
+    <td colspan=3 nowrap ><input type="text" <c:out value="${readOnly}" />  name="proAssignStartDate" id="proAssignStartDate"   value="<fmt:formatDate value="${projectAssignmentsTO.praAssignDate}"    pattern="dd/MM/yyyy HH:mm" />" /><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].proAssignStartDate,'selDesde','dd/MM/yyyy'); return existeDisponbilidad();" NAME="selDesde" ID="selDesde"  height="20" width="20"   alt="seleccion" <c:out value="${readOnly}" /> src="img/cal.png"></img>
   </td></tr> 
-  <tr><td>Fecha de Fin de Asignacion</td><td colspan=3 nowrap ><input  type="text" class="tw_form" name="proFinishDate" id="proFinishDate"  value="<fmt:formatDate value="${projectAssignmentsTO.praFinishDate}"    pattern="dd/MM/yyyy HH:mm" />" /><div id="divHasta" style="background:#FFFFFF;position:absolute"  ></div> <img onclick="cal1Hasta.select(document.forms[0].proFinishDate,'selHasta','dd/MM/yyyy'); return false;" NAME="selHasta" ID="selHasta"  height="20" width="20"  alt="seleccion"  src="img/cal.png"></img></td></tr> 
-  <tr><td>Servicio</td><td colspan=3 >
-  
-  
-    <select name="listaServices" id="listaServices" style="border:solid 1px #005C8D;"  <c:out value="${readOnly}" />  onchange="findEmployees()"  onfocus="javascript:this.style.background='#FFFFFF';">               
+  <tr>
+    <td>Fecha de Fin de Asignacion</td>
+    <td colspan=3 nowrap ><input  type="text" class="tw_form" name="proAssignFinishDate" id="proAssignFinishDate"  value="<fmt:formatDate value="${projectAssignmentsTO.praFinishDate}"    pattern="dd/MM/yyyy HH:mm" />" /><div id="divHasta" style="background:#FFFFFF;position:absolute"  ></div> <img onclick="cal1Hasta.select(document.forms[0].proAssignFinishDate,'selHasta','dd/MM/yyyy'); return false;" NAME="selHasta" ID="selHasta"  height="20" width="20"  alt="seleccion"  src="img/cal.png"></img></td></tr> 
+  <tr>
+    <td>Servicio</td>
+    <td colspan=3 >
+      <select name="listaServices" id="listaServices" style="border:solid 1px #005C8D;"  <c:out value="${readOnly}" />  onchange="findEmployees()"  onfocus="javascript:this.style.background='#FFFFFF';">               
                 <option value=""  >Seleccionar</option>
                 <c:forEach items="${listaServices}" var="item">
                    <c:out value="${item.rtyName}" />
@@ -68,27 +72,29 @@
                     </c:choose>
                 </c:forEach>
            </select>
-  </td></tr> 
-  <tr><td>Empleado</td><td>
-  
-    <select name="listaEmployees" id="listaEmployees" <c:out value="${readOnly}" /> style="border:solid 1px #005C8D;"  onchange="changeEmployees()" onfocus="javascript:this.style.background='#FFFFFF';">               
-                <option value=""  >Seleccionar</option>
-                <c:forEach items="${listaEmployees}" var="item">
-                   <c:out value="${item.empId}" />
-                   <c:choose>
-                    <c:when test="${projectAssignmentsTO.employeesTO.empId == item.empId}">
-                       <option value="<c:out value="${item.empId}" />"  selected="selected">
-                        <c:out value="${item.empFirstName}" /> <c:out value="${item.empLastName}" />
-                      </option> 
-                    </c:when>
-                    <c:otherwise>
-                    <option value="<c:out value="${item.empId}" />" >
-                        <c:out value="${item.empFirstName}" /> <c:out value="${item.empLastName}" />
-                    </option>
-                    </c:otherwise>
-                    </c:choose>
-                </c:forEach>
-           </select>
+     </td>
+  </tr> 
+  <tr>
+    <td>Empleado</td>
+    <td>
+        <select name="listaEmployees" id="listaEmployees" <c:out value="${readOnly}" /> style="border:solid 1px #005C8D;"  onchange="changeEmployees()" onfocus="javascript:this.style.background='#FFFFFF';">               
+            <option value=""  >Seleccionar</option>
+            <c:forEach items="${listaEmployees}" var="item">
+               <c:out value="${item.empId}" />
+               <c:choose>
+                <c:when test="${projectAssignmentsTO.employeesTO.empId == item.empId}">
+                   <option value="<c:out value="${item.empId}" />"  selected="selected">
+                    <c:out value="${item.empFirstName}" /> <c:out value="${item.empLastName}" />
+                  </option> 
+                </c:when>
+                <c:otherwise>
+                <option value="<c:out value="${item.empId}" />" >
+                    <c:out value="${item.empFirstName}" /> <c:out value="${item.empLastName}" />
+                </option>
+                </c:otherwise>
+                </c:choose>
+            </c:forEach>
+        </select>
   </td>
   <td  align="right" colspan="2">
    
@@ -107,7 +113,7 @@
   <tr><td colspan="100%" >
   <table align="center" width="50%">
    <tr>
-       <th colspan=3 align="center" style="font-size:10px;"><b>Seleccione los Documentos</b></th>
+       <th colspan=3 align="center" style="font-size:12px;"><b>Seleccione los Documentos</b></th>
    </tr>
    <tr>
     <td valign="top"  rowspan=3 align="right" >

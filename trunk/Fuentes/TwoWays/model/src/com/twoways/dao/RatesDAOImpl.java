@@ -22,11 +22,11 @@ public class RatesDAOImpl extends AbstractDAO  implements RateDAO {
         return ret;
     }
     
-    public List getRatesByType(RateTypesTO rateTypesTO) throws Exception {
+    public List getRatesByType() throws Exception {
         List ret= null;
         try {
             ret = 
-            getSqlMapClientTemplate().queryForList("getRatesByType",rateTypesTO);
+            getSqlMapClientTemplate().queryForList("getRatesByType","");
         } catch (DataAccessException dae) {
 
            dae.printStackTrace();

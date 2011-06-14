@@ -1,4 +1,3 @@
-
 function buscarEmpleados(){
     
   document.getElementById('accion').value='buscar';  

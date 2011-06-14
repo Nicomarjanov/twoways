@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 
 import com.twoways.core.bdl.TwoWaysBDL;
 import com.twoways.to.AccountsTO;
+import com.twoways.to.ClientResponsableTO;
 import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.CotizationsTO;
 import com.twoways.to.EmployeesRatesTO;
@@ -347,7 +348,10 @@ public class ServiceTW_System {
             
             e.printStackTrace();
             log.error(e, e);
-            return e.getMessage();
+            if (e.getMessage().contains("ORA-02292")){
+                return "Existe un pago realizado por éste proyecto. El registro no se puede eliminar.";
+            }else
+                return e.getMessage();
         }
     }
     
@@ -439,5 +443,17 @@ public class ServiceTW_System {
         log.error(e, e);
     }
     return null;
+    }
+    
+    public List<ClientResponsableTO> getClientResponsableByCliId(Long cliId) {
+        try {
+            ClientsTO clienteTO = new ClientsTO();
+            clienteTO.setCliId(cliId);
+            return twoWaysBDL.getServiceTwoWays().getClientResponsableByCliId(clienteTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error(e, e);
+        }
+        return null;
     }
 }

@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -441,4 +442,20 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
         }
     return results;
     }
+    
+    public List<EmployeesTO> getEditorByDocId(Long praId,Long docId) throws Exception{
+    
+        Map params = new HashMap();
+        List<EmployeesTO> ret = null;
+        try {
+            params.put("praId", praId);
+            params.put("docId",docId);
+            ret = (List<EmployeesTO>) getSqlMapClientTemplate().queryForList("getEditorByDocId",params);
+            } catch (DataAccessException dae) {
+
+           dae.printStackTrace();
+        }
+        return ret;
+    }
+    
 }

@@ -64,7 +64,7 @@ public class ServiceMail {
     public static void main(String[] args) throws Exception {
 
         Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
-        String [] sender={"lucianonicolasfernandez@gmail.com"};  
+        String [] sender={"nicomarjanov@gmail.com"};  
         new ServiceMail().sendSSLMessage(sender, "subject", "juj",
                                          "projects@twoways.net");
         System.out.println("Sucessfully Sent mail to All Users");
@@ -109,7 +109,7 @@ public class ServiceMail {
 
         // Setting the Subject and Content Type
         msg.setSubject(subject);
-        msg.setContent(message, "text/plain");
+        msg.setContent(message, "text/html");
         Transport.send(msg);
     }
 
@@ -117,7 +117,6 @@ public class ServiceMail {
     public void sendAttach(String toMail, List<OrdersDocsTO> ordDocList, 
                     String subject, String otrosDestinatarios, String message)  throws Exception {
         try {
-
 
             setproxy();
 
@@ -141,22 +140,30 @@ public class ServiceMail {
             Session session = Session.getDefaultInstance(props, auth);
             MimeMessage msg = new MimeMessage(session);
             msg.setFrom(new InternetAddress(userMailSender));
-            String otros[] = otrosDestinatarios.split(",");
-            Address[] cc = new  InternetAddress[otros.length+1];
-            cc[0]=new  InternetAddress(userMailSender);
-            int i=1;
-            for(String dir : otros){
-                cc[i++]=new  InternetAddress(dir);
+            Address[] cc = null;
+            if (otrosDestinatarios != null && !otrosDestinatarios.equalsIgnoreCase("")){
+                String otros[] = otrosDestinatarios.split(",");
+                cc = new InternetAddress[otros.length];
+                int i=0;
+                for(String dir : otros){
+                    if (!dir.equalsIgnoreCase(""))
+                        cc[i++]=new  InternetAddress(dir);
+                }
             }
             
-           
             msg.setSubject(subject);
             msg.setRecipient(Message.RecipientType.TO, 
                              new InternetAddress(toMail));
-            msg.setRecipients(Message.RecipientType.CC,cc);                 
+            if (cc != null)
+                msg.setRecipients(Message.RecipientType.CC,cc);   
+                
+            //Enviar una copia en bcc a la direccion de projects@twoways.net
+            msg.setRecipients(Message.RecipientType.BCC,userMailSender);       
+            
             //add atleast simple body
             MimeBodyPart body = new MimeBodyPart();
             body.setText(message);
+            body.setContent(message,"text/html");
            
             //do attachment
             Multipart multipart = new MimeMultipart();
@@ -177,8 +184,7 @@ public class ServiceMail {
                 multipart.addBodyPart(attachMent);
                 
             }
-            
-            
+                        
             for(OrdersDocsTO ordDoc : ordDocList){
                 
                 if (docs.get(ordDoc.getOdoId()) == null){
@@ -198,8 +204,7 @@ public class ServiceMail {
                 
                 }
                 
-            }
-           
+            }           
            
             System.out.println("multipart2");
             msg.setContent(multipart);

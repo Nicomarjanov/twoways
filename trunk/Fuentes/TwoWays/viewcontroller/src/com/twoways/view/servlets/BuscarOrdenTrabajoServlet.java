@@ -93,15 +93,15 @@ public class BuscarOrdenTrabajoServlet extends AutorizacionServlet {
                    e.printStackTrace();
                 }
             }
-       System.out.println(request.getParameter("ordDate").length());     
-            if(request.getParameter("ordDate") !=null &&( request.getParameter("ordDate").length() == 10 || request.getParameter("ordDate").length() == 16)){ 
+       //System.out.println(request.getParameter("ordStDate").length());     
+            if(request.getParameter("ordStartDate") !=null &&( request.getParameter("ordStartDate").length() == 10 || request.getParameter("ordStartDate").length() == 16)){ 
                  try {
-                     date = (request.getParameter("ordDate").length() ==10 )?sdfsh.parse(request.getParameter("ordDate")):sdfch.parse(request.getParameter("ordDate"));
+                     date = (request.getParameter("ordStartDate").length() ==10 )?sdfsh.parse(request.getParameter("ordStartDate")):sdfch.parse(request.getParameter("ordStartDate"));
                      java.sql.Timestamp timest = new java.sql.Timestamp(date.getTime()); 
                      orderTO.setOrdDate(timest);
-                     params.put("ordDate",request.getParameter("ordDate"));
+                     params.put("ordStartDate",request.getParameter("ordStartDate"));
                      params.put("ordDateOpt",request.getParameter("ordDateOpt"));
-                     request.setAttribute("ordDate",request.getParameter("ordDate")); 
+                     request.setAttribute("ordStartDate",request.getParameter("ordStartDate")); 
                      request.setAttribute("ordDateOpt",request.getParameter("ordDateOpt")); 
                  } catch (ParseException e) {
                      e.printStackTrace();

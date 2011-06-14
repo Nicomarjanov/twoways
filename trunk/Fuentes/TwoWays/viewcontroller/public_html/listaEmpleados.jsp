@@ -12,6 +12,17 @@
     <script type='text/javascript' src='/twoways/dwr/interface/towaysDWR.js'></script>
     <script type='text/javascript' src='/twoways/dwr/engine.js'></script>    
     <script type='text/javascript' src='/twoways/dwr/util.js'></script>
+    <script>
+        document.onkeydown = checkKeycode
+        function keyTarifa(e) {
+            var keycode;
+            if (window.event) keycode = window.event.keyCode;
+            else if (e) keycode = e.which;
+            if( keycode == 13){
+               buscarEmpleados();
+            }    
+        }
+    </script>
     <title>Lista de Empleados</title>
   </head>
   <body>
@@ -23,7 +34,7 @@
     <table width="100%">
       <thead>
       <tr>
-        <th class="tw_form" colspan="100%" >Ingrese los criterios de busqueda para los empleados </th>
+        <th class="tw_form" colspan="100%" >Ingrese los criterios de búsqueda para los empleados </th>
       </tr>
       </thead>
       <tbody>
@@ -37,37 +48,97 @@
        <table ><tr><td>
        <table  width="200px"  cellpadding="0" cellspacing="0">
        <thead >
-       <tr ><td colspan="100%" style="font-size:1.1em;padding-top:5px;padding-bottom:4px;background-color:#80211D;color:#ffffff;" >Filtros de Busqueda</td><td style="font-size:1.1em;padding-top:5px;padding-bottom:4px;background-color:#80211D;color:#ffffff;" ><div style="background-color:Gray;width:20;height:20" onclick="document.getElementById('table-filtros').style.display='none';document.getElementById('mostrar-filtro').style.display='block'" onmouseover="this.style.cursor='hand';" >X</div></td> </tr>
+       <tr ><td colspan="100%" style="font-size:1.1em;padding-top:5px;padding-bottom:4px;background-color:#80211D;color:#ffffff;" >Filtros de búsqueda</td><td style="font-size:1.1em;padding-top:5px;padding-bottom:4px;background-color:#80211D;color:#ffffff;" ><div style="background-color:Gray;width:20;height:20" onclick="document.getElementById('table-filtros').style.display='none';document.getElementById('mostrar-filtro').style.display='block'" onmouseover="this.style.cursor='hand';" >X</div></td> </tr>
        </thead>
        <tbody>
        <tr>
-        <td nowrap>Nombre</td><td colspan="2" ><input type="text" class="tw_form" name="empFirstName"  id="empFirstName" style="width:100%"  /></td>
+        <td nowrap>Nombre</td><td colspan="2" ><input type="text" class="tw_form" name="empFirstName"  id="empFirstName" style="width:100%"  value="<c:out value="${empFirstName}"/>"/></td>
        </tr>
        <tr>
-        <td nowrap>Apellido</td><td colspan="2" ><input type="text" class="tw_form" name="empLastName"  id="empLastName" style="width:100%"  /></td>
+        <td nowrap>Apellido</td><td colspan="2" ><input type="text" class="tw_form" name="empLastName"  id="empLastName" style="width:100%" value="<c:out value="${empLastName}"/>" /></td>
        </tr>   
        <tr>
         <td >Especialidades</td> 
             <td colspan="2" nowrap>
                <table style="border-left-style:solid; border-left-width:1px; font-size:9px;">
                     <tr>
-                        <td>Traductor</td><td><input type="checkbox" name="Traductor" value="Traductor"></input></td>
-                        <td>Editor</td><td><input type="checkbox" name="Editor" value="Editor"></input></td>
+                        <td>Traductor</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${not empty Traductor}">
+                                    <input type="checkbox" name="Traductor" value="Traductor" checked></input>
+                                </c:when>
+                                <c:otherwise>
+                                    <input type="checkbox" name="Traductor" value="Traductor"></input>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td>Editor</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${not empty Editor}">
+                                    <input type="checkbox" name="Editor" value="Editor" checked></input>
+                                </c:when>
+                                <c:otherwise>
+                                    <input type="checkbox" name="Editor" value="Editor"></input>
+                                </c:otherwise>
+                            </c:choose>                        
+                        </td>
                     </tr>
                     <tr>
-                        <td>Revisor Final</td><td><input type="checkbox" name="Revisor" value="Revisor"></input></td>
-                        <td>Maquetador</td><td><input type="checkbox" name="Maquetador" value="Maquetador"></input></td>
+                        <td>Revisor Final</td>
+                        <td>
+                             <c:choose>
+                                <c:when test="${not empty Revisor}">
+                                    <input type="checkbox" name="Revisor" value="Revisor" checked></input>
+                                </c:when>
+                                <c:otherwise>
+                                    <input type="checkbox" name="Revisor" value="Revisor"></input>
+                                </c:otherwise>
+                            </c:choose>                                     
+                        </td>
+                        <td>Maquetador</td>
+                        <td>
+                             <c:choose>
+                                <c:when test="${not empty Maquetador}">
+                                     <input type="checkbox" name="Maquetador" value="Maquetador" checked></input>
+                                </c:when>
+                                <c:otherwise>
+                                    <input type="checkbox" name="Maquetador" value="Maquetador"></input>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
                     </tr>
                     <tr>
-                        <td>PDTP</td><td><input type="checkbox" name="PDTP" value="PDTP"></input></td>
-                        <td>Proofer</td><td><input type="checkbox" name="Proofer" value="Proofer"></input></td>
+                        <td>PDTP</td>
+                        <td>
+                             <c:choose>
+                                <c:when test="${not empty PDTP}">
+                                    <input type="checkbox" name="PDTP" value="PDTP" checked></input>
+                                </c:when>
+                                <c:otherwise>
+                                    <input type="checkbox" name="PDTP" value="PDTP" ></input>                                
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td>Proofer</td>
+                        <td>
+                           <c:choose>
+                                <c:when test="${not empty Proofer}">
+                                    <input type="checkbox" name="Proofer" value="Proofer" checked></input>
+                                </c:when>
+                                <c:otherwise>
+                                    <input type="checkbox" name="Proofer" value="Proofer"></input>
+                                </c:otherwise>
+                            </c:choose>                        
+                        </td>
                     </tr>
                </table>    
             </td>
        </tr>
        <tr>
        <td nowrap >Proyecto</td>
-       <td colspan="2" ><input type="text" class="tw_form" name="ProName"  id="ProName" style="width:100%"  /></td> 
+       <td colspan="2" ><input type="text" class="tw_form" name="ProName"  id="ProName" style="width:100%" value="<c:out value="${proName}"/>" /></td> 
        </tr>
        <tr  >
        <td colspan="100%"  valign="top" align="right" ><input type="button" value="Buscar" onclick="buscarEmpleados()"  /></td>

@@ -137,7 +137,7 @@ function postEliminar(data){
   
    var tablaClientes= document.getElementById('tabla-busqueda'); 
    if(data){
-      alert('El cliente se elimino con exito ');
+      alert('El cliente se eliminó con éxito ');
       borrarFilas(tablaClientes);
    }else{
       alert('El cliente no se pudo eliminar ');

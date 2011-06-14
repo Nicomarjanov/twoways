@@ -79,8 +79,8 @@
   <table align="center" width="25%">
   <tr>
   <td align="right"><input type="button" id="aceptar" value="Aceptar" onclick="agregar()"/></td>   
-  <td align="center"><input type="button" id="eliminar" value="Eliminar" OnClick="eliminarTarifa('<c:out value="${tarifa.ratId}" />')"/></td>   
-  <td align="left"><input type="button" id="cancel" value="Limpiar" OnClick="cancelar()"/></td>    
+  <td align="left"><input type="button" id="cancel" value="Limpiar" OnClick="cancelar()"/></td>     
+  <td align="center"><input type="button" id="eliminar" value="Eliminar" OnClick="eliminarTarifa('<c:out value="${tarifa.ratId}" />')"/></td>    
   </tr>
   </table>
   

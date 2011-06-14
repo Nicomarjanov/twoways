@@ -41,9 +41,9 @@
                 <input type="text" class="tw_form" id="expFecha" name="expFecha"   value="<c:out  value="${gastos.expFecha}"/>" size="10" maxlength="10" onfocus="javascript:this.style.background='#FFFFFF';"></input><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].expFecha,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png" onmouseover="this.style.cursor='hand';"></img>
             </c:otherwise>
         </c:choose>
-          <!--<div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> 
-          <img  onclick="callDesde.select(document.forms[0].expFecha,'selGasto','dd/MM/yyyy'); return false;" NAME="selGasto" ID="selGasto"  height="20" width="20" alt="seleccion" src="img/cal.png"></img>
-   --> </td>
+          <div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> 
+          <img  onclick="cal1Desde.select(document.forms[0].expFecha,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png" onmouseover="this.style.cursor='hand';"></img>
+    </td>
    <!-- <td nowrap width="25%" align="right" style ="background-color:#80211D;color:#ffffff;align:left">Nombre del empleado:</td>
     <td width="25%" align="left" style ="background-color:#80211D;color:#ffffff;align:left">
         <select name="nombreEmp" id="nombreEmp" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">            

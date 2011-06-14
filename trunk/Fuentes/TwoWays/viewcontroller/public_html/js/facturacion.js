@@ -23,20 +23,35 @@ function buscarOrdenes(){
     mensajeCampoAlert='';
     mensajeFaltanteAlert = 'Se tiene que completar los siguientes campos: \n';
     var cliId=document.getElementById('listaClientes').options[document.getElementById('listaClientes').selectedIndex].value;
+    var mes=document.getElementById('listaMes').options[document.getElementById('listaMes').selectedIndex].value;
+    var anio=document.getElementById('listaAnio').options[document.getElementById('listaAnio').selectedIndex].value;    
 
    if(cliId == ""){
         document.getElementById("listaClientes").style.background='red';
         mensajeFaltanteAlert+=' * Seleccionar un cliente de la lista \n';    
         banderaMensajeFaltante=true;
     }
+   if(mes == ""){
+        document.getElementById("listaMes").style.background='red';
+        mensajeFaltanteAlert+=' * Seleccionar un mes de la lista \n';    
+        banderaMensajeFaltante=true;
+    }    
+    
+   if(anio == ""){
+        document.getElementById("listaAnio").style.background='red';
+        mensajeFaltanteAlert+=' * Seleccionar un año de la lista \n';    
+        banderaMensajeFaltante=true;
+    }  
    if (banderaMensajeFaltante){
         var mensajeCampoAlert2 = mensajeFaltanteAlert + '\n';
         alert(mensajeCampoAlert2);
-    }else{
-       document.getElementById('cliId').value =cliId;
-       document.getElementById('accion').value='buscarOrdenes';  
-       document.forms[0].submit();
-    }
+   }else{
+        document.getElementById('cliId').value =cliId;
+        document.getElementById('accion').value='buscarOrdenes';
+        document.getElementById('mesId').value=mes;
+        document.getElementById('anioId').value=anio;
+        document.forms[0].submit();
+   }
 }
 
 function cargar(){
@@ -51,7 +66,9 @@ function cargar(){
 
 function validarCampos(){
 
-    var banderaMensajeFaltante=false;
+var banderaMensajeFaltante=false;
+if (document.getElementById("invoiceId").value == null || document.getElementById("invoiceId").value == ""){
+
     mensajeCampoAlert='';
     mensajeFaltanteAlert = 'Se tiene que completar los siguientes campos: \n';
     
@@ -95,11 +112,6 @@ function validarCampos(){
         banderaMensajeFaltante=true;
     }
     
-    if(document.getElementById("item-ordenes-hidden").value == null){
-        mensajeFaltanteAlert+= ' * No exite ninguna orden a facturar para el cliente seleccionado \n';
-        banderaMensajeFaltante=true;
-    }
-    
     var ordClients =document.getElementsByName("listaItems");
     if (ordClients.length > 0){
         for(i=0; i < ordClients.length; i++){
@@ -116,7 +128,7 @@ function validarCampos(){
         
     if(banderaMensajeFaltante)
         mensajeCampoAlert=mensajeFaltanteAlert + '\n';    
-    
+}
     if (banderaMensajeFaltante)
         return true;
     else
@@ -183,7 +195,9 @@ function cambioValorTotal(valor){
 }
 
 function valorCotizacioncallBack(data){
-
+    var aux = document.getElementById("listaMoneda").value;
+    var simbolo = aux.split("#");
+    alert('La moneda ha cambiado. El nuevo Total a cobrar es: '+simbolo[1]+' '+data.toFixed(2));
     document.getElementById("invTotal").value=data.toFixed(2);
 }
 

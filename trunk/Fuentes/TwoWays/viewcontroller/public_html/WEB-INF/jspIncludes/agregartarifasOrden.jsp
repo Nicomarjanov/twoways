@@ -26,12 +26,12 @@
                    <c:choose>
                     <c:when test="${false}">
                        <option value="<c:out value="${item.ratId}" />" style="background-color:#A4BAC7;" selected="selected">
-                        <c:out value="${item.ratName}" /> <c:out value="${item.currencyTO.curSymbol}" />
+                            <c:out value="${item.rateTypesTO.rtyAlternativeName}" />-<c:out value="${item.ratName}" /> <c:out value="${item.currencyTO.curSymbol}" />
                       </option> 
                     </c:when>
                     <c:otherwise>
                     <option value="<c:out value="${item.ratId}" />" style="background-color:#A4BAC7;">
-                        <c:out value="${item.ratName}" /> <c:out value="${item.currencyTO.curSymbol}" />
+                        <c:out value="${item.rateTypesTO.rtyAlternativeName}" />-<c:out value="${item.ratName}" /> <c:out value="${item.currencyTO.curSymbol}" />
                     </option>
                     </c:otherwise>
                     </c:choose>
@@ -43,14 +43,14 @@
         <input type="text" class="tw_form" id="tar_val" size=10   />    
     </td>
    </tr>
-   <tr>
+  <!-- <tr>
     <td align="left" valign="top">
       Cantidad de Palabras   
     </td>
       <td align="left" valign="top">
         <input type="text" class="tw_form" id="tar_wordCount" size=10   />    
     </td>
-    </tr>
+    </tr>-->
     </table>
     </td>
     <td align="left" valign="top"><img  src="img/next.png" alt=">" width="20" height="20" title="Agregar Tarifa" onclick="agregarTarifaOrden()" onmouseover="this.style.cursor='hand';"/>
@@ -72,10 +72,11 @@
          <tbody style="width:100%;height:30px;overflow-x: hidden;overflow-y:auto ;">
              <c:forEach items="${requestScope.ratesTOList}" var="item">
                <tr name="item-tarifa"  bgcolor="#FFFFFF" id="tarId-<c:out value="${item.ratesTO.ratId}" />" >
-                    <td width="200" ><c:out value="${item.ratesTO.ratName}" /> <c:out value="${item.ratesTO.currencyTO.curSymbol}" /></td>
+                    <td width="200" ><c:out value="${item.ratesTO.rateTypesTO.rtyAlternativeName}" />-<c:out value="${item.ratesTO.ratName}" /> <c:out value="${item.ratesTO.currencyTO.curSymbol}" /></td>
                     <td width="60" align="right" ><c:out value="${item.clrValue}" />
-                        <input type="hidden" name="tarifas-hidden"  value="<c:out value="${item.ratesTO.ratId}" />#<c:out value="${item.clrValue}" />#<c:out value="${item.orrWcount}" />" />
-                    <td width="60" align="right" ><c:out value="${item.orrWcount}" /> <input type="hidden" name="wordCount-hidden"  value="<c:out value="${item.orrWcount}" />" /> </td></td>    
+                        <input type="hidden" name="tarifas-hidden"  value="<c:out value="${item.ratesTO.ratId}" />#<c:out value="${item.clrValue}" />#<c:out value="${item.orrWcount}" />" /></td>  
+                    <td width="60" align="right" ><input type="text" id="cantPalabras" name="cantPalabras" size="8" maxlength="8" value="<c:out value="${item.orrWcount}" />" style="font-size:10px;font-family:verdana;"/>
+                                                  <input type="hidden" name="wordCount-hidden"  value="<c:out value="${item.orrWcount}" />" /> </td>    
                     <td width="37" ><img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarTarifaOrden('tarId-<c:out value="${item.ratesTO.ratId}" />')" onmouseover="this.style.cursor='hand';" /></td>
                 </tr>           
               </c:forEach>

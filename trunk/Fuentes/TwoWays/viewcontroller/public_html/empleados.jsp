@@ -36,14 +36,14 @@
   </table>
   <table align="center" width="50%">
         <tr>
-            <th colspan=3 align="center" style="font-size:10px;">
+            <th colspan=3 align="center" style="font-size:12px;">
                 <b>Seleccione las especialidades del empleado:</b>
             </th>
         </tr>
         <tr>
-            <td style="font-size:10px;" align="right"><b>Especialidades disponibles</b></td>
+            <td style="font-size:12px;" align="right"><b>Especialidades disponibles</b></td>
             <td></td>
-            <td style="font-size:10px;"  align="left"><b>Especialidades asignadas</b></td>
+            <td style="font-size:12px;"  align="left"><b>Especialidades asignadas</b></td>
         </tr>
         <tr>
            <td rowspan=3 align="right">
@@ -92,9 +92,9 @@
   </tr>
   <tr>
     <td align="right" width="15%">Mail:</td>
-    <td align="left" width="30%"><input type="text" class="tw_form" id="empMail"  name="empMail"  value="<c:out value="${empleado.empMail}"/>" size="20" maxlength="100" onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
+    <td align="left" width="30%"><input type="text" class="tw_form" id="empMail"  name="empMail"  value="<c:out value="${empleado.empMail}"/>" size="25" maxlength="100" onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
     <td align="right" width="15%">MSN:</td>
-    <td align="left" width="15%"><input type="text" class="tw_form" id="empMsn"  name="empMsn"  value="<c:out value="${empleado.empMsn}"/>" size="20" maxlength="100" onfocus="javascript:this.style.background='#FFFFFF';"></input></td>        
+    <td align="left" width="15%"><input type="text" class="tw_form" id="empMsn"  name="empMsn"  value="<c:out value="${empleado.empMsn}"/>" size="25" maxlength="100" onfocus="javascript:this.style.background='#FFFFFF';"></input></td>        
     <td nowrap align="right" width="15%">Fecha de nacimiento:</td>
     <td align="left" width="15%"><input type="text" class="tw_form" id="empBirth" name="empBirth"   value="<fmt:formatDate value="${empleado.empBirth}" pattern="dd/MM/yyyy" />" size="10" maxlength="10"></input></td>
   </tr>
@@ -149,7 +149,6 @@
          <select name="listaTarifa" id="listaTarifa" style="display:none;">              
                 <option value="">Seleccionar</option>
                 <c:forEach items="${listaTarifa}" var="item">
-                   <c:out value="${item.ratId}" />
                    <c:choose>
                     <c:when test="${false}">
                        <option name="<c:out value="${item.rateTypesTO.rtyName}" />" value="<c:out value="${item.ratId}" />" style="background-color:#A4BAC7;" selected="selected">
@@ -171,8 +170,8 @@
                 </c:when>
                 <c:otherwise>
                     <c:forEach items="${empleado.employeesRatesTOList}" var="item">                       
-                       <option value="<c:out value="${item.ratesTO.ratName}"/>" title="<c:out value="${item.ratesTO.ratName}"/>">
-                            <c:out value="${item.ratesTO.ratName}"/>
+                       <option value="<c:out value="${item.ratesTO.ratId}"/>" title="<c:out value="${item.ratesTO.ratName}"/>">
+                            <c:out value="${item.ratesTO.ratName}"/>  <c:out value="${item.ratesTO.currencyTO.curSymbol}"/>
                         </option> 
                      </c:forEach>
                 </c:otherwise>
@@ -208,7 +207,7 @@
              <c:forEach items="${empleado.employeesRatesTOList}" var="item">
              <tr name="item-tarifa"  bgcolor="#FFFFFF" id="tarId-<c:out value="${item.ratesTO.ratId}" />" >
                     <td width="130" ><c:out value="${item.ratesTO.rateTypesTO.rtyName}" /></td>
-                    <td width="130" ><c:out value="${item.ratesTO.ratName}" /></td>
+                    <td width="130" ><c:out value="${item.ratesTO.ratName}" /> <c:out value="${item.ratesTO.currencyTO.curSymbol}"/></td>
                     <td width="40" align="right" ><c:out value="${item.emrValue}" />
                         <input type="hidden" name="tarifas-hidden"  value="<c:out value="${item.ratesTO.ratId}" />#<c:out value="${item.emrValue}" />" /></td>
                     <td width="25" ><img  src="img/Delete.png" height="18" width="18"  alt="Eliminar" onclick="eliminarTarifa('tarId-<c:out value="${item.ratesTO.ratId}" />')" onmouseover="this.style.cursor='hand';" /></td>

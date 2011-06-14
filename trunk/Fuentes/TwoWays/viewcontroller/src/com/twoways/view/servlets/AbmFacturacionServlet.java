@@ -78,7 +78,10 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
         List<ItemsTO> items = null;
         
         String cliId = request.getParameter("cliId");
+        String invoiceId = request.getParameter("invoiceId");
         String facturar = request.getParameter("facturar");
+        String mesId = request.getParameter("mesId");  
+        String anioId = request.getParameter("anioId");
            
         Calendar c = new GregorianCalendar();
         String dia;
@@ -118,8 +121,8 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
         if (accion!=null && accion.equalsIgnoreCase("buscarOrdenes") && cliId != null){
             try{
                 List ordersEmpId = null; 
-                String auxCliId[] = cliId.split("#");
-                ordersEmpId = twoWaysBDL.getServiceTwoWays().getOrdersByCliId(Long.parseLong(auxCliId[0]));
+
+                ordersEmpId = twoWaysBDL.getServiceTwoWays().getOrdersByCliId(Long.parseLong(cliId),mesId,anioId);
                 
                 if (ordersEmpId != null && ordersEmpId.size() > 0){
                     String curIdOrigen = null;
@@ -131,7 +134,7 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
                     while( iterador.hasNext() ) {
                         auxMap =(HashMap)iterador.next();
                         if (Double.parseDouble(auxMap.get("ORDTOTAL").toString()) > 0.0){    
-                            Date fechaAss = formatoDeFecha.parse(auxMap.get("ORDDATE").toString());
+                            Date fechaAss = formatoDeFecha.parse(auxMap.get("ORDSTARTDATE").toString());
                             Timestamp timestamp = new Timestamp(fechaAss.getTime());
                             String listaMoneda = request.getParameter("listaMoneda");
                             if (listaMoneda != null) {
@@ -149,10 +152,8 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
                     if (auxAmount > 0.0){
                         NumberFormat formatter = new DecimalFormat("#0.00");
                         request.setAttribute("invTotal",formatter.format(auxAmount));
-                       // request.setAttribute("curIdOrigen",curIdOrigen);
                     }
                     request.setAttribute("cliId",cliId);
-                    request.setAttribute("auxCliId",auxCliId[0]);
                     request.setAttribute("facturar",facturar);
                     
                 }else {
@@ -163,99 +164,161 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
                e.printStackTrace();
             }
         }
-        else if (accion!=null && accion.equalsIgnoreCase("guardar") && cliId != null){
+        else if (accion!=null && accion.equalsIgnoreCase("facturarOrdenes") && cliId != null && invoiceId != null){
+                try{
+                    List ordersEmpId = null; 
                     
-            InvoicesTO factura = new InvoicesTO();
-            try {              
-                if(request.getParameter("invDate")!= null && !request.getParameter("invDate").equalsIgnoreCase("") ){ 
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                    java.util.Date date = sdf.parse(request.getParameter("invDate"));
-                    java.sql.Timestamp timest = new java.sql.Timestamp(date.getTime()); 
-                    factura.setInvDate(timest);
+                    ordersEmpId = twoWaysBDL.getServiceTwoWays().getOrdersByCliIdInvId(Long.parseLong(cliId),Long.parseLong(invoiceId));
+                    
+                    if (ordersEmpId != null && ordersEmpId.size() > 0){
+                        String curIdOrigen = null;
+                        request.setAttribute("finishedOrders",ordersEmpId);
+                        Double auxAmount= 0.0;
+                        SimpleDateFormat formatoDeFecha = new SimpleDateFormat("yyyy-MM-dd");
+                        Map auxMap = new HashMap();
+                        Iterator iterador = ordersEmpId.listIterator();
+                        while( iterador.hasNext() ) {
+                            auxMap =(HashMap)iterador.next();
+                            if (Double.parseDouble(auxMap.get("ORDTOTAL").toString()) > 0.0){    
+                                Date fechaAss = formatoDeFecha.parse(auxMap.get("ORDSTARTDATE").toString());
+                                Timestamp timestamp = new Timestamp(fechaAss.getTime());
+                                String listaMoneda = request.getParameter("listaMoneda");
+                                if (listaMoneda != null) {
+                                    String atribs[]= listaMoneda.split("#");
+                                    curIdOrigen = atribs[0];
+                                    if (curIdOrigen != auxMap.get("CURID").toString()){
+                                        auxAmount += twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, Long.parseLong(auxMap.get("CURID").toString()), Long.parseLong(curIdOrigen) ,Double.parseDouble(auxMap.get("ORDTOTAL").toString()));
+                                    }else {
+                                        auxAmount += Double.parseDouble(auxMap.get("ORDTOTAL").toString());
+                                    }
+                                }
+
+                            }
+                        }
+                        if (auxAmount > 0.0){
+                            NumberFormat formatter = new DecimalFormat("#0.00");
+                            request.setAttribute("invTotal",formatter.format(auxAmount));
+                        }
+                        request.setAttribute("cliId",cliId);
+                        request.setAttribute("facturar",facturar);
+                        request.setAttribute("invoiceId",invoiceId);
+                        request.setAttribute("invoiceAcc",request.getParameter("invoiceAcc"));
+                        request.setAttribute("invoiceTotal",request.getParameter("invoiceTotal"));
+                        String fechaCompleta=request.getParameter("invoiceDate");
+                        String anioInv = fechaCompleta.substring(0,4);
+                        String mesInv = fechaCompleta.substring(5,7);
+                        String diaInv = fechaCompleta.substring(8,10);
+                        request.setAttribute("invoiceDate",diaInv+'/'+mesInv+'/'+anioInv);
+                        request.setAttribute("invoiceCur",request.getParameter("invoiceCur"));
+
+                    }else {
+                        request.setAttribute("mensaje","<script>alert('No se encontraron ordenes para ese cliente')</script>"); 
+                    }
+                    
+                } catch (Exception e) {
+                   e.printStackTrace();
                 }
-            
-            } catch (Exception e) {
-                request.setAttribute("mensaje","<script>alert('La fecha ingresada no es válida')</script>"); 
-                e.printStackTrace();
-                request.getRequestDispatcher("facturacion.jsp").forward(request,response);
-            }   
-            request.setAttribute("cliId",cliId);
-            String auxCliId[] = cliId.split("#");        
-            request.setAttribute("auxCliId",auxCliId[0]);
-            request.setAttribute("facturar",facturar);
-            
-            ClientsTO cliIdTO = new ClientsTO();
-            cliIdTO.setCliId(Long.parseLong(auxCliId[0]));
-            factura.setClientsTO(cliIdTO);
-            
-            String listaCuentas= request.getParameter("listaCuentas");
-            if( listaCuentas  != null){ 
-                    String atribs[]= listaCuentas.split("#");                    
-                    AccountsTO accIdTO = new AccountsTO();
-                    accIdTO.setAccId(Long.parseLong(atribs[0]));
-                    factura.setAccountsTO(accIdTO);
-
             }
-            
-            String listaMoneda = request.getParameter("listaMoneda");
-            if (listaMoneda != null) {
-                String atribs[]= listaMoneda.split("#");  
-                CurrencyTO curIdTO = new CurrencyTO();
-                curIdTO.setCurId(Long.parseLong(atribs[0]));
-                factura.setCurrencyTO(curIdTO);
+        else if (accion!=null && accion.equalsIgnoreCase("guardar") && cliId != null){
+             
+            InvoicesTO factura = new InvoicesTO();
+            if (invoiceId == null || invoiceId.length()==0){       
+                try {              
+                    if(request.getParameter("invDate")!= null && !request.getParameter("invDate").equalsIgnoreCase("") ){ 
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                        java.util.Date date = sdf.parse(request.getParameter("invDate"));
+                        java.sql.Timestamp timest = new java.sql.Timestamp(date.getTime()); 
+                        factura.setInvDate(timest);
+                    }
                 
-            }
-            
-            factura.setInvTotal(Double.parseDouble(request.getParameter("invTotal").replace(",",".")));
-            factura.setInvInvoiced(facturar);
-            
-            String ordClients[]=request.getParameterValues("item-ordenes-hidden");
-            List<ItemsInvoicesTO> itemsFacturaList = new ArrayList<ItemsInvoicesTO>();
-            
-            if( ordClients  != null){ 
-               Integer indice = 0;                   
-               for(String aux:ordClients){ 
-                   String auxArray[] = aux.split("#"); 
-                   OrdersTO orderTO = new OrdersTO();
-                   orderTO.setOrdId(Long.parseLong(auxArray[0]));
-                   OrdersRatesTO orderRateTO = new OrdersRatesTO();
-                   orderRateTO.setOrdersTO(orderTO);
-                   
-                   RatesTO rateTO = new RatesTO();
-                   rateTO.setRatId(Long.parseLong(auxArray[1]));
-                   orderRateTO.setRatesTO(rateTO);
-                   ItemsInvoicesTO itemFacturaTO = new ItemsInvoicesTO();
-                   
-                   itemFacturaTO.setOrdersRatesTO(orderRateTO);     
-                   
-                   CurrencyTO currencyTO = new CurrencyTO();
-                   currencyTO.setCurId(Long.parseLong(auxArray[2]));
-                   itemFacturaTO.setCurrencyTO(currencyTO);
-                   
-                   itemFacturaTO.setItiValue(Double.parseDouble(auxArray[3]));
-                   
-                   String itemLista[] = request.getParameterValues("listaItems");
-
-                   ItemsTO item = new ItemsTO();
-                   String auxItem = itemLista[indice];
-                   String itemId[] = auxItem.split("#");
-                   item.setItmId(Long.parseLong(itemId[0]));     
-                   indice +=1;
-                   itemFacturaTO.setItemsTO(item);
-                   
-                   itemsFacturaList.add(itemFacturaTO); 
-               }
-                factura.setItemsInvoicesTOList(itemsFacturaList);
+                } catch (Exception e) {
+                    request.setAttribute("mensaje","<script>alert('La fecha ingresada no es válida')</script>"); 
+                    e.printStackTrace();
+                    request.getRequestDispatcher("facturacion.jsp").forward(request,response);
+                }   
+                request.setAttribute("cliId",cliId);
+                request.setAttribute("facturar",facturar);
+                
+                ClientsTO cliIdTO = new ClientsTO();
+                cliIdTO.setCliId(Long.parseLong(cliId));
+                factura.setClientsTO(cliIdTO);
+                
+                String listaCuentas= request.getParameter("listaCuentas");
+                if( listaCuentas  != null){ 
+                        String atribs[]= listaCuentas.split("#");                    
+                        AccountsTO accIdTO = new AccountsTO();
+                        accIdTO.setAccId(Long.parseLong(atribs[0]));
+                        factura.setAccountsTO(accIdTO);    
+                }
+                
+                String listaMoneda = request.getParameter("listaMoneda");
+                if (listaMoneda != null) {
+                    String atribs[]= listaMoneda.split("#");  
+                    CurrencyTO curIdTO = new CurrencyTO();
+                    curIdTO.setCurId(Long.parseLong(atribs[0]));
+                    factura.setCurrencyTO(curIdTO);                    
+                }
+                
+                factura.setInvTotal(Double.parseDouble(request.getParameter("invTotal").replace(",",".")));
+                factura.setInvInvoiced(facturar);
+                
+                String ordClients[]=request.getParameterValues("item-ordenes-hidden");
+                List<ItemsInvoicesTO> itemsFacturaList = new ArrayList<ItemsInvoicesTO>();
+                
+                if( ordClients  != null){ 
+                   Integer indice = 0;                   
+                   for(String aux:ordClients){ 
+                       String auxArray[] = aux.split("#"); 
+                       OrdersTO orderTO = new OrdersTO();
+                       orderTO.setOrdId(Long.parseLong(auxArray[0]));
+                       OrdersRatesTO orderRateTO = new OrdersRatesTO();
+                       orderRateTO.setOrdersTO(orderTO);
+                       
+                       RatesTO rateTO = new RatesTO();
+                       rateTO.setRatId(Long.parseLong(auxArray[1]));
+                       orderRateTO.setRatesTO(rateTO);
+                       ItemsInvoicesTO itemFacturaTO = new ItemsInvoicesTO();
+                       
+                       itemFacturaTO.setOrdersRatesTO(orderRateTO);     
+                       
+                       CurrencyTO currencyTO = new CurrencyTO();
+                       currencyTO.setCurId(Long.parseLong(auxArray[2]));
+                       itemFacturaTO.setCurrencyTO(currencyTO);
+                       
+                       itemFacturaTO.setItiValue(Double.parseDouble(auxArray[3]));
+                       
+                       String itemLista[] = request.getParameterValues("listaItems");
+    
+                       ItemsTO item = new ItemsTO();
+                       String auxItem = itemLista[indice];
+                       String itemId[] = auxItem.split("#");
+                       item.setItmId(Long.parseLong(itemId[0]));     
+                       indice +=1;
+                       itemFacturaTO.setItemsTO(item);
+                       
+                       itemsFacturaList.add(itemFacturaTO); 
+                   }
+                    factura.setItemsInvoicesTOList(itemsFacturaList);
+                }
             }
 
             UsersTO userTO= (UsersTO)request.getSession().getAttribute("userSession"); 
             factura.setUsersTO(userTO);
             
-            try {       
-                    String imprimir = request.getParameter("imprimir");
-                    Long invId = twoWaysBDL.getServiceTwoWays().insertarFactura(factura); 
-                    request.setAttribute("invId",invId);
+            try {   
+                    Long invId = null;
+                    String imprimir = request.getParameter("imprimir");    
+                    if (invoiceId != null && invoiceId.length() > 0){
+                        factura.setInvId(Long.parseLong(invoiceId));
+                        twoWaysBDL.getServiceTwoWays().actualizarFactura(factura);     
+                        request.setAttribute("invId",invoiceId);
+                        invId = Long.parseLong(invoiceId);
+                    }
+                    else{
 
+                        invId = twoWaysBDL.getServiceTwoWays().insertarFactura(factura); 
+                        request.setAttribute("invId",invId);
+                    }
                     if (imprimir!=null && imprimir.equalsIgnoreCase("imprimirFactura") && cliId != null && facturar.equalsIgnoreCase("si")){
                             
                             try {
@@ -293,28 +356,35 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
            // step 2
            response.setContentType("application/pdf");
            response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
-           String cliName[]= request.getParameter("cliId").split("#");
+           String cliId= request.getParameter("cliId");
+           ClientsTO cliente = new ClientsTO();
+           TwoWaysBDL twoWaysBDL=null;
+
+           try{
+               twoWaysBDL = new TwoWaysBDL();
+               cliente = twoWaysBDL.getServiceTwoWays().getClientById(cliId);     
+               } catch (Exception e) {
+                   e.printStackTrace();
+               }            
            
            String invDate = request.getParameter("invDate");
            invDate.replace("/","");
 
-           String disposition = "attachment; filename= Invoice_" + cliName[1]+"_"+invDate+".pdf";
+           String disposition = "attachment; filename= Invoice_" + cliente.getCliName()+"_"+invDate+".pdf";
            response.setHeader("Content-disposition", disposition); 
            PdfWriter.getInstance(document, response.getOutputStream());
            // step 3
            document.open();
            // step 4
-           document.add(createTableEncabezado(request,invId));
+           document.add(createTableEncabezado(request,invId,cliente));
            document.add(createTable(request));
            // step 5
            document.close();
         }
         
-        public static PdfPTable createTableEncabezado(HttpServletRequest request, Long invId) throws IOException, DocumentException{
+        public static PdfPTable createTableEncabezado(HttpServletRequest request, Long invId,ClientsTO cliente) throws IOException, DocumentException{
           
-        String invDate = request.getParameter("invDate");
-        String cliId = request.getParameter("auxCliId");
-   
+        String invDate = request.getParameter("invDate");   
         String accId =request.getParameter("listaCuentas");
         
         PdfPTable table = new PdfPTable(4);
@@ -360,11 +430,11 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
         //Datos de cuenta y cliente
          TwoWaysBDL twoWaysBDL=null;
          AccountsTO cuenta = new AccountsTO(); 
-         ClientsTO cliente = new ClientsTO();
+        // ClientsTO cliente = new ClientsTO();
          try {
              twoWaysBDL = new TwoWaysBDL();
              cuenta = twoWaysBDL.getServiceTwoWays().getAccountById(accId);
-             cliente = twoWaysBDL.getServiceTwoWays().getClientById(cliId);
+            // cliente = twoWaysBDL.getServiceTwoWays().getClientById(cliId);
             } catch (Exception e) {
                 e.printStackTrace();
             } 

@@ -59,7 +59,7 @@ public class AsignacionesServlet extends AutorizacionServlet {
         List<RateTypesTO> servicesTOList= null;  
         OrdersTO ordersTO = null;
         ProjectAssignmentsTO projectAssignmentsTO = new  ProjectAssignmentsTO();
-        String script ="<script>alert('La asignación se guardo con exito');\ncancelarAsignacion();</script>";
+        String script ="<script>alert('La asignación se guardó con éxito');\ncancelarAsignacion();</script>";
         String accion = 
             (request.getParameter("accion") != null) ? request.getParameter("accion").toString() : 
             "";
@@ -83,34 +83,30 @@ public class AsignacionesServlet extends AutorizacionServlet {
             request.setAttribute("projectAssignmentsTO",projectAssignmentsTO);
             
             if (accion != null && accion.equalsIgnoreCase("guardar")) {
-
-                
-
-
                 try {
 
                     SimpleDateFormat sdfc = new SimpleDateFormat("dd/MM/yyyy");
                     SimpleDateFormat sdfl = 
                         new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-                    if (request.getParameter("proStartDate") != null &&  !request.getParameter("proStartDate").toString().equalsIgnoreCase("")) {
+                    if (request.getParameter("proAssignStartDate") != null &&  !request.getParameter("proAssignStartDate").toString().equalsIgnoreCase("")) {
                         java.util.Date date;
-                        if (request.getParameter("proStartDate").toString().length() ==   10) {
-                            date =  sdfc.parse(request.getParameter("proStartDate").toString());
+                        if (request.getParameter("proAssignStartDate").toString().length() ==   10) {
+                            date =  sdfc.parse(request.getParameter("proAssignStartDate").toString());
                         } else {
-                            date =  sdfl.parse(request.getParameter("proStartDate").toString());
+                            date =  sdfl.parse(request.getParameter("proAssignStartDate").toString());
                         }
                         java.sql.Timestamp timest = 
                             new java.sql.Timestamp(date.getTime());
                         projectAssignmentsTO.setPraAssignDate(timest);
                     }
 
-                    if (request.getParameter("proFinishDate") != null &&     !request.getParameter("proFinishDate").toString().equalsIgnoreCase("")) {
+                    if (request.getParameter("proAssignFinishDate") != null &&     !request.getParameter("proAssignFinishDate").toString().equalsIgnoreCase("")) {
                         java.util.Date date;
-                        if (request.getParameter("proFinishDate").toString().length() ==  10) {
-                            date =  sdfc.parse(request.getParameter("proFinishDate").toString());
+                        if (request.getParameter("proAssignFinishDate").toString().length() ==  10) {
+                            date =  sdfc.parse(request.getParameter("proAssignFinishDate").toString());
                         } else {
-                            date =   sdfl.parse(request.getParameter("proFinishDate").toString());
+                            date =   sdfl.parse(request.getParameter("proAssignFinishDate").toString());
                         }
                         java.sql.Timestamp timest =                             new java.sql.Timestamp(date.getTime());
                         projectAssignmentsTO.setPraFinishDate(timest);
@@ -119,7 +115,7 @@ public class AsignacionesServlet extends AutorizacionServlet {
 
                 } catch (Exception e) {
                     request.setAttribute("mensaje", 
-                                         "<script>alert('La fecha ingresada no es valida')</script>");
+                                         "<script>alert('La fecha ingresada no es válida')</script>");
                     e.printStackTrace();
                     
                     if(reenviar){
@@ -141,12 +137,6 @@ public class AsignacionesServlet extends AutorizacionServlet {
                     emp.setEmpId(Long.parseLong(request.getParameter("listaEmployees")));
                     projectAssignmentsTO.setEmployeesTO(emp);
                 }
-                
-               
-                
-                
-                                   
-                
 
                 try {
 
@@ -154,14 +144,10 @@ public class AsignacionesServlet extends AutorizacionServlet {
                         projectAssignmentsTO.getPraId().toString().length() > 
                         0) {
                         
-                        projectAssignmentsTO = 
-                                twoWaysBDL.getServiceTwoWays().updateProjectAssignament(projectAssignmentsTO);
-                        
+                        projectAssignmentsTO = twoWaysBDL.getServiceTwoWays().updateProjectAssignament(projectAssignmentsTO);                        
 
                     } else {
-                        projectAssignmentsTO = 
-                                twoWaysBDL.getServiceTwoWays().insertProjectAssignament(projectAssignmentsTO);
-                        
+                        projectAssignmentsTO = twoWaysBDL.getServiceTwoWays().insertProjectAssignament(projectAssignmentsTO);                     
                     }
                     
                     projectAssignmentsTO.setProjectsTO(project);
@@ -189,28 +175,17 @@ public class AsignacionesServlet extends AutorizacionServlet {
                             }
                             
                             twoWaysBDL.getServiceTwoWays().insertProjectAssignamentDetails(detail);
-                               
-                            
-                            
-                            
                         }
-                        
-                        
-                        
-                        
                     }
-                    request.setAttribute("script",script);
-                    
+                    request.setAttribute("script",script);                    
                    
                 } catch (Exception e) {
                     e.printStackTrace();
-                    script = "<script>alert('Ocurrio un error no se pudo crear la asignacion')</script>";
+                    script = "<script>alert('Ocurrió un error no se pudo crear la asignación')</script>";
                     request.setAttribute("script",script);
-                }
-                
+                }                
                
             }
-
 
             List <ProAssigmentsDetailsTO> proAssigmentsDetailsTOList= twoWaysBDL.getServiceTwoWays().getProjectAssignmentsDetailsById(projectAssignmentsTO.getPraId());
             projectAssignmentsTO.setProAssigmentsDetailsTO(proAssigmentsDetailsTOList);
@@ -218,8 +193,7 @@ public class AsignacionesServlet extends AutorizacionServlet {
             StringBuffer sb = new StringBuffer("\n<script>\nvar ordersdocsOld= new Array();\n");
             int index=0;
             for (ProAssigmentsDetailsTO proAssigmentsDetailsTO : proAssigmentsDetailsTOList){
-                
-                
+                                
                 sb.append("\nordersdocsOld[");
                 sb.append(String.valueOf(index++));
                 sb.append("]=");
@@ -242,18 +216,12 @@ public class AsignacionesServlet extends AutorizacionServlet {
                        List  resultLanguajes = twoWaysBDL.getServiceTwoWays().getLangByEmpId(projectAssignmentsTO.getEmployeesTO().getEmpId());
                        request.setAttribute("languagues",resultLanguajes);
                    }
-                   
-                   
-               }
-                
+               }                
             }
            
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
-       
-       
         request.setAttribute("projectAssignmentsTO", projectAssignmentsTO);
         //request.setAttribute("project", project);
         if(reenviar){ 

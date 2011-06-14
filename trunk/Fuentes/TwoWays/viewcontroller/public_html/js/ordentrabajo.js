@@ -132,12 +132,12 @@ function agregar()
 {
 
     document.getElementById('ordName').style.background  = '#FFFFFF';
-    document.getElementById('ordDate').style.background  = '#FFFFFF';
+    document.getElementById('ordStartDate').style.background  = '#FFFFFF';
     document.getElementById('ordDescription').style.background = '#FFFFFF';
     document.getElementById('listaClientes').style.background = '#FFFFFF';
     
     document.getElementById('ordName').value     = trim(document.getElementById('ordName').value);
-    document.getElementById('ordDate').value     = trim(document.getElementById('ordDate').value);
+    document.getElementById('ordStartDate').value     = trim(document.getElementById('ordStartDate').value);
     document.getElementById('ordDescription').value    = trim(document.getElementById('ordDescription').value);
     
     
@@ -196,25 +196,15 @@ function validarCampos()
     
     
         
-    if( document.getElementById("ordDescription").value == '')
+  /*  if( document.getElementById("ordDescription").value == '')
     {
        
        document.getElementById("ordDescription").style.background='Red';
         mensajeFaltanteAlert+= ' * Descripción de la Orden \n';
         banderaMensajeFaltante=true;
-    }
+    }*/
 
-    if( document.getElementById("ordWoNumber").value != '' && !isFloat(document.getElementById("ordWoNumber").value) )
-    {
-       
-       document.getElementById("ordWoNumber").style.background='Red';
-        mensajeFaltanteAlert+= ' * "WO Number debe ser numerico \n';
-        banderaMensajeFaltante=true;
-    }
-
-
-
-    var fecha = document.getElementById("ordDate");
+    var fecha = document.getElementById("ordStartDate");
 
     var ordFinishDate = document.getElementById("ordFinishDate");
     
@@ -222,15 +212,12 @@ function validarCampos()
     if(ordFinishDate.value != '' &&  fecha.value != '' && (isDate(fecha.value)) && (isDate(ordFinishDate.value)) && compararFecha(ordFinishDate.value,fecha.value )== -1)
     {
     
-       document.getElementById("ordDate").style.background='Red';
+       document.getElementById("ordStartDate").style.background='Red';
        document.getElementById("ordFinishDate").style.background='Red';
        mensajeFaltanteAlert+= ' * La Fecha de entrega de la Orden debe ser mayor a la fecha de inicio\n';
        banderaMensajeFaltante=true;
-       
-    
+           
     }
-    
-    
     if(fecha.value != '')
     {
         if (!(isDate(fecha.value)))
@@ -242,7 +229,7 @@ function validarCampos()
         
     }else{
       
-       document.getElementById("ordDate").style.background='Red';
+       document.getElementById("ordStartDate").style.background='Red';
        mensajeFaltanteAlert+= ' * Fecha inicio de la Orden \n';
        banderaMensajeFaltante=true;
     
@@ -268,10 +255,16 @@ var ordFinishDate = document.getElementById("ordFinishDate");
        banderaMensajeFaltante=true;
     
     }
-
-       
-  
     
+    var cantidad = new Array()
+    cantidad = document.getElementsByName("cantPalabras");       
+    for (i=0;i < cantidad.length;i++){
+        if (!isNumber(cantidad[i].value) && cantidad[i].value!=''){
+            mensajeFaltanteAlert+= ' * Fecha de entrega de la Orden \n';
+            cantidad[i].style.background='Red';
+            banderaMensajeFaltante=true;
+        }
+    }
     
     if(banderaMensajeFaltante)
         mensajeCampoAlert=mensajeFaltanteAlert + '\n';    
@@ -290,49 +283,55 @@ function cambioCliente(){
    
 }
 
-function cambioResponsable(){
+function agregarTarifasCliente(){
    var cliente = document.getElementById('listaClientes');
    towaysDWR.getTarifaClienteById(cliente.value,agregarTarifaCliente); 
    var tabla=document.getElementById('tabla-tarifas'); 
    tabla.style.display='';
    document.getElementById('aTar').style.display='none';
 }
-function onloadOrder(){
 
-   
-    var fecha = document.getElementById("ordDate");
+function findResponsablesCallBack(data){
     
+    dwr.util.removeAllOptions('listaRespClientes');
+    
+    var listaRespClientes = document.getElementById('listaRespClientes');
+   
+    listaRespClientes.add(new Option('Seleccionar', '0' )); 
+    for (var i=0 ; i< data.length;i++){    
+        var cre = data[i]; 
+        listaRespClientes.add(new Option(cre.creFirstName +' '+cre.creLastName,cre.creId ))         
+    }
+}
+
+function onloadOrder(){
+   
+    var fecha = document.getElementById("ordStartDate");
     
     if(fecha.value == '')
-    {
-        
+    {        
         var date = new Date();
         fecha.value = ((date.getDate() < 10)?'0'+date.getDate():date.getDate())  + '/' + ((date.getMonth()+1 < 10)?''+date.getMonth()+1:(date.getMonth() +1))+ '/'+ date.getYear() +' '+ ((date.getHours()+1 < 10)?''+date.getHours()+1:(date.getHours() +1)) +':'+  ((date.getMinutes()+1 < 10)?''+date.getMinutes()+1:(date.getMinutes() +1)) ;
-        //alert(fecha.value);
        
     }else{
      vistaDocumentos();
      vistaTarifas();      
     }
-    
-   
-
-
 }
 
 function buscarOrden(){
   
      
     var ordFinishDate = document.getElementById('ordFinishDate');
-    var ordDate =document.getElementById('ordDate');
+    var ordStartDate =document.getElementById('ordStartDate');
     var banderaMensajeFaltante=false;
     var mensajeCampoAlert='';
     var mensajeFaltanteAlert = 'Se tiene que completar los siguientes campos: \n';
     
     
-    if(ordDate.value != '')
+    if(ordStartDate.value != '')
     {
-       if (!(isDate(ordDate.value)))
+       if (!(isDate(ordStartDate.value)))
         {
         //ordDate.style.background='Red';
         mensajeFaltanteAlert+= ' * La fecha de inicio debe ser dd/mm/aaaa \n';
@@ -385,4 +384,14 @@ function editarOrden(ord){
 function editarProyecto(ord){
 
    window.location.href = '/twoways/proyectos?ordId='+ord;
+}
+
+function findResponsables() {
+   
+   var cliente = document.getElementById('listaClientes');
+   towaysDWR.getClientResponsableByCliId(cliente.value,findResponsablesCallBack); 
+   towaysDWR.getTarifaClienteById(cliente.value,agregarTarifaCliente); 
+   var tabla=document.getElementById('tabla-tarifas'); 
+   tabla.style.display='';
+   document.getElementById('aTar').style.display='none';
 }

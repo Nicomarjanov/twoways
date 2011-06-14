@@ -16,4 +16,5 @@ public interface ClientDAO {
     public ClientsTO getClientByName(String name)  throws Exception;
     public List<ClientsRatesTO> getTarifaClienteById(Long cliId)  throws Exception;
     public List getClientResponsableByCliId(ClientsTO clientsTO);
+    public List obtenerResponsables() throws Exception;
 }

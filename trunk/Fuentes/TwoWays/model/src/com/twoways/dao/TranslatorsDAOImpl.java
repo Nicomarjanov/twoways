@@ -52,29 +52,24 @@ public class TranslatorsDAOImpl extends AbstractDAO  implements TranslatorDAO{
         
     public TranslatorsTO insertarTraductor(TranslatorsTO translatorsTO) throws Exception {
         
-        Long traId = (Long) getSqlMapClientTemplate().queryForObject("traductores.seq","");
-        translatorsTO.setTraId(traId);        
-        getSqlMapClientTemplate().insert("insertarTraductor",translatorsTO);  
-        
-       /* List transLanguagues = translatorsTO.getTransLanguaguesTOList();
-        if ( transLanguagues != null && transLanguagues.size() > 0 ){
-            for(Object transLanguaguesTO: transLanguagues.toArray() ){
-                 Long tlaId = (Long) getSqlMapClientTemplate().queryForObject("trans_lang.seq","");
-                 TranslatorsLanguaguesTO auxTrans = (TranslatorsLanguaguesTO)transLanguaguesTO;
-                 auxTrans.setTlaId(tlaId);
-                 auxTrans.setTranslatorsTraId(traId);
-                 getSqlMapClientTemplate().insert("insertTransLanguagues",auxTrans);
+        Long traIdOld = (Long) getSqlMapClientTemplate().queryForObject("existeTraductor",translatorsTO);
+        if (traIdOld !=null){
+            translatorsTO.setTraId(traIdOld);
+            updateTraductor(translatorsTO);     
+            return getTraById(traIdOld);
+        }else{
+            Long traId = (Long) getSqlMapClientTemplate().queryForObject("traductores.seq","");
+            translatorsTO.setTraId(traId);        
+            getSqlMapClientTemplate().insert("insertarTraductor",translatorsTO); 
+            List transSpezial = translatorsTO.getTransSpecializationTOList();
+            if ( transSpezial != null && transSpezial.size() > 0 ){
+                for(Object TransSpecializationTO: transSpezial.toArray() ){
+                
+                     getSqlMapClientTemplate().insert("insertTransSpecializations",(TranslatorsSpecializationsTO)TransSpecializationTO);
+                }
             }
+            return getTraById(traId); 
         }
-    */
-        List transSpezial = translatorsTO.getTransSpecializationTOList();
-        if ( transSpezial != null && transSpezial.size() > 0 ){
-            for(Object TransSpecializationTO: transSpezial.toArray() ){
-            
-                 getSqlMapClientTemplate().insert("insertTransSpecializations",(TranslatorsSpecializationsTO)TransSpecializationTO);
-            }
-        }        
-        return getTraById(traId); 
         
     }
 

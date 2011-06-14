@@ -18,16 +18,16 @@
       <select name="listaTarifa" id="listaTarifa" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">            
                 <option value=""  >Seleccionar</option>
                 <c:forEach items="${listaTarifa}" var="item">
-                   <c:out value="${item.ratId}" />
+                   <!--<c:out value="${item.ratId}" />-->
                    <c:choose>
                     <c:when test="${false}">
                        <option value="<c:out value="${item.ratId}" />" style="background-color:#A4BAC7;" selected="selected">
-                        <c:out value="${item.ratName}" /> <c:out value="${item.currencyTO.curSymbol}" />
+                        <c:out value="${item.rateTypesTO.rtyAlternativeName}" />-<c:out value="${item.ratName}" /> <c:out value="${item.currencyTO.curSymbol}" />
                       </option> 
                     </c:when>
                     <c:otherwise>
                     <option value="<c:out value="${item.ratId}" />" style="background-color:#A4BAC7;">
-                        <c:out value="${item.ratName}" /> <c:out value="${item.currencyTO.curSymbol}" />
+                        <c:out value="${item.rateTypesTO.rtyAlternativeName}" />-<c:out value="${item.ratName}" /> <c:out value="${item.currencyTO.curSymbol}" />
                     </option>
                     </c:otherwise>
                     </c:choose>
@@ -56,7 +56,7 @@
          <tbody style="width:100%;height:30px;overflow-x: hidden;overflow-y:auto ;">
              <c:forEach items="${requestScope.ratesTOList}" var="item">
                <tr name="item-tarifa"  bgcolor="#FFFFFF" id="tarId-<c:out value="${item.ratesTO.ratId}" />" >
-                    <td width="200" ><c:out value="${item.ratesTO.ratName}" /> <c:out value="${item.ratesTO.currencyTO.curSymbol}" /></td>
+                    <td width="200" ><c:out value="${item.ratesTO.rateTypesTO.rtyAlternativeName}" />-<c:out value="${item.ratesTO.ratName}" /> <c:out value="${item.ratesTO.currencyTO.curSymbol}" /></td>
                     <td width="60" align="right" ><c:out value="${item.clrValue}" />
                         <input type="hidden" name="tarifas-hidden"  value="<c:out value="${item.ratesTO.ratId}" />#<c:out value="${item.clrValue}" />" /></td>
                     <td width="37" ><img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarTarifa('tarId-<c:out value="${item.ratesTO.ratId}" />')" onmouseover="this.style.cursor='hand';" /></td>

@@ -584,3 +584,76 @@ div.fixedHeaderTablePago thead th {
  div.fixedHeaderTablePago thead tr {
      _position: relative
  }
+ 
+ div.transbox
+  {
+  position:fixed;
+  top:50%;
+  left:50%;
+  margin-top: -60px;
+  margin-left:-100px;
+  background-color:transparent;
+  /* for IE */
+  filter:alpha(opacity=75);
+  /* CSS3 standard */
+  opacity:0.75;
+  }
+  
+/*div.fixedHeaderTablePago table {
+      width:75%;
+  }*/
+  div.fixedHeaderTableIngreso tbody {
+      height: 400px;
+     overflow-y: auto;
+     overflow-x: hidden;
+     
+ }
+ /*div.fixedHeaderTable table th {
+     background-color:#CCCCCC;font-weight:bold
+ }
+ div.fixedHeaderTable table td {
+     background-color:#EEEEEE
+ }*/
+ div.fixedHeaderTableIngreso thead td, div.fixedHeaderTableIngreso thead th {
+     position:relative;
+ }
+ 
+div.fixedHeaderTableIngreso thead th {
+    font-weight:normal;
+    font-size: 11px;    
+    color:#FFFFFF;
+    padding: 5px 5px 5px 5px;
+    bgcolor="#80211D";
+ }
+ /* IE7 hacks */
+ div.fixedHeaderTableIngreso {
+     *position: relative;
+     *height: 400px;
+     *overflow-y: scroll;
+     *overflow-x: hidden;
+     *padding-right:16px;
+ }
+ 
+ div.fixedHeaderTableIngreso thead tr {
+     *position: relative;
+     _position: absolute;
+     *top: expression(this.offsetParent.scrollTop-2);
+     *background:none;
+ }
+  
+ div.fixedHeaderTableIngreso tbody {
+     *height: auto;
+     *position:absolute;
+     *top:50px;   
+ }
+
+ /* IE6 hacks */
+ div.fixedHeaderTableIngreso {
+     _width:expression(this.offsetParent.clientWidth-20);
+     _overflow: auto;
+     _overflow-y: scroll;
+     _overflow-x: hidden;
+ }
+ div.fixedHeaderTableIngreso thead tr {
+     _position: relative
+ }

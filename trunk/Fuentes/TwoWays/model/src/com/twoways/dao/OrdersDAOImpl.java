@@ -73,9 +73,6 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
                 //statement= con.createStatement(); 
                 OrdersDocsTO ordersDocsTO = new OrdersDocsTO();
 
-                 
-                                                                 
-
                 Long odoId = 
                     (Long)getSqlMapClientTemplate().queryForObject("order.seq", 
                                                                    "");
@@ -204,8 +201,7 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
                    getSqlMapClientTemplate().delete("deleteOrdersRates",oldOrdRate);
                }  
            }
-           
-             
+                        
         List <RateTypesTO> services = ordersTO.getServicesTOList();
         
         // insertar las nuevas 
@@ -217,8 +213,6 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
              boolean insertar= true;   
             
             for(RateTypesTO oldServices: oldOrdServices ){
-               
-                 
                 if( oldServices.getRtyName().equals(servicesTO.getRtyName())){
                     insertar=false;
                     break;
@@ -239,8 +233,6 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
         for(RateTypesTO oldServices: oldOrdServices ){
                boolean borrar= true;   
                for(RateTypesTO servicesTO: services ){
-               
-                   
                    if( oldServices.getRtyName().equals(servicesTO.getRtyName())  ){
                        borrar=false;
                        break;
@@ -253,13 +245,10 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
                    Map insert= new HashMap();
                    insert.put("ordId",ordersTO.getOrdId());
                    insert.put("serId",oldServices.getRtyName());
-                   getSqlMapClientTemplate().delete("deleteOrdersServices",insert);
-                   
-                  
+                   getSqlMapClientTemplate().delete("deleteOrdersServices",insert);               
                }  
            }
-           
-            
+                       
         List <OrdersDocsTO> docsList = ordersTO.getOrdersDocsTOList();
        
        if (docsList==null){
@@ -276,8 +265,7 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
                    if( oldDocs.getOdoName().equals(ordersDocsTO.getOdoName())  ){
                        borrar=false;
                        break;
-                   }
-                   
+                   }                   
                }     
                 
                if(borrar)
@@ -286,23 +274,17 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
                    insert.put("ordId",ordersTO.getOrdId());
                    insert.put("odoId",oldDocs.getOdoId());
                    getSqlMapClientTemplate().delete("deleteOrdersDocs",insert);
-                   
-                  
+                                     
                }  
            }
-            
-        
         
         insertFiles(ordersTO);
 
         return getOrderById(ordersTO.getOrdId());
-
-
     }
     
     
     public OrdersTO insertarOrder(OrdersTO ordersTO) throws Exception {
-
         
         Logger log = Logger.getRootLogger(); 
         log.debug("OrdersTO insertarOrder(OrdersTO ordersTO)");
@@ -311,46 +293,8 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
                                                            "");
         ordersTO.setOrdId(ordId);
         
-        /*ResourceBundle rb = ResourceBundle.getBundle("twoways");
-        String userName = rb.getString("userCalendar");
-        String userPassword = rb.getString("userCalendarPassword");
-        String cliente = ordersTO.getClientsTO().getCliName();
-        
-
-        
-        CalendarGoogleService  cgsvc= new CalendarGoogleService(userName);
-        */ 
         getSqlMapClientTemplate().insert("insertOrders", ordersTO);
-        
-        //CalendarService myService = new CalendarService("srv"+userName);
- 
-       
-/*
-        try {
-        
-          log.debug("Antes del login");  
-          myService.setUserCredentials(userName, userPassword);
-          log.debug("Despues del login");  
-          // Demonstrate retrieving a list of the user's calendars.
-          log.debug(myService);
-          Calendar calendar = new GregorianCalendar();
-          calendar.setTimeInMillis(ordersTO.getOrdDate().getTime());
-          // Demonstrate creating a single-occurrence event.
-          CalendarEventEntry quickAddEvent = cgsvc.createSingleEvent(myService,
-              "Id: "+ordersTO.getOrdId()+ " Name: " + ordersTO.getOrdName(),"Id: "+ordersTO.getOrdId()+ " Name: " + ordersTO.getOrdName(),calendar);
-          log.debug("Successfully created event "
-              + quickAddEvent.getTitle().getPlainText());
-
-        } catch (IOException e) {
-          // Communications error
-          log.error("There was a problem communicating with the service.",e);
-          e.printStackTrace();
-        } catch (ServiceException e) {
-          // Server side error
-          log.error("The server had a problem handling your request.",e);
-          e.printStackTrace();
-        }
-  */      
+          
         if (ordersTO.getOrderRatesTOList() != null) {
 
 
@@ -380,7 +324,6 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
 
         return getOrderById(ordersTO.getOrdId());
 
-
     }
     
     public List <OrdersTO> findOrders(Map orderParameters) {
@@ -397,18 +340,18 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
                        " and o.clients_cli_id = c.cli_Id " + 
                        " and c.cli_id = decode(#cliId#,0,c.cli_id,#cliId#) " ;
        
-       if(orderParameters.get("ordDate") != null && orderParameters.get("ordDate").toString().length() > 0){
+       if(orderParameters.get("ordStartDate") != null && orderParameters.get("ordStartDate").toString().length() > 0){
        
           String formato = "dd/MM/yyyy hh24:mi";
-          if (orderParameters.get("ordDate").toString().length() == 10){
+          if (orderParameters.get("ordStartDate").toString().length() == 10){
               if(!orderParameters.get("ordDateOpt").toString().equals("=")){ 
                   formato = "dd/MM/yyyy";
-                  query += " and o.ord_date "+ orderParameters.get("ordDateOpt").toString()+"  to_date ('#ordDate#','"+formato+"')";
+                  query += " and o.ord_start_date "+ orderParameters.get("ordDateOpt").toString()+"  to_date ('#ordStartDate#','"+formato+"')";
               }else{
-                  query += " and o.ord_date >= to_date ('#ordDate# 00:00','"+formato+"') and  o.ord_date <= to_date ('#ordDate# 23:59','"+formato+"') ";
+                  query += " and o.ord_start_date >= to_date ('#ordStartDate# 00:00','"+formato+"') and  o.ord_start_date <= to_date ('#ordStartDate# 23:59','"+formato+"') ";
               }
           }else{        
-            query += " and o.ord_date "+ orderParameters.get("ordDateOpt").toString()+"  to_date ('#ordDate#','"+formato+"')";
+            query += " and o.ord_start_date "+ orderParameters.get("ordDateOpt").toString()+"  to_date ('#ordStartDate#','"+formato+"')";
           }  
        }
        
@@ -420,26 +363,23 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
                    formato = "dd/MM/yyyy";
                    query += " and o.ord_finish_date "+ orderParameters.get("ordFinishDateOpt").toString()+"  to_date ('#ordFinishDate#','"+formato+"')";
                }else{
-                   query += " and o.ord_finish_date >= to_date ('#ordFinishDate# 00:00','"+formato+"') and  o.ord_date <= to_date ('#ordFinishDate# 23:59','"+formato+"') ";
+                   query += " and o.ord_finish_date >= to_date ('#ordFinishDate# 00:00','"+formato+"') and  o.ord_finish_date <= to_date ('#ordFinishDate# 23:59','"+formato+"') ";
                }
            }else{        
              query += " and o.ord_finish_date "+ orderParameters.get("ordFinishDateOpt").toString()+"  to_date ('#ordFinishDate#','"+formato+"')";
            }  
         }
-      
-      
-       
+                   
        for (Iterator i = orderParameters.keySet().iterator();i.hasNext();){
            String param = (String)i.next();
            query = query.replaceAll("#"+param+"#",orderParameters.get(param).toString());
        }
        
-       query+= " order by o.ord_date desc " ;
+       query+= " order by o.ord_start_date desc " ;
         try {
             con = ds.getConnection();
             stm = con.createStatement();
-            System.out.println(query);
-            System.out.println(query);
+            //System.out.println(query);
             rs = stm.executeQuery(query);
             
             while(rs.next()){
@@ -456,15 +396,13 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
                         
                        java.sql.Timestamp timest = rs.getTimestamp("ord_finish_date"); 
                         order.setOrdFinishDate(timest);
-                        
-                    
+                                            
                 }
-                if(rs.getTime("ord_date") !=null ){ 
+                if(rs.getTime("ord_start_date") !=null ){ 
                    
-                       java.sql.Timestamp timest = rs.getTimestamp("ord_date"); 
-                        order.setOrdDate(timest);
-                        
-                   
+                       java.sql.Timestamp timest = rs.getTimestamp("ord_start_date"); 
+                        order.setOrdStartDate(timest);
+                                           
                 }
                 
                 results.add(order);
@@ -487,27 +425,38 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
             con.close();
             } catch (SQLException e) {
                 e.printStackTrace();
-            }
-            
-            
-        }
-        
-      
+            }                        
+        }              
         return results;
     }
     
     
-    public List getOrdersByCliId(Long cliId)throws Exception{
+    public List getOrdersByCliId(Long cliId,String mesId,String anioId)throws Exception{
         List ret = null;
         try {
-            ret = 
-            getSqlMapClientTemplate().queryForList("getOrdersByCliId",cliId);
+            Map params = new HashMap();
+            params.put("cliId",cliId);
+            params.put("mesId",mesId+anioId);
+
+            ret = getSqlMapClientTemplate().queryForList("getOrdersByCliId",params);
         } catch (DataAccessException dae) {
 
            dae.printStackTrace();
         }
         return ret;
     }
+    public List getOrdersByCliIdInvId(Long cliId,Long invoiceId)throws Exception{
+        List ret = null;
+        try {
+            Map params= new HashMap();
+            params.put("cliId",cliId);
+            params.put("invoiceId",invoiceId);
 
-
+            ret = getSqlMapClientTemplate().queryForList("getOrdersByCliIdInvId",params);
+        } catch (DataAccessException dae) {
+    
+           dae.printStackTrace();
+        }
+        return ret;
+    }
 }

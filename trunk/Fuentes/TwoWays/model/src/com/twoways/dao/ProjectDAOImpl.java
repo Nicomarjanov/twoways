@@ -1,5 +1,6 @@
 package com.twoways.dao;
 
+import com.twoways.to.ClientsTO;
 import com.twoways.to.CurrencyTO;
 import com.twoways.to.DocTypes;
 import com.twoways.to.EmployeesRatesTO;
@@ -7,17 +8,28 @@ import com.twoways.to.EmployeesTO;
 import com.twoways.to.LanguaguesAcronymsTO;
 import com.twoways.to.LanguaguesTO;
 import com.twoways.to.OrdersDocsTO;
+import com.twoways.to.OrdersTO;
 import com.twoways.to.ProAssigmentsDetailsTO;
 import com.twoways.to.ProjectAssignmentsTO;
 import com.twoways.to.ProjectsTO;
 import com.twoways.to.RatesTO;
+import com.twoways.to.StatesTO;
 import com.twoways.to.TranslatorsLanguaguesTO;
+
+import com.twoways.to.UsersTO;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import javax.sql.DataSource;
 
 import org.springframework.dao.DataAccessException;
 
@@ -56,9 +68,7 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
     }
 
     public ProjectAssignmentsTO insertProjectAssignament(ProjectAssignmentsTO projectAssignmentsTO) throws Exception {
-        Long praId = 
-            (Long)getSqlMapClientTemplate().queryForObject("projectAss.seq", 
-                                                           "");
+        Long praId = (Long)getSqlMapClientTemplate().queryForObject("projectAss.seq","");
         projectAssignmentsTO.setPraId(praId);
         getSqlMapClientTemplate().insert("insertProjectAssigment", 
                                          projectAssignmentsTO);
@@ -89,15 +99,11 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
     }
 
     public void insertProjectAssignamentDetails(ProAssigmentsDetailsTO proAssigmentsDetailsTO, 
-                                                List<EmployeesRatesTO> employeesRatesTOList) throws Exception {
-
+                                                List<EmployeesRatesTO> employeesRatesTOList) throws Exception {       
        
-       
-       if (!proAssigmentsDetailsTO.getOrdersDocsTO().getDocType().getDotId().contains("Source") ){
+       if (!proAssigmentsDetailsTO.getOrdersDocsTO().getDocType().getDotId().contains("Source") && !proAssigmentsDetailsTO.getOrdersDocsTO().getDocType().getDotId().contains("FTP") ){
            
-           Long praaId = 
-               (Long)getSqlMapClientTemplate().queryForObject("projectAssDet.seq", 
-                                                              "");
+           Long praaId = (Long)getSqlMapClientTemplate().queryForObject("projectAssDet.seq","");
            EmployeesRatesTO employeesRatesTO= new EmployeesRatesTO();                                                 
            RatesTO rateTO= new RatesTO(); 
            rateTO.setRatId(new Long(0));
@@ -114,33 +120,27 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
                proAssigmentsDetailsTOOld.setPranslatorsLanguaguesTO(proAssigmentsDetailsTO.getPranslatorsLanguaguesTO());
                getSqlMapClientTemplate().update("updateProjectAssigmentDetailsLanguage", 
                                                 proAssigmentsDetailsTOOld);
-           }
-           
+           }           
            
        }else{
        
-        for (EmployeesRatesTO employeesRatesTO: employeesRatesTOList) {
-
-            Long praaId = 
-                (Long)getSqlMapClientTemplate().queryForObject("projectAssDet.seq", 
-                                                               "");
-
-            proAssigmentsDetailsTO.setPadId(praaId);
-            proAssigmentsDetailsTO.setEmployeesRatesTO(employeesRatesTO);
-            ProAssigmentsDetailsTO proAssigmentsDetailsTOOld = 
-                getProjectAssignmentsDetailsById(proAssigmentsDetailsTO);
-            if (proAssigmentsDetailsTOOld == null) {
-                getSqlMapClientTemplate().insert("insertProjectAssigmentDetails", 
-                                                 proAssigmentsDetailsTO);
-            } else {
-                proAssigmentsDetailsTOOld.setPranslatorsLanguaguesTO(proAssigmentsDetailsTO.getPranslatorsLanguaguesTO());
-                getSqlMapClientTemplate().update("updateProjectAssigmentDetailsLanguage", 
-                                                 proAssigmentsDetailsTOOld);
-            }
-
-            //   
-        }
-        
+            for (EmployeesRatesTO employeesRatesTO: employeesRatesTOList) {
+    
+                Long praaId = (Long)getSqlMapClientTemplate().queryForObject("projectAssDet.seq", "");    
+                proAssigmentsDetailsTO.setPadId(praaId);
+                proAssigmentsDetailsTO.setEmployeesRatesTO(employeesRatesTO);
+                ProAssigmentsDetailsTO proAssigmentsDetailsTOOld = 
+                    getProjectAssignmentsDetailsById(proAssigmentsDetailsTO);
+                if (proAssigmentsDetailsTOOld == null) {
+                    getSqlMapClientTemplate().insert("insertProjectAssigmentDetails", 
+                                                     proAssigmentsDetailsTO);
+                } else {
+                    proAssigmentsDetailsTOOld.setPranslatorsLanguaguesTO(proAssigmentsDetailsTO.getPranslatorsLanguaguesTO());
+                    getSqlMapClientTemplate().update("updateProjectAssigmentDetailsLanguage", 
+                                                     proAssigmentsDetailsTOOld);
+                }
+     
+            }        
        }
 
     }
@@ -178,12 +178,14 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
                 proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().setLangAcronymsTO(new LanguaguesAcronymsTO());
                 proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO().setLanguaguesTO(new LanguaguesTO());
                 proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO().getLanguaguesTO().setLanName(mapResult.get("LEN1").toString());
+                proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO().getLanguaguesTO().setLanShortName(mapResult.get("LSHNAME1").toString());
                 if (mapResult.get("ACRO1") != null) {
                     proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO().setLaaAcronym(mapResult.get("ACRO1").toString());
                 }
                 proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().setLangAcronymsTO1(new LanguaguesAcronymsTO());
                 proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO1().setLanguaguesTO(new LanguaguesTO());
                 proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO1().getLanguaguesTO().setLanName(mapResult.get("LEN2").toString());
+                proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO1().getLanguaguesTO().setLanShortName(mapResult.get("LSHNAME2").toString());
                 if (mapResult.get("ACRO2") != null) {
                    proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO1().setLaaAcronym(mapResult.get("ACRO2").toString());
                 }
@@ -311,6 +313,152 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
            dae.printStackTrace();
         }
         return ret;
+    }
+    
+    public List <ProjectsTO> findProjects(Map projParameters){
+        List <ProjectsTO> results = new ArrayList<ProjectsTO>();
+        DataSource ds = this.getDataSource(); 
+        Connection con = null;
+        Statement stm = null;
+        ResultSet rs= null ;
+        String query =  "select * \n" + 
+                        "from projects t, orders o, clients c, users u \n" + 
+                        "where o.ord_id=t.orders_ord_id \n" + 
+                        "and o.clients_cli_id = c.cli_id \n" +
+                        "and u.usr_id = t.users_usr_id";
+
+        if (projParameters.get("cliId") != null && projParameters.get("cliId").toString().length() > 0){
+            query += " and c.cli_id =#cliId# \n";  
+        }
+
+        if (projParameters.get("projName") != null && projParameters.get("projName").toString().length() > 0){
+            query += " and t.pro_name  like '%'||'#projName#'||'%' \n";  
+        }
+
+        if (projParameters.get("ordName") != null && projParameters.get("ordName").toString().length() > 0){
+            query += " and o.ord_name  like '%'||'#ordName#'||'%' \n";  
+        }
+        
+        if(projParameters.get("projDate") != null && projParameters.get("projDate").toString().length() > 0){
+        
+           String formato = "dd/MM/yyyy hh24:mi";
+           if (projParameters.get("projDate").toString().length() == 10){
+               if(!projParameters.get("projDateOpt").toString().equals("=")){ 
+                   formato = "dd/MM/yyyy";
+                   query += " and t.pro_start_date "+ projParameters.get("projDateOpt").toString()+"  to_date ('#projDate#','"+formato+"')";
+               }else{
+                   query += " and t.pro_start_date >= to_date ('#projDate# 00:00','"+formato+"') and t.pro_start_date <= to_date ('#projDate# 23:59','"+formato+"') ";
+               }
+           }else{        
+             query += " and t.pro_start_date "+ projParameters.get("projDateOpt").toString()+"  to_date ('#projDate#','"+formato+"')";
+           }  
+        }
+        
+         if(projParameters.get("projFinishDate") != null && projParameters.get("projFinishDate").toString().length() > 0){
+         
+            String formato = "dd/MM/yyyy hh24:mi";
+            if (projParameters.get("projFinishDate").toString().length() == 10){
+                if(!projParameters.get("projFinishDateOpt").toString().equals("=")){ 
+                    formato = "dd/MM/yyyy";
+                    query += " and t.pro_finish_date"+ projParameters.get("projFinishDateOpt").toString()+"  to_date ('#projFinishDate#','"+formato+"')";
+                }else{
+                    query += " and t.pro_finish_date >= to_date ('#projFinishDate# 00:00','"+formato+"') and t.pro_finish_date <= to_date ('#projFinishDate# 23:59','"+formato+"') ";
+                }
+            }else{        
+              query += " and t.pro_finish_date "+ projParameters.get("projFinishDateOpt").toString()+"  to_date ('#projFinishDate#','"+formato+"')";
+            }  
+         }
+        
+        if ((projParameters.get("Iniciado") != null && projParameters.get("Iniciado").toString().length() > 0) ||
+            (projParameters.get("Entregado") != null && projParameters.get("Entregado").toString().length() > 0) ||
+            (projParameters.get("POEnviado") != null && projParameters.get("POEnviado").toString().length() > 0)){
+                 query += " and t.states_sta_id in (";
+            if (projParameters.get("Iniciado") != null && projParameters.get("Iniciado").toString().length() > 0) {
+                 query += "'#Iniciado#',";
+             }
+            if (projParameters.get("Entregado") != null && projParameters.get("Entregado").toString().length() > 0) {
+                 query += "'#Entregado#',";
+             }
+            if (projParameters.get("POEnviado") != null && projParameters.get("POEnviado").toString().length() > 0) {
+                query += "'#POEnviado#',";
+            }
+
+            query += ")";
+            query = query.replace(",)",")");
+        }    
+                    
+        for (Iterator i = projParameters.keySet().iterator();i.hasNext();){
+            String param = (String)i.next();
+            query = query.replaceAll("#"+param+"#",projParameters.get(param).toString());
+        }
+        
+        query+= " order by t.pro_name desc " ;
+         try {
+             con = ds.getConnection();
+             stm = con.createStatement();
+             //System.out.println(query);
+             rs = stm.executeQuery(query);
+             
+             while(rs.next()){
+                 ProjectsTO project= new ProjectsTO();
+                 project.setProId(rs.getLong("pro_id"));
+                 project.setProName(rs.getString("pro_name"));
+
+                 if(rs.getTime("pro_finish_date") !=null ){ 
+                        java.sql.Timestamp timest = rs.getTimestamp("pro_finish_date"); 
+                        project.setProFinishDate(timest);    
+                 }
+                 if(rs.getTime("pro_start_date") !=null ){                     
+                        java.sql.Timestamp timest = rs.getTimestamp("pro_start_date"); 
+                        project.setProStartDate(timest);                                            
+                 }
+                 
+                 ClientsTO client = new ClientsTO();
+                 client.setCliName(rs.getString("cli_name"));                 
+                 OrdersTO order = new OrdersTO();
+                 order.setClientsTO(client);                 
+                 if(rs.getTime("ord_finish_date") !=null ){ 
+                        java.sql.Timestamp timest = rs.getTimestamp("ord_finish_date"); 
+                        order.setOrdFinishDate(timest);    
+                 }
+                 if(rs.getTime("ord_start_date") !=null ){ 
+                    
+                        java.sql.Timestamp timest = rs.getTimestamp("ord_start_date"); 
+                         order.setOrdStartDate(timest);                                            
+                 }
+                 order.setOrdId(Long.parseLong(rs.getString("ord_id")));
+                 order.setOrdName(rs.getString("ord_name"));
+                 project.setOrdersTO(order);
+                 
+                 StatesTO estado =new StatesTO();
+                 estado.setStaId(rs.getString("states_sta_id"));
+                 project.setStatesTO(estado);
+                 
+                 project.setUsersUsrId(rs.getString("users_usr_id"));
+                 
+                 results.add(project);
+             }
+             
+         } catch (SQLException e) {
+              e.printStackTrace();
+         }finally{
+             try {
+             rs.close();
+             } catch (SQLException e) {
+                 e.printStackTrace();
+             }
+             try{
+             stm.close();
+             } catch (SQLException e) {
+                 e.printStackTrace();
+             }
+             try{
+             con.close();
+             } catch (SQLException e) {
+                 e.printStackTrace();
+             }                        
+         }              
+         return results;        
     }
 }
 

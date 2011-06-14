@@ -44,15 +44,42 @@ public class ListaEmpleadosServlet extends AutorizacionServlet {
             request.setAttribute("accion",accion);
            // EmployeesTO employeeTO = new EmployeesTO();            
             Map params= new  HashMap();          
-            if (request.getParameter("empFirstName") != null && request.getParameter("empFirstName").length() > 0) params.put("empFirstName",request.getParameter("empFirstName")); 
-            if (request.getParameter("empLastName") != null && request.getParameter("empLastName").length() > 0) params.put("empLastName",request.getParameter("empLastName")); 
-            if (request.getParameter("ProName") != null && request.getParameter("ProName").length() > 0) params.put("ProName",request.getParameter("ProName"));
-            if (request.getParameter("Traductor") != null && request.getParameter("Traductor").length() > 0) params.put("Traductor",request.getParameter("Traductor"));
-            if (request.getParameter("Editor") != null) params.put("Editor",request.getParameter("Editor"));
-            if (request.getParameter("Revisor") != null) params.put("Revisor",request.getParameter("Revisor")+" Final");
-            if (request.getParameter("Maquetador") != null) params.put("Maquetador",request.getParameter("Maquetador"));
-            if (request.getParameter("PDTP") != null) params.put("PDTP",request.getParameter("PDTP"));
-            if (request.getParameter("Proofer") != null) params.put("Proofer",request.getParameter("Proofer"));
+            if (request.getParameter("empFirstName") != null && request.getParameter("empFirstName").length() > 0) {
+                params.put("empFirstName",request.getParameter("empFirstName")); 
+                request.setAttribute("empFirstName",request.getParameter("empFirstName")) ;
+            }
+            if (request.getParameter("empLastName") != null && request.getParameter("empLastName").length() > 0) {
+                params.put("empLastName",request.getParameter("empLastName")); 
+                request.setAttribute("empLastName",request.getParameter("empLastName"));
+            }
+            if (request.getParameter("ProName") != null && request.getParameter("ProName").length() > 0) {
+                params.put("ProName",request.getParameter("ProName"));
+                request.setAttribute("proName",request.getParameter("ProName"));
+            }
+            if (request.getParameter("Traductor") != null && request.getParameter("Traductor").length() > 0) {
+                params.put("Traductor",request.getParameter("Traductor"));
+                request.setAttribute("Traductor",request.getParameter("Traductor"));
+            }
+            if (request.getParameter("Editor") != null) {
+                params.put("Editor",request.getParameter("Editor"));
+                request.setAttribute("Editor",request.getParameter("Editor"));
+            }
+            if (request.getParameter("Revisor") != null) {
+                params.put("Revisor",request.getParameter("Revisor")+" Final");
+                request.setAttribute("Revisor",request.getParameter("Revisor"));
+            }
+            if (request.getParameter("Maquetador") != null) {
+                params.put("Maquetador",request.getParameter("Maquetador"));
+                request.setAttribute("Maquetador",request.getParameter("Maquetador"));
+            }
+            if (request.getParameter("PDTP") != null) {
+                params.put("PDTP",request.getParameter("PDTP"));
+                request.setAttribute("PDTP",request.getParameter("PDTP"));
+            }
+            if (request.getParameter("Proofer") != null) {
+                params.put("Proofer",request.getParameter("Proofer"));
+                request.setAttribute("Proofer",request.getParameter("Proofer"));
+            }   
         try{
            List<EmployeesTO> empleados =  twoWaysBDL.getServiceTwoWays().findEmployees(params);
            int  pageTop=(page+1)*10 ;
@@ -78,13 +105,14 @@ public class ListaEmpleadosServlet extends AutorizacionServlet {
                    
                }
            }
-                      
-           int maxPage = (int)(empleados.size() / 10);
-           request.setAttribute("listaEmpleados",subempleados);
-           request.setAttribute("maxPage",maxPage);
-           request.setAttribute("page",page);          
+            int maxPage = 0;
+            if (empleados.size()== 10) maxPage =1;
+            else maxPage =(int)(empleados.size() / 10) + 1;
+            request.setAttribute("listaEmpleados",subempleados);
+            request.setAttribute("maxPage",maxPage);
+            request.setAttribute("page",page);          
           
-           request.setAttribute("pageId",page); 
+            request.setAttribute("pageId",page); 
            
         }catch(Exception e){
            e.printStackTrace(); 

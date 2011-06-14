@@ -48,11 +48,11 @@
                     <td>
                <table  width="200px"  cellpadding="0" cellspacing="0">
                    <thead >
-                        <tr ><td colspan="100%" style="font-size:1.1em;padding-top:5px;padding-bottom:4px;background-color:#80211D;color:#ffffff;" >Filtros de Busqueda</td><td style="font-size:1.1em;padding-top:5px;padding-bottom:4px;background-color:#80211D;color:#ffffff;" ><div style="background-color:Gray;width:20;height:20" onclick="document.getElementById('table-filtros').style.display='none';document.getElementById('mostrar-filtro').style.display='block'" onmouseover="this.style.cursor='hand';" >X</div></td> </tr>
+                        <tr ><td colspan="100%" style="font-size:1.1em;padding-top:5px;padding-bottom:4px;background-color:#80211D;color:#ffffff;" >Filtros de búsqueda</td><td style="font-size:1.1em;padding-top:5px;padding-bottom:4px;background-color:#80211D;color:#ffffff;" ><div style="background-color:Gray;width:20;height:20" onclick="document.getElementById('table-filtros').style.display='none';document.getElementById('mostrar-filtro').style.display='block'" onmouseover="this.style.cursor='hand';" >X</div></td> </tr>
                    </thead>
                    <tbody>
                        <tr>
-                        <td nowrap align="right" width="25%">Empleado:</td>
+                        <td nowrap align="left" width="25%">Empleado</td>
                         <td align="left" width="25%">
                         <c:choose>
                             <c:when test="${not empty projectAssignnments}">
@@ -81,7 +81,7 @@
                         </td>   
                       </tr>
                       <tr>
-                        <td nowrap align="right" width="25%">Mes de pago:</td>
+                        <td nowrap align="left" width="25%">Mes de pago</td>
                         <td align="left" width="25%">
                         <c:choose>
                             <c:when test="${not empty projectAssignnments}">                        
@@ -117,7 +117,7 @@
                         </td>
                       </tr>
                       <tr>
-                        <td nowrap align="right" width="25%">Año de pago:</td>
+                        <td nowrap align="left" width="25%">Año de pago</td>
                         <td>
                         <c:choose>
                             <c:when test="${not empty projectAssignnments}">                                             

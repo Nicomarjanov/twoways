@@ -72,7 +72,7 @@ function vistaTraductor(){
 
 function agregarTarifa(){
    
-   var optionTipoSelected=document.getElementById('listaTipoEmpTar').options[document.getElementById('listaTipoEmpTar').selectedIndex];
+   var optionTipoSelected=document.getElementById('listaTarifa').options[document.getElementById('listaTarifa').selectedIndex];
    var optionSelected=document.getElementById('dropDown3').options[document.getElementById('dropDown3').selectedIndex];
    
   /* if( document.getElementById('dropDown3').selectedIndex == 0){ 
@@ -85,8 +85,8 @@ function agregarTarifa(){
       document.getElementById('tar_val').focus();
      return;
    }
-   
-   if(document.getElementById('tarId-'+optionTipoSelected+optionSelected)){
+
+   if(document.getElementById('tarId-'+optionSelected.value)){
    
      alert('La tarifa ya se encuentra en la lista');  
    }else{
@@ -208,6 +208,8 @@ function agregar()
     document.getElementById('empLocation').value    = trim(document.getElementById('empLocation').value);
     document.getElementById('empAvailability').value       = trim(document.getElementById('empAvailability').value);
     document.getElementById('empObservations').value       = trim(document.getElementById('empObservations').value);
+    document.getElementById('empMobileNumber').value       = trim(document.getElementById('empMobileNumber').value);
+    document.getElementById('empPhoneNumber').value       = trim(document.getElementById('empPhoneNumber').value);
        
     if(validarCampos())
     {
@@ -269,7 +271,9 @@ function cargarDatosColumna(row,data){
 
    if (aux != '' || aux.length > 0){
         var fecha = new Date(aux);
-        row.cells[4].innerHTML = fecha.getDate()+'/'+month[fecha.getMonth()]+'/'+fecha.getFullYear();
+        var dia = fecha.getDate();
+        if ( dia< 10) dia="0"+dia;
+        row.cells[4].innerHTML = dia +'/'+month[fecha.getMonth()]+'/'+fecha.getFullYear();
    }
 
    var editar = '<img src="img/edit.png"  height="20" width="20"  alt="Editar" onclick="javascript:window.location.href=\'empleados?empId='+data.empId+'\';" onmouseover="this.style.cursor=\'hand\';" /> ';
@@ -381,6 +385,26 @@ function validarCampos()
         banderaMensajeFaltante=true;
         }
     }
+
+    if( document.getElementById("empMobileNumber").value != '')
+    {
+        if (!(isNumber(document.getElementById("empMobileNumber").value)))
+        {
+        document.getElementById("empMobileNumber").style.background='Red';
+        mensajeFaltanteAlert+= ' * El número de teléfono movil debe ser numérico unicamente \n';
+        banderaMensajeFaltante=true;
+        }
+    }
+    
+    if( document.getElementById("empPhoneNumber").value != '')
+    {
+        if (!(isNumber(document.getElementById("empPhoneNumber").value)))
+        {
+        document.getElementById("empPhoneNumber").style.background='Red';
+        mensajeFaltanteAlert+= ' * El número de teléfono debe ser numérico unicamente \n';
+        banderaMensajeFaltante=true;
+        }
+    }    
     
    if (listaEmp.options.length > 0 ){   
     
@@ -495,9 +519,11 @@ function desAsignar()
                     quitar = quitar+document.getElementById("listaItemsSelect").options[i].value+'-';
                     document.getElementById('traductor+').src="img/lang.png";
                     document.getElementById('tabla-traductor').style.display='none';
+                    document.getElementById('tabla-trad-titulo').style.display='none';
+                    document.getElementById('tabla-trad-especial').style.display='none';
                     document.getElementById('aTrad').style.display='';  
                     asig.options[asig.length] = option;
-
+                
                 }
             }else{
                 quitar = quitar+document.getElementById("listaItemsSelect").options[i].value+'-';

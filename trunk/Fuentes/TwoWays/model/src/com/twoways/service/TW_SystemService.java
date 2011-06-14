@@ -82,7 +82,7 @@ public interface TW_SystemService {
 
     public List buscarTarifas(String search) throws Exception;
     
-    public  List getRateByType(RateTypesTO rateTypesTO) throws Exception;
+    public  List getRateByType() throws Exception;
 
     public List obtenerUsuarios() throws Exception;
     
@@ -247,9 +247,27 @@ public interface TW_SystemService {
     
     public List getClientResponsableByCliId(ClientsTO clientsTO);
     
-    public List getOrdersByCliId(Long search)throws Exception;
+    public List getOrdersByCliId(Long search,String mesId,String anioId)throws Exception;
     
     public Long insertarFactura(InvoicesTO factura) throws Exception;
       
     public List<StatesTO> getStatesListByType(String type) throws Exception;
+
+    public List <InvoicesTO> findInvoices(Map invoiceParameters) throws Exception;
+    
+    public List getOrdersByCliIdInvId(Long cliId,Long invoiceId)throws Exception;
+
+    public void actualizarFactura(InvoicesTO factura) throws Exception;
+    
+    public List obtenerItemsFactura(Long invId) throws Exception;
+    
+    public List obtenerResponsables() throws Exception;
+    
+    public List <ProjectsTO> findProjects(Map projParameters);
+    
+    public List <InvoicesTO> findIncomesByClient(Map invoiceParameters) throws Exception;
+ 
+    public List findIncomes(Map invoiceParameters) throws Exception;   
+    
+    public List <ItemsExpensesTO>findExpenses(Map expensesParameters) throws Exception;   
 }

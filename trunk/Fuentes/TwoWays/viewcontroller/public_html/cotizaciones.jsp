@@ -26,7 +26,7 @@
   </tr>
   <tr>
     <td align="right" width="50%">Fecha:</td>
-    <td align="left" width="50%"><input type="text" class="tw_form" name="cotDate"  id="cotDate" style="width:200" value="<c:out  value="${auxDate}"/>" /><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].ordDate,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png" onmouseover="this.style.cursor='hand';"></img></td>    
+    <td align="left" width="50%"><input type="text" class="tw_form" name="cotDate"  id="cotDate" size="10" maxsize="10" value="<c:out  value="${auxDate}"/>" /><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].cotDate,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png" onmouseover="this.style.cursor='hand';"></img></td>    
   </tr>  
   <tr>
     <td nowrap align="right" width="50%">Moneda:</td>

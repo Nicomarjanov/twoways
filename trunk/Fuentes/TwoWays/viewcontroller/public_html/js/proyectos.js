@@ -5,7 +5,7 @@ function cancelar()
     if(confirm('¿Desea cancelar la carga del Proyecto ?'))
     {   
         document.getElementById("accion").value='cancelar';
-        document.forms[0].submit();
+        window.location.href="/twoways/index.jsp";
     }
 }
 
@@ -81,7 +81,7 @@ function validarCampos()
         }else{
         
         
-           if(compararFecha(fecha.value,document.getElementById('ordDate').value )== -1){
+           if(compararFecha(fecha.value,document.getElementById('ordStartDate').value )== -1){
            fecha.style.background='Red';
            mensajeFaltanteAlert+= ' * La fecha de inicio debe ser mayor a la fecha de inicio de la orden\n';
            banderaMensajeFaltante=true;
@@ -117,7 +117,7 @@ var proFinishDate = document.getElementById("proFinishDate");
         banderaMensajeFaltante=true;
         }else{
           
-           if(compararFecha(proFinishDate.value,document.getElementById('ordDate').value )== -1){
+           if(compararFecha(proFinishDate.value,document.getElementById('ordStartDate').value )== -1){
            proFinishDate.style.background='Red';
            mensajeFaltanteAlert+= ' * La fecha de entrega debe ser mayor a la fecha de inicio de la orden \n';
            banderaMensajeFaltante=true;
@@ -235,7 +235,7 @@ function quitarAsignacion(praId,proId){
 function quitarAsignacionCallBack(data){
 
    if(data ==''){
-        alert('La asignación se elimino con exito');
+        alert('La asignación se eliminó con éxito');
    }else{
         alert('La asignación no pudo eliminarse por : '+ data);
    }
@@ -262,7 +262,7 @@ function onClose(){
 
 function existeDisponbilidad(){
 
-    var praDate=document.getElementById('proStartDate').value;  
+    var praDate=document.getElementById('proAssignStartDate').value;  
        
       
         if(isDate(praDate.value) ){
@@ -290,8 +290,8 @@ function existeDisponbilidadCallBack(data){
 
 function agregarAsignacion(){
 
-    document.getElementById('proStartDate').style.background= '#FFFFFF';
-    document.getElementById('proFinishDate').style.background= '#FFFFFF';
+    document.getElementById('proAssignStartDate').style.background= '#FFFFFF';
+    document.getElementById('proAssignFinishDate').style.background= '#FFFFFF';
     document.getElementById('listaEmployees').style.background= '#FFFFFF';
     document.getElementById('listaServices').style.background= '#FFFFFF';
     var languaguesList = document.getElementsByName('languagues');
@@ -303,8 +303,8 @@ function agregarAsignacion(){
        languagues.style.background= '#FFFFFF';
     }
     
-    document.getElementById('proStartDate').value     = trim(document.getElementById('proStartDate').value);
-    document.getElementById('proFinishDate').value     = trim(document.getElementById('proFinishDate').value);
+    document.getElementById('proAssignStartDate').value     = trim(document.getElementById('proAssignStartDate').value);
+    document.getElementById('proAssignFinishDate').value     = trim(document.getElementById('proAssignFinishDate').value);
     
     
     if(validarAsignacion())
@@ -313,7 +313,7 @@ function agregarAsignacion(){
         //destrabar(idsPantalla()); 
     }else if (document.getElementById('praId').value ==''){
     
-        var praDate=document.getElementById('proStartDate').value;  
+        var praDate=document.getElementById('proAssignStartDate').value;  
         var listaEmployees = document.getElementById('listaEmployees');
         var empId= listaEmployees.options[listaEmployees.selectedIndex].value; 
         var proId=document.getElementById('proId').value; 
@@ -344,15 +344,12 @@ function verificarAsignacionCallBack(data){
     }
 
 }
- 
- 
+  
 function cancelarAsignacion(){
  //alert(document.getElementById('proId').value); 
  window.opener.location.href='/twoways/proyectos?proId='+ document.getElementById('proId').value;
  window.close();
 }
-
-
 
 function findEmployees(){
   
@@ -362,7 +359,6 @@ function findEmployees(){
     habilitarLanguagues();
   
 }
-
 
 function changeEmployees(){
     var listaServices = document.getElementById('listaServices');
@@ -414,14 +410,8 @@ function changeEmployeesCallBack(data){
                 languagues.add(new Option(texto, data[i].TLA_ID )); 
                 
             }
-       }
-       
-       
-   
+       }   
    }
-   
-   
-   
 }
 
 function buscarClientesCallBack(data){
@@ -431,15 +421,10 @@ function buscarClientesCallBack(data){
     var listaEmployees = document.getElementById('listaEmployees');
    
     listaEmployees.add(new Option('Seleccionar', '0' )); 
-    for (var i=0 ; i< data.length;i++){
-    
+    for (var i=0 ; i< data.length;i++){    
         var emp = data[i]; 
-        listaEmployees.add(new Option(emp.empFirstName +' '+emp.empLastName,emp.empId )) 
-        
+        listaEmployees.add(new Option(emp.empFirstName +' '+emp.empLastName,emp.empId ))         
     }
-    
-   
-
 }
 
 
@@ -473,10 +458,8 @@ function validarAsignacion()
     if( document.getElementById("listaServices").selectedIndex != -1  && document.getElementById("listaServices").selectedIndex != 0){
         
             var serv= document.getElementById("listaServices").options[document.getElementById("listaServices").selectedIndex].value;
-           
-            
-            if (serv!='Maquetador'){
-                 
+                       
+            if (serv!='Maquetador'){                 
                  
                   var languaguesList = document.getElementsByName('languagues');
                   var msj = true; 
@@ -484,8 +467,7 @@ function validarAsignacion()
                       
                      var languagues = languaguesList[j];
                      var check = document.getElementById(languagues.id.replace('languagues','listdocs-')); 
-                      if(check.checked && (languagues.selectedIndex == -1  || languagues.selectedIndex == 0)){
-                       
+                     if(check.checked && (languagues.selectedIndex == -1  || languagues.selectedIndex == 0)){                       
                        
                        languagues.style.background='Red';
                        if(msj){ 
@@ -499,11 +481,8 @@ function validarAsignacion()
                 }  
            }
      }
-    
-    
-    
-    var fecha = document.getElementById("proStartDate");
-    
+        
+    var fecha = document.getElementById("proAssignStartDate");    
     
     if(fecha.value != '')
     {
@@ -526,20 +505,17 @@ function validarAsignacion()
            mensajeFaltanteAlert+= ' * La fecha de inicio debe ser menor a la fecha de entrega del proyecto\n';
            banderaMensajeFaltante=true;
            }
-        
-        
-        
         }
         
     }else{
       
-       document.getElementById("proStartDate").style.background='Red';
+       document.getElementById("proAssignStartDate").style.background='Red';
        mensajeFaltanteAlert+= ' * Fecha de inicio del proyecto \n';
        banderaMensajeFaltante=true;
     
     }
     
-var proFinishDate = document.getElementById("proFinishDate");
+var proFinishDate = document.getElementById("proAssignFinishDate");
     
     
     if(proFinishDate.value != '')
@@ -566,7 +542,7 @@ var proFinishDate = document.getElementById("proFinishDate");
         }
     }else{
       
-       document.getElementById("proFinishDate").style.background='Red';
+       document.getElementById("proAssignFinishDate").style.background='Red';
        mensajeFaltanteAlert+= ' * Fecha de entrega del proyecto \n';
        banderaMensajeFaltante=true;
     
@@ -576,8 +552,8 @@ var proFinishDate = document.getElementById("proFinishDate");
     if(proFinishDate.value != '' &&  fecha.value != '' && (isDate(fecha.value)) && (isDate(proFinishDate.value)) && compararFecha(proFinishDate.value,fecha.value )== -1)
     {
     
-       document.getElementById("proStartDate").style.background='Red';
-       document.getElementById("proFinishDate").style.background='Red';
+       document.getElementById("proAssignStartDate").style.background='Red';
+       document.getElementById("proAssignFinishDate").style.background='Red';
        mensajeFaltanteAlert+= ' * La Fecha de fin de la asignacion debe ser mayor a la fecha de inicio\n';
        banderaMensajeFaltante=true;
        
@@ -606,7 +582,7 @@ function cambioCheck(id){
    
    for(var s=0;s < ordersdocsOld.length; s++){
        if(ordersdocsOld[s]== id && check.checked ==false){
-          if(confirm('¿Esta seguro que desea eliminar la asignacion de este documento ?\n Esta operacion no puede deshacerse y se eliminaran todos los datos asociados a la misma ')){
+          if(confirm('¿Esta seguro que desea eliminar la asignación de este documento ?\n Esta operación no puede deshacerse y se eliminaran todos los datos asociados a la misma ')){
               towaysDWR.quitarDetalle(ordersdocsOld[s],praId, quitarDetalleCallBack); 
           }else{
            check.checked =true;
@@ -728,17 +704,13 @@ function calcularTotalDetalle(id,praId){
    var mensajeFaltanteAlert='';
    padWCount.style.background  = '#FFFFFF';
    padRate.style.background  = '#FFFFFF';
-   
-   
-   
+      
   if (padWCount.value !='' && !isNumber(trim(padWCount.value)))
         {
         padWCount.style.background='Red';
         mensajeFaltanteAlert+= ' * La cantidad de palabras debe ser numerica \n';
         banderaMensajeFaltante=true;
         }
-        
-        
        
   if ( padRate.value != '' && !(isFloat(trim(padRate.value.replace(',','.')))) )
         {
@@ -854,8 +826,6 @@ function normatizarCantidades(  banderaMensajeFaltante,  mensajeFaltanteAlert ){
     return result;
 }
 
-
-
 function enviarAsignacionOpen(praId){
 
      document.getElementById('parIdMail').value=praId;
@@ -876,12 +846,41 @@ function enviarAsignacion(){
      var uaid=document.getElementById('uaid').value;
      var otrosDestinatarios= document.getElementById('otrosDestinatarios').value; 
      document.getElementById('divMail').style.display = 'none'; 
+     document.getElementById('progress').style.display = '';
+     document.body.style.cursor='wait';
+     disableForm();
      towaysDWR.enviarAsignacion(praId,mensaje,uaid,otrosDestinatarios,enviarAsignacionCallback);
 
 }
 
 
 function enviarAsignacionCallback(data){
-
+  document.getElementById('progress').style.display = 'none';
+  document.body.style.cursor='auto';
+  enableForm();
   alert(data); 
 }
+
+function disableForm() {
+  var theform = document.getElementById('formProyecto');
+        if (document.all || document.getElementById) {
+                for (i = 0; i < theform.length; i++) {
+                var formElement = theform.elements[i];
+                        if (true) {
+                                formElement.disabled = true;
+                        }
+                }
+        }
+    }
+
+function enableForm() {
+  var theform = document.getElementById('formProyecto');
+        if (document.all || document.getElementById) {
+                for (i = 0; i < theform.length; i++) {
+                var formElement = theform.elements[i];
+                        if (true) {
+                                formElement.disabled = false;
+                        }
+                }
+        }
+    }

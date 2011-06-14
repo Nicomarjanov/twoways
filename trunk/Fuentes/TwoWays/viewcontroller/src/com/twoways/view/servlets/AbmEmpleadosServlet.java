@@ -229,7 +229,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                     
                 }
                
-                request.setAttribute("mensaje","<script>alert('El empleado se guardo con exito')</script>");
+                request.setAttribute("mensaje","<script>alert('El empleado se guardó con éxito')</script>");
                 
                 if( empleadosTipos  != null){ 
   

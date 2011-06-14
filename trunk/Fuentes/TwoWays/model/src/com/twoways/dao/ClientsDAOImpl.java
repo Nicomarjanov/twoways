@@ -214,5 +214,17 @@ public class ClientsDAOImpl extends AbstractDAO  implements ClientDAO{
         }
         return ret;
         }
-        
+    
+    public List obtenerResponsables() throws Exception{
+        List ret= null;
+        try {
+            ret  = getSqlMapClientTemplate().queryForList("obtenerClientResponsables",""); 
+        } catch (DataAccessException dae) {
+
+           dae.printStackTrace();
+        }
+        return ret;
+    }        
+    
+  
 }

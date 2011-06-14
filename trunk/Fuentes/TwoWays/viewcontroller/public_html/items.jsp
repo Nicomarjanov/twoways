@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
-<%@ page contentType="text/html;charset=utf-8"%>
+<%@ page contentType="text/html;charset=windows-1252"%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
 <html>
   <head>
@@ -30,7 +30,7 @@
     <td align="left"><input type="text" class="tw_form" id="itmNombre" name="itmNombre"  value="<c:out value="${item.itmName}"/>"  size="50" maxlength="100" onkeyup="buscarItems()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
   </tr>
   <tr>
-    <td align="right" width="25%">DescripciÃ³n:</td>
+    <td align="right" width="25%">Descripción:</td>
     <td align="left"><input type="text" class="tw_form" id="descItem"  name="descItem"  value="<c:out value="${item.itmDescription}"/>" size="100" maxlength="350"></input></td>    
   </tr>
   <tr>
@@ -73,7 +73,7 @@
   <hr class="tw_hr">
   <h2 class="tw">Opciones encontradas</h2>
   <table id ="tabla-busqueda">
-    <tr><th>Nombre Item</th><th>Tipo de Item</th><th>DescripciÃ³n</th><th>&nbsp;</th></tr>
+    <tr><th>Nombre Item</th><th>Tipo de Item</th><th>Descripción</th><th>&nbsp;</th></tr>
   </table>
   </div>
   </form>
