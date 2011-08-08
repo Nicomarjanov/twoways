@@ -6,39 +6,37 @@
 <table  id="aDoc" >
     <tr>
         <td><a href="javascript:vistaDocumentos()" ><img id="documento+"  style="border:0;" title="Mostrar documentos del cliente" src="img/folder_red.png" alt="Documentos" width="25" height="25" onmouseover="this.style.cursor='hand';"/></a></td>
-    </Tr>
+    </tr>
   </table>
-  <table id="tabla-documentos"  style ="display:none"   >
+  <table id="tabla-documentos"  style ="display:none" >
   <tr>
   <td valign="top" ><a href="javascript:vistaDocumentos()"><img id="documento-"  style="border:0;" title="Ocultar documentos del cliente" src="img/folder_red_open.png" alt="Documentos" width="25" height="25" onmouseover="this.style.cursor='hand';"/></a></td>
   <td valign="top">
     <table >
       <tr>
          <td>
-       <select name="listaDocTypes" id="listaDocTypes" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';" onchange="cambioTipo()">                
+           <select name="listaDocTypes" id="listaDocTypes" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';" onchange="cambioTipo()">                
                 <option value="" >Seleccionar</option>
                 <c:forEach items="${listaDocTypes}" var="item">
                     <option value="<c:out value="${item.dotId}" />" style="background-color:#A4BAC7;">
                         <c:out value="${item.dotName}" />
                     </option>
                 </c:forEach>
-       </select> 
-     </td>
-      <td >Documento:</td><td id="tdIn" ><input type="file" class="tw_form" id="doc_name" size=30   onchange="agregarDocumento()" /> </td>
-   
+           </select> 
+         </td>
+         <td>Documento:</td><td id="tdIn" ><input type="file" class="tw_form" id="doc_name" size=30 onchange="agregarDocumento()" /> </td>   
       </tr>
     </table>
   </td>
-  
+
       <!--td align="left" valign="top"><img  src="img/next.png" alt=">"   width="20" height="20" title="Agregar Documento" onclick="agregarDocumento()" onmouseover="this.style.cursor='hand';"/-->
-    </td>
   <td colspan="100%">
-    <table cellpadding="0" cellspacing="0"  style="background:gray">
+    <table cellpadding="0" cellspacing="0" style="background:gray">
     <tr>
     <td>
      <table id="list-documento-body" align="right" width="100%">
      <thead>
-     <tr><th width="400" colspan="2" >Documento</th><th >Tipo</th></tr>
+     <tr><th width="400" colspan="2" >Documento</th><th>Tipo</th></tr>
       </thead>
       <tbody  style="width:100%;height:30px;overflow-x: hidden;overflow-y:auto ;" >
      <c:forEach items="${docList}" var="item">

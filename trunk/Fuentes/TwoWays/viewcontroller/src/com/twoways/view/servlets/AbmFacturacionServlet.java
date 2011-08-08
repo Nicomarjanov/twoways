@@ -154,6 +154,8 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
                         request.setAttribute("invTotal",formatter.format(auxAmount));
                     }
                     request.setAttribute("cliId",cliId);
+                    request.setAttribute("mesId",mesId);
+                    request.setAttribute("anioId",anioId);
                     request.setAttribute("facturar",facturar);
                     
                 }else {

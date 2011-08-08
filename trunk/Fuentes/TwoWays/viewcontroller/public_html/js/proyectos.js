@@ -53,8 +53,7 @@ function validarCampos()
     listaMoneda.style.background='#FFFFFF';
     
     var curId= listaMoneda.options[listaMoneda.selectedIndex].value; 
-    
-    
+        
     /************************************************/
     // valido el que los campos no esten vacíos
     /************************************************/
@@ -66,35 +65,34 @@ function validarCampos()
         mensajeFaltanteAlert+= ' * Nombre de la Proyecto \n';
         banderaMensajeFaltante=true;
     }
-    
-    
+        
     var fecha = document.getElementById("proStartDate");
-    
-    
+        
     if(fecha.value != '')
     {
         if (!(isDate(fecha.value)))
         {
-        fecha.style.background='Red';
-        mensajeFaltanteAlert+= ' * La fecha debe ser dd/mm/aaaa \n';
-        banderaMensajeFaltante=true;
-        }else{
-        
-        
+            fecha.style.background='Red';
+            mensajeFaltanteAlert+= ' * La fecha debe ser dd/mm/aaaa \n';
+            banderaMensajeFaltante=true;
+        }else{        
            if(compararFecha(fecha.value,document.getElementById('ordStartDate').value )== -1){
-           fecha.style.background='Red';
-           mensajeFaltanteAlert+= ' * La fecha de inicio debe ser mayor a la fecha de inicio de la orden\n';
-           banderaMensajeFaltante=true;
+               fecha.style.background='Red';
+               mensajeFaltanteAlert+= ' * La fecha de inicio del proyecto debe ser mayor a la fecha de inicio de la orden\n';
+               banderaMensajeFaltante=true;
            }
 
            if(compararFecha(fecha.value,document.getElementById('ordFinishDate').value )== 1){
-           fecha.style.background='Red';
-           mensajeFaltanteAlert+= ' * La fecha de inicio debe ser menor a la fecha de entrega de la orden\n';
-           banderaMensajeFaltante=true;
+               fecha.style.background='Red';
+               mensajeFaltanteAlert+= ' * La fecha de inicio del proyecto debe ser menor a la fecha de entrega de la orden\n';
+               banderaMensajeFaltante=true;
+           }   
+           
+           if(compararFecha(fecha.value,document.getElementById('proFinishDate').value )== 1){
+               fecha.style.background='Red';
+               mensajeFaltanteAlert+= ' * La fecha de inicio del proyecto debe ser menor a la fecha de fin del proyecto\n';
+               banderaMensajeFaltante=true;
            }
-        
-        
-        
         }
         
     }else{
@@ -105,28 +103,27 @@ function validarCampos()
     
     }
     
-var proFinishDate = document.getElementById("proFinishDate");
-    
-    
+   var proFinishDate = document.getElementById("proFinishDate");
+        
     if(proFinishDate.value != '')
     {
         if (!(isDate(proFinishDate.value)))
         {
-        proFinishDate.style.background='Red';
-        mensajeFaltanteAlert+= ' * La fecha de entrega debe ser dd/mm/aaaa \n';
-        banderaMensajeFaltante=true;
+            proFinishDate.style.background='Red';
+            mensajeFaltanteAlert+= ' * La fecha de entrega debe ser dd/mm/aaaa \n';
+            banderaMensajeFaltante=true;
         }else{
           
            if(compararFecha(proFinishDate.value,document.getElementById('ordStartDate').value )== -1){
-           proFinishDate.style.background='Red';
-           mensajeFaltanteAlert+= ' * La fecha de entrega debe ser mayor a la fecha de inicio de la orden \n';
-           banderaMensajeFaltante=true;
+               proFinishDate.style.background='Red';
+               mensajeFaltanteAlert+= ' * La fecha de entrega del proyecto debe ser mayor a la fecha de inicio de la orden \n';
+               banderaMensajeFaltante=true;
            }
 
            if( compararFecha(proFinishDate.value,document.getElementById('ordFinishDate').value )== 1){
-           proFinishDate.style.background='Red';
-           mensajeFaltanteAlert+= ' * La fecha de entrega debe ser menor a la fecha de fin de la orden\n';
-           banderaMensajeFaltante=true;
+               proFinishDate.style.background='Red';
+               mensajeFaltanteAlert+= ' * La fecha de entrega del proyecto debe ser menor a la fecha de entrega de la orden\n';
+               banderaMensajeFaltante=true;
            }
         
         }
@@ -139,12 +136,12 @@ var proFinishDate = document.getElementById("proFinishDate");
     }
 
    
-    if(proFinishDate.value != '' &&  fecha.value != '' && (isDate(fecha.value)) && (isDate(proFinishDate.value)) && compararFecha(proFinishDate.value,fecha.value )== -1)
+    if(proFinishDate.value != '' &&  fecha.value != '' && (isDate(fecha.value)) && (isDate(proFinishDate.value)) && compararFecha(fecha.value,document.getElementById('ordFinishDate').value )== 1)
     {
     
        document.getElementById("proStartDate").style.background='Red';
        document.getElementById("proFinishDate").style.background='Red';
-       mensajeFaltanteAlert+= ' * La Fecha de entrega de la Orden debe ser mayor a la fecha de inicio\n';
+       mensajeFaltanteAlert+= ' * La fecha de entrega de la orden debe ser mayor a la fecha de inicio del proyecto\n';
        banderaMensajeFaltante=true;
        
     
@@ -483,7 +480,7 @@ function validarAsignacion()
      }
         
     var fecha = document.getElementById("proAssignStartDate");    
-    
+
     if(fecha.value != '')
     {
         if (!(isDate(fecha.value)))
@@ -493,16 +490,15 @@ function validarAsignacion()
         banderaMensajeFaltante=true;
         }else{
         
-        
            if(compararFecha(fecha.value,document.getElementById('projectStartDate').value )== -1){
            fecha.style.background='Red';
-           mensajeFaltanteAlert+= ' * La fecha de inicio debe ser mayor a la fecha de inicio del proyecto\n';
+           mensajeFaltanteAlert+= ' * La fecha inicio de la asignación debe ser mayor a la fecha de inicio del proyecto\n';
            banderaMensajeFaltante=true;
            }
 
            if(compararFecha(fecha.value,document.getElementById('projectFinishDate').value )== 1){
            fecha.style.background='Red';
-           mensajeFaltanteAlert+= ' * La fecha de inicio debe ser menor a la fecha de entrega del proyecto\n';
+           mensajeFaltanteAlert+= ' * La fecha inicio de la asignación debe ser menor a la fecha de entrega del proyecto\n';
            banderaMensajeFaltante=true;
            }
         }
@@ -517,7 +513,6 @@ function validarAsignacion()
     
 var proFinishDate = document.getElementById("proAssignFinishDate");
     
-    
     if(proFinishDate.value != '')
     {
         if (!(isDate(proFinishDate.value)))
@@ -526,16 +521,16 @@ var proFinishDate = document.getElementById("proAssignFinishDate");
         mensajeFaltanteAlert+= ' * La fecha de entrega debe ser dd/mm/aaaa \n';
         banderaMensajeFaltante=true;
         }else{
-          
+
            if(compararFecha(proFinishDate.value,document.getElementById('projectStartDate').value )== -1){
            proFinishDate.style.background='Red';
-           mensajeFaltanteAlert+= ' * La fecha de entrega debe ser mayor a la fecha de inicio del proyecto \n';
+           mensajeFaltanteAlert+= ' * La fecha fin de la asignación debe ser mayor a la fecha de inicio del proyecto \n';
            banderaMensajeFaltante=true;
            }
 
-           if( compararFecha(proFinishDate.value,document.getElementById('projectFinishDate').value )== 1){
+           if(compararFecha(proFinishDate.value,document.getElementById('projectFinishDate').value )== 1){
            proFinishDate.style.background='Red';
-           mensajeFaltanteAlert+= ' * La fecha de entrega debe ser menor a la fecha de fin del proyecto \n';
+           mensajeFaltanteAlert+= ' * La fecha fin de la asignación debe ser menor a la fecha de fin del proyecto \n';
            banderaMensajeFaltante=true;
            }
         
@@ -554,7 +549,7 @@ var proFinishDate = document.getElementById("proAssignFinishDate");
     
        document.getElementById("proAssignStartDate").style.background='Red';
        document.getElementById("proAssignFinishDate").style.background='Red';
-       mensajeFaltanteAlert+= ' * La Fecha de fin de la asignacion debe ser mayor a la fecha de inicio\n';
+       mensajeFaltanteAlert+= ' * La fecha fin de la asignacion debe ser mayor a la fecha de inicio de la asignación \n';
        banderaMensajeFaltante=true;
        
     
@@ -795,8 +790,8 @@ function normatizarCantidades(  banderaMensajeFaltante,  mensajeFaltanteAlert ){
     var aux = true; 
     
     for(var i=0; i< inputs.length; i++){
-      
-       if (inputs[i].value==''){
+       
+       if (inputs[i].value=='' && inputs[i].name != 'proName' && inputs[i].name != 'proStartDate' && inputs[i].name != 'proFinishDate'){
          inputs[i].value=0;
        
       }
@@ -816,9 +811,9 @@ function normatizarCantidades(  banderaMensajeFaltante,  mensajeFaltanteAlert ){
             aux=false;
           }
          
-      }else{
+      }/*else{
          inputs[i].style.background  = '#FFFFFF';
-      }
+      }*/
     }
     result[0]=banderaMensajeFaltante;
     result[1]=mensajeFaltanteAlert; 
@@ -840,7 +835,7 @@ function cerrarEnviarAsignacion(){
 }
 
 function enviarAsignacion(){
-
+          
      var praId=document.getElementById('parIdMail').value;
      var mensaje=document.getElementById('messageMail').value;
      var uaid=document.getElementById('uaid').value;

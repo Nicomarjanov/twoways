@@ -158,6 +158,7 @@ public class AbmGastosServlet extends AutorizacionServlet {
             
         } catch (Exception e) {
             e.printStackTrace();
+            request.setAttribute("mensaje","<script>alert('Ocurrió un error al guardar el item de gasto')</script>");
         }
       }    
       else if(expId != null && expId.length() > 0  && (accion!=null && accion.equalsIgnoreCase("eliminar")) ){

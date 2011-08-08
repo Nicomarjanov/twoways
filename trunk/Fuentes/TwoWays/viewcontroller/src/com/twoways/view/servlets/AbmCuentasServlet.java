@@ -61,19 +61,20 @@ public class AbmCuentasServlet extends AutorizacionServlet {
                 if(accId != null && accId.length() > 0 ){ 
                     cuenta.setAccId(Long.parseLong(accId));
                     cuenta = twoWaysBDL.getServiceTwoWays().actualizarAccount(cuenta);                    
-                   
+                    request.setAttribute("mensaje","<script>alert('La cuenta se guardó con éxito')</script>");                    
+                                       
                 }else{
                     cuenta = twoWaysBDL.getServiceTwoWays().insertarAccount(cuenta);
-                    
+                    request.setAttribute("mensaje","<script>alert('La cuenta se guardó con éxito')</script>");                    
+                                        
                 }
                 request.setAttribute("cuenta",cuenta);
                 
             } catch (Exception e) {
                 e.printStackTrace();
+                request.setAttribute("mensaje","<script>alert('Se produjo un error durante la creación de la cuenta.')</script>");
             }
-           
-            request.setAttribute("mensaje","<script>alert('La cuenta se guardó con éxito')</script>");                    
-            
+
         }
             else  if(accId != null && accId.length() > 0  && (accion == null || (accion!=null && !accion.equalsIgnoreCase("cancelar")) ))
             {

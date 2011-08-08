@@ -362,7 +362,11 @@ public class ServiceTW_System {
             UsersTO user= getTwoWaysBDL().getServiceTwoWays().getUserById(userId);
             getTwoWaysBDL().getServiceTwoWays().enviarMailAsignacion(praId,message,user,otrosDestinatarios);
             return "El email fue marcado para ser enviado";
-        } catch (Exception e) {
+        }catch (NullPointerException x) {
+                     x.printStackTrace();
+                     log.error(x, x);
+                     return "El email no pudo ser enviado por el siguiente motivo: Mail del empleado vacío. ";
+        }catch (Exception e) {
              e.printStackTrace();
              log.error(e, e);
              return "El email no pudo ser enviado por el siguiente motivo "+ e.getMessage();

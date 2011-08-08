@@ -34,7 +34,7 @@
   <body id="proyecto-body"   >
   <jsp:include page="/WEB-INF/jspIncludes/menu.jsp" /><c:out value="${mensaje}" escapeXml="false"/>
   <div class="transbox">
-    <img id="progress" src="img/29.GIF" style="display:none;"/>
+    <img id="progress" src="img/progress.GIF" style="display:none;"/>
   </div>
 <form   id="formProyecto" name="formProyecto" action="proyectos" method="POST" >  
 <input type ="hidden" name="ordId" id="ordId" value="<c:out value="${project.ordersTO.ordId}" />" /> 
@@ -49,10 +49,10 @@
   
   <table align="center" width="70%">
      <tr>
-        <td nowrap align="right" >Proyecto:</td><td >
-        <input type="text" size="75"   class="tw_form" name="proName" id="proName"  value="<c:out value="${project.proName}" />" /></td>
+        <td nowrap align="right" >Proyecto:</td>
+        <td><input type="text" size="75" class="tw_form" name="proName" id="proName"  value="<c:out value="${project.proName}" />" onfocus="javascript:this.style.background='#FFFFFF';"/></td>
         <td nowrap align="right" >Estado:</td>
-       <td  nowrap>   
+        <td nowrap>   
           <select name="listaEstados" id="listaEstados" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">                
                 <c:forEach items="${listaEstados}" var="item">
                    <c:choose>
@@ -68,9 +68,8 @@
                     </c:otherwise>
                     </c:choose>
                 </c:forEach>
-       </select> 
-    </td>
-        
+          </select> 
+       </td>       
      </tr>
      <tr>
      <td nowrap align="right" >Orden:</td>
@@ -94,22 +93,26 @@
       <td nowrap align="right" >
        Fecha Inicio Proyecto:</td> 
       <td>
-      <input type="text" class="tw_form" name="proStartDate" id="proStartDate"  value="<fmt:formatDate value="${project.proStartDate}"    pattern="dd/MM/yyyy HH:mm" />" /><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].proStartDate,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png"></img> 
+      <input type="text" class="tw_form" name="proStartDate" id="proStartDate"  value="<fmt:formatDate value="${project.proStartDate}"    pattern="dd/MM/yyyy HH:mm" />" onfocus="javascript:this.style.background='#FFFFFF';" /><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].proStartDate,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png"></img> 
       </td>
       <td nowrap align="right" >
       Fecha de Entrega Proyecto:</td><td >
-      <input type="text" class="tw_form" name="proFinishDate" id="proFinishDate"  value="<fmt:formatDate value="${project.proFinishDate}"    pattern="dd/MM/yyyy HH:mm" />" /><div id="divHasta" style="background:#FFFFFF;position:absolute"  ></div> <img onclick="cal1Hasta.select(document.forms[0].proFinishDate,'selHasta','dd/MM/yyyy'); return false;" NAME="selHasta" ID="selHasta"  height="20" width="20" alt="seleccion" src="img/cal.png"></img> 
+      <input type="text" class="tw_form" name="proFinishDate" id="proFinishDate"  value="<fmt:formatDate value="${project.proFinishDate}"    pattern="dd/MM/yyyy HH:mm" />" onfocus="javascript:this.style.background='#FFFFFF';"/><div id="divHasta" style="background:#FFFFFF;position:absolute"  ></div> <img onclick="cal1Hasta.select(document.forms[0].proFinishDate,'selHasta','dd/MM/yyyy'); return false;" NAME="selHasta" ID="selHasta"  height="20" width="20" alt="seleccion" src="img/cal.png"></img> 
       </td>
       <td>&nbsp;</td>
     </tr>
     <tr>
-    <td  align="left" colspan="6" nowrap >
+         <td nowrap align="right" >Descripción:</td>
+         <td colspan="6"  ><textarea  rows="3" cols="109"  class="tw_form"  onkeyup="limitarArea()"  name="proDescription" id="proDescription" ><c:out value="${project.proDescription}" /></textarea> </td>
+    </tr>
+    <tr>
+    <td  align="center" colspan="6" nowrap >
     <table cellpadding=0 cellspacing=0>
     <thead/>
     <tbody>
     <tr align="right" >
-    <td>Cantidad de Palabras</td>
-    <td  align="left"  >&nbsp;<input type="text" style="WIDTH: 70px;text-align:right;" readonly  name="tarifXunid-<c:out value="${assi.praId}" />"  id="tarifXunid-<c:out value="${assiDet.padId}" />" value="<fmt:formatNumber  maxFractionDigits="0"  pattern="##########"    value="${cantidadPalabras}" />" />
+    <td>Cantidad de Palabras:</td>
+    <td  align="left"  >&nbsp;<input type="text" class="tw_form" style="WIDTH: 70px;text-align:right;" readonly  name="tarifXunid-<c:out value="${assi.praId}" />"  id="tarifXunid-<c:out value="${assiDet.padId}" />" value="<fmt:formatNumber  maxFractionDigits="0"  pattern="##########"    value="${cantidadPalabras}" />" />
     
     <td align="right" width="15%">&nbsp;Moneda:</td>
     <td align="left">       
@@ -131,15 +134,12 @@
                 </c:forEach>
        </select> 
     </td>
-    <td align="right" >&nbsp;Costo Total</td>
-    <td>&nbsp;<input type="text" style="WIDTH: 70px;text-align:right;" readonly  name="pro-<c:out value="${assi.praId}" />"  id="tarifXunid-<c:out value="${assiDet.padId}" />" value="<fmt:formatNumber  maxFractionDigits="4"  pattern="##########.#####"    value="${costoTotalProyecto}" />" /></td>
+    <td align="right" >&nbsp;Costo Total:</td>
+    <td>&nbsp;<input type="text" class="tw_form" style="WIDTH: 70px;text-align:right;" readonly  name="pro-<c:out value="${assi.praId}" />"  id="tarifXunid-<c:out value="${assiDet.padId}" />" value="<fmt:formatNumber  maxFractionDigits="4"  pattern="##########.#####"    value="${costoTotalProyecto}" />" /></td>
     </tr>
     </tbody>
     </table>
     </td>
-    <tr>
-         <td nowrap align="right" >Descripción:</td>
-         <td colspan="6"  ><textarea  rows="3" cols="109"  class="tw_form"  onkeyup="limitarArea()"  name="proDescription" id="proDescription" ><c:out value="${project.proDescription}" /></textarea> </td>
     </tr>
  </table>
 

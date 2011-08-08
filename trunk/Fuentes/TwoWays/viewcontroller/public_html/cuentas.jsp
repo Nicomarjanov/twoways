@@ -31,7 +31,7 @@
   </tr>
   <tr>
     <td align="right" width="25%">Dueño de la cuenta:</td>
-    <td align="left"><input type="text" class="tw_form" id="accHolder"  name="accHolder"  value="<c:out value="${cuenta.accHolder}"/>" size="100" maxlength="250"></input></td>    
+    <td align="left"><input type="text" class="tw_form" id="accHolder"  name="accHolder"  value="<c:out value="${cuenta.accHolder}"/>" size="100" maxlength="250" onfocus="javascript:this.style.background='#FFFFFF';"></input></td>    
   </tr>  
   <tr>
     <td align="right" width="25%">Número de la cuenta:</td>

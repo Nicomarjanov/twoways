@@ -211,6 +211,7 @@ public class ServiceMail {
             System.out.println("multipart3");
             Transport.send(msg);
             System.out.println("termino");
+            
         } catch (AddressException ex) {
             ex.printStackTrace();
         } catch (MessagingException ex) {

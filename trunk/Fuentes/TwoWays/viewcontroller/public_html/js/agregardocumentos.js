@@ -28,9 +28,6 @@ function agregarDocumento(){
         return;  
     }
 
-   
-    
-    
    if(document.getElementById('ordId-'+idDoc)){
    
      alert('El documento ya se encuentra en la lista');  
@@ -43,8 +40,6 @@ function agregarDocumento(){
        newRow.bgColor = "#FFFFFF";
        insertarColumnas(tablaDocumentos.rows[index],3); 
        cargarItemDocumento(tablaDocumentos.rows[index]);
-     
-       
    }
    
 }
@@ -68,13 +63,11 @@ function cargarItemDocumento(row){
    nameDoc.src='';
    row.cells[2].innerHTML= typeDoc.text;  
    var tdIn=document.getElementById('tdIn');
-   if(typeDoc.value.startsWith('FTP-') ){
-     tdIn.innerHTML='<input type="text"  class="tw_form" id="doc_name" size=30  onkeypress="agregarDocumentoFtp(event)"    /> '; 
- 
-     }else{
-         tdIn.innerHTML='<input type="file"  class="tw_form" id="doc_name" size=30  onchange="agregarDocumento()"   /> '; 
-      
-     }
+   if(typeDoc.value.startsWith('FTP') ){
+     tdIn.innerHTML='<input type="text"  class="tw_form" id="doc_name" size=30  onkeypress="agregarDocumentoFtp(event)"/><img  src="img/next.png" alt=">" width="20" height="20" title="Agregar nombre del documento FTP" onclick="agregarDocumento()" onmouseover="this.style.cursor=\'hand\';" />'; 
+   }else{
+     tdIn.innerHTML='<input type="file"  class="tw_form" id="doc_name" size=30  onchange="agregarDocumento()"   /> ';
+   }
    
 }
 
@@ -94,14 +87,13 @@ function cambioTipo(){
  var typeDoc= document.getElementById("listaDocTypes").options[ document.getElementById("listaDocTypes").selectedIndex];
  var tdIn=document.getElementById('tdIn');
   
- if(typeDoc.value.startsWith('FTP-')){
-     tdIn.innerHTML='<input type="text"  class="tw_form" id="doc_name" size=30  onkeypress="agregarDocumentoFtp(event)"    /> '; 
+ if(typeDoc.value.startsWith('FTP')){
+     tdIn.innerHTML='<input type="text"  class="tw_form" id="doc_name" size=30  onkeypress="agregarDocumentoFtp(event)"/><img  src="img/next.png" alt=">" width="20" height="20" title="Agregar nombre del documento FTP" onclick="agregarDocumento()" onmouseover="this.style.cursor=\'hand\';" />';
  
  }else{
-     tdIn.innerHTML='<input type="file"  class="tw_form" id="doc_name" size=30  onchange="agregarDocumento()"   /> '; 
+     tdIn.innerHTML='<input type="file"  class="tw_form" id="doc_name" size=30  onchange="agregarDocumento()"   />'; 
   
  }
- 
  
 }
 
