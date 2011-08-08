@@ -201,7 +201,7 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
             clientsTO.setCliId(Long.parseLong((mRequest.get("listaClientes")!= null )?mRequest.get("listaClientes").toString():""));
             ordersTO.setClientsTO(clientsTO);
             ClientResponsableTO cliResponsableTO = new ClientResponsableTO();
-            if (mRequest.get("listaRespClientes")!= null && !mRequest.get("listaRespClientes").toString().equalsIgnoreCase("") ){
+            if (mRequest.get("listaRespClientes")!= null && !mRequest.get("listaRespClientes").toString().equalsIgnoreCase("0") ){
                 cliResponsableTO.setCreId(Long.parseLong((mRequest.get("listaRespClientes")!= null )?mRequest.get("listaRespClientes").toString():""));
                 ordersTO.setCliResponsableTO(cliResponsableTO);
             }
@@ -460,7 +460,14 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                                  FileItemFactory fac= new DiskFileItemFactory();
                                  
                                  FileItem fi = fac.createItem(item.getFieldName().replaceFirst("file",""),item.getContentType(),false,item.getFieldName().replaceFirst("file",""));
-                                 fi.getOutputStream().write(("Por favor descargue el archivo ["+ fi.getFieldName()+ "] desde nuestro  FTP").getBytes());
+                                 fi.getOutputStream().write(("Por favor descargue el archivo ["+ fi.getFieldName()+ "] desde nuestro  FTP. \n" +
+                                 "Datos para ingresar al ftp:\n" + 
+                                 "\n" + 
+                                 "ftp://ftp.twoways.net/\n" + 
+                                 "\n" + 
+                                 "User: traductor1\n" + 
+                                 "\n" + 
+                                 "Password: Tqa45E3@").getBytes());
                                  item =fi;
                            }
                             

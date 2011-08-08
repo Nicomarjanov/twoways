@@ -208,8 +208,7 @@ function validarCampos()
 
     var ordFinishDate = document.getElementById("ordFinishDate");
     
-    
-    if(ordFinishDate.value != '' &&  fecha.value != '' && (isDate(fecha.value)) && (isDate(ordFinishDate.value)) && compararFecha(ordFinishDate.value,fecha.value )== -1)
+    if(ordFinishDate.value != '' &&  fecha.value != '' && (isDate(fecha.value)) && (isDate(ordFinishDate.value)) && compararFecha(fecha.value,ordFinishDate.value)== 1)
     {
     
        document.getElementById("ordStartDate").style.background='Red';

@@ -45,10 +45,10 @@
         <td colspan="7">
             <c:choose>
                 <c:when test="${auxOrdName != null}">
-                    <input type="text" size="145"  class="tw_form" name="ordName" id="ordName"  value="<c:out value="${auxOrdName}" />" />                
+                    <input type="text" size="145"  class="tw_form" name="ordName" id="ordName"  value="<c:out value="${auxOrdName}" />" onfocus="javascript:this.style.background='#FFFFFF';"/>                
                 </c:when>
                 <c:otherwise>
-                    <input type="text" size="145"  class="tw_form" name="ordName" id="ordName"  value="<c:out value="${order.ordName}" />" />
+                    <input type="text" size="145"  class="tw_form" name="ordName" id="ordName"  value="<c:out value="${order.ordName}" />" onfocus="javascript:this.style.background='#FFFFFF';"/>
                 </c:otherwise>
             </c:choose>
         </td>
@@ -58,11 +58,11 @@
         <td>
            <c:choose>
                 <c:when test="${auxOrdDate != null}">        
-                    <input type="text" class="tw_form" name="ordStartDate" id="ordStartDate"  value="<c:out value="${auxOrdDate}"/>" />
+                    <input type="text" class="tw_form" name="ordStartDate" id="ordStartDate"  value="<c:out value="${auxOrdDate}"/>" onfocus="javascript:this.style.background='#FFFFFF';"/>
                     <td align="left" ><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].ordStartDate,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png"></img></td>
                 </c:when>
                 <c:otherwise>     
-                    <input type="text" class="tw_form" name="ordStartDate" id="ordStartDate"  value="<fmt:formatDate value="${order.ordStartDate}"    pattern="dd/MM/yyyy HH:mm" />" />
+                    <input type="text" class="tw_form" name="ordStartDate" id="ordStartDate"  value="<fmt:formatDate value="${order.ordStartDate}"    pattern="dd/MM/yyyy HH:mm" />" onfocus="javascript:this.style.background='#FFFFFF';"/>
                     <td align="left"><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].ordStartDate,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png"></img></td>
                 </c:otherwise>
             </c:choose> 
@@ -71,11 +71,11 @@
         <td>
             <c:choose>
                 <c:when test="${auxFinishDate != null}">        
-                    <input type="text" class="tw_form" name="ordFinishDate" id="ordFinishDate"  value="<c:out value="${auxFinishDate}" />" />
+                    <input type="text" class="tw_form" name="ordFinishDate" id="ordFinishDate"  value="<c:out value="${auxFinishDate}" />" onfocus="javascript:this.style.background='#FFFFFF';"/>
                     <td align="left"><div id="divHasta" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Hasta.select(document.forms[0].ordFinishDate,'selHasta','dd/MM/yyyy'); return false;" NAME="selHasta" ID="selHasta"  height="20" width="20" alt="seleccion" src="img/cal.png"></img></td>
                 </c:when>
                 <c:otherwise>     
-                    <input type="text" class="tw_form" name="ordFinishDate" id="ordFinishDate"  value="<fmt:formatDate value="${order.ordFinishDate}"    pattern="dd/MM/yyyy HH:mm" />" />
+                    <input type="text" class="tw_form" name="ordFinishDate" id="ordFinishDate"  value="<fmt:formatDate value="${order.ordFinishDate}"    pattern="dd/MM/yyyy HH:mm" />" onfocus="javascript:this.style.background='#FFFFFF';"/>
                     <td align="left"><div id="divHasta" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Hasta.select(document.forms[0].ordFinishDate,'selHasta','dd/MM/yyyy'); return false;" NAME="selHasta" ID="selHasta"  height="20" width="20" alt="seleccion" src="img/cal.png"></img></td>
                 </c:otherwise>
             </c:choose>                
@@ -111,7 +111,7 @@
         <td nowrap align="right" >Responsable:</td>
         <td align="left" colspan="2">
             <select name="listaRespClientes" id="listaRespClientes" >                            
-                <option selected="selected">Seleccionar</option>
+                <option selected="selected" value="0">Seleccionar</option>
                     <c:forEach items="${listaRespClientes}" var="item">
                        <c:choose>
                             <c:when test="${order.cliResponsableTO.creId == item.creId}">

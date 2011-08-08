@@ -196,7 +196,7 @@
                    <tr name="item-idiomas" id="<c:out value="${item[\'ORDID\']}"/><c:out value="${item[\'RATID\']}"/>" >
                         <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'ORDNAME\']}" /></td>
                         <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'CRENAME\']}" /></td>                         
-                        <td width="10%" bgcolor="#FFFFF"><fmt:formatDate value="${item[\'ORDSTARTDATE\']}"  pattern="dd/MM/yyyy HH:mm" />
+                        <td width="10%" bgcolor="#FFFFF"><fmt:formatDate value="${item[\'ORDSTARTDATE\']}"  pattern="dd/MM/yyyy" />
                            <input type="hidden" name="item-ordenes-hidden"   value="<c:out value="${item[\'ORDID\']}" />#<c:out value="${item[\'RATID\']}"/>#<c:out value="${item[\'CURID\']}" />#<c:out value="${item[\'ORDTOTAL\']}" />"></input>
                            <input type="hidden" name="print-ordenes-hidden"  value="<c:out value="${item[\'ORDPROJID\']}" />#<c:out value="${item[\'ORDJOBID\']}" />#<c:out value="${item[\'ORDWONUMBER\']}"/>#<c:out value="${item[\'ORDJOBNAME\']}"/>#<c:out value="${item[\'ORDJOBDESCRIPTION\']}" />#<c:out value="${item[\'ORRWCOUNT\']}"/>#<c:out value="${item[\'CURSYMBOL\']}" /> <c:out value="${item[\'ORRVALUE\']}"/>#<c:out value="${item[\'ORDTOTAL\']}"/>#<c:out value="${item[\'CRENAME\']}" />"</input></td>     
                         <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'ORDWONUMBER\']}" /></td> 

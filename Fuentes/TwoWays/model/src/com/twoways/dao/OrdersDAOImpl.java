@@ -88,7 +88,7 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
                     auxDocType.setDotId(order.getDocTypesSelected().get(id).toString());
                 }
                 ordersDocsTO.setDocType(auxDocType);
-                if(ordersDocsTO.getDocType().getDotId().startsWith("FTP-")){ 
+                if(ordersDocsTO.getDocType().getDotId().startsWith("FTP")){ 
                   ordersDocsTO.setOdoName(file.getName() + ".txt");
                 }else{
                  ordersDocsTO.setOdoName(file.getName().substring(file.getName().lastIndexOf("\\") + 
@@ -436,7 +436,8 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
         try {
             Map params = new HashMap();
             params.put("cliId",cliId);
-            params.put("mesId",mesId+anioId);
+            params.put("mesId",mesId+anioId); 
+            //params.put("mesId",25+mesId+anioId);
 
             ret = getSqlMapClientTemplate().queryForList("getOrdersByCliId",params);
         } catch (DataAccessException dae) {

@@ -46,11 +46,14 @@
   <table align="center">
   <tr>
     <td>Fecha de Asignacion</td>
-    <td colspan=3 nowrap ><input type="text" <c:out value="${readOnly}" />  name="proAssignStartDate" id="proAssignStartDate"   value="<fmt:formatDate value="${projectAssignmentsTO.praAssignDate}"    pattern="dd/MM/yyyy HH:mm" />" /><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].proAssignStartDate,'selDesde','dd/MM/yyyy'); return existeDisponbilidad();" NAME="selDesde" ID="selDesde"  height="20" width="20"   alt="seleccion" <c:out value="${readOnly}" /> src="img/cal.png"></img>
-  </td></tr> 
+    <td colspan=3 nowrap ><input type="text" <c:out value="${readOnly}" />  name="proAssignStartDate" id="proAssignStartDate"   value="<fmt:formatDate value="${projectAssignmentsTO.praAssignDate}"    pattern="dd/MM/yyyy HH:mm" />" onfocus="javascript:this.style.background='#FFFFFF';"/><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].proAssignStartDate,'selDesde','dd/MM/yyyy'); return existeDisponbilidad();" NAME="selDesde" ID="selDesde"  height="20" width="20"   alt="seleccion" <c:out value="${readOnly}" /> src="img/cal.png"></img>
+    </td>
+  </tr> 
   <tr>
     <td>Fecha de Fin de Asignacion</td>
-    <td colspan=3 nowrap ><input  type="text" class="tw_form" name="proAssignFinishDate" id="proAssignFinishDate"  value="<fmt:formatDate value="${projectAssignmentsTO.praFinishDate}"    pattern="dd/MM/yyyy HH:mm" />" /><div id="divHasta" style="background:#FFFFFF;position:absolute"  ></div> <img onclick="cal1Hasta.select(document.forms[0].proAssignFinishDate,'selHasta','dd/MM/yyyy'); return false;" NAME="selHasta" ID="selHasta"  height="20" width="20"  alt="seleccion"  src="img/cal.png"></img></td></tr> 
+    <td colspan=3 nowrap ><input  type="text" class="tw_form" name="proAssignFinishDate" id="proAssignFinishDate"  value="<fmt:formatDate value="${projectAssignmentsTO.praFinishDate}"    pattern="dd/MM/yyyy HH:mm" />" onfocus="javascript:this.style.background='#FFFFFF';"/><div id="divHasta" style="background:#FFFFFF;position:absolute"  ></div> <img onclick="cal1Hasta.select(document.forms[0].proAssignFinishDate,'selHasta','dd/MM/yyyy'); return false;" NAME="selHasta" ID="selHasta"  height="20" width="20"  alt="seleccion"  src="img/cal.png"></img>
+    </td>
+  </tr> 
   <tr>
     <td>Servicio</td>
     <td colspan=3 >
@@ -122,53 +125,57 @@
     <td >
      <table id="list-documento-body" align="right" width="100%">
       <thead>
-         <tr><th width="400" align="center" colspan="2"  >Documento</th><th>Lenguajes</th></tr>
+         <tr><th width="400" align="center" colspan="2"  >Documento</th><th align="center">Tipo</th><th align="center">Lenguajes</th></tr>
       </thead>
       <tbody  style="width:100%;height:30px;overflow-x: hidden;overflow-y:auto ;" >
    
      <c:forEach items="${ordersTO.ordersDocsTOList}" var="item">
-         <c:set scope="page" value="${''}" var="check"  />
-         <c:set scope="page" value="${'disabled =\"disabled\"'}" var="disa"  />
-         
-         <c:forEach items="${projectAssignmentsTO.proAssigmentsDetailsTO}" var="det">
-         
-            <c:if test="${det.ordersDocsTO.odoId == item.odoId}">
-               <c:set scope="page" value="${'checked=\"checked\"'}" var="check"  />
-               <c:if test="${projectAssignmentsTO.serviceTO.rtyName != 'Maquetador'}">
-                    <c:set scope="page" value="${''}" var="disa"  />
-               </c:if>
-             <c:set scope="page" value="${det.pranslatorsLanguaguesTO.tlaId}" var="lanSel"  />
-            </c:if>
-            
-        </c:forEach>
-        
-        
-        
-       <tr name="item-documento"  bgcolor="#FFFFFF" id="ordId-<c:out value="${item.odoName}" />" >
-             <td width="300" ><a href="/twoways/downloadfile?docId=<c:out value="${item.odoId}" />"  ><c:out value="${item.odoName}" /></a></td>
-             <td ><input type="checkbox"  <c:out value="${check}" /> name="listdocs-<c:out value="${item.odoId}" />"  id="listdocs-<c:out value="${item.odoId}" />"   onclick="cambioCheck('<c:out value="${item.odoId}" />')" /></td>
-       <td>
-       
-           
-            
-            <select name="languagues" id="languagues<c:out value="${item.odoId}" />"  <c:out value="${disa}" />    >
-                <option value=""  >Seleccionar</option>
-                 <c:forEach items="${languagues}" var="item">
-                   <c:choose>
-                    <c:when test="${lanSel == item['TLA_ID']}">
-                       <option value="<c:out value="${item['TLA_ID']}" />"  selected="selected">
-                        [<c:out value="${item['LAN_ORIGEN']}" />-<c:out value="${item['ACRON_ORIGEN']}" />] - [<c:out value="${item['LAN_DESTINO']}" />-<c:out value="${item['ACRON_DESTINO']}" />]
-                      </option> 
-                    </c:when>
-                    <c:otherwise>
-                    <option value="<c:out value="${item['TLA_ID']}" />" >
-                         [<c:out value="${item['LAN_ORIGEN']}" />-<c:out value="${item['ACRON_ORIGEN']}" />] - [<c:out value="${item['LAN_DESTINO']}" />-<c:out value="${item['ACRON_DESTINO']}" />]
-                    </option>
-                    </c:otherwise>
-                    </c:choose>
+       <c:if test="${item.docType.dotId == 'Source' || item.docType.dotId == 'FTP' || item.docType.dotId == 'Other' }"  >  
+                 <c:set scope="page" value="${''}" var="check"  />
+                 <c:set scope="page" value="${'disabled =\"disabled\"'}" var="disa"  />
+                 
+                 <c:forEach items="${projectAssignmentsTO.proAssigmentsDetailsTO}" var="det">
+                 
+                    <c:if test="${det.ordersDocsTO.odoId == item.odoId}">
+                       <c:set scope="page" value="${'checked=\"checked\"'}" var="check"  />
+                       <c:if test="${projectAssignmentsTO.serviceTO.rtyName != 'Maquetador'}">
+                            <c:set scope="page" value="${''}" var="disa"  />
+                       </c:if>
+                     <c:set scope="page" value="${det.pranslatorsLanguaguesTO.tlaId}" var="lanSel"  />
+                    </c:if>
+                    
                 </c:forEach>
-            </select>
-       </td></tr>     
+                
+                
+                
+               <tr name="item-documento"  bgcolor="#FFFFFF" id="ordId-<c:out value="${item.odoName}" />" >
+                     <td width="300" ><a href="/twoways/downloadfile?docId=<c:out value="${item.odoId}" />"  ><c:out value="${item.odoName}" /></a></td>
+                     <td ><input type="checkbox"  <c:out value="${check}" /> name="listdocs-<c:out value="${item.odoId}" />"  id="listdocs-<c:out value="${item.odoId}" />"   onclick="cambioCheck('<c:out value="${item.odoId}" />')" /></td>
+                     <td width="150" ><c:out value="${item.docType.dotId}" /></td>
+               <td>
+               
+               <c:if test="${item.docType.dotId == 'Source' || item.docType.dotId == 'FTP' }"  >  
+        
+                    <select name="languagues" id="languagues<c:out value="${item.odoId}" />"  <c:out value="${disa}" />    >
+                        <option value=""  >Seleccionar</option>
+                         <c:forEach items="${languagues}" var="item">
+                           <c:choose>
+                            <c:when test="${lanSel == item['TLA_ID']}">
+                               <option value="<c:out value="${item['TLA_ID']}" />"  selected="selected">
+                                [<c:out value="${item['LAN_ORIGEN']}" />-<c:out value="${item['ACRON_ORIGEN']}" />] - [<c:out value="${item['LAN_DESTINO']}" />-<c:out value="${item['ACRON_DESTINO']}" />]
+                              </option> 
+                            </c:when>
+                            <c:otherwise>
+                            <option value="<c:out value="${item['TLA_ID']}" />" >
+                                 [<c:out value="${item['LAN_ORIGEN']}" />-<c:out value="${item['ACRON_ORIGEN']}" />] - [<c:out value="${item['LAN_DESTINO']}" />-<c:out value="${item['ACRON_DESTINO']}" />]
+                            </option>
+                            </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                    </select>
+                </c:if>
+               </td></tr>  
+        </c:if>
       </c:forEach>
       </tbody>
       

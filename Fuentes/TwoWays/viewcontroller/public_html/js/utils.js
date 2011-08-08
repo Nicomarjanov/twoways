@@ -278,46 +278,69 @@ String.prototype.startsWith = function(str)
 function arrayFecha(fecha1){ 
    var result = new Array(); 
    var fecha= trim(fecha1).split('/');
-    result[2]= parseInt(fecha[0]);
-    result[1]= parseInt(fecha[1]); 
+    result[2]= fecha[0];
+    result[1]= fecha[1]; 
     aux = fecha[2].split(' ');
     result[0]= parseInt(aux[0]);
-  
+
    if(aux != null && aux.length > 0 && aux[1] != null  && aux[1] != '' ){
       
       var hora = aux[1].split(':');
-      result[3]= parseInt(hora[0]);
-      result[4]= parseInt(hora[1]);
+      result[3]= hora[0];
+      result[4]= hora[1];
       
    }else{
-      result[3]= 0;
-      result[4]= 0;
+      result[3]= 00;
+      result[4]= 00;
    }
    
-  
    return result;
+}
+
+function stringFecha(fecha1){ 
+   var result = new Array(); 
+   var fecha= trim(fecha1).split('/');
+    result[2]= fecha[0];
+    result[1]= fecha[1]; 
+    aux = fecha[2].split(' ');
+    result[0]= parseInt(aux[0]);
+
+   if(aux != null && aux.length > 0 && aux[1] != null  && aux[1] != '' ){
+      
+      var hora = aux[1].split(':');
+      result[3]= hora[0];
+      result[4]= hora[1];
+      
+   }else{
+      result[3]= 00;
+      result[4]= 00;
+   }
+   var salida = new String();
+   for (var i=0;i<result.length;i++){
+        salida = salida+result[i];
+   }
+   return salida;
 }
 
 function compararFecha(fecha1 , fecha2){
 
-    var auxFecha1 = arrayFecha(fecha1);
-    var auxFecha2 = arrayFecha(fecha2);
-    
-    for(var i=0 ; i < auxFecha1.length;i++ ){
-         
-                 
-         if(auxFecha1[i] > auxFecha2[i]){
+  var auxFecha1 = parseInt(stringFecha(fecha1));
+  var auxFecha2 = parseInt(stringFecha(fecha2));
+  //alert(auxFecha1+' '+auxFecha2);
+  /*var diaFecha1 = new Date(auxFecha1);
+  var diaFecha2 = new Date(auxFecha2);*/
+
+//  for(var i=0 ; i < auxFecha1.length;i++ ){
+
+         if(auxFecha1 > auxFecha2){
             return 1
-         }else if(auxFecha1[i] == auxFecha2[i]){
-             
+         }else if(auxFecha1 == auxFecha2){
+            return 0          
          }else{
          
            return -1
          }
          
-    }
-    
-    return 0;
-
+   //}
 }
 

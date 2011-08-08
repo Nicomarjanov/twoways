@@ -187,7 +187,7 @@
                  <tbody align="center">
                    <c:forEach items="${projectAssignnments}" var="item">
                    <tr name="item-idiomas" id="<c:out value="${item[\'PADID\']}"/>" >
-                        <td width="10%" bgcolor="#FFFFF"><fmt:formatDate value="${item[\'PRAASSDATE\']}"  pattern="dd/MM/yyyy HH:mm" />
+                        <td width="10%" bgcolor="#FFFFF"><fmt:formatDate value="${item[\'PRAASSDATE\']}"  pattern="dd/MM/yyyy" />
                            <input type="hidden" name="item-pago-hidden" id="item-pago-hidden"  value="<c:out value="${item[\'PADID\']}" />"></input>
                            <input type="hidden" name="print-pago-hidden"  value="<c:out value="${item[\'PRAASSDATE\']}" />#<c:out value="${item[\'PROJNAME\']}" />#<c:out value="${item[\'RATNAME\']}"/>#<c:out value="${item[\'RATVALUE\']}" />#<c:out value="${item[\'WCOUNT\']}"/>#<c:out value="${item[\'PRATOTAL\']}"/>#<c:out value="${item[\'CURSYMBOL\']}" />"</input></td>     
                         <td width="10%" bgcolor="#FFFFF"><a href="/twoways/proyectos?ordId=<c:out value="${item[\'ORDID\']}" />"><c:out value="${item[\'PROJNAME\']}" /></a></td>     

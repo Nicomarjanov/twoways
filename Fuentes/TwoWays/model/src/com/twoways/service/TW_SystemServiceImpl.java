@@ -612,7 +612,9 @@ public class TW_SystemServiceImpl implements TW_SystemService {
         List<OrdersDocsTO> ordDocList = new ArrayList<OrdersDocsTO>();
         List<EmployeesTO> empList = new ArrayList<EmployeesTO>();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        String mensajeSalida = "";
         String texto = "" ;
+        String textoAdicional = "";
         String subject = 
             "next assignment: " + project.getProName() +". Deadline: " + sdf.format(projectAssignmentsTO.getPraFinishDate());
         texto += 
@@ -627,40 +629,51 @@ public class TW_SystemServiceImpl implements TW_SystemService {
         String prevFileName="";
         DecimalFormat df = new DecimalFormat("#");
         for (ProAssigmentsDetailsTO proAssigmentsDetailsTO: proAssigmentsDetailsTOList) {
-             if (prevFileName != null && proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName().toString().equalsIgnoreCase(prevFileName))
-                texto += df.format(Double.parseDouble((proAssigmentsDetailsTO.getPadWCount()!=null)?proAssigmentsDetailsTO.getPadWCount().toString():"0"))+"/"+proAssigmentsDetailsTO.getEmployeesRatesTO().getRatesTO().getRatName()+" ";
-             else {
-                texto += "<TR><TD><B>File Name:</B> " + proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName()+"</TD></TR><TR><TD><B>Word count: </B>";
-                texto += df.format(Double.parseDouble((proAssigmentsDetailsTO.getPadWCount()!=null)?proAssigmentsDetailsTO.getPadWCount().toString():"0"))+"/"+proAssigmentsDetailsTO.getEmployeesRatesTO().getRatesTO().getRatName()+" ";
-                
-                prevFileName= proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName();    
-                 if (!projectAssignmentsTO.getServiceTO().getRtyName().equalsIgnoreCase("Maquetador") ) {
+            if (!proAssigmentsDetailsTO.getOrdersDocsTO().getDocType().getDotId().contains("Source") && !proAssigmentsDetailsTO.getOrdersDocsTO().getDocType().getDotId().contains("FTP") ){
+                textoAdicional += "<TR><TD></TD></TR><TR><TD><B>Additional File Name:</B> "+ proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName()+"</TD></TR>";
+                OrdersDocsTO odo = this.getOrdersDocById(proAssigmentsDetailsTO.getOrdersDocsTO().getOdoId());
+                ordDocList.add(odo);
+            }else{
+                 if (prevFileName != null && proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName().toString().equalsIgnoreCase(prevFileName))
+                    texto += df.format(Double.parseDouble((proAssigmentsDetailsTO.getPadWCount()!=null)?proAssigmentsDetailsTO.getPadWCount().toString():"0"))+"/"+proAssigmentsDetailsTO.getEmployeesRatesTO().getRatesTO().getRatName()+" ";
+                 else {
+                    
+                        texto += "<TR><TD><B>File Name:</B> " + proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName()+"</TD></TR><TR><TD><B>Word count: </B>";
+                        texto += df.format(Double.parseDouble((proAssigmentsDetailsTO.getPadWCount()!=null)?proAssigmentsDetailsTO.getPadWCount().toString():"0"))+"/"+proAssigmentsDetailsTO.getEmployeesRatesTO().getRatesTO().getRatName()+" ";
+                        
+                        prevFileName= proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName();    
+                         if (!projectAssignmentsTO.getServiceTO().getRtyName().equalsIgnoreCase("Maquetador") ) {
+                             
+                            // if(enviados.get(proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName().toString())!=null){ 
+                             
+                             subject += 
+                                     " ["+proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO().getLanguaguesTO().getLanShortName() + "-"+
+                                        proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO().getLaaAcronym() +
+                                     "] > [" + proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO1().getLanguaguesTO().getLanShortName() + "-"+ 
+                                                proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO1().getLaaAcronym() +
+                                     "] ";
+                            /* }else{
+                                 enviados.put(proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName().toString(),"");
+                             }*/
+                         }
                      
-                    // if(enviados.get(proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName().toString())!=null){ 
-                     
-                     subject += 
-                             " ["+proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO().getLanguaguesTO().getLanShortName() + "-"+
-                                proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO().getLaaAcronym() +
-                             "] > [" + proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO1().getLanguaguesTO().getLanShortName() + "-"+ 
-                                        proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO1().getLaaAcronym() +
-                             "] ";
-                    /* }else{
-                         enviados.put(proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName().toString(),"");
-                     }*/
-                 }
-             
-            
-            OrdersDocsTO odo = this.getOrdersDocById(proAssigmentsDetailsTO.getOrdersDocsTO().getOdoId());
-            ordDocList.add(odo);
+                    
+                    OrdersDocsTO odo = this.getOrdersDocById(proAssigmentsDetailsTO.getOrdersDocsTO().getOdoId());
+                    ordDocList.add(odo);
+                    }
             }
         }
-
-        if (message != null)
-            texto+= "</TD></TR></TABLE><BR><TABLE><TR><TD align=left><B>Additional information: </B></TD></TR><TR><TD align=left>"+message.replaceAll("\n","<BR>")+"</TD></TR></TABLE>";
-        else 
-            texto+= "</TD></TR></TABLE>";
+        if (textoAdicional.length() > 0)
+            texto += "</TD></TR>"+textoAdicional+"</TABLE>";
+        else
+            texto += "</TD></TR></TABLE>";
             
-        String firma = "<BR><TABLE style='color:#808080;'><TR><TD><B>"+user.getUsrFirstName() +" "+ user.getUsrLastName()+ "</B></TD></TR>" +
+        if (message != null && message.length() > 0)
+            texto+= "<BR><TABLE><TR><TD align=left><B>Additional information: </B></TD></TR><TR><TD align=left>"+message.replaceAll("\n","<BR>")+"</TD></TR></TABLE>";
+            
+        texto+= "<BR><P>Please confirm receipt and acceptance of this job.</P>"+
+                "<BR><P>Thanks!</P>";
+        String firma = "<BR><TABLE style='color:#808080;'><TR><TD><B>"+((user.getUsrFirstName() != null )? user.getUsrFirstName():"") +" "+ ((user.getUsrLastName() != null )?user.getUsrLastName():"")+ "</B></TD></TR>" +
         ((user.getRolesTO() != null )? "<TR><TD>"+user.getRolesTO().getRolName() +"</TD></TR>":"")+
         "<TR><TD>Two Ways Translation Services</TD></TR>" +
         ((user.getUsrMail() != null ) ?"<TR><TD>E-mail: "+user.getUsrMail() +"</TD></TR>":"")+
@@ -678,13 +691,17 @@ public class TW_SystemServiceImpl implements TW_SystemService {
         if (empList.size() > 0){
             for(EmployeesTO empTO : empList){
                 if (otrosDestinatarios != null && !otrosDestinatarios.equalsIgnoreCase(""))
-                    otrosDestinatarios += ","+empTO.getEmpMail();
-                else otrosDestinatarios = empTO.getEmpMail();
+                    otrosDestinatarios += ","+((empTO.getEmpMail() != null )?empTO.getEmpMail():"");
+                else otrosDestinatarios = ((empTO.getEmpMail() != null )?empTO.getEmpMail():"");
             }
         }
         ServiceMail sm = new ServiceMail();
-        sm.sendAttach(employee.getEmpMail(), ordDocList, subject,otrosDestinatarios,texto.replaceAll("null", " "));
 
+        String mailEmp = ((employee.getEmpMail() != null ) ?employee.getEmpMail():"Vacio");
+        
+        if (mailEmp.equalsIgnoreCase("Vacio"))throw new NullPointerException();
+        else sm.sendAttach(mailEmp, ordDocList, subject,otrosDestinatarios,texto.replaceAll("null", " "));
+        
         return true;
     }
 
@@ -915,6 +932,8 @@ public class TW_SystemServiceImpl implements TW_SystemService {
     public List<EmployeesTO> getEditorByDocId(Long praId,Long docId) throws Exception{
         return this.employeeDao.getEditorByDocId(praId,docId);
     }
+    
+
 }
 
 
