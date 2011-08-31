@@ -108,6 +108,11 @@ public class TranslatorsDAOImpl extends AbstractDAO  implements TranslatorDAO{
      }
 
     public boolean  deleteTraductor(TranslatorsTO translatorsTO) throws Exception {
+        List<TranslatorsSpecializationsTO> oldTransSpezial = (List<TranslatorsSpecializationsTO>) getSqlMapClientTemplate().queryForList("getTransSpezialByTransId",translatorsTO.getTraId()); 
+
+        for(Object oldTranSpezial: oldTransSpezial.toArray() ){
+              getSqlMapClientTemplate().delete("deleteTranslatorsSpezials",(TranslatorsSpecializationsTO)oldTranSpezial);
+        } 
        int res =  getSqlMapClientTemplate().delete("deleteTraductor",translatorsTO);
        return (res > 0); 
     }        

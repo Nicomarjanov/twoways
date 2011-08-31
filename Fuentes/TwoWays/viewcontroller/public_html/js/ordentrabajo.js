@@ -24,7 +24,7 @@ function mostrarOpcionales(){
 }
 function cancelar()
 {
-    if(confirm('¿Desea cancelar la carga de la orden ?'))
+    if(confirm('¿Desea cancelar la carga de la orden?'))
     {   
         document.getElementById("accion").value='cancelar';
         document.forms[0].submit();
@@ -393,4 +393,45 @@ function findResponsables() {
    var tabla=document.getElementById('tabla-tarifas'); 
    tabla.style.display='';
    document.getElementById('aTar').style.display='none';
+}
+
+function eliminarOrden() {
+
+   var ord = document.getElementById('ordId').value;
+   towaysDWR.deleteOrder(ord,deleteOrdersCallBack); 
+
+
+}
+
+function deleteOrdersCallBack(data){
+    if (data ="ok"){
+        alert('La orden se eliminó con éxito.');
+        window.location.href='ordentrabajo';
+    }
+    else{
+        alert(data);
+    }
+}
+
+function buscarOrdenes(){
+        
+    var ordName= document.getElementById('ordName').value;   
+    towaysDWR.getOrdersByOrdName(ordName,buscarOrdenesCallBack); 
+
+}
+
+
+function buscarOrdenesCallBack(data){
+
+   if (data.length > 0) {
+       var ordenes = '';
+       for(i=0; i < data.length;i++){
+            var fecha = new Date(data[i].ordStartDate);
+            var dia = fecha.getDate();
+            var mes = fecha.getMonth()+1;
+            var anio = fecha.getFullYear();
+            ordenes += 'Fecha de inicio: '+dia+'/'+mes+'/'+anio+' para el cliente: '+data[i].clientsTO.cliName+'\n';
+       }
+       alert('Existe una orden con el mismo nombre.\n'+ ordenes);
+   } 
 }

@@ -13,7 +13,7 @@ public interface ExpenseDAO {
     public boolean deleteExpense(String expId)  throws Exception; 
     public ExpensesTO getExpenseById(Long expId) throws Exception;    
     public ItemsExpensesTO getItemsExpenseByExpId(Long expId) throws Exception;
-    public List getItemsExpenseByDate(String itmFecha) throws Exception;
+    public List getItemsExpenseByDate(String mesId,String anioId) throws Exception;
     public List <ItemsExpensesTO>findExpenses(Map expensesParameters) throws Exception;   
   
 }

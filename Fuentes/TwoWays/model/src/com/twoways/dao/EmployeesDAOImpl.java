@@ -78,6 +78,8 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
 
     public boolean deleteEmployee(EmployeesTO employeesTO)  throws Exception{      
        
+        getSqlMapClientTemplate().delete("deleteEmployeesLanguagues",employeesTO);
+        
         List empRates = employeesTO.getEmployeesRatesTOList();
         if (empRates != null && empRates.size() > 0){
             for(Object employeeRatesTO: empRates.toArray() ){
@@ -92,8 +94,13 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
                  getSqlMapClientTemplate().delete("deleteEmployeesTypes",(EmployeesTypesTO)employeesTypesTO);
             } 
         }
-        int res =  getSqlMapClientTemplate().delete("deleteEmployee",employeesTO);
+            int res =  getSqlMapClientTemplate().delete("deleteEmployee",employeesTO);
         return (res > 0);
+    }
+   
+    public boolean updateDeleteEmployee(EmployeesTO employeesTO)  throws Exception{   
+        int res =  getSqlMapClientTemplate().update("updateDeleteEmployee",employeesTO);
+        return (res > 0); 
     }
     
     public List obtenerTipoEmpleado(){
@@ -303,6 +310,7 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
         "               pa.states_sta_id         as empState,\n" + 
         "               pa.pra_assign_date       as empAssDate,\n" + 
         "               pa.pra_finish_date       as empFinDate,\n" + 
+        "               p.orders_ord_id          as ordId,\n" + 
         "               p.pro_name               as projName,\n" + 
         "               p.states_sta_id          as projState,\n" + 
         "               p.pro_start_date         as projStartDate,\n" +
@@ -368,7 +376,7 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
             "on pa.projects_pro_id = p.pro_id \n";                        
         }
         
-        query += " order by empfirstname";
+        query += " order by empfirstname desc";
         
         for (Iterator i = employParameters.keySet().iterator();i.hasNext();){
             String param = (String)i.next();
@@ -404,8 +412,11 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
                 if(rs.getTime("empFinDate") !=null ){ 
                        java.sql.Timestamp timest = rs.getTimestamp("empFinDate"); 
                        projAss.setPraFinishDate(timest);                                     
-                }                                   
+                }                                
+                OrdersTO order = new OrdersTO();
+                order.setOrdId(rs.getLong("ordId"));
                 ProjectsTO project = new ProjectsTO();
+                project.setOrdersTO(order);
                 project.setProName(rs.getString("projName"));
                 
                 StatesTO proState = new StatesTO();
@@ -456,6 +467,17 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
            dae.printStackTrace();
         }
         return ret;
+    }
+    
+    public boolean buscarAsignacionesEmpleado(String empId)  throws Exception{
+        List ret = null;
+        try {
+            ret = getSqlMapClientTemplate().queryForList("buscarAsignacionesEmpleado",empId);   
+        } catch (DataAccessException dae) {
+
+           dae.printStackTrace();
+        }
+        return (ret.size() >0);      
     }
     
 }

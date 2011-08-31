@@ -17,6 +17,7 @@ public interface EmployeeDAO {
     public List buscarEmpleados(String search) throws Exception;
     public List getEmpByRatesName(String rateName) throws Exception;
     public boolean deleteEmployee(EmployeesTO employee)  throws Exception;    
+    public boolean buscarAsignacionesEmpleado(String empId)  throws Exception;   
     public List obtenerTipoEmpleado() throws Exception;
     public List obtenerTipoEmpleadoById(String empId) throws Exception;    
     public List<EmployeesRatesTO> getEmpRatesByEmpId(EmployeesTO employeesTO)throws Exception;
@@ -28,4 +29,5 @@ public interface EmployeeDAO {
     public List buscarListaEmpleados(String search) throws Exception;
     public List <EmployeesTO> findEmployees(Map employParameters) throws Exception;
     public List<EmployeesTO> getEditorByDocId(Long praId,Long docId) throws Exception;
+    public boolean updateDeleteEmployee(EmployeesTO employeesTO)  throws Exception;
 }

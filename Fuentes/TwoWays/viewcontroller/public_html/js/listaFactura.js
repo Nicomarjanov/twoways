@@ -57,13 +57,13 @@ function back(){
   
   var pageId = document.getElementById('pageId')   
   pageId.value =parseInt(pageId.value) -1;
-  buscarEmpleados();
+  buscarFacturas();
 }
 
 function next(){
   var pageId = document.getElementById('pageId')   
   pageId.value = parseInt(pageId.value) +1;
-  buscarEmpleados();
+  buscarFacturas();
 }
 
 function nuevaBusqueda()

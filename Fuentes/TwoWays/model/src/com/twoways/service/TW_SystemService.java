@@ -62,6 +62,10 @@ public interface TW_SystemService {
     
     public boolean  deleteEmployees(EmployeesTO employeesTO)  throws Exception;
     
+    public boolean  buscarAsignacionesEmpleado(String empId)  throws Exception;
+    
+    public boolean  updateDeleteEmployee(EmployeesTO employeesTO)  throws Exception;
+    
     public List obtenerTipoEmpleado() throws Exception;
     
     public List obtenerTipoEmpleadoById(String empId) throws Exception;
@@ -220,7 +224,7 @@ public interface TW_SystemService {
    
     public Map getCostPA(ProjectAssignmentsTO projectAssignmentsTO)throws Exception;
     
-    public List getItemsExpenseByDate(String itmFecha) throws Exception;
+    public List getItemsExpenseByDate(String mesId,String anioId) throws Exception;
 
     public List buscarListaEmpleados(String search) throws Exception;
 
@@ -269,5 +273,11 @@ public interface TW_SystemService {
  
     public List findIncomes(Map invoiceParameters) throws Exception;   
     
-    public List <ItemsExpensesTO>findExpenses(Map expensesParameters) throws Exception;   
+    public List <ItemsExpensesTO>findExpenses(Map expensesParameters) throws Exception;  
+    
+    public void eliminarOrden(OrdersTO ordersTO) throws Exception;
+    
+    public void eliminarProyecto(Long ordId) throws Exception;
+    
+    public boolean enviarMailDesasignacion(Long praId, UsersTO user) throws Exception;
 }

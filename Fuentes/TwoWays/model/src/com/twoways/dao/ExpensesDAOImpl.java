@@ -109,11 +109,13 @@ public class ExpensesDAOImpl extends AbstractDAO  implements ExpenseDAO {
        return (res > 0); 
     }
     
-    public List getItemsExpenseByDate(String itmFecha) throws Exception{
-            
+    public List getItemsExpenseByDate(String mesId,String anioId) throws Exception{
+ 
+        String fecha = mesId+anioId;
+     
         List ret= null;
         try {
-            ret = getSqlMapClientTemplate().queryForList("getItemsExpenseByDate",itmFecha);
+            ret = getSqlMapClientTemplate().queryForList("getItemsExpenseByDate",fecha);
             } catch (DataAccessException dae) {
 
            dae.printStackTrace();

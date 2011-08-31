@@ -124,15 +124,22 @@ public class TW_SystemServiceImpl implements TW_SystemService {
         return this.employeeDao.getEmpById(empId);
     }
 
-
     public List buscarEmpleados(String search) throws Exception {
         return this.employeeDao.buscarEmpleados(search);
+    }
+    
+    public boolean buscarAsignacionesEmpleado(String empId) throws Exception {
+        return this.employeeDao.buscarAsignacionesEmpleado(empId);
     }
 
     public boolean deleteEmployees(EmployeesTO employeesTO) throws Exception {
         return this.employeeDao.deleteEmployee(employeesTO);
     }
 
+    public boolean updateDeleteEmployee(EmployeesTO employeesTO) throws Exception{
+        return this.employeeDao.updateDeleteEmployee(employeesTO);
+    }
+    
     public List obtenerTipoEmpleado() throws Exception {
         return this.employeeDao.obtenerTipoEmpleado();
     }
@@ -573,7 +580,9 @@ public class TW_SystemServiceImpl implements TW_SystemService {
     }
 
     public void deleteProjectAssigmentDetailsByPraId(Map params) throws Exception {
+        
         this.projectDao.deleteProjectAssigmentDetailsByPraId(params);
+
     }
 
     public ItemsExpensesTO getItemsExpenseByExpId(Long expId) throws Exception {
@@ -600,7 +609,7 @@ public class TW_SystemServiceImpl implements TW_SystemService {
 
     public boolean enviarMailAsignacion(Long praId, String message, UsersTO user, String otrosDestinatarios) throws Exception {
 
-        MessageFormat msf = new MessageFormat("");
+        //MessageFormat msf = new MessageFormat("");
         ProjectAssignmentsTO projectAssignmentsTO = 
             this.getProjectAssignmentsById(praId);
         ProjectsTO project = 
@@ -766,8 +775,8 @@ public class TW_SystemServiceImpl implements TW_SystemService {
         return (cotizOtraMoneda * valores) /cotizPeso; 
     }
     
-    public List getItemsExpenseByDate(String itmFecha) throws Exception{
-        return this.expensesDao.getItemsExpenseByDate(itmFecha);
+    public List getItemsExpenseByDate(String mesId, String anioId) throws Exception{
+        return this.expensesDao.getItemsExpenseByDate(mesId, anioId);
     }
 
 
@@ -933,6 +942,115 @@ public class TW_SystemServiceImpl implements TW_SystemService {
         return this.employeeDao.getEditorByDocId(praId,docId);
     }
     
+    public void eliminarOrden(OrdersTO ordersTO) throws Exception{   
+        this.ordersDao.deleteOrderByOrdId(ordersTO.getOrdId());       
+    }
+    
+    public void eliminarProyecto(Long ordId) throws Exception{
+        this.projectDao.deleteProjectByOrdId(ordId);
+    }
+    
+    public boolean enviarMailDesasignacion(Long praId, UsersTO user) throws Exception {
+
+        ProjectAssignmentsTO projectAssignmentsTO = 
+            this.getProjectAssignmentsById(praId);
+        ProjectsTO project = 
+            this.getProjectById(projectAssignmentsTO.getProjectsTO().getProId());
+        List<ProAssigmentsDetailsTO> proAssigmentsDetailsTOList = 
+            this.projectDao.getProjectAssignmentsDetailsById(projectAssignmentsTO.getPraId());
+        EmployeesTO employee = 
+            this.getEmpById(projectAssignmentsTO.getEmployeesTO().getEmpId().toString());
+        List<OrdersDocsTO> ordDocList = new ArrayList<OrdersDocsTO>();
+        List<EmployeesTO> empList = new ArrayList<EmployeesTO>();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        String otrosDestinatarios = "";
+        String texto = "" ;
+        String textoAdicional = "";
+        String subject = 
+            "assignment: " + project.getProName() +" canceled.";
+        texto += 
+                //"\nFecha de asignación: #fechaAsignacion#\n" +
+                "<P>Hola "+projectAssignmentsTO.getEmployeesTO().getEmpFirstName()+" "+projectAssignmentsTO.getEmployeesTO().getEmpLastName()
+                +", la asignación ha sido <B>CANCELADA</B> para el siguiente servicio: </P><BR><TABLE><TR><TD><B>Servicio: </B>"+projectAssignmentsTO.getServiceTO().getRtyAlternativeName()+"</TD></TR>";
+
+
+        //texto = texto.replaceAll("#fechaAsignacion#", sdf.format(projectAssignmentsTO.getPraAssignDate()));
+        //texto = texto.replaceAll("#servicio#", projectAssignmentsTO.getServiceTO().getRtyAlternativeName());
+        //Map enviados = new HashMap(); 
+        String prevFileName="";
+        DecimalFormat df = new DecimalFormat("#");
+        for (ProAssigmentsDetailsTO proAssigmentsDetailsTO: proAssigmentsDetailsTOList) {
+            if (!proAssigmentsDetailsTO.getOrdersDocsTO().getDocType().getDotId().contains("Source") && !proAssigmentsDetailsTO.getOrdersDocsTO().getDocType().getDotId().contains("FTP") ){
+                textoAdicional += "<TR><TD></TD></TR><TR><TD><B>Additional File Name:</B> "+ proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName()+"</TD></TR>";
+                OrdersDocsTO odo = this.getOrdersDocById(proAssigmentsDetailsTO.getOrdersDocsTO().getOdoId());
+                ordDocList.add(odo);
+            }else{
+                 if (prevFileName != null && proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName().toString().equalsIgnoreCase(prevFileName))
+                    texto += df.format(Double.parseDouble((proAssigmentsDetailsTO.getPadWCount()!=null)?proAssigmentsDetailsTO.getPadWCount().toString():"0"))+"/"+proAssigmentsDetailsTO.getEmployeesRatesTO().getRatesTO().getRatName()+" ";
+                 else {
+                    
+                        texto += "<TR><TD><B>File Name:</B> " + proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName()+"</TD></TR><TR><TD><B>Word count: </B>";
+                        texto += df.format(Double.parseDouble((proAssigmentsDetailsTO.getPadWCount()!=null)?proAssigmentsDetailsTO.getPadWCount().toString():"0"))+"/"+proAssigmentsDetailsTO.getEmployeesRatesTO().getRatesTO().getRatName()+" ";
+                        
+                        prevFileName= proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName();    
+                         if (!projectAssignmentsTO.getServiceTO().getRtyName().equalsIgnoreCase("Maquetador") ) {
+                             
+                            // if(enviados.get(proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName().toString())!=null){ 
+                             
+                             subject += 
+                                     " ["+proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO().getLanguaguesTO().getLanShortName() + "-"+
+                                        proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO().getLaaAcronym() +
+                                     "] > [" + proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO1().getLanguaguesTO().getLanShortName() + "-"+ 
+                                                proAssigmentsDetailsTO.getPranslatorsLanguaguesTO().getLangAcronymsTO1().getLaaAcronym() +
+                                     "] ";
+                            /* }else{
+                                 enviados.put(proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName().toString(),"");
+                             }*/
+                         }
+                     
+                    
+                   /* OrdersDocsTO odo = this.getOrdersDocById(proAssigmentsDetailsTO.getOrdersDocsTO().getOdoId());
+                    ordDocList.add(odo);*/
+                    }
+            }
+        }
+        if (textoAdicional.length() > 0)
+            texto += "</TD></TR>"+textoAdicional+"</TABLE>";
+        else
+            texto += "</TD></TR></TABLE>";
+                        
+
+        String firma = "<BR><TABLE style='color:#808080;'><TR><TD><B>"+((user.getUsrFirstName() != null )? user.getUsrFirstName():"") +" "+ ((user.getUsrLastName() != null )?user.getUsrLastName():"")+ "</B></TD></TR>" +
+        ((user.getRolesTO() != null )? "<TR><TD>"+user.getRolesTO().getRolName() +"</TD></TR>":"")+
+        "<TR><TD>Two Ways Translation Services</TD></TR>" +
+        ((user.getUsrMail() != null ) ?"<TR><TD>E-mail: "+user.getUsrMail() +"</TD></TR>":"")+
+        ((user.getUsrOfficeNumber() != null ) ?"<TR><TD>Tel: "+user.getUsrOfficeNumber() +"</TD></TR>":"")+        
+        ((user.getUsrMobileNumber() != null ) ?"<TR><TD>Mobile: "+user.getUsrMobileNumber() +"</TD></TR>":"")+
+        "<TR><TD><A HREF='http://www.twoways.net/'>www.twoways.net</A></TD></TR></TABLE>"+
+        "<BR><P STYLE='font-family:verdana;font-size:12px;color:green;font-weight:bold;'><I>Our business hours are Monday through Friday, from 08:00 AM to 09:00 PM local time (-03:00 GMT) / 7:00 AM to 8:00 PM EST</I></P>"; 
+        texto+=firma;    
+        //Si es traductor busco si tiene un editor para enviar copia del mail
+        if (projectAssignmentsTO.getServiceTO().getRtyName().equalsIgnoreCase("Traductor") ) {
+            for(OrdersDocsTO ordDoc : ordDocList){
+                empList = this.getEditorByDocId(projectAssignmentsTO.getPraId(),ordDoc.getOdoId());
+            }
+        }
+        if (empList.size() > 0){
+            for(EmployeesTO empTO : empList){
+                if (otrosDestinatarios != null && !otrosDestinatarios.equalsIgnoreCase(""))
+                    otrosDestinatarios += ","+((empTO.getEmpMail() != null )?empTO.getEmpMail():"");
+                else otrosDestinatarios = ((empTO.getEmpMail() != null )?empTO.getEmpMail():"");
+            }
+        }
+        ServiceMail sm = new ServiceMail();
+
+        String mailEmp = ((employee.getEmpMail() != null ) ?employee.getEmpMail():"Vacio");
+        
+        if (mailEmp.equalsIgnoreCase("Vacio"))throw new NullPointerException();
+        else sm.sendAttach(mailEmp, ordDocList, subject,otrosDestinatarios,texto.replaceAll("null", " "));
+        
+        return true;
+    }
 
 }
 

@@ -283,21 +283,15 @@ function cargarDatosColumna(row,data){
          eliminado = '<img  src="img/Erase.png" height="20" width="20"  alt="Empleado eliminado el día: \''+data.empEraseDate+'\'"  />';
    }
    else {
-         eliminar = '<img  src="img/Delete.png" height="20" width="20"  alt="Eliminar" onclick="eliminarEmpleado('+data.empId+')" onmouseover="this.style.cursor=\'hand\';" />';
+         eliminar = '<img  src="img/check.png" height="20" width="20"  alt="Ok"  />';
    }
    row.cells[5].innerHTML= editar + ' ' + eliminar + eliminado;
 }
 
-function  eliminarEmpleado(empId){
-
-if (empId != null){
-     if (confirm('¿Esta seguro que desea eliminar el empleado?') ){
-            sortSelect(document.getElementById("listaItemsSelect"));
-            document.getElementById("accion").value='eliminar';
-            document.getElementById("empId").value=empId;
-            document.forms[0].submit();  
-        //towaysDWR.deleterEmpleado(empId,postEliminar); 
-     }
+function  eliminarEmpleado(){
+ var empId =document.getElementById("empId").value;
+ if (empId != null){
+     towaysDWR.buscarAsignacionesEmpleado(empId,postEliminar); 
   }else {
       alert('Debe seleccionar un empleado antes de eliminar');
   }
@@ -316,12 +310,17 @@ function postEliminar(data){
   
    var tablaBusqueda= document.getElementById('tabla-busqueda'); 
    if(data){
-      alert('El empleado se elimino con exito ');
-      borrarFilas(tablaBusqueda);
-      window.location.href='empleados';
+      alert('El empleado tiene asignaciones en proyectos de trabajo y no se puede eliminar permanentemente. Será marcado para eliminar.')
+      sortSelect(document.getElementById("listaItemsSelect"));
+      document.getElementById("accion").value='marcarEliminado';
    }else{
-      alert('El empleado no se pudo eliminar ');
+      if(confirm('¿Esta seguro que desea eliminar el empleado? ')){
+        sortSelect(document.getElementById("listaItemsSelect"));
+        document.getElementById("accion").value='eliminar';
+      }
    }
+
+    document.forms[0].submit();  
 }
 
 function buscarEmpleadosCallBack(data){

@@ -461,5 +461,9 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
          }              
          return results;        
     }
+    
+    public void deleteProjectByOrdId(Long ordId)throws Exception{
+        getSqlMapClientTemplate().delete("deleteProjectByOrdId",ordId);
+    }
 }
 

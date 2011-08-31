@@ -93,11 +93,11 @@
       <td nowrap align="right" >
        Fecha Inicio Proyecto:</td> 
       <td>
-      <input type="text" class="tw_form" name="proStartDate" id="proStartDate"  value="<fmt:formatDate value="${project.proStartDate}"    pattern="dd/MM/yyyy HH:mm" />" onfocus="javascript:this.style.background='#FFFFFF';" /><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].proStartDate,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png"></img> 
+      <input type="text" class="tw_form" name="proStartDate" id="proStartDate"  value="<fmt:formatDate value="${project.proStartDate}"    pattern="dd/MM/yyyy HH:mm" />" onfocus="javascript:this.style.background='#FFFFFF';" /><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].proStartDate,'selDesde','dd/MM/yyyy HH:mm'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png"></img> 
       </td>
       <td nowrap align="right" >
       Fecha de Entrega Proyecto:</td><td >
-      <input type="text" class="tw_form" name="proFinishDate" id="proFinishDate"  value="<fmt:formatDate value="${project.proFinishDate}"    pattern="dd/MM/yyyy HH:mm" />" onfocus="javascript:this.style.background='#FFFFFF';"/><div id="divHasta" style="background:#FFFFFF;position:absolute"  ></div> <img onclick="cal1Hasta.select(document.forms[0].proFinishDate,'selHasta','dd/MM/yyyy'); return false;" NAME="selHasta" ID="selHasta"  height="20" width="20" alt="seleccion" src="img/cal.png"></img> 
+      <input type="text" class="tw_form" name="proFinishDate" id="proFinishDate"  value="<fmt:formatDate value="${project.proFinishDate}"    pattern="dd/MM/yyyy HH:mm" />" onfocus="javascript:this.style.background='#FFFFFF';"/><div id="divHasta" style="background:#FFFFFF;position:absolute"  ></div> <img onclick="cal1Hasta.select(document.forms[0].proFinishDate,'selHasta','dd/MM/yyyy HH:mm'); return false;" NAME="selHasta" ID="selHasta"  height="20" width="20" alt="seleccion" src="img/cal.png"></img> 
       </td>
       <td>&nbsp;</td>
     </tr>

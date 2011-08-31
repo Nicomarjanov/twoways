@@ -128,7 +128,6 @@
                                     </c:otherwise>
                                 </c:choose>
                                         <option value="" selected="selected">Seleccionar</option>
-                                        <option value="2010" >2010</option>
                                         <option value="2011" >2011</option>
                                         <option value="2012" >2012</option>
                                         <option value="2013" >2013</option>
@@ -177,7 +176,7 @@
                    <tr style="display:block; background-color='transparent';" align="center">
                         <th width="10%" bgcolor="#80211D">Nombre orden</th>
                         <th width="10%" bgcolor="#80211D">Nombre responsable</th>                        
-                        <th width="10%" bgcolor="#80211D">Fecha entrada</th>
+                        <th width="10%" bgcolor="#80211D">Fecha entrega</th>
                         <th width="10%" bgcolor="#80211D">WO number</th>
                         <th width="10%" bgcolor="#80211D">JOB ID</th>
                         <th width="10%" bgcolor="#80211D">JOB Name</th>
@@ -186,7 +185,6 @@
                         <th width="10%" bgcolor="#80211D">Unidades</th>                        
                         <th width="10%" bgcolor="#80211D">Total orden</th>
                         <th width="2%" bgcolor="#80211D"></th>
-                        <th width="10%" bgcolor="#875452">Item a facturar</th>
                     </tr>
                  </thead>  
                  <c:choose   >
@@ -194,9 +192,9 @@
                  <tbody align="center">
                    <c:forEach items="${finishedOrders}" var="item">
                    <tr name="item-idiomas" id="<c:out value="${item[\'ORDID\']}"/><c:out value="${item[\'RATID\']}"/>" >
-                        <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'ORDNAME\']}" /></td>
+                        <td width="10%" bgcolor="#FFFFF"><a href="ordentrabajo?ordId=<c:out value="${item[\'ORDID\']}" />" ><c:out value="${item[\'ORDNAME\']}" /></a></td>
                         <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'CRENAME\']}" /></td>                         
-                        <td width="10%" bgcolor="#FFFFF"><fmt:formatDate value="${item[\'ORDSTARTDATE\']}"  pattern="dd/MM/yyyy" />
+                        <td width="10%" bgcolor="#FFFFF"><fmt:formatDate value="${item[\'ORDFINISHDATE\']}"  pattern="dd/MM/yyyy" />
                            <input type="hidden" name="item-ordenes-hidden"   value="<c:out value="${item[\'ORDID\']}" />#<c:out value="${item[\'RATID\']}"/>#<c:out value="${item[\'CURID\']}" />#<c:out value="${item[\'ORDTOTAL\']}" />"></input>
                            <input type="hidden" name="print-ordenes-hidden"  value="<c:out value="${item[\'ORDPROJID\']}" />#<c:out value="${item[\'ORDJOBID\']}" />#<c:out value="${item[\'ORDWONUMBER\']}"/>#<c:out value="${item[\'ORDJOBNAME\']}"/>#<c:out value="${item[\'ORDJOBDESCRIPTION\']}" />#<c:out value="${item[\'ORRWCOUNT\']}"/>#<c:out value="${item[\'CURSYMBOL\']}" /> <c:out value="${item[\'ORRVALUE\']}"/>#<c:out value="${item[\'ORDTOTAL\']}"/>#<c:out value="${item[\'CRENAME\']}" />"</input></td>     
                         <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'ORDWONUMBER\']}" /></td> 
@@ -217,7 +215,7 @@
                                 </td>
                             </c:otherwise>
                         </c:choose>
-                        <td width="20%" align="leftx">
+                       <!-- <td width="20%" align="leftx">
                         <c:choose>
                             <c:when test="${not empty item[\'ITMNAME\']}">
                               <select name="listaItems" id="listaItems<c:out value="${item[\'ORDID\']}"/><c:out value="${item[\'RATID\']}"/>" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">                
@@ -242,7 +240,7 @@
                                 </select>
                             </c:otherwise>
                         </c:choose>                            
-                        </td>
+                        </td>-->
                      </tr>           
                   </c:forEach>
                   </tbody>
