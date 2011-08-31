@@ -48,7 +48,7 @@
                     <input type="text" size="145"  class="tw_form" name="ordName" id="ordName"  value="<c:out value="${auxOrdName}" />" onfocus="javascript:this.style.background='#FFFFFF';"/>                
                 </c:when>
                 <c:otherwise>
-                    <input type="text" size="145"  class="tw_form" name="ordName" id="ordName"  value="<c:out value="${order.ordName}" />" onfocus="javascript:this.style.background='#FFFFFF';"/>
+                    <input type="text" size="145"  class="tw_form" name="ordName" id="ordName"  value="<c:out value="${order.ordName}" />" onblur="buscarOrdenes()" onfocus="javascript:this.style.background='#FFFFFF';"/>
                 </c:otherwise>
             </c:choose>
         </td>
@@ -59,11 +59,11 @@
            <c:choose>
                 <c:when test="${auxOrdDate != null}">        
                     <input type="text" class="tw_form" name="ordStartDate" id="ordStartDate"  value="<c:out value="${auxOrdDate}"/>" onfocus="javascript:this.style.background='#FFFFFF';"/>
-                    <td align="left" ><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].ordStartDate,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png"></img></td>
+                    <td align="left" ><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].ordStartDate,'selDesde','dd/MM/yyyy HH:mm'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png"></img></td>
                 </c:when>
                 <c:otherwise>     
                     <input type="text" class="tw_form" name="ordStartDate" id="ordStartDate"  value="<fmt:formatDate value="${order.ordStartDate}"    pattern="dd/MM/yyyy HH:mm" />" onfocus="javascript:this.style.background='#FFFFFF';"/>
-                    <td align="left"><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].ordStartDate,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png"></img></td>
+                    <td align="left"><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].ordStartDate,'selDesde','dd/MM/yyyy HH:mm'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png"></img></td>
                 </c:otherwise>
             </c:choose> 
         </td>
@@ -72,11 +72,11 @@
             <c:choose>
                 <c:when test="${auxFinishDate != null}">        
                     <input type="text" class="tw_form" name="ordFinishDate" id="ordFinishDate"  value="<c:out value="${auxFinishDate}" />" onfocus="javascript:this.style.background='#FFFFFF';"/>
-                    <td align="left"><div id="divHasta" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Hasta.select(document.forms[0].ordFinishDate,'selHasta','dd/MM/yyyy'); return false;" NAME="selHasta" ID="selHasta"  height="20" width="20" alt="seleccion" src="img/cal.png"></img></td>
+                    <td align="left"><div id="divHasta" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Hasta.select(document.forms[0].ordFinishDate,'selHasta','dd/MM/yyyy HH:mm'); return false;" NAME="selHasta" ID="selHasta"  height="20" width="20" alt="seleccion" src="img/cal.png"></img></td>
                 </c:when>
                 <c:otherwise>     
                     <input type="text" class="tw_form" name="ordFinishDate" id="ordFinishDate"  value="<fmt:formatDate value="${order.ordFinishDate}"    pattern="dd/MM/yyyy HH:mm" />" onfocus="javascript:this.style.background='#FFFFFF';"/>
-                    <td align="left"><div id="divHasta" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Hasta.select(document.forms[0].ordFinishDate,'selHasta','dd/MM/yyyy'); return false;" NAME="selHasta" ID="selHasta"  height="20" width="20" alt="seleccion" src="img/cal.png"></img></td>
+                    <td align="left"><div id="divHasta" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Hasta.select(document.forms[0].ordFinishDate,'selHasta','dd/MM/yyyy HH:mm'); return false;" NAME="selHasta" ID="selHasta"  height="20" width="20" alt="seleccion" src="img/cal.png"></img></td>
                 </c:otherwise>
             </c:choose>                
         </td>
@@ -214,15 +214,16 @@
 </table>
  <br>   
  <hr class="tw_hr">        
-<table width="100%">
+<table align="center" width="30%">
   <tr>
-      <td align="right"><input type="button" id="aceptar" value="Aceptar" onclick="agregar()"/></td>   
-      <td align="center" width="20px">
+      <td ><input type="button" id="aceptar" value="Aceptar" onclick="agregar()"/></td>   
+      <td >
         <c:if test="${not empty order.ordId && order.ordId != ''}">
           <input type="button" id="proyecto" value="Proyecto" onclick="window.location.href='proyectos?ordId=<c:out value="${order.ordId}" />'" />
         </c:if>
-      </td>   
-      <td align="left"><input type="button" id="cancel" value="Limpiar" OnClick="cancelar()"/></td>    
+      </td>  
+      <td ><input type="button" id="eliminar" value="Eliminar" onclick="eliminarOrden()"/></td>  
+      <td ><input type="button" id="cancel" value="Limpiar" OnClick="cancelar()"/></td>    
   </tr>
 </table>
 </form>

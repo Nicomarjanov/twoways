@@ -46,12 +46,12 @@
   <table align="center">
   <tr>
     <td>Fecha de Asignacion</td>
-    <td colspan=3 nowrap ><input type="text" <c:out value="${readOnly}" />  name="proAssignStartDate" id="proAssignStartDate"   value="<fmt:formatDate value="${projectAssignmentsTO.praAssignDate}"    pattern="dd/MM/yyyy HH:mm" />" onfocus="javascript:this.style.background='#FFFFFF';"/><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].proAssignStartDate,'selDesde','dd/MM/yyyy'); return existeDisponbilidad();" NAME="selDesde" ID="selDesde"  height="20" width="20"   alt="seleccion" <c:out value="${readOnly}" /> src="img/cal.png"></img>
+    <td colspan=3 nowrap ><input type="text" <c:out value="${readOnly}" />  name="proAssignStartDate" id="proAssignStartDate"   value="<fmt:formatDate value="${projectAssignmentsTO.praAssignDate}"    pattern="dd/MM/yyyy HH:mm" />" onfocus="javascript:this.style.background='#FFFFFF';"/><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].proAssignStartDate,'selDesde','dd/MM/yyyy HH:mm'); return existeDisponbilidad();" NAME="selDesde" ID="selDesde"  height="20" width="20"   alt="seleccion" <c:out value="${readOnly}" /> src="img/cal.png"></img>
     </td>
   </tr> 
   <tr>
     <td>Fecha de Fin de Asignacion</td>
-    <td colspan=3 nowrap ><input  type="text" class="tw_form" name="proAssignFinishDate" id="proAssignFinishDate"  value="<fmt:formatDate value="${projectAssignmentsTO.praFinishDate}"    pattern="dd/MM/yyyy HH:mm" />" onfocus="javascript:this.style.background='#FFFFFF';"/><div id="divHasta" style="background:#FFFFFF;position:absolute"  ></div> <img onclick="cal1Hasta.select(document.forms[0].proAssignFinishDate,'selHasta','dd/MM/yyyy'); return false;" NAME="selHasta" ID="selHasta"  height="20" width="20"  alt="seleccion"  src="img/cal.png"></img>
+    <td colspan=3 nowrap ><input  type="text" class="tw_form" name="proAssignFinishDate" id="proAssignFinishDate"  value="<fmt:formatDate value="${projectAssignmentsTO.praFinishDate}"    pattern="dd/MM/yyyy HH:mm" />" onfocus="javascript:this.style.background='#FFFFFF';"/><div id="divHasta" style="background:#FFFFFF;position:absolute"  ></div> <img onclick="cal1Hasta.select(document.forms[0].proAssignFinishDate,'selHasta','dd/MM/yyyy HH:mm'); return false;" NAME="selHasta" ID="selHasta"  height="20" width="20"  alt="seleccion"  src="img/cal.png"></img>
     </td>
   </tr> 
   <tr>

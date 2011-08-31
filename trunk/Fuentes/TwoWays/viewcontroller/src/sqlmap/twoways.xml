@@ -289,6 +289,12 @@
     where
     employees_emp_id = #employeesTO.empId# 
   </delete>  
+ 
+   <delete id="deleteEmployeesLanguagues" parameterClass="com.twoways.to.EmployeesTO"   >
+    delete  translators_languagues
+    where
+    employees_emp_id = #empId# 
+  </delete>  
   
   <update  id="updateEmployees" parameterClass="com.twoways.to.EmployeesTO">
       UPDATE employees
@@ -308,10 +314,15 @@
   </update>
   
   <delete id="deleteEmployee" parameterClass="com.twoways.to.EmployeesTO">
+        delete from Employees
+        WHERE  emp_id = #empId#    
+ </delete>     
+ 
+ <update id="updateDeleteEmployee" parameterClass="com.twoways.to.EmployeesTO">
         UPDATE Employees
         SET emp_erase_date = sysdate
         WHERE  emp_id = #empId#    
- </delete>     
+ </update>  
  
   <resultMap id="select-Tipo-Emp" class="com.twoways.to.EmployeeTypeTO" >
        
@@ -1412,7 +1423,8 @@
        e.exp_date as exp_date, 
        i.items_itm_id as itm_id,
        i.currency_cur_id as cur_id,
-       i.accounts_acc_id as acc_id
+       i.accounts_acc_id as acc_id,
+       s.itm_type as itm_type
        from items_expenses i, accounts a, users u, currency c, expenses e, items s
        where i.expenses_exp_id=e.exp_id
        and i.items_itm_id=s.itm_id
@@ -1420,8 +1432,9 @@
        and i.currency_cur_id=c.cur_id
        and i.users_usr_id=u.usr_id
        and i.accounts_acc_id = a.acc_id       
-       and e.exp_date = to_date(#itmFecha#,'dd/mm/rrrr')
+       and e.exp_date between to_date(#fecha#,'MMyyyy') and add_months(to_date(#fecha#,'MMyyyy'),1)
        and e.exp_erase_date is null
+       order by ite_id
   </select>
 
   <update  id="deleteExpense" parameterClass="java.lang.Long"   >
@@ -1572,7 +1585,7 @@
           select o.ord_id as ordId,
                o.ord_name as ordName,
                o.ord_description as ordDescription,
-               o.ord_start_date as ordStartDate,
+               o.ord_finish_date as ordFinishDate,
                o.ord_proj_id as ordProjId,
                o.ord_wo_number as ordWoNumber,
                o.ord_job_id as ordJobId,
@@ -1597,7 +1610,8 @@
         and os.rate_types_rty_name = t.rat_type
         and os.rate_types_rty_name=p.rty_name
         and r.orr_pay_date is null
-        and to_date(o.ord_start_date,'dd/MM/rrrr') between to_date(#mesId#,'MMyyyy') and last_day(to_date(#mesId#,'MMyyyy'))
+        and r.orr_wcount > 0
+        and to_date(o.ord_finish_date,'dd/MM/rrrr') between to_date(#mesId#,'MMyyyy') and last_day(to_date(#mesId#,'MMyyyy'))
   </select>
 
   <select id="invoice.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > 
@@ -1616,8 +1630,8 @@
   
     <insert id="insertItemsInvoices" parameterClass="com.twoways.to.ItemsInvoicesTO" >
       insert into items_invoices
-      (iti_id, iti_value, items_itm_id, invoices_inv_id, orders_rates_orders_ord_id, orders_rates_rates_rat_id, currency_cur_id)
-      values (#itiId#, #itiValue#, #itemsTO.itmId#, #invoicesTO.invId#, #ordersRatesTO.ordersTO.ordId#, #ordersRatesTO.ratesTO.ratId#, #currencyTO.curId#)
+      (iti_id, iti_value,  invoices_inv_id, orders_rates_orders_ord_id, orders_rates_rates_rat_id, currency_cur_id)
+      values (#itiId#, #itiValue#,  #invoicesTO.invId#, #ordersRatesTO.ordersTO.ordId#, #ordersRatesTO.ratesTO.ratId#, #currencyTO.curId#)
   </insert>
   
   <update id="updateProjAssign" parameterClass="java.lang.Long" >
@@ -1677,7 +1691,7 @@
             select o.ord_id as ordId,
                o.ord_name as ordName,
                o.ord_description as ordDescription,
-               o.ord_start_date as ordStartDate,
+               o.ord_finish_date as ordFinishDate,
                o.ord_proj_id as ordProjId,
                o.ord_wo_number as ordWoNumber,
                o.ord_job_id as ordJobId,
@@ -1691,9 +1705,8 @@
                r.orr_wcount as orrWcount,
                cr.cre_first_name||' '||cr.cre_last_name as creName,
                e.rty_alternative_name as rateTypeName,
-               (r.orr_value * r.orr_wcount) as ordTotal,
-               s.itm_name as itmName
-        from orders o, orders_rates r, client_responsable cr, order_services os, rates t, currency y, rate_types e, items_invoices i, items s
+               (r.orr_value * r.orr_wcount) as ordTotal
+        from orders o, orders_rates r, client_responsable cr, order_services os, rates t, currency y, rate_types e, items_invoices i
         where o.ord_id = r.orders_ord_id
         and o.client_responsable_cre_id = cr.cre_id
         and o.ord_id = os.orders_ord_id
@@ -1703,7 +1716,7 @@
         and os.rate_types_rty_name = e.rty_name
         and i.orders_rates_orders_ord_id = r.orders_ord_id
         and i.orders_rates_rates_rat_id = r.rates_rat_id
-        and i.items_itm_id = s.itm_id        
+        and t.rat_type=e.rty_name      
         and i.invoices_inv_id = #invoiceId#
   </select>
   
@@ -1777,4 +1790,35 @@
         and t.project_assignments_pra_id != #praId#
         and t.orders_docs_odo_id = #docId#
     </select>
+
+    <delete id="deleteProjectByOrdId" parameterClass="java.lang.Long"   >
+     delete  projects
+        where orders_ord_id = #ordId#
+                     
+    </delete>      
+    
+    <delete id="deleteOrdersDocByOrdId" parameterClass="java.lang.Long"   >
+     delete  orders_docs
+        where orders_ord_id = #ordId#
+    </delete>      
+    
+    <delete id="deleteOrdersRatesByOrdId" parameterClass="java.lang.Long"   >
+     delete  orders_rates
+        where orders_ord_id = #ordId#
+    </delete>  
+    
+    <delete id="deleteOrdersServicesByOrdId" parameterClass="java.lang.Long"   >
+     delete  order_services
+        where orders_ord_id = #ordId#
+    </delete>    
+    
+    <delete id="deleteOrderByOrdId" parameterClass="java.lang.Long"   >
+     delete  orders
+        where ord_id = #ordId#
+    </delete>      
+
+    <statement  id="buscarAsignacionesEmpleado" resultClass="com.twoways.to.ProjectAssignmentsTO" parameterClass="java.lang.String" >
+        select * from project_assignments 
+        where employees_emp_id=#value#
+    </statement>
 </sqlMap> 

@@ -152,7 +152,7 @@
         <th nowrap >Fecha de Inicio</th>
         <th nowrap >Fecha de Entrega</th>
         <th nowrap >Cliente</th>
-        <th nowrap>Proyecto</th>
+        <th nowrap >Proyecto</th>
         <th nowrap >Editar</th>
         <th nowrap >Ir al Proyecto</th>
       </tr> 

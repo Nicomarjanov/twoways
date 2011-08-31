@@ -335,11 +335,16 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
        ResultSet rs= null ;
        String query =  " select * " + 
                        " from orders o, clients c " + 
-                       " where upper(o.ord_name) like upper('%#ordName#%') " + 
-                       " and upper(decode(o.ord_Proj_Id, null , ' ',o.ord_Proj_Id)) like  upper('%#ordProjId#%')"+
+                       " where upper(decode(o.ord_Proj_Id, null , ' ',o.ord_Proj_Id)) like  upper('%#ordProjId#%')"+
                        " and o.clients_cli_id = c.cli_Id " + 
                        " and c.cli_id = decode(#cliId#,0,c.cli_id,#cliId#) " ;
        
+       if(orderParameters.get("ordenes") != null){
+            query += " and upper(o.ord_name) = upper('#ordName#') ";
+       }
+       else {
+            query += " and upper(o.ord_name) like upper('%#ordName#%') ";
+       }
        if(orderParameters.get("ordStartDate") != null && orderParameters.get("ordStartDate").toString().length() > 0){
        
           String formato = "dd/MM/yyyy hh24:mi";
@@ -446,6 +451,7 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
         }
         return ret;
     }
+    
     public List getOrdersByCliIdInvId(Long cliId,Long invoiceId)throws Exception{
         List ret = null;
         try {
@@ -459,5 +465,12 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
            dae.printStackTrace();
         }
         return ret;
+    }
+    
+    public void deleteOrderByOrdId(Long ordId)throws Exception{
+        getSqlMapClientTemplate().delete("deleteOrdersDocByOrdId",ordId);
+        getSqlMapClientTemplate().delete("deleteOrdersRatesByOrdId",ordId);
+        getSqlMapClientTemplate().delete("deleteOrdersServicesByOrdId",ordId);
+        getSqlMapClientTemplate().delete("deleteOrderByOrdId",ordId);
     }
 }

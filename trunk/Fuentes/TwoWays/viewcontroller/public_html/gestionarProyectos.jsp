@@ -214,10 +214,10 @@
         <c:forEach items="${listaProyectos}" var="project" varStatus="status" >  
             <c:choose>
                 <c:when test="${project.statesTO.staId == 'Entregado'}">  
-                  <c:set scope="page" var="color_row" value="${'#f60101'}" />
+                  <c:set scope="page" var="color_row" value="${'#d24444'}" />
                 </c:when>
                 <c:when test="${project.statesTO.staId == 'Iniciado'}">  
-                  <c:set scope="page" var="color_row" value="${'#4fb84f'}" />
+                  <c:set scope="page" var="color_row" value="${'#1cb874'}" />
                 </c:when>         
                 <c:when test="${project.statesTO.staId == 'PO Enviado'}">  
                   <c:set scope="page" var="color_row" value="${'#8f9c9f'}" />
@@ -249,7 +249,7 @@
                     <c:if test="${page != 0}">
                         <img src="img/player_start.png" height="20" width="20" onclick="back()" alt="<"/>
                     </c:if>
-                       </td><td>Pagina <fmt:formatNumber type="number" minFractionDigits="0" value="${page + 1 }" /> de <fmt:formatNumber type="number" minFractionDigits="0" value="${maxPage + 1 }" />
+                       </td><td>Página <fmt:formatNumber type="number" minFractionDigits="0" value="${page + 1 }" /> de <fmt:formatNumber type="number" minFractionDigits="0" value="${maxPage + 1 }" />
                        </td><td>
                        
                     <c:if test="${page < maxPage}"> 

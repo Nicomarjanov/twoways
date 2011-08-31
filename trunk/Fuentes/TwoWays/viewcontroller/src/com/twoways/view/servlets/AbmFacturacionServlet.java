@@ -112,8 +112,8 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
             clientes = twoWaysBDL.getServiceTwoWays().obtenerClientes();
             request.setAttribute("listaClientes",clientes);   
             
-            items =  twoWaysBDL.getServiceTwoWays().obtenerItem("Ingresos");
-            request.setAttribute("listaItems",items);   
+            /*items =  twoWaysBDL.getServiceTwoWays().obtenerItem("Ingresos");
+            request.setAttribute("listaItems",items);   */
             
         } catch (Exception e) {
            e.printStackTrace();
@@ -134,7 +134,7 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
                     while( iterador.hasNext() ) {
                         auxMap =(HashMap)iterador.next();
                         if (Double.parseDouble(auxMap.get("ORDTOTAL").toString()) > 0.0){    
-                            Date fechaAss = formatoDeFecha.parse(auxMap.get("ORDSTARTDATE").toString());
+                            Date fechaAss = formatoDeFecha.parse(auxMap.get("ORDFINISHDATE").toString());
                             Timestamp timestamp = new Timestamp(fechaAss.getTime());
                             String listaMoneda = request.getParameter("listaMoneda");
                             if (listaMoneda != null) {
@@ -159,7 +159,7 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
                     request.setAttribute("facturar",facturar);
                     
                 }else {
-                    request.setAttribute("mensaje","<script>alert('No se encontraron ordenes para ese cliente')</script>"); 
+                    request.setAttribute("mensaje","<script>alert('No se encontraron órdenes para ese cliente')</script>"); 
                 }
                 
             } catch (Exception e) {
@@ -182,7 +182,7 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
                         while( iterador.hasNext() ) {
                             auxMap =(HashMap)iterador.next();
                             if (Double.parseDouble(auxMap.get("ORDTOTAL").toString()) > 0.0){    
-                                Date fechaAss = formatoDeFecha.parse(auxMap.get("ORDSTARTDATE").toString());
+                                Date fechaAss = formatoDeFecha.parse(auxMap.get("ORDFINISHDATE").toString());
                                 Timestamp timestamp = new Timestamp(fechaAss.getTime());
                                 String listaMoneda = request.getParameter("listaMoneda");
                                 if (listaMoneda != null) {
@@ -214,7 +214,7 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
                         request.setAttribute("invoiceCur",request.getParameter("invoiceCur"));
 
                     }else {
-                        request.setAttribute("mensaje","<script>alert('No se encontraron ordenes para ese cliente')</script>"); 
+                        request.setAttribute("mensaje","<script>alert('No se encontraron órdenes para ese cliente')</script>"); 
                     }
                     
                 } catch (Exception e) {
@@ -289,14 +289,14 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
                        
                        itemFacturaTO.setItiValue(Double.parseDouble(auxArray[3]));
                        
-                       String itemLista[] = request.getParameterValues("listaItems");
+                      /*String itemLista[] = request.getParameterValues("listaItems");
     
                        ItemsTO item = new ItemsTO();
                        String auxItem = itemLista[indice];
                        String itemId[] = auxItem.split("#");
                        item.setItmId(Long.parseLong(itemId[0]));     
                        indice +=1;
-                       itemFacturaTO.setItemsTO(item);
+                       itemFacturaTO.setItemsTO(item);*/
                        
                        itemsFacturaList.add(itemFacturaTO); 
                    }
@@ -536,7 +536,7 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
         String invTotal = request.getParameter("invTotal");    
         String curSymbol[] =request.getParameter("listaMoneda").split("#");     
             
-        PdfPTable table = new PdfPTable(10);
+        PdfPTable table = new PdfPTable(9);
         table.setWidthPercentage(100f);
         PdfPCell cell; 
         BaseFont bfc = BaseFont.createFont(BaseFont.HELVETICA,BaseFont.CP1250,BaseFont.NOT_EMBEDDED);     
@@ -554,7 +554,7 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
         table.addCell("WO #");
         table.addCell("Job Name");
         table.addCell("Job Description");
-        table.addCell("Item Description");
+        //table.addCell("Item Description");
         table.addCell("# of Words");
         table.addCell("Per word rate");
         table.addCell("Total Due");            
@@ -567,10 +567,7 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
          for(String aux:printOrden){      
 
              String atribs[]= aux.split("#");
-             String itemLista[] = request.getParameterValues("listaItems");
-             String auxItem = itemLista[indice];
              indice +=1;
-             String itemId[] = auxItem.split("#");
 
              cell = new PdfPCell(new Phrase(atribs[0],cf));
              cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -586,10 +583,7 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
              table.addCell(cell);
              cell = new PdfPCell(new Phrase(atribs[4],cf));
              cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-             table.addCell(cell);
-             cell = new PdfPCell(new Phrase(itemId[1],cf));
-             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-             table.addCell(cell);             
+             table.addCell(cell);      
              cell = new PdfPCell(new Phrase(atribs[5],cf));
              cell.setHorizontalAlignment(Element.ALIGN_LEFT);
              table.addCell(cell);     
@@ -607,7 +601,7 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
             //Total a pagar
             cell = new PdfPCell(new Phrase("Total: ",ft));           
             cell.setBorder(PdfPCell.NO_BORDER);
-            cell.setColspan(8);
+            cell.setColspan(7);
             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
             table.addCell(cell); 
             if (curSymbol[1] != null){

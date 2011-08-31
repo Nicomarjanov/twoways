@@ -16,7 +16,7 @@ public class ItemsTO {
     private String itmName;
     private String itmType;
     private Timestamp itmEraseDate;
-    private List<ItemsInvoicesTO> itemsInvoicesTOList;
+   // private List<ItemsInvoicesTO> itemsInvoicesTOList;
     private List<ItemsExpensesTO> itemsExpensesTOList;
 
     public ItemsTO() {
@@ -26,7 +26,7 @@ public class ItemsTO {
 
 
 
-    public List<ItemsInvoicesTO> getItemsInvoicesTOList() {
+/*    public List<ItemsInvoicesTO> getItemsInvoicesTOList() {
         return itemsInvoicesTOList;
     }
 
@@ -36,16 +36,16 @@ public class ItemsTO {
 
     public ItemsInvoicesTO addItemsInvoicesTO(ItemsInvoicesTO itemsInvoicesTO) {
         getItemsInvoicesTOList().add(itemsInvoicesTO);
-        itemsInvoicesTO.setItemsTO(this);
+//        itemsInvoicesTO.setItemsTO(this);
         return itemsInvoicesTO;
     }
 
     public ItemsInvoicesTO removeItemsInvoicesTO(ItemsInvoicesTO itemsInvoicesTO) {
         getItemsInvoicesTOList().remove(itemsInvoicesTO);
-        itemsInvoicesTO.setItemsTO(null);
+//        itemsInvoicesTO.setItemsTO(null);
         return itemsInvoicesTO;
     }
-
+*/
     public List<ItemsExpensesTO> getItemsExpensesTOList() {
         return itemsExpensesTOList;
     }

@@ -112,7 +112,7 @@ if (document.getElementById("invoiceId").value == null || document.getElementByI
         banderaMensajeFaltante=true;
     }
     
-    var ordClients =document.getElementsByName("listaItems");
+    /*var ordClients =document.getElementsByName("listaItems");
     if (ordClients.length > 0){
         for(i=0; i < ordClients.length; i++){
             if (ordClients[i].value == "0"){
@@ -124,7 +124,7 @@ if (document.getElementById("invoiceId").value == null || document.getElementByI
     }else{
         mensajeFaltanteAlert+= ' * No exite ninguna orden a facturar para el cliente seleccionado \n';
         banderaMensajeFaltante=true;
-    }        
+    }    */    
         
     if(banderaMensajeFaltante)
         mensajeCampoAlert=mensajeFaltanteAlert + '\n';    
@@ -202,3 +202,7 @@ function valorCotizacioncallBack(data){
 }
 
 
+function editarOrden(ord){
+
+   window.location.href = '/twoways/ordentrabajo?ordId='+ord;
+}

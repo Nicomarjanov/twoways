@@ -50,4 +50,6 @@ public interface ProjectDAO {
     public List getProjectAssignmentsByEmpId(Long empId, String mesId, String anio) throws Exception;  
     
     public List <ProjectsTO> findProjects(Map projParameters);
+    
+    public void deleteProjectByOrdId(Long ordId)throws Exception ;
 }

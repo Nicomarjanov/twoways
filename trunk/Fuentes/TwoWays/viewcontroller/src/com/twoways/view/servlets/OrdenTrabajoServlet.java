@@ -172,28 +172,7 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
         } catch (Exception e) {
            e.printStackTrace();
         }
-        
-     /*   if(accion != null && accion.equalsIgnoreCase("buscarResponsables")){
-            List <ClientResponsableTO> cliResponsables = null;
-
-            ClientsTO clientsTO = new ClientsTO(); 
-            Long auxCliId = Long.parseLong((mRequest.get("listaClientes")!= null )?mRequest.get("listaClientes").toString():"");
-            clientsTO.setCliId(auxCliId);
-            cliResponsables = twoWaysBDL.getServiceTwoWays().getClientResponsableByCliId(clientsTO);
-            if (cliResponsables.size()> 0){
-                request.setAttribute("listaRespClientes",cliResponsables);
-            }else{
-                ClientResponsableTO auxCliRespTO = new ClientResponsableTO();
-                auxCliRespTO.setCreFirstName("No existen responsables");
-                cliResponsables.add(0,auxCliRespTO);
-                request.setAttribute("listaRespClientes",cliResponsables);
-            }
-            request.setAttribute("auxCliId",auxCliId);
-            request.setAttribute("auxOrdName",(mRequest.get("ordName")!= null )?mRequest.get("ordName").toString():"");
-            request.setAttribute("auxFinishDate",(mRequest.get("ordFinishDate")!= null )?mRequest.get("ordFinishDate").toString():"");
-            request.setAttribute("auxOrdDate",(mRequest.get("ordDate")!= null )?mRequest.get("ordDate").toString():"");
-        }
-        else */
+ 
         if(accion != null && accion.equalsIgnoreCase("guardar")){
             
             OrdersTO  ordersTO = new OrdersTO();
@@ -234,7 +213,7 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                 
             
             } catch (Exception e) {
-                request.setAttribute("mensaje","<script>alert('La fecha ingresada no es valida')</script>"); 
+                request.setAttribute("mensaje","<script>alert('La fecha ingresada no es válida')</script>"); 
                 e.printStackTrace();
                 request.getRequestDispatcher("ordentrabajo.jsp").forward(request,response);
             }
@@ -336,15 +315,9 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                     }
                     
                 }
-                
-                
-               
-                
-                
                 ordersTO.setServicesTOList(ordersServices);
             }
-            
-            
+                        
             Object exoList[]= {" "};
             
             if(mRequest.get("exdoc") != null && mRequest.get("exdoc") instanceof ArrayList){
@@ -353,9 +326,6 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
             }else if (mRequest.get("exdoc")!=null){
                 exoList[0]=mRequest.get("exdoc").toString();
             }
-            
-            
-
             try {
               
                if (mRequest.get("ordId")  != null &&  mRequest.get("ordId").toString().length() > 0 ){
@@ -413,7 +383,7 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
               e.printStackTrace();
             }
         }
-        
+
         request.setAttribute("script",script);
         request.getRequestDispatcher("ordentrabajo.jsp").forward(request,response);
     }

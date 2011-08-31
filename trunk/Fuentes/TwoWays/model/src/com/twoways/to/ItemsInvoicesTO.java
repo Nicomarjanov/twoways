@@ -9,7 +9,7 @@ public class ItemsInvoicesTO {
     //(name="ITI_VALUE")
     private Double itiValue;
     private InvoicesTO invoicesTO;
-    private ItemsTO itemsTO;
+    //private ItemsTO itemsTO;
     private OrdersRatesTO ordersRatesTO;
     private CurrencyTO currencyTO;    
 
@@ -41,14 +41,14 @@ public class ItemsInvoicesTO {
         this.invoicesTO = invoicesTO;
     }
 
-    public ItemsTO getItemsTO() {
+    /*public ItemsTO getItemsTO() {
         return itemsTO;
     }
 
     public void setItemsTO(ItemsTO itemsTO) {
         this.itemsTO = itemsTO;
     }
-
+*/
     public void setOrdersRatesTO(OrdersRatesTO ordersRatesTO) {
         this.ordersRatesTO = ordersRatesTO;
     }

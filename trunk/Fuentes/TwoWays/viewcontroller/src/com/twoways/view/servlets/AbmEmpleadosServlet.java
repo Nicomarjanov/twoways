@@ -272,7 +272,19 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                 }     
                 request.setAttribute("script","<script>limpiar();</script>");  
             }
-            else if(empId != null && empId.length() > 0  && (accion!=null && accion.equalsIgnoreCase("eliminar")) ){
+            else if(empId != null && empId.length() > 0  && (accion!=null && accion.equalsIgnoreCase("marcarEliminado"))){
+                try {
+                    empleado =  twoWaysBDL.getServiceTwoWays().getEmpById(empId);  
+                    twoWaysBDL.getServiceTwoWays().updateDeleteEmployee(empleado);
+                    request.setAttribute("mensaje","<script>alert('El empleado se marcó eliminado exitosamente')</script>");
+                    }                    
+                catch (Exception e) {                   
+                        e.printStackTrace();
+                        request.setAttribute("mensaje","<script>alert('Ocurrió un error al eliminar el empleado')</script>");     
+                    
+                }
+            }
+            else if(empId != null && empId.length() > 0  && (accion!=null && accion.equalsIgnoreCase("eliminar"))){
                 try {
                      if(empId != null && empId.length() > 0 ) 
                          empleado =  twoWaysBDL.getServiceTwoWays().getEmpById(empId);                                           
@@ -280,7 +292,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                     e.printStackTrace();
                 }
                 String tarifasHidden[]=request.getParameterValues("tarifas-hidden");
-                List<EmployeesRatesTO> employeesRatesTOList = new   ArrayList<EmployeesRatesTO>();
+                    List<EmployeesRatesTO> employeesRatesTOList = new   ArrayList<EmployeesRatesTO>();
                 
                 if( tarifasHidden  != null){                                        
                     for(String aux:tarifasHidden){
@@ -325,14 +337,15 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                     empleado.setEmployeesRatesTOList(employeesRatesTOList);
                     empleado.setEmployeesTypesTOList(employeesTypesTOList);
                     twoWaysBDL.getServiceTwoWays().deleteEmployees(empleado);
-
-                    }                    
+                    request.setAttribute("mensaje","<script>alert('El empleado se eliminó con éxito')</script>");
+                }                   
                 catch (Exception e) {
-                    e.printStackTrace();
-                    request.setAttribute("mensaje","<script>alert('Ocurrió un error al eliminar el empleado')</script>");
+                   
+                        e.printStackTrace();
+                        request.setAttribute("mensaje","<script>alert('Ocurrió un error al eliminar el empleado')</script>");     
                     
                 }
-                request.setAttribute("mensaje","<script>alert('El empleado se eliminó con éxito')</script>");
+
             }
             else if(empId != null && empId.length() > 0  && (accion == null ))//|| (accion!=null && !accion.equalsIgnoreCase("cancelar")) ))
             {                        

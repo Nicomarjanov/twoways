@@ -223,8 +223,8 @@ function editarAsignarProyecto(praId,proId){
 function quitarAsignacion(praId,proId){
 
     if(confirm('¿Esta seguro de eliminar la asignación?')){
-        
-        towaysDWR.quitarAsignacion(praId,proId,quitarAsignacionCallBack );   
+        var uaid=document.getElementById('uaid').value;
+        towaysDWR.quitarAsignacion(uaid,praId,proId,quitarAsignacionCallBack );   
          
     }
 }
@@ -234,7 +234,7 @@ function quitarAsignacionCallBack(data){
    if(data ==''){
         alert('La asignación se eliminó con éxito');
    }else{
-        alert('La asignación no pudo eliminarse por : '+ data);
+        alert('La asignación no pudo eliminarse: '+ data);
    }
    window.location.reload(true);
 }
@@ -601,9 +601,9 @@ function cambioCheck(id){
 
 function quitarDetalleCallBack(data){
    if(data ==''){
-        alert('El detalle se elimino con exito');
+        alert('El detalle se eliminó con éxito');
    }else{
-        alert('El detalle no pudo eliminarse por : '+ data);
+        alert('El detalle no pudo eliminarse: '+ data);
    }
 }             
 

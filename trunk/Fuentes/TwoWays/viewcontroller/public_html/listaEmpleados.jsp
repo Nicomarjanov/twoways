@@ -14,7 +14,7 @@
     <script type='text/javascript' src='/twoways/dwr/util.js'></script>
     <script>
         document.onkeydown = checkKeycode
-        function keyTarifa(e) {
+        function checkKeycode(e) {
             var keycode;
             if (window.event) keycode = window.event.keyCode;
             else if (e) keycode = e.which;
@@ -167,7 +167,7 @@
                 <td nowrap ><c:out value="${empleado.projectAssignmentsTO.statesTO.staId}" /></td>
                 <td nowrap ><fmt:formatDate value="${empleado.projectAssignmentsTO.praAssignDate}"    pattern="dd/MM/yyyy HH:mm" /></td>
                 <td nowrap ><fmt:formatDate value="${empleado.projectAssignmentsTO.praFinishDate}"    pattern="dd/MM/yyyy HH:mm" /></td>
-                <td nowrap ><c:out value="${empleado.projectAssignmentsTO.projectsTO.proName}" /></td>
+                <td nowrap ><a href="proyectos?ordId=<c:out value="${empleado.projectAssignmentsTO.projectsTO.ordersTO.ordId}" />"><c:out value="${empleado.projectAssignmentsTO.projectsTO.proName}" /></a></td>
                 <td nowrap ><c:out value="${empleado.projectAssignmentsTO.projectsTO.statesTO.staId}" /></td>        
                 <td nowrap ><fmt:formatDate value="${empleado.projectAssignmentsTO.projectsTO.proFinishDate}"    pattern="dd/MM/yyyy HH:mm" /></td>
             </tr> 

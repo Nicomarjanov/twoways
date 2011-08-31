@@ -19,6 +19,8 @@ import com.twoways.to.EmployeesRatesTO;
 import com.twoways.to.EmployeesTO;
 
 import com.twoways.to.ItemsTO;
+import com.twoways.to.OrdersTO;
+import com.twoways.to.ProAssigmentsDetailsTO;
 import com.twoways.to.TranslatorsLanguaguesTO;
 import com.twoways.to.TranslatorsTO;
 import com.twoways.to.UsersTO;
@@ -200,12 +202,9 @@ public class ServiceTW_System {
     }
 
 
-    public boolean deleterEmpleado(Long empId) {
+    public boolean buscarAsignacionesEmpleado(String empId) {
         try {
-
-            EmployeesTO empleadoDelete = new EmployeesTO();
-            empleadoDelete.setEmpId(empId);
-            return twoWaysBDL.getServiceTwoWays().deleteEmployees(empleadoDelete);
+            return twoWaysBDL.getServiceTwoWays().buscarAsignacionesEmpleado(empId);
         } catch (Exception e) {
 
             e.printStackTrace();
@@ -336,14 +335,22 @@ public class ServiceTW_System {
     }
 
 
-    public String quitarAsignacion(String praId,String proId){
+    public String quitarAsignacion(String uaid, String praId,String proId){
         try {
             Map params = new HashMap();
             params.put("praId", praId);
             params.put("proId", proId);
-            
-            twoWaysBDL.getServiceTwoWays().deleteProjectAssigment(params);
-            return "";
+            /* Debo averiguar si existe un pago de la asignacion(metodo nuevo). Antes tengo q preguntar si realmente quiere enviar el mail o 
+             * averiguar de alguna manera si ya se le envio uno cuando se asignó
+            List<ProAssigmentsDetailsTO> result = twoWaysBDL.getServiceTwoWays().getProjectAssignmentsDetailsById(Long.parseLong(praId));
+            if(result.size() == 0){
+                UsersTO user= getTwoWaysBDL().getServiceTwoWays().getUserById(uaid);
+                getTwoWaysBDL().getServiceTwoWays().enviarMailDesasignacion(Long.parseLong(praId),user);*/
+                twoWaysBDL.getServiceTwoWays().deleteProjectAssigment(params);
+                return "";
+            /*}else{
+                return "Existe un pago realizado por éste proyecto. El registro no se puede eliminar.";
+            }*/
         } catch (Exception e) {
             
             e.printStackTrace();
@@ -460,4 +467,42 @@ public class ServiceTW_System {
         }
         return null;
     }
+    
+    public String deleteOrder(String ordId) {
+
+        try {
+            OrdersTO ordersTO = new OrdersTO();
+            ordersTO.setOrdId(Long.parseLong(ordId));
+            twoWaysBDL.getServiceTwoWays().eliminarOrden(ordersTO);
+            twoWaysBDL.getServiceTwoWays().eliminarProyecto(ordersTO.getOrdId());
+            return "ok";
+            } catch (Exception e) {
+                
+                e.printStackTrace();
+                log.error(e, e);
+                if (e.getMessage().contains("ORA-02292: restricción de integridad (TWOWAYS.PROJ_ASSINGMENTS_DETAILS_FK3")){
+                    return "Existen asignaciones del proyecto de la orden que se quiere eliminar. El registro no se puede eliminar hasta que no se borren todas las asignaciones.";
+                }else
+                    return e.getMessage();
+            }
+       // return "ok";
+    }    
+    
+    public List<OrdersTO> getOrdersByOrdName(String ordName){
+    
+            try{
+                Map params= new  HashMap();
+
+                params.put("ordName",ordName);
+                params.put("cliId","0");
+                params.put("ordProjId","");
+                params.put("ordenes","si");
+                List<OrdersTO> orders =  twoWaysBDL.getServiceTwoWays().findOrders(params);
+                return orders;
+            }catch(Exception e){
+               e.printStackTrace();
+               return null;
+            }
+                
+        }
 }
