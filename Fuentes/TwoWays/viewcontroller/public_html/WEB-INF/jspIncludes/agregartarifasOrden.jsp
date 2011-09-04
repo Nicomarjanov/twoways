@@ -43,14 +43,6 @@
         <input type="text" class="tw_form" id="tar_val" size=10   />    
     </td>
    </tr>
-  <!-- <tr>
-    <td align="left" valign="top">
-      Cantidad de Palabras   
-    </td>
-      <td align="left" valign="top">
-        <input type="text" class="tw_form" id="tar_wordCount" size=10   />    
-    </td>
-    </tr>-->
     </table>
     </td>
     <td align="left" valign="top"><img  src="img/next.png" alt=">" width="20" height="20" title="Agregar Tarifa" onclick="agregarTarifaOrden()" onmouseover="this.style.cursor='hand';"/>
@@ -59,12 +51,7 @@
         <table cellpadding="0" cellspacing="0"  style="background:gray">
         <tr>
         <td>
-     <!--table id="list-tarifas" >
-     <tr><th width="190">Tarifa</th><th width="50">valor</th><th width="25"></th></tr>
-     <tr><td width="190"></td><td width="50"></td><td width="25"></td></tr>
-     </table>
-     </td></tr><tr><td-->
-     <!--div style="width:100%;height:100px;overflow-x: hidden;overflow-y:auto ;" -->
+
         <table id="list-tarifas-body" align="right" heigth="40px" width="100%">
          <thead>
             <tr style="display:block"><th width="200">Tarifa</th><th >valor</th><th >Cant. Palabras </th><th></th></tr>
@@ -73,14 +60,20 @@
              <c:forEach items="${requestScope.ratesTOList}" var="item">
                <tr name="item-tarifa"  bgcolor="#FFFFFF" id="tarId-<c:out value="${item.ratesTO.ratId}" />" >
                     <td width="200" ><c:out value="${item.ratesTO.rateTypesTO.rtyAlternativeName}" />-<c:out value="${item.ratesTO.ratName}" /> <c:out value="${item.ratesTO.currencyTO.curSymbol}" /></td>
-                    <td width="60" align="right" ><c:out value="${item.clrValue}" />
+                    <td width="60" align="right" ><input type="text" id="clrValue" name="clrValue" value="<c:out value="${item.clrValue}" />" size="4" maxlength="4" readonly style="font-size:10px;font-family:verdana; border: 0; background-color: #fff;" />
                         <input type="hidden" name="tarifas-hidden"  value="<c:out value="${item.ratesTO.ratId}" />#<c:out value="${item.clrValue}" />#<c:out value="${item.orrWcount}" />" /></td>  
-                    <td width="60" align="right" ><input type="text" id="cantPalabras" name="cantPalabras" size="8" maxlength="8" value="<c:out value="${item.orrWcount}" />" style="font-size:10px;font-family:verdana;"/>
+                    <td width="60" align="right" ><input type="text" id="cantPalabras" name="cantPalabras" size="8" maxlength="8" value="<c:out value="${item.orrWcount}" />" style="font-size:10px;font-family:verdana;" onblur="sumarMonto()"/>
                                                   <input type="hidden" name="wordCount-hidden"  value="<c:out value="${item.orrWcount}" />" /> </td>    
                     <td width="37" ><img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarTarifaOrden('tarId-<c:out value="${item.ratesTO.ratId}" />')" onmouseover="this.style.cursor='hand';" /></td>
                 </tr>           
               </c:forEach>
-        </tbody>
+
+         <tr id="totalOrdenRow" name="totalOrdenRow">
+              <td align="right"><div align = 'right'>Total:</div></td>
+              <td align="left" colspan=2><div align = 'left'>
+                <input type="text" name="totalOrden" id="totalOrden" size="15" maxlength="15" style="font-size:10px;font-family:verdana;" readonly value="<c:out value="${totalOrden}"/>"/></div></td>
+         </tr>
+         </tbody>
         </table>
        </td>
      </tr>

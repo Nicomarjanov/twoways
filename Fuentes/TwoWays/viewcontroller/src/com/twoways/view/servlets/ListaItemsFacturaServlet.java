@@ -67,7 +67,9 @@ public class ListaItemsFacturaServlet extends AutorizacionServlet {
                    }
                }
                           
-               int maxPage = (int)(itemsFacturaList.size() / 10);
+               int maxPage = 0;
+               if (itemsFacturaList.size()== 10) maxPage =1;
+               else maxPage =(int)(itemsFacturaList.size() / 10) + 1;
                request.setAttribute("listaItemsFactura",subfacturas);
                request.setAttribute("maxPage",maxPage);
                request.setAttribute("page",page);                       

@@ -280,4 +280,6 @@ public interface TW_SystemService {
     public void eliminarProyecto(Long ordId) throws Exception;
     
     public boolean enviarMailDesasignacion(Long praId, UsersTO user) throws Exception;
+    
+    public void anularFactura(Long invId) throws Exception;
 }

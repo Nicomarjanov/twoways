@@ -1052,6 +1052,9 @@ public class TW_SystemServiceImpl implements TW_SystemService {
         return true;
     }
 
+    public void anularFactura(Long invId) throws Exception{
+        this.invoiceDao.eraseInvoice(invId);
+    }
 }
 
 

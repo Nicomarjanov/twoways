@@ -29,8 +29,7 @@
             <th width="10%" bgcolor="#80211D">JOB ID</th>
             <th width="10%" bgcolor="#80211D">WO number</th>
             <th width="10%" bgcolor="#80211D">JOB Name</th>
-            <th width="10%" bgcolor="#80211D">JOB Description</th>
-            <th width="10%" bgcolor="#875452">Item a facturar</th>             
+            <th width="10%" bgcolor="#80211D">JOB Description</th>           
             <th width="10%" bgcolor="#80211D">Unidades</th>   
             <th width="10%" bgcolor="#80211D">Tipo Tarifa</th>
             <th width="10%" bgcolor="#80211D">Monto Tarifa</th>                    
@@ -53,7 +52,6 @@
         <td nowrap ><c:out value="${item[\'WONUMBER\']}" /></td>
         <td nowrap ><c:out value="${item[\'JOBNAME\']}" /></td>
         <td nowrap ><c:out value="${item[\'JOBDESC\']}"/></td>                
-        <td nowrap ><c:out value="${item[\'ITMNAME\']}" /></td>
         <td nowrap ><c:out value="${item[\'ORRWCOUNT\']}" /></td>
         <td nowrap ><c:out value="${item[\'RATNAME\']}"/></td>                
         <td nowrap ><c:out value="${item[\'ORRVALUE\']}" /></td>
@@ -77,7 +75,7 @@
                 <c:if test="${page != 0}">
                     <img src="img/player_start.png" height="20" width="20" onclick="back()" alt="<"/>
                 </c:if>
-                   </td><td>Página <fmt:formatNumber type="number" minFractionDigits="0" value="${page + 1 }" /> de <fmt:formatNumber type="number" minFractionDigits="0" value="${maxPage }" />
+                   </td><td>Página <fmt:formatNumber type="number" minFractionDigits="0" value="${page + 1 }" /> de <fmt:formatNumber type="number" minFractionDigits="0" value="${maxPage + 1 }" />
                    </td><td>
                    
                 <c:if test="${page < maxPage}"> 

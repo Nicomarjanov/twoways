@@ -56,7 +56,7 @@
       <td  id="table-filtros" valign="top" align="left"  >  
        <div style="border: 1px solid;border-color:#FFFFFf;padding:2;spacing:2" >
        <table ><tr><td>
-       <table  width="200px"  cellpadding="0" cellspacing="0">
+       <table  width="120px"  cellpadding="0" cellspacing="0">
        <thead >
        <tr ><td colspan="100%" style="font-size:1.1em;padding-top:5px;padding-bottom:4px;background-color:#80211D;color:#ffffff;" >Filtros de búsqueda</td><td style="font-size:1.1em;padding-top:5px;padding-bottom:4px;background-color:#80211D;color:#ffffff;" ><div style="background-color:Gray;width:20;height:20" onclick="document.getElementById('table-filtros').style.display='none';document.getElementById('mostrar-filtro').style.display='block'" onmouseover="this.style.cursor='hand';" >X</div></td> </tr>
        </thead>
@@ -130,7 +130,9 @@
                     <th width="10%" bgcolor="#80211D">Total</th>
                     <th width="10%" bgcolor="#80211D">¿Facturado?</th>
                     <th width="15%" bgcolor="#80211D">Usuario que lo realizó</th>                    
-                    <th width="10%" bgcolor="#80211D"></th>                  
+                    <th width="10%" bgcolor="#80211D">Ver detalle</th>  
+                    <th width="10%" bgcolor="#80211D">Anular cobro</th> 
+                    <th width="10%" bgcolor="#80211D"></th> 
                 </tr>
             </thead>
           <c:choose   >
@@ -150,7 +152,9 @@
                 <td nowrap ><c:out value="${factura.invTotal}" /></td>
                 <td nowrap ><c:out value="${factura.invInvoiced}" /></td>
                 <td nowrap ><c:out value="${factura.usersTO.usrId}"/></td>                
-                <td nowrap ><a href="listaItemsFactura?invId=<c:out value="${factura.invId}"/>"  onclick="return verItemsFactura(this)"><img border=0 src="img/detail.png" alt="+" width="32" height="32" title="Ver items facturados"  onmouseover="this.style.cursor='hand';"/></a>
+                <td nowrap ><a href="listaItemsFactura?invId=<c:out value="${factura.invId}"/>"  onclick="return verItemsFactura(this)"><img border=0 src="img/detail.png" alt="+" width="32" height="32" title="Ver items facturados"  onmouseover="this.style.cursor='hand';"/></a></td>
+                <td nowrap ><img  src="img/edit-delete.png" alt="Anular factura" width="32" height="32" title="Anular factura" onclick="anularFactura(<c:out value="${factura.invId}"/>)" onmouseover="this.style.cursor='hand';"/></td> 
+                <td nowrap >
                 <c:if test="${factura.invInvoiced == 'no'}">
                     <a href="facturacion?cliId=<c:out value="${factura.clientsTO.cliId}"/>&accion=facturarOrdenes&invoiceId=<c:out value="${factura.invId}"/>&invoiceAcc=<c:out value="${factura.accountsTO.accName}"/>&invoiceDate=<c:out value="${factura.invDate}"/>&invoiceCur=<c:out value="${factura.currencyTO.curName}"/>&invoiceTotal=<c:out value="${factura.invTotal}"/>" ><img border=0 src="img/invoice.png" alt="agregar" width="32" height="32" title="Facturar el cobro" onmouseover="this.style.cursor='hand';"/></a>
                 </c:if>

@@ -118,20 +118,16 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
         List  <DocTypes>  docTypes= null;
         List<ClientResponsableTO> responsables = null;
 
-       /* ClientsTO cliente = new Clients
-        * TO(); 
-        String cliId = request.getParameter("cliId"); 
-*/
+        String totalOrden ="0";
+        
         List<RatesTO> tarifas = null;
         
         TwoWaysBDL twoWaysBDL=null;
         
         try {
            twoWaysBDL = new TwoWaysBDL();
-   /*        RateTypesTO rateType = new RateTypesTO();
-           rateType.setRtyName("Cliente");
-           tarifas = twoWaysBDL.getServiceTwoWays().getRateByType(rateType);*/
-    tarifas = twoWaysBDL.getServiceTwoWays().getRateByType();
+
+           tarifas = twoWaysBDL.getServiceTwoWays().getRateByType();
            clientes= twoWaysBDL.getServiceTwoWays().obtenerClientes();         
            services= twoWaysBDL.getServiceTwoWays().obtenerServicios();
            docTypes = twoWaysBDL.getServiceTwoWays().obtenerTipoDocumentos();
@@ -146,26 +142,27 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
             OrdersTO order=  new OrdersTO();
             if (ordId != null &&  ordId.length() > 0 ){
                  try{
-                 order =twoWaysBDL.getServiceTwoWays().getOrderById(Long.parseLong(ordId) );
-                     
-             for (RateTypesTO servOrd:order.getServicesTOList()){
-                     
-                 for(RateTypesTO serv: services){
-                                           
-                         if(serv.getRtyName().equals(servOrd.getRtyName()) || serv.getRtyName().equalsIgnoreCase("Cliente") ){
-                             services.remove(serv);
-                             break;
-                         }
-                     }
-                 }
+                 order =twoWaysBDL.getServiceTwoWays().getOrderById(Long.parseLong(ordId) );         
+                 Double monto = 0D;
+                 for (OrdersRatesTO ordRates:order.getOrderRatesTOList()){   
+                     monto += ordRates.getClrValue() * ordRates.getOrrWcount();
                  
-                 request.setAttribute("order",order);
-                 }catch(Exception e){
-                     e.printStackTrace();
-                 }
-            }else{
-            
+                     /*for(RateTypesTO serv: services){                                               
+                             if(serv.getRtyName().equals(servOrd.getRtyName()) || serv.getRtyName().equalsIgnoreCase("Cliente") ){
+                                 services.remove(serv);
+                                 break;
+                             }
+                         }*/
+                     }
+                     request.setAttribute("totalOrden",monto);
+
+                     request.setAttribute("order",order);
+                     }catch(Exception e){
+                         e.printStackTrace();
+                     }
+            }else{            
                 order.setOrdStartDate(new Timestamp(new Date().getTime()));
+                request.setAttribute("totalOrden",totalOrden);
                 request.setAttribute("order",order);
             }
            
@@ -263,20 +260,15 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                     String atribs[]= ((String)aux).split("#");                   
                     OrdersRatesTO orderRatesTO = new OrdersRatesTO();
                     orderRatesTO.setClrValue(Double.parseDouble(atribs[1].replaceAll(",",".")));
-                   /*if (atribs.length >2 ){
-                       orderRatesTO.setOrrWcount(new Long (atribs[2])); 
-                   }else{*/
-                       if (cantPalAux != null && cantPalAux.size() > 0){ 
-                           String palabras= (cantPalAux.get(indice).toString().length() > 0)?cantPalAux.get(indice).toString():"0";
-                          // System.out.println("pal: "+palabras);
-                           orderRatesTO.setOrrWcount(Long.parseLong(palabras));
-                       }
-                       else if (cantPalAuxString != null){
-                           orderRatesTO.setOrrWcount(Long.parseLong(cantPalAuxString));
-                       }else{
-                           orderRatesTO.setOrrWcount(new Long (0));
-                       }
-                   //} 
+                    if (cantPalAux != null && cantPalAux.size() > 0){ 
+                       String palabras= (cantPalAux.get(indice).toString().length() > 0)?cantPalAux.get(indice).toString():"0";
+                       orderRatesTO.setOrrWcount(Long.parseLong(palabras));
+                    }
+                    else if (cantPalAuxString != null){
+                       orderRatesTO.setOrrWcount(Long.parseLong(cantPalAuxString));
+                    }else{
+                       orderRatesTO.setOrrWcount(new Long (0));
+                    }
                     RatesTO rtTO= new RatesTO();
                     rtTO.setRatId(Long.parseLong(atribs[0]));
                     orderRatesTO.setRatesTO(rtTO );
@@ -284,6 +276,7 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                     ordersRatesTOList.add(orderRatesTO);
                     orderRatesTO.setOrdersTO(ordersTO);
                     indice +=1;
+
                 }
                 
                 ordersTO.setOrderRatesTOList(ordersRatesTOList);
@@ -376,7 +369,8 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                     }
                 }
                 }
-               
+               totalOrden = mRequest.get("totalOrden").toString() ;
+               request.setAttribute("totalOrden",totalOrden);
                request.setAttribute("order",ordersTO );
                 
             } catch (Exception e) {

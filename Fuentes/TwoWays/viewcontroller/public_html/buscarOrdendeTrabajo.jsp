@@ -188,7 +188,7 @@
                     <c:if test="${page != 0}">
                         <img src="img/player_start.png" height="20" width="20" onclick="back()" alt="<"/>
                     </c:if>
-                       </td><td>Pagina <fmt:formatNumber type="number" minFractionDigits="0" value="${page + 1 }" /> de <fmt:formatNumber type="number" minFractionDigits="0" value="${maxPage + 1 }" />
+                       </td><td>Página <fmt:formatNumber type="number" minFractionDigits="0" value="${page + 1 }" /> de <fmt:formatNumber type="number" minFractionDigits="0" value="${maxPage + 1 }" />
                        </td><td>
                        
                     <c:if test="${page < maxPage}"> 
