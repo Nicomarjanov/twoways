@@ -156,6 +156,7 @@
      select * from client_responsable cr 
      where   cr.clients_cli_id=#cliId#
      and cr.cre_erase_date is null
+     order by cr.cre_first_name
     
   </statement>   
   
@@ -865,6 +866,7 @@
   <statement id="getOrderDocByOrder" parameterClass="java.lang.Long" resultMap="select-order-doc" >
     select * from  orders_docs odo left outer join doc_types dot  on odo.doc_types_dot_id = dot_id
     where orders_Ord_Id = #ordersOrdId#
+    order by odo.odo_name
   </statement>
   
      <resultMap id="select-Ord-Rates" class="com.twoways.to.OrdersRatesTO" >
@@ -885,6 +887,7 @@
      select * from ((orders_rates ord join rates r on ord.rates_rat_id = r.rat_id)left outer join currency cur on 
      r.currency_cur_id = cur.cur_id)  left outer join rate_types rt on  r.rat_type= rt.rty_name
      where  ord.orders_ord_id=#ordId#
+
   </statement>    
   
   <insert id="insertOrdersServices" parameterClass="java.util.Map" >
@@ -1612,6 +1615,7 @@
         and r.orr_pay_date is null
         and r.orr_wcount > 0
         and to_date(o.ord_finish_date,'dd/MM/rrrr') between to_date(#mesId#,'MMyyyy') and last_day(to_date(#mesId#,'MMyyyy'))
+        order by o.ord_name
   </select>
 
   <select id="invoice.seq" resultClass="java.lang.Long" parameterClass="java.lang.String" > 
@@ -1653,6 +1657,15 @@
     and rates_rat_id = #ratesTO.ratId#
   </update>
   
+  <update id="updateOrderRatePayDateNull" parameterClass="java.lang.Long" >
+    update orders_rates
+    set orr_pay_date=null
+    where orders_ord_id in (select i.orders_rates_orders_ord_id 
+                           from items_invoices i 
+                           where  i.invoices_inv_id= #value#)
+
+  </update>
+  
   <select id="getAllOrdersByCliId" parameterClass="java.lang.Long" resultClass="java.util.HashMap" >
     select t.inv_id as invId,
            i.iti_id as itiId,
@@ -1675,8 +1688,15 @@
     and t.currency_cur_id=y.cur_id
   </select>
   
-
+  <delete id="deleteItemsInvoices" parameterClass="java.lang.Long">
+    delete from items_invoices
+    where invoices_inv_id=#value#
+  </delete>
   
+  <delete id="deleteInvoice" parameterClass="java.lang.Long">
+    delete from invoices
+    where inv_id=#value#
+  </delete>
   
   <select id="getStatesByType"  parameterClass="java.lang.String" resultClass="com.twoways.to.StatesTO">
        select sta_id as staId,
@@ -1688,8 +1708,7 @@
   </select>
   
   <select id="getOrdersByCliIdInvId" parameterClass="java.util.Map" resultClass="java.util.HashMap" >
-            select o.ord_id as ordId,
-               o.ord_name as ordName,
+            select o.ord_name as ordName,
                o.ord_description as ordDescription,
                o.ord_finish_date as ordFinishDate,
                o.ord_proj_id as ordProjId,
@@ -1718,6 +1737,7 @@
         and i.orders_rates_rates_rat_id = r.rates_rat_id
         and t.rat_type=e.rty_name      
         and i.invoices_inv_id = #invoiceId#
+        order by o.ord_name
   </select>
   
   <update id="updateInvoice" parameterClass="java.lang.Long" >
@@ -1733,22 +1753,21 @@
   </select>
   
   <select id="getItemsInvoiceByInvId" parameterClass="java.lang.Long" resultClass="java.util.HashMap" >
-    select o.ord_name as ordName,
+    select o.ord_id as ordId,
+           o.ord_name as ordName,
            o.ord_proj_id as projId,
            o.ord_wo_number as woNumber,
            o.ord_job_id as jobId,
            o.ord_job_name as jobName,
            o.ord_start_date as ordStartDate,
-           o.ord_job_description as jobDesc,
-           i.itm_name as itmName,
+           o.ord_job_description as jobDesc,          
            r.rat_name as ratName,
            l.orr_wcount as orrWcount,
            c.cur_symbol||' '|| l.orr_value as orrValue,
            (l.orr_wcount*l.orr_value) as itemTotal,
            p.cre_first_name||' '||p.cre_last_name as cliResp
-    from invoices u, items_invoices t, items i, orders o, rates r, currency c, client_responsable p, orders_rates l
+    from invoices u, items_invoices t, orders o, rates r, currency c, client_responsable p, orders_rates l
     where t.invoices_inv_id = #invId#
-    and t.items_itm_id=i.itm_id
     and t.orders_rates_orders_ord_id=o.ord_id
     and t.orders_rates_rates_rat_id=r.rat_id
     and t.currency_cur_id=c.cur_id
@@ -1756,7 +1775,8 @@
     and o.client_responsable_cre_id=p.cre_id
     and l.orders_ord_id=o.ord_id
     and l.rates_rat_id=r.rat_id
-    </select>
+    order by o.ord_name
+   </select>
     
     <resultMap id="select-client-responsables" class="com.twoways.to.ClientResponsableTO" >
       <result property="creId" column="cre_Id" />  

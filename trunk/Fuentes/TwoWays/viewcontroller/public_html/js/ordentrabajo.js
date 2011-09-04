@@ -194,16 +194,6 @@ function validarCampos()
         banderaMensajeFaltante=true;
     }
     
-    
-        
-  /*  if( document.getElementById("ordDescription").value == '')
-    {
-       
-       document.getElementById("ordDescription").style.background='Red';
-        mensajeFaltanteAlert+= ' * Descripción de la Orden \n';
-        banderaMensajeFaltante=true;
-    }*/
-
     var fecha = document.getElementById("ordStartDate");
 
     var ordFinishDate = document.getElementById("ordFinishDate");
@@ -399,12 +389,11 @@ function eliminarOrden() {
 
    var ord = document.getElementById('ordId').value;
    towaysDWR.deleteOrder(ord,deleteOrdersCallBack); 
-
-
 }
 
 function deleteOrdersCallBack(data){
-    if (data ="ok"){
+
+    if (data == "ok"){
         alert('La orden se eliminó con éxito.');
         window.location.href='ordentrabajo';
     }
@@ -434,4 +423,24 @@ function buscarOrdenesCallBack(data){
        }
        alert('Existe una orden con el mismo nombre.\n'+ ordenes);
    } 
+}
+
+function sumarMonto(){
+    var valores = document.getElementsByName("clrValue");
+    var palabras = document.getElementsByName("cantPalabras");
+    var monto = 0;
+    var montoAux = 0;
+    if (valores.length > 0){
+        for(i=0;i<valores.length;i++){
+            if (palabras[i].value != null && palabras[i].value != ""){
+                
+                montoAux =valores[i].value*palabras[i].value;
+            }else{
+
+                montoAux=0;
+            }
+            monto = monto + montoAux;
+        }
+    }
+    document.getElementById("totalOrden").value = monto;
 }

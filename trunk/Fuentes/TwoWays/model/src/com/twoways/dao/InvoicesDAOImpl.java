@@ -93,7 +93,8 @@ public class InvoicesDAOImpl extends AbstractDAO implements InvoiceDAO {
         if(invoiceParameters.get("invDate") != null && invoiceParameters.get("invDate").toString().length() > 0){      
             query +=" and t.inv_date "+ invoiceParameters.get("invDateOpt").toString()+"  to_date('#invDate#','dd/mm/yyyy')";
         }
-
+        
+        query +=" order by t.inv_id desc";
 
         for (Iterator i = invoiceParameters.keySet().iterator();i.hasNext();){
             String param = (String)i.next();
@@ -411,5 +412,12 @@ public class InvoicesDAOImpl extends AbstractDAO implements InvoiceDAO {
         
     }
     
+    public void eraseInvoice(Long invId)throws Exception{
+
+        getSqlMapClientTemplate().update("updateOrderRatePayDateNull",invId);
+        getSqlMapClientTemplate().delete("deleteItemsInvoices",invId);
+        getSqlMapClientTemplate().delete("deleteInvoice",invId);
+  
+    }
     
 }

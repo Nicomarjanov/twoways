@@ -204,17 +204,10 @@
                         <td width="10%" bgcolor="#FFFFF" style="text-align:right;"><c:out value="${item[\'CURSYMBOL\']}" /> <c:out value="${item[\'ORRVALUE\']}" /></td> 
                         <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'ORRWCOUNT\']}" /></td>                         
                         <td width="10%" bgcolor="#FFFFF" style="text-align:right;"><c:out value="${item[\'ORDTOTAL\']}" /></td>
-                        <c:choose>
-                            <c:when test="${empty item[\'ITMNAME\']}">
-                                <td width="2%">
-                                    <img  src="img/del2.png" height="15" width="15"  alt="Eliminar" onclick="eliminarOrden('<c:out value="${item[\'ORDID\']}"/><c:out value="${item[\'RATID\']}"/>','<c:out value="${item[\'ORDTOTAL\']}" />','<c:out value="${item[\'CURID\']}" />','<fmt:formatDate value="${item[\'ORDSTARTDATE\']}"  pattern="dd/MM/yyyy HH:mm" />')" onmouseover="this.style.cursor='hand';" />
-                                </td>
-                            </c:when>
-                            <c:otherwise>
-                                <td width="2%">
-                                </td>
-                            </c:otherwise>
-                        </c:choose>
+                        <td width="2%">
+                            <img  src="img/del2.png" height="15" width="15"  alt="Eliminar" onclick="eliminarOrden('<c:out value="${item[\'ORDID\']}"/><c:out value="${item[\'RATID\']}"/>','<c:out value="${item[\'ORDTOTAL\']}" />','<c:out value="${item[\'CURID\']}" />','<fmt:formatDate value="${item[\'ORDFINISHDATE\']}"  pattern="dd/MM/yyyy HH:mm" />')" onmouseover="this.style.cursor='hand';" />
+                        </td>
+
                        <!-- <td width="20%" align="leftx">
                         <c:choose>
                             <c:when test="${not empty item[\'ITMNAME\']}">

@@ -54,30 +54,25 @@ function agregarTarifa(){
    
 }
 
-
 function agregarTarifaCliente(data){
   
-       
-       var tablaTarifas= document.getElementById('list-tarifas-body');
-       
+       var index;
+       var tablaTarifas= document.getElementById('list-tarifas-body');      
        while( tablaTarifas.rows.length > 1 ){ 
          tablaTarifas.deleteRow(1);
-       }
-       
+       }       
         for( var i =0 ; i < data.length ; i++){ 
-         
-         var index = tablaTarifas.rows.length;
+         index = tablaTarifas.rows.length;
          var newRow = tablaTarifas.insertRow(index);  
          newRow.bgColor = "#FFFFFF";
-     
          insertarColumnas(tablaTarifas.rows[index],tablaTarifas.rows[0].cells.length); 
-         
-         cargarItemTarifaCliente(tablaTarifas.rows[index],data[i] );
-                  
+         cargarItemTarifaCliente(tablaTarifas.rows[index],data[i] );           
        }
+       index = tablaTarifas.rows.length;
+       tablaTarifas.insertRow(tablaTarifas.rows.length);
+       //insertarColumnas(tablaTarifas.rows[index],tablaTarifas.rows[0].cells.length); 
+       agregarTotalTabla(tablaTarifas.rows[index]);  
 }
-
-
 
 function cargarItemTarifa(row){
    
@@ -85,18 +80,14 @@ function cargarItemTarifa(row){
    var tarVal= document.getElementById('tar_val').value;
 
    row.cells[0].innerHTML= optionSelected.text; 
-   row.name = 'item-tarifa'; 
-   
+   row.name = 'item-tarifa';   
    row.id= 'tarId-'+ optionSelected.value;
    row.cells[1].innerHTML= tarVal + '<input type="hidden" name="tarifas-hidden"  value="'+optionSelected.value+'#'+tarVal+'" />';
    row.cells[2].innerHTML= '<img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarTarifa(\''+row.id+'\')" onmouseover="this.style.cursor=\'hand\';" />';
    row.cells[0].width=203;
    row.cells[1].width=60;
-   row.cells[1].align='right';
-   
-   
+   row.cells[1].align='right';   
 }
-
 
 function cargarItemTarifaCliente(row,tarifa){
    
@@ -107,15 +98,13 @@ function cargarItemTarifaCliente(row,tarifa){
    row.name = 'item-tarifa'; 
    
    row.id= 'tarId-'+ tarifa.ratesTO.ratId;
-   row.cells[1].innerHTML= tarVal + '<input type="hidden" name="tarifas-hidden"  value="'+tarifa.ratesTO.ratId+'#'+tarVal+'" />';
-   row.cells[2].innerHTML= '<input type="text" id="cantPalabras" name="cantPalabras" size="8" maxlength="8" value="" style="font-size:10px;font-family:verdana;"/>';
+   row.cells[1].innerHTML= '<input type="text" id="clrValue" name="clrValue" value=\''+tarVal+'\' size="4" maxlength="4" readonly style="font-size:10px;font-family:verdana; border: 0; background-color: #fff;"/>' + '<input type="hidden" name="tarifas-hidden"  value="'+tarifa.ratesTO.ratId+'#'+tarVal+'" />';
+   row.cells[2].innerHTML= '<input type="text" id="cantPalabras" name="cantPalabras" size="8" maxlength="8" value="" style="font-size:10px;font-family:verdana;" onblur="sumarMonto()"/>';
    row.cells[3].innerHTML= '<img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarTarifa(\''+row.id+'\')" onmouseover="this.style.cursor=\'hand\';" />';
    row.cells[0].width=203;
    row.cells[1].width=60;
    row.cells[2].width=60;
    row.cells[1].align='right';
-   
-   
 }
 
 function eliminarTarifa(id){
@@ -125,14 +114,25 @@ function eliminarTarifa(id){
    
  
    document.getElementById('tar_val').value= row.cells[1].innerHTML.substring(0, row.cells[1].innerHTML.indexOf('<INPUT'));
-   
+
    for(var i = 0 ; i <   document.getElementById('listaTarifa').length ;i++){
       if(document.getElementById('listaTarifa').options[i].value == row.id.substring(6)){
          document.getElementById('listaTarifa').options[i].selected= true;
       }
    }
    tablaTarifas.deleteRow(row.rowIndex);
-  
+
 }
 
+function agregarTotalTabla(row){
 
+   row.id="totalOrdenRow";
+   row.cells[0].innerHTML= "<div align = 'right'>Total:</div>";
+   row.cells[1].innerHTML= "<div align = 'left'><input type='text' name='totalOrden' id='totalOrden' value='0' size='15' maxlength='15' style='font-size:10px;font-family:verdana;' readonly/></div>";
+   row.cells[0].width=203;
+   //row.cells[1].width=120;
+   row.cells[1].colSpan=2;
+   sumarMonto();
+
+
+}

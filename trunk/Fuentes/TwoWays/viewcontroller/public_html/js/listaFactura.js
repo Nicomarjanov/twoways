@@ -72,3 +72,17 @@ function nuevaBusqueda()
     document.forms[0].submit();
     
 }
+
+function anularFactura(invId){
+   towaysDWR.anularFactura(invId,anularFacturaBack); 
+}
+
+function anularFacturaBack(data){
+
+   if (data == "ok"){
+        alert("La factura ha sido anulada correctamente");
+        buscarFacturas();
+   }else{
+        alert("No se pudo anular la factura debido al siguiente error: "+data);
+   }
+}

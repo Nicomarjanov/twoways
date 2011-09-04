@@ -268,7 +268,7 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
                 List<ItemsInvoicesTO> itemsFacturaList = new ArrayList<ItemsInvoicesTO>();
                 
                 if( ordClients  != null){ 
-                   Integer indice = 0;                   
+            
                    for(String aux:ordClients){ 
                        String auxArray[] = aux.split("#"); 
                        OrdersTO orderTO = new OrdersTO();
@@ -287,17 +287,7 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
                        currencyTO.setCurId(Long.parseLong(auxArray[2]));
                        itemFacturaTO.setCurrencyTO(currencyTO);
                        
-                       itemFacturaTO.setItiValue(Double.parseDouble(auxArray[3]));
-                       
-                      /*String itemLista[] = request.getParameterValues("listaItems");
-    
-                       ItemsTO item = new ItemsTO();
-                       String auxItem = itemLista[indice];
-                       String itemId[] = auxItem.split("#");
-                       item.setItmId(Long.parseLong(itemId[0]));     
-                       indice +=1;
-                       itemFacturaTO.setItemsTO(item);*/
-                       
+                       itemFacturaTO.setItiValue(Double.parseDouble(auxArray[3]));                       
                        itemsFacturaList.add(itemFacturaTO); 
                    }
                     factura.setItemsInvoicesTOList(itemsFacturaList);

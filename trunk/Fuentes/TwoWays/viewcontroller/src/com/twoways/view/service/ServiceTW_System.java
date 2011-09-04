@@ -18,6 +18,7 @@ import com.twoways.to.CotizationsTO;
 import com.twoways.to.EmployeesRatesTO;
 import com.twoways.to.EmployeesTO;
 
+import com.twoways.to.InvoicesTO;
 import com.twoways.to.ItemsTO;
 import com.twoways.to.OrdersTO;
 import com.twoways.to.ProAssigmentsDetailsTO;
@@ -505,4 +506,16 @@ public class ServiceTW_System {
             }
                 
         }
+        
+    public String anularFactura(String invId) {
+        try{
+            twoWaysBDL.getServiceTwoWays().anularFactura(Long.parseLong(invId));            
+            return "ok";
+            } catch (Exception e) {
+                
+                e.printStackTrace();
+                log.error(e, e);
+                 return e.getMessage();
+            }
+    }
 }
