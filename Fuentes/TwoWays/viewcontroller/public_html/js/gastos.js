@@ -179,7 +179,7 @@ function BuscarItemFecha(){
    var mesId = document.getElementById("listaMes").value;  
    var anioId = document.getElementById("listaAnio").value;  
    
-   document.getElementById('tipoItemBusqueda').value=tipoItemBusqueda;
+//   document.getElementById('tipoItemBusqueda').value=tipoItemBusqueda;
    document.getElementById('mesId').value=mesId;
    document.getElementById('anioId').value=anioId;
    document.getElementById("accion").value='buscarItemFecha';

@@ -55,7 +55,7 @@ function agregarTarifa(){
 }
 
 function agregarTarifaCliente(data){
-  
+
        var index;
        var tablaTarifas= document.getElementById('list-tarifas-body');      
        while( tablaTarifas.rows.length > 1 ){ 
@@ -70,7 +70,7 @@ function agregarTarifaCliente(data){
        }
        index = tablaTarifas.rows.length;
        tablaTarifas.insertRow(tablaTarifas.rows.length);
-       //insertarColumnas(tablaTarifas.rows[index],tablaTarifas.rows[0].cells.length); 
+       insertarColumnas(tablaTarifas.rows[index],tablaTarifas.rows[0].cells.length); 
        agregarTotalTabla(tablaTarifas.rows[index]);  
 }
 
