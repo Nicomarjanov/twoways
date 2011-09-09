@@ -84,7 +84,6 @@
             <td nowrap align="left" width="50%" >Año</td>
             <td align="left" width="50%">
                 <select name="listaAnio" id="listaAnio" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';" > 
-                    <option value="2010" >2010</option>
                     <option value="2011" >2011</option>
                     <option value="2012" >2012</option>
                     <option value="2013" >2013</option>
@@ -99,7 +98,7 @@
                 </select>
                 <c:if test="${anioId != null}">
                     <script type="text/javascript">
-                        for (var i=1; i < 11; i++){
+                        for (var i=1; i < 10; i++){
                             if (document.getElementById('listaAnio').options[i].value =="<c:out value="${anioId}"/>"){
                                 document.getElementById('listaAnio').selectedIndex=i;
                             }
@@ -126,8 +125,8 @@
       <table id="tabla-gastos-head" align="center" width="100%">-->
       <thead>
       <tr bgcolor="#E8B6B5">
+        <th nowrap width="10%" align="center">Fecha</th>      
         <th width="5%" align="center">Tipo Item</th>
-        <th nowrap width="10%" align="center">Fecha</th>
         <th nowrap width="30%" align="center">Seleccione Item</th>
         <th width="15%" align="center">Seleccione Moneda</th>
         <th width="15%" align="center">Ingrese Monto</th>
@@ -137,19 +136,19 @@
       </tr>
       </thead>
       <tbody>
-     <tr>
+     <tr>   
+            <td nowrap width="15%" align="center"  style ="background-color:#F8E0E0;color:#585858;align:left">
+                  <input type="text" class="tw_form" id="expFecha" name="expFecha"   value="<c:out  value="${auxDate}"/>" size="10" maxlength="10" onfocus="javascript:this.style.background='#FFFFFF';" onblur="actualizarListaGastos()"></input>
+                  <div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> 
+                  <img  onclick="cal1Desde.select(document.forms[0].expFecha,'selDesde','dd/MM/yyyy'); return false;actualizarListaGastos();" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png" onmouseover="this.style.cursor='hand';" ></img>
+            </td>
             <td width="15%" align="center"  style ="background-color:#F8E0E0;color:#585858;align:left">       
                <select name="tipoItem" id="tipoItem" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';" onchange="createDynamicDropdown('tipoItem', 'listaItemsAux','listaItems')">     
                         <option value="" >Seleccionar</option>
                         <option value="Gastos" >Gastos</option>
                         <option value="Ingresos" >Ingresos</option>
                </select> 
-            </td>    
-            <td nowrap width="15%" align="center"  style ="background-color:#F8E0E0;color:#585858;align:left">
-                  <input type="text" class="tw_form" id="expFecha" name="expFecha"   value="<c:out  value="${auxDate}"/>" size="10" maxlength="10" onfocus="javascript:this.style.background='#FFFFFF';"></input>
-                  <div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> 
-                  <img  onclick="cal1Desde.select(document.forms[0].expFecha,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png" onmouseover="this.style.cursor='hand';"></img>
-            </td>
+            </td> 
             <td width="30%" align="center"  style ="background-color:#F8E0E0;color:#585858;align:left">
                <select name="listaItemsAux" id="listaItemsAux" style="display:none;">            
                 <option value="-1"></option>

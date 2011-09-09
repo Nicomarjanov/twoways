@@ -150,14 +150,14 @@ public class AbmGastosServlet extends AutorizacionServlet {
         }
         
         try {             
-            if(expId != null && expId.length() > 0) {
+           /* if(expId != null && expId.length() > 0) {
                 gasto.setExpId(Long.parseLong(expId));
                 twoWaysBDL.getServiceTwoWays().updateGasto(gasto);
-                request.setAttribute("mensaje","<script>alert('El item de gasto se guardó con éxito')</script>");                
-            }else{
+                request.setAttribute("mensaje","<script>alert('El item de gasto se actualizó con éxito')</script>");                
+            }else{*/
                 twoWaysBDL.getServiceTwoWays().insertarGasto(gasto); 
                 request.setAttribute("mensaje","<script>alert('El item de gasto se guardó con éxito')</script>");
-            }
+            //}
             
         } catch (Exception e) {
             e.printStackTrace();
