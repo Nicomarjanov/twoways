@@ -376,7 +376,7 @@ function editarProyecto(ord){
 }
 
 function findResponsables() {
-   
+
    var cliente = document.getElementById('listaClientes');
    towaysDWR.getClientResponsableByCliId(cliente.value,findResponsablesCallBack); 
    towaysDWR.getTarifaClienteById(cliente.value,agregarTarifaCliente); 

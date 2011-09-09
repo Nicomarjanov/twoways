@@ -47,6 +47,7 @@ public class ProyectosServlet extends AutorizacionServlet {
         log = Logger.getRootLogger();
         List roles = new ArrayList();
         roles.add("Administrador");
+        roles.add("Usuario");
         this.setRolesValidos(roles);
         log.info("Inicia OrdenTrabajoServlet");
 

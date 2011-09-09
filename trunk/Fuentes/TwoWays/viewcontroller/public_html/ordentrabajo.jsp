@@ -84,7 +84,7 @@
     <tr>
         <td nowrap align="right" >Cliente:</td>
         <td align="left" colspan="2">
-            <select name="listaClientes" id="listaClientes" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';" onchange="findResponsables();">               
+            <select name="listaClientes" id="listaClientes" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';" onchange="findResponsables();">            
                 <option value=""  >Seleccionar</option>
                 <c:forEach items="${listaCliente}" var="item">
                    <c:out value="${item.cliId}" />
