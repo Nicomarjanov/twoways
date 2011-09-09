@@ -148,6 +148,7 @@ function eliminarItemExp(id){
    if (tabla.rows.length == 1){
        document.getElementById('tabla-gastos-body').style.display='none';      
    }
+   
 }
 
 function editarItemExp(string){
@@ -241,4 +242,20 @@ function createDynamicDropdown(dropDown1, dropDown2, dropDown3) {
                 }
             } 
         }
+}
+
+function actualizarListaGastos(){
+
+    var fecha = document.getElementById("expFecha").value;
+    var fechaBusqueda = new Date(fecha);
+    var mesId = fechaBusqueda.getMonth()+1;  
+    var anioId = fechaBusqueda.getFullYear(); 
+    if (mesId<10)
+            mesId="0"+mesId;
+alert(mesId);
+alert(anioId);
+   document.getElementById('mesId').value=mesId;
+   document.getElementById('anioId').value=anioId;
+   document.getElementById("accion").value='buscarItemFecha';
+   document.forms[0].submit(); 
 }

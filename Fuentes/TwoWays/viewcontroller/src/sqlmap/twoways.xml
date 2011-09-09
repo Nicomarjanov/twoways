@@ -1470,7 +1470,7 @@
     </delete>
 
     
-    <select id="getItemsExpensesByItmId"  parameterClass="com.twoways.to.ExpensesTO" resultMap="select-items-expenses">
+    <select id="getItemsExpensesByExpId"  parameterClass="com.twoways.to.ExpensesTO" resultMap="select-items-expenses">
         select *
         from items_expenses
         where expenses_exp_id=#expId#

@@ -27,28 +27,76 @@ import org.springframework.dao.DataAccessException;
 
 public class ExpensesDAOImpl extends AbstractDAO  implements ExpenseDAO {
     public ExpensesTO insertarExpense(ExpensesTO expensesTO) throws Exception {
-           Long expId = (Long) getSqlMapClientTemplate().queryForObject("expense.seq","");
-           expensesTO.setExpId(expId);  
-           getSqlMapClientTemplate().insert("insertExpense",expensesTO);
-           
-           List expItems = expensesTO.getItemsExpensesTOList();
-           if (expItems.size() > 0){                
-                for(Object itemsExpensesTO: expItems.toArray() ){
-                    ItemsExpensesTO auxItmExp = (ItemsExpensesTO)itemsExpensesTO;
-                    Long itmExpId = (Long) getSqlMapClientTemplate().queryForObject("item_expense.seq","");
-                    auxItmExp.setIteId(itmExpId);
-                    auxItmExp.setExpensesTO(expensesTO);
-                    getSqlMapClientTemplate().insert("insertItemsExpenses",auxItmExp);
-                }      
-            }
-           return getExpenseById(expId);           
+
+    List<ItemsExpensesTO> oldItmExpenses = (List<ItemsExpensesTO>) getSqlMapClientTemplate().queryForList("getItemsExpensesByExpId",expensesTO); 
+    
+    Long expId = 0L;
+    if(expensesTO.getExpId()!=null){
+      expId=expensesTO.getExpId();
+     getSqlMapClientTemplate().update("updateExpense",expensesTO); 
+    }else{
+     expId = (Long) getSqlMapClientTemplate().queryForObject("expense.seq","");
+     expensesTO.setExpId(expId);  
+     getSqlMapClientTemplate().insert("insertExpense",expensesTO);
+    }
+    
+    List expItems = expensesTO.getItemsExpensesTOList();
+    
+    if (expItems.size() > 0 && oldItmExpenses.size()>0){         
+       for(Object itemsExpensesTO: expItems.toArray() ){
+           ItemsExpensesTO newIE = (ItemsExpensesTO)itemsExpensesTO;
+           boolean insertar= true;
+           for (Object oldItmExpTO: oldItmExpenses.toArray()){
+               ItemsExpensesTO oldIE = (ItemsExpensesTO)oldItmExpTO;
+               if(oldIE.getIteId().equals(newIE.getIteId())){
+                   insertar = false;
+                   break;
+               }
+           }
+           if(insertar)
+           {   ItemsExpensesTO auxItmExp = (ItemsExpensesTO)itemsExpensesTO;
+               Long itmExpId = (Long) getSqlMapClientTemplate().queryForObject("item_expense.seq","");
+               auxItmExp.setIteId(itmExpId);
+               auxItmExp.setExpensesTO(expensesTO);
+               getSqlMapClientTemplate().insert("insertItemsExpenses",auxItmExp);
+    
+           }else{
+               //newIE.getExpensesTO().setExpId(expensesTO.getExpId());
+               getSqlMapClientTemplate().insert("updateItemsExpenses",(ItemsExpensesTO)newIE);
+           }  
+       }
+       for (Object oldItmExpTO: oldItmExpenses.toArray()){
+           ItemsExpensesTO oldIE = (ItemsExpensesTO)oldItmExpTO;   
+           boolean borrar= true;  
+           for(Object itemsExpensesTO: expItems.toArray() ){
+               ItemsExpensesTO newIE = (ItemsExpensesTO)itemsExpensesTO;
+               if(oldIE.getIteId().equals(newIE.getIteId())){
+               borrar=false;
+               break;
+               }
+           }
+           if(borrar)
+           {
+               getSqlMapClientTemplate().delete("deleteItemsExpenses",(ItemsExpensesTO)oldIE);
+           }
+       }
+    }else if (expItems.size() > 0){
+        for(Object itemsExpensesTO: expItems.toArray() ){
+            ItemsExpensesTO auxItmExp = (ItemsExpensesTO)itemsExpensesTO;
+            Long itmExpId = (Long) getSqlMapClientTemplate().queryForObject("item_expense.seq","");
+            auxItmExp.setIteId(itmExpId);
+            auxItmExp.setExpensesTO(expensesTO);
+            getSqlMapClientTemplate().insert("insertItemsExpenses",auxItmExp);
         }
+    }
+    return getExpenseById(expId);           
+   }
     
     public ExpensesTO actualizarExpense(ExpensesTO expensesTO) throws Exception {
         
-        List<ItemsExpensesTO> oldItmExpenses = (List<ItemsExpensesTO>) getSqlMapClientTemplate().queryForList("getItemsExpensesByItmId",expensesTO); 
+        List<ItemsExpensesTO> oldItmExpenses = (List<ItemsExpensesTO>) getSqlMapClientTemplate().queryForList("getItemsExpensesByExpId",expensesTO); 
 
-        getSqlMapClientTemplate().update("updateExpense",expensesTO); 
+        //getSqlMapClientTemplate().update("updateExpense",expensesTO); 
         
         List expItems = expensesTO.getItemsExpensesTOList();
         
