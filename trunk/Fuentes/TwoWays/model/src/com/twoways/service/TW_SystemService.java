@@ -204,7 +204,7 @@ public interface TW_SystemService {
     
     public void deleteProjectAssigmentDetailsByPraId(Map params)throws Exception ;
     
-    public ItemsExpensesTO getItemsExpenseByExpId(Long expId)throws Exception ;
+    public ItemsExpensesTO getItemsExpenseByExpId(ExpensesTO expensesTO)throws Exception ;
     
     public void deleteProjectAssigment(Map params) throws Exception ;
     
@@ -214,17 +214,19 @@ public interface TW_SystemService {
     
     public boolean enviarMailAsignacion(Long praId, String message, UsersTO user,String otrosDestinatarios) throws Exception;
 
-    public void insertarGasto(ExpensesTO expensesTO) throws Exception;
+    public Long insertarGasto(ExpensesTO expensesTO) throws Exception;
     
-    public void updateGasto(ExpensesTO expensesTO) throws Exception;    
+    public Long updateGasto(ExpensesTO expensesTO) throws Exception;    
     
-    public boolean deleteGasto(String expId) throws Exception;
+    public boolean deleteGasto(Long expId) throws Exception;
     
     public ExpensesTO getExpenseById(Long expId) throws Exception;
    
     public Map getCostPA(ProjectAssignmentsTO projectAssignmentsTO)throws Exception;
     
     public List getItemsExpenseByDate(String mesId,String anioId) throws Exception;
+    
+    public List getItemsExpenseList(Long expId) throws Exception;
 
     public List buscarListaEmpleados(String search) throws Exception;
 
@@ -236,7 +238,6 @@ public interface TW_SystemService {
     
     public PaymentsTO getPaymentById(Long payId) throws Exception;
     
-
     public List<EmployeesRatesTO> getEmpRatesByEmpId(Long empId, String serv) throws Exception;
     
     public List<DocTypes> obtenerTipoDocumentos() throws Exception;
@@ -282,4 +283,5 @@ public interface TW_SystemService {
     public boolean enviarMailDesasignacion(Long praId, UsersTO user) throws Exception;
     
     public void anularFactura(Long invId) throws Exception;
+    
 }

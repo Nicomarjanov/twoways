@@ -23,7 +23,6 @@
   <input type="hidden" id="accion" name="accion" value=""/>
   <input type="hidden" id="itmId" name="itmId" value="<c:out value="${item.itmId}"/>"/>
   <input type="hidden" id="empId" name="empId" value="<c:out value="${gasto.EmployeesTO.empId}"/>"/>  
-  <input type="hidden" id="itmDate" name="itmDate" value="<c:out value="${gasto.expDate}"/>"/>   
   <input type="hidden" id="expId" name="expId" value="<c:out value="${auxExpId}"/>"/>   
   <input type="hidden" id="mesId" name="mesId" value="<c:out value="${mesId}"/>"/>
   <input type="hidden" id="anioId" name="anioId" value="<c:out value="${anioId}"/>"/>     
@@ -138,9 +137,9 @@
       <tbody>
      <tr>   
             <td nowrap width="15%" align="center"  style ="background-color:#F8E0E0;color:#585858;align:left">
-                  <input type="text" class="tw_form" id="expFecha" name="expFecha"   value="<c:out  value="${auxDate}"/>" size="10" maxlength="10" onfocus="javascript:this.style.background='#FFFFFF';" onblur="actualizarListaGastos()"></input>
+                  <input type="text" class="tw_form" id="expFecha" name="expFecha"   value="<c:out  value="${auxDate}"/>" size="10" maxlength="10" onfocus="javascript:this.style.background='#FFFFFF';" onblur="actualizarListaGastos()" ></input>
                   <div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> 
-                  <img  onclick="cal1Desde.select(document.forms[0].expFecha,'selDesde','dd/MM/yyyy'); return false;actualizarListaGastos();" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png" onmouseover="this.style.cursor='hand';" ></img>
+                  <img  onclick="cal1Desde.select(document.forms[0].expFecha,'selDesde','dd/MM/yyyy'); return true;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png" onmouseover="this.style.cursor='hand';" ></img>
             </td>
             <td width="15%" align="center"  style ="background-color:#F8E0E0;color:#585858;align:left">       
                <select name="tipoItem" id="tipoItem" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';" onchange="createDynamicDropdown('tipoItem', 'listaItemsAux','listaItems')">     
@@ -229,15 +228,15 @@
                                 </c:otherwise>
                             </c:choose>
                             <tr name="item-gastos" id="<c:out value="${item[\'ITE_ID\']}" />" bgcolor="<c:out value="${color_row}"/>" > 
-                                <td width="15%" ><fmt:formatDate value="${item[\'EXP_DATE\']}" pattern="dd/MM/yyyy" /></td>
+                                <td width="15%" ><fmt:formatDate value="${item[\'ITE_DATE\']}" pattern="dd/MM/yyyy" /></td>
                                 <td width="30%" ><c:out value="${item[\'ITM_NAME\']}" />
-                                  <input type="hidden" name="item-gasto-hidden"  value="<c:out value="${item[\'ITM_ID\']}" />#<c:out value="${item[\'CUR_ID\']}" />#<c:out value="${item[\'ITE_VALUE\']}" />#<c:out value="${item[\'ACC_ID\']}" />#<c:out value="${item[\'USR_ID\']}" />#<c:out value="${item[\'ITE_ID\']}" />"</td>
+                                  <input type="hidden" name="item-gasto-hidden"  value="<c:out value="${item[\'ITM_ID\']}" />#<c:out value="${item[\'CUR_ID\']}" />#<c:out value="${item[\'ITE_VALUE\']}" />#<c:out value="${item[\'ACC_ID\']}" />#<c:out value="${item[\'USR_ID\']}" />#<fmt:formatDate value="${item[\'ITE_DATE\']}" pattern="dd/MM/yyyy"/>#<c:out value="${item[\'ITE_ID\']}" />"</td>
                                 <td width="15%" ><c:out value="${item[\'CUR_NAME\']}" /></td>
                                 <td width="15%" align="right"><c:out value="${item[\'ITE_VALUE\']}" /></td>
                                 <td width="13%" ><c:out value="${item[\'ACC_NAME\']}" /></td>
                                 <td width="10%" ><c:out value="${item[\'USR_ID\']}" /></td>                                   
                                 <td width="2%">
-                                    <img  src="img/del2.png" height="15" width="15"  alt="Eliminar" onclick="eliminarItemExp('<c:out value="${item[\'ITE_ID\']}" />')" onmouseover="this.style.cursor='hand';" />    <img  src="img/Edit2.png" height="15" width="15"  alt="Editar Item de Gasto" onclick="editarItemExp('<c:out value="${item[\'ITM_ID\']}"/>#<c:out value="${item[\'ITM_NAME\']}"/>*#<c:out value="${item[\'CUR_ID\']}"/>#<c:out value="${item[\'CUR_NAME\']}"/>*#<c:out value="${item[\'ITE_VALUE\']}"/>*#<c:out value="${item[\'ACC_ID\']}"/>#<c:out value="${item[\'ACC_NAME\']}"/>*#<c:out value="${item[\'USR_ID\']}"/>*#<c:out value="${item[\'ITE_ID\']}" />*#<c:out value="${item[\'ITM_TYPE\']}" />')" onmouseover="this.style.cursor='hand';" /></td>
+                                    <img  src="img/del2.png" height="15" width="15"  alt="Eliminar" onclick="eliminarItemExp('<c:out value="${item[\'ITE_ID\']}" />')" onmouseover="this.style.cursor='hand';" />    <img  src="img/Edit2.png" height="15" width="15"  alt="Editar Item de Gasto" onclick="editarItemExp('<c:out value="${item[\'ITM_ID\']}"/>#<c:out value="${item[\'ITM_NAME\']}"/>*#<c:out value="${item[\'CUR_ID\']}"/>#<c:out value="${item[\'CUR_NAME\']}"/>*#<c:out value="${item[\'ITE_VALUE\']}"/>*#<c:out value="${item[\'ACC_ID\']}"/>#<c:out value="${item[\'ACC_NAME\']}"/>*#<c:out value="${item[\'USR_ID\']}"/>*#<c:out value="${item[\'ITE_ID\']}" />*#<c:out value="${item[\'ITM_TYPE\']}" />*#<fmt:formatDate value="${item[\'ITE_DATE\']}" pattern="dd/MM/yyyy"/>')" onmouseover="this.style.cursor='hand';" /></td>
                             </tr>           
                             </c:forEach>
                         </tbody>
@@ -261,7 +260,6 @@
       <tr>
           <td align="right"><input type="button" id="aceptar" value="Aceptar" onclick="agregar()"/></td>   
           <td align="left"><input type="button" id="cancel" value="Limpiar" OnClick="cancelar()"/></td>   
-          <!--<td align="left"><input type="button" id="eliminar" value="Eliminar" OnClick="eliminarGasto('<c:out value="${auxExpId}"/>')"/></td>-->
       </tr>
   </table>
   </form>

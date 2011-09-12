@@ -26,23 +26,23 @@ import javax.sql.DataSource;
 import org.springframework.dao.DataAccessException;
 
 public class ExpensesDAOImpl extends AbstractDAO  implements ExpenseDAO {
-    public ExpensesTO insertarExpense(ExpensesTO expensesTO) throws Exception {
+    public Long insertarExpense(ExpensesTO expensesTO) throws Exception {
 
     List<ItemsExpensesTO> oldItmExpenses = (List<ItemsExpensesTO>) getSqlMapClientTemplate().queryForList("getItemsExpensesByExpId",expensesTO); 
     
-    Long expId = 0L;
-    if(expensesTO.getExpId()!=null){
-      expId=expensesTO.getExpId();
-     getSqlMapClientTemplate().update("updateExpense",expensesTO); 
-    }else{
-     expId = (Long) getSqlMapClientTemplate().queryForObject("expense.seq","");
-     expensesTO.setExpId(expId);  
-     getSqlMapClientTemplate().insert("insertExpense",expensesTO);
-    }
-    
     List expItems = expensesTO.getItemsExpensesTOList();
-    
-    if (expItems.size() > 0 && oldItmExpenses.size()>0){         
+    Long expId = 0L;    
+
+    if (expItems.size() > 0 && oldItmExpenses.size()>0){  
+
+        if(expensesTO.getExpId()!=null){
+            expId=expensesTO.getExpId();
+            getSqlMapClientTemplate().update("updateExpense",expensesTO); 
+        }else{
+            expId = (Long) getSqlMapClientTemplate().queryForObject("expense.seq","");
+            expensesTO.setExpId(expId);  
+            getSqlMapClientTemplate().insert("insertExpense",expensesTO);
+        }
        for(Object itemsExpensesTO: expItems.toArray() ){
            ItemsExpensesTO newIE = (ItemsExpensesTO)itemsExpensesTO;
            boolean insertar= true;
@@ -81,6 +81,9 @@ public class ExpensesDAOImpl extends AbstractDAO  implements ExpenseDAO {
            }
        }
     }else if (expItems.size() > 0){
+        expId = (Long) getSqlMapClientTemplate().queryForObject("expense.seq","");
+        expensesTO.setExpId(expId);  
+        getSqlMapClientTemplate().insert("insertExpense",expensesTO);
         for(Object itemsExpensesTO: expItems.toArray() ){
             ItemsExpensesTO auxItmExp = (ItemsExpensesTO)itemsExpensesTO;
             Long itmExpId = (Long) getSqlMapClientTemplate().queryForObject("item_expense.seq","");
@@ -89,18 +92,18 @@ public class ExpensesDAOImpl extends AbstractDAO  implements ExpenseDAO {
             getSqlMapClientTemplate().insert("insertItemsExpenses",auxItmExp);
         }
     }
-    return getExpenseById(expId);           
+    return expId;           
    }
     
-    public ExpensesTO actualizarExpense(ExpensesTO expensesTO) throws Exception {
-        
+    public Long actualizarExpense(ExpensesTO expensesTO) throws Exception {
+             
         List<ItemsExpensesTO> oldItmExpenses = (List<ItemsExpensesTO>) getSqlMapClientTemplate().queryForList("getItemsExpensesByExpId",expensesTO); 
 
         //getSqlMapClientTemplate().update("updateExpense",expensesTO); 
         
         List expItems = expensesTO.getItemsExpensesTOList();
         
-        if (expItems.size() > 0){         
+        if (expItems != null){         
             for(Object itemsExpensesTO: expItems.toArray() ){
                 ItemsExpensesTO newIE = (ItemsExpensesTO)itemsExpensesTO;
                 boolean insertar= true;
@@ -115,6 +118,7 @@ public class ExpensesDAOImpl extends AbstractDAO  implements ExpenseDAO {
                 {   ItemsExpensesTO auxItmExp = (ItemsExpensesTO)itemsExpensesTO;
                     Long itmExpId = (Long) getSqlMapClientTemplate().queryForObject("item_expense.seq","");
                     auxItmExp.setIteId(itmExpId);
+                    
                     auxItmExp.setExpensesTO(expensesTO);
                     getSqlMapClientTemplate().insert("insertItemsExpenses",auxItmExp);
 
@@ -139,7 +143,7 @@ public class ExpensesDAOImpl extends AbstractDAO  implements ExpenseDAO {
                 }
             }
         }
-        return getExpenseById(expensesTO.getExpId());
+        return expensesTO.getExpId();
     }        
         
     public ExpensesTO getExpenseById(Long expId) throws Exception {
@@ -147,13 +151,14 @@ public class ExpensesDAOImpl extends AbstractDAO  implements ExpenseDAO {
        return gasto;
     }
     
-    public ItemsExpensesTO getItemsExpenseByExpId(Long expId) throws Exception {
-       ItemsExpensesTO itemExp =  (ItemsExpensesTO)getSqlMapClientTemplate().queryForObject("getItemsExpenseByExpId",expId);
+    public ItemsExpensesTO getItemsExpenseByExpId(ExpensesTO expensesTO) throws Exception {
+       ItemsExpensesTO itemExp =  (ItemsExpensesTO)getSqlMapClientTemplate().queryForObject("getItemsExpensesByExpId",expensesTO);
        return itemExp;
     }
     
-    public boolean deleteExpense(String expId)  throws Exception {
-       int res =  getSqlMapClientTemplate().update("deleteExpense",Long.parseLong(expId));
+    public boolean deleteExpense(Long expId)  throws Exception {
+       getSqlMapClientTemplate().delete("deleteAllItemsExpenses",expId);
+       int res =  getSqlMapClientTemplate().delete("deleteExpense",expId);
        return (res > 0); 
     }
     
@@ -170,7 +175,19 @@ public class ExpensesDAOImpl extends AbstractDAO  implements ExpenseDAO {
         }
         return ret;
         }
-      
+    
+    public List getItemsExpenseList(Long expId) throws Exception{
+     
+        List ret= null;
+        try {
+            ret = getSqlMapClientTemplate().queryForList("getItemsExpenseList",expId);
+            } catch (DataAccessException dae) {
+
+           dae.printStackTrace();
+        }
+        return ret;
+        }
+        
     public List <ItemsExpensesTO>findExpenses(Map expensesParameters) throws Exception{
         List results = new ArrayList();
         DataSource ds = this.getDataSource(); 
