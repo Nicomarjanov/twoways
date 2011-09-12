@@ -46,19 +46,14 @@ import com.twoways.to.RatesTO;
 import com.twoways.to.StatesTO;
 import com.twoways.to.TranslatorsTO;
 import com.twoways.to.UsersTO;
-import com.twoways.to.ItemsInvoicesTO;
 
-import java.sql.SQLException;
 import java.sql.Timestamp;
 
 import java.text.DecimalFormat;
-import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -585,8 +580,8 @@ public class TW_SystemServiceImpl implements TW_SystemService {
 
     }
 
-    public ItemsExpensesTO getItemsExpenseByExpId(Long expId) throws Exception {
-        return this.expensesDao.getItemsExpenseByExpId(expId);
+    public ItemsExpensesTO getItemsExpenseByExpId(ExpensesTO expensesTO) throws Exception {
+        return this.expensesDao.getItemsExpenseByExpId(expensesTO);
     }
 
     public void deleteProjectAssigment(Map params) throws Exception {
@@ -722,15 +717,15 @@ public class TW_SystemServiceImpl implements TW_SystemService {
         this.expensesDao = expensesDao;
     }
 
-    public void insertarGasto(ExpensesTO expensesTO) throws Exception {
-        this.expensesDao.insertarExpense(expensesTO);
+    public Long insertarGasto(ExpensesTO expensesTO) throws Exception {
+        return this.expensesDao.insertarExpense(expensesTO);
     }
 
-    public void updateGasto(ExpensesTO expensesTO) throws Exception {
-        this.expensesDao.actualizarExpense(expensesTO);
+    public Long updateGasto(ExpensesTO expensesTO) throws Exception {
+        return this.expensesDao.actualizarExpense(expensesTO);
     }
 
-    public boolean deleteGasto(String expId) throws Exception {
+    public boolean deleteGasto(Long expId) throws Exception {
         return this.expensesDao.deleteExpense(expId);
     }
 
@@ -779,7 +774,10 @@ public class TW_SystemServiceImpl implements TW_SystemService {
         return this.expensesDao.getItemsExpenseByDate(mesId, anioId);
     }
 
-
+    public List getItemsExpenseList(Long expId) throws Exception{
+        return this.expensesDao.getItemsExpenseList(expId);
+    }
+    
     public List<EmployeesRatesTO> getEmpRatesByEmpId(Long empId, String serv) throws Exception {
         return this.getEmpRatesByEmpIdRateName(empId,serv);
     }

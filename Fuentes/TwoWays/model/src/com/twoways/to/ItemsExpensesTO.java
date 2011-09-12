@@ -1,5 +1,7 @@
 package com.twoways.to;
 
+import java.sql.Timestamp;
+
 
 //(name = "ITEMS_EXPENSES")
 //Class(ItemsExpensesTOPK.class)
@@ -11,6 +13,7 @@ public class ItemsExpensesTO {
     private Long iteId;
     //(name="ITE_VALUE")
     private Double iteValue;
+    private Timestamp iteDate;
     
     private AccountsTO accountsTO;
     private CurrencyTO currencyTO;
@@ -76,5 +79,13 @@ public class ItemsExpensesTO {
 
     public Double getIteValue() {
         return iteValue;
+    }
+
+    public void setIteDate(Timestamp iteDate) {
+        this.iteDate = iteDate;
+    }
+
+    public Timestamp getIteDate() {
+        return iteDate;
     }
 }

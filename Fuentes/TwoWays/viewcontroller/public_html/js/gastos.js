@@ -23,7 +23,7 @@ function agregarItemGasto(){
     if (validarCampos()){
         alert(mensajeCampoAlert);
     }else {
-        var tablaGastos = document.getElementById('list-gastos-body');
+       var tablaGastos = document.getElementById('list-gastos-body');
        
        var index = tablaGastos.rows.length;       
 
@@ -39,6 +39,7 @@ function agregarItemGasto(){
        document.getElementById('iteId').value="";
        
        document.getElementById('listaItems').focus();
+       
     }
 }
 
@@ -105,11 +106,11 @@ function cargarItemGasto(row){
     if (iteId == null || typeof iteId == 'undefined' || iteId == '' || iteId.length ==0 ){
         rowId = rowId + 1;
         auxId = rowId +' actual'
-        valorEditar=nomItem[0]+'#'+nomItem[1]+'*#'+nomMoneda[0]+'#'+nomMoneda[1]+'*#'+valorMonto+'*#'+nomCuenta[0]+'#'+nomCuenta[1]+'*#'+numUser+'*#'+auxId+'*#'+tipoItem;   
-        valor=nomItem[0]+'#'+nomMoneda[0]+'#'+valorMonto+'#'+nomCuenta[0]+'#'+numUser+'#';
+        valorEditar=nomItem[0]+'#'+nomItem[1]+'*#'+nomMoneda[0]+'#'+nomMoneda[1]+'*#'+valorMonto+'*#'+nomCuenta[0]+'#'+nomCuenta[1]+'*#'+numUser+'*#'+auxId+'*#'+tipoItem+'*#'+fecha;   
+        valor=nomItem[0]+'#'+nomMoneda[0]+'#'+valorMonto+'#'+nomCuenta[0]+'#'+numUser+'#'+fecha;
     }else{
-        valorEditar=nomItem[0]+'#'+nomItem[1]+'*#'+nomMoneda[0]+'#'+nomMoneda[1]+'*#'+valorMonto+'*#'+nomCuenta[0]+'#'+nomCuenta[1]+'*#'+numUser+'*#'+iteId+'*#'+tipoItem;
-        valor=nomItem[0]+'#'+nomMoneda[0]+'#'+valorMonto+'#'+nomCuenta[0]+'#'+numUser+'#'+iteId;
+        valorEditar=nomItem[0]+'#'+nomItem[1]+'*#'+nomMoneda[0]+'#'+nomMoneda[1]+'*#'+valorMonto+'*#'+nomCuenta[0]+'#'+nomCuenta[1]+'*#'+numUser+'*#'+iteId+'*#'+tipoItem+'*#'+fecha;
+        valor=nomItem[0]+'#'+nomMoneda[0]+'#'+valorMonto+'#'+nomCuenta[0]+'#'+numUser+'#'+fecha+'#'+iteId;
         auxId = iteId
     }
     row.id= auxId;
@@ -136,6 +137,9 @@ function cargarItemGasto(row){
     row.cells[4].width="13%";
     row.cells[5].width="10%";
     row.cells[6].width="2%";
+    
+   document.getElementById("accion").value='guardar';
+   document.forms[0].submit();   
 }
 
 
@@ -148,7 +152,8 @@ function eliminarItemExp(id){
    if (tabla.rows.length == 1){
        document.getElementById('tabla-gastos-body').style.display='none';      
    }
-   
+   document.getElementById("accion").value='guardar';
+   document.forms[0].submit();      
 }
 
 function editarItemExp(string){
@@ -163,12 +168,22 @@ function editarItemExp(string){
        var itmExpId= listaArray[5];
        document.getElementById('iteId').value=itmExpId;
        document.getElementById('tipoItem').value=listaArray[6];
+       document.getElementById('expFecha').value=listaArray[7];
 
        createDynamicDropdown('tipoItem', 'listaItemsAux','listaItems');        
-       eliminarItemExp(itmExpId);
+       eliminarItemExpEdicion(itmExpId);
 }
 
+function eliminarItemExpEdicion(id){
 
+   var tabla = document.getElementById('list-gastos-body');
+   var row = document.getElementById(id);   
+
+   tabla.deleteRow(row.rowIndex);
+   if (tabla.rows.length == 1){
+       document.getElementById('tabla-gastos-body').style.display='none';      
+   }
+}
 function agregar()
 {
    document.getElementById("accion").value='guardar';
@@ -246,14 +261,10 @@ function createDynamicDropdown(dropDown1, dropDown2, dropDown3) {
 
 function actualizarListaGastos(){
 
-    var fecha = document.getElementById("expFecha").value;
-    var fechaBusqueda = new Date(fecha);
-    var mesId = fechaBusqueda.getMonth()+1;  
-    var anioId = fechaBusqueda.getFullYear(); 
-    if (mesId<10)
-            mesId="0"+mesId;
-alert(mesId);
-alert(anioId);
+   var mesId = document.getElementById("expFecha").value.substring(3,5);
+   var anioId = document.getElementById("expFecha").value.substring(6);
+   var auxDate = document.getElementById("expFecha").value;
+
    document.getElementById('mesId').value=mesId;
    document.getElementById('anioId').value=anioId;
    document.getElementById("accion").value='buscarItemFecha';
