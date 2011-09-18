@@ -16,6 +16,6 @@ public interface InvoiceDAO {
     public void actualizarFactura(InvoicesTO factura) throws Exception;
     public List<ItemsInvoicesTO> obtenerItemsFactura(Long invId) throws Exception;
     public List <InvoicesTO> findIncomesByClient(Map invoiceParameters) throws Exception;
-    public List findIncomes(Map invoiceParameters) throws Exception;
+    //public List findIncomes(Map invoiceParameters) throws Exception;
     public void eraseInvoice(Long invId)throws Exception;
 }

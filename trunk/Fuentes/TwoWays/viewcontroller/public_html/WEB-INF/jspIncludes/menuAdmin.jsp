@@ -37,6 +37,7 @@
     <ul>
         <li><a href="listaEmpleados">Empleados</a></li>    
         <li><a href="listaFacturas">Cobros realizados</a></li>
+        <li><a href="listaPagos">Pagos realizados</a></li>        
         <li><a href="ingresosxcliente">Ingresos por cliente</a></li>
         <li><a href="balance">Ingresos/Egresos</a></li>        
     </ul>

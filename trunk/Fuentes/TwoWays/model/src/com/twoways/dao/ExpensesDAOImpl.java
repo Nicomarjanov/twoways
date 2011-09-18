@@ -26,6 +26,7 @@ import javax.sql.DataSource;
 import org.springframework.dao.DataAccessException;
 
 public class ExpensesDAOImpl extends AbstractDAO  implements ExpenseDAO {
+
     public Long insertarExpense(ExpensesTO expensesTO) throws Exception {
 
     List<ItemsExpensesTO> oldItmExpenses = (List<ItemsExpensesTO>) getSqlMapClientTemplate().queryForList("getItemsExpensesByExpId",expensesTO); 
@@ -197,7 +198,8 @@ public class ExpensesDAOImpl extends AbstractDAO  implements ExpenseDAO {
         String query ="select m.itm_id as itmId, m.itm_name as itmName, sum(i.ite_value) as total, i.currency_cur_id as curId, e.exp_date as expDate \n" + 
         " from items_expenses i, expenses e, items m\n" + 
         " where i.expenses_exp_id=e.exp_id\n" + 
-        " and i.items_itm_id=m.itm_id";
+        " and i.items_itm_id=m.itm_id \n" +
+        " and m.itm_type = 'Gastos' ";
             
         if (expensesParameters.get("mesId") != null && expensesParameters.get("mesId").toString().length() > 0){
             query +=" and to_char(e.exp_date,'mm')=#mesId#";
@@ -259,5 +261,202 @@ public class ExpensesDAOImpl extends AbstractDAO  implements ExpenseDAO {
         }
         }
         return results;
+    }
+
+    public List findIncomes(Map invoiceParameters) throws Exception{
+
+        List salida = new ArrayList();
+        DataSource ds = this.getDataSource(); 
+        Connection con = null;
+        Statement stm = null;
+        ResultSet rs= null ;
+        String query ="select cur_id,cur_name,enero,febrero,marzo,abril,mayo,junio,julio,agosto,septiembre,octubre,noviembre,diciembre, \n" + 
+        "        enero+febrero+marzo+abril+mayo+junio+julio+agosto+septiembre+octubre+noviembre+diciembre as total \n" + 
+        "        from (select y.cur_id, y.cur_name, \n" + 
+        "                decode(sum(case \n" + 
+        "                     when to_char(i.ite_date, 'mm') = '01' then \n" + 
+        "                      i.ite_value \n" + 
+        "                   end),'',0,sum(case \n" + 
+        "                     when to_char(i.ite_date, 'mm') = '01' then \n" + 
+        "                      i.ite_value \n" + 
+        "                   end)) enero, \n" + 
+        "                decode(sum(case \n" + 
+        "                     when to_char(i.ite_date, 'mm') = '02' then \n" + 
+        "                      i.ite_value \n" + 
+        "                   end),'',0,sum(case \n" + 
+        "                     when to_char(i.ite_date, 'mm') = '02' then \n" + 
+        "                      i.ite_value \n" + 
+        "                   end)) febrero, \n" + 
+        "                 decode(sum(case \n" + 
+        "                     when to_char(i.ite_date, 'mm') = '03' then \n" + 
+        "                      i.ite_value \n" + 
+        "                   end),'',0,sum(case \n" + 
+        "                     when to_char(i.ite_date, 'mm') = '03' then \n" + 
+        "                      i.ite_value \n" + 
+        "                   end)) marzo, \n" + 
+        "                   decode(sum(case \n" + 
+        "                     when to_char(i.ite_date, 'mm') = '04' then \n" + 
+        "                      i.ite_value \n" + 
+        "                   end),'',0,sum(case \n" + 
+        "                     when to_char(i.ite_date, 'mm') = '04' then \n" + 
+        "                      i.ite_value \n" + 
+        "                   end)) abril, \n" + 
+        "                   decode(sum(case \n" + 
+        "                     when to_char(i.ite_date, 'mm') = '05' then \n" + 
+        "                      i.ite_value \n" + 
+        "                   end),'',0,sum(case \n" + 
+        "                     when to_char(i.ite_date, 'mm') = '05' then \n" + 
+        "                      i.ite_value \n" + 
+        "                   end)) mayo, \n" + 
+        "                   decode(sum(case \n" + 
+        "                     when to_char(i.ite_date, 'mm') = '06' then \n" + 
+        "                      i.ite_value \n" + 
+        "                   end),'',0,sum(case \n" + 
+        "                     when to_char(i.ite_date, 'mm') = '06' then \n" + 
+        "                      i.ite_value \n" + 
+        "                   end)) junio, \n" + 
+        "                   decode(sum(case \n" + 
+        "                     when to_char(i.ite_date, 'mm') = '07' then \n" + 
+        "                      i.ite_value \n" + 
+        "                   end),'',0,sum(case \n" + 
+        "                     when to_char(i.ite_date, 'mm') = '07' then \n" + 
+        "                      i.ite_value \n" + 
+        "                   end)) julio, \n" + 
+        "                   decode(sum(case \n" + 
+        "                     when to_char(i.ite_date, 'mm') = '08' then \n" + 
+        "                      i.ite_value \n" + 
+        "                   end),'',0,sum(case \n" + 
+        "                     when to_char(i.ite_date, 'mm') = '08' then \n" + 
+        "                      i.ite_value \n" + 
+        "                   end)) agosto, \n" + 
+        "                  decode(sum(case \n" + 
+        "                     when to_char(i.ite_date, 'mm') = '09' then \n" + 
+        "                      i.ite_value \n" + 
+        "                   end),'',0,sum(case \n" + 
+        "                     when to_char(i.ite_date, 'mm') = '09' then \n" + 
+        "                      i.ite_value \n" + 
+        "                   end)) septiembre, \n" + 
+        "                   decode(sum(case \n" + 
+        "                     when to_char(i.ite_date, 'mm') = '10' then \n" + 
+        "                      i.ite_value \n" + 
+        "                   end),'',0,sum(case \n" + 
+        "                     when to_char(i.ite_date, 'mm') = '10' then \n" + 
+        "                      i.ite_value \n" + 
+        "                   end)) octubre, \n" + 
+        "                    decode(sum(case \n" + 
+        "                     when to_char(i.ite_date, 'mm') = '11' then \n" + 
+        "                      i.ite_value \n" + 
+        "                   end),'',0,sum(case \n" + 
+        "                     when to_char(i.ite_date, 'mm') = '11' then \n" + 
+        "                      i.ite_value \n" + 
+        "                   end)) noviembre, \n" + 
+        "                   decode(sum(case \n" + 
+        "                     when to_char(i.ite_date, 'mm') = '12' then \n" + 
+        "                      i.ite_value \n" + 
+        "                   end),'',0,sum(case \n" + 
+        "                     when to_char(i.ite_date, 'mm') = '12' then \n" + 
+        "                      i.ite_value \n" + 
+        "                   end)) diciembre \n" + 
+        "          from items_expenses i, currency y, items s\n" + 
+        "         where i.currency_cur_id = y.cur_id\n" + 
+        "         and i.items_itm_id = s.itm_id\n" + 
+        "         and s.itm_type='Ingresos'";        
+      
+        if (invoiceParameters.get("mesId") != null && invoiceParameters.get("mesId").toString().length() > 0){
+            query +=" and to_char(i.ite_date,'mmyyyy')=#mesId##anioId#";
+        }      
+        if (invoiceParameters.get("anioId") != null && invoiceParameters.get("anioId").toString().length() > 0){
+            query +=" and to_char(i.ite_date,'yyyy')=#anioId#";
+        }              
+        query +="    group by y.cur_id,y.cur_name)";
+                
+        for (Iterator i = invoiceParameters.keySet().iterator();i.hasNext();){
+            String param = (String)i.next();
+            query = query.replaceAll("#"+param+"#",invoiceParameters.get(param).toString());
+        }
+        try {
+            con = ds.getConnection();
+            stm = con.createStatement();
+            System.out.println(query);
+            rs = stm.executeQuery(query);
+            while(rs.next()){
+                List results = new ArrayList();
+                results.add(rs.getString("cur_id"));            
+                results.add(rs.getString("cur_name"));   
+                results.add(rs.getString("enero")); 
+                results.add(rs.getString("febrero")); 
+                results.add(rs.getString("marzo")); 
+                results.add(rs.getString("abril"));
+                results.add(rs.getString("mayo")); 
+                results.add(rs.getString("junio"));
+                results.add(rs.getString("julio")); 
+                results.add(rs.getString("agosto"));
+                results.add(rs.getString("septiembre")); 
+                results.add(rs.getString("octubre"));
+                results.add(rs.getString("noviembre")); 
+                results.add(rs.getString("diciembre"));                
+                results.add(rs.getString("total")); 
+                salida.add(results);
+                
+            }
+            
+            } catch (SQLException e) {
+            e.printStackTrace();
+            }finally{
+            try {
+            rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try{
+            stm.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try{
+            con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            }
+            return salida;
+        
+    }
+    
+    
+    public void insertarExpenseExtra(ExpensesTO expensesTO) throws Exception {
+
+    List expItems = expensesTO.getItemsExpensesTOList();
+    Long expId = 0L;    
+
+    if (expItems.size() > 0 ){  
+
+        if(expensesTO.getExpId()!=null){
+            expId=expensesTO.getExpId();
+            getSqlMapClientTemplate().update("updateExpense",expensesTO); 
+        }else{
+            expId = (Long) getSqlMapClientTemplate().queryForObject("expense.seq","");
+            expensesTO.setExpId(expId);  
+            getSqlMapClientTemplate().insert("insertExpense",expensesTO);
+        }
+       for(Object itemsExpensesTO: expItems.toArray() ){
+               ItemsExpensesTO auxItmExp = (ItemsExpensesTO)itemsExpensesTO;
+               Long itmExpId = (Long) getSqlMapClientTemplate().queryForObject("item_expense.seq","");
+               auxItmExp.setIteId(itmExpId);
+               auxItmExp.setExpensesTO(expensesTO);
+                              
+               getSqlMapClientTemplate().insert("insertItemsExpenses",auxItmExp);
+ 
+       }
+    }
+              
+    }
+
+    public void eraseInvoiceExpense(Long invId) throws Exception {
+        getSqlMapClientTemplate().delete("eraseInvoiceExpense",invId);
+    }
+    
+    public void erasePaymentExpense(Long payId) throws Exception{
+        getSqlMapClientTemplate().delete("erasePaymentExpense",payId);
     }
 }

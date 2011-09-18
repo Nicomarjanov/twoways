@@ -25,7 +25,9 @@ import com.twoways.to.EmployeeTypeTO;
 
 import com.twoways.to.EmployeesTO;
 
+import com.twoways.to.ExpensesTO;
 import com.twoways.to.ItemsExpensesTO;
+import com.twoways.to.ItemsTO;
 import com.twoways.to.PaymentsTO;
 import com.twoways.to.ProAssigmentsDetailsTO;
 import com.twoways.to.ProjAssignPaysTO;
@@ -200,18 +202,20 @@ public class AbmPagosServlet extends AutorizacionServlet {
             pago.setEmployeeTO(empIdTO);
             
             String listaCuentas= request.getParameter("listaCuentas");
+
             if( listaCuentas  != null){ 
                     String atribs[]= listaCuentas.split("#");                    
-                    AccountsTO accIdTO = new AccountsTO();
+                    AccountsTO accIdTO = new AccountsTO();                    
                     accIdTO.setAccId(Long.parseLong(atribs[0]));
                     pago.setAccountsTO(accIdTO);
 
             }
             
             String listaMoneda = request.getParameter("listaMoneda");
+
             if (listaMoneda != null) {
                 String atribs[]= listaMoneda.split("#");  
-                CurrencyTO curIdTO = new CurrencyTO();
+                CurrencyTO curIdTO = new CurrencyTO();                
                 curIdTO.setCurId(Long.parseLong(atribs[0]));
                 pago.setCurrencyTO(curIdTO);
                 
@@ -243,7 +247,44 @@ public class AbmPagosServlet extends AutorizacionServlet {
                     String imprimir = request.getParameter("imprimir");
                     
                     twoWaysBDL.getServiceTwoWays().insertarPago(pago); 
+                    
+                    //Insertar gasto de pago de sueldo en la tabla de gastos
+                    ItemsExpensesTO itmExpTO = new ItemsExpensesTO(); 
+                    itmExpTO.setAccountsTO(pago.getAccountsTO());
+                    itmExpTO.setCurrencyTO(pago.getCurrencyTO());
+                    itmExpTO.setIteDate(pago.getPayDate());
+                    ItemsTO itmTO = new ItemsTO();
+                    itmTO.setItmId(Long.parseLong("20"));
+                    itmExpTO.setItemsTO(itmTO);//Sueldo Empleados
+                    itmExpTO.setIteValue(pago.getPayAmount());                   
+                    itmExpTO.setUsersTO(pago.getUserTO());
+                    
+                    itmExpTO.setPaymentsTO(pago);
+                    
+                    ExpensesTO expTO = new ExpensesTO();   
+                    List<ItemsExpensesTO> itmExpTOList = new ArrayList<ItemsExpensesTO>();
+                    
+                    List itmExpDate = null;     
+                    String auxExpId = null;        
+                    
+                    mesId = request.getParameter("payDate").substring(3,5);
+                    anioId = request.getParameter("payDate").substring(6);                    
+                    itmExpDate =  twoWaysBDL.getServiceTwoWays().getItemsExpenseByDate(mesId,anioId);                      
+                    if(itmExpDate != null && itmExpDate.size() > 0){
+                        auxExpId= ((HashMap)itmExpDate.get(0)).get("EXP_ID").toString();
+                        expTO.setExpId(Long.parseLong(auxExpId));
+                    }       
+                    itmExpTOList.add(itmExpTO);
+                    expTO.setItemsExpensesTOList(itmExpTOList);
 
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
+                    java.util.Date date = sdf.parse(anioId+mesId);
+                    java.sql.Timestamp timest = new java.sql.Timestamp(date.getTime());
+                    expTO.setExpDate(timest);
+                    
+                    twoWaysBDL.getServiceTwoWays().insertarExpenseExtra(expTO);
+                   
+                    
                     if (imprimir!=null && imprimir.equalsIgnoreCase("imprimirPago") && empId != null){
                             
                             try {
@@ -336,7 +377,7 @@ public class AbmPagosServlet extends AutorizacionServlet {
         //cell = new PdfPCell();
 
         Font f = new Font(bf,24,Font.BOLD,new BaseColor(0xC2,0x33,0x30));        
-        Paragraph p = new Paragraph ("Recibo de pago de "+empName+" del mes de "+mesId,f);
+        Paragraph p = new Paragraph ("Recibo de pago de "+empName,f);//+" del mes de "+mesId,f);
         p.setAlignment(Element.ALIGN_CENTER);
         p.setSpacingBefore(5);
         p.setSpacingAfter(5);

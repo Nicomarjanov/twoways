@@ -20,6 +20,8 @@ public class ItemsExpensesTO {
     private ExpensesTO expensesTO;
     private ItemsTO itemsTO;
     private UsersTO usersTO;
+    private InvoicesTO invoicesTO;
+    private PaymentsTO paymentsTO;
 
     public ItemsExpensesTO() {
     }
@@ -87,5 +89,21 @@ public class ItemsExpensesTO {
 
     public Timestamp getIteDate() {
         return iteDate;
+    }
+
+    public void setInvoicesTO(InvoicesTO invoicesTO) {
+        this.invoicesTO = invoicesTO;
+    }
+
+    public InvoicesTO getInvoicesTO() {
+        return invoicesTO;
+    }
+
+    public void setPaymentsTO(PaymentsTO paymentsTO) {
+        this.paymentsTO = paymentsTO;
+    }
+
+    public PaymentsTO getPaymentsTO() {
+        return paymentsTO;
     }
 }

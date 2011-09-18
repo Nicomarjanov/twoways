@@ -198,7 +198,7 @@
      select *      
      from 
      Employees
-     order by emp_first_name desc
+     order by emp_first_name
 
   </select>
   
@@ -1388,14 +1388,24 @@
   
   <insert id="insertItemsExpenses" parameterClass="com.twoways.to.ItemsExpensesTO">
       insert into items_expenses
-      (ite_id, ite_value, items_itm_id, expenses_exp_id, currency_cur_id, accounts_acc_id, users_usr_id, ite_date)
+      (ite_id, ite_value, items_itm_id, expenses_exp_id, currency_cur_id, accounts_acc_id, users_usr_id, ite_date, invoices_inv_id, payments_pay_id)
       values
-      (#iteId#, #iteValue#, #itemsTO.itmId#, #expensesTO.expId#, #currencyTO.curId#, #accountsTO.accId#, #usersTO.usrId#, #iteDate#)
+      (#iteId#, #iteValue#, #itemsTO.itmId#, #expensesTO.expId#, #currencyTO.curId#, #accountsTO.accId#, #usersTO.usrId#, #iteDate#, #invoicesTO.invId#, #paymentsTO.payId#)
   </insert>
 
   <delete  id="deleteAllItemsExpenses" parameterClass="java.lang.Long" >
      delete items_expenses
      where expenses_exp_id=#value#
+  </delete>
+  
+  <delete  id="eraseInvoiceExpense" parameterClass="java.lang.Long" >
+     delete items_expenses
+     where invoices_inv_id=#value#
+  </delete>
+  
+  <delete  id="erasePaymentExpense" parameterClass="java.lang.Long" >
+     delete items_expenses
+     where payments_pay_id=#value#
   </delete>
   
   <resultMap id="select-items-expenses" class="com.twoways.to.ItemsExpensesTO">
@@ -1545,7 +1555,7 @@
                pa.pra_assign_date as praAssDate,       
                p.pro_id as projId,
                p.pro_name as projName,
-               r.rat_name as ratName,
+               y.rty_alternative_name||' '||r.rat_name as ratName,
                c.cur_symbol as curSymbol,
                pd.pad_rate as ratValue,
                pd.pad_wcount as wCount,
@@ -1554,7 +1564,7 @@
                pd.pad_id as padid,
                c.cur_id as curId,
                p.orders_ord_id as ordId
-          from project_assignments pa , projects p, proj_assignments_details pd, rates r, currency c
+          from project_assignments pa , projects p, proj_assignments_details pd, rates r, currency c, rate_types y
          where pa.employees_emp_id = #empId#
          and pa.projects_pro_id = p.pro_id
          and pd.project_assignments_pra_id = pa.pra_id
@@ -1564,6 +1574,7 @@
          and pa.pra_assign_date between add_months(to_date(#mesId#||'00:00','ddMMyyyy hh24:mi')+1,-1) and to_date(#mesId#||'23:59','ddMMyyyy hh24:mi')
          and r.currency_cur_id=c.cur_id
          and pd.pad_pay_date is null
+         and r.rat_type = y.rty_name
          order by pa.pra_assign_date
   </select>
 
@@ -1874,4 +1885,61 @@
         select * from project_assignments 
         where employees_emp_id=#value#
     </statement>
+    
+    <statement id="getItemsPaymentByPayId"  resultClass="java.util.HashMap" parameterClass="java.lang.Long" >
+        select a.pra_assign_date as assignDate,
+               o.pro_name as proName,
+               y.rty_alternative_name||' '||e.rat_name as ratName,
+               c.cur_symbol as curSymbol,
+               d.pad_rate as rate,
+               d.pad_wcount as wcount,
+               (d.pad_rate*d.pad_wcount) as total
+          from proj_assign_pays t,
+               payments p,
+               proj_assignments_details d,
+               project_assignments a,
+               projects o,
+               rates e,
+               currency c,
+               rate_types y
+         where t.payments_pay_id = #payId#
+           and t.payments_pay_id = p.pay_id
+           and t.proj_assignments_details_pad_i = d.pad_id
+           and d.project_assignments_pra_id = a.pra_id
+           and d.project_assignments_employees_ = a.employees_emp_id
+           and d.project_assignments_projects_p = a.projects_pro_id
+           and d.project_assignments_projects_p = o.pro_id
+           and d.employees_rates_rates_rat_id = e.rat_id
+           and e.currency_cur_id=c.cur_id 
+           and e.rat_type=y.rty_name
+           order by a.pra_assign_date  
+   </statement>
+
+    <resultMap id="proj-assign-pays" class="com.twoways.to.ProjAssignPaysTO" >
+      <result property="paymentsTO.payId" column="payments_pay_id" />  
+      <result property="proAssigmentsDetailsTO.padId" column="proj_assignments_details_pad_i" />
+    </resultMap>
+   
+   <statement id="getProjAssignPaysByPayId" resultMap="proj-assign-pays" parameterClass="java.lang.Long" >
+        select *
+        from proj_assign_pays t
+        where t.payments_pay_id=#payId#
+   </statement>
+   
+   <delete id="eraseProjAssignPay" parameterClass="com.twoways.to.ProjAssignPaysTO">
+        delete from proj_assign_pays
+        where payments_pay_id = #paymentsTO.payId#
+        and proj_assignments_details_pad_i = #proAssigmentsDetailsTO.padId#
+   </delete>
+   
+   <update id="updateProjAssignDetail" parameterClass="java.lang.Long" >
+        update proj_assignments_details
+        set pad_pay_date=null
+        where pad_id=#padId#
+    </update>
+    
+    <delete id="erasePayment" parameterClass="java.lang.Long" >
+        delete from payments
+        where pay_id=#payId#
+    </delete>
 </sqlMap> 

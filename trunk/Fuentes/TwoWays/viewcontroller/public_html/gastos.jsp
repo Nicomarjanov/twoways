@@ -236,7 +236,10 @@
                                 <td width="13%" ><c:out value="${item[\'ACC_NAME\']}" /></td>
                                 <td width="10%" ><c:out value="${item[\'USR_ID\']}" /></td>                                   
                                 <td width="2%">
-                                    <img  src="img/del2.png" height="15" width="15"  alt="Eliminar" onclick="eliminarItemExp('<c:out value="${item[\'ITE_ID\']}" />')" onmouseover="this.style.cursor='hand';" />    <img  src="img/Edit2.png" height="15" width="15"  alt="Editar Item de Gasto" onclick="editarItemExp('<c:out value="${item[\'ITM_ID\']}"/>#<c:out value="${item[\'ITM_NAME\']}"/>*#<c:out value="${item[\'CUR_ID\']}"/>#<c:out value="${item[\'CUR_NAME\']}"/>*#<c:out value="${item[\'ITE_VALUE\']}"/>*#<c:out value="${item[\'ACC_ID\']}"/>#<c:out value="${item[\'ACC_NAME\']}"/>*#<c:out value="${item[\'USR_ID\']}"/>*#<c:out value="${item[\'ITE_ID\']}" />*#<c:out value="${item[\'ITM_TYPE\']}" />*#<fmt:formatDate value="${item[\'ITE_DATE\']}" pattern="dd/MM/yyyy"/>')" onmouseover="this.style.cursor='hand';" /></td>
+                                    <c:if test="${(item[\'ITM_ID\'] != '20') && (item[\'ITM_ID\'] != '8')}"> 
+                                        <img  src="img/del2.png" height="15" width="15"  alt="Eliminar" onclick="eliminarItemExp('<c:out value="${item[\'ITE_ID\']}" />')" onmouseover="this.style.cursor='hand';" />    <img  src="img/Edit2.png" height="15" width="15"  alt="Editar Item de Gasto" onclick="editarItemExp('<c:out value="${item[\'ITM_ID\']}"/>#<c:out value="${item[\'ITM_NAME\']}"/>*#<c:out value="${item[\'CUR_ID\']}"/>#<c:out value="${item[\'CUR_NAME\']}"/>*#<c:out value="${item[\'ITE_VALUE\']}"/>*#<c:out value="${item[\'ACC_ID\']}"/>#<c:out value="${item[\'ACC_NAME\']}"/>*#<c:out value="${item[\'USR_ID\']}"/>*#<c:out value="${item[\'ITE_ID\']}" />*#<c:out value="${item[\'ITM_TYPE\']}" />*#<fmt:formatDate value="${item[\'ITE_DATE\']}" pattern="dd/MM/yyyy"/>')" onmouseover="this.style.cursor='hand';" />
+                                    </c:if>
+                                </td>
                             </tr>           
                             </c:forEach>
                         </tbody>

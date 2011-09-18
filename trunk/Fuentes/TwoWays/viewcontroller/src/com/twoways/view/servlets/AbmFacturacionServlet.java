@@ -20,7 +20,9 @@ import com.twoways.to.AccountsTO;
 import com.twoways.to.ClientsTO;
 import com.twoways.to.CurrencyTO;
 import com.twoways.to.EmployeesTO;
+import com.twoways.to.ExpensesTO;
 import com.twoways.to.InvoicesTO;
+import com.twoways.to.ItemsExpensesTO;
 import com.twoways.to.ItemsInvoicesTO;
 import com.twoways.to.ItemsTO;
 import com.twoways.to.OrdersRatesTO;
@@ -310,7 +312,44 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
 
                         invId = twoWaysBDL.getServiceTwoWays().insertarFactura(factura); 
                         request.setAttribute("invId",invId);
+                        //Registro el cobro en la tabla de ingresos(gastos)
+                        ItemsExpensesTO itmExpTO = new ItemsExpensesTO();
+                        itmExpTO.setAccountsTO(factura.getAccountsTO());
+                        itmExpTO.setCurrencyTO(factura.getCurrencyTO());
+                        itmExpTO.setUsersTO(factura.getUsersTO());
+                        itmExpTO.setIteDate(factura.getInvDate());
+                        itmExpTO.setIteValue(factura.getInvTotal());
+                        ItemsTO itmTO = new ItemsTO();
+                        itmTO.setItmId(Long.parseLong("8"));//Facturas
+                        itmExpTO.setItemsTO(itmTO);
+                        
+                        itmExpTO.setInvoicesTO(factura);
+                        
+                        ExpensesTO expTO = new ExpensesTO();   
+                        List<ItemsExpensesTO> itmExpTOList = new ArrayList<ItemsExpensesTO>();
+                        
+                        List itmExpDate = null;     
+                        String auxExpId = null;        
+                        
+                        mesId = request.getParameter("invDate").substring(3,5);
+                        anioId = request.getParameter("invDate").substring(6);                    
+                        itmExpDate =  twoWaysBDL.getServiceTwoWays().getItemsExpenseByDate(mesId,anioId);                      
+                        if(itmExpDate != null && itmExpDate.size() > 0){
+                            auxExpId= ((HashMap)itmExpDate.get(0)).get("EXP_ID").toString();
+                            expTO.setExpId(Long.parseLong(auxExpId));
+                        }       
+                        itmExpTOList.add(itmExpTO);
+                        expTO.setItemsExpensesTOList(itmExpTOList);
+
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
+                        java.util.Date date = sdf.parse(anioId+mesId);
+                        java.sql.Timestamp timest = new java.sql.Timestamp(date.getTime());
+                        expTO.setExpDate(timest);
+                        
+                        twoWaysBDL.getServiceTwoWays().insertarExpenseExtra(expTO);
+                         
                     }
+                    
                     if (imprimir!=null && imprimir.equalsIgnoreCase("imprimirFactura") && cliId != null && facturar.equalsIgnoreCase("si")){
                             
                             try {
