@@ -217,7 +217,9 @@ public interface TW_SystemService {
     public Long insertarGasto(ExpensesTO expensesTO) throws Exception;
     
     public Long updateGasto(ExpensesTO expensesTO) throws Exception;    
-    
+
+    public void insertarExpenseExtra(ExpensesTO expensesTO) throws Exception;
+       
     public boolean deleteGasto(Long expId) throws Exception;
     
     public ExpensesTO getExpenseById(Long expId) throws Exception;
@@ -283,5 +285,11 @@ public interface TW_SystemService {
     public boolean enviarMailDesasignacion(Long praId, UsersTO user) throws Exception;
     
     public void anularFactura(Long invId) throws Exception;
+    
+    public List <PaymentsTO> findPayments(Map paymentParameters) throws Exception;
+    
+    public List obtenerItemsPago(Long payId) throws Exception;
+    
+    public void anularPago(Long payId) throws Exception;
     
 }

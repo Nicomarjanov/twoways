@@ -725,6 +725,10 @@ public class TW_SystemServiceImpl implements TW_SystemService {
         return this.expensesDao.actualizarExpense(expensesTO);
     }
 
+    public void insertarExpenseExtra(ExpensesTO expensesTO) throws Exception{
+        this.expensesDao.insertarExpenseExtra(expensesTO);
+    }
+    
     public boolean deleteGasto(Long expId) throws Exception {
         return this.expensesDao.deleteExpense(expId);
     }
@@ -929,7 +933,7 @@ public class TW_SystemServiceImpl implements TW_SystemService {
     }
     
     public List findIncomes(Map invoiceParameters) throws Exception{
-        return this.invoiceDao.findIncomes(invoiceParameters);
+        return this.expensesDao.findIncomes(invoiceParameters);
     }    
     
     public List <ItemsExpensesTO>findExpenses(Map expensesParameters) throws Exception{
@@ -1051,7 +1055,26 @@ public class TW_SystemServiceImpl implements TW_SystemService {
     }
 
     public void anularFactura(Long invId) throws Exception{
+
+        this.expensesDao.eraseInvoiceExpense(invId);        
         this.invoiceDao.eraseInvoice(invId);
+
+    }
+
+    public List <PaymentsTO> findPayments(Map paymentParameters) throws Exception{
+        return this.paymentDao.findPayments(paymentParameters);        
+    }
+
+    public List obtenerItemsPago(Long payId) throws Exception{
+        return this.paymentDao.obtenerItemsPago(payId);
+    }
+    
+    public void anularPago(Long payId) throws Exception{
+
+        this.expensesDao.erasePaymentExpense(payId);
+        this.paymentDao.erasePayment(payId);        
+
+
     }
 }
 

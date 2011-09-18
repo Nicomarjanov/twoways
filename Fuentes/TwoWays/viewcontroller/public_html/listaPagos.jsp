@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252"/>
     <link href="./twoways.css" rel="stylesheet" type="text/css"/>
-    <script  type='text/javascript' src="./js/listaFactura.js"></script>
+    <script  type='text/javascript' src="./js/listaPagos.js"></script>
     <script type='text/javascript' src="./js/utils.js"></script>    
     <script type='text/javascript' src='/twoways/dwr/interface/towaysDWR.js'></script>
     <script type='text/javascript' src='/twoways/dwr/engine.js'></script>    
@@ -23,28 +23,30 @@
             if (window.event) keycode = window.event.keyCode;
              else if (e) keycode = e.which;
             if( keycode == 13){
-              buscarFacturas();
+              buscarPagos();
             }
          }        
     </script>
-    <title>Lista de Cobros</title>
+    <title>Lista de Pagos</title>
   </head>
   <body>
     <jsp:include page="/WEB-INF/jspIncludes/menu.jsp" />
     <c:out value="${mensaje}" escapeXml="false"/>
-    <form id="frmlistFacturas" name="frmlistFacturas" action="listaFacturas" method="POST">
+    <form id="frmlistPagos" name="frmlistPagos" action="listaPagos" method="POST">
     <input type="hidden"  name="accion"  id="accion"  value=""   />
-    <input type="hidden"  name="cliId"  id="cliId"  value=""   />
-    <input type="hidden"  name="invId"  id="invId"  value=""   />
+    <input type="hidden"  name="empId"  id="empId"  value=""   />  
+    <input type="hidden"  name="payId"  id="payId"  value=""   />  
+    <input type="hidden"  name="mesId"  id="mesId"  value=""   /> 
+    <input type="hidden"  name="anioId"  id="anioId"  value=""   /> 
+    <input type="hidden"  name="payDate"  id="payDate"  value=""   />
+    <input type="hidden"  name="payAmount"  id="payAmount"  value=""   />  
     <input type="hidden"  name="accId"  id="accId"  value=""   />
-    <input type="hidden"  name="curSymbol"  id="curSymbol"  value=""   />
-    <input type="hidden"  name="invTotal"  id="invTotal"  value=""   />
-    
+    <input type="hidden"  name="curSymbol"  id="curSymbol"  value=""   />    
     <input type="hidden"  name="pageId"  id="pageId" value="<c:out value="${pageId}" />" >
     <table width="100%">
       <thead>
       <tr>
-        <th class="tw_form" colspan="100%" >Ingrese los criterios de búsqueda de los cobros realizados</th>
+        <th class="tw_form" colspan="100%" >Ingrese los criterios de búsqueda de los pagos realizados</th>
       </tr>
       </thead>
       <tbody>
@@ -63,23 +65,23 @@
        <tbody>
        <tr>
         <td nowrap align="left" width="50%">Número</td>
-        <td colspan="2" align="left" width="50%"><input type="text" maxlength="10" size="10" name="invNumber" value="<c:out value="${invNumber}" />" class="tw_form" /></td>
+        <td colspan="2" align="left" width="50%"><input type="text" maxlength="10" size="10" name="payNumber" value="<c:out value="${payNumber}" />" class="tw_form" /></td>
        </tr>
        <tr>
-       <td nowrap align="left" width="50%">Cliente</td>
+       <td nowrap align="left" width="50%">Empleado</td>
        <td colspan="2" align="left" width="50%">
-            <select name="listaClientes" id="listaClientes" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">            
+            <select name="listaEmpleados" id="listaEmpleados" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">            
                 <option value="" selected="selected">Seleccionar</option>
-                <c:forEach items="${listaClientes}" var="item">
+                <c:forEach items="${listaEmpleados}" var="item">
                    <c:choose>
-                    <c:when test="${cliId == item.cliId}">
-                       <option value="<c:out value="${item.cliId}" />" selected="selected">
-                        <c:out value="${item.cliName}" />
+                    <c:when test="${empId == item.empId}">
+                       <option value="<c:out value="${item.empId}" />" selected="selected">
+                        <c:out value="${item.empFirstName}" /> <c:out value="${item.empLastName}" />
                       </option> 
                     </c:when>
                     <c:otherwise>
-                    <option value="<c:out value="${item.cliId}" />" style="background-color:#A4BAC7;">
-                        <c:out value="${item.cliName}" /> 
+                    <option value="<c:out value="${item.empId}" />" style="background-color:#A4BAC7;">
+                        <c:out value="${item.empFirstName}" /> <c:out value="${item.empLastName}" /> 
                     </option>
                     </c:otherwise>
                     </c:choose>
@@ -88,12 +90,12 @@
         </td>
        </tr>
        <tr>
-       <td nowrap align="left" width="50%">Fecha cobro</td>
+       <td nowrap align="left" width="50%">Fecha pago</td>
        <td colspan="2" nowrap>
-           <select id="invDateOpt" name="invDateOpt" >
+           <select id="payDateOpt" name="payDateOpt" >
                <c:forEach items="${optionList}" var="item">
                    <c:choose>
-                    <c:when test="${invDateOpt == item}">
+                    <c:when test="${payDateOpt == item}">
                        <option value="<c:out value="${item}" />" style="background-color:#A4BAC7;" selected="selected">
                         <c:out value="${item}" />
                       </option> 
@@ -106,11 +108,11 @@
                     </c:choose>
                  </c:forEach>
                </select>
-            <input type="text" class="tw_form" name="invDate"  id="invDate" value="<c:out value="${invDate}" />" style="width:200" /><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].invDate,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png" onmouseover="this.style.cursor='hand';"></img>
+            <input type="text" class="tw_form" name="fecha"  id="fecha" value="<c:out value="${fecha}" />" style="width:200" /><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].fecha,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png" onmouseover="this.style.cursor='hand';"></img>
         </td>      
         </tr>
        <tr  >
-        <td width="50%"  valign="top" align="right" ><input type="button" value="Buscar" onclick="buscarFacturas()"  /></td>
+        <td width="50%"  valign="top" align="right" ><input type="button" value="Buscar" onclick="buscarPagos()"  /></td>
         <td width="50%"  valign="top" align="left" ><input type="button" value="Nueva Búsqueda" onclick="nuevaBusqueda()"  /></td>                     
        </tr>
        
@@ -123,44 +125,37 @@
             <thead>
                <tr style="display:block; background-color='transparent';" align="center">
                     <th width="10%" bgcolor="#80211D">#</th>
-                    <th width="15%" bgcolor="#80211D">Nombre cliente</th>                       
-                    <th width="10%" bgcolor="#80211D">Fecha cobro</th>
+                    <th width="15%" bgcolor="#80211D">Nombre empleado</th>                       
+                    <th width="10%" bgcolor="#80211D">Fecha pago</th>
                     <th width="10%" bgcolor="#80211D">Cuenta</th>
                     <th width="10%" bgcolor="#80211D">Moneda</th>                    
                     <th width="10%" bgcolor="#80211D">Total</th>
-                    <th width="10%" bgcolor="#80211D">¿Facturado?</th>
                     <th width="15%" bgcolor="#80211D">Usuario que lo realizó</th>                    
                     <th width="10%" bgcolor="#80211D">Ver detalle</th>  
-                    <th width="10%" bgcolor="#80211D">Anular cobro</th> 
-                    <th width="10%" bgcolor="#80211D"></th> 
+                    <th width="10%" bgcolor="#80211D">Anular pago</th> 
+                    <th width="10%" bgcolor="#80211D">Imprimir</th> 
                 </tr>
             </thead>
           <c:choose   >
-          <c:when test="${not empty listaFacturas}">
+          <c:when test="${not empty listaPagos}">
            <tbody>
             <c:set scope="page" var="color_row" value="${'#E8B6B5'}" />
             
-            <c:forEach items="${listaFacturas}" var="factura" varStatus="status" >     
+            <c:forEach items="${listaPagos}" var="Pago" varStatus="status" >     
            
             <tr bgcolor="<c:out value="${color_row}"/>" >
-                <td nowrap ><c:out value="${factura.invId}"/></td>
-                <td nowrap ><c:out value="${factura.clientsTO.cliName}" />
-                    <input type="hidden" name="cliId" id="cliId" value="<c:out value="${factura.clientsTO.cliId}"/>"/></td>
-                <td nowrap ><fmt:formatDate value="${factura.invDate}"    pattern="dd/MM/yyyy" /></td>
-                <td nowrap ><c:out value="${factura.accountsTO.accName}" /></td>
-                <td nowrap ><c:out value="${factura.currencyTO.curName}" /></td>
-                <td nowrap ><c:out value="${factura.invTotal}" /></td>
-                <td nowrap ><c:out value="${factura.invInvoiced}" /></td>
-                <td nowrap ><c:out value="${factura.usersTO.usrId}"/></td>                
-                <td nowrap align="center"><a href="listaItemsFactura?invId=<c:out value="${factura.invId}"/>"  onclick="return verItemsFactura(this)"><img border=0 src="img/detail.png" alt="+" width="32" height="32" title="Ver items facturados"  onmouseover="this.style.cursor='hand';"/></a></td>
-                <td nowrap align="center"><img  src="img/edit-delete.png" alt="Anular factura" width="32" height="32" title="Anular factura" onclick="anularFactura(<c:out value="${factura.invId}"/>)" onmouseover="this.style.cursor='hand';"/></td> 
+                <td nowrap ><c:out value="${Pago.payId}"/></td>
+                <td nowrap ><c:out value="${Pago.employeeTO.empFirstName}" /> <c:out value="${Pago.employeeTO.empLastName}" />
+                    <input type="hidden" name="empId" id="empId" value="<c:out value="${Pago.employeeTO.empId}"/>"/></td>
+                <td nowrap ><fmt:formatDate value="${Pago.payDate}"    pattern="dd/MM/yyyy" /></td>
+                <td nowrap ><c:out value="${Pago.accountsTO.accName}" /></td>
+                <td nowrap ><c:out value="${Pago.currencyTO.curName}" /></td>
+                <td nowrap ><c:out value="${Pago.payAmount}" /></td>
+                <td nowrap ><c:out value="${Pago.userTO.usrId}"/></td>                
+                <td nowrap align="center"><a href="listaItemsPagos?payId=<c:out value="${Pago.payId}"/>"  onclick="return verItemsPago(this)"><img border=0 src="img/detail.png" alt="+" width="32" height="32" title="Ver items Pagados"  onmouseover="this.style.cursor='hand';"/></a></td>
+                <td nowrap align="center" ><img  src="img/edit-delete.png" alt="Anular Pago" width="32" height="32" title="Anular Pago" onclick="anularPago(<c:out value="${Pago.payId}"/>)" onmouseover="this.style.cursor='hand';"/></td> 
                 <td nowrap align="center">
-                <c:if test="${factura.invInvoiced == 'no'}">
-                    <a href="facturacion?cliId=<c:out value="${factura.clientsTO.cliId}"/>&accion=facturarOrdenes&invoiceId=<c:out value="${factura.invId}"/>&invoiceAcc=<c:out value="${factura.accountsTO.accName}"/>&invoiceDate=<c:out value="${factura.invDate}"/>&invoiceCur=<c:out value="${factura.currencyTO.curName}"/>&invoiceTotal=<c:out value="${factura.invTotal}"/>" ><img border=0 src="img/invoice.png" alt="agregar" width="32" height="32" title="Facturar el cobro" onmouseover="this.style.cursor='hand';"/></a>
-                </c:if>
-                <c:if test="${factura.invInvoiced == 'si'}">
-                    <img  src="img/print.png" alt="print" width="32" height="32" title="Imprimir factura" onclick="imprimirFactura(<c:out value="${factura.invId}"/>,<c:out value="${factura.clientsTO.cliId}"/>,'<fmt:formatDate value="${factura.invDate}"    pattern="dd/MM/yyyy" />',<c:out value="${factura.accountsTO.accId}"/>,'<c:out value="${factura.currencyTO.curSymbol}"/>','<c:out value="${factura.invTotal}"/>')" onmouseover="this.style.cursor='hand';"/>
-                </c:if>
+                    <img  src="img/print.png" alt="print" width="32" height="32" title="Imprimir Pago" onclick="imprimirPago(<c:out value="${Pago.payId}"/>,<c:out value="${Pago.employeeTO.empId}"/>,'<fmt:formatDate value="${Pago.payDate}"    pattern="dd/MM/yyyy" />',<c:out value="${Pago.accountsTO.accId}"/>,'<c:out value="${Pago.currencyTO.curSymbol}"/>','<c:out value="${Pago.payAmount}"/>')" onmouseover="this.style.cursor='hand';"/>
                 </td>
             </tr> 
              <c:choose>
@@ -203,7 +198,7 @@
                  </c:when>
                  <c:otherwise>
                     <tbody>
-                        <tr><td colspan="100%">Seleccione un cliente para buscar los cobros realizados</td></tr> 
+                        <tr><td colspan="100%">Seleccione un empleado para buscar los pagos realizados</td></tr> 
                     </tbody>
                  </c:otherwise>
                </c:choose>  

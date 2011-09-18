@@ -120,6 +120,14 @@
         <servlet-name>BalanceServlet</servlet-name>
         <servlet-class>com.twoways.view.servlets.BalanceServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListaPagosServlet</servlet-name>
+        <servlet-class>com.twoways.view.servlets.ListaPagosServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListaItemsPagosServlet</servlet-name>
+        <servlet-class>com.twoways.view.servlets.ListaItemsPagosServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -212,6 +220,14 @@
     <servlet-mapping>
         <servlet-name>BalanceServlet</servlet-name>
         <url-pattern>/balance</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListaPagosServlet</servlet-name>
+        <url-pattern>/listaPagos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListaItemsPagosServlet</servlet-name>
+        <url-pattern>/listaItemsPagos</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>-1</session-timeout>

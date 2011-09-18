@@ -518,4 +518,16 @@ public class ServiceTW_System {
                  return e.getMessage();
             }
     }
+    
+    public String anularPago(String payId) {
+        try{
+            twoWaysBDL.getServiceTwoWays().anularPago(Long.parseLong(payId));            
+            return "ok";
+            } catch (Exception e) {
+                
+                e.printStackTrace();
+                log.error(e, e);
+                 return e.getMessage();
+            }
+    }
 }
