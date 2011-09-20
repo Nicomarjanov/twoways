@@ -7,14 +7,14 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252"/>
     <link href="./twoways.css" rel="stylesheet" type="text/css"/>
-    <script  type='text/javascript' src="./js/ingresoxCliente.js"></script>
+    <script  type='text/javascript' src="./js/aCobrarxCliente.js"></script>
 
-    <title>Lista de Ingresos</title>
+    <title>A cobrar por Cliente</title>
   </head>
   <body>
     <jsp:include page="/WEB-INF/jspIncludes/menu.jsp" />
     <c:out value="${mensaje}" escapeXml="false"/>
-    <form id="frmlistIngresos" name="frmlistIngresos" action="ingresosxcliente" method="POST">
+    <form id="frmlistAcobrarxCliente" name="frmlistAcobrarxCliente" action="acobrarxcliente" method="POST">
     <input type="hidden"  name="accion"  id="accion"  value=""   />
     <input type="hidden"  name="cliId"  id="cliId"  value="<c:out value="${cliId}"/>"  />
     <input type="hidden" id="mesId" name="mesId" value="<c:out value="${mesId}"/>"/>
@@ -24,7 +24,7 @@
   <table width="100%" align="center">
       <thead>
       <tr>
-        <th colspan="2" class="tw_form">Tabla de ingresos por Cliente</th>
+        <th colspan="2" class="tw_form">Tabla de ingresos a cobrar por Cliente</th>
       </tr>
       </thead>
       <tbody>

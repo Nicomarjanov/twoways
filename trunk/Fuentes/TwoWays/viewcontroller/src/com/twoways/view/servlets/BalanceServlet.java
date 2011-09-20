@@ -1,11 +1,6 @@
 package com.twoways.view.servlets;
 
 import com.twoways.core.bdl.TwoWaysBDL;
-import com.twoways.to.ClientsTO;
-import com.twoways.to.CurrencyTO;
-import com.twoways.to.ExpensesTO;
-import com.twoways.to.InvoicesTO;
-
 import com.twoways.to.ItemsExpensesTO;
 
 import java.io.IOException;
@@ -14,8 +9,6 @@ import java.math.BigDecimal;
 
 import java.sql.Timestamp;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
@@ -25,11 +18,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import java.util.Set;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 
 public class BalanceServlet extends AutorizacionServlet {
     private static final String CONTENT_TYPE = "text/html; charset=ISO-8859-1";

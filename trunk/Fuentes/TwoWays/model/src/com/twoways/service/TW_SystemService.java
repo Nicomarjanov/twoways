@@ -291,5 +291,6 @@ public interface TW_SystemService {
     public List obtenerItemsPago(Long payId) throws Exception;
     
     public void anularPago(Long payId) throws Exception;
-    
+
+    public List findFutureIncomesByClient(Map params) throws Exception;    
 }
