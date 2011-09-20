@@ -473,4 +473,6 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
         getSqlMapClientTemplate().delete("deleteOrdersServicesByOrdId",ordId);
         getSqlMapClientTemplate().delete("deleteOrderByOrdId",ordId);
     }
+    
+    
 }

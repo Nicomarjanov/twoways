@@ -47,15 +47,23 @@ import com.twoways.to.StatesTO;
 import com.twoways.to.TranslatorsTO;
 import com.twoways.to.UsersTO;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.Timestamp;
+
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import javax.sql.DataSource;
+
 
 public class TW_SystemServiceImpl implements TW_SystemService {
 
@@ -1073,8 +1081,10 @@ public class TW_SystemServiceImpl implements TW_SystemService {
 
         this.expensesDao.erasePaymentExpense(payId);
         this.paymentDao.erasePayment(payId);        
-
-
+    }
+    
+    public List findFutureIncomesByClient(Map params) throws Exception{
+        return this.paymentDao.findFutureIncomesByClient(params);
     }
 }
 

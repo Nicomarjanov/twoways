@@ -106,6 +106,8 @@
    <hash n="oracle.jdeveloper.model.PathsConfiguration">
       <hash n="javaContentSet">
          <list n="pattern-filters">
+            <string v="-com/twoways/view/servlet/"/>
+            <string v="-com/twoways/vew/"/>
             <string v="-com/twoways/view/servlets/ProyectoServlet.java"/>
             <string v="-com/twoways/view/servlets/ImprimirPagosServlet.java"/>
             <string v="-com/twoways/view/servlets/HelloWorld.java"/>

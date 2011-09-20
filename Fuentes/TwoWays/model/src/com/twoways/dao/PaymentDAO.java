@@ -12,4 +12,5 @@ public interface PaymentDAO {
     public List <PaymentsTO> findPayments(Map paymentParameters) throws Exception;
     public List obtenerItemsPago(Long payId) throws Exception;
     public void erasePayment(Long payId) throws Exception;
+    public List findFutureIncomesByClient (Map params) throws Exception;
 }

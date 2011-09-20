@@ -17,4 +17,5 @@ public interface OrdersDAO {
    public List getOrdersByCliId(Long cliId, String mesId, String anioId)throws Exception;
    public List getOrdersByCliIdInvId(Long cliId,Long invoiceId)throws Exception;
    public void deleteOrderByOrdId(Long ordId)throws Exception;
+   
 }

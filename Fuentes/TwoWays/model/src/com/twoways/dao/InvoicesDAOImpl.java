@@ -7,9 +7,6 @@ import com.twoways.to.InvoicesTO;
 
 import com.twoways.to.ItemsInvoicesTO;
 import com.twoways.to.OrdersRatesTO;
-import com.twoways.to.OrdersTO;
-import com.twoways.to.PaymentsTO;
-import com.twoways.to.ProjAssignPaysTO;
 
 import com.twoways.to.UsersTO;
 
@@ -19,7 +16,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 

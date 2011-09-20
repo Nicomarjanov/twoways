@@ -1,11 +1,12 @@
 package com.twoways.dao;
 
 import com.twoways.to.AccountsTO;
-import com.twoways.to.EmployeesTO;
+import com.twoways.to.ClientsTO;
 import com.twoways.to.CurrencyTO;
+import com.twoways.to.EmployeesTO;
+import com.twoways.to.InvoicesTO;
 import com.twoways.to.PaymentsTO;
 import com.twoways.to.ProjAssignPaysTO;
-
 import com.twoways.to.UsersTO;
 
 import java.sql.Connection;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
+
 
 public class PaymentDAOImpl extends AbstractDAO  implements PaymentDAO{
 
@@ -167,4 +169,75 @@ public class PaymentDAOImpl extends AbstractDAO  implements PaymentDAO{
         getSqlMapClientTemplate().delete("erasePayment",payId);
         
     }
+    
+    public List findFutureIncomesByClient (Map params) throws Exception{
+    List salida = new ArrayList();
+    DataSource ds = this.getDataSource(); 
+    Connection con = null;
+    Statement stm = null;
+    ResultSet rs= null ;
+    String query ="select c.cli_id as cliId,\n" + 
+    "       c.cli_name as cliName,\n" + 
+    "       sum(r.orr_value*r.orr_wcount) as total,\n" + 
+    "       t.currency_cur_id as curId,\n" + 
+    "       o.ord_finish_date as finishDate \n" + 
+    "  from clients c, orders o, orders_rates r,rates t\n" + 
+    " where o.ord_id =r.orders_ord_id\n" + 
+    " and o.clients_cli_id = c.cli_id\n" + 
+    " and r.rates_rat_id=t.rat_id";
+    
+    if (params.get("cliId") != null && params.get("cliId").toString().length() > 0){
+        query +=" and c.cli_Id= #cliId#";
+    }        
+    if (params.get("mesId") != null && params.get("mesId").toString().length() > 0){
+        query +=" and to_char(o.ord_finish_date,'mmyyyy')=#mesId##anioId#";
+    }      
+    if (params.get("anioId") != null && params.get("anioId").toString().length() > 0){
+        query +=" and to_char(o.ord_finish_date,'yyyy')=#anioId#";
+    }              
+    query +=" group by c.cli_id, c.cli_name, t.currency_cur_id, o.ord_finish_date\n" + 
+            " order by 1,5";
+            
+    for (Iterator i = params.keySet().iterator();i.hasNext();){
+        String param = (String)i.next();
+        query = query.replaceAll("#"+param+"#",params.get(param).toString());
+    }
+    try {
+        con = ds.getConnection();
+        stm = con.createStatement();
+        System.out.println(query);
+        rs = stm.executeQuery(query);
+        while(rs.next()){
+            List results = new ArrayList();
+            results.add(rs.getString("cliId"));
+            results.add(rs.getString("cliName"));       
+            results.add(rs.getString("total"));        
+            results.add(rs.getString("curId"));                         
+            results.add(rs.getString("finishDate"));            
+            salida.add(results);
+        }
+        
+        } catch (SQLException e) {
+        e.printStackTrace();
+        }finally{
+        try {
+        rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try{
+        stm.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try{
+        con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        }
+        return salida;
+    }
+
+
 }
