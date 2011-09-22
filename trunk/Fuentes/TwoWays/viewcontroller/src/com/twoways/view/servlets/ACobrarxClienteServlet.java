@@ -63,17 +63,13 @@ public class ACobrarxClienteServlet extends AutorizacionServlet {
         
         if(accion !=null && accion.equalsIgnoreCase("buscar")){
             request.setAttribute("accion",accion);
-            InvoicesTO factura = new InvoicesTO();   
        
             Map params= new  HashMap();            
     
-            if(request.getParameter("listaClientes") != null && request.getParameter("listaClientes").length() > 0  ){ 
-              ClientsTO cliente = new ClientsTO();              
-              Long cliId= Long.parseLong(request.getParameter("listaClientes"));
-              cliente.setCliId(cliId);
+            if(request.getParameter("listaClientes") != null && request.getParameter("listaClientes").length() > 0  ){             
+              Long cliId= Long.parseLong(request.getParameter("listaClientes"));    
               params.put("cliId",cliId);
-              request.setAttribute("cliId",cliId); 
-              factura.setClientsTO(cliente);              
+              request.setAttribute("cliId",cliId);             
             }
             else{
               request.setAttribute("cliId","0"); 
@@ -120,8 +116,7 @@ public class ACobrarxClienteServlet extends AutorizacionServlet {
                    BigDecimal totalNov = new BigDecimal("0");
                    BigDecimal totalDic = new BigDecimal("0");  
                    BigDecimal total =  new BigDecimal("0");
-                   //Iterator iterator = ingresosList.iterator();
-                   Long curIngId = null;
+
                    Long cliId;    
                    String cliName;
                    Long anteriorCliId = null;

@@ -293,4 +293,6 @@ public interface TW_SystemService {
     public void anularPago(Long payId) throws Exception;
 
     public List findFutureIncomesByClient(Map params) throws Exception;    
+
+    public List findFuturePayments(Map params) throws Exception;
 }

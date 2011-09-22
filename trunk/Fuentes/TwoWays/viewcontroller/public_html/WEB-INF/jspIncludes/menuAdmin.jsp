@@ -45,6 +45,7 @@
 <li><a href="#" >Predicciones</a>
     <ul>
         <li><a href="acobrarxcliente">A cobrar por cliente</a></li>
+        <li><a href="apagarxempleado">A pagar por empleado</a></li>
     </ul>
 </li>
  <li><a href="login?logout=true">Desconectar</a></li> 
