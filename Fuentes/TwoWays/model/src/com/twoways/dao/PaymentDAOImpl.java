@@ -170,6 +170,81 @@ public class PaymentDAOImpl extends AbstractDAO  implements PaymentDAO{
         
     }
     
+    public List findFuturePayments (Map params) throws Exception{
+    List salida = new ArrayList();
+    DataSource ds = this.getDataSource(); 
+    Connection con = null;
+    Statement stm = null;
+    ResultSet rs= null ;
+    String query ="select pa.employees_emp_id as empId,\n" + 
+    "               e.emp_first_name as firstName,\n" + 
+    "               e.emp_last_name as lastName,\n" + 
+    "               sum(decode(pd.pad_wcount,1,pd.pad_rate,null,0,(pd.pad_rate * pd.pad_wcount))) as praTotal,\n" + 
+    "               c.cur_id as curId,\n" + 
+    "               pa.pra_assign_date as assignDate\n" + 
+    "          from project_assignments pa , projects p, proj_assignments_details pd, rates r, currency c, employees e\n" + 
+    "         where pa.projects_pro_id = p.pro_id\n" + 
+    "         and pd.project_assignments_pra_id = pa.pra_id\n" + 
+    "         and pd.project_assignments_employees_ = pa.employees_emp_id\n" + 
+    "         and pd.project_assignments_projects_p = pa.projects_pro_id\n" + 
+    "         and r.rat_id = pd.employees_rates_rates_rat_id\n" + 
+    "         and pa.employees_emp_id=e.emp_id\n" + 
+    "         and r.currency_cur_id=c.cur_id";
+    
+    if (params.get("empId") != null && params.get("empId").toString().length() > 0){
+        query +=" and e.emp_Id= #empId#";
+    }        
+    if (params.get("mesId") != null && params.get("mesId").toString().length() > 0){
+        query +=" and to_char(pa.pra_assign_date,'mmyyyy')=#mesId##anioId#";
+    }      
+    if (params.get("anioId") != null && params.get("anioId").toString().length() > 0){
+        query +=" and to_char(pa.pra_assign_date,'yyyy')=#anioId#";
+    }              
+    query +=" group by pa.employees_emp_id,e.emp_first_name,e.emp_last_name,c.cur_id,pa.pra_assign_date\n" + 
+            " order by 1,6";
+            
+    for (Iterator i = params.keySet().iterator();i.hasNext();){
+        String param = (String)i.next();
+        query = query.replaceAll("#"+param+"#",params.get(param).toString());
+    }
+    try {
+        con = ds.getConnection();
+        stm = con.createStatement();
+        System.out.println(query);
+        rs = stm.executeQuery(query);
+        while(rs.next()){
+            List results = new ArrayList();
+            results.add(rs.getString("empId"));
+            results.add(rs.getString("firstName"));  
+            results.add(rs.getString("LastName"));     
+            results.add(rs.getString("praTotal"));        
+            results.add(rs.getString("curId"));                         
+            results.add(rs.getString("assignDate"));            
+            salida.add(results);
+        }
+        
+        } catch (SQLException e) {
+        e.printStackTrace();
+        }finally{
+        try {
+        rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try{
+        stm.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try{
+        con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        }
+        return salida;
+    }
+
     public List findFutureIncomesByClient (Map params) throws Exception{
     List salida = new ArrayList();
     DataSource ds = this.getDataSource(); 
@@ -238,6 +313,5 @@ public class PaymentDAOImpl extends AbstractDAO  implements PaymentDAO{
         }
         return salida;
     }
-
 
 }

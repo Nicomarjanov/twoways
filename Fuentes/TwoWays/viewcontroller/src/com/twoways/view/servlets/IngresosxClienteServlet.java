@@ -65,17 +65,13 @@ public class IngresosxClienteServlet extends AutorizacionServlet {
         
         if(accion !=null && accion.equalsIgnoreCase("buscar")){
             request.setAttribute("accion",accion);
-            InvoicesTO factura = new InvoicesTO();   
        
             Map params= new  HashMap();            
  
-            if(request.getParameter("listaClientes") != null && request.getParameter("listaClientes").length() > 0  ){ 
-              ClientsTO cliente = new ClientsTO();              
+            if(request.getParameter("listaClientes") != null && request.getParameter("listaClientes").length() > 0  ){              
               Long cliId= Long.parseLong(request.getParameter("listaClientes"));
-              cliente.setCliId(cliId);
               params.put("cliId",cliId);
-              request.setAttribute("cliId",cliId); 
-              factura.setClientsTO(cliente);              
+              request.setAttribute("cliId",cliId);      
             }
             else{
               request.setAttribute("cliId","0"); 
@@ -99,7 +95,6 @@ public class IngresosxClienteServlet extends AutorizacionServlet {
               curId = Long.parseLong(request.getParameter("curId"));
               request.setAttribute("curId",request.getParameter("curId")); 
             } 
-
                 
             try{
                List <InvoicesTO> ingresosxCliente =  twoWaysBDL.getServiceTwoWays().findIncomesByClient(params);

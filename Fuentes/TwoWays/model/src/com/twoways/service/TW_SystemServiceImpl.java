@@ -1086,6 +1086,10 @@ public class TW_SystemServiceImpl implements TW_SystemService {
     public List findFutureIncomesByClient(Map params) throws Exception{
         return this.paymentDao.findFutureIncomesByClient(params);
     }
+    
+    public List findFuturePayments(Map params) throws Exception{
+        return this.paymentDao.findFuturePayments(params);
+    }
 }
 
 
