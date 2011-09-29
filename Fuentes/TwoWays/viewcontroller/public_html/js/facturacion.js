@@ -153,6 +153,7 @@ function grabar(existe)
         }else{
             document.getElementById("facturar").value='no';
         }
+    
     document.forms[0].submit();        
         
     }    

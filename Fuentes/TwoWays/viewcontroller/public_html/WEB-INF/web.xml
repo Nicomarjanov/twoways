@@ -136,6 +136,10 @@
         <servlet-name>APagarxEmpleadoServlet</servlet-name>
         <servlet-class>com.twoways.view.servlets.APagarxEmpleadoServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>imprimirFacturaServlet</servlet-name>
+        <servlet-class>com.twoways.view.servlets.imprimirFacturaServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -244,6 +248,10 @@
     <servlet-mapping>
         <servlet-name>APagarxEmpleadoServlet</servlet-name>
         <url-pattern>/apagarxempleado</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>imprimirFacturaServlet</servlet-name>
+        <url-pattern>/imprimirFactura</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>-1</session-timeout>

@@ -15,6 +15,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
+
 import com.twoways.core.bdl.TwoWaysBDL;
 import com.twoways.to.AccountsTO;
 import com.twoways.to.ClientsTO;
@@ -58,8 +59,7 @@ import javax.servlet.http.*;
 public class AbmFacturacionServlet extends AutorizacionServlet {
     private static final String CONTENT_TYPE = "text/html; charset=windows-1252";
     //public static final String RESULT = "C:\\WINDOWS\\Temp\\pagos.pdf";
-    public static final String RESOURCE = "C:\\apache-tomcat-7.0.5\\webapps\\img\\print_img.png";
-    
+   
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
@@ -161,12 +161,13 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
                     request.setAttribute("facturar",facturar);
                     
                 }else {
-                    request.setAttribute("mensaje","<script>alert('No se encontraron órdenes para ese cliente')</script>"); 
+                    request.setAttribute("mensaje","<script>alert('No se encontraron órdenes para ese cliente')</script>");                     
                 }
                 
             } catch (Exception e) {
                e.printStackTrace();
             }
+        request.getRequestDispatcher("facturacion.jsp").forward(request,response);
         }
         else if (accion!=null && accion.equalsIgnoreCase("facturarOrdenes") && cliId != null && invoiceId != null){
                 try{
@@ -217,13 +218,14 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
 
                     }else {
                         request.setAttribute("mensaje","<script>alert('No se encontraron órdenes para ese cliente')</script>"); 
+                    
                     }
                     
                 } catch (Exception e) {
                    e.printStackTrace();
                 }
-            }
-        else if (accion!=null && accion.equalsIgnoreCase("guardar") && cliId != null){
+         request.getRequestDispatcher("facturacion.jsp").forward(request,response);
+        } else if (accion!=null && accion.equalsIgnoreCase("guardar") && cliId != null){
              
             InvoicesTO factura = new InvoicesTO();
             if (invoiceId == null || invoiceId.length()==0){       
@@ -352,27 +354,35 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
                     
                     if (imprimir!=null && imprimir.equalsIgnoreCase("imprimirFactura") && cliId != null && facturar.equalsIgnoreCase("si")){
                             
-                            try {
+                            //try {
+                                request.setAttribute("accion",accion);
                                 
-                                 AbmFacturacionServlet.createPdf(request,response,invId);
+                                ServletContext contextServlet = getServletConfig().getServletContext(); 
+                                imprimirFacturaServlet  impFact =(imprimirFacturaServlet)contextServlet.getServlet("imprimirFacturaServlet");
+                                RequestDispatcher rd = contextServlet.getRequestDispatcher("/imprimirFacturaServlet");
+                                rd.forward(request,response);
+                               // imprimirFacturaServlet.createPdf(request,response,invId);
+                                
+                               // request.getRequestDispatcher("imprimirFactura.jsp").forward(request,response);
+                                 //AbmFacturacionServlet.createPdf(request,response,invId);
                                                                   
-                            }
+                            /*}
                              catch (Exception e) {
                                     request.setAttribute("mensaje","<script>alert('Error al crea el PDF')</script>"); 
                                     e.printStackTrace();
                                     
-                                }               
+                                }  */             
                            
-                    }   
-                    request.setAttribute("mensaje","<script>alert('El registro de cobro se guardó con éxito')</script>"); 
-                
+                    }else{
+                        request.setAttribute("mensaje","<script>alert('El registro de cobro se guardó con éxito')</script>"); 
+                        request.getRequestDispatcher("facturacion.jsp").forward(request,response);
+                    }
             } catch (Exception e) {
                 e.printStackTrace();
             }            
-        }
-
-        request.getRequestDispatcher("facturacion.jsp").forward(request,response);
-        
+         }else{
+             request.getRequestDispatcher("facturacion.jsp").forward(request,response);
+         }
         }
 
         public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -380,268 +390,5 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
             doGet(request,response); 
             }
             
-        public static void createPdf(HttpServletRequest request,HttpServletResponse response, Long invId)
-           throws IOException, DocumentException {
-           // step 1
-            Document document = new Document(PageSize.A4.rotate());
-           // step 2
-           response.setContentType("application/pdf");
-           response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
-           String cliId= request.getParameter("cliId");
-           ClientsTO cliente = new ClientsTO();
-           TwoWaysBDL twoWaysBDL=null;
-
-           try{
-               twoWaysBDL = new TwoWaysBDL();
-               cliente = twoWaysBDL.getServiceTwoWays().getClientById(cliId);     
-               } catch (Exception e) {
-                   e.printStackTrace();
-               }            
-           
-           String invDate = request.getParameter("invDate");
-           invDate.replace("/","");
-
-           String disposition = "attachment; filename= Invoice_" + cliente.getCliName()+"_"+invDate+".pdf";
-           response.setHeader("Content-disposition", disposition); 
-           PdfWriter.getInstance(document, response.getOutputStream());
-           // step 3
-           document.open();
-           // step 4
-           document.add(createTableEncabezado(request,invId,cliente));
-           document.add(createTable(request));
-           // step 5
-           document.close();
-        }
-        
-        public static PdfPTable createTableEncabezado(HttpServletRequest request, Long invId,ClientsTO cliente) throws IOException, DocumentException{
-          
-        String invDate = request.getParameter("invDate");   
-        String accId =request.getParameter("listaCuentas");
-        
-        PdfPTable table = new PdfPTable(4);
-        PdfPCell cell; 
-        BaseFont bf = BaseFont.createFont();   
-        Font ft = new Font(bf,15,Font.BOLD);         
-        
-        //imagen
-        table.setWidthPercentage(100f);
-        cell = new PdfPCell(Image.getInstance(RESOURCE),true);
-        cell.setBorder(PdfPCell.NO_BORDER);
-      //  cell.setColspan(1);
-        //cell.setPadding(20);
-        table.addCell(cell);
-        cell = new PdfPCell(new Phrase(""));
-        cell.setBorder(PdfPCell.NO_BORDER);
-        cell.setColspan(3);
-        //cell.setPadding(20);
-        table.addCell(cell);      
-        
-        //fecha de pago
-        cell = new PdfPCell(new Phrase("Date: "+invDate,ft));    
-        //cell = new PdfPCell();
-        cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-        cell.setVerticalAlignment(Element.ALIGN_TOP);
-        cell.setColspan(2);
-        cell.setBorder(PdfPCell.NO_BORDER);
-        cell.setPaddingBottom(20);       
-        cell.setPaddingTop(15);        
-        table.addCell(cell);
-        
-        //Numero de factura
-        cell = new PdfPCell(new Phrase("Invoice #: "+invId,ft));    
-        //cell = new PdfPCell();
-        cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-        cell.setVerticalAlignment(Element.ALIGN_TOP);
-        cell.setColspan(2);
-        cell.setBorder(PdfPCell.NO_BORDER);
-        cell.setPaddingBottom(20);
-        cell.setPaddingTop(15);
-        table.addCell(cell);        
-        
-        //Datos de cuenta y cliente
-         TwoWaysBDL twoWaysBDL=null;
-         AccountsTO cuenta = new AccountsTO(); 
-        // ClientsTO cliente = new ClientsTO();
-         try {
-             twoWaysBDL = new TwoWaysBDL();
-             cuenta = twoWaysBDL.getServiceTwoWays().getAccountById(accId);
-            // cliente = twoWaysBDL.getServiceTwoWays().getClientById(cliId);
-            } catch (Exception e) {
-                e.printStackTrace();
-            } 
-        if (cuenta != null && cliente != null){
-            cell = new PdfPCell(new Phrase((cuenta.getAccHolder()!=null)?"Account holder: "+cuenta.getAccHolder():""));
-            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-            cell.setColspan(2);
-            cell.setBorder(PdfPCell.NO_BORDER);
-            table.addCell(cell);
-        
-            cell = new PdfPCell(new Phrase("COMPANY INFORMATION"));
-            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-            cell.setColspan(2);
-            cell.setBorder(PdfPCell.NO_BORDER);
-            table.addCell(cell);
-            
-            cell = new PdfPCell(new Phrase((cuenta.getAccNumber()!=null)?"Checking account: "+cuenta.getAccNumber():""));
-            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-            cell.setColspan(2);
-            cell.setBorder(PdfPCell.NO_BORDER);
-            table.addCell(cell);
-            
-            cell = new PdfPCell(new Phrase((cliente.getCliName()!=null)?cliente.getCliName():""));
-            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-            cell.setColspan(2);
-            cell.setBorder(PdfPCell.NO_BORDER);
-            table.addCell(cell);
-            
-            cell = new PdfPCell(new Phrase((cuenta.getAccSwiftCode()!=null)?"SWIFT code: "+cuenta.getAccSwiftCode():""));
-            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-            cell.setColspan(2);
-            cell.setBorder(PdfPCell.NO_BORDER);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Phrase((cliente.getCliAddress()!=null)?cliente.getCliAddress():""));
-            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-            cell.setColspan(2);
-            cell.setBorder(PdfPCell.NO_BORDER);
-            table.addCell(cell);
-            
-            cell = new PdfPCell(new Phrase(((cuenta.getAccBank()!=null)?cuenta.getAccBank():"")));
-            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-            cell.setColspan(2);
-            cell.setBorder(PdfPCell.NO_BORDER);
-            table.addCell(cell); 
-            
-            cell = new PdfPCell(new Phrase((cliente.getCliPostalCode()!=null)?cliente.getCliPostalCode():""));
-            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-            cell.setColspan(2);
-            cell.setBorder(PdfPCell.NO_BORDER);
-            table.addCell(cell);
-            
-            cell = new PdfPCell(new Phrase(((cuenta.getAccZipCode()!=null)?cuenta.getAccZipCode():"")));
-            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-            cell.setColspan(2);
-            cell.setBorder(PdfPCell.NO_BORDER);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Phrase((cliente.getCliCountry()!=null)?cliente.getCliCountry():""));
-            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-            cell.setColspan(2);
-            cell.setBorder(PdfPCell.NO_BORDER);
-            table.addCell(cell);
-            
-            cell = new PdfPCell(new Phrase(((cuenta.getAccDirection()!=null)?cuenta.getAccDirection():"")));
-            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-            cell.setColspan(4);
-            cell.setBorder(PdfPCell.NO_BORDER);
-            table.addCell(cell);            
-            
-            cell = new PdfPCell(new Phrase(((cuenta.getAccCity()!=null)?cuenta.getAccCity():"")));
-            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-            cell.setColspan(4);
-            cell.setBorder(PdfPCell.NO_BORDER);
-            table.addCell(cell);
-            
-            cell = new PdfPCell(new Phrase(((cuenta.getAccCountry()!=null)?cuenta.getAccCountry():"")));
-            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-            cell.setColspan(4);
-            cell.setBorder(PdfPCell.NO_BORDER);
-            table.addCell(cell);
-        }
-    /*Fila en blanco
-     cell = new PdfPCell(new Phrase(""));
-     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-     cell.setColspan(2);
-     cell.setBorder(PdfPCell.NO_BORDER);
-     table.addCell(cell);
-     */
-    return table;
-        
-    }
-
-     public static PdfPTable createTable(HttpServletRequest request) throws IOException, DocumentException{
-       
-        String printOrden[] = request.getParameterValues("print-ordenes-hidden");        
-        String invTotal = request.getParameter("invTotal");    
-        String curSymbol[] =request.getParameter("listaMoneda").split("#");     
-            
-        PdfPTable table = new PdfPTable(9);
-        table.setWidthPercentage(100f);
-        PdfPCell cell; 
-        BaseFont bfc = BaseFont.createFont(BaseFont.HELVETICA,BaseFont.CP1250,BaseFont.NOT_EMBEDDED);     
-        Font ft = new Font(bfc,15,Font.BOLD); 
-        Font cf = new Font(bfc,10); 
-        
-        table.getDefaultCell().setPadding(3);
-        table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-        table.getDefaultCell().setColspan(1);
-        table.getDefaultCell().setBackgroundColor(new GrayColor(0.825f));
-        table.setSpacingBefore(10);
-        
-        table.addCell("PO #");
-        table.addCell("Job #");
-        table.addCell("WO #");
-        table.addCell("Job Name");
-        table.addCell("Job Description");
-        //table.addCell("Item Description");
-        table.addCell("# of Words");
-        table.addCell("Per word rate");
-        table.addCell("Total Due");            
-        table.addCell("Project Manager"); 
-        
-        table.getDefaultCell().setBackgroundColor(null);
-
-        if( printOrden  != null){ 
-            Integer indice = 0;       
-         for(String aux:printOrden){      
-
-             String atribs[]= aux.split("#");
-             indice +=1;
-
-             cell = new PdfPCell(new Phrase(atribs[0],cf));
-             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-             table.addCell(cell);
-             cell = new PdfPCell(new Phrase(atribs[1],cf));
-             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-             table.addCell(cell);
-             cell = new PdfPCell(new Phrase(atribs[2],cf));
-             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-             table.addCell(cell);
-             cell = new PdfPCell(new Phrase(atribs[3],cf));
-             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-             table.addCell(cell);
-             cell = new PdfPCell(new Phrase(atribs[4],cf));
-             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-             table.addCell(cell);      
-             cell = new PdfPCell(new Phrase(atribs[5],cf));
-             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-             table.addCell(cell);     
-             cell = new PdfPCell(new Phrase(atribs[6],cf));
-             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-             table.addCell(cell);
-             cell = new PdfPCell(new Phrase(atribs[7],cf));
-             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-             table.addCell(cell);
-             cell = new PdfPCell(new Phrase(atribs[8],cf));
-             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-             table.addCell(cell);
-         }
-         
-            //Total a pagar
-            cell = new PdfPCell(new Phrase("Total: ",ft));           
-            cell.setBorder(PdfPCell.NO_BORDER);
-            cell.setColspan(7);
-            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-            table.addCell(cell); 
-            if (curSymbol[1] != null){
-                cell = new PdfPCell(new Phrase(curSymbol[1]+" "+invTotal,ft));
-                cell.setBorder(PdfPCell.NO_BORDER);
-                cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-                cell.setColspan(2);
-                table.addCell(cell);  
-            }
-        }
-        return table;
-            
-        }
+    
 }
