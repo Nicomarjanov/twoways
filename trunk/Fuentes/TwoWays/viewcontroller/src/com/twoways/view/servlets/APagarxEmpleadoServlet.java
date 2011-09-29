@@ -49,7 +49,7 @@ public class APagarxEmpleadoServlet extends AutorizacionServlet {
         try{
             twoWaysBDL = new TwoWaysBDL();                
             empleados = twoWaysBDL.getServiceTwoWays().obtenerEmpleados();
-            request.setAttribute("listaEmpelados",empleados);  
+            request.setAttribute("listaEmpleados",empleados);  
             
             monedas =  twoWaysBDL.getServiceTwoWays().obtenerMonedas();
             request.setAttribute("listaMoneda",monedas);  
@@ -66,8 +66,8 @@ public class APagarxEmpleadoServlet extends AutorizacionServlet {
        
             Map params= new  HashMap();            
  
-            if(request.getParameter("listaEmpelados") != null && request.getParameter("listaEmpelados").length() > 0  ){    
-              Long empId= Long.parseLong(request.getParameter("listaEmpelados"));
+            if(request.getParameter("listaEmpleados") != null && request.getParameter("listaEmpleados").length() > 0  ){    
+              Long empId= Long.parseLong(request.getParameter("listaEmpleados"));
               params.put("empId",empId);
               request.setAttribute("empId",empId);              
             }

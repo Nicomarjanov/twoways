@@ -217,7 +217,7 @@
                  <table id="tabla-ingresos" name="tabla-ingresos" cellpadding="3" cellspacing="1" align="center" width="100%">
                  <thead align="center">     
                    <tr style="display:block; background-color='transparent';" align="center">
-                        <th width="10%" bgcolor="#ee9a98">Cliente</th>
+                        <th width="10%" bgcolor="#ee9a98">Empleado</th>
                         <th width="10%" bgcolor="#80211D">Enero</th>
                         <th width="10%" bgcolor="#80211D">Febrero</th>
                         <th width="10%" bgcolor="#80211D">Marzo</th>
@@ -271,12 +271,12 @@
                         <c:choose>
                             <c:when test="${not empty accion}">
                                 <tbody>
-                                    <tr><td colspan="100%">No existen ingresos de clientes. Realice una nueva búsqueda.</td></tr> 
+                                    <tr><td colspan="100%">No existen pagos a realizar para los empleados. Realice una nueva búsqueda.</td></tr> 
                                 </tbody>
                              </c:when>
                              <c:otherwise>
                                 <tbody>
-                                    <tr><td colspan="100%">Seleccione un cliente para buscar los ingresos de un cliente o presione buscar para obtener todos los ingresos de todos los clientes</td></tr> 
+                                    <tr><td colspan="100%">Seleccione un empleado para buscar los pagos a realizar o presione buscar para obtener todos los pagos a realizar de todos los empleados</td></tr> 
                                 </tbody>
                              </c:otherwise>
                         </c:choose>

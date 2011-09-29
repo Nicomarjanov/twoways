@@ -21,7 +21,7 @@
   <jsp:include page="/WEB-INF/jspIncludes/menu.jsp" />
   <c:out value="${mensaje}" escapeXml="false"/>
   <form name="facturacion" action="facturacion" method="POST">
-  <input type="hidden" id="accion" name="accion" value=""/>
+  <input type="hidden" id="accion" name="accion" value="<c:out value="${accion}"/>"/>
   <input type="hidden" id="imprimir" name="imprimir" value=""/>  
   <input type="hidden" id="facturar" name="facturar" value=""/> 
   <input type="hidden" id="invId" name="invId" value="<c:out value="${facturacion.invId}"/>"/>
@@ -362,7 +362,16 @@
   <hr class="tw_hr">
       <table width="20%" align="center">
           <tr>
-              <td align="right"><input type="button" id="aceptar" value="Aceptar" onclick="cargar()"/></td>   
+              <td align="right">
+                <c:choose>
+                    <c:when test="${accion} == 'guardar'">
+                        <input disabled type="button" id="aceptar" value="Aceptar" onclick="cargar()"/>
+                    </c:when>
+                    <c:otherwise>
+                        <input type="button" id="aceptar" value="Aceptar" onclick="cargar()"/>
+                    </c:otherwise>
+                </c:choose>
+                </td>   
               <td align="left"><input type="button" id="cancel" value="Limpiar" OnClick="cancelar()"/></td>   
           </tr>
       </table>
