@@ -73,7 +73,8 @@ public class InvoicesDAOImpl extends AbstractDAO implements InvoiceDAO {
         "               t.inv_invoiced as invInvoiced,\n" + 
         "               u.usr_id as usrId,\n" +
         "               a.acc_id as accId,\n" +
-        "               y.cur_symbol as curSymbol\n" +
+        "               y.cur_symbol as curSymbol,\n" +
+        "               y.cur_id as curId\n" +
         "        from invoices t,  clients c, accounts a, currency y, users u\n" + 
         "        where t.clients_cli_id=c.cli_id \n" + 
         "        and t.accounts_acc_id=a.acc_id \n" + 
@@ -125,6 +126,7 @@ public class InvoicesDAOImpl extends AbstractDAO implements InvoiceDAO {
                 factura.setAccountsTO(cuenta);
                 
                 CurrencyTO moneda = new CurrencyTO();
+                moneda.setCurId(rs.getLong("curId"));
                 moneda.setCurName(rs.getString("curName"));
                 moneda.setCurSymbol(rs.getString("curSymbol"));
                 factura.setCurrencyTO(moneda);            

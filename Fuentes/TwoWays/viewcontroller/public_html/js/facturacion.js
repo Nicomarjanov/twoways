@@ -147,16 +147,26 @@ function grabar(existe)
         document.getElementById("cliId").value=document.getElementById('cliId').value;
         if (confirm("¿Desea facturar las ordenes de trabajo?")){
             document.getElementById("facturar").value='si';
-            if(confirm("¿Desea imprimir la factura ahora?")){
-                document.getElementById("imprimir").value='imprimirFactura';
-            }
         }else{
             document.getElementById("facturar").value='no';
         }
-    
+
     document.forms[0].submit();        
         
     }    
+}
+
+function imprimirFactura(invId,cliId,invDate,accId,curSymbol,invTotal){
+    if(confirm("¿Desea imprimir la factura ahora?")){
+      document.getElementById('accion').value='imprimirFactura';  
+      document.getElementById('invId').value=invId;
+      document.getElementById('cliId').value=cliId;
+      document.getElementById('invTotal').value=invTotal;
+      document.getElementById('invDate').value=invDate;  
+      document.getElementById('accId').value=accId;  
+      document.getElementById('curSymbol').value=curSymbol; 
+    }
+    document.forms[0].submit(); 
 }
 
 function eliminarOrden (rowId, ordTotal, curIdDesde, fecha){
