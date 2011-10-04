@@ -71,6 +71,7 @@ public class imprimirFacturaServlet extends AutorizacionServlet {
        document.add(createTable(request));
        // step 5
        document.close();
+
 //       request.getRequestDispatcher("facturacion.jsp").forward(request,response);
        
     }

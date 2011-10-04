@@ -13,7 +13,6 @@ return false;
 
 }
 
-
 function imprimirFactura(invId,cliId,invDate,accId,curSymbol,invTotal){
   document.getElementById('accion').value='imprimir';  
   document.getElementById('invId').value=invId;

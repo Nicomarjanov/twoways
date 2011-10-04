@@ -43,6 +43,8 @@ import javax.servlet.http.*;
 public class ListaCobrosServlet extends AutorizacionServlet {
     private static final String CONTENT_TYPE = "text/html; charset=ISO-8859-1";
     public static final String RESOURCE = "C:\\apache-tomcat-7.0.5\\webapps\\img\\print_img.png";    
+    public static final String EURO = "C:\\apache-tomcat-7.0.5\\webapps\\img\\euro.png";
+    public static final String POUND = "C:\\apache-tomcat-7.0.5\\webapps\\img\\pound.png";
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
@@ -156,9 +158,9 @@ public class ListaCobrosServlet extends AutorizacionServlet {
                 
                 try{
                     twoWaysBDL = new TwoWaysBDL();
-                    
+                    String cliId= request.getParameter("cliId");
                     List<ItemsInvoicesTO> itemsFacturaList =  twoWaysBDL.getServiceTwoWays().obtenerItemsFactura(invId);
-                    ListaCobrosServlet.createPdf(request,response,itemsFacturaList);
+                    ListaCobrosServlet.createPdf(request,response,itemsFacturaList,invId,cliId);
                     
                 }catch(Exception e){
                    e.printStackTrace(); 
@@ -168,15 +170,15 @@ public class ListaCobrosServlet extends AutorizacionServlet {
         request.getRequestDispatcher("listaFacturas.jsp").forward(request,response);
         }
         
-    public static void createPdf(HttpServletRequest request,HttpServletResponse response, List itemsFacturaList)
+    public static void createPdf(HttpServletRequest request,HttpServletResponse response, List itemsFacturaList,Long invId,String cliId)
        throws IOException, DocumentException {
        // step 1
         Document document = new Document(PageSize.A4.rotate());
        // step 2
        response.setContentType("application/pdf");
        response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
-       String cliId= request.getParameter("cliId");
-       Long invId= Long.parseLong(request.getParameter("invId"));
+       
+
        ClientsTO cliente = new ClientsTO();
        TwoWaysBDL twoWaysBDL=null;
 
@@ -352,9 +354,9 @@ public class ListaCobrosServlet extends AutorizacionServlet {
     
    // String printOrden[] = request.getParameterValues("print-ordenes-hidden");        
     String invTotal = request.getParameter("invTotal");    
-    String curSymbol =request.getParameter("curSymbol");     
+    String curSymbol[] =request.getParameter("curSymbol").split("#");     
         
-    PdfPTable table = new PdfPTable(10);
+    PdfPTable table = new PdfPTable(9);
     table.setWidthPercentage(100f);
     PdfPCell cell; 
     BaseFont bfc = BaseFont.createFont(BaseFont.HELVETICA,BaseFont.CP1250,BaseFont.NOT_EMBEDDED);     
@@ -372,7 +374,7 @@ public class ListaCobrosServlet extends AutorizacionServlet {
     table.addCell("WO #");
     table.addCell("Job Name");
     table.addCell("Job Description");
-    table.addCell("Item Description");
+    //table.addCell("Item Description");
     table.addCell("# of Words");
     table.addCell("Per word rate");
     table.addCell("Total Due");            
@@ -384,53 +386,74 @@ public class ListaCobrosServlet extends AutorizacionServlet {
     Iterator iterador = itemsFacturaList.listIterator();
     while( iterador.hasNext() ) {
         auxMap =(HashMap)iterador.next();
-
-         cell = new PdfPCell(new Phrase(auxMap.get("PROJID").toString(),cf));
+         cell = new PdfPCell(new Phrase((auxMap.get("PROJID")!=null)?auxMap.get("PROJID").toString():"",cf));
          cell.setHorizontalAlignment(Element.ALIGN_LEFT);
          table.addCell(cell);
-         cell = new PdfPCell(new Phrase(auxMap.get("JOBID").toString(),cf));
+         cell = new PdfPCell(new Phrase((auxMap.get("ORDJOBID")!=null)?auxMap.get("ORDJOBID").toString():"",cf));
          cell.setHorizontalAlignment(Element.ALIGN_LEFT);
          table.addCell(cell);
-         cell = new PdfPCell(new Phrase(auxMap.get("WONUMBER").toString(),cf));
+         cell = new PdfPCell(new Phrase((auxMap.get("ORDWONUMBER")!=null)?auxMap.get("ORDWONUMBER").toString():"",cf));
          cell.setHorizontalAlignment(Element.ALIGN_LEFT);
          table.addCell(cell);                      
-         cell = new PdfPCell(new Phrase(auxMap.get("JOBNAME").toString(),cf));
+         cell = new PdfPCell(new Phrase((auxMap.get("ORDJOBNAME")!=null)?auxMap.get("ORDJOBNAME").toString():"",cf));
          cell.setHorizontalAlignment(Element.ALIGN_LEFT);
          table.addCell(cell);
-         cell = new PdfPCell(new Phrase(auxMap.get("JOBDESC").toString(),cf));
+         cell = new PdfPCell(new Phrase((auxMap.get("JOBDESC")!=null)?auxMap.get("JOBDESC").toString():"",cf));
          cell.setHorizontalAlignment(Element.ALIGN_LEFT);
          table.addCell(cell);
-         cell = new PdfPCell(new Phrase(auxMap.get("ITMNAME").toString(),cf));
+        /* cell = new PdfPCell(new Phrase(auxMap.get("ITMNAME").toString(),cf));
+         cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+         table.addCell(cell);*/
+         cell = new PdfPCell(new Phrase((auxMap.get("ORRWCOUNT")!=null)?auxMap.get("ORRWCOUNT").toString():"",cf));
          cell.setHorizontalAlignment(Element.ALIGN_LEFT);
          table.addCell(cell);
-         cell = new PdfPCell(new Phrase(auxMap.get("ORRWCOUNT").toString(),cf));
-         cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-         table.addCell(cell);     
-         cell = new PdfPCell(new Phrase(auxMap.get("ORRVALUE").toString(),cf));
+         String cur = (auxMap.get("CURSYMBOL")!=null)?auxMap.get("CURSYMBOL").toString():"";
+         String aux = (auxMap.get("ORRVALUE")!=null)?auxMap.get("ORRVALUE").toString():"";
+         cell = new PdfPCell(new Phrase(cur+"  "+aux,cf));
          cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
          table.addCell(cell);
-       //  NumberFormat formatter = new DecimalFormat("#0.00");
-         cell = new PdfPCell(new Phrase(auxMap.get("ITEMTOTAL").toString(),cf));
+         cell = new PdfPCell(new Phrase((auxMap.get("ORDTOTAL")!=null)?auxMap.get("ORDTOTAL").toString():"",cf));
          cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
          table.addCell(cell);
-         cell = new PdfPCell(new Phrase(auxMap.get("CLIRESP").toString(),cf));
+         cell = new PdfPCell(new Phrase((auxMap.get("CRENAME")!=null)?auxMap.get("CRENAME").toString():"",cf));
          cell.setHorizontalAlignment(Element.ALIGN_LEFT);
          table.addCell(cell);
      }
      
+        //Linea en blanco
+        cell = new PdfPCell();
+        cell.setBorder(PdfPCell.NO_BORDER);
+        cell.setColspan(9);
+        table.addCell(cell);
         //Total a pagar
         cell = new PdfPCell(new Phrase("Total: ",ft));           
         cell.setBorder(PdfPCell.NO_BORDER);
-        cell.setColspan(8);
+        cell.setColspan(7);
         cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
         table.addCell(cell); 
-        if (curSymbol != null){
-            cell = new PdfPCell(new Phrase(curSymbol+" "+invTotal,ft));
+        if (curSymbol[0] != null){
+            if(curSymbol[0].equalsIgnoreCase("2")){
+                Image euro =Image.getInstance(EURO);
+                euro.scalePercent(70f);
+                cell = new PdfPCell();
+                cell.addElement(euro);
+            
+            }else if (curSymbol[0].equalsIgnoreCase("3")){
+                Image pound =Image.getInstance(POUND);
+                pound.scalePercent(70f);
+                cell = new PdfPCell();
+                cell.addElement(pound);
+            }
+            else cell = new PdfPCell(new Phrase(curSymbol[1],ft));
             cell.setBorder(PdfPCell.NO_BORDER);
             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-            cell.setColspan(2);
+            //cell.setColspan(2);
             table.addCell(cell);  
         }
+        cell = new PdfPCell(new Phrase(invTotal,ft));
+        cell.setBorder(PdfPCell.NO_BORDER);
+        cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.addCell(cell);
     
     return table;
         

@@ -159,7 +159,7 @@
                     <a href="facturacion?cliId=<c:out value="${factura.clientsTO.cliId}"/>&accion=facturarOrdenes&invoiceId=<c:out value="${factura.invId}"/>&invoiceAcc=<c:out value="${factura.accountsTO.accName}"/>&invoiceDate=<c:out value="${factura.invDate}"/>&invoiceCur=<c:out value="${factura.currencyTO.curName}"/>&invoiceTotal=<c:out value="${factura.invTotal}"/>" ><img border=0 src="img/invoice.png" alt="agregar" width="32" height="32" title="Facturar el cobro" onmouseover="this.style.cursor='hand';"/></a>
                 </c:if>
                 <c:if test="${factura.invInvoiced == 'si'}">
-                    <img  src="img/print.png" alt="print" width="32" height="32" title="Imprimir factura" onclick="imprimirFactura(<c:out value="${factura.invId}"/>,<c:out value="${factura.clientsTO.cliId}"/>,'<fmt:formatDate value="${factura.invDate}"    pattern="dd/MM/yyyy" />',<c:out value="${factura.accountsTO.accId}"/>,'<c:out value="${factura.currencyTO.curSymbol}"/>','<c:out value="${factura.invTotal}"/>')" onmouseover="this.style.cursor='hand';"/>
+                    <img  src="img/print.png" alt="print" width="32" height="32" title="Imprimir factura" onclick="imprimirFactura(<c:out value="${factura.invId}"/>,<c:out value="${factura.clientsTO.cliId}"/>,'<fmt:formatDate value="${factura.invDate}"    pattern="dd/MM/yyyy" />',<c:out value="${factura.accountsTO.accId}"/>,'<c:out value="${factura.currencyTO.curId}" />#<c:out value="${factura.currencyTO.curSymbol}"/>','<c:out value="${factura.invTotal}"/>')" onmouseover="this.style.cursor='hand';"/>
                 </c:if>
                 </td>
             </tr> 
