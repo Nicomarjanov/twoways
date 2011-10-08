@@ -817,8 +817,8 @@ public class TW_SystemServiceImpl implements TW_SystemService {
         return this.projectDao.getProjectAssignmentsByEmpId(empId,mesId,anioId);
     }
 
-    public void insertarPago(PaymentsTO paymentsTO) throws Exception {
-        this.paymentDao.insertarPago(paymentsTO);
+    public Long insertarPago(PaymentsTO paymentsTO) throws Exception {
+        return this.paymentDao.insertarPago(paymentsTO);
     }
 
     public ExpenseDAO getExpensesDao() {

@@ -87,8 +87,8 @@ public class InvoicesDAOImpl extends AbstractDAO implements InvoiceDAO {
         if (invoiceParameters.get("cliId") != null && invoiceParameters.get("cliId").toString().length() > 0){
             query +=" and c.cli_id= '#cliId#'";
         }
-        if(invoiceParameters.get("invDate") != null && invoiceParameters.get("invDate").toString().length() > 0){      
-            query +=" and t.inv_date "+ invoiceParameters.get("invDateOpt").toString()+"  to_date('#invDate#','dd/mm/yyyy')";
+        if(invoiceParameters.get("searchDate") != null && invoiceParameters.get("searchDate").toString().length() > 0){      
+            query +=" and t.inv_date "+ invoiceParameters.get("invDateOpt").toString()+"  to_date('#searchDate#','dd/mm/yyyy')";
         }
         
         query +=" order by t.inv_id desc";

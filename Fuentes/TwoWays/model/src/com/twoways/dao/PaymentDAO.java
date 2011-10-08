@@ -7,7 +7,7 @@ import java.util.Map;
 
 public interface PaymentDAO {
 
-    public PaymentsTO insertarPago(PaymentsTO paymentTO)  throws Exception;
+    public Long insertarPago(PaymentsTO paymentTO)  throws Exception;
     public PaymentsTO getPaymentById(Long payId) throws Exception;
     public List <PaymentsTO> findPayments(Map paymentParameters) throws Exception;
     public List obtenerItemsPago(Long payId) throws Exception;

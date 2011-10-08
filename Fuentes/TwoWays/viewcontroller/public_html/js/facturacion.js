@@ -2,12 +2,11 @@ var mensajeCampoAlert;
 var curIdOrigen=0;
 function cancelar()
 {
-    if(confirm('¿Desea cancelar la carga del pago?'))
-    {   
-        document.getElementById("accion").value='cancelar';
-        document.getElementById("cliId").value="";       
-        document.forms[0].submit();
-    }
+
+    document.getElementById("accion").value='cancelar';
+    document.getElementById("cliId").value="";       
+    document.forms[0].submit();
+
 }
 
 function nuevaBusqueda()

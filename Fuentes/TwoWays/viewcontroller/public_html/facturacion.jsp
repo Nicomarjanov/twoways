@@ -344,6 +344,10 @@
                         <input disabled type="button" id="aceptar" value="Aceptar" onclick="cargar()"/>
                         <input type="button" id="imprimir" value="Imprimir" onclick="imprimirFactura(<c:out value="${invId}"/>,<c:out value="${cliId}"/>,'<c:out value="${invDate}"/>',<c:out value="${accId}"/>,'<c:out value="${curSymbol}"/>',<c:out value="${invTotal}" />)"/>
                     </c:when>
+                    <c:when test="${accion == 'noFacturar'}">
+                        <input disabled type="button" id="aceptar" value="Aceptar" onclick="cargar()"/>
+                        <input disabled type="button" id="imprimir" value="Imprimir" onclick="imprimirFactura()"/>      
+                    </c:when>
                     <c:otherwise>
                         <input type="button" id="aceptar" value="Aceptar" onclick="cargar()"/>
                         <input disabled type="button" id="imprimir" value="Imprimir" onclick="imprimirFactura()"/>

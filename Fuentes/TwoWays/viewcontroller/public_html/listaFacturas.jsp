@@ -39,6 +39,7 @@
     <input type="hidden"  name="accId"  id="accId"  value=""   />
     <input type="hidden"  name="curSymbol"  id="curSymbol"  value=""   />
     <input type="hidden"  name="invTotal"  id="invTotal"  value=""   />
+    <input type="hidden"  name="invDate"  id="invDate"  value=""   />
     
     <input type="hidden"  name="pageId"  id="pageId" value="<c:out value="${pageId}" />" >
     <table width="100%">
@@ -106,7 +107,7 @@
                     </c:choose>
                  </c:forEach>
                </select>
-            <input type="text" class="tw_form" name="invDate"  id="invDate" value="<c:out value="${invDate}" />" style="width:200" /><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].invDate,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png" onmouseover="this.style.cursor='hand';"></img>
+            <input type="text" class="tw_form" name="searchDate"  id="searchDate" value="<c:out value="${searchDate}" />" style="width:200" /><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].searchDate,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png" onmouseover="this.style.cursor='hand';"></img>
         </td>      
         </tr>
        <tr  >
@@ -156,7 +157,7 @@
                 <td nowrap align="center"><img  src="img/edit-delete.png" alt="Anular factura" width="32" height="32" title="Anular factura" onclick="anularFactura(<c:out value="${factura.invId}"/>)" onmouseover="this.style.cursor='hand';"/></td> 
                 <td nowrap align="center">
                 <c:if test="${factura.invInvoiced == 'no'}">
-                    <a href="facturacion?cliId=<c:out value="${factura.clientsTO.cliId}"/>&accion=facturarOrdenes&invoiceId=<c:out value="${factura.invId}"/>&invoiceAcc=<c:out value="${factura.accountsTO.accName}"/>&invoiceDate=<c:out value="${factura.invDate}"/>&invoiceCur=<c:out value="${factura.currencyTO.curName}"/>&invoiceTotal=<c:out value="${factura.invTotal}"/>" ><img border=0 src="img/invoice.png" alt="agregar" width="32" height="32" title="Facturar el cobro" onmouseover="this.style.cursor='hand';"/></a>
+                    <a href="facturacion?cliId=<c:out value="${factura.clientsTO.cliId}"/>&accion=facturarOrdenes&invoiceId=<c:out value="${factura.invId}"/>&invoiceAcc=<c:out value="${factura.accountsTO.accId}"/>&invoiceDate=<c:out value="${factura.invDate}"/>&invoiceCur=<c:out value="${factura.currencyTO.curId}"/>&invoiceTotal=<c:out value="${factura.invTotal}"/>" ><img border=0 src="img/invoice.png" alt="agregar" width="32" height="32" title="Facturar el cobro" onmouseover="this.style.cursor='hand';"/></a>
                 </c:if>
                 <c:if test="${factura.invInvoiced == 'si'}">
                     <img  src="img/print.png" alt="print" width="32" height="32" title="Imprimir factura" onclick="imprimirFactura(<c:out value="${factura.invId}"/>,<c:out value="${factura.clientsTO.cliId}"/>,'<fmt:formatDate value="${factura.invDate}"    pattern="dd/MM/yyyy" />',<c:out value="${factura.accountsTO.accId}"/>,'<c:out value="${factura.currencyTO.curId}" />#<c:out value="${factura.currencyTO.curSymbol}"/>','<c:out value="${factura.invTotal}"/>')" onmouseover="this.style.cursor='hand';"/>

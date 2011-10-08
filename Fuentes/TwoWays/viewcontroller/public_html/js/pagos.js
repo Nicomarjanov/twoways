@@ -147,9 +147,6 @@ function grabar(existe)
     {                
         document.getElementById("accion").value='guardar';
         document.getElementById("empId").value=document.getElementById('empId').value;
-        if(confirm("¿Desea imprimir el recibo de pago?")){
-            document.getElementById("imprimir").value='imprimirPago';
-        }
         document.forms[0].submit();                
     }
 }
@@ -193,4 +190,17 @@ function valorCotizacioncallBack(data){
     var simbolo = aux.split("#");
     alert('La moneda ha cambiado. El nuevo Total a pagar es: '+simbolo[1]+' '+data.toFixed(2));
     document.getElementById("payAmount").value=data.toFixed(2);
+}
+
+function imprimirPago(payId,empId,payDate,curSymbol,payAmount){
+   if(confirm("¿Desea imprimir el recibo de pago?")){
+     
+      document.getElementById('accion').value='imprimirPago';  
+      document.getElementById('payId').value=payId;
+      document.getElementById('empId').value=empId;
+      document.getElementById('payAmount').value=payAmount;
+      document.getElementById('payDate').value=payDate;  
+      document.getElementById('curSymbol').value=curSymbol; 
+    }
+    document.forms[0].submit(); 
 }

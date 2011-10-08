@@ -178,6 +178,12 @@ public class ListaPagosServlet extends AutorizacionServlet {
         EmployeesTO empleado = new EmployeesTO();
         TwoWaysBDL twoWaysBDL=null;
 
+        Map auxMap = new HashMap();
+        Iterator iterador = itemsPagoList.listIterator();
+        auxMap =(HashMap)iterador.next();
+        String mesId = auxMap.get("ASSIGNDATE").toString().substring(5,7);
+        String anioId = auxMap.get("ASSIGNDATE").toString().substring(0,4);
+        
         try{
             twoWaysBDL = new TwoWaysBDL();
             empleado = twoWaysBDL.getServiceTwoWays().getEmpById(empId);     
@@ -189,7 +195,7 @@ public class ListaPagosServlet extends AutorizacionServlet {
         // step 2
         response.setContentType("application/pdf");
         response.setHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0");
-        String disposition = "attachment; filename=" + empleado.getEmpFirstName()+empleado.getEmpLastName()+"_"+request.getParameter("mesId")+request.getParameter("anioId")+".pdf";
+        String disposition = "attachment; filename=" + empleado.getEmpFirstName()+empleado.getEmpLastName()+"_"+mesId+anioId+".pdf";
         response.setHeader("Content-disposition", disposition); 
         PdfWriter.getInstance(document, response.getOutputStream());
         // step 3
@@ -204,7 +210,6 @@ public class ListaPagosServlet extends AutorizacionServlet {
     
         String payAmount = request.getParameter("payAmount");    
 
-        String mesId = request.getParameter("mesId");
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         
@@ -276,27 +281,29 @@ public class ListaPagosServlet extends AutorizacionServlet {
         Map auxMap = new HashMap();
         Iterator iterador = itemsPagoList.listIterator();
         while( iterador.hasNext() ) {
-             auxMap =(HashMap)iterador.next(); 
+             auxMap =(HashMap)iterador.next();
+             cell = new PdfPCell(new Phrase((auxMap.get("ASSIGNDATE")!=null)?auxMap.get("ASSIGNDATE").toString():""));
+             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+             table.addCell(cell);
+             cell = new PdfPCell(new Phrase((auxMap.get("PRONAME")!=null)?auxMap.get("PRONAME").toString():""));
+             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+             table.addCell(cell);
+             cell = new PdfPCell(new Phrase((auxMap.get("RATNAME")!=null)?auxMap.get("RATNAME").toString():""));
+             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+             table.addCell(cell);
+             String auxCur = (auxMap.get("CURSYMBOL")!=null)?auxMap.get("CURSYMBOL").toString():"";
+             String auxRate = (auxMap.get("RATE")!=null)?auxMap.get("RATE").toString():"";
+             cell = new PdfPCell(new Phrase(auxCur+' '+auxRate));
+             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+             table.addCell(cell);
+             cell = new PdfPCell(new Phrase((auxMap.get("WCOUNT")!=null)?auxMap.get("WCOUNT").toString():"0"));
+             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+             table.addCell(cell);   
+             cell = new PdfPCell(new Phrase((auxMap.get("TOTAL")!=null)?auxMap.get("TOTAL").toString():"0"));
+             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+             table.addCell(cell);          
 
-             cell = new PdfPCell(new Phrase(auxMap.get("ASSIGNDATE").toString(),cf));
-             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-             table.addCell(cell);
-             cell = new PdfPCell(new Phrase(auxMap.get("PRONAME").toString(),cf));
-             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-             table.addCell(cell);
-             cell = new PdfPCell(new Phrase(auxMap.get("RATNAME").toString(),cf));
-             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-             table.addCell(cell);
-             cell = new PdfPCell(new Phrase(auxMap.get("CURSYMBOL").toString()+" "+auxMap.get("RATE").toString(),cf));
-             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-             table.addCell(cell);
-             cell = new PdfPCell(new Phrase(auxMap.get("WCOUNT").toString(),cf));
-             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-             table.addCell(cell);
-             cell = new PdfPCell(new Phrase(auxMap.get("TOTAL").toString(),cf));
-             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-             table.addCell(cell);             
-         }
+        }
          
             //Total a pagar
             cell = new PdfPCell(new Phrase("Total a pagar: ",ft));           

@@ -44,7 +44,7 @@ public class ListaCobrosServlet extends AutorizacionServlet {
     private static final String CONTENT_TYPE = "text/html; charset=ISO-8859-1";
     public static final String RESOURCE = "C:\\apache-tomcat-7.0.5\\webapps\\img\\print_img.png";    
     public static final String EURO = "C:\\apache-tomcat-7.0.5\\webapps\\img\\euro.png";
-    public static final String POUND = "C:\\apache-tomcat-7.0.5\\webapps\\img\\pound.png";
+    public static final String POUND = "C:\\apache-tomcat-7.0.5\\webapps\\img\\money_pound.png";
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
@@ -103,14 +103,14 @@ public class ListaCobrosServlet extends AutorizacionServlet {
             }
             factura.setClientsTO(cliente);
             
-            if(request.getParameter("invDate") !=null &&( request.getParameter("invDate").length() == 10 )){ 
+            if(request.getParameter("searchDate") !=null &&( request.getParameter("searchDate").length() == 10 )){ 
                  try {
-                     date = sdfsh.parse(request.getParameter("invDate"));
+                     date = sdfsh.parse(request.getParameter("searchDate"));
                      java.sql.Timestamp timest = new java.sql.Timestamp(date.getTime()); 
                      factura.setInvDate(timest);
-                     params.put("invDate",request.getParameter("invDate"));
+                     params.put("searchDate",request.getParameter("searchDate"));
                      params.put("invDateOpt",request.getParameter("invDateOpt"));
-                     request.setAttribute("invDate",request.getParameter("invDate")); 
+                     request.setAttribute("searchDate",request.getParameter("searchDate")); 
                      request.setAttribute("invDateOpt",request.getParameter("invDateOpt")); 
                  } catch (ParseException e) {
                      e.printStackTrace();
@@ -440,7 +440,7 @@ public class ListaCobrosServlet extends AutorizacionServlet {
             
             }else if (curSymbol[0].equalsIgnoreCase("3")){
                 Image pound =Image.getInstance(POUND);
-                pound.scalePercent(70f);
+                pound.scalePercent(55f);
                 cell = new PdfPCell();
                 cell.addElement(pound);
             }

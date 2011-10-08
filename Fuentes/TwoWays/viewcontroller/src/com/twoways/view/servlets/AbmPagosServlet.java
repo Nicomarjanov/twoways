@@ -65,8 +65,9 @@ import sun.font.FontFamily;
 
 public class AbmPagosServlet extends AutorizacionServlet {
     private static final String CONTENT_TYPE = "text/html; charset=windows-1252";
-    //public static final String RESULT = "C:\\WINDOWS\\Temp\\pagos.pdf";
+    public static final String EURO = "C:\\apache-tomcat-7.0.5\\webapps\\img\\euro.png";
     public static final String RESOURCE = "C:\\apache-tomcat-7.0.5\\webapps\\img\\print_img.png";
+    public static final String POUND = "C:\\apache-tomcat-7.0.5\\webapps\\img\\money_pound.png";
     
     public AbmPagosServlet(){
     
@@ -108,7 +109,7 @@ public class AbmPagosServlet extends AutorizacionServlet {
             mes="0"+mes;
         }
         String fecha=(""+dia+"/"+mes+"/"+annio);
-        request.setAttribute("auxDate",fecha); 
+        request.setAttribute("payDate",fecha); 
         
         TwoWaysBDL twoWaysBDL=null;
         
@@ -141,14 +142,14 @@ public class AbmPagosServlet extends AutorizacionServlet {
                     Iterator iterador = projAssignEmpId.listIterator();
                     while( iterador.hasNext() ) {
                         auxMap =(HashMap)iterador.next();
-                        if (Double.parseDouble(auxMap.get("PRATOTAL").toString()) > 0.0){
-                            Date fechaAss = formatoDeFecha.parse(auxMap.get("PRAASSDATE").toString());
+                        if (Double.parseDouble(auxMap.get("TOTAL").toString()) > 0.0){
+                            Date fechaAss = formatoDeFecha.parse(auxMap.get("ASSIGNDATE").toString());
                             Timestamp timestamp = new Timestamp(fechaAss.getTime());
                             String listaMoneda = request.getParameter("listaMoneda");
                             if (listaMoneda != null) {
                                 String atribs[]= listaMoneda.split("#");
                                 curIdOrigen = atribs[0];
-                                auxAmount += twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, Long.parseLong(auxMap.get("CURID").toString()), Long.parseLong(curIdOrigen) ,Double.parseDouble(auxMap.get("PRATOTAL").toString()));
+                                auxAmount += twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, Long.parseLong(auxMap.get("CURID").toString()), Long.parseLong(curIdOrigen) ,Double.parseDouble(auxMap.get("TOTAL").toString()));
                             }
                         }
                         //auxAmount = auxAmount + Double.parseDouble(auxMap.get("PRATOTAL").toString());
@@ -162,7 +163,6 @@ public class AbmPagosServlet extends AutorizacionServlet {
                     if (auxAmount > 0.0){
                         NumberFormat formatter = new DecimalFormat("#0.00");
                         request.setAttribute("payAmount",formatter.format(auxAmount));
-                       // request.setAttribute("curIdOrigen",curIdOrigen);
                     }
                    /* empleados =  twoWaysBDL.getServiceTwoWays().obtenerEmpleados();
                     request.setAttribute("listaEmpleados",empleados);*/
@@ -183,6 +183,7 @@ public class AbmPagosServlet extends AutorizacionServlet {
                     java.util.Date date = sdf.parse(request.getParameter("payDate"));
                     java.sql.Timestamp timest = new java.sql.Timestamp(date.getTime()); 
                     pago.setPayDate(timest);
+                    request.setAttribute("payDate",request.getParameter("payDate"));
                 }
             
             } catch (Exception e) {
@@ -208,7 +209,7 @@ public class AbmPagosServlet extends AutorizacionServlet {
                     AccountsTO accIdTO = new AccountsTO();                    
                     accIdTO.setAccId(Long.parseLong(atribs[0]));
                     pago.setAccountsTO(accIdTO);
-
+                    request.setAttribute("accId",listaCuentas);
             }
             
             String listaMoneda = request.getParameter("listaMoneda");
@@ -218,12 +219,16 @@ public class AbmPagosServlet extends AutorizacionServlet {
                 CurrencyTO curIdTO = new CurrencyTO();                
                 curIdTO.setCurId(Long.parseLong(atribs[0]));
                 pago.setCurrencyTO(curIdTO);
-                
+                request.setAttribute("curSymbol",listaMoneda);
+                request.setAttribute("curId",atribs[0]);
             }
             
             pago.setPayAmount(Double.parseDouble(request.getParameter("payAmount").replace(",",".")));
+            request.setAttribute("payAmount",request.getParameter("payAmount"));
             pago.setPayDescription((request.getParameter("payDescription")!= null )?request.getParameter("payDescription"):"");
-            pago.setPayObservation((request.getParameter("payObservation")!= null )?request.getParameter("payObservation"):"");        
+            request.setAttribute("payDescription",request.getParameter("payDescription"));
+            pago.setPayObservation((request.getParameter("payObservation")!= null )?request.getParameter("payObservation"):""); 
+            request.setAttribute("payObservation",request.getParameter("payObservation"));            
     
             String empProjAssignment[]=request.getParameterValues("item-pago-hidden");
             List<ProjAssignPaysTO> projAssTOList = new ArrayList<ProjAssignPaysTO>();
@@ -244,10 +249,9 @@ public class AbmPagosServlet extends AutorizacionServlet {
             pago.setUserTO(userTO);
             
             try {       
-                    String imprimir = request.getParameter("imprimir");
-                    
-                    twoWaysBDL.getServiceTwoWays().insertarPago(pago); 
-                    
+                   
+                    Long payId = twoWaysBDL.getServiceTwoWays().insertarPago(pago); 
+                    request.setAttribute("payId",payId);
                     //Insertar gasto de pago de sueldo en la tabla de gastos
                     ItemsExpensesTO itmExpTO = new ItemsExpensesTO(); 
                     itmExpTO.setAccountsTO(pago.getAccountsTO());
@@ -283,37 +287,32 @@ public class AbmPagosServlet extends AutorizacionServlet {
                     expTO.setExpDate(timest);
                     
                     twoWaysBDL.getServiceTwoWays().insertarExpenseExtra(expTO);
-                   
                     
-                    if (imprimir!=null && imprimir.equalsIgnoreCase("imprimirPago") && empId != null){
-                            
-                            try {
-                                 createPdf(request,response);
-                        
-                            }
-                             catch (Exception e) {
-                                    request.setAttribute("mensaje","<script>alert('Error al crea el PDF')</script>"); 
-                                    e.printStackTrace();
-
-                                }               
-
-                    }
-
-             //   request.setAttribute("mensaje","<script>alert('El registro del pago se guardó con éxito')</script>");
+                    List printEmpProjAssignment = null;
+                    printEmpProjAssignment = twoWaysBDL.getServiceTwoWays().obtenerItemsPago(payId);
+                    request.setAttribute("projectAssignnments",printEmpProjAssignment);
+                    
+                    accion="imprimir";
+                    request.setAttribute("mensaje","<script>alert('El registro del pago se guardó con éxito')</script>");
 
             } catch (Exception e) {
                 e.printStackTrace();
             } 
 
         }
-           /* else if ((empId == null || empId.equalsIgnoreCase("")) && (accion==null || accion.equalsIgnoreCase("cancelar"))){
-            try{
-                empleados =  twoWaysBDL.getServiceTwoWays().obtenerEmpleados();
-                request.setAttribute("listaEmpleados",empleados);
-            } catch (Exception e) {
-               e.printStackTrace();
-            }
-        }*/
+            else if (accion!=null && accion.equalsIgnoreCase("imprimirPago") && empId != null){
+                    
+                try {
+                    Long payId= Long.parseLong(request.getParameter("payId"));
+                    createPdf(request,response, payId);           
+                }
+                 catch (Exception e) {
+                        request.setAttribute("mensaje","<script>alert('Error al crea el PDF')</script>"); 
+                        e.printStackTrace();
+                   }               
+
+                }
+        request.setAttribute("accion",accion);
         request.getRequestDispatcher("pagos.jsp").forward(request,response);
        
     }
@@ -323,7 +322,7 @@ public class AbmPagosServlet extends AutorizacionServlet {
             doGet(request,response); 
             }
             
-    public void createPdf(HttpServletRequest request,HttpServletResponse response)
+    public void createPdf(HttpServletRequest request,HttpServletResponse response, Long payId)
            throws IOException, DocumentException {
            // step 1
             Document document = new Document(PageSize.A4.rotate());
@@ -336,15 +335,24 @@ public class AbmPagosServlet extends AutorizacionServlet {
            // step 3
            document.open();
            // step 4
-           document.add(createTable(request));
+           document.add(createTable(request, payId));
            // step 5
            document.close();
 
        }
        
-    public PdfPTable createTable(HttpServletRequest request) throws IOException, DocumentException{
+    public PdfPTable createTable(HttpServletRequest request,Long payId) throws IOException, DocumentException{
           
-        String empProjAssignment[] = request.getParameterValues("print-pago-hidden");        
+        //String empProjAssignment[] = request.getParameterValues("print-pago-hidden");        
+        List empProjAssignment = null;
+        TwoWaysBDL twoWaysBDL=null;
+        try{
+            
+            twoWaysBDL = new TwoWaysBDL();
+            empProjAssignment = twoWaysBDL.getServiceTwoWays().obtenerItemsPago(payId);
+            }catch (Exception e) {
+                e.printStackTrace();
+            } 
         String payAmount = request.getParameter("payAmount");    
         String empName = request.getParameter("empName");
         String mesId = request.getParameter("mesId");
@@ -403,41 +411,64 @@ public class AbmPagosServlet extends AutorizacionServlet {
         table.getDefaultCell().setBackgroundColor(null);
 
         if( empProjAssignment  != null){ 
-                
-         for(String aux:empProjAssignment){               
-             String atribs[]= aux.split("#");
-             cell = new PdfPCell(new Phrase(atribs[0]));
-             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-             table.addCell(cell);
-             cell = new PdfPCell(new Phrase(atribs[1]));
-             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-             table.addCell(cell);
-             cell = new PdfPCell(new Phrase(atribs[2]));
-             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-             table.addCell(cell);
-             cell = new PdfPCell(new Phrase(atribs[6]+" "+atribs[3]));
-             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-             table.addCell(cell);
-             cell = new PdfPCell(new Phrase(atribs[4]));
-             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-             table.addCell(cell);
-             cell = new PdfPCell(new Phrase(atribs[5]));
-             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-             table.addCell(cell);             
-         }
+            Map auxMap = new HashMap();    
+            Iterator iterador = empProjAssignment.listIterator();
+            while( iterador.hasNext() ) {
+                 auxMap =(HashMap)iterador.next();
+                 cell = new PdfPCell(new Phrase((auxMap.get("ASSIGNDATE")!=null)?auxMap.get("ASSIGNDATE").toString():""));
+                 cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                 table.addCell(cell);
+                 cell = new PdfPCell(new Phrase((auxMap.get("PRONAME")!=null)?auxMap.get("PRONAME").toString():""));
+                 cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                 table.addCell(cell);
+                 cell = new PdfPCell(new Phrase((auxMap.get("RATNAME")!=null)?auxMap.get("RATNAME").toString():""));
+                 cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                 table.addCell(cell);
+                 String auxCur = (auxMap.get("CURSYMBOL")!=null)?auxMap.get("CURSYMBOL").toString():"";
+                 String auxRate = (auxMap.get("RATE")!=null)?auxMap.get("RATE").toString():"";
+                 cell = new PdfPCell(new Phrase(auxCur+' '+auxRate));
+                 cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                 table.addCell(cell);
+                 cell = new PdfPCell(new Phrase((auxMap.get("WCOUNT")!=null)?auxMap.get("WCOUNT").toString():"0"));
+                 cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                 table.addCell(cell);   
+                 cell = new PdfPCell(new Phrase((auxMap.get("TOTAL")!=null)?auxMap.get("TOTAL").toString():"0"));
+                 cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                 table.addCell(cell);          
+
+            }
+         
          
             //Total a pagar
             cell = new PdfPCell(new Phrase("Total a pagar: ",ft));           
             cell.setBorder(PdfPCell.NO_BORDER);
-            cell.setColspan(5);
+            cell.setColspan(4);
             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
             table.addCell(cell); 
-            if (curSymbol[1] != null){
-                cell = new PdfPCell(new Phrase(curSymbol[1]+" "+payAmount,ft));
+            if (curSymbol[0] != null){
+                if(curSymbol[0].equalsIgnoreCase("2")){
+                    Image euro =Image.getInstance(EURO);
+                    euro.scalePercent(70f);
+                    cell = new PdfPCell();
+                    cell.addElement(euro);
+                
+                }else if (curSymbol[0].equalsIgnoreCase("3")){
+                    Image pound =Image.getInstance(POUND);
+                    pound.scalePercent(55f);
+                    cell = new PdfPCell();
+                    cell.addElement(pound);
+                }
+                else cell = new PdfPCell(new Phrase(curSymbol[1],ft));
                 cell.setBorder(PdfPCell.NO_BORDER);
                 cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                //cell.setColspan(2);
                 table.addCell(cell);  
             }
+            cell = new PdfPCell(new Phrase(payAmount,ft));
+            cell.setBorder(PdfPCell.NO_BORDER);
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            table.addCell(cell);
+            
         }
         return table;
             

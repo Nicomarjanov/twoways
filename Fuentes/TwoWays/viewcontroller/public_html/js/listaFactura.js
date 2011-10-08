@@ -26,14 +26,14 @@ function imprimirFactura(invId,cliId,invDate,accId,curSymbol,invTotal){
 }
 
 function buscarFacturas(){
-    var invDate =document.getElementById('invDate');
+    var searchDate =document.getElementById('searchDate');
     var banderaMensajeFaltante=false;
     var mensajeCampoAlert='';
     var mensajeFaltanteAlert = 'Se tiene que completar los siguientes campos: \n';
    
-    if(invDate.value != '')
+    if(searchDate.value != '')
     {
-       if (!(isDate(invDate.value)))
+       if (!(isDate(searchDate.value)))
         {
         //ordDate.style.background='Red';
         mensajeFaltanteAlert+= ' * La fecha de cobro debe ser dd/mm/aaaa \n';
