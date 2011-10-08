@@ -236,7 +236,7 @@ public interface TW_SystemService {
 
     public List getProjectAssignmentsByEmpId(Long empId, String mesId, String anioId) throws Exception;
     
-    public void insertarPago(PaymentsTO paymentsTO) throws Exception;
+    public Long insertarPago(PaymentsTO paymentsTO) throws Exception;
     
     public PaymentsTO getPaymentById(Long payId) throws Exception;
     

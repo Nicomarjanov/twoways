@@ -1552,14 +1552,14 @@
  
   <select id="getProjectAssignamentByEmpId" parameterClass="java.util.Map" resultClass="java.util.HashMap">
         select pa.pra_id as praId,
-               pa.pra_assign_date as praAssDate,       
+               pa.pra_assign_date as assignDate,       
                p.pro_id as projId,
-               p.pro_name as projName,
+               p.pro_name as proName,
                y.rty_alternative_name||' '||r.rat_name as ratName,
                c.cur_symbol as curSymbol,
                pd.pad_rate as ratValue,
                pd.pad_wcount as wCount,
-               decode(pd.pad_wcount,1,pd.pad_rate,null,0,(pd.pad_rate * pd.pad_wcount)) as praTotal,
+               decode(pd.pad_wcount,1,pd.pad_rate,null,0,(pd.pad_rate * pd.pad_wcount)) as total,
                pa.employees_emp_id as empId,
                pd.pad_id as padid,
                c.cur_id as curId,
