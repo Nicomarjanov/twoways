@@ -46,6 +46,7 @@ import javax.servlet.http.*;
 public class ListaPagosServlet extends AutorizacionServlet {
     private static final String CONTENT_TYPE = "text/html; charset=windows-1252";
     public static final String RESOURCE = "C:\\apache-tomcat-7.0.5\\webapps\\img\\print_img.png";    
+    public static final String EURO = "C:\\apache-tomcat-7.0.5\\webapps\\img\\euro.png";
     
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
@@ -214,7 +215,7 @@ public class ListaPagosServlet extends AutorizacionServlet {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         
         // String curId = request.getParameter("curIdOrigen");
-        String curSymbol =request.getParameter("curSymbol");        
+        String curSymbol[] =request.getParameter("curSymbol").split("#");        
         
         String empId= request.getParameter("empId");
         EmployeesTO empleado = new EmployeesTO();
@@ -277,46 +278,65 @@ public class ListaPagosServlet extends AutorizacionServlet {
         table.addCell("Total asignación");
 
         table.getDefaultCell().setBackgroundColor(null);
-
-        Map auxMap = new HashMap();
-        Iterator iterador = itemsPagoList.listIterator();
-        while( iterador.hasNext() ) {
-             auxMap =(HashMap)iterador.next();
-             cell = new PdfPCell(new Phrase((auxMap.get("ASSIGNDATE")!=null)?auxMap.get("ASSIGNDATE").toString():""));
-             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-             table.addCell(cell);
-             cell = new PdfPCell(new Phrase((auxMap.get("PRONAME")!=null)?auxMap.get("PRONAME").toString():""));
-             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-             table.addCell(cell);
-             cell = new PdfPCell(new Phrase((auxMap.get("RATNAME")!=null)?auxMap.get("RATNAME").toString():""));
-             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-             table.addCell(cell);
-             String auxCur = (auxMap.get("CURSYMBOL")!=null)?auxMap.get("CURSYMBOL").toString():"";
-             String auxRate = (auxMap.get("RATE")!=null)?auxMap.get("RATE").toString():"";
-             cell = new PdfPCell(new Phrase(auxCur+' '+auxRate));
-             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-             table.addCell(cell);
-             cell = new PdfPCell(new Phrase((auxMap.get("WCOUNT")!=null)?auxMap.get("WCOUNT").toString():"0"));
-             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-             table.addCell(cell);   
-             cell = new PdfPCell(new Phrase((auxMap.get("TOTAL")!=null)?auxMap.get("TOTAL").toString():"0"));
-             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-             table.addCell(cell);          
-
-        }
+        
+        if( itemsPagoList  != null){ 
+            Map auxMap = new HashMap();
+            Iterator iterador = itemsPagoList.listIterator();
+            while( iterador.hasNext() ) {
+                 auxMap =(HashMap)iterador.next();
+                 cell = new PdfPCell(new Phrase((auxMap.get("ASSIGNDATE")!=null)?auxMap.get("ASSIGNDATE").toString():""));
+                 cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                 table.addCell(cell);
+                 cell = new PdfPCell(new Phrase((auxMap.get("PRONAME")!=null)?auxMap.get("PRONAME").toString():""));
+                 cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                 table.addCell(cell);
+                 cell = new PdfPCell(new Phrase((auxMap.get("RATNAME")!=null)?auxMap.get("RATNAME").toString():""));
+                 cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                 table.addCell(cell);
+                 String auxCur = (auxMap.get("CURSYMBOL")!=null)?auxMap.get("CURSYMBOL").toString():"";
+                 String auxRate = (auxMap.get("RATE")!=null)?auxMap.get("RATE").toString():"";
+                 cell = new PdfPCell(new Phrase(auxCur+' '+auxRate));
+                 cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                 table.addCell(cell);
+                 cell = new PdfPCell(new Phrase((auxMap.get("WCOUNT")!=null)?auxMap.get("WCOUNT").toString():"0"));
+                 cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                 table.addCell(cell);   
+                 cell = new PdfPCell(new Phrase((auxMap.get("TOTAL")!=null)?auxMap.get("TOTAL").toString():"0"));
+                 cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                 table.addCell(cell);          
+    
+            }
          
             //Total a pagar
             cell = new PdfPCell(new Phrase("Total a pagar: ",ft));           
             cell.setBorder(PdfPCell.NO_BORDER);
-            cell.setColspan(5);
+            cell.setColspan(4);
             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
             table.addCell(cell); 
-            if (curSymbol != null){
-                cell = new PdfPCell(new Phrase(curSymbol+" "+payAmount,ft));
+            if (curSymbol[0] != null){
+                if(curSymbol[0].equalsIgnoreCase("2")){
+                    Image euro =Image.getInstance(EURO);
+                    euro.scalePercent(70f);
+                    cell = new PdfPCell();
+                    cell.addElement(euro);
+                
+                }/*else if (curSymbol[0].equalsIgnoreCase("3")){
+                    Image pound =Image.getInstance(POUND);
+                    pound.scalePercent(55f);
+                    cell = new PdfPCell();
+                    cell.addElement(pound);
+                }*/
+                else cell = new PdfPCell(new Phrase(curSymbol[1],ft));
                 cell.setBorder(PdfPCell.NO_BORDER);
                 cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                //cell.setColspan(2);
                 table.addCell(cell);  
             }
+            cell = new PdfPCell(new Phrase(payAmount,ft));
+            cell.setBorder(PdfPCell.NO_BORDER);
+            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            table.addCell(cell); 
+        }
         
         return table;
         

@@ -42,7 +42,7 @@
         <td nowrap ><fmt:formatDate value="${item[\'ASSIGNDATE\']}"    pattern="dd/MM/yyyy" /></td>
         <td nowrap ><c:out value="${item[\'PRONAME\']}" /></td>
         <td nowrap ><c:out value="${item[\'RATNAME\']}" /></td>
-        <td nowrap ><c:out value="${item[\'CURSYMBOL\']}" /><c:out value="${item[\'RATE\']}" /></td>
+        <td nowrap ><c:out value="${item[\'CURSYMBOL\']}" /> <c:out value="${item[\'RATE\']}" /></td>
         <td nowrap ><c:out value="${item[\'WCOUNT\']}" /></td>
         <td nowrap ><c:out value="${item[\'TOTAL\']}"/></td>                
     </tr> 
