@@ -66,7 +66,8 @@ public class PaymentDAOImpl extends AbstractDAO  implements PaymentDAO{
         "       t.pay_amount as payAmount, \n" + 
         "       u.usr_id as usrId, \n" + 
         "       a.acc_id as accId, \n" + 
-        "       y.cur_symbol as curSymbol \n" + 
+        "       y.cur_symbol as curSymbol, \n" + 
+        "       y.cur_id as curId \n" + 
         "from payments t, employees e, accounts a, currency y, users u \n" + 
         "where t.employees_emp_id= e.emp_id \n" + 
         "and t.accounts_acc_id = a.acc_id \n" + 
@@ -118,6 +119,7 @@ public class PaymentDAOImpl extends AbstractDAO  implements PaymentDAO{
                 pago.setAccountsTO(cuenta);
                 
                 CurrencyTO moneda = new CurrencyTO();
+                moneda.setCurId(rs.getLong("curId"));
                 moneda.setCurName(rs.getString("curName"));
                 moneda.setCurSymbol(rs.getString("curSymbol"));
                 pago.setCurrencyTO(moneda);            

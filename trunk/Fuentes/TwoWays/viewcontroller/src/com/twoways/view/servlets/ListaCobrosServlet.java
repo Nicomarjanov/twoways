@@ -438,12 +438,12 @@ public class ListaCobrosServlet extends AutorizacionServlet {
                 cell = new PdfPCell();
                 cell.addElement(euro);
             
-            }else if (curSymbol[0].equalsIgnoreCase("3")){
+            }/*else if (curSymbol[0].equalsIgnoreCase("3")){
                 Image pound =Image.getInstance(POUND);
                 pound.scalePercent(55f);
                 cell = new PdfPCell();
                 cell.addElement(pound);
-            }
+            }*/
             else cell = new PdfPCell(new Phrase(curSymbol[1],ft));
             cell.setBorder(PdfPCell.NO_BORDER);
             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
