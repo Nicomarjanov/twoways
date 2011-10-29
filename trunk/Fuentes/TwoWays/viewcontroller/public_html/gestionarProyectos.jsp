@@ -63,11 +63,11 @@
    <tbody>
    <tr>
     <td nowrap>Nombre proyecto</td>
-    <td colspan="2" ><input type="text" class="tw_form" name="projName"  id="projName" value="<c:out value="${project.proName}" />" onkeydown="keyTarifa()" style="width:100%"  /></td>
+    <td colspan="2" ><input type="text" class="tw_form" name="projName"  id="projName" value="<c:out value="${project.proName}" />" onkeydown="checkKeycode()" style="width:100%"  /></td>
    </tr>
    <tr>
     <td nowrap>Nombre orden</td>
-    <td colspan="2" ><input type="text" class="tw_form" name="ordName"  id="ordName" value="<c:out value="${project.ordersTO.ordName}" />" onkeydown="keyTarifa()" style="width:100%"  /></td>
+    <td colspan="2" ><input type="text" class="tw_form" name="ordName"  id="ordName" value="<c:out value="${project.ordersTO.ordName}" />" onkeydown="checkKeycode()" style="width:100%"  /></td>
    </tr>
    <tr>
    <td nowrap >Estado proyecto</td>
@@ -134,7 +134,7 @@
                     </c:choose>
                  </c:forEach>
                </select>
-            <input type="text" class="tw_form" name="projDate"  id="projDate" value="<c:out value="${projDate}" />" style="width:200"  onkeydown="keyTarifa()"/><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].projDate,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png" onmouseover="this.style.cursor='hand';"></img>
+            <input type="text" class="tw_form" name="projDate"  id="projDate" value="<c:out value="${projDate}" />" style="width:200"  onkeydown="checkKeycode()"/><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].projDate,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png" onmouseover="this.style.cursor='hand';"></img>
         </td>
    </tr>
    <tr>
@@ -156,7 +156,7 @@
                     </c:choose>
                 </c:forEach>          
            </select>
-           <input type="text" class="tw_form" name="projFinishDate" id="projFinishDate" value="<c:out value="${projFinishDate}" />" style="width:200"  onkeydown="keyTarifa()"/><div id="divHasta" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Hasta.select(document.forms[0].projFinishDate,'selHasta','dd/MM/yyyy'); return false;" NAME="selHasta" ID="selHasta"  height="20" width="20" alt="seleccion" src="img/cal.png" onmouseover="this.style.cursor='hand';"></img>
+           <input type="text" class="tw_form" name="projFinishDate" id="projFinishDate" value="<c:out value="${projFinishDate}" />" style="width:200"  onkeydown="checkKeycode()"/><div id="divHasta" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Hasta.select(document.forms[0].projFinishDate,'selHasta','dd/MM/yyyy'); return false;" NAME="selHasta" ID="selHasta"  height="20" width="20" alt="seleccion" src="img/cal.png" onmouseover="this.style.cursor='hand';"></img>
        </td>       
    </tr>
    <tr>
