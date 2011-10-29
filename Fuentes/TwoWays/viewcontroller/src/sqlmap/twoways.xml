@@ -1599,10 +1599,12 @@
       <result property="cucDate" column="cuc_Date" />
       <result property="cucValue" column="cuc_Value" />
       <result property="currencyTO.curName" column="cur_Name" />  
+      <result property="cucEraseDate" column="cuc_Erase_date" />
+      
   </resultMap> 
 
    <statement  id="buscarCotizaciones" resultMap="select-Cotization"  parameterClass="java.lang.String" >
-        select cuc_id, cuc_date, cuc_value, cur_name
+        select cuc_id, cuc_date, cuc_value, cur_name, cuc_erase_date
         from currency_cotizations cuc, currency c 
         where currency_cur_id =  #curId#
         and currency_cur_id=cur_Id
@@ -1622,8 +1624,9 @@
          
   </insert>      
 
-  <delete id="deleteCotizacion" parameterClass="com.twoways.to.CotizationsTO"   >
-    delete  currency_cotizations
+  <delete id="deleteCotizacion" parameterClass="com.twoways.to.CurrencyCotizationsTO"   >
+    UPDATE  currency_cotizations
+    SET cuc_erase_date=sysdate
     where
     cuc_id = #cucId#          
   </delete> 

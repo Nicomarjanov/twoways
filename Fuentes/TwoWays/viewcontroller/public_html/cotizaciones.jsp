@@ -11,6 +11,11 @@
     <script type='text/javascript' src='/twoways/dwr/interface/towaysDWR.js'></script>
     <script type='text/javascript' src='/twoways/dwr/engine.js'></script>
     <script type='text/javascript' src='/twoways/dwr/util.js'></script>
+    <script type='text/javascript' src="./js/commons.js"></script>  
+    <script type='text/javascript' src="./js/CalendarPopup.js"></script>
+    <script>
+     writeSource('jscallDesde');
+     </script>
     <title>Cotizaciones</title>
   </head>
   <body>
@@ -26,7 +31,7 @@
   </tr>
   <tr>
     <td align="right" width="50%">Fecha:</td>
-    <td align="left" width="50%"><input type="text" class="tw_form" name="cotDate"  id="cotDate" size="10" maxsize="10" value="<c:out  value="${auxDate}"/>" /><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].cotDate,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png" onmouseover="this.style.cursor='hand';"></img></td>    
+    <td align="left" width="50%"><input type="text" class="tw_form" name="cotDate"  id="cotDate" size="20" maxsize="20" value="<c:out  value="${auxDate}"/>" /><div id="divDesde" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Desde.select(document.forms[0].cotDate,'selDesde','dd/MM/yyyy'); return false;" NAME="selDesde" ID="selDesde"  height="20" width="20" alt="seleccion" src="img/cal.png" onmouseover="this.style.cursor='hand';"></img></td>    
   </tr>  
   <tr>
     <td nowrap align="right" width="50%">Moneda:</td>

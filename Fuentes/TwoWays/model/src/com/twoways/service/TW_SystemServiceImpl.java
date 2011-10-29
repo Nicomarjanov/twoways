@@ -766,8 +766,11 @@ public class TW_SystemServiceImpl implements TW_SystemService {
                 } 
                 
                Double costoUnitOriginal = ((pa.getPadRate()!=null)?pa.getPadRate():0.0) * ((pa.getPadWCount()!=null)?pa.getPadWCount():0.0) ;
-               
-               costo+= convert(cotiA,cotiB,costoUnitOriginal);
+               if(!costoUnitOriginal.isNaN() && costoUnitOriginal != 0.0) {
+                    costo+= convert(cotiA,cotiB,costoUnitOriginal);
+               }else {
+                    costo += 0.0;
+               }
             }
         }
         

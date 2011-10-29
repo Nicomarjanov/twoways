@@ -125,8 +125,11 @@ function cargarDatosColumna(row,data){
         row.cells[1].innerHTML = fecha.getDate()+'/'+month[fecha.getMonth()]+'/'+fecha.getFullYear();
    }
    row.cells[2].innerHTML=(data.cucValue==null)?'':data.cucValue;      
-   row.cells[3].innerHTML = '<img  src="img/Delete.png" height="20" width="20"  alt="Eliminar" onclick="eliminarCotizacion('+data.cucId+')" onmouseover="this.style.cursor=\'hand\';" />';
-
+   if (data.cucEraseDate != null){
+         row.cells[3].innerHTML ='<img  src="img/Erase.png" height="20" width="20"  alt="Cotización eliminada el día: \''+data.cucEraseDate+'\'"  />';
+    }else{
+         row.cells[3].innerHTML ='';
+    }
 }
 
 function buscarCotizacionesCallBack(data){

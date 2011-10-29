@@ -73,7 +73,7 @@ public class AbmCotizacionesServlet extends AutorizacionServlet {
             cotization.setCucValue((request.getParameter("cotValue")!= null )?Double.parseDouble(request.getParameter("cotValue").replace(",",".")):0);
             try {
                 if(request.getParameter("cotDate")!= null && !request.getParameter("cotDate").equalsIgnoreCase("") ){ 
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                     java.util.Date date = sdf.parse(request.getParameter("cotDate"));
                     java.sql.Timestamp timest = new java.sql.Timestamp(date.getTime()); 
                     cotization.setCucDate(timest);

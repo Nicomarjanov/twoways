@@ -225,9 +225,11 @@ public class IngresosxClienteServlet extends AutorizacionServlet {
                    totalTotal = totalTotal.add(totalCli.setScale(2,BigDecimal.ROUND_UP)); 
                    ((List)grillaIngresos.get(key)).add(totalCli);
                }
-               totalIngresosCli.remove(0); 
-               totalIngresosCli.add(0,"Total Egresos");     
-               totalIngresosCli.add(totalTotal);               
+               if (totalIngresosCli.size()>0){
+                   totalIngresosCli.remove(0); 
+                   totalIngresosCli.add(0,"Total Egresos");     
+                   totalIngresosCli.add(totalTotal); 
+               }
                request.setAttribute("ingresosxCliente",grillaIngresos);   
                request.setAttribute("totalIngresosCliente",totalIngresosCli);                                  
              
