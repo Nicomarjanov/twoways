@@ -6,6 +6,7 @@ import com.twoways.to.ClientResponsableTO;
 import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.ClientsTO;
 import com.twoways.to.CotizationsTO;
+import com.twoways.to.CurrencyCotizationsTO;
 import com.twoways.to.DocTypes;
 import com.twoways.to.EmployeesRatesTO;
 import com.twoways.to.EmployeesTO;
@@ -250,7 +251,7 @@ public interface TW_SystemService {
 
     public List buscarCotizaciones(String search) throws Exception;
     
-    public boolean eliminarCotizacion(CotizationsTO cotizationsTO) throws Exception;
+    public boolean eliminarCotizacion(CurrencyCotizationsTO currencyCotizationsTO) throws Exception;
     
     public List getClientResponsableByCliId(ClientsTO clientsTO);
     

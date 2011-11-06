@@ -167,12 +167,12 @@ public class AbmGastosServlet extends AutorizacionServlet {
                     twoWaysBDL.getServiceTwoWays().updateGasto(gasto);
                     itmExps =  twoWaysBDL.getServiceTwoWays().getItemsExpenseList(Long.parseLong(expId)); 
                     request.setAttribute("auxExpId",expId); 
-                    request.setAttribute("mensaje","<script>alert('El item de gasto se actualizó con éxito')</script>");                
+                    request.setAttribute("mensaje","<script>alert('El item de egreso se actualizó con éxito')</script>");                
                 }else{
                     Long auxExpId = twoWaysBDL.getServiceTwoWays().insertarGasto(gasto); 
                     itmExps =  twoWaysBDL.getServiceTwoWays().getItemsExpenseList(gasto.getExpId());
                     request.setAttribute("auxExpId",auxExpId); 
-                    request.setAttribute("mensaje","<script>alert('El item de gasto se guardó con éxito')</script>");
+                    request.setAttribute("mensaje","<script>alert('El item de egreso se guardó con éxito')</script>");
                      
                 }
                 
@@ -183,16 +183,16 @@ public class AbmGastosServlet extends AutorizacionServlet {
                 
             } catch (Exception e) {
                 e.printStackTrace();
-                request.setAttribute("mensaje","<script>alert('Ocurrió un error al guardar el item de gasto')</script>");
+                request.setAttribute("mensaje","<script>alert('Ocurrió un error al guardar el item de egreso')</script>");
             }
         
           }else{
               try{
                   twoWaysBDL.getServiceTwoWays().deleteGasto(Long.parseLong(expId)); 
-                  request.setAttribute("mensaje","<script>alert('El item de gasto se eliminó con éxito')</script>");
+                  request.setAttribute("mensaje","<script>alert('El item de egreso se eliminó con éxito')</script>");
               } catch (Exception e) {
               e.printStackTrace();
-              request.setAttribute("mensaje","<script>alert('Ocurrió un error al eliminar el item de gasto')</script>");
+              request.setAttribute("mensaje","<script>alert('Ocurrió un error al eliminar el item de egreso')</script>");
               }
           }
       }    
@@ -210,14 +210,14 @@ public class AbmGastosServlet extends AutorizacionServlet {
                        request.setAttribute("itemsExpense",itmExps);
                    }
                    if(gasto == null){
-                       request.setAttribute("mensaje","<script>alert('El item de gasto no existe')</script>"); 
+                       request.setAttribute("mensaje","<script>alert('El item de egreso no existe')</script>"); 
                    }else{
                        request.setAttribute("script","<script>init();</script>");
                    }
                
            } catch (Exception e) {
                e.printStackTrace();                 
-               request.setAttribute("mensaje","<script>alert('Error al cargar el item de gasto')</script>"); 
+               request.setAttribute("mensaje","<script>alert('Error al cargar el item de egreso')</script>"); 
            }
       }
       else if(mesId != null && anioId != null  && (accion != null  && accion.equalsIgnoreCase("BuscarItemFecha") ))//|| (accion!=null && !accion.equalsIgnoreCase("cancelar")) ))
@@ -244,7 +244,7 @@ public class AbmGastosServlet extends AutorizacionServlet {
                   
             } catch (Exception e) {
                 e.printStackTrace();                 
-                request.setAttribute("mensaje","<script>alert('Error al buscar el item de gasto')</script>"); 
+                request.setAttribute("mensaje","<script>alert('Error al buscar el item de egreso')</script>"); 
             }                                    
        }
       else {
@@ -269,7 +269,7 @@ public class AbmGastosServlet extends AutorizacionServlet {
               
           } catch (Exception e) {
               e.printStackTrace();                 
-              request.setAttribute("mensaje","<script>alert('Error al buscar el item de gasto')</script>"); 
+              request.setAttribute("mensaje","<script>alert('Error al buscar el item de egreso')</script>"); 
           }       
       }        
       request.getRequestDispatcher("gastos.jsp").forward(request,response);

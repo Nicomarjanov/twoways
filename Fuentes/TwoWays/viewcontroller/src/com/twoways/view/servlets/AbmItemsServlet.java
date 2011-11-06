@@ -66,7 +66,7 @@ public class AbmItemsServlet extends AutorizacionServlet {
                 e.printStackTrace();
             }
            
-            request.setAttribute("mensaje","<script>alert('El item se guardo con exito')</script>");                    
+            request.setAttribute("mensaje","<script>alert('El item se guardó con éxito')</script>");                    
             
         }
             else  if(itmId != null && itmId.length() > 0  && (accion == null || (accion!=null && !accion.equalsIgnoreCase("cancelar")) ))

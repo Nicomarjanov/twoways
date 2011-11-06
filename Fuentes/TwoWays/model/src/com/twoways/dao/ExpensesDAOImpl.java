@@ -199,7 +199,7 @@ public class ExpensesDAOImpl extends AbstractDAO  implements ExpenseDAO {
         " from items_expenses i, expenses e, items m\n" + 
         " where i.expenses_exp_id=e.exp_id\n" + 
         " and i.items_itm_id=m.itm_id \n" +
-        " and m.itm_type = 'Gastos' ";
+        " and m.itm_type = 'Egresos' ";
             
         if (expensesParameters.get("mesId") != null && expensesParameters.get("mesId").toString().length() > 0){
             query +=" and to_char(e.exp_date,'mm')=#mesId#";

@@ -15,6 +15,7 @@ import com.twoways.to.AccountsTO;
 import com.twoways.to.ClientResponsableTO;
 import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.CotizationsTO;
+import com.twoways.to.CurrencyCotizationsTO;
 import com.twoways.to.EmployeesRatesTO;
 import com.twoways.to.EmployeesTO;
 
@@ -430,9 +431,9 @@ public class ServiceTW_System {
     public boolean deleteCotizacion(String cucId) {
         try {
 
-            CotizationsTO cotizationTO = new CotizationsTO();
-            cotizationTO.setCucId(Long.parseLong(cucId));
-            return twoWaysBDL.getServiceTwoWays().eliminarCotizacion(cotizationTO);
+            CurrencyCotizationsTO currencyCotizationsTO = new CurrencyCotizationsTO();
+            currencyCotizationsTO.setCucId(Long.parseLong(cucId));
+            return twoWaysBDL.getServiceTwoWays().eliminarCotizacion(currencyCotizationsTO);
         } catch (Exception e) {
 
             e.printStackTrace();

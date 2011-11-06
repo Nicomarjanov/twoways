@@ -12,7 +12,7 @@ public class CurrencyCotizationsTO {
     //(name="CUC_ID", nullable = false)
     private Long cucId;
     //(name="CUC_VALUE", nullable = false)
-    private Long cucValue;
+    private Double cucValue;
     private Timestamp cucEraseDate;
     //
     //(name="CURRENCY_CUR_ID", nullable = false, insertable = false, 
@@ -39,11 +39,11 @@ public class CurrencyCotizationsTO {
         this.cucId = cucId;
     }
 
-    public Long getCucValue() {
+    public Double getCucValue() {
         return cucValue;
     }
 
-    public void setCucValue(Long cucValue) {
+    public void setCucValue(Double cucValue) {
         this.cucValue = cucValue;
     }
 

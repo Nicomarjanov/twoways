@@ -1,6 +1,6 @@
 function cancelar()
 {
-    if(confirm('¿Desea cancelar la carga de la tarifa?'))
+    if(confirm('¿Desea cancelar la carga del item?'))
     {   
         document.getElementById("accion").value='cancelar';
         document.forms[0].submit();

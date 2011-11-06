@@ -28,7 +28,7 @@
 </li> 
 <li><a href="#" >Contables</a> 
     <ul>
-        <li><a href="gastos">Registrar gastos/ingresos</a></li> 
+        <li><a href="gastos">Registrar egresos/ingresos</a></li> 
         <li><a href="pagos">Registrar pago empleado</a></li>   
         <li><a href="facturacion">Facturación</a></li>      
     </ul>
