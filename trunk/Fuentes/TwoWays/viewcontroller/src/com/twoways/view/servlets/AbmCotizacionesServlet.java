@@ -52,7 +52,7 @@ public class AbmCotizacionesServlet extends AutorizacionServlet {
         if (mes.length()==1){
             mes="0"+mes;
         }
-        String fecha=(""+dia+"/"+mes+"/"+annio);
+        String fecha=(""+dia+"/"+mes+"/"+annio+" 00:00");
         request.setAttribute("auxDate",fecha); 
        
         TwoWaysBDL twoWaysBDL=null;
@@ -73,7 +73,7 @@ public class AbmCotizacionesServlet extends AutorizacionServlet {
             cotization.setCucValue((request.getParameter("cotValue")!= null )?Double.parseDouble(request.getParameter("cotValue").replace(",",".")):0);
             try {
                 if(request.getParameter("cotDate")!= null && !request.getParameter("cotDate").equalsIgnoreCase("") ){ 
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                     java.util.Date date = sdf.parse(request.getParameter("cotDate"));
                     java.sql.Timestamp timest = new java.sql.Timestamp(date.getTime()); 
                     cotization.setCucDate(timest);
@@ -93,7 +93,7 @@ public class AbmCotizacionesServlet extends AutorizacionServlet {
                 e.printStackTrace();
             }
            
-            request.setAttribute("mensaje","<script>alert('La cotización de la moneda se guardó con exito')</script>");                    
+            request.setAttribute("mensaje","<script>alert('La cotización de la moneda se guardó con éxito')</script>");                    
             
         }
          

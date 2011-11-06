@@ -27,6 +27,7 @@ import com.twoways.to.ClientResponsableTO;
 import com.twoways.to.ClientsRatesTO;
 import com.twoways.to.ClientsTO;
 import com.twoways.to.CotizationsTO;
+import com.twoways.to.CurrencyCotizationsTO;
 import com.twoways.to.CurrencyTO;
 import com.twoways.to.DocTypes;
 import com.twoways.to.EmployeesRatesTO;
@@ -871,8 +872,8 @@ public class TW_SystemServiceImpl implements TW_SystemService {
         return this.cotizationsDao.insertarCotizacion(cotizationsTO);
     }
     
-    public boolean eliminarCotizacion(CotizationsTO cotizationsTO) throws Exception {
-        return this.cotizationsDao.eliminarCotizacion(cotizationsTO);
+    public boolean eliminarCotizacion(CurrencyCotizationsTO currencyCotizationsTO) throws Exception {
+        return this.cotizationsDao.eliminarCotizacion(currencyCotizationsTO);
     }
 
     public void setCotizationsDao(CotizationDAO cotizationsDao) {

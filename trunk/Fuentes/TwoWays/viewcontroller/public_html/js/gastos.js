@@ -12,7 +12,7 @@ function keyTarifa(e) {
 
 function cancelar()
 {
-    if(confirm('¿Desea cancelar la carga del item de gasto?'))
+    if(confirm('¿Desea cancelar la carga del item de egreso?'))
     {   
         document.getElementById("accion").value='cancelar';
         document.forms[0].submit();
@@ -115,7 +115,7 @@ function cargarItemGasto(row){
     }
     row.id= auxId;
   
-    if(tipoItem == 'Gastos'){
+    if(tipoItem == 'Egresos'){
         row.style.background="#d24444";
     }
     else {  
@@ -128,7 +128,7 @@ function cargarItemGasto(row){
     row.cells[3].innerHTML= valorMonto;
     row.cells[4].innerHTML= nomCuenta[1];
     row.cells[5].innerHTML= numUser;
-    row.cells[6].innerHTML= '<img src="img/del2.png" height="15" width="15"  alt="Eliminar" onclick="eliminarItemExp(\''+row.id+'\')" onmouseover="this.style.cursor=\'hand\';" />    <img  src="img/Edit2.png" height="15" width="15"  alt="Editar Item de Gasto" onclick="editarItemExp(\''+valorEditar+'\')" onmouseover="this.style.cursor=\'hand\';" />';
+    row.cells[6].innerHTML= '<img src="img/del2.png" height="15" width="15"  alt="Eliminar" onclick="eliminarItemExp(\''+row.id+'\')" onmouseover="this.style.cursor=\'hand\';" />    <img  src="img/Edit2.png" height="15" width="15"  alt="Editar Item de Egreso" onclick="editarItemExp(\''+valorEditar+'\')" onmouseover="this.style.cursor=\'hand\';" />';
     row.cells[0].width="15%";
     row.cells[1].width="30%";
     row.cells[2].width="15%";
@@ -204,7 +204,7 @@ function BuscarItemFecha(){
 
 function eliminarGasto(expId)
 {
-    if(confirm('¿Desea eliminar la planilla de gastos completa?'))
+    if(confirm('¿Desea eliminar la planilla de egresos completa?'))
     {   
         document.getElementById("accion").value='eliminar';
         document.getElementById("expId").value=expId;

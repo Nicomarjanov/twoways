@@ -14,7 +14,7 @@
     <script type='text/javascript' src='/twoways/dwr/util.js'></script>
     <script type='text/javascript' src="./js/commons.js"></script>  
     <script type='text/javascript' src="./js/CalendarPopup.js"></script>   
-    <title>Gastos/Ingresos</title>
+    <title>Egresos/Ingresos</title>
   </head>
   <body>
   <jsp:include page="/WEB-INF/jspIncludes/menu.jsp" />
@@ -29,7 +29,7 @@
   <table width="100%">
   <thead>
   <tr>
-    <th colspan="3" align="center" class="tw_form">Ingrese los campos con los datos de los Gastos/Ingresos</th>
+    <th colspan="3" align="center" class="tw_form">Ingrese los campos con los datos de los Egresos/Ingresos</th>
   </tr>
   </thead>
   <tbody>
@@ -144,7 +144,7 @@
             <td width="15%" align="center"  style ="background-color:#F8E0E0;color:#585858;align:left">       
                <select name="tipoItem" id="tipoItem" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';" onchange="createDynamicDropdown('tipoItem', 'listaItemsAux','listaItems')">     
                         <option value="" >Seleccionar</option>
-                        <option value="Gastos" >Gastos</option>
+                        <option value="Egresos" >Egresos</option>
                         <option value="Ingresos" >Ingresos</option>
                </select> 
             </td> 
@@ -220,7 +220,7 @@
                             <c:set scope="page" var="color_row" value="${'#E8B6B5'}" />
                             <c:forEach items="${itemsExpense}" var="item">
                             <c:choose>
-                             <c:when test="${item[\'ITM_TYPE\'] == 'Gastos'}">  
+                             <c:when test="${item[\'ITM_TYPE\'] == 'Egresos'}">  
                                   <c:set scope="page" var="color_row" value="${'#d24444'}" />
                                 </c:when>        
                                 <c:otherwise>

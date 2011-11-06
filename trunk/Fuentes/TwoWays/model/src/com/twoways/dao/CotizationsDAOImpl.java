@@ -2,6 +2,8 @@ package com.twoways.dao;
 
 import com.twoways.to.CotizationsTO;
 
+import com.twoways.to.CurrencyCotizationsTO;
+
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
@@ -29,8 +31,8 @@ public class CotizationsDAOImpl extends AbstractDAO  implements CotizationDAO {
         return ret;
     }  
 
-    public boolean eliminarCotizacion(CotizationsTO cotizationsTO) throws Exception {
-        int res =  getSqlMapClientTemplate().delete("deleteCotizacion",cotizationsTO);
+    public boolean eliminarCotizacion(CurrencyCotizationsTO currencyCotizationsTO) throws Exception {
+        int res =  getSqlMapClientTemplate().delete("deleteCotizacion",currencyCotizationsTO);
         return (res > 0);
     }    
     

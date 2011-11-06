@@ -405,6 +405,7 @@
         from currency_cotizations 
         where currency_cur_id = #curId# 
         and to_Date(#curDate#,'dd/MM/yyyy hh24:mi') >= cuc_date 
+        and cuc_erase_date is null
         order by diferencia )
    </statement>     
  
@@ -1594,7 +1595,7 @@
       values (#paymentsTO.payId#, #proAssigmentsDetailsTO.padId#)
   </insert>
 
-  <resultMap id="select-Cotization" class="com.twoways.to.CotizationsTO" >
+  <resultMap id="select-Cotization" class="com.twoways.to.CurrencyCotizationsTO" >
       <result property="cucId" column="cuc_Id" />  
       <result property="cucDate" column="cuc_Date" />
       <result property="cucValue" column="cuc_Value" />
@@ -1661,7 +1662,7 @@
         and os.rate_types_rty_name=p.rty_name
         and r.orr_pay_date is null
         and r.orr_wcount > 0
-        and to_date(o.ord_finish_date,'dd/MM/rrrr') between to_date(#mesId#,'MMyyyy') and last_day(to_date(#mesId#,'MMyyyy'))
+        and to_date(o.ord_finish_date,'dd/MM/rrrr') between add_months(to_date('25'||#mesId#,'ddMMyyyy'),-1) and to_date('25'||#mesId#,'ddMMyyyy')
         order by o.ord_name
   </select>
 

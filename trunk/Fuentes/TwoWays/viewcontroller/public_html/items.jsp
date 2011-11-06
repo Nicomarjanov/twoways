@@ -40,17 +40,17 @@
             <option value="" selected="selected">Seleccionar</option>
             <c:choose>
                 <c:when test="${item.itmType != null}">
-                    <c:if test="${item.itmType == 'Gastos'}">
-                        <option value="Gastos" style="background-color:#A4BAC7;" selected="selected">Gastos</option> 
+                    <c:if test="${item.itmType == 'Egresos'}">
+                        <option value="Egresos" style="background-color:#A4BAC7;" selected="selected">Egresos</option> 
                         <option value="Ingresos" style="background-color:#A4BAC7;">Ingresos</option>
                     </c:if>
                     <c:if test="${item.itmType == 'Ingresos'}">
-                        <option value="Gastos" style="background-color:#A4BAC7;" >Gastos</option> 
+                        <option value="Egresos" style="background-color:#A4BAC7;" >Egresos</option> 
                         <option value="Ingresos" style="background-color:#A4BAC7;" selected="selected">Ingresos</option>
                     </c:if>
                 </c:when>
                 <c:otherwise>
-                        <option value="Gastos" style="background-color:#A4BAC7;" >Gastos</option> 
+                        <option value="Egresos" style="background-color:#A4BAC7;" >Egresos</option> 
                         <option value="Ingresos" style="background-color:#A4BAC7;">Ingresos</option>                
                 </c:otherwise>
             </c:choose>
