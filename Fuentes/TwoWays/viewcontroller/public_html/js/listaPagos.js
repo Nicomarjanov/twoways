@@ -69,6 +69,24 @@ function next(){
   buscarPagos();
 }
 
+function backItems(){
+  
+  var pageId = document.getElementById('pageId')   
+  var payId = document.getElementById('payId') 
+  pageId.value =parseInt(pageId.value) -1;
+  var frmlistItemsPagos = document.getElementById('frmlistItemsPagos');
+  frmlistItemsPagos.submit();
+
+}
+
+function nextItems(){
+  var pageId = document.getElementById('pageId')   
+  var payId = document.getElementById('payId') 
+  pageId.value = parseInt(pageId.value) +1;
+  var frmlistItemsPagos = document.getElementById('frmlistItemsPagos');
+  frmlistItemsPagos.submit();
+}
+
 function nuevaBusqueda()
 { 
     document.getElementById("accion").value="";

@@ -198,6 +198,7 @@
      select *      
      from 
      Employees
+     where emp_erase_date is null
      order by emp_first_name
 
   </select>
@@ -1572,7 +1573,7 @@
          and pd.project_assignments_employees_ = pa.employees_emp_id
          and pd.project_assignments_projects_p = pa.projects_pro_id
          and r.rat_id = pd.employees_rates_rates_rat_id
-         and pa.pra_assign_date between add_months(to_date(#mesId#||'00:00','ddMMyyyy hh24:mi')+1,-1) and to_date(#mesId#||'23:59','ddMMyyyy hh24:mi')
+         and pa.pra_finish_date between add_months(to_date(#mesId#||'00:00','ddMMyyyy hh24:mi')+1,-1) and to_date(#mesId#||'23:59','ddMMyyyy hh24:mi')
          and r.currency_cur_id=c.cur_id
          and pd.pad_pay_date is null
          and r.rat_type = y.rty_name
@@ -1662,7 +1663,7 @@
         and os.rate_types_rty_name=p.rty_name
         and r.orr_pay_date is null
         and r.orr_wcount > 0
-        and to_date(o.ord_finish_date,'dd/MM/rrrr') between add_months(to_date('25'||#mesId#,'ddMMyyyy'),-1) and to_date('25'||#mesId#,'ddMMyyyy')
+        and to_date(o.ord_finish_date,'dd/MM/rrrr') between to_date(#mesId#,'MMyyyy') and last_day(to_date(#mesId#,'MMyyyy'))
         order by o.ord_name
   </select>
 

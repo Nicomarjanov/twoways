@@ -57,13 +57,14 @@ public class ListaItemsPagosServlet extends AutorizacionServlet {
                            
                        }
                    }
-                              
-                    int maxPage = (int)(itemsPagoList.size() / 10);
+                    int maxPage = 0;
+                    if (itemsPagoList.size()== 10) maxPage =1;
+                    else maxPage =(int)(itemsPagoList.size() / 10) + 1;                             
                     request.setAttribute("listaItemsPagos",subpagos);
                     request.setAttribute("maxPage",maxPage);
                     request.setAttribute("page",page);                    
-                   request.setAttribute("pageId",page); 
-                   
+                    request.setAttribute("pageId",page); 
+                    request.setAttribute("payId",payId);
                 }catch(Exception e){
                    e.printStackTrace(); 
                 }        
