@@ -163,7 +163,10 @@ public class AbmPagosServlet extends AutorizacionServlet {
                     if (auxAmount > 0.0){
                         NumberFormat formatter = new DecimalFormat("#0.00");
                         request.setAttribute("payAmount",formatter.format(auxAmount));
+                    }else{
+                        request.setAttribute("payAmount","0");
                     }
+                    
                    /* empleados =  twoWaysBDL.getServiceTwoWays().obtenerEmpleados();
                     request.setAttribute("listaEmpleados",empleados);*/
                 }else {

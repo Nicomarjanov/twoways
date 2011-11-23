@@ -191,7 +191,7 @@
                            </td><td>Página <fmt:formatNumber type="number" minFractionDigits="0" value="${page + 1 }" /> de <fmt:formatNumber type="number" minFractionDigits="0" value="${maxPage }" />
                            </td><td>
                            
-                        <c:if test="${page < maxPage}"> 
+                        <c:if test="${(page + 1) < maxPage}"> 
                          <img src="img/player_next.png" height="20" width="20" onclick="next()" alt=">" />
                         </c:if> 
                      </td></tr>

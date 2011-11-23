@@ -152,7 +152,7 @@
                 <td nowrap ><c:out value="${Pago.currencyTO.curName}" /></td>
                 <td nowrap ><c:out value="${Pago.payAmount}" /></td>
                 <td nowrap ><c:out value="${Pago.userTO.usrId}"/></td>                
-                <td nowrap align="center"><a href="listaItemsPagos?payId=<c:out value="${Pago.payId}"/>"  onclick="return verItemsPago(this)"><img border=0 src="img/detail.png" alt="+" width="32" height="32" title="Ver items Pagados"  onmouseover="this.style.cursor='hand';"/></a></td>
+                <td nowrap align="center"><a href="listaItemsPagos?payId=<c:out value="${Pago.payId}"/>&pageId=0"  onclick="return verItemsPago(this)"><img border=0 src="img/detail.png" alt="+" width="32" height="32" title="Ver items Pagados"  onmouseover="this.style.cursor='hand';"/></a></td>
                 <td nowrap align="center" ><img  src="img/edit-delete.png" alt="Anular Pago" width="32" height="32" title="Anular Pago" onclick="anularPago(<c:out value="${Pago.payId}"/>)" onmouseover="this.style.cursor='hand';"/></td> 
                 <td nowrap align="center">
                     <img  src="img/print.png" alt="print" width="32" height="32" title="Imprimir Pago" onclick="imprimirPago(<c:out value="${Pago.payId}"/>,<c:out value="${Pago.employeeTO.empId}"/>,'<fmt:formatDate value="${Pago.payDate}"    pattern="dd/MM/yyyy" />',<c:out value="${Pago.accountsTO.accId}"/>,'<c:out value="${Pago.currencyTO.curId}"/>#<c:out value="${Pago.currencyTO.curSymbol}"/>','<c:out value="${Pago.payAmount}"/>')" onmouseover="this.style.cursor='hand';"/>
@@ -178,7 +178,7 @@
                            </td><td>Página <fmt:formatNumber type="number" minFractionDigits="0" value="${page + 1 }" /> de <fmt:formatNumber type="number" minFractionDigits="0" value="${maxPage }" />
                            </td><td>
                            
-                        <c:if test="${page < maxPage}"> 
+                        <c:if test="${(page + 1) < maxPage}"> 
                          <img src="img/player_next.png" height="20" width="20" onclick="next()" alt=">" />
                         </c:if> 
                         </td>

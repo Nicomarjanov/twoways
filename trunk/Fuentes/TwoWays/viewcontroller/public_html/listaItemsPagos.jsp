@@ -17,9 +17,10 @@
   </head>
   <body>
     <c:out value="${mensaje}" escapeXml="false"/>
-    <form id="frmlistItemsPagos" name="frmlistItemsPagos" action="frmlistItemsPagos" method="POST">
+    <form id="frmlistItemsPagos" name="frmlistItemsPagos" action="listaItemsPagos" method="POST">
     <input type="hidden"  name="accion"  id="accion"  value=""   />
     <input type="hidden"  name="pageId"  id="pageId" value="<c:out value="${pageId}" />" >
+    <input type="hidden"  name="payId"  id="payId" value="<c:out value="${payId}" />" >    
     <table id ="tabla-busqueda">
     <thead>
        <tr style="display:block; background-color='transparent';" align="center">                       
@@ -61,13 +62,13 @@
             <tr>
                 <td>
                 <c:if test="${page != 0}">
-                    <img src="img/player_start.png" height="20" width="20" onclick="back()" alt="<"/>
+                    <img src="img/player_start.png" height="20" width="20" onclick="backItems()" alt="<"/>
                 </c:if>
-                   </td><td>Página <fmt:formatNumber type="number" minFractionDigits="0" value="${page + 1 }" /> de <fmt:formatNumber type="number" minFractionDigits="0" value="${maxPage + 1 }" />
+                   </td><td>Página <fmt:formatNumber type="number" minFractionDigits="0" value="${page + 1 }" /> de <fmt:formatNumber type="number" minFractionDigits="0" value="${maxPage}" />
                    </td><td>
                    
-                <c:if test="${page < maxPage}"> 
-                 <img src="img/player_next.png" height="20" width="20" onclick="next()" alt=">" />
+                <c:if test="${(page +1)< maxPage}"> 
+                 <img src="img/player_next.png" height="20" width="20" onclick="nextItems()" alt=">" />
                 </c:if> 
                 </td>
              </tr>

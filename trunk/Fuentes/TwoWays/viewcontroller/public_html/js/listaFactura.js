@@ -65,6 +65,23 @@ function next(){
   buscarFacturas();
 }
 
+function backItems(){
+  
+  var pageId = document.getElementById('pageId')   
+  var invId = document.getElementById('invId') 
+  pageId.value =parseInt(pageId.value) -1;
+  var frmlistItemsFactura = document.getElementById('frmlistItemsFactura');
+  frmlistItemsFactura.submit();
+
+}
+
+function nextItems(){
+  var pageId = document.getElementById('pageId')   
+  var invId = document.getElementById('invId') 
+  pageId.value = parseInt(pageId.value) +1;
+  var frmlistItemsFactura = document.getElementById('frmlistItemsFactura');
+  frmlistItemsFactura.submit();
+}
 function nuevaBusqueda()
 { 
     document.getElementById("accion").value="";

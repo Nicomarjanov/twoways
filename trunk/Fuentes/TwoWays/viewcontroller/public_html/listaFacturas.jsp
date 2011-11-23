@@ -153,7 +153,7 @@
                 <td nowrap ><c:out value="${factura.invTotal}" /></td>
                 <td nowrap ><c:out value="${factura.invInvoiced}" /></td>
                 <td nowrap ><c:out value="${factura.usersTO.usrId}"/></td>                
-                <td nowrap align="center"><a href="listaItemsFactura?invId=<c:out value="${factura.invId}"/>"  onclick="return verItemsFactura(this)"><img border=0 src="img/detail.png" alt="+" width="32" height="32" title="Ver items facturados"  onmouseover="this.style.cursor='hand';"/></a></td>
+                <td nowrap align="center"><a href="listaItemsFactura?invId=<c:out value="${factura.invId}"/>&pageId=0"  onclick="return verItemsFactura(this)"><img border=0 src="img/detail.png" alt="+" width="32" height="32" title="Ver items facturados"  onmouseover="this.style.cursor='hand';"/></a></td>
                 <td nowrap align="center"><img  src="img/edit-delete.png" alt="Anular factura" width="32" height="32" title="Anular factura" onclick="anularFactura(<c:out value="${factura.invId}"/>)" onmouseover="this.style.cursor='hand';"/></td> 
                 <td nowrap align="center">
                 <c:if test="${factura.invInvoiced == 'no'}">
@@ -184,7 +184,7 @@
                            </td><td>Página <fmt:formatNumber type="number" minFractionDigits="0" value="${page + 1 }" /> de <fmt:formatNumber type="number" minFractionDigits="0" value="${maxPage }" />
                            </td><td>
                            
-                        <c:if test="${page < maxPage}"> 
+                        <c:if test="${(page +1) < maxPage}"> 
                          <img src="img/player_next.png" height="20" width="20" onclick="next()" alt=">" />
                         </c:if> 
                         </td>
