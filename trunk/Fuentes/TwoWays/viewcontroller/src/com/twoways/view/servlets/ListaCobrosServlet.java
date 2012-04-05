@@ -1,5 +1,6 @@
 package com.twoways.view.servlets;
 
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -355,6 +356,8 @@ public class ListaCobrosServlet extends AutorizacionServlet {
    // String printOrden[] = request.getParameterValues("print-ordenes-hidden");        
     String invTotal = request.getParameter("invTotal");    
     String curSymbol[] =request.getParameter("curSymbol").split("#");     
+
+    NumberFormat formatter = new DecimalFormat("#0.00");
         
     PdfPTable table = new PdfPTable(9);
     table.setWidthPercentage(100f);
@@ -384,8 +387,31 @@ public class ListaCobrosServlet extends AutorizacionServlet {
 
     Map auxMap = new HashMap();
     Iterator iterador = itemsFacturaList.listIterator();
+    String bandera1 = "1";
+    String bandera = null;
+    String bandNom = null;    
+    Double subtotal = 0.0;
     while( iterador.hasNext() ) {
         auxMap =(HashMap)iterador.next();
+        if(bandera != null && !bandera.equalsIgnoreCase(auxMap.get("ORDID").toString()) && bandera1.equalsIgnoreCase("0")){
+            cell = new PdfPCell(new Phrase("Subtotal "+bandNom+":",cf));
+            cell.setColspan(7);
+            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            table.addCell(cell);      
+
+            table.addCell(formatter.format(subtotal));
+            cell = new PdfPCell();
+            cell.setBorder(PdfPCell.NO_BORDER);        
+            table.addCell(cell);
+            subtotal = 0.0;
+            bandera1 = "1";
+        }
+        subtotal += Double.valueOf(auxMap.get("ORDTOTAL").toString());
+        bandera = auxMap.get("ORDID").toString();
+        bandNom = auxMap.get("ORDNAME").toString();
+        bandera1 ="0";
+        
          cell = new PdfPCell(new Phrase((auxMap.get("PROJID")!=null)?auxMap.get("PROJID").toString():"",cf));
          cell.setHorizontalAlignment(Element.ALIGN_LEFT);
          table.addCell(cell);
@@ -419,7 +445,18 @@ public class ListaCobrosServlet extends AutorizacionServlet {
          cell.setHorizontalAlignment(Element.ALIGN_LEFT);
          table.addCell(cell);
      }
-     
+        //subtotal final
+        cell = new PdfPCell(new Phrase("Subtotal "+bandNom+":",cf));
+        cell.setColspan(7);
+        cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+        cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        table.addCell(cell);      
+
+        table.addCell(formatter.format(subtotal));     
+        cell = new PdfPCell();
+        cell.setBorder(PdfPCell.NO_BORDER);        
+        table.addCell(cell);
+        
         //Linea en blanco
         cell = new PdfPCell();
         cell.setBorder(PdfPCell.NO_BORDER);

@@ -13,6 +13,7 @@ public class ItemsExpensesTO {
     private Long iteId;
     //(name="ITE_VALUE")
     private Double iteValue;
+    private String iteComment;
     private Timestamp iteDate;
     
     private AccountsTO accountsTO;
@@ -105,5 +106,13 @@ public class ItemsExpensesTO {
 
     public PaymentsTO getPaymentsTO() {
         return paymentsTO;
+    }
+
+    public void setIteComment(String iteComment) {
+        this.iteComment = iteComment;
+    }
+
+    public String getIteComment() {
+        return iteComment;
     }
 }

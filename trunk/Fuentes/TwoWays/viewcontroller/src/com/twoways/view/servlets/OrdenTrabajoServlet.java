@@ -263,12 +263,12 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                     orderRatesTO.setClrValue(Double.parseDouble(atribs[1].replaceAll(",",".")));
                     if (cantPalAux != null && cantPalAux.size() > 0){ 
                        String palabras= (cantPalAux.get(indice).toString().length() > 0)?cantPalAux.get(indice).toString():"0";
-                       orderRatesTO.setOrrWcount(Long.parseLong(palabras));
+                       orderRatesTO.setOrrWcount(Float.parseFloat(palabras));
                     }
                     else if (cantPalAuxString != null){
-                       orderRatesTO.setOrrWcount(Long.parseLong(cantPalAuxString));
+                       orderRatesTO.setOrrWcount(Float.parseFloat(cantPalAuxString));
                     }else{
-                       orderRatesTO.setOrrWcount(new Long (0));
+                       orderRatesTO.setOrrWcount(new Float (0));
                     }
                     RatesTO rtTO= new RatesTO();
                     rtTO.setRatId(Long.parseLong(atribs[0]));

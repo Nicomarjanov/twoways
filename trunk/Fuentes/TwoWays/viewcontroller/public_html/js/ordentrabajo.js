@@ -193,6 +193,13 @@ function validarCampos()
         mensajeFaltanteAlert+=' * Seleccionar un cliente del combo \n';    
         banderaMensajeFaltante=true;
     }
+
+    if(document.getElementById("listaRespClientes").selectedIndex==0)
+    {
+        document.getElementById("listaRespClientes").style.background='red';
+        mensajeFaltanteAlert+=' * Seleccionar un responsable de cliente del combo \n';    
+        banderaMensajeFaltante=true;
+    }
     
     var fecha = document.getElementById("ordStartDate");
 
@@ -248,8 +255,8 @@ var ordFinishDate = document.getElementById("ordFinishDate");
     var cantidad = new Array()
     cantidad = document.getElementsByName("cantPalabras");       
     for (i=0;i < cantidad.length;i++){
-        if (!isNumber(cantidad[i].value) && cantidad[i].value!=''){
-            mensajeFaltanteAlert+= ' * Fecha de entrega de la Orden \n';
+        if (!isFloat(cantidad[i].value) && cantidad[i].value!=''){
+            mensajeFaltanteAlert+= ' * La Cantidad de palabras no puede ser vacio \n';
             cantidad[i].style.background='Red';
             banderaMensajeFaltante=true;
         }
@@ -433,8 +440,10 @@ function sumarMonto(){
     if (valores.length > 0){
         for(i=0;i<valores.length;i++){
             if (palabras[i].value != null && palabras[i].value != ""){
-                
-                montoAux =valores[i].value*palabras[i].value;
+                palabras[i].value=palabras[i].value.replace(",",".");          
+                if(isFloat(palabras[i].value)){
+                    montoAux =valores[i].value*palabras[i].value;
+                }
             }else{
 
                 montoAux=0;

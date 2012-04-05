@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252"/>
     <link href="./twoways.css" rel="stylesheet" type="text/css"/>
-    <script  type='text/javascript' src="./js/gastos.js"></script>
+    <script type='text/javascript' src="./js/gastos.js"></script>
     <script type='text/javascript' src="./js/utils.js"></script>    
     <script type='text/javascript' src='/twoways/dwr/interface/towaysDWR.js'></script>
     <script type='text/javascript' src='/twoways/dwr/engine.js'></script>
@@ -130,6 +130,7 @@
         <th width="15%" align="center">Seleccione Moneda</th>
         <th width="15%" align="center">Ingrese Monto</th>
         <th width="13%" align="center">Seleccione Cuenta</th>
+        <th width="15%" align="center">Comentarios</th>        
         <th width="10%" align="center">Responsable</th>
         <th width="2%">Agregar</th>
       </tr>
@@ -185,6 +186,9 @@
                         </c:forEach>
                </select> 
             </td>
+            <td width="15%" align="center"  style ="background-color:#F8E0E0;color:#585858;align:left">
+                <input type="text" id="expComentario" name="expComentario" value=" " class="tw_form" onfocus="javascript:this.style.background='#FFFFFF';" style="text-align:left;"></input>
+            </td>            
             <td width="10%" align="center"  style="background-color:#F8E0E0;color:#585858;align:left">
                 <input readonly size="15" type="text" id="expUsuario" name="expUsuario" class="tw_form" onfocus="javascript:this.style.background='#FFFFFF';" value="<c:out value="${expUsuario}" />" ></input>
                 <input type="hidden" id="iteId" name="iteId" value=""/>   
@@ -212,6 +216,7 @@
                             <th width="15%" align="center" style="border:solid 1px #FFFFFF;">Moneda</th>
                             <th width="15%" align="center" style="border:solid 1px #FFFFFF;">Monto</th>
                             <th width="13%" align="center" style="border:solid 1px #FFFFFF;">Cuenta</th>
+                            <th width="15%" align="center" style="border:solid 1px #FFFFFF;">Comentarios</th>
                             <th width="10%" align="center" style="border:solid 1px #FFFFFF;">¿Quién lo cargó?</th>
                             <th width="2%" align="center" style="border:solid 1px #FFFFFF;">Opciones</th>
                         </tr>
@@ -230,14 +235,15 @@
                             <tr name="item-gastos" id="<c:out value="${item[\'ITE_ID\']}" />" bgcolor="<c:out value="${color_row}"/>" > 
                                 <td width="15%" ><fmt:formatDate value="${item[\'ITE_DATE\']}" pattern="dd/MM/yyyy" /></td>
                                 <td width="30%" ><c:out value="${item[\'ITM_NAME\']}" />
-                                  <input type="hidden" name="item-gasto-hidden"  value="<c:out value="${item[\'ITM_ID\']}" />#<c:out value="${item[\'CUR_ID\']}" />#<c:out value="${item[\'ITE_VALUE\']}" />#<c:out value="${item[\'ACC_ID\']}" />#<c:out value="${item[\'USR_ID\']}" />#<fmt:formatDate value="${item[\'ITE_DATE\']}" pattern="dd/MM/yyyy"/>#<c:out value="${item[\'ITE_ID\']}" />"</td>
+                                  <input type="hidden" name="item-gasto-hidden"  value="<c:out value="${item[\'ITM_ID\']}" />#<c:out value="${item[\'CUR_ID\']}" />#<c:out value="${item[\'ITE_VALUE\']}" />#<c:out value="${item[\'ACC_ID\']}" />#<c:out value="${item[\'USR_ID\']}" />#<c:out value="${item[\'ITE_COMMENT\']}" />#<fmt:formatDate value="${item[\'ITE_DATE\']}" pattern="dd/MM/yyyy"/>#<c:out value="${item[\'ITE_ID\']}" />"</td>
                                 <td width="15%" ><c:out value="${item[\'CUR_NAME\']}" /></td>
                                 <td width="15%" align="right"><c:out value="${item[\'ITE_VALUE\']}" /></td>
                                 <td width="13%" ><c:out value="${item[\'ACC_NAME\']}" /></td>
+                                <td width="15%" align="right"><c:out value="${item[\'ITE_COMMENT\']}" /></td>
                                 <td width="10%" ><c:out value="${item[\'USR_ID\']}" /></td>                                   
                                 <td width="2%">
                                     <c:if test="${(item[\'ITM_ID\'] != '20') && (item[\'ITM_ID\'] != '8')}"> 
-                                        <img  src="img/del2.png" height="15" width="15"  alt="Eliminar" onclick="eliminarItemExp('<c:out value="${item[\'ITE_ID\']}" />')" onmouseover="this.style.cursor='hand';" />    <img  src="img/Edit2.png" height="15" width="15"  alt="Editar Item de Gasto" onclick="editarItemExp('<c:out value="${item[\'ITM_ID\']}"/>#<c:out value="${item[\'ITM_NAME\']}"/>*#<c:out value="${item[\'CUR_ID\']}"/>#<c:out value="${item[\'CUR_NAME\']}"/>*#<c:out value="${item[\'ITE_VALUE\']}"/>*#<c:out value="${item[\'ACC_ID\']}"/>#<c:out value="${item[\'ACC_NAME\']}"/>*#<c:out value="${item[\'USR_ID\']}"/>*#<c:out value="${item[\'ITE_ID\']}" />*#<c:out value="${item[\'ITM_TYPE\']}" />*#<fmt:formatDate value="${item[\'ITE_DATE\']}" pattern="dd/MM/yyyy"/>')" onmouseover="this.style.cursor='hand';" />
+                                        <img  src="img/del2.png" height="15" width="15"  alt="Eliminar" onclick="eliminarItemExp('<c:out value="${item[\'ITE_ID\']}" />')" onmouseover="this.style.cursor='hand';" />    <img  src="img/Edit2.png" height="15" width="15"  alt="Editar Item de Gasto" onclick="editarItemExp('<c:out value="${item[\'ITM_ID\']}"/>#<c:out value="${item[\'ITM_NAME\']}"/>*#<c:out value="${item[\'CUR_ID\']}"/>#<c:out value="${item[\'CUR_NAME\']}"/>*#<c:out value="${item[\'ITE_VALUE\']}"/>*#<c:out value="${item[\'ACC_ID\']}"/>#<c:out value="${item[\'ACC_NAME\']}"/>*#<c:out value="${item[\'USR_ID\']}"/>*#<c:out value="${item[\'ITE_ID\']}" />*#<c:out value="${item[\'ITM_TYPE\']}" />*#<fmt:formatDate value="${item[\'ITE_DATE\']}" pattern="dd/MM/yyyy"/>*#<c:out value="${item[\'ITE_COMMENT\']}" />')" onmouseover="this.style.cursor='hand';" />
                                     </c:if>
                                 </td>
                             </tr>           

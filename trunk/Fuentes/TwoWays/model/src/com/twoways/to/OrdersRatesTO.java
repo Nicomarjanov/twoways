@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 public class OrdersRatesTO {
     //
     private Double clrValue;
-    private Long orrWcount= 0L;
+    private Float orrWcount= 0f;
     private Timestamp orrPayDate;
     private RatesTO ratesTO;
     private OrdersTO ordersTO;
@@ -40,11 +40,11 @@ public class OrdersRatesTO {
         return ordersTO;
     }
 
-    public void setOrrWcount(Long orrWcount) {
+    public void setOrrWcount(Float orrWcount) {
         this.orrWcount = orrWcount;
     }
 
-    public Long getOrrWcount() {
+    public Float getOrrWcount() {
         return orrWcount;
     }
 

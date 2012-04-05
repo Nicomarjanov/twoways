@@ -185,33 +185,54 @@
                         <th width="10%" bgcolor="#80211D">Monto Tarifa</th>
                         <th width="10%" bgcolor="#80211D">Unidades</th>                        
                         <th width="10%" bgcolor="#80211D">Total orden</th>
-                        <th width="2%" bgcolor="#80211D"></th>
+                        <!--<th width="2%" bgcolor="#80211D"></th>-->
                     </tr>
                  </thead>  
                  <c:choose   >
                    <c:when test="${not empty finishedOrders}">
                  <tbody align="center">
-                   <c:forEach items="${finishedOrders}" var="item">
-                   <tr name="item-idiomas" id="<c:out value="${item[\'ORDID\']}"/><c:out value="${item[\'RATID\']}"/>" >
-                        <td width="10%" bgcolor="#FFFFF"><a href="ordentrabajo?ordId=<c:out value="${item[\'ORDID\']}" />" ><c:out value="${item[\'ORDNAME\']}" /></a></td>
-                        <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'CRENAME\']}" /></td>                         
-                        <td width="10%" bgcolor="#FFFFF"><fmt:formatDate value="${item[\'ORDFINISHDATE\']}"  pattern="dd/MM/yyyy" />
-                           <input type="hidden" name="item-ordenes-hidden"   value="<c:out value="${item[\'ORDID\']}" />#<c:out value="${item[\'RATID\']}"/>#<c:out value="${item[\'CURID\']}" />#<c:out value="${item[\'ORDTOTAL\']}" />"></input>
-                           <!--<input type="hidden" name="print-ordenes-hidden"  value="<c:out value="${item[\'ORDPROJID\']}" />#<c:out value="${item[\'ORDJOBID\']}" />#<c:out value="${item[\'ORDWONUMBER\']}"/>#<c:out value="${item[\'ORDJOBNAME\']}"/>#<c:out value="${item[\'ORDJOBDESCRIPTION\']}" />#<c:out value="${item[\'ORRWCOUNT\']}"/>#<c:out value="${item[\'CURSYMBOL\']}" /> <c:out value="${item[\'ORRVALUE\']}"/>#<c:out value="${item[\'ORDTOTAL\']}"/>#<c:out value="${item[\'CRENAME\']}" />"</input>--></td>     
-                        <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'ORDWONUMBER\']}" /></td> 
-                        <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'ORDJOBID\']}" /></td>  
-                        <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'ORDJOBNAME\']}" /></td>       
-                        <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'RATETYPENAME\']}" />-<c:out value="${item[\'RATNAME\']}" /></td>                        
-                        <td width="10%" bgcolor="#FFFFF" style="text-align:right;"><c:out value="${item[\'CURSYMBOL\']}" /> <c:out value="${item[\'ORRVALUE\']}" /></td> 
-                        <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'ORRWCOUNT\']}" /></td>                         
-                        <td width="10%" bgcolor="#FFFFF" style="text-align:right;"><c:out value="${item[\'ORDTOTAL\']}" /></td>
-                        <td width="2%">
-                            <c:if test="${accion !='imprimir'}">
-                                <img  src="img/del2.png" height="15" width="15"  alt="Eliminar" onclick="eliminarOrden('<c:out value="${item[\'ORDID\']}"/><c:out value="${item[\'RATID\']}"/>','<c:out value="${item[\'ORDTOTAL\']}" />','<c:out value="${item[\'CURID\']}" />','<fmt:formatDate value="${item[\'ORDFINISHDATE\']}"  pattern="dd/MM/yyyy HH:mm" />')" onmouseover="this.style.cursor='hand';" />
-                            </c:if>
-                        </td>
-                     </tr>           
+                  <c:set var="bandera1" value="1"/>
+                   <c:forEach items="${finishedOrders}" var="item">                                           
+
+                       <c:if test="${(bandera != item[\'ORDID\']) && (bandera1 == 0)}">
+                          <tr>
+                            <td colspan="9" bgcolor="#CCCCCC" align="right">Subtotal <c:out value="${bandNom}"/>:</td>
+                            <td bgcolor="#CCCCCC"><fmt:formatNumber type="number" value="${subtotal}" pattern="#.###"/></td>
+                            <c:set var="subtotal" value="0.0"/>
+                            <c:set var="bandera1" value="1"/>                            
+                          </tr>
+                        </c:if>
+                           <c:set var="subtotal" value="${subtotal + item[\'ORDTOTAL\']}"/>
+                           <c:set var="bandera" value="${item[\'ORDID\']}"/>  
+                           <c:set var="bandNom" value="${item[\'ORDNAME\']}"/>
+                           <c:set var="bandera1" value="0"/>
+                           
+                           <tr name="item-idiomas" id="<c:out value="${item[\'ORDID\']}"/><c:out value="${item[\'RATID\']}"/>" >
+                                <td width="10%" bgcolor="#FFFFF"><a href="ordentrabajo?ordId=<c:out value="${item[\'ORDID\']}" />" ><c:out value="${item[\'ORDNAME\']}" /></a></td>
+                                <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'CRENAME\']}" />  <c:out value="${bandera}"/></td>                         
+                                <td width="10%" bgcolor="#FFFFF"><fmt:formatDate value="${item[\'ORDFINISHDATE\']}"  pattern="dd/MM/yyyy" />
+                                   <input type="hidden" name="item-ordenes-hidden"   value="<c:out value="${item[\'ORDID\']}" />#<c:out value="${item[\'RATID\']}"/>#<c:out value="${item[\'CURID\']}" />#<c:out value="${item[\'ORDTOTAL\']}" />"></input>
+                                   <!--<input type="hidden" name="print-ordenes-hidden"  value="<c:out value="${item[\'ORDPROJID\']}" />#<c:out value="${item[\'ORDJOBID\']}" />#<c:out value="${item[\'ORDWONUMBER\']}"/>#<c:out value="${item[\'ORDJOBNAME\']}"/>#<c:out value="${item[\'ORDJOBDESCRIPTION\']}" />#<c:out value="${item[\'ORRWCOUNT\']}"/>#<c:out value="${item[\'CURSYMBOL\']}" /> <c:out value="${item[\'ORRVALUE\']}"/>#<c:out value="${item[\'ORDTOTAL\']}"/>#<c:out value="${item[\'CRENAME\']}" />"</input>--></td>     
+                                <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'ORDWONUMBER\']}" /></td> 
+                                <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'ORDJOBID\']}" /></td>  
+                                <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'ORDJOBNAME\']}" /></td>       
+                                <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'RATETYPENAME\']}" />-<c:out value="${item[\'RATNAME\']}" /></td>                        
+                                <td width="10%" bgcolor="#FFFFF" style="text-align:right;"><c:out value="${item[\'CURSYMBOL\']}" /> <c:out value="${item[\'ORRVALUE\']}" /></td> 
+                                <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'ORRWCOUNT\']}" /></td>                         
+                                <td width="10%" bgcolor="#FFFFF" style="text-align:right;"><c:out value="${item[\'ORDTOTAL\']}" /></td>
+                                <!--<td width="2%">
+                                    <c:if test="${accion !='imprimir'}">
+                                        <img  src="img/del2.png" height="15" width="15"  alt="Eliminar" onclick="eliminarOrden('<c:out value="${item[\'ORDID\']}"/><c:out value="${item[\'RATID\']}"/>','<c:out value="${item[\'ORDTOTAL\']}" />','<c:out value="${item[\'CURID\']}" />','<fmt:formatDate value="${item[\'ORDFINISHDATE\']}"  pattern="dd/MM/yyyy HH:mm" />')" onmouseover="this.style.cursor='hand';" />
+                                    </c:if>
+                                </td>-->
+                             </tr> 
+
+                    
                   </c:forEach>
+                  <tr>
+                    <td colspan="9" bgcolor="#CCCCCC" align="right">Subtotal <c:out value="${bandNom}"/>:</td>
+                    <td bgcolor="#CCCCCC"><fmt:formatNumber type="number" value="${subtotal}" pattern="#.###"/></td>
+                  </tr>
                   </tbody>
                     </c:when>
                     <c:otherwise>

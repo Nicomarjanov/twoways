@@ -1390,9 +1390,9 @@
   
   <insert id="insertItemsExpenses" parameterClass="com.twoways.to.ItemsExpensesTO">
       insert into items_expenses
-      (ite_id, ite_value, items_itm_id, expenses_exp_id, currency_cur_id, accounts_acc_id, users_usr_id, ite_date, invoices_inv_id, payments_pay_id)
+      (ite_id, ite_value, items_itm_id, expenses_exp_id, currency_cur_id, accounts_acc_id, users_usr_id, ite_date, invoices_inv_id, payments_pay_id, ite_comment)
       values
-      (#iteId#, #iteValue#, #itemsTO.itmId#, #expensesTO.expId#, #currencyTO.curId#, #accountsTO.accId#, #usersTO.usrId#, #iteDate#, #invoicesTO.invId#, #paymentsTO.payId#)
+      (#iteId#, #iteValue#, #itemsTO.itmId#, #expensesTO.expId#, #currencyTO.curId#, #accountsTO.accId#, #usersTO.usrId#, #iteDate#, #invoicesTO.invId#, #paymentsTO.payId#, #iteComment#)
   </insert>
 
   <delete  id="deleteAllItemsExpenses" parameterClass="java.lang.Long" >
@@ -1417,7 +1417,8 @@
         <result property="currencyTO.curId" column="CURRENCY_CUR_ID"  /> 
         <result property="accountsTO.accId" column="ACCOUNTS_ACC_ID"  /> 
         <result property="usersTO.usrId" column="USERS_USR_ID"  />   
-        <result property="iteDate" column="ITE_DATE" />    
+        <result property="iteDate" column="ITE_DATE" />  
+        <result property="iteComment" column="ITE_COMMENT" />        
   </resultMap>
   
   <resultMap id="select-expenses" class="com.twoways.to.ExpensesTO">
@@ -1446,7 +1447,8 @@
        i.currency_cur_id as cur_id,
        i.accounts_acc_id as acc_id,
        s.itm_type as itm_type,
-       i.ite_date as ite_date
+       i.ite_date as ite_date,
+       i.ite_comment as ite_comment
        from items_expenses i, accounts a, users u, currency c, expenses e, items s
        where i.expenses_exp_id=e.exp_id
        and i.items_itm_id=s.itm_id
@@ -1472,7 +1474,8 @@
        i.currency_cur_id as cur_id,
        i.accounts_acc_id as acc_id,
        s.itm_type as itm_type,
-       i.ite_date as ite_date
+       i.ite_date as ite_date,
+       i.ite_comment as ite_comment
        from items_expenses i, accounts a, users u, currency c, expenses e, items s
        where i.expenses_exp_id=e.exp_id
        and i.items_itm_id=s.itm_id
@@ -1505,7 +1508,8 @@
             currency_cur_id = #currencyTO.curId#,
             accounts_acc_id = #accountsTO.accId#,
             users_usr_id = #usersTO.usrId#,
-            ite_date = #iteDate#
+            ite_date = #iteDate#,
+            ite_comment = #iteComment#
         where ite_id = #iteId#
     </insert>
     

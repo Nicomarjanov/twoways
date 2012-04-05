@@ -171,21 +171,15 @@ function validarCampos()
 
 
 function onloadOrder(){
-
    
     var fecha = document.getElementById("proStartDate");
     
-    
     if(fecha.value == '')
-    {
-        
+    {        
         var date = new Date();
         fecha.value = ((date.getDate() < 10)?'0'+date.getDate():date.getDate())  + '/' + ((date.getMonth()+1 < 10)?''+date.getMonth()+1:(date.getMonth() +1))+ '/'+ date.getYear() +' '+ ((date.getHours()+1 < 10)?''+date.getHours()+1:(date.getHours() +1)) +':'+  ((date.getMinutes()+1 < 10)?''+date.getMinutes()+1:(date.getMinutes() +1)) ;
-        //alert(fecha.value);
-       
+        //alert(fecha.value);    
     }
-    
-
 }
 
 
@@ -330,7 +324,16 @@ function verificarAsignacionCallBack(data){
     
    
     if(data == null){
+         /*var languaguesList = document.getElementsByName('languagues');
+         var condCorte=languaguesList.length;
+
+         for (var j=0 ;j < condCorte  ;  j++){
+
+           prepararLanguagues(languaguesList[j]);
+        }
+*/
        prepararLanguagues();
+    
        grabar(false);
     }else{
     
@@ -388,12 +391,10 @@ function changeEmployeesCallBack(data){
    for (var j=0 ; j < languaguesList.length; j++){
        var languagues = languaguesList[j];
        
-       //alert(languagues.id);
        dwr.util.removeAllOptions(languagues.id);
        languagues.add(new Option('Seleccionar', '0' )); 
       
-        if (data != null){
-           
+        if (data != null){ 
             for(var i =0; i< data.length ; i++){
                 var texto ='[';
                 texto += (data[i].LAN_ORIGEN!= null)?data[i].LAN_ORIGEN:'';
@@ -431,7 +432,6 @@ function validarAsignacion()
     mensajeCampoAlert='';
     mensajeFaltanteAlert = 'Se tiene que completar los siguientes campos: \n';
     
-    
     /************************************************/
     // valido el que los campos no esten vacíos
     /************************************************/
@@ -460,21 +460,26 @@ function validarAsignacion()
                  
                   var languaguesList = document.getElementsByName('languagues');
                   var msj = true; 
-                  for (var j=0 ; j < languaguesList.length; j++){ 
+                  var condCorte = languaguesList.length;              
+                  for (var j=0 ; j < condCorte ; j++){ 
                       
-                     var languagues = languaguesList[j];
-                     var check = document.getElementById(languagues.id.replace('languagues','listdocs-')); 
-                     if(check.checked && (languagues.selectedIndex == -1  || languagues.selectedIndex == 0)){                       
-                       
-                       languagues.style.background='Red';
-                       if(msj){ 
-                          mensajeFaltanteAlert+= '* Par de Lenguages\n';
-                       }else{
-                        msj=false;
-                       }
-                       banderaMensajeFaltante=true;
-                       
-                      } 
+                     var languagues = languaguesList[j];                    
+                     if(typeof languagues != "undefined"){                            
+                         var check = document.getElementById(languagues.id.replace('languagues','listdocs-')); 
+                         if(check.checked && (languagues.selectedIndex == -1  || languagues.selectedIndex == 0)){                       
+                           
+                           languagues.style.background='Red';
+                           if(msj){ 
+                              mensajeFaltanteAlert+= '* Par de Lenguages\n';
+                           }else{
+                            msj=false;
+                           }
+                           banderaMensajeFaltante=true;
+                           
+                          }else {
+                            languagues.name=languagues.id;
+                           }
+                    }                      
                 }  
            }
      }
@@ -569,7 +574,7 @@ var proFinishDate = document.getElementById("proAssignFinishDate");
 
 
 function cambioCheck(id){
-   
+
    var serv= document.getElementById("listaServices").options[document.getElementById("listaServices").selectedIndex].value;
    var praId= document.getElementById('praId').value;
    var check = document.getElementById('listdocs-'+id);
@@ -585,13 +590,12 @@ function cambioCheck(id){
           break; 
        }
    }
-   
-   
+ 
    if (serv !='Maquetador'){
        var combo = document.getElementById('languagues'+id);
-       
        if( check.checked ==true || check.checked =='checked' ){
            combo.disabled=false;
+           combo.selectedIndex=0;
        }else{
        
            combo.disabled=true;
@@ -616,7 +620,6 @@ function habilitarLanguagues(){
    
    if (serv!='Maquetador'){
    
-   
         for (var j=0 ; j < languaguesList.length; j++){
            var languagues = languaguesList[j];
            var check = document.getElementById(languagues.id.replace('languagues','listdocs-')); 
@@ -638,20 +641,50 @@ function habilitarLanguagues(){
 }
 
 
-
 function prepararLanguagues(){
-  
+
    var languaguesList = document.getElementsByName('languagues');
+   var condDis=true;
+   var languagues; 
    var serv= document.getElementById("listaServices").options[document.getElementById("listaServices").selectedIndex].value;
    if (serv!='Maquetador'){
-         for (var j=0 ;j <languaguesList.length  ;  j++){
-           var languagues = languaguesList[j];
+        var condCorte=languaguesList.length;
+        for (var l=0 ;l < condCorte  ;  l++){
+           languagues = languaguesList[l];
            var check = document.getElementById(languagues.id.replace('languagues','listdocs-')); 
            if(check.checked && (languagues.selectedIndex != -1  && languagues.selectedIndex != 0)){
+
               languagues.name= languagues.id;
-           }   
+            }
         }
-   }
+        
+    }
+
+/*  var lanArray=new Array();
+   var languaguesList = document.getElementsByName('languagues');
+   var condDis=true;
+
+   var serv= document.getElementById("listaServices").options[document.getElementById("listaServices").selectedIndex].value;
+   if (serv!='Maquetador'){
+
+         var condCorte=languaguesList.length;
+         
+         for (var l=0 ;l < condCorte  ;  l++){
+
+           lanArray[l] = languaguesList[l].id;
+           condDis = languaguesList[l].disabled;
+           if (!condDis){
+
+
+               var check = document.getElementById(lanArray[l].replace('languagues','listdocs-')); 
+
+               if(check.checked && (lanArray[l] != -1  && lanArray[l] != 0)){
+
+                  languagues.name= lanArray[l];
+               }   
+           }else{alert('no');}
+        }
+   }*/
 
 }
 

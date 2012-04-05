@@ -35,6 +35,7 @@ function agregarItemGasto(){
        document.getElementById('listaItems').value="-1";
        document.getElementById('listaMoneda').value="";
        document.getElementById('expMonto').value="";
+       document.getElementById('expComentario').value="";       
        document.getElementById('listaCuentas').value="";
        document.getElementById('iteId').value="";
        
@@ -72,6 +73,8 @@ function validarCampos()
         mensajeFaltanteAlert+='* Seleccione una cuenta del combo \n';    
         banderaMensajeFaltante=true;
    }
+
+
    
     if(banderaMensajeFaltante)
         mensajeCampoAlert=mensajeFaltanteAlert + '\n';    
@@ -90,6 +93,7 @@ function cargarItemGasto(row){
    var nomMoneda= document.getElementById('listaMoneda').options[document.getElementById('listaMoneda').selectedIndex].value.split('#');
    var nomCuenta= document.getElementById('listaCuentas').options[document.getElementById('listaCuentas').selectedIndex].value.split('#');
    var valorMonto= trim((document.getElementById('expMonto').value == null)?'':document.getElementById('expMonto').value);
+   var comentarioItem= trim((document.getElementById('expComentario').value == null)?'':document.getElementById('expComentario').value);
    var numUser= trim((document.getElementById('expUsuario').value == null)?'':document.getElementById('expUsuario').value);
    var iteId= trim((document.getElementById('iteId').value == null)?'':document.getElementById('iteId').value);
    var fecha = document.getElementById('expFecha').value;
@@ -106,15 +110,15 @@ function cargarItemGasto(row){
     if (iteId == null || typeof iteId == 'undefined' || iteId == '' || iteId.length ==0 ){
         rowId = rowId + 1;
         auxId = rowId +' actual'
-        valorEditar=nomItem[0]+'#'+nomItem[1]+'*#'+nomMoneda[0]+'#'+nomMoneda[1]+'*#'+valorMonto+'*#'+nomCuenta[0]+'#'+nomCuenta[1]+'*#'+numUser+'*#'+auxId+'*#'+tipoItem+'*#'+fecha;   
-        valor=nomItem[0]+'#'+nomMoneda[0]+'#'+valorMonto+'#'+nomCuenta[0]+'#'+numUser+'#'+fecha;
+        valorEditar=nomItem[0]+'#'+nomItem[1]+'*#'+nomMoneda[0]+'#'+nomMoneda[1]+'*#'+valorMonto+'*#'+nomCuenta[0]+'#'+nomCuenta[1]+'*#'+numUser+'*#'+auxId+'*#'+tipoItem+'*#'+fecha+'*#'+comentarioItem;   
+        valor=nomItem[0]+'#'+nomMoneda[0]+'#'+valorMonto+'#'+nomCuenta[0]+'#'+numUser+'#'+comentarioItem+'#'+fecha;
     }else{
-        valorEditar=nomItem[0]+'#'+nomItem[1]+'*#'+nomMoneda[0]+'#'+nomMoneda[1]+'*#'+valorMonto+'*#'+nomCuenta[0]+'#'+nomCuenta[1]+'*#'+numUser+'*#'+iteId+'*#'+tipoItem+'*#'+fecha;
-        valor=nomItem[0]+'#'+nomMoneda[0]+'#'+valorMonto+'#'+nomCuenta[0]+'#'+numUser+'#'+fecha+'#'+iteId;
+        valorEditar=nomItem[0]+'#'+nomItem[1]+'*#'+nomMoneda[0]+'#'+nomMoneda[1]+'*#'+valorMonto+'*#'+nomCuenta[0]+'#'+nomCuenta[1]+'*#'+numUser+'*#'+iteId+'*#'+tipoItem+'*#'+fecha+'*#'+comentarioItem;
+        valor=nomItem[0]+'#'+nomMoneda[0]+'#'+valorMonto+'#'+nomCuenta[0]+'#'+numUser+'#'+comentarioItem+'#'+fecha+'#'+iteId;
         auxId = iteId
     }
     row.id= auxId;
-  
+
     if(tipoItem == 'Egresos'){
         row.style.background="#d24444";
     }
@@ -127,16 +131,18 @@ function cargarItemGasto(row){
     row.cells[2].innerHTML= nomMoneda[1];
     row.cells[3].innerHTML= valorMonto;
     row.cells[4].innerHTML= nomCuenta[1];
-    row.cells[5].innerHTML= numUser;
-    row.cells[6].innerHTML= '<img src="img/del2.png" height="15" width="15"  alt="Eliminar" onclick="eliminarItemExp(\''+row.id+'\')" onmouseover="this.style.cursor=\'hand\';" />    <img  src="img/Edit2.png" height="15" width="15"  alt="Editar Item de Egreso" onclick="editarItemExp(\''+valorEditar+'\')" onmouseover="this.style.cursor=\'hand\';" />';
+    row.cells[5].innerHTML= comentarioItem;    
+    row.cells[6].innerHTML= numUser;
+    row.cells[7].innerHTML= '<img src="img/del2.png" height="15" width="15"  alt="Eliminar" onclick="eliminarItemExp(\''+row.id+'\')" onmouseover="this.style.cursor=\'hand\';" />    <img  src="img/Edit2.png" height="15" width="15"  alt="Editar Item de Egreso" onclick="editarItemExp(\''+valorEditar+'\')" onmouseover="this.style.cursor=\'hand\';" />';
     row.cells[0].width="15%";
     row.cells[1].width="30%";
     row.cells[2].width="15%";
     row.cells[3].width="15%";
     row.cells[3].align="right";
     row.cells[4].width="13%";
-    row.cells[5].width="10%";
-    row.cells[6].width="2%";
+    row.cells[5].width="15%";    
+    row.cells[6].width="10%";
+    row.cells[7].width="2%";
     
    document.getElementById("accion").value='guardar';
    document.forms[0].submit();   
@@ -169,6 +175,7 @@ function editarItemExp(string){
        document.getElementById('iteId').value=itmExpId;
        document.getElementById('tipoItem').value=listaArray[6];
        document.getElementById('expFecha').value=listaArray[7];
+       document.getElementById('expComentario').value=listaArray[8];
 
        createDynamicDropdown('tipoItem', 'listaItemsAux','listaItems');        
        eliminarItemExpEdicion(itmExpId);
