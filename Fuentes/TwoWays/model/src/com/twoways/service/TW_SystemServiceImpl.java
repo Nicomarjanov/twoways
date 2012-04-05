@@ -685,7 +685,10 @@ public class TW_SystemServiceImpl implements TW_SystemService {
             texto+= "<BR><TABLE><TR><TD align=left><B>Additional information: </B></TD></TR><TR><TD align=left>"+message.replaceAll("\n","<BR>")+"</TD></TR></TABLE>";
             
         texto+= "<BR><P>Please confirm receipt and acceptance of this job.</P>"+
-                "<BR><P>Thanks!</P>";
+                "<BR><P>Thanks!</P>+" +
+                "<BR><BR><P><B>IMPORTANTE</B> para los trabajos en <B>WORDFAST</B>: Los segmentos en verde (100% matches) que ya vienen del cliente <B>DEBEN</B> quedar en verde. " +
+                "Los segmentos verdes propios deben quedar confirmados en azul, por lo que hay que hacerles una pequeña modificación y luego deshacerla para que el segmento quede primero en rosa y luego en azul. " +
+                "Los autopropagados deben quedar en naranja.</P>";
         String firma = "<BR><TABLE style='color:#808080;'><TR><TD><B>"+((user.getUsrFirstName() != null )? user.getUsrFirstName():"") +" "+ ((user.getUsrLastName() != null )?user.getUsrLastName():"")+ "</B></TD></TR>" +
         ((user.getRolesTO() != null )? "<TR><TD>"+user.getRolesTO().getRolName() +"</TD></TR>":"")+
         "<TR><TD>Two Ways Translation Services</TD></TR>" +

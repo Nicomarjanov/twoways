@@ -156,8 +156,8 @@
                
                <c:if test="${item.docType.dotId == 'Source' || item.docType.dotId == 'FTP' }"  >  
         
-                    <select name="languagues" id="languagues<c:out value="${item.odoId}" />"  <c:out value="${disa}" />    >
-                        <option value=""  >Seleccionar</option>
+                    <select name="languagues" id="languagues<c:out value="${item.odoId}" />" <c:out value="${disa}" /> >
+                        <option value="">Seleccionar</option>
                          <c:forEach items="${languagues}" var="item">
                            <c:choose>
                             <c:when test="${lanSel == item['TLA_ID']}">

@@ -128,11 +128,15 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
                 
                 if (ordersEmpId != null && ordersEmpId.size() > 0){
                     String curIdOrigen = null;
-                    request.setAttribute("finishedOrders",ordersEmpId);
+
                     Double auxAmount= 0.0;
+                    Double auxSubTotal= 0.0;
                     SimpleDateFormat formatoDeFecha = new SimpleDateFormat("yyyy-MM-dd");
                     Map auxMap = new HashMap();
+                    Map auxMap1 = new HashMap();
                     Iterator iterador = ordersEmpId.listIterator();
+                    String ban="0";
+                    String auxId= null;
                     while( iterador.hasNext() ) {
                         auxMap =(HashMap)iterador.next();
                         if (Double.parseDouble(auxMap.get("ORDTOTAL").toString()) > 0.0){    
@@ -143,13 +147,15 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
                                 String atribs[]= listaMoneda.split("#");
                                 curIdOrigen = atribs[0];
                                 if (curIdOrigen != auxMap.get("CURID").toString()){
-                                    auxAmount += twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, Long.parseLong(auxMap.get("CURID").toString()), Long.parseLong(curIdOrigen) ,Double.parseDouble(auxMap.get("ORDTOTAL").toString()));
+                                    auxAmount += twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, Long.parseLong(auxMap.get("CURID").toString()), Long.parseLong(curIdOrigen) ,Double.parseDouble(auxMap.get("ORDTOTAL").toString()));                                    
                                 }else {
                                     auxAmount += Double.parseDouble(auxMap.get("ORDTOTAL").toString());
+                                
                                 }
                             }
-
+                            
                         }
+
                     }
                     if (auxAmount > 0.0){
                         NumberFormat formatter = new DecimalFormat("#0.00");
@@ -159,7 +165,7 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
                     request.setAttribute("mesId",mesId);
                     request.setAttribute("anioId",anioId);
                     request.setAttribute("facturar",facturar);
-                    
+                    request.setAttribute("finishedOrders",ordersEmpId);   
                 }else {
                     request.setAttribute("mensaje","<script>alert('No se encontraron órdenes para ese cliente')</script>"); 
                 }

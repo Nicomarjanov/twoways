@@ -134,7 +134,9 @@ public class AbmGastosServlet extends AutorizacionServlet {
                AccountsTO accTO = new AccountsTO();
                accTO.setAccId(Long.parseLong(atribs[3]));
                itmExpTO.setAccountsTO(accTO);    
-               itmExpTO.setIteValue(Double.parseDouble(atribs[2].replaceAll(",",".")));                              
+               itmExpTO.setIteValue(Double.parseDouble(atribs[2].replaceAll(",",".")));
+               itmExpTO.setIteComment((atribs[5]!= null && atribs[5].length() > 0)?atribs[5]:"");
+
                UsersTO user= new UsersTO(); 
                user.setUsrId(atribs[4]);
                itmExpTO.setUsersTO(user);
@@ -145,7 +147,7 @@ public class AbmGastosServlet extends AutorizacionServlet {
                }
                try{
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                    java.util.Date fechaExp = sdf.parse(atribs[5]);
+                    java.util.Date fechaExp = sdf.parse(atribs[6]);
                     java.sql.Timestamp timest = new java.sql.Timestamp(fechaExp.getTime()); 
                     itmExpTO.setIteDate(timest);
                    } catch (Exception e) {
@@ -153,8 +155,8 @@ public class AbmGastosServlet extends AutorizacionServlet {
                    }
                //request.setAttribute("auxDate",date); 
                
-               if(atribs.length == 7){
-                   itmExpTO.setIteId(Long.parseLong(atribs[6]));
+               if(atribs.length == 8){
+                   itmExpTO.setIteId(Long.parseLong(atribs[7]));
                }
                itmExpTOList.add(itmExpTO);
            }                     

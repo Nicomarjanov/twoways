@@ -255,7 +255,7 @@ public class AbmPagosServlet extends AutorizacionServlet {
                    
                     Long payId = twoWaysBDL.getServiceTwoWays().insertarPago(pago); 
                     request.setAttribute("payId",payId);
-                    //Insertar gasto de pago de sueldo en la tabla de gastos
+                    /*Insertar gasto de pago de sueldo en la tabla de gastos
                     ItemsExpensesTO itmExpTO = new ItemsExpensesTO(); 
                     itmExpTO.setAccountsTO(pago.getAccountsTO());
                     itmExpTO.setCurrencyTO(pago.getCurrencyTO());
@@ -290,7 +290,7 @@ public class AbmPagosServlet extends AutorizacionServlet {
                     expTO.setExpDate(timest);
                     
                     twoWaysBDL.getServiceTwoWays().insertarExpenseExtra(expTO);
-                    
+                    */
                     List printEmpProjAssignment = null;
                     printEmpProjAssignment = twoWaysBDL.getServiceTwoWays().obtenerItemsPago(payId);
                     request.setAttribute("projectAssignnments",printEmpProjAssignment);
