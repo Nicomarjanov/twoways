@@ -26,7 +26,7 @@
   <tr>
   </tr>
   <tr>
-    <td nowrap align="right" width="25%">Nombre del Item:</td>
+    <td nowrap align="right" width="25%">Nombre del &iacute;tem:</td>
     <td align="left"><input type="text" class="tw_form" id="itmNombre" name="itmNombre"  value="<c:out value="${item.itmName}"/>"  size="50" maxlength="100" onkeyup="buscarItems()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
   </tr>
   <tr>
@@ -34,7 +34,7 @@
     <td align="left"><input type="text" class="tw_form" id="descItem"  name="descItem"  value="<c:out value="${item.itmDescription}"/>" size="100" maxlength="350"></input></td>    
   </tr>
   <tr>
-    <td nowrap align="right" width="25%">Tipo de item:</td>
+    <td nowrap align="right" width="25%">Tipo de &iacute;tem:</td>
     <td align="left">
        <select name="tipoItem" id="tipoItem" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">            
             <option value="" selected="selected">Seleccionar</option>

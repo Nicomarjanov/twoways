@@ -183,7 +183,7 @@
                  </thead>  
                  <c:choose   >
                    <c:when test="${not empty projectAssignnments}">
-                 <tbody align="center">
+                 <tbody align="center" style="height:100%;">
                    <c:forEach items="${projectAssignnments}" var="item">
                    <tr name="item-idiomas" id="<c:out value="${item[\'PADID\']}"/>" >
                         <td width="10%" bgcolor="#FFFFF"><fmt:formatDate value="${item[\'ASSIGNDATE\']}"  pattern="dd/MM/yyyy" />

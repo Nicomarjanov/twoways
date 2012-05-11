@@ -1316,6 +1316,17 @@
               
  </select>
  
+   <select id="getProjectAssigmentDetailsByPadOther" parameterClass="com.twoways.to.ProAssigmentsDetailsTO" resultMap="select-projectAssignamentDetails-obj">
+     select *
+     from proj_assignments_details pa, orders_docs odo
+     where odo.odo_id = pa.orders_docs_odo_id
+     and odo.orders_ord_id = pa.orders_docs_orders_ord_id
+     and project_assignments_pra_id = #projectAssignmentsTO.praId# 
+     and  orders_docs_odo_id = #ordersDocsTO.odoId#
+     and  orders_docs_orders_ord_id = #ordersDocsTO.ordersOrdId#
+     and employees_rates_employees_emp_ = #employeesRatesTO.employeesTO.empId#
+              
+ </select> 
   
     <resultMap id="select-projectAssignamentDetails-complete"  class="com.twoways.to.ProAssigmentsDetailsTO" >
       <result property="padId" column="PAD_ID" />

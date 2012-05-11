@@ -466,7 +466,9 @@ function validarAsignacion()
                      var languagues = languaguesList[j];                    
                      if(typeof languagues != "undefined"){                            
                          var check = document.getElementById(languagues.id.replace('languagues','listdocs-')); 
-                         if(check.checked && (languagues.selectedIndex == -1  || languagues.selectedIndex == 0)){                       
+                        
+                        
+                         if(check.checked && languagues.text == "Seleccionar"){                     
                            
                            languagues.style.background='Red';
                            if(msj){ 
@@ -733,7 +735,8 @@ function calcularTotalDetalle(id,praId){
    padWCount.style.background  = '#FFFFFF';
    padRate.style.background  = '#FFFFFF';
       
-  if (padWCount.value !='' && !isNumber(trim(padWCount.value)))
+  
+  if (padWCount.value !='' && !(isFloat(trim(padWCount.value.replace(',','.')))))
         {
         padWCount.style.background='Red';
         mensajeFaltanteAlert+= ' * La cantidad de palabras debe ser numerica \n';
@@ -755,7 +758,7 @@ function calcularTotalDetalle(id,praId){
       padWCount.value=0;
     }
     
-    tarifXunid.value = Math.round((parseFloat(padWCount.value)* parseFloat(padRate.value.replace(',','.')))*100)/100; 
+     tarifXunid.value = Math.round((parseFloat(padWCount.value.replace(',','.'))* parseFloat(padRate.value.replace(',','.')))*100)/100; 
     
     calcularTotal(praId);  
    
@@ -771,7 +774,7 @@ function calcularTotalPalabras(praId){
     var acum =0; 
     
     for(var i=0; i< padWCount.length; i++){
-       acum+=parseFloat((padWCount[i].value!='')?padWCount[i].value:0);  
+       acum+=parseFloat((padWCount[i].value!='')?padWCount[i].value.replace(',','.'):0);  
     }
     
     acum = Math.round(acum* 100)/100;

@@ -265,7 +265,7 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                        String palabras= (cantPalAux.get(indice).toString().length() > 0)?cantPalAux.get(indice).toString():"0";
                        orderRatesTO.setOrrWcount(Float.parseFloat(palabras));
                     }
-                    else if (cantPalAuxString != null){
+                    else if (cantPalAuxString != null && cantPalAuxString.length() > 0){
                        orderRatesTO.setOrrWcount(Float.parseFloat(cantPalAuxString));
                     }else{
                        orderRatesTO.setOrrWcount(new Float (0));

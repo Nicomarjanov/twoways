@@ -172,7 +172,7 @@
             </td>
             <td align="left" width="100%" valign="top" >
                <div class="fixedHeaderTablePago">
-                 <table id="tabla-ordenes" name="tabla-ordenes" cellpadding="0" cellspacing="1" align="center" width="100%">
+                 <table id="tabla-ordenes" name="tabla-ordenes" cellpadding="0" cellspacing="1" align="center" width="100%" hight="100%">
                  <thead align="center">     
                    <tr style="display:block; background-color='transparent';" align="center">
                         <th width="10%" bgcolor="#80211D">Nombre orden</th>
@@ -196,8 +196,8 @@
 
                        <c:if test="${(bandera != item[\'ORDID\']) && (bandera1 == 0)}">
                           <tr>
-                            <td colspan="9" bgcolor="#CCCCCC" align="right">Subtotal <c:out value="${bandNom}"/>:</td>
-                            <td bgcolor="#CCCCCC"><fmt:formatNumber type="number" value="${subtotal}" pattern="#.###"/></td>
+                            <td colspan="9" bgcolor="#CCCCCC" style="text-align:right;">Subtotal <c:out value="${bandNom}"/>:</td>
+                            <td bgcolor="#CCCCCC" style="text-align:right;"><fmt:formatNumber type="number" value="${subtotal}" pattern="#.###"/></td>
                             <c:set var="subtotal" value="0.0"/>
                             <c:set var="bandera1" value="1"/>                            
                           </tr>
@@ -230,8 +230,8 @@
                     
                   </c:forEach>
                   <tr>
-                    <td colspan="9" bgcolor="#CCCCCC" align="right">Subtotal <c:out value="${bandNom}"/>:</td>
-                    <td bgcolor="#CCCCCC"><fmt:formatNumber type="number" value="${subtotal}" pattern="#.###"/></td>
+                    <td colspan="9" bgcolor="#CCCCCC" style="text-align:right;">Subtotal <c:out value="${bandNom}"/>:</td>
+                    <td bgcolor="#CCCCCC" style="text-align:right;"><fmt:formatNumber type="number" value="${subtotal}" pattern="#.###"/></td>
                   </tr>
                   </tbody>
                     </c:when>

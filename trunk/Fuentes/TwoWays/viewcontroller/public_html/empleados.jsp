@@ -91,15 +91,15 @@
     <td colspan=2 align="left" width="15%"><input type="text" class="tw_form" id="empLastName" name="empLastName"  value="<c:out value="${empleado.empLastName}"/>" size="25" maxlength="100" onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
   </tr>
   <tr>
-    <td align="right" width="15%">Mail:</td>
+    <td align="right" width="15%">Correo electrónico:</td>
     <td align="left" width="30%"><input type="text" class="tw_form" id="empMail"  name="empMail"  value="<c:out value="${empleado.empMail}"/>" size="25" maxlength="100" onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
-    <td align="right" width="15%">MSN:</td>
+    <td align="right" width="15%">Skype:</td>
     <td align="left" width="15%"><input type="text" class="tw_form" id="empMsn"  name="empMsn"  value="<c:out value="${empleado.empMsn}"/>" size="25" maxlength="100" onfocus="javascript:this.style.background='#FFFFFF';"></input></td>        
     <td nowrap align="right" width="15%">Fecha de nacimiento:</td>
     <td align="left" width="15%"><input type="text" class="tw_form" id="empBirth" name="empBirth"   value="<fmt:formatDate value="${empleado.empBirth}" pattern="dd/MM/yyyy" />" size="10" maxlength="10"></input></td>
   </tr>
   <tr>
-    <td nowrap align="right" width="15%">Teléfono movil:</td>
+    <td nowrap align="right" width="15%">Teléfono móvil:</td>
     <td align="left" width="30%"><input type="text" class="tw_form" id="empMobileNumber" name="empMobileNumber"  value="<c:out value="${empleado.empMobileNumber}"/>"  size="15" maxlength="25"></input></td>
     <td nowrap align="right" width="15%">Teléfono fijo:</td>
     <td align="left" width="15%"><input type="text" class="tw_form" id="empPhoneNumber" name="empPhoneNumber"  value="<c:out value="${empleado.empPhoneNumber}"/>"  size="15" maxlength="25"></input></td>
@@ -191,7 +191,7 @@
     <td>
      <table id="list-tarifas" >
          <tr>
-             <th width="130">Tipo</th><th width="130">Tarifa</th><th width="40">valor</th><th width="25"></th>
+             <th width="130">Tipo</th><th width="130">Tarifa</th><th width="40">Valor</th><th width="25"></th>
          </tr>
          <tr>
             <td width="130"></td><td width="130"></td><td width="40"></td><td width="25"></td>
