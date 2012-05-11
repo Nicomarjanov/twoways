@@ -151,23 +151,23 @@
                  <table id="tabla-ingresos" name="tabla-ingresos" cellpadding="3" cellspacing="1" align="center" width="100%">
                  <thead align="center">     
                    <tr style="display:block; background-color='transparent';" align="center">
-                        <th width="10%" bgcolor="#ee9a98">Item</th>
-                        <th width="10%" bgcolor="#80211D">Enero</th>
-                        <th width="10%" bgcolor="#80211D">Febrero</th>
-                        <th width="10%" bgcolor="#80211D">Marzo</th>
-                        <th width="10%" bgcolor="#80211D">Abril</th>                    
-                        <th width="10%" bgcolor="#80211D">Mayo</th>
-                        <th width="10%" bgcolor="#80211D">Junio</th>
-                        <th width="10%" bgcolor="#80211D">Julio</th>
-                        <th width="10%" bgcolor="#80211D">Agosto</th>                    
-                        <th width="10%" bgcolor="#80211D">Septiembre</th>       
-                        <th width="10%" bgcolor="#80211D">Octubre</th>
-                        <th width="10%" bgcolor="#80211D">Noviembre</th>                    
-                        <th width="10%" bgcolor="#80211D">Diciembre</th>   
-                        <th width="10%" bgcolor="#ee9a98">Total</th>
+                        <th width="7%" bgcolor="#ee9a98">Item</th>
+                        <th width="7%" bgcolor="#80211D">Enero</th>
+                        <th width="7%" bgcolor="#80211D">Febrero</th>
+                        <th width="7%" bgcolor="#80211D">Marzo</th>
+                        <th width="7%" bgcolor="#80211D">Abril</th>                    
+                        <th width="7%" bgcolor="#80211D">Mayo</th>
+                        <th width="7%" bgcolor="#80211D">Junio</th>
+                        <th width="7%" bgcolor="#80211D">Julio</th>
+                        <th width="7%" bgcolor="#80211D">Agosto</th>                    
+                        <th width="7%" bgcolor="#80211D">Septiembre</th>       
+                        <th width="7%" bgcolor="#80211D">Octubre</th>
+                        <th width="7%" bgcolor="#80211D">Noviembre</th>                    
+                        <th width="7%" bgcolor="#80211D">Diciembre</th>   
+                        <th width="7%" bgcolor="#ee9a98">Total</th>
                     </tr>
                  </thead>  
-                 <tbody align="center">
+                 <tbody align="center" style="height:100%;">
                  <c:choose >
                    <c:when test="${not empty listaIngresos or not empty listaEgresos or not empty totalBeneficios}">
                      <tr>
@@ -181,13 +181,13 @@
                               <c:forEach items="${item}" var="celda" varStatus="status" >
                                 <c:choose>
                                     <c:when test="${status.first}">
-                                        <td width="10%" bgcolor="#8c8686"><c:out value="${celda}" /></td> 
+                                        <td width="7%" bgcolor="#8c8686"><c:out value="${celda}" /></td> 
                                     </c:when>
                                     <c:when test="${status.last}" >
-                                        <td width="10%" bgcolor="#8c8686"><c:out value="${celda}" /></td> 
+                                        <td width="7%" bgcolor="#8c8686"><c:out value="${celda}" /></td> 
                                     </c:when>
                                     <c:otherwise>
-                                        <td nowrap width="10%" bgcolor="#FFFFFF"><c:out value="${celda}" /></td> 
+                                        <td nowrap width="7%" bgcolor="#FFFFFF"><c:out value="${celda}" /></td> 
                                     </c:otherwise>
                                 </c:choose>
                              </c:forEach>
@@ -196,10 +196,10 @@
                               <c:forEach items="${item}" var="celda" varStatus="status" >
                                 <c:choose>
                                     <c:when test="${status.last}">
-                                        <td width="10%" bgcolor="#9a9a9a"><c:out value="${celda}" /></td> 
+                                        <td width="7%" bgcolor="#9a9a9a"><c:out value="${celda}" /></td> 
                                     </c:when>
                                     <c:otherwise>
-                                        <td width="10%" bgcolor="#cccccc"><c:out value="${celda}" /></td> 
+                                        <td width="7%" bgcolor="#cccccc"><c:out value="${celda}" /></td> 
                                     </c:otherwise>
                                 </c:choose>
                              </c:forEach>

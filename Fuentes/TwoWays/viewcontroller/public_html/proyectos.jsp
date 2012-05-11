@@ -195,8 +195,10 @@
        <c:choose>
        <c:when test="${ not empty assi.proAssigmentsDetailsTO  }">
        <c:forEach var="assiDet" items="${assi.proAssigmentsDetailsTO}" >
-          <tr bgcolor="#FCEEED">
-         <td><c:out value="${assiDet.ordersDocsTO.odoName}" /></td>
+         <tr bgcolor="#FCEEED">
+          <td>
+          <c:out value="${assiDet.ordersDocsTO.odoName}" />
+          </td>
           <td> 
           <c:choose>
           <c:when test="${not empty assiDet.pranslatorsLanguaguesTO}">
@@ -217,10 +219,10 @@
           <td align="center" >
           <c:choose>
              <c:when  test="${assi.serviceTO.rtyName == 'Traductor'}">
-                   <input type="text" title="Unidades"  onblur="calcularTotalDetalle('<c:out value="${assiDet.padId}" />','<c:out value="${assi.praId}" />');calcularTotalPalabras('<c:out value="${assi.praId}" />');" style="WIDTH: 70px;text-align:right;"  name="padWCount-<c:out value="${assi.praId}" />" id="padWCount-<c:out value="${assiDet.padId}" />"  value="<fmt:formatNumber maxFractionDigits="0"  pattern="##########"  value="${assiDet.padWCount}"   />"  />
+                   <input type="text" title="Unidades"  onblur="calcularTotalDetalle('<c:out value="${assiDet.padId}" />','<c:out value="${assi.praId}" />');calcularTotalPalabras('<c:out value="${assi.praId}" />');" style="WIDTH: 70px;text-align:right;"  name="padWCount-<c:out value="${assi.praId}" />" id="padWCount-<c:out value="${assiDet.padId}" />"  value="<fmt:formatNumber maxFractionDigits="2"  pattern="##########.##"  value="${assiDet.padWCount}"   />"  />
              </c:when>
              <c:otherwise>
-                   <input type="text" title="Unidades"  onblur="calcularTotalDetalle('<c:out value="${assiDet.padId}" />','<c:out value="${assi.praId}" />');" style="WIDTH: 70px;text-align:right;"  name="padWCount-<c:out value="${assi.praId}" />" id="padWCount-<c:out value="${assiDet.padId}" />"  value="<fmt:formatNumber maxFractionDigits="0"  pattern="##########" value="${assiDet.padWCount}" />" />
+                   <input type="text" title="Unidades"  onblur="calcularTotalDetalle('<c:out value="${assiDet.padId}" />','<c:out value="${assi.praId}" />');" style="WIDTH: 70px;text-align:right;"  name="padWCount-<c:out value="${assi.praId}" />" id="padWCount-<c:out value="${assiDet.padId}" />"  value="<fmt:formatNumber maxFractionDigits="2"  pattern="##########.##" value="${assiDet.padWCount}" />" />
              </c:otherwise>
              </c:choose>
          

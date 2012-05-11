@@ -51,7 +51,7 @@
      <!--div style="width:100%;height:100px;overflow-x: hidden;overflow-y:auto ;" -->
         <table id="list-tarifas-body" align="right" heigth="40px" width="100%">
          <thead>
-            <tr style="display:block"><th width="200">Tarifa</th><th >valor</th><th ></th></tr>
+            <tr style="display:block"><th width="200">Tarifa</th><th >Valor</th><th ></th></tr>
          </thead>
          <tbody style="width:100%;height:30px;overflow-x: hidden;overflow-y:auto ;">
              <c:forEach items="${requestScope.ratesTOList}" var="item">

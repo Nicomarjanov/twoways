@@ -131,6 +131,37 @@ color:#000000;
 background-color:#EE9A98;
 }
 
+#tabla-ordenes
+{
+width:100%;
+border-style:none;
+border-spacing: 2px;
+border-collapse:separate;
+}
+#tabla-ordenes td, #tabla-ordenes th 
+{
+text-align:left;
+font-size:1em;
+padding:2px 7px 2px 7px;
+}
+#tabla-ordenes tr
+{
+height:100%;
+}
+#tabla-ordenes th 
+{
+font-size:1.1em;
+padding-top:5px;
+padding-bottom:4px;
+background-color:#80211D;
+color:#ffffff;
+}
+#tabla-ordenes tr.alt td 
+{
+color:#000000;
+background-color:#EE9A98;
+}
+
 #list-documento , #list-documento-selected 
 {
 border-style:none;

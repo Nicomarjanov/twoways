@@ -70,13 +70,13 @@
         <img border="0" alt="Menos" src="img/top.png" width="15px" height="15px"/></a></td>
   </tr>
     <tr id="trOpcionales1" style="display:none">
-    <td align="right" width="15%">Mail:</td>
+    <td align="right" width="15%">Correo electrónico:</td>
     <td align="left"><input type="text" class="tw_form" id="usrMail"  name="usrMail"  value="<c:out value="${usuario.usrMail}"/>" size="20" maxlength="100"></input></td>
     <td align="right" nowrap>Fecha de nacimiento:</td>
     <td align="left"><input type="text" class="tw_form" id="usrBirth" name="usrBirth"   value="<fmt:formatDate value="${usuario.usrBirth}"    pattern="dd/MM/yyyy" />" size="10" maxlength="10"></input></td>
   </tr>
   <tr id="trOpcionales2" style="display:none" > 
-    <td align="right" nowrap width="15%">Teléfono movil:</td>
+    <td align="right" nowrap width="15%">Teléfono m&oacute;vil:</td>
     <td align="left" ><input type="text" class="tw_form" id="usrMobileNumber" name="usrMobileNumber"  value="<c:out value="${usuario.usrMobileNumber}"/>"  size="15" maxlength="25"></input></td>
     <td align="right" nowrap>Teléfono fijo:</td>
     <td align="left" ><input type="text" class="tw_form" id="usrPhoneNumber" name="usrPhoneNumber"  value="<c:out value="${usuario.usrPhoneNumber}"/>"  size="15" maxlength="25"></input></td>

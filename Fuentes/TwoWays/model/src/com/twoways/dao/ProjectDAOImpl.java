@@ -101,7 +101,7 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
     public void insertProjectAssignamentDetails(ProAssigmentsDetailsTO proAssigmentsDetailsTO, 
                                                 List<EmployeesRatesTO> employeesRatesTOList) throws Exception {       
        
-       if (!proAssigmentsDetailsTO.getOrdersDocsTO().getDocType().getDotId().contains("Source") && !proAssigmentsDetailsTO.getOrdersDocsTO().getDocType().getDotId().contains("FTP") ){
+       if (proAssigmentsDetailsTO.getOrdersDocsTO().getDocType().getDotId().contains("Other")){
            
            Long praaId = (Long)getSqlMapClientTemplate().queryForObject("projectAssDet.seq","");
            EmployeesRatesTO employeesRatesTO= new EmployeesRatesTO();                                                 
@@ -112,7 +112,7 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
            proAssigmentsDetailsTO.setPadId(praaId);
            proAssigmentsDetailsTO.setEmployeesRatesTO(employeesRatesTO);
            ProAssigmentsDetailsTO proAssigmentsDetailsTOOld = 
-               getProjectAssignmentsDetailsById(proAssigmentsDetailsTO);
+               getProjectAssignmentsDetailsByIdOther(proAssigmentsDetailsTO);
            if (proAssigmentsDetailsTOOld == null) {
                getSqlMapClientTemplate().insert("insertProjectAssigmentDetails", 
                                                 proAssigmentsDetailsTO);
@@ -122,7 +122,7 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
                                                 proAssigmentsDetailsTOOld);
            }           
            
-       }else{
+       }else if(proAssigmentsDetailsTO.getOrdersDocsTO().getDocType().getDotId().contains("FTP") ||proAssigmentsDetailsTO.getOrdersDocsTO().getDocType().getDotId().contains("Source")){
        
             for (EmployeesRatesTO employeesRatesTO: employeesRatesTOList) {
     
@@ -242,6 +242,12 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
 
     }
 
+    public ProAssigmentsDetailsTO getProjectAssignmentsDetailsByIdOther(ProAssigmentsDetailsTO detail) {
+
+        return (ProAssigmentsDetailsTO)getSqlMapClientTemplate().queryForObject("getProjectAssigmentDetailsByPadOther", 
+                                                                                detail);
+
+    }
 
     public Long findProjectAssignament(String praDate, Long emp, String serv, 
                                        String proId) {

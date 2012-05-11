@@ -26,7 +26,7 @@
   <tr>
   </tr>
   <tr>
-    <td nowrap align="right" width="25%">Nombre identificador de la Cuenta:</td>
+    <td nowrap align="right" width="25%">Nombre identificador de la cuenta:</td>
     <td align="left"><input type="text" class="tw_form" id="accNombre" name="accNombre"  value="<c:out value="${cuenta.accName}"/>"  size="50" maxlength="100" onkeyup="buscarCuentas()"  onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
   </tr>
   <tr>
@@ -38,11 +38,11 @@
     <td align="left"><input type="text" class="tw_form" id="accNumber"  name="accNumber"  value="<c:out value="${cuenta.accNumber}"/>" size="100" maxlength="250"></input></td>    
   </tr>  
   <tr>
-    <td nowrap align="right" width="25%">SWIFT code:</td>
+    <td nowrap align="right" width="25%">C&oacute;digo SWIFT:</td>
     <td align="left"><input type="text" class="tw_form" id="accSwiftCode" name="accSwiftCode"  value="<c:out value="${cuenta.accSwiftCode}"/>"  size="25" maxlength="25" onfocus="javascript:this.style.background='#FFFFFF';"></input></td>
   </tr>
   <tr>
-    <td align="right" width="25%">Wire transfer:</td>
+    <td align="right" width="25%">CBU o número de ruta:</td>
     <td align="left"><input type="text" class="tw_form" id="accWireTransfer"  name="accWireTransfer"  value="<c:out value="${cuenta.accWireTransfer }"/>" size="25" maxlength="25"></input></td>       
   </tr>
 
