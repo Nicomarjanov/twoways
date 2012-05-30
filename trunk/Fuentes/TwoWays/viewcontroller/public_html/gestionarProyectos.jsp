@@ -116,7 +116,7 @@
         </td>
    <tr>
    <tr>
-    <td >Fecha de Inicio</td> 
+    <td >Fecha de inicio</td> 
         <td colspan="2" nowrap>
            <select id="projDateOpt" name="projDateOpt" >
                <c:forEach items="${optionList}" var="item">
@@ -138,7 +138,7 @@
         </td>
    </tr>
    <tr>
-       <td nowrap>Fecha de Fin</td>
+       <td nowrap>Fecha de fin</td>
        <td colspan="2" nowrap>
           <select id="projFinishDateOpt" name="projFinishDateOpt" >                   
                 <c:forEach items="${optionList}" var="item">
@@ -182,6 +182,10 @@
         </select>
     </td>
    </tr>
+   <tr>
+   <td>Ir a la página:</td>
+    <td><input type="text" class="tw_form" name="pageIr" id="pageIr" value="<c:out value="${pageIr}" />"  size="3" maxlength="4" onfocus="javascript:this.style.background='#FFFFFF';"/></td>
+    </tr>
    <tr  >
        <td colspan="100%"  valign="top" align="right" ><input type="button" value="Buscar" onclick="buscarProyectos()"  /></td>
    </tr>   
@@ -255,7 +259,8 @@
                     <c:if test="${page < maxPage}"> 
                      <img src="img/player_next.png" height="20" width="20" onclick="next()" alt=">" />
                     </c:if> 
-                 </td></tr>
+                 </td>
+                    </tr>                 
            </table>
            </td>
       </tr>

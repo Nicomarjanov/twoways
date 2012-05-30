@@ -399,7 +399,7 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
             query = query.replaceAll("#"+param+"#",projParameters.get(param).toString());
         }
         
-        query+= " order by t.pro_name desc " ;
+        query+= " order by o.ord_start_date desc " ;
          try {
              con = ds.getConnection();
              stm = con.createStatement();
