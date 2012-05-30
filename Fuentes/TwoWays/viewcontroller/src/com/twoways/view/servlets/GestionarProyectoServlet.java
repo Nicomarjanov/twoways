@@ -59,6 +59,8 @@ public class GestionarProyectoServlet extends AutorizacionServlet {
             request.setAttribute("exception",e);
         }
         
+        request.setAttribute("pageIr",1);
+        
         if(accion !=null && accion.equalsIgnoreCase("buscar")){
             request.setAttribute("accion",accion);
             ProjectsTO projectTO = new ProjectsTO();
@@ -134,6 +136,14 @@ public class GestionarProyectoServlet extends AutorizacionServlet {
                      e.printStackTrace();
                  }
              }
+             
+            if (request.getParameter("pageIr") != null && request.getParameter("pageIr").length() > 0) {
+                int pageIr = Integer.parseInt(request.getParameter("pageIr"));
+                //if ( pageIr > 1 &&  pageIr > (page +1) ){
+                    page = pageIr -1;
+                //}
+               request.setAttribute("pageIr",pageIr);
+            }
              
             request.setAttribute("project",projectTO); 
             try{
