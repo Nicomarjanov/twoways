@@ -136,16 +136,19 @@
     <tr>
          <td colspan="9" align="left">
             <img style="position:absolute;display:none;"  src="img/bottom.png" id="aMas" onclick="javascript:mostrarOpcionales();"  title="Agregar más datos" alt="Mas datos " width="15" height="15" onmouseover="this.style.cursor='hand';"/>
-            <img id="aMenos"  style="border:0;display:block;position:absolute"  onclick="javascript:ocultarOpcionales();" title="Contraer" src="img/top.png" alt="Menos" width="15" height="15" onmouseover="this.style.cursor='hand';"/>
+           <!-- <img id="aMenos"  style="border:0;display:block;position:absolute"  onclick="javascript:ocultarOpcionales();" title="Contraer" src="img/top.png" alt="Menos" width="15" height="15" onmouseover="this.style.cursor='hand';"/>-->
+            <img id="aMenos"  style="border:0;position:absolute"  onclick="javascript:ocultarOpcionales();" title="Contraer" src="img/top.png" alt="Menos" width="15" height="15" onmouseover="this.style.cursor='hand';"/>
          </td>
     </tr>
-    <tr id="trOpcionales1" style="display:block">
+    <!--<tr id="trOpcionales1" style="display:block">-->
+    <tr id="trOpcionales1" >
          <td nowrap align="right" >Proyecto:</td><td><input type="text" class="tw_form" name="ordProjId" id="ordProjId"  value="<c:out value="${order.ordProjId}" />"  /> </td>
          <td nowrap align="right" >WO Number</td><td><input type="text" class="tw_form" name="ordWoNumber" id="ordWoNumber" size="10"  value="<c:out value="${order.ordWoNumber}" />"  /> </td>
          <td nowrap align="right" >Job Id:</td><td><input type="text" class="tw_form" name="ordJobId" id="ordJobId"  value="<c:out value="${order.ordJobId}" />" /> </td>
          <td nowrap align="right" >Job Name:</td><td><input type="text" class="tw_form" name="ordJobName" id="ordJobName"  value="<c:out value="${order.ordJobName}" />" /></td>
     </tr>
-    <tr id="trOpcionales2" style="display:block">
+    <!--<tr id="trOpcionales2" style="display:block">-->
+    <tr id="trOpcionales2">
         <td nowrap align="right" >Job Description:</td>
         <td colspan="9"><textarea  rows="3" cols="109"   onkeyup="limitarArea()" class="tw_form" name="ordJobDescription" id="ordJobDescription" ><c:out value="${order.ordJobDescription}" /></textarea></td>
     </tr>    

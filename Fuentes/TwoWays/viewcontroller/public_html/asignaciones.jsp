@@ -149,7 +149,7 @@
                 
                 
                <tr name="item-documento"  bgcolor="#FFFFFF" id="ordId-<c:out value="${item.odoName}" />" >
-                     <td width="300" ><a href="/twoways/downloadfile?docId=<c:out value="${item.odoId}" />"  ><c:out value="${item.odoName}" /></a></td>
+                     <td width="300" ><a href="/twoways/downloadfile?docId=<c:out value="${item.odoId}" />&docType=orderDoc"  ><c:out value="${item.odoName}" /></a></td>
                      <td ><input type="checkbox"  <c:out value="${check}" /> name="listdocs-<c:out value="${item.odoId}" />"  id="listdocs-<c:out value="${item.odoId}" />"   onclick="cambioCheck('<c:out value="${item.odoId}" />')" /></td>
                      <td width="150" ><c:out value="${item.docType.dotId}" /></td>
                <td>

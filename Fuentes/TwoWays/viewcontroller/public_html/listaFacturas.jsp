@@ -122,7 +122,8 @@
        </td><td align="left" width="100%" valign="top" >
         <table id ="tabla-busqueda">
             <thead>
-               <tr style="display:block; background-color='transparent';" align="center">
+               <!--<tr style="display:block; background-color='transparent';" align="center">-->
+               <tr style="background-color='transparent'" align="center">
                     <th width="10%" bgcolor="#80211D">#</th>
                     <th width="15%" bgcolor="#80211D">Nombre cliente</th>                       
                     <th width="10%" bgcolor="#80211D">Fecha cobro</th>

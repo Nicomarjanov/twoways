@@ -46,7 +46,9 @@ import org.apache.log4j.Logger;
 
 public class OrdenTrabajoServlet extends AutorizacionServlet {
     private static final String CONTENT_TYPE = "text/html; charset=windows-1252";
-    private static final String TMP_DIR_PATH = "C:\\WINDOWS\\Temp";
+    //private static final String TMP_DIR_PATH = "C:\\WINDOWS\\Temp";
+     private static final String TMP_DIR_PATH = System.getProperty("java.io.tmpdir");
+     //"/home/agustina/temp";
     private File tmpDir;
     private static  Logger log;   
 
@@ -60,6 +62,7 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
         log.info("Inicia OrdenTrabajoServlet");
      
         tmpDir = new File(TMP_DIR_PATH);
+        System.out.println("Directorio temporal: "+TMP_DIR_PATH);
         if(!tmpDir.isDirectory()) {
                 throw new ServletException(TMP_DIR_PATH + " is not a directory");
         }
@@ -419,7 +422,7 @@ public class OrdenTrabajoServlet extends AutorizacionServlet {
                              */
                             
                              if (item.getFieldName().startsWith("file") && item.isFormField() ){
-                                 File file = new File(TMP_DIR_PATH+"\\"+ item.getFieldName());
+                                 File file = new File(TMP_DIR_PATH+"/"+ item.getFieldName());
                                  
                                  
                                  FileItemFactory fac= new DiskFileItemFactory();

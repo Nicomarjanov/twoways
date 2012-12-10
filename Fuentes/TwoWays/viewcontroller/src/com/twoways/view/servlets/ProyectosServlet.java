@@ -69,8 +69,7 @@ public class ProyectosServlet extends AutorizacionServlet {
         boolean reenviar = true;
 
 
-        String accion =  (request.getParameter("accion") != null) ? request.getParameter("accion").toString() : 
-            "";
+        String accion =  (request.getParameter("accion") != null) ? request.getParameter("accion").toString() :"";
 
         TwoWaysBDL twoWaysBDL = null;
         
@@ -81,8 +80,6 @@ public class ProyectosServlet extends AutorizacionServlet {
             
             monedas =  twoWaysBDL.getServiceTwoWays().obtenerMonedas(); 
             estadosList= twoWaysBDL.getServiceTwoWays().getStatesListByType("Proyecto");
-             
-             
             Long ordId = null ; 
             
             if (request.getParameter("ordId") !=null){
@@ -101,9 +98,6 @@ public class ProyectosServlet extends AutorizacionServlet {
             }
 
             if (accion != null && accion.equalsIgnoreCase("guardar")) {
-
-                
-
 
                 try {
 
@@ -135,9 +129,6 @@ public class ProyectosServlet extends AutorizacionServlet {
                         project.setProFinishDate(timest);
                     }
                     
-                    
-
-
                 } catch (Exception e) {
                     request.setAttribute("mensaje", 
                                          "<script>alert('La fecha ingresada no es válida')</script>");
@@ -182,20 +173,15 @@ public class ProyectosServlet extends AutorizacionServlet {
 
                     if (project.getProId() != null && project.getProId().toString().length() >  0) {
                         
-                        
-                                twoWaysBDL.getServiceTwoWays().updateProject(project);
-                                
-                                
-                        project =  twoWaysBDL.getServiceTwoWays().getProjectByOrdId(project.getOrdersTO().getOrdId());       
+                       twoWaysBDL.getServiceTwoWays().updateProject(project);
+                       project =  twoWaysBDL.getServiceTwoWays().getProjectByOrdId(project.getOrdersTO().getOrdId());       
 
                     } else {
                        // project = 
                                 twoWaysBDL.getServiceTwoWays().insertProject(project);
                         project =  twoWaysBDL.getServiceTwoWays().getProjectByOrdId(project.getOrdersTO().getOrdId());       
                     }
-
-                   
-                   
+                  
                     Map <Long,ProjectAssignmentsTO>  projectAssignmentsTOMap = new HashMap<Long,ProjectAssignmentsTO>();      
                     Map <Long,ProAssigmentsDetailsTO>  proAssigmentsDetailsTOMap = new HashMap<Long,ProAssigmentsDetailsTO>();      
                    
@@ -212,9 +198,7 @@ public class ProyectosServlet extends AutorizacionServlet {
                                  Double parametroValue = (request.getParameter(paramName)!=null)?Double.parseDouble(request.getParameter(paramName).replaceAll(",",".")):null; 
                               
                               ProAssigmentsDetailsTO proAssigmentsDetailsTO =proAssigmentsDetailsTOMap.get(id);
-                              
-                              
-                              
+                               
                               if(proAssigmentsDetailsTO==null){
                                   proAssigmentsDetailsTO = new ProAssigmentsDetailsTO();
                                   proAssigmentsDetailsTO.setPadId(id);
@@ -230,9 +214,6 @@ public class ProyectosServlet extends AutorizacionServlet {
                                  }
                               
                               }
-                              
-                            
-                              
                           }else if( paramName.startsWith("praTotalAmount") ){ 
                                  
                              String [] arrayAux =   paramName.split("-");
@@ -250,11 +231,9 @@ public class ProyectosServlet extends AutorizacionServlet {
                                  projectAssignmentsTO.setPraId(id);
                                  projectAssignmentsTOMap.put(id,projectAssignmentsTO);
                              }
-                             
-                             
+                                                          
                                 projectAssignmentsTO.setPraTotalAmount(parametroValue);
-                             
-                             
+                                                          
                             }
                          
                          }
@@ -309,13 +288,7 @@ public class ProyectosServlet extends AutorizacionServlet {
                     costoTotalProyecto +=value;
                     costos.put(projectAssignmentsTO.getPraId(),value);
                     costoMap.putAll((Map)auxCostoMap.get("cotizaciones"));
-                }
-                
-               
-                    
-                  
-               
-            
+                }          
             
             }
             

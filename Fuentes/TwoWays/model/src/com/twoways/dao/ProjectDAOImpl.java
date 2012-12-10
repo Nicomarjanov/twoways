@@ -399,7 +399,7 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
             query = query.replaceAll("#"+param+"#",projParameters.get(param).toString());
         }
         
-        query+= " order by o.ord_start_date desc " ;
+        query+= " order by o.ord_start_date " ;
          try {
              con = ds.getConnection();
              stm = con.createStatement();
@@ -471,5 +471,29 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
     public void deleteProjectByOrdId(Long ordId)throws Exception{
         getSqlMapClientTemplate().delete("deleteProjectByOrdId",ordId);
     }
+    public Long getTotalPalabrasxProyecto(Long proId) throws Exception{
+        DataSource ds = this.getDataSource(); 
+        Connection con = null;
+        Statement stm = null;
+        ResultSet rs= null ;
+        Long res =0L;
+        String query =  "select sum(t.pad_wcount) as total \n "+
+                        "from proj_assignments_details t  \n" +
+                        "where  t.project_assignments_projects_p=#proId#";
+       query = query.replace("#proId#",proId.toString());
+        try {
+            con = ds.getConnection();
+            stm = con.createStatement();
+            rs = stm.executeQuery(query); 
+            rs.next();
+            res= rs.getLong("total");          
+        
+            rs.close();
+            stm.close();
+            con.close();
+        } catch (SQLException e) {
+         e.printStackTrace();
+        }
+        return res;
+    }
 }
-

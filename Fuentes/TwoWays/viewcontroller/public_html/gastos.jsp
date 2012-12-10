@@ -210,7 +210,8 @@
                         <div class="fixedHeaderTableGastos">
                         <table id="list-gastos-body" align="center" width="100%" cellSpacing="1" >
                         <thead >     
-                        <tr style="display:block; background-color:'transparent';">
+                        <!--<tr style="display:block; background-color:'transparent';">-->
+                        <tr style="background-color='transparent'">
                             <th nowrap width="15%" align="center" style="border:solid 1px #FFFFFF;">Fecha</th>
                             <th nowrap width="30%" align="center" style="border:solid 1px #FFFFFF;">Nombre del Item</th>
                             <th width="15%" align="center" style="border:solid 1px #FFFFFF;">Moneda</th>
@@ -267,8 +268,11 @@
   <hr class="tw_hr">
   <table width="25%" align="center">
       <tr>
-          <td align="right"><input type="button" id="aceptar" value="Aceptar" onclick="agregar()"/></td>   
-          <td align="left"><input type="button" id="cancel" value="Limpiar" OnClick="cancelar()"/></td>   
+          <c:if test="${itemsExpense != null}">
+              <td align="right"><input type="button" id="aceptar" value="Aceptar" onclick="agregar()"/></td>   
+              <td align="center"><input type="button" id="export" value="Exportar" OnClick="exportarCSV()"/></td>   
+              <td align="left"><input type="button" id="cancel" value="Limpiar" OnClick="cancelar()"/></td> 
+          </c:if>
       </tr>
   </table>
   </form>

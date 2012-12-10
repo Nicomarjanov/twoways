@@ -23,7 +23,8 @@
     <input type="hidden"  name="payId"  id="payId" value="<c:out value="${payId}" />" >    
     <table id ="tabla-busqueda">
     <thead>
-       <tr style="display:block; background-color='transparent';" align="center">                       
+       <!--<tr style="display:block; background-color='transparent';" align="center">                       -->
+       <tr style="background-color='transparent'" align="center">
             <th width="10%" bgcolor="#80211D">Fecha asignación</th>
             <th width="10%" bgcolor="#80211D">Nombre proyecto</th> 
             <th width="10%" bgcolor="#80211D">Tipo tarifa</th>

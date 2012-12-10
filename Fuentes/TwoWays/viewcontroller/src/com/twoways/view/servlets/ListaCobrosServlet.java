@@ -15,17 +15,12 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import com.twoways.core.bdl.TwoWaysBDL;
-
 import com.twoways.to.AccountsTO;
 import com.twoways.to.ClientsTO;
-import com.twoways.to.EmployeesTO;
-
 import com.twoways.to.InvoicesTO;
-
 import com.twoways.to.ItemsInvoicesTO;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -38,14 +33,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 
 public class ListaCobrosServlet extends AutorizacionServlet {
     private static final String CONTENT_TYPE = "text/html; charset=ISO-8859-1";
-    public static final String RESOURCE = "C:\\apache-tomcat-7.0.5\\webapps\\img\\print_img.png";    
-    public static final String EURO = "C:\\apache-tomcat-7.0.5\\webapps\\img\\euro.png";
-    public static final String POUND = "C:\\apache-tomcat-7.0.5\\webapps\\img\\money_pound.png";
+    public static final String RESOURCE = "/home/resources/img/print_img.png";    
+    public static final String EURO = "/home/resources/img/euro.png";
+    public static final String POUND = "/home/resources/img/money_pound.png";
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);

@@ -78,7 +78,8 @@
         <div class="fixedHeaderTableIdiom">
         <table id="list-responsables-body" align="center" width="100%" cellSpacing="1" >
         <thead>     
-        <tr style="display:block; background-color='transparent'">
+        <!--<tr style="display:block; background-color='transparent'">-->
+        <tr style="background-color='transparent'">
             <th width="15%"></th>
             <th width="15%"></th>
             <th width="15%"></th>

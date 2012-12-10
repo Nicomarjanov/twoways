@@ -42,7 +42,7 @@
      <c:forEach items="${docList}" var="item">
        <tr name="item-documento"  bgcolor="#FFFFFF" id="ordId-<c:out value="${item.odoName}" />" >
              <td width="46" align="right" ><img  src="img/Delete.png" height="25" width="25"  alt="Eliminar" onclick="eliminarDocumento('ordId-<c:out value="${item.odoName}" />')" onmouseover="this.style.cursor='hand';" /></td>
-             <td width="300" ><a href="/twoways/downloadfile?docId=<c:out value="${item.odoId}" />"  ><c:out value="${item.odoName}" /><input type="hidden"  name="exdoc" value="<c:out value="${item.odoName}" />"  ></a>
+             <td width="300" ><a href="/twoways/downloadfile?docId=<c:out value="${item.odoId}" />&docType=orderDoc"  ><c:out value="${item.odoName}" /><input type="hidden"  name="exdoc" value="<c:out value="${item.odoName}" />"  ></a>
              </td>
              <td>
              <c:out value="${item.docType.dotName}" />

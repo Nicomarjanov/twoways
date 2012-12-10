@@ -305,7 +305,8 @@
                      <div class="fixedHeaderTableIdiom">
                          <table cellpadding="0" cellspacing="1" id="list-idiomas-body" align="right" width="100%">
                          <thead>     
-                           <tr style="display:block; background-color='transparent'">
+                           <!--<tr style="display:block; background-color='transparent'">-->
+                           <tr style="background-color='transparent'">
                                 <th width="30%"></th>
                                 <th width="15%"></th>
                                 <th width="30%"></th>

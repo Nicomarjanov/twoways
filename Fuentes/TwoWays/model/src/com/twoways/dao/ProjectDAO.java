@@ -52,4 +52,6 @@ public interface ProjectDAO {
     public List <ProjectsTO> findProjects(Map projParameters);
     
     public void deleteProjectByOrdId(Long ordId)throws Exception ;
+    
+    public Long getTotalPalabrasxProyecto(Long proId) throws Exception;
 }

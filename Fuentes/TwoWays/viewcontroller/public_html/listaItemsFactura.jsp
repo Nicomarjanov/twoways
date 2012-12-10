@@ -23,7 +23,8 @@
     <input type="hidden"  name="invId"  id="invId" value="<c:out value="${invId}" />" >    
     <table id ="tabla-busqueda">
     <thead>
-       <tr style="display:block; background-color='transparent';" align="center">
+       <!--<tr style="display:block; background-color='transparent';" align="center">-->
+       <tr style="background-color='transparent'" align="center">
             <th width="10%" bgcolor="#80211D">Nombre orden</th>                       
             <th width="10%" bgcolor="#80211D">Fecha entrada</th>
             <th width="10%" bgcolor="#80211D">PO #</th> 

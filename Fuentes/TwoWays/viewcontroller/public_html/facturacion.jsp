@@ -174,7 +174,8 @@
                <div class="fixedHeaderTablePago">
                  <table id="tabla-ordenes" name="tabla-ordenes" cellpadding="0" cellspacing="1" align="center" width="100%" hight="100%">
                  <thead align="center">     
-                   <tr style="display:block; background-color='transparent';" align="center">
+                   <!--<tr style="display:block; background-color='transparent';" align="center">-->
+                   <tr style="background-color='transparent';" align="center">
                         <th width="10%" bgcolor="#80211D">Nombre orden</th>
                         <th width="10%" bgcolor="#80211D">Nombre responsable</th>                        
                         <th width="10%" bgcolor="#80211D">Fecha entrega</th>
@@ -185,7 +186,7 @@
                         <th width="10%" bgcolor="#80211D">Monto Tarifa</th>
                         <th width="10%" bgcolor="#80211D">Unidades</th>                        
                         <th width="10%" bgcolor="#80211D">Total orden</th>
-                        <!--<th width="2%" bgcolor="#80211D"></th>-->
+                        <th width="2%" bgcolor="#80211D"></th>
                     </tr>
                  </thead>  
                  <c:choose   >
@@ -220,18 +221,21 @@
                                 <td width="10%" bgcolor="#FFFFF" style="text-align:right;"><c:out value="${item[\'CURSYMBOL\']}" /> <c:out value="${item[\'ORRVALUE\']}" /></td> 
                                 <td width="10%" bgcolor="#FFFFF"><c:out value="${item[\'ORRWCOUNT\']}" /></td>                         
                                 <td width="10%" bgcolor="#FFFFF" style="text-align:right;"><c:out value="${item[\'ORDTOTAL\']}" /></td>
-                                <!--<td width="2%">
+                                <td width="2%">
                                     <c:if test="${accion !='imprimir'}">
-                                        <img  src="img/del2.png" height="15" width="15"  alt="Eliminar" onclick="eliminarOrden('<c:out value="${item[\'ORDID\']}"/><c:out value="${item[\'RATID\']}"/>','<c:out value="${item[\'ORDTOTAL\']}" />','<c:out value="${item[\'CURID\']}" />','<fmt:formatDate value="${item[\'ORDFINISHDATE\']}"  pattern="dd/MM/yyyy HH:mm" />')" onmouseover="this.style.cursor='hand';" />
+                                        <img  src="img/del2.png" height="15" width="15"  alt="Eliminar" onclick="eliminarOrden('<c:out value="${item[\'ORDID\']}"/><c:out value="${item[\'RATID\']}"/>','<c:out value="${item[\'ORDTOTAL\']}" />','<c:out value="${item[\'CURID\']}" />','<fmt:formatDate value="${item[\'ORDFINISHDATE\']}"  pattern="dd/MM/yyyy HH:mm" />','<c:out value="${item[\'ORDNAME\']}" />')" onmouseover="this.style.cursor='hand';" />
                                     </c:if>
-                                </td>-->
+                                </td>
                              </tr> 
 
                     
                   </c:forEach>
                   <tr>
                     <td colspan="9" bgcolor="#CCCCCC" style="text-align:right;">Subtotal <c:out value="${bandNom}"/>:</td>
-                    <td bgcolor="#CCCCCC" style="text-align:right;"><fmt:formatNumber type="number" value="${subtotal}" pattern="#.###"/></td>
+                    
+                    <td bgcolor="#CCCCCC" style="text-align:right;"><!--<fmt:formatNumber type="number" value="${subtotal}" pattern="#.###"/>-->
+                        
+                        <input type="text" id="subT+${bandNom}" value="${subtotal}" readonly="readonly" /></td>
                   </tr>
                   </tbody>
                     </c:when>
