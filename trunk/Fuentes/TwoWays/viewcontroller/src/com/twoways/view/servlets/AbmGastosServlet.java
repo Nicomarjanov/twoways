@@ -3,25 +3,19 @@ package com.twoways.view.servlets;
 import com.twoways.core.bdl.TwoWaysBDL;
 import com.twoways.to.AccountsTO;
 import com.twoways.to.CurrencyTO;
-import com.twoways.to.EmployeesTO;
 import com.twoways.to.ExpensesTO;
 import com.twoways.to.ItemsExpensesTO;
 import com.twoways.to.ItemsTO;
-
 import com.twoways.to.UsersTO;
 
 import java.io.IOException;
-
-import java.math.BigDecimal;
 
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletConfig;
@@ -29,8 +23,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 public class AbmGastosServlet extends AutorizacionServlet {
     private static final String CONTENT_TYPE = "text/html; charset=windows-1252";
+    //private static final String TMP_DIR_PATH = System.getProperty("java.io.tmpdir");
     
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
@@ -174,11 +170,9 @@ public class AbmGastosServlet extends AutorizacionServlet {
                     Long auxExpId = twoWaysBDL.getServiceTwoWays().insertarGasto(gasto); 
                     itmExps =  twoWaysBDL.getServiceTwoWays().getItemsExpenseList(gasto.getExpId());
                     request.setAttribute("auxExpId",auxExpId); 
-                    request.setAttribute("mensaje","<script>alert('El item de egreso se guardó con éxito')</script>");
-                     
+                    request.setAttribute("mensaje","<script>alert('El item de egreso se guardó con éxito')</script>");                     
                 }
-                
-                         
+                                         
                 if (itmExps != null){
                     request.setAttribute("itemsExpense",itmExps);
                 }
@@ -249,6 +243,20 @@ public class AbmGastosServlet extends AutorizacionServlet {
                 request.setAttribute("mensaje","<script>alert('Error al buscar el item de egreso')</script>"); 
             }                                    
        }
+      /* else if (accion!=null && accion.equalsIgnoreCase("exportar")){ 
+       try{
+           String itmGastosHidden[]=request.getParameterValues("item-gasto-hidden");
+           String expFechaMes = request.getParameter("mesId");
+           String expFechaAnio = request.getParameter("anioId");
+
+           String nombreArchivo=TMP_DIR_PATH+"/Ingresos_Egresos_"+expFechaAnio+"_"+expFechaMes+".csv";
+           GenerarCSV.generarCsvFile(itmGastosHidden,nombreArchivo);
+           request.setAttribute("mensaje","<script>alert('El archivo se exportó correctamente al disco C con el nombre "+ nombreArchivo +"')</script>");      
+       } catch (Exception e){
+           e.printStackTrace();                 
+           request.setAttribute("mensaje","<script>alert('Error al exportar el archivo')</script>");           
+       }
+       }*/
       else {
           //request.setAttribute("expId","");
           try {     

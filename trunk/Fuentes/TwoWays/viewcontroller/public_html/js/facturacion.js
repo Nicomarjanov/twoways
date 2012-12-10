@@ -1,5 +1,6 @@
 var mensajeCampoAlert;
 var curIdOrigen=0;
+var orderName;
 function cancelar()
 {
 
@@ -168,7 +169,7 @@ function imprimirFactura(invId,cliId,invDate,accId,curSymbol,invTotal){
     document.forms[0].submit(); 
 }
 
-function eliminarOrden (rowId, ordTotal, curIdDesde, fecha){
+function eliminarOrden (rowId, ordTotal, curIdDesde, fecha, ordName){
    var tabla = document.getElementById('tabla-ordenes');
    var row = document.getElementById(rowId);   
    var curHasta = document.getElementById("listaMoneda").value;
@@ -176,6 +177,7 @@ function eliminarOrden (rowId, ordTotal, curIdDesde, fecha){
    
    tabla.deleteRow(row.rowIndex);
    if (ordTotal > 0){
+        orderName=ordName;
         towaysDWR.cotizar(fecha, curIdDesde, curIdHasta[0], ordTotal, postEliminar);        
    }
 }
@@ -184,7 +186,10 @@ function postEliminar (data){
 
    var total = document.getElementById("invTotal").value;
    total = total.replace(",",".");
+   
    document.getElementById("invTotal").value= (total - data).toFixed(2);
+   var aux='subT' + orderName;
+   document.getElementById(aux).value = total - document.getElementById(aux).value;
 }
 
 function guardarValor(valor){
@@ -216,3 +221,4 @@ function editarOrden(ord){
 
    window.location.href = '/twoways/ordentrabajo?ordId='+ord;
 }
+

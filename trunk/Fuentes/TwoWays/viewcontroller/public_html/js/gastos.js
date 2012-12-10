@@ -19,6 +19,21 @@ function cancelar()
     }
 }
 
+
+
+function exportarCSV()
+{
+    if(confirm('¿Desea exportar la tabla a un archivo?'))
+    {   
+        //document.getElementById("accion").value='exportar';
+        //document.forms[0].submit();
+        var mesId=document.getElementById("mesId").value;
+        var anioId=document.getElementById("anioId").value;
+
+        window.open("/twoways/downloadfile?docId=Ingresos_Egresos_"+anioId+"_"+mesId+".csv&anioId="+anioId+"&mesId="+mesId+"&docType='gastosDoc'");
+    }
+}
+
 function agregarItemGasto(){
     if (validarCampos()){
         alert(mensajeCampoAlert);
@@ -257,6 +272,15 @@ function createDynamicDropdown(dropDown1, dropDown2, dropDown3) {
  
         // (if you have server side logic that adds selected="selected" in dropdown2) extra code for IE to display the correct 'slected="selected"' value in the select box dropdown3
         if (navigator.userAgent.indexOf('MSIE') !=-1){
+ 
+            for (var i=0; i < dropDown3.length; i++) {
+                if(dropDown3[i].value == dropDown2.value) {
+                    dropDown3[i].selected = true;
+                }
+            } 
+        }
+        
+        if (navigator.userAgent.indexOf('Chrome') !=-1){
  
             for (var i=0; i < dropDown3.length; i++) {
                 if(dropDown3[i].value == dropDown2.value) {

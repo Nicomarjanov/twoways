@@ -1097,6 +1097,11 @@ public class TW_SystemServiceImpl implements TW_SystemService {
     public List findFuturePayments(Map params) throws Exception{
         return this.paymentDao.findFuturePayments(params);
     }
+
+    public Long getTotalPalabrasxProyecto(Long proId) throws Exception{
+        return this.projectDao.getTotalPalabrasxProyecto(proId);
+    }
+
 }
 
 

@@ -54,7 +54,7 @@
 
         <table id="list-tarifas-body" align="right" heigth="40px" width="100%">
          <thead>
-            <tr style="display:block"><th width="200">Tarifa</th><th >valor</th><th >Cant. Palabras </th><th></th></tr>
+            <tr><th width="200">Tarifa</th><th >valor</th><th >Cant. Palabras </th><th></th></tr>
          </thead>
          <tbody style="width:100%;height:30px;overflow-x: hidden;overflow-y:auto ;">
              <c:forEach items="${requestScope.ratesTOList}" var="item">

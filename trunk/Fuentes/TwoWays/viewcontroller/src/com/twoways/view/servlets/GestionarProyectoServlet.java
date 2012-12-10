@@ -3,10 +3,7 @@ package com.twoways.view.servlets;
 import com.twoways.core.bdl.TwoWaysBDL;
 import com.twoways.to.ClientsTO;
 import com.twoways.to.OrdersTO;
-
 import com.twoways.to.ProjectsTO;
-
-import com.twoways.to.StatesTO;
 
 import java.io.IOException;
 
@@ -16,14 +13,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import java.util.Map;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 
 public class GestionarProyectoServlet extends AutorizacionServlet {
-    private static final String CONTENT_TYPE = "text/html; charset=ISO-8859-1";
+   // private static final String CONTENT_TYPE = "text/html; charset=ISO-8859-1";
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
@@ -41,6 +40,7 @@ public class GestionarProyectoServlet extends AutorizacionServlet {
         TwoWaysBDL twoWaysBDL=null;
         String accion = request.getParameter("accion");
         int page =(request.getParameter("pageId")  != null && request.getParameter("pageId").length() >0  )?Integer.parseInt(request.getParameter("pageId")): 0 ;  
+
         List optionList= new ArrayList();
         
         optionList.add("=");
@@ -59,7 +59,7 @@ public class GestionarProyectoServlet extends AutorizacionServlet {
             request.setAttribute("exception",e);
         }
         
-        request.setAttribute("pageIr",1);
+        //request.setAttribute("pageIr",1);
         
         if(accion !=null && accion.equalsIgnoreCase("buscar")){
             request.setAttribute("accion",accion);
@@ -100,10 +100,10 @@ public class GestionarProyectoServlet extends AutorizacionServlet {
                 params.put("Finalizado",request.getParameter("Finalizado"));
                 request.setAttribute("Finalizado",request.getParameter("Finalizado"));
             }
-            if (request.getParameter("POPendiente") != null && request.getParameter("POPendiente").length() > 0) {
+            /*if (request.getParameter("POPendiente") != null && request.getParameter("POPendiente").length() > 0) {
                 params.put("POPendiente",request.getParameter("POPendiente"));
                 request.setAttribute("POPendiente",request.getParameter("POPendiente"));
-            }
+            }*/
             if (request.getParameter("POEnviado") != null && request.getParameter("POEnviado").length() > 0) {
                 params.put("POEnviado",request.getParameter("POEnviado"));
                 request.setAttribute("POEnviado",request.getParameter("POEnviado"));
@@ -177,7 +177,8 @@ public class GestionarProyectoServlet extends AutorizacionServlet {
                request.setAttribute("listaProyectos",subprojects);
                request.setAttribute("maxPage",maxPage);
                request.setAttribute("page",page);
-               request.setAttribute("pageId",page); 
+               request.setAttribute("pageId",page);
+               request.setAttribute("pageIr",page+1);
                
             }catch(Exception e){
                e.printStackTrace(); 

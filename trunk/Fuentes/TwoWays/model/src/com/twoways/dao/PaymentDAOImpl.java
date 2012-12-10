@@ -191,13 +191,15 @@ public class PaymentDAOImpl extends AbstractDAO  implements PaymentDAO{
     "         and pd.project_assignments_projects_p = pa.projects_pro_id\n" + 
     "         and r.rat_id = pd.employees_rates_rates_rat_id\n" + 
     "         and pa.employees_emp_id=e.emp_id\n" + 
-    "         and r.currency_cur_id=c.cur_id";
+    "         and r.currency_cur_id=c.cur_id\n" +
+    "         and pd.pad_pay_date is null";
     
     if (params.get("empId") != null && params.get("empId").toString().length() > 0){
         query +=" and e.emp_Id= #empId#";
     }        
     if (params.get("mesId") != null && params.get("mesId").toString().length() > 0){
         query +=" and to_char(pa.pra_assign_date,'mmyyyy')=#mesId##anioId#";
+         //query +=" and to_char(pa.pra_assign_date,'ddmmyyyy') between add_months(to_date('25'||'#mesId##anioId#'||' 00:00','ddMMyyyy hh24:mi')+1,-1) and to_date('25'||'#mesId##anioId#'||' 23:59','ddMMyyyy hh24:mi')";
     }      
     if (params.get("anioId") != null && params.get("anioId").toString().length() > 0){
         query +=" and to_char(pa.pra_assign_date,'yyyy')=#anioId#";
@@ -261,7 +263,8 @@ public class PaymentDAOImpl extends AbstractDAO  implements PaymentDAO{
     "  from clients c, orders o, orders_rates r,rates t\n" + 
     " where o.ord_id =r.orders_ord_id\n" + 
     " and o.clients_cli_id = c.cli_id\n" + 
-    " and r.rates_rat_id=t.rat_id";
+    " and r.rates_rat_id=t.rat_id\n" +
+    " and r.orr_pay_date is null";
     
     if (params.get("cliId") != null && params.get("cliId").toString().length() > 0){
         query +=" and c.cli_Id= #cliId#";

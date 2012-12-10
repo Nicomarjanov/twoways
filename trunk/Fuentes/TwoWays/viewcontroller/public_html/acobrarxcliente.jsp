@@ -26,6 +26,9 @@
       <tr>
         <th colspan="2" class="tw_form">Tabla de ingresos a cobrar por Cliente</th>
       </tr>
+      <tr>
+        <td colspan="2" align="center">**Las fechas corresponden a la asignación del empleado**</td>
+      </tr>
       </thead>
       <tbody>
       <tr>
@@ -216,7 +219,8 @@
                <div class="fixedHeaderTableIngreso">
                  <table id="tabla-ingresos" name="tabla-ingresos" cellpadding="3" cellspacing="1" align="center" width="100%">
                  <thead align="center">     
-                   <tr style="display:block; background-color='transparent';" align="center">
+                   <!--<tr style="display:block; background-color='transparent';" align="center">-->
+                   <tr style="background-color='transparent'" align="center">
                         <th width="7%" bgcolor="#ee9a98">Cliente</th>
                         <th width="7%" bgcolor="#80211D">Enero</th>
                         <th width="7%" bgcolor="#80211D">Febrero</th>

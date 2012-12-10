@@ -1,28 +1,20 @@
 package com.twoways.service;
 
-
 import com.twoways.to.OrdersDocsTO;
 
 import java.io.File;
-
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-
 import java.io.IOException;
 
-import java.net.InetSocketAddress;
-import java.net.ProxySelector;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.net.URL;
 
 import java.security.Security;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-
 import java.util.ResourceBundle;
 
 import javax.activation.DataHandler;
@@ -42,16 +34,15 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-import javax.servlet.ServletException;
-
-import org.apache.log4j.Logger;
 
 public class ServiceMail {
 
     private static final String SMTP_HOST_NAME = "smtp.gmail.com";
     private static final String SMTP_PORT = "465";
     private static final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
-    private static final String TMP_DIR_PATH = "C:\\WINDOWS\\Temp";
+   // private static final String TMP_DIR_PATH = "C:\\WINDOWS\\Temp";
+    private static final String TMP_DIR_PATH = System.getProperty("java.io.tmpdir");
+    private final String CHARACTER_SET = "windows-1252";
 
     private String[] sendTo = new String[1];
 
@@ -59,7 +50,10 @@ public class ServiceMail {
     String userMail = rb.getString("userMail");
     String userMailPassword = rb.getString("userMailPassword");
     String userMailSender = rb.getString("userMailSender");
-    String atattachObligatorio =  rb.getString("attachdoc");
+    
+    //"/home/agustina/Documentos/Twoways/Querylog/Querylog.doc";
+    String atattachObligatorio =  "/home/resources/Querylog.doc";
+    //String atattachObligatorio = rb.getString("attachdoc");
     
     public static void main(String[] args) throws Exception {
 
@@ -151,7 +145,7 @@ public class ServiceMail {
                 }
             }
             
-            msg.setSubject(subject);
+            msg.setSubject(subject,CHARACTER_SET);
             msg.setRecipient(Message.RecipientType.TO, 
                              new InternetAddress(toMail));
             if (cc != null)
@@ -170,15 +164,17 @@ public class ServiceMail {
             multipart.addBodyPart(body);
             Map docs= new HashMap();
             
+             
+            
             if (atattachObligatorio != null && atattachObligatorio.length() > 0){
                 MimeBodyPart attachMent = new MimeBodyPart();
                
                 String strFilePath = atattachObligatorio;
-                
+                System.out.println("Archivo querylog: "+strFilePath);
                 FileDataSource dataSource = 
                     new FileDataSource(new File(strFilePath));
                 attachMent.setDataHandler(new DataHandler(dataSource));
-                attachMent.setFileName(atattachObligatorio.substring(atattachObligatorio.lastIndexOf("\\")+1));
+                attachMent.setFileName(atattachObligatorio.substring(atattachObligatorio.lastIndexOf("/")+1));
                 attachMent.setDisposition(MimeBodyPart.ATTACHMENT);
                 System.out.println("multipart");
                 multipart.addBodyPart(attachMent);
@@ -192,8 +188,9 @@ public class ServiceMail {
                 docs.put(ordDoc.getOdoId(),ordDoc.getOdoId()); 
                 MimeBodyPart attachMent = new MimeBodyPart();
                 convertTOFile(ordDoc.getOdoName(),ordDoc.getOdoDoc()); 
-                String strFilePath = TMP_DIR_PATH + "//" + ordDoc.getOdoName();
+                String strFilePath = TMP_DIR_PATH + "/" + ordDoc.getOdoName();
     
+                System.out.println("Archivo temporal: "+strFilePath);
                 FileDataSource dataSource = 
                     new FileDataSource(new File(strFilePath));
                 attachMent.setDataHandler(new DataHandler(dataSource));
@@ -251,7 +248,7 @@ public class ServiceMail {
     public void convertTOFile(String fileName, byte[] file ) {
 
 
-        String strFilePath = TMP_DIR_PATH + "//" + fileName;
+        String strFilePath = TMP_DIR_PATH + "/" + fileName;
 
 
         try

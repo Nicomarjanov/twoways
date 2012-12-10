@@ -102,31 +102,32 @@ public class APagarxEmpleadoServlet extends AutorizacionServlet {
                    if (pagosxEmpleado.size()>0){
                        request.setAttribute("pagosxEmpleado",pagosxEmpleado);
                        SimpleDateFormat mf = new SimpleDateFormat("MMyyyy"); 
-                       BigDecimal totalEne = new BigDecimal("0");
-                       BigDecimal totalFeb = new BigDecimal("0");
-                       BigDecimal totalMar = new BigDecimal("0");
-                       BigDecimal totalAbr = new BigDecimal("0");
-                       BigDecimal totalMay = new BigDecimal("0");
-                       BigDecimal totalJun = new BigDecimal("0");
-                       BigDecimal totalJul = new BigDecimal("0");
-                       BigDecimal totalAgo = new BigDecimal("0");
-                       BigDecimal totalSep = new BigDecimal("0");
-                       BigDecimal totalOct = new BigDecimal("0");
-                       BigDecimal totalNov = new BigDecimal("0");
-                       BigDecimal totalDic = new BigDecimal("0");  
-                       BigDecimal total =  new BigDecimal("0");
+                       double totalEne = 0;
+                       double totalFeb = 0;
+                       double totalMar = 0;
+                       double totalAbr = 0;
+                       double totalMay = 0;
+                       double totalJun = 0;
+                       double totalJul = 0;
+                       double totalAgo = 0;
+                       double totalSep = 0;
+                       double totalOct = 0;
+                       double totalNov = 0;
+                       double totalDic = 0;
+                       double total =  0;
 
                        Long empId;    
                        String empFirstName;
                        //String empLastName;
                        Long anteriorEmpId = null;
-                       Double monto = 0D;
-                       BigDecimal montoTotal = new BigDecimal("0");
+                       double monto = 0;
+                       double montoTotal = 0;
                        int anteriorMes = 0;
                        int mesCelda = 0;
 
                        ArrayList meses = new ArrayList<Double>();
                        SimpleDateFormat mesf = new SimpleDateFormat("MM"); 
+                       SimpleDateFormat diaf = new SimpleDateFormat("dd");
                        SimpleDateFormat formatoDeFecha = new SimpleDateFormat("yyyy-MM-dd");
                        
                        for(int i=0;i<pagosxEmpleado.size();i++){                                   
@@ -135,29 +136,37 @@ public class APagarxEmpleadoServlet extends AutorizacionServlet {
                            
                                empId = Long.parseLong(aux.next().toString());
                                empFirstName = aux.next().toString() + ' '+ aux.next().toString();
-                               Double montoAPag = Double.parseDouble(aux.next().toString());                        
+                               double montoAPag = Double.parseDouble(aux.next().toString());                        
                                Long curIdDesde = Long.parseLong(aux.next().toString());
                                Date fecha = formatoDeFecha.parse(aux.next().toString());
-                               mesCelda = Integer.parseInt(mesf.format(fecha));                    
+                               mesCelda = Integer.parseInt(mesf.format(fecha));     
+                               //if (Integer.parseInt(diaf.format(fecha)) > 25)mesCelda++;
                                Timestamp timestamp = new Timestamp(fecha.getTime());
-                               monto = twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, curIdDesde , curId,montoAPag );
+                               monto = twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, curIdDesde , curId,montoAPag);
                                
-                               if (empId != anteriorEmpId){
+                               BigDecimal bd = new BigDecimal(Double.toString(monto));
+                               bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
+                               monto= bd.doubleValue();
+                               
+                               if (anteriorEmpId == null && !empId.equals(anteriorEmpId)){
                                   meses = new ArrayList<Double>();
-                                  montoTotal = new BigDecimal("0");
+                                  montoTotal =0;
                                   for (int j=0;j<12;j++){
-                                       meses.add(0L);                                
+                                       meses.add(0D);                                
                                   }
                                }
                 
-                               if (empId == anteriorEmpId && anteriorMes == mesCelda){
-                                   montoTotal = montoTotal.add(BigDecimal.valueOf(monto)).setScale(2,BigDecimal.ROUND_UP);
+                               if (anteriorEmpId != null && empId.equals(anteriorEmpId) && anteriorMes == mesCelda){
+                                   montoTotal = montoTotal+monto;
+                                   BigDecimal bdm = new BigDecimal(Double.toString(montoTotal));
+                                   bdm = bdm.setScale(2, BigDecimal.ROUND_HALF_UP);
+                                   montoTotal=bdm.doubleValue();
                                    meses.remove(mesCelda-1);
                                    meses.add(mesCelda-1,montoTotal);
                                }else {
                                    meses.remove(mesCelda-1);
-                                   meses.add(mesCelda-1,BigDecimal.valueOf(monto).setScale(2,BigDecimal.ROUND_UP));
-                                   montoTotal = BigDecimal.valueOf(monto);
+                                   meses.add(mesCelda-1,monto);
+                                   montoTotal = monto;
                                }
                 
                                grillaPagos.put(empFirstName,meses);
@@ -191,19 +200,19 @@ public class APagarxEmpleadoServlet extends AutorizacionServlet {
                     
 
                    Set <String> grillaKey = grillaPagos.keySet();
-                   BigDecimal totalEnero = new BigDecimal("0");
-                   BigDecimal totalFeb = new BigDecimal("0");
-                   BigDecimal totalMar = new BigDecimal("0");     
-                   BigDecimal totalAbr = new BigDecimal("0");               
-                   BigDecimal totalMay = new BigDecimal("0");
-                   BigDecimal totalJun = new BigDecimal("0");
-                   BigDecimal totalJul = new BigDecimal("0");     
-                   BigDecimal totalAgo = new BigDecimal("0");               
-                   BigDecimal totalSep = new BigDecimal("0");
-                   BigDecimal totalOct = new BigDecimal("0");     
-                   BigDecimal totalNov = new BigDecimal("0");  
-                   BigDecimal totalDic = new BigDecimal("0");  
-                   BigDecimal totalTotal = new BigDecimal("0");     
+                   double totalEnero = 0;
+                   double totalFeb = 0;
+                   double totalMar = 0;     
+                   double totalAbr = 0;               
+                   double totalMay = 0;
+                   double totalJun = 0;
+                   double totalJul = 0;     
+                   double totalAgo = 0;               
+                   double totalSep = 0;
+                   double totalOct = 0;     
+                   double totalNov = 0;  
+                   double totalDic = 0;  
+                   double totalTotal = 0;     
                    
                    for(String key:grillaKey){
                        totalPagosEmp = new ArrayList();
@@ -211,62 +220,62 @@ public class APagarxEmpleadoServlet extends AutorizacionServlet {
                        for (int j=0;j<13;j++){
                             totalPagosEmp.add(0D); 
                        }
-                       BigDecimal totalCli = new BigDecimal("0");
+                       double totalCli = 0;
                        for(int i=0;i<((List)grillaPagos.get(key)).size();i++){
-                          totalCli = totalCli.add(BigDecimal.valueOf(Double.valueOf(((List)grillaPagos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));                            
+                          totalCli = totalCli + Double.valueOf(((List)grillaPagos.get(key)).get(i).toString());                            
                           totalPagosEmp.remove(i+1);
                            switch(i){
                            case 0:
-                               totalEnero = totalEnero.add(BigDecimal.valueOf(Double.valueOf(((List)grillaPagos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
+                               totalEnero = totalEnero+ Double.valueOf(((List)grillaPagos.get(key)).get(i).toString());
                                totalPagosEmp.add(i+1,totalEnero);
                                break;
                            case 1:
-                               totalFeb = totalFeb.add(BigDecimal.valueOf(Double.valueOf(((List)grillaPagos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
+                               totalFeb = totalFeb+Double.valueOf(((List)grillaPagos.get(key)).get(i).toString());
                                totalPagosEmp.add(i+1,totalFeb);
                                break;
                            case 2:
-                               totalMar = totalMar.add(BigDecimal.valueOf(Double.valueOf(((List)grillaPagos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
+                               totalMar = totalMar+Double.valueOf(((List)grillaPagos.get(key)).get(i).toString());
                                totalPagosEmp.add(i+1,totalMar);
                                break;
                            case 3:
-                               totalAbr = totalAbr.add(BigDecimal.valueOf(Double.valueOf(((List)grillaPagos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
+                               totalAbr = totalAbr+Double.valueOf(((List)grillaPagos.get(key)).get(i).toString());
                                totalPagosEmp.add(i+1,totalAbr);
                                break;
                            case 4:
-                               totalMay = totalMay.add(BigDecimal.valueOf(Double.valueOf(((List)grillaPagos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
+                               totalMay = totalMay+Double.valueOf(((List)grillaPagos.get(key)).get(i).toString());
                                totalPagosEmp.add(i+1,totalMay);
                                break;
                            case 5:
-                               totalJun = totalJun.add(BigDecimal.valueOf(Double.valueOf(((List)grillaPagos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
+                               totalJun = totalJun+Double.valueOf(((List)grillaPagos.get(key)).get(i).toString());
                                totalPagosEmp.add(i+1,totalJun);
                                break;
                            case 6:
-                               totalJul = totalJul.add(BigDecimal.valueOf(Double.valueOf(((List)grillaPagos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
+                               totalJul = totalJul+Double.valueOf(((List)grillaPagos.get(key)).get(i).toString());
                                totalPagosEmp.add(i+1,totalJul);
                                break;
                            case 7:
-                               totalAgo = totalAgo.add(BigDecimal.valueOf(Double.valueOf(((List)grillaPagos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
+                               totalAgo = totalAgo+Double.valueOf(((List)grillaPagos.get(key)).get(i).toString());
                                totalPagosEmp.add(i+1,totalAgo);
                                break;
                            case 8:
-                               totalSep = totalSep.add(BigDecimal.valueOf(Double.valueOf(((List)grillaPagos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
+                               totalSep = totalSep+Double.valueOf(((List)grillaPagos.get(key)).get(i).toString());
                                totalPagosEmp.add(i+1,totalSep);
                                break;
                            case 9:
-                               totalOct = totalOct.add(BigDecimal.valueOf(Double.valueOf(((List)grillaPagos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
+                               totalOct = totalOct+Double.valueOf(((List)grillaPagos.get(key)).get(i).toString());
                                totalPagosEmp.add(i+1,totalOct);
                                break;
                            case 10:
-                               totalNov = totalNov.add(BigDecimal.valueOf(Double.valueOf(((List)grillaPagos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
+                               totalNov = totalNov+Double.valueOf(((List)grillaPagos.get(key)).get(i).toString());
                                totalPagosEmp.add(i+1,totalNov);
                                break;
                            case 11:
-                               totalDic = totalDic.add(BigDecimal.valueOf(Double.valueOf(((List)grillaPagos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
+                               totalDic = totalDic+Double.valueOf(((List)grillaPagos.get(key)).get(i).toString());
                                totalPagosEmp.add(i+1,totalDic);
                                break;                
                            }
                        }
-                       totalTotal = totalTotal.add(totalCli.setScale(2,BigDecimal.ROUND_UP)); 
+                       totalTotal = totalTotal+totalCli; 
                        ((List)grillaPagos.get(key)).add(totalCli);
                    }
                    totalPagosEmp.remove(0); 

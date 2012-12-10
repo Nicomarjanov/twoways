@@ -1448,7 +1448,7 @@
   <select  id="getItemsExpenseByDate" resultClass="java.util.HashMap"  parameterClass="java.lang.String" >
        select e.exp_id as exp_id,
        i.ite_id as ite_id,
-       s.itm_name as itm_name, 
+       s.itm_name||decode(s.itm_description,null,null,' - '||s.itm_description) as itm_name,  
        c.cur_name as cur_name, 
        i.ite_value as ite_value, 
        a.acc_name as acc_name, 
@@ -1475,7 +1475,7 @@
   <select  id="getItemsExpenseList" resultClass="java.util.HashMap"  parameterClass="java.lang.Long" >
        select e.exp_id as exp_id,
        i.ite_id as ite_id,
-       s.itm_name as itm_name, 
+       s.itm_name||decode(s.itm_description,null,null,' - '||s.itm_description) as itm_name,   
        c.cur_name as cur_name, 
        i.ite_value as ite_value, 
        a.acc_name as acc_name, 

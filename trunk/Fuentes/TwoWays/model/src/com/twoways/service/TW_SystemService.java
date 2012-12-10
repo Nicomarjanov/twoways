@@ -296,4 +296,6 @@ public interface TW_SystemService {
     public List findFutureIncomesByClient(Map params) throws Exception;    
 
     public List findFuturePayments(Map params) throws Exception;
+    
+    public Long getTotalPalabrasxProyecto(Long proId) throws Exception;
 }

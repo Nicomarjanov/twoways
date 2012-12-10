@@ -36,16 +36,6 @@ function buscarProyectos(){
         banderaMensajeFaltante=true;
         }
     }
-
-    if(pageIr.value != '')
-    {
-       if (!(isNumber(pageIr.value)))
-        {
-        pageIr.style.background='Red';
-        mensajeFaltanteAlert+= ' * Debe ingresar un número entero \n';
-        banderaMensajeFaltante=true;
-        }
-    }    
      
     if(banderaMensajeFaltante){
         mensajeCampoAlert=mensajeFaltanteAlert + '\n';  
@@ -73,9 +63,11 @@ function next(){
 }
 
 function IrHasta(){
-  var pageId = document.getElementById('pageIr');   
+  var pageIr = document.getElementById('pageIr'); 
+
   if (isNumber(pageId.value)){
-      pageId.value = parseInt(pageId.value);
+      pageId.value = parseInt(pageIr.value);
+
       buscarProyectos();    
   }else {
     alert("Debe ingresar un número entero");
@@ -83,6 +75,42 @@ function IrHasta(){
     return;
   }
 }
+
+
+
+
+
+
+
+
+function exportarListaCSV()
+{
+    if(confirm('¿Desea exportar la tabla a un archivo?'))
+    {   
+        //document.getElementById("accion").value='exportar';
+        //document.forms[0].submit();
+        var listaClientes=document.getElementById('listaClientes').options[document.getElementById('listaClientes').selectedIndex].value;        
+        var projName=document.getElementById('projName').value;
+        var ordName=document.getElementById("ordName").value;
+        var Iniciado=document.getElementById("Iniciado").value;
+        var Entregado=document.getElementById("Entregado").value;
+        var POEnviado=document.getElementById("POEnviado").value;
+        var projFinishDate=document.getElementById("projFinishDate").value;
+        var projFinishDateOpt=document.getElementById("projFinishDateOpt").value;
+        var projDate=document.getElementById("projDate").value;
+        var projDateOpt=document.getElementById("projDateOpt").value;
+        var projFinishDate=document.getElementById("projFinishDate").value;
+        
+        
+        window.open("/twoways/downloadfile?docId=Lista_Proyectos.csv&listaClientes="+listaClientes+"&projName="+projName+"&ordName="+ordName+"&Iniciado="+Iniciado+"&Entregado="+Entregado+"&POEnviado="+POEnviado+"&projFinishDate="+projFinishDate+"&projFinishDateOpt="+projFinishDateOpt+"&projDate="+projDate+"&projDateOpt="+projDateOpt+"&projFinishDate="+projFinishDate+"&docType='proyectosListaDoc'");
+    }
+}
+
+
+
+
+
+
 function editarOrden(ord){
 
    window.location.href = '/twoways/ordentrabajo?ordId='+ord;

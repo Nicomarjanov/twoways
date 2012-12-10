@@ -105,6 +105,17 @@
    </hash>
    <hash n="oracle.jdeveloper.model.PathsConfiguration">
       <hash n="javaContentSet">
+         <list n="constituent-sets">
+            <hash>
+               <url n="content-folder-url" path="src/servlets/"/>
+               <list n="pattern-filters">
+                  <string v="+ResourcesServlet.java"/>
+               </list>
+               <list n="url-path">
+                  <url path="src/servlets/"/>
+               </list>
+            </hash>
+         </list>
          <list n="pattern-filters">
             <string v="-com/twoways/view/servlet/"/>
             <string v="-com/twoways/vew/"/>

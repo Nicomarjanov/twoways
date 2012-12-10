@@ -1,19 +1,16 @@
 package com.twoways.view.servlets;
 
 import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-
 import com.itextpdf.text.Element;
-import com.itextpdf.text.Font; 
+import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.GrayColor;
-import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -21,26 +18,16 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.twoways.core.bdl.TwoWaysBDL;
 import com.twoways.to.AccountsTO;
 import com.twoways.to.CurrencyTO;
-import com.twoways.to.EmployeeTypeTO;
-
 import com.twoways.to.EmployeesTO;
-
 import com.twoways.to.ExpensesTO;
 import com.twoways.to.ItemsExpensesTO;
 import com.twoways.to.ItemsTO;
 import com.twoways.to.PaymentsTO;
 import com.twoways.to.ProAssigmentsDetailsTO;
 import com.twoways.to.ProjAssignPaysTO;
-import com.twoways.to.ProjectAssignmentsTO;
-
-import com.twoways.to.ProjectsTO;
-
 import com.twoways.to.UsersTO;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
-
 
 import java.sql.Timestamp;
 
@@ -55,19 +42,19 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-
 import java.util.Map;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import sun.font.FontFamily;
 
 public class AbmPagosServlet extends AutorizacionServlet {
     private static final String CONTENT_TYPE = "text/html; charset=windows-1252";
-    public static final String EURO = "C:\\apache-tomcat-7.0.5\\webapps\\img\\euro.png";
-    public static final String RESOURCE = "C:\\apache-tomcat-7.0.5\\webapps\\img\\print_img.png";
-    public static final String POUND = "C:\\apache-tomcat-7.0.5\\webapps\\img\\money_pound.png";
+   // public static final String EURO = "C:\\apache-tomcat-7.0.5\\webapps\\img\\euro.png";
+    //public static final String RESOURCE = getServletContext().getRealPath("WEB-INF/static/img/print_img.png");
+    //public static final String POUND = "C:\\apache-tomcat-7.0.5\\webapps\\img\\money_pound.png";
     
     public AbmPagosServlet(){
     
@@ -255,7 +242,7 @@ public class AbmPagosServlet extends AutorizacionServlet {
                    
                     Long payId = twoWaysBDL.getServiceTwoWays().insertarPago(pago); 
                     request.setAttribute("payId",payId);
-                    /*Insertar gasto de pago de sueldo en la tabla de gastos
+                    /*Insertar gasto de pago de sueldo en la tabla de gastos*/
                     ItemsExpensesTO itmExpTO = new ItemsExpensesTO(); 
                     itmExpTO.setAccountsTO(pago.getAccountsTO());
                     itmExpTO.setCurrencyTO(pago.getCurrencyTO());
@@ -290,7 +277,7 @@ public class AbmPagosServlet extends AutorizacionServlet {
                     expTO.setExpDate(timest);
                     
                     twoWaysBDL.getServiceTwoWays().insertarExpenseExtra(expTO);
-                    */
+                    
                     List printEmpProjAssignment = null;
                     printEmpProjAssignment = twoWaysBDL.getServiceTwoWays().obtenerItemsPago(payId);
                     request.setAttribute("projectAssignnments",printEmpProjAssignment);
@@ -368,7 +355,7 @@ public class AbmPagosServlet extends AutorizacionServlet {
         Font ft = new Font(bf,15,Font.BOLD);         
         //imagen
         table.setWidthPercentage(100f);
-        cell = new PdfPCell(Image.getInstance(RESOURCE),true);
+        cell = new PdfPCell(Image.getInstance(getServletContext().getRealPath("WEB-INF/static/img/print_img.png")),true);
         cell.setBorder(PdfPCell.NO_BORDER);
         cell.setColspan(2);
         cell.setPadding(20);
@@ -449,7 +436,7 @@ public class AbmPagosServlet extends AutorizacionServlet {
             table.addCell(cell); 
             if (curSymbol[0] != null){
                 if(curSymbol[0].equalsIgnoreCase("2")){
-                    Image euro =Image.getInstance(EURO);
+                    Image euro =Image.getInstance(getServletContext().getRealPath("WEB-INF/static/img/euro.png"));
                     euro.scalePercent(70f);
                     cell = new PdfPCell();
                     cell.addElement(euro);

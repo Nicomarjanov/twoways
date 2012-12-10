@@ -150,7 +150,8 @@
                <div class="fixedHeaderTableIngreso">
                  <table id="tabla-ingresos" name="tabla-ingresos" cellpadding="3" cellspacing="1" align="center" width="100%">
                  <thead align="center">     
-                   <tr style="display:block; background-color='transparent';" align="center">
+                   <!--<tr style="display:block; background-color='transparent';" align="center">-->
+                   <tr style="background-color='transparent'" align="center">
                         <th width="7%" bgcolor="#ee9a98">Item</th>
                         <th width="7%" bgcolor="#80211D">Enero</th>
                         <th width="7%" bgcolor="#80211D">Febrero</th>

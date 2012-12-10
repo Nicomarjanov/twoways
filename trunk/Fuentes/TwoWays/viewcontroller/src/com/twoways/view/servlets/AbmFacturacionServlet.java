@@ -1,26 +1,9 @@
 package com.twoways.view.servlets;
 
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.Image;
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.pdf.BaseFont;
-import com.itextpdf.text.pdf.GrayColor;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
-
-
 import com.twoways.core.bdl.TwoWaysBDL;
 import com.twoways.to.AccountsTO;
 import com.twoways.to.ClientsTO;
 import com.twoways.to.CurrencyTO;
-import com.twoways.to.EmployeesTO;
 import com.twoways.to.ExpensesTO;
 import com.twoways.to.InvoicesTO;
 import com.twoways.to.ItemsExpensesTO;
@@ -28,14 +11,10 @@ import com.twoways.to.ItemsInvoicesTO;
 import com.twoways.to.ItemsTO;
 import com.twoways.to.OrdersRatesTO;
 import com.twoways.to.OrdersTO;
-import com.twoways.to.PaymentsTO;
-import com.twoways.to.ProAssigmentsDetailsTO;
-import com.twoways.to.ProjAssignPaysTO;
 import com.twoways.to.RatesTO;
 import com.twoways.to.UsersTO;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import java.sql.Timestamp;
 
@@ -50,16 +29,19 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-
 import java.util.Map;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 
 public class AbmFacturacionServlet extends AutorizacionServlet {
     private static final String CONTENT_TYPE = "text/html; charset=windows-1252";
     //public static final String RESULT = "C:\\WINDOWS\\Temp\\pagos.pdf";
-    public static final String RESOURCE = "C:\\apache-tomcat-7.0.5\\webapps\\img\\print_img.png";
+     public static final String RESOURCE = "/home/resources/img/print_img.png";    
+
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
