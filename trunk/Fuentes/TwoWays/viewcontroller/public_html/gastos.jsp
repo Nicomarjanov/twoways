@@ -147,6 +147,7 @@
                         <option value="" >Seleccionar</option>
                         <option value="Egresos" >Egresos</option>
                         <option value="Ingresos" >Ingresos</option>
+                        <option value="Saldo inicial" >Saldo inicial</option>
                </select> 
             </td> 
             <td width="30%" align="center"  style ="background-color:#F8E0E0;color:#585858;align:left">
@@ -229,6 +230,9 @@
                              <c:when test="${item[\'ITM_TYPE\'] == 'Egresos'}">  
                                   <c:set scope="page" var="color_row" value="${'#d24444'}" />
                                 </c:when>        
+                                <c:when test="${item[\'ITM_TYPE\'] == 'Saldo inicial'}">  
+                                  <c:set scope="page" var="color_row" value="${'#ffcc33'}" />
+                                </c:when>       
                                 <c:otherwise>
                                   <c:set scope="page" var="color_row" value="${'#1cb874'}" /> 
                                 </c:otherwise>

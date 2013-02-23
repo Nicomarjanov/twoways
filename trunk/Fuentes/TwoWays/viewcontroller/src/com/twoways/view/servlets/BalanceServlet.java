@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 public class BalanceServlet extends AutorizacionServlet {
-    private static final String CONTENT_TYPE = "text/html; charset=ISO-8859-1";
+    private static final String CONTENT_TYPE = "text/html; charset=windows-1252";
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
@@ -52,6 +52,8 @@ public class BalanceServlet extends AutorizacionServlet {
             request.setAttribute("accion",accion);
             SimpleDateFormat sdfsh = new SimpleDateFormat("dd/MM/yyyy");            
             Map params= new  HashMap();          
+            Map params2= new  HashMap();
+            Map paramsNull= new  HashMap();
             
             if(!request.getParameter("mesId").equalsIgnoreCase("0")){ 
               params.put("mesId",request.getParameter("mesId"));
@@ -68,14 +70,175 @@ public class BalanceServlet extends AutorizacionServlet {
             else{
               request.setAttribute("anioId","0"); 
             }            
+            
+            if (request.getParameter("Extracciones") != null && request.getParameter("Extracciones").length() > 0) {
+                params2.put("Extracciones",request.getParameter("Extracciones"));
+                request.setAttribute("Extracciones",request.getParameter("Extracciones"));
+            }
+            if (request.getParameter("Cambio") != null && request.getParameter("Cambio").length() > 0) {
+                params2.put("Cambio",request.getParameter("Cambio"));
+                request.setAttribute("Cambio",request.getParameter("Cambio"));
+            }
+            if (request.getParameter("Transferencia") != null && request.getParameter("Transferencia").length() > 0) {
+                params2.put("Transferencia",request.getParameter("Transferencia"));
+                request.setAttribute("Transferencia",request.getParameter("Transferencia"));
+            }
            
             try{
                twoWaysBDL = new TwoWaysBDL(); 
-               List <List>ingresosList =  twoWaysBDL.getServiceTwoWays().findIncomes(params);
-               ArrayList totalIngresos = new ArrayList();
-               ArrayList totalEgresos = new ArrayList();  
-               ArrayList totalBeneficios = new ArrayList();  
-               ArrayList beneficioAcum = new ArrayList();                 
+                ArrayList totalIngresos = new ArrayList();
+                ArrayList totalEgresos = new ArrayList();  
+                ArrayList totalBeneficios = new ArrayList();  
+                ArrayList totalSaldos = new ArrayList();                  
+                ArrayList beneficioAcum = new ArrayList();                 
+                paramsNull=null;
+                
+               List <List>saldoList =  twoWaysBDL.getServiceTwoWays().findIncomes(params,"Saldo inicial",paramsNull);
+                if (saldoList.size() > 0){
+                    request.setAttribute("listaSaldo",saldoList);
+                    SimpleDateFormat mf = new SimpleDateFormat("MMyyyy"); 
+                    BigDecimal totalEne = new BigDecimal("0");
+                    BigDecimal totalFeb = new BigDecimal("0");
+                    BigDecimal totalMar = new BigDecimal("0");
+                    BigDecimal totalAbr = new BigDecimal("0");
+                    BigDecimal totalMay = new BigDecimal("0");
+                    BigDecimal totalJun = new BigDecimal("0");
+                    BigDecimal totalJul = new BigDecimal("0");
+                    BigDecimal totalAgo = new BigDecimal("0");
+                    BigDecimal totalSep = new BigDecimal("0");
+                    BigDecimal totalOct = new BigDecimal("0");
+                    BigDecimal totalNov = new BigDecimal("0");
+                    BigDecimal totalDic = new BigDecimal("0");  
+                    BigDecimal total =  new BigDecimal("0");
+                    //Iterator iterator = ingresosList.iterator();
+                    Long curId = null;
+                    for(int i=0;i<saldoList.size();i++){
+                        Iterator aux = saldoList.get(i).iterator();
+                        while(aux.hasNext()){
+                        
+                            curId = Long.parseLong(aux.next().toString());
+                            aux.remove();
+                            aux.next();
+                            Double montoEne = Double.parseDouble(aux.next().toString());
+                            if (montoEne > 0D){
+                                Date fecha = mf.parse("02"+anioId);//tomo la cotizacion del primer dia del mes siguiente
+                                Timestamp timestamp = new Timestamp(fecha.getTime());                       
+                                BigDecimal pesosEne = BigDecimal.valueOf(twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, curId , 4L, montoEne));
+                                totalEne = totalEne.add(pesosEne.setScale(2,BigDecimal.ROUND_UP));
+                            }
+                            Double montoFeb = Double.parseDouble(aux.next().toString());
+                            if (montoFeb > 0D){
+                                Date fecha = mf.parse("03"+anioId);
+                                Timestamp timestamp = new Timestamp(fecha.getTime());                       
+                                BigDecimal pesosFeb = BigDecimal.valueOf(twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, curId , 4L, montoFeb));
+                                totalFeb = totalFeb.add(pesosFeb.setScale(2,BigDecimal.ROUND_UP));
+                            }
+                            Double montoMar = Double.parseDouble(aux.next().toString());
+                            if (montoMar > 0D){
+                                Date fecha = mf.parse("04"+anioId);
+                                Timestamp timestamp = new Timestamp(fecha.getTime());                       
+                                BigDecimal pesosMar = BigDecimal.valueOf(twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, curId , 4L, montoMar));
+                                totalMar = totalMar.add(pesosMar.setScale(2,BigDecimal.ROUND_UP));
+                            }
+                            Double montoAbr = Double.parseDouble(aux.next().toString());
+                            if (montoAbr > 0D){
+                                Date fecha = mf.parse("05"+anioId);
+                                Timestamp timestamp = new Timestamp(fecha.getTime());                       
+                                BigDecimal pesosAbr = BigDecimal.valueOf(twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, curId , 4L, montoAbr));
+                                totalAbr = totalAbr.add(pesosAbr.setScale(2,BigDecimal.ROUND_UP));
+                            }
+                            Double montoMay = Double.parseDouble(aux.next().toString());
+                            if (montoMay > 0D){
+                                Date fecha = mf.parse("06"+anioId);
+                                Timestamp timestamp = new Timestamp(fecha.getTime());                       
+                                BigDecimal pesosMay = BigDecimal.valueOf(twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, curId , 4L, montoMay));
+                                totalMay = totalMay.add(pesosMay.setScale(2,BigDecimal.ROUND_UP));
+                            }
+                            Double montoJun = Double.parseDouble(aux.next().toString());
+                            if (montoJun > 0D){
+                                Date fecha = mf.parse("07"+anioId);
+                                Timestamp timestamp = new Timestamp(fecha.getTime());                       
+                                BigDecimal pesosJun = BigDecimal.valueOf(twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, curId , 4L, montoJun));
+                                totalJun = totalJun.add(pesosJun.setScale(2,BigDecimal.ROUND_UP));
+                            }      
+                            Double montoJul = Double.parseDouble(aux.next().toString());
+                            if (montoJul > 0D){
+                                Date fecha = mf.parse("08"+anioId);
+                                Timestamp timestamp = new Timestamp(fecha.getTime());                       
+                                BigDecimal pesosJul = BigDecimal.valueOf(twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, curId , 4L, montoJul));
+                                totalJul = totalJul.add(pesosJul.setScale(2,BigDecimal.ROUND_UP));
+                            }
+                            Double montoAgo = Double.parseDouble(aux.next().toString());
+                            if (montoAgo > 0D){
+                                Date fecha = mf.parse("09"+anioId);
+                                Timestamp timestamp = new Timestamp(fecha.getTime());                       
+                                BigDecimal pesosAgo = BigDecimal.valueOf(twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, curId , 4L, montoAgo));
+                                totalAgo = totalAgo.add(pesosAgo.setScale(2,BigDecimal.ROUND_UP));
+                            }
+                            Double montoSep = Double.parseDouble(aux.next().toString());
+                            if (montoSep > 0D){
+                                Date fecha = mf.parse("10"+anioId);
+                                Timestamp timestamp = new Timestamp(fecha.getTime());                       
+                                BigDecimal pesosSep = BigDecimal.valueOf(twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, curId , 4L, montoSep));
+                                totalSep = totalSep.add(pesosSep.setScale(2,BigDecimal.ROUND_UP));
+                            }
+                            Double montoOct = Double.parseDouble(aux.next().toString());
+                            if (montoOct > 0D){
+                                Date fecha = mf.parse("11"+anioId);
+                                Timestamp timestamp = new Timestamp(fecha.getTime());                       
+                                BigDecimal pesosOct = BigDecimal.valueOf(twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, curId , 4L, montoOct));
+                                totalOct = totalOct.add(pesosOct.setScale(2,BigDecimal.ROUND_UP));
+                            }
+                            Double montoNov = Double.parseDouble(aux.next().toString());
+                            if (montoNov > 0D){
+                                Date fecha = mf.parse("12"+anioId);
+                                Timestamp timestamp = new Timestamp(fecha.getTime());                       
+                                BigDecimal pesosNov = BigDecimal.valueOf(twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, curId , 4L, montoNov));
+                                totalNov = totalNov.add(pesosNov.setScale(2,BigDecimal.ROUND_UP));
+                            }
+                            Double montoDic = Double.parseDouble(aux.next().toString());
+                            if (montoDic > 0D){
+                                String nextAnio = String.valueOf(Long.parseLong(anioId)+1);
+                                Date fecha = mf.parse("01"+nextAnio);
+                                Timestamp timestamp = new Timestamp(fecha.getTime());                       
+                                BigDecimal pesosDic = BigDecimal.valueOf(twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, curId , 4L, montoDic));
+                                totalDic = totalDic.add(pesosDic.setScale(2,BigDecimal.ROUND_UP));
+                            }            
+                            Double montoTotal = Double.parseDouble(aux.next().toString());
+                            if (montoTotal > 0D){
+                                String nextAnio = String.valueOf(Long.parseLong(anioId)+1);
+                                Date fecha = mf.parse("01"+nextAnio);
+                                Timestamp timestamp = new Timestamp(fecha.getTime());                       
+                                BigDecimal pesosTotal = BigDecimal.valueOf(twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, curId , 4L, montoTotal));
+                                total = total.add(pesosTotal.setScale(2,BigDecimal.ROUND_UP));
+                            }   
+                         }
+                    }
+                    
+                    totalSaldos.add("Total en Pesos");
+                    totalSaldos.add(totalEne);
+                    totalSaldos.add(totalFeb);
+                    totalSaldos.add(totalMar);
+                    totalSaldos.add(totalAbr);
+                    totalSaldos.add(totalMay);
+                    totalSaldos.add(totalJun);
+                    totalSaldos.add(totalJul);
+                    totalSaldos.add(totalAgo);
+                    totalSaldos.add(totalSep);
+                    totalSaldos.add(totalOct);                   
+                    totalSaldos.add(totalNov);
+                    totalSaldos.add(totalDic);
+                    totalSaldos.add(total);        
+                    saldoList.add(totalSaldos);
+                    request.setAttribute("saldoPesos",saldoList);                   
+                }else{
+                    for (int j=0;j<14;j++){
+                         totalSaldos.add(0D); 
+                    }
+                } 
+                
+               List <List>ingresosList =  twoWaysBDL.getServiceTwoWays().findIncomes(params, "Ingresos", params2);
+               
                     
                if (ingresosList.size() > 0){
                    request.setAttribute("listaIngresos",ingresosList);
@@ -219,7 +382,7 @@ public class BalanceServlet extends AutorizacionServlet {
                         totalIngresos.add(0D); 
                    }
                }
-               List <ItemsExpensesTO> egresosList =  twoWaysBDL.getServiceTwoWays().findExpenses(params);               
+               List <ItemsExpensesTO> egresosList =  twoWaysBDL.getServiceTwoWays().findExpenses(params,params2);               
                HashMap grillaEgresos = new HashMap<Integer,ArrayList>();
            
                if (egresosList.size()>0){
@@ -364,7 +527,7 @@ public class BalanceServlet extends AutorizacionServlet {
                for(int f=1; f < 14 ; f++){
                    beneficio = new BigDecimal("0");
                    
-                   beneficio =(BigDecimal.valueOf(Double.valueOf((totalIngresos.get(f)!=null)?totalIngresos.get(f).toString():"0")).setScale(2,BigDecimal.ROUND_UP)).subtract(BigDecimal.valueOf(Double.valueOf((totalEgresos.get(f)!=null)?totalEgresos.get(f).toString():"0")).setScale(2,BigDecimal.ROUND_UP));
+                   beneficio =(BigDecimal.valueOf(Double.valueOf((totalIngresos.get(f)!=null)?totalIngresos.get(f).toString():"0")).setScale(2,BigDecimal.ROUND_UP)).subtract((BigDecimal.valueOf(Double.valueOf((totalEgresos.get(f)!=null)?totalEgresos.get(f).toString():"0")).setScale(2,BigDecimal.ROUND_UP)).add(BigDecimal.valueOf(Double.valueOf((totalSaldos.get(f)!=null)?totalSaldos.get(f).toString():"0")).setScale(2,BigDecimal.ROUND_UP)));
                    totalBeneficios.remove(f);
                    totalBeneficios.add(f,beneficio);
                    if (f != 13){

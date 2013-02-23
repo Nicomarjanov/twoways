@@ -15,9 +15,10 @@ public interface ExpenseDAO {
     public ItemsExpensesTO getItemsExpenseByExpId(ExpensesTO expensesTO) throws Exception;
     public List getItemsExpenseByDate(String mesId,String anioId) throws Exception;
     public List getItemsExpenseList(Long expId) throws Exception;
-    public List <ItemsExpensesTO>findExpenses(Map expensesParameters) throws Exception;
+    public List <ItemsExpensesTO>findExpenses(Map expensesParameters, Map itemsParameters) throws Exception;
     public void insertarExpenseExtra(ExpensesTO expensesTO) throws Exception;
     public void eraseInvoiceExpense(Long invId) throws Exception;
     public void erasePaymentExpense(Long payId) throws Exception;
-    public List findIncomes(Map incomesParameters) throws Exception;  
+    public List findIncomes(Map incomesParameters, String itemType, Map itemsParameters) throws Exception; 
+    public List findFutureExpenses(Map expensesParameters) throws Exception;
 }

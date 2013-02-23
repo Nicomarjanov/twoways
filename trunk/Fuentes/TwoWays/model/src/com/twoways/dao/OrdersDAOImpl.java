@@ -474,5 +474,65 @@ public class OrdersDAOImpl extends AbstractDAO implements OrdersDAO {
         getSqlMapClientTemplate().delete("deleteOrderByOrdId",ordId);
     }
     
-    
+    public List findFutureIncomes(Map params) throws Exception{
+        List salida = new ArrayList();
+        DataSource ds = this.getDataSource(); 
+        Connection con = null;
+        Statement stm = null;
+        ResultSet rs= null ;
+        String query ="select t.currency_cur_id as curId,\n" + 
+        "       to_date(o.ord_finish_date,'dd/mm/rrrr') as finishDate ,\n" + 
+        "       sum(r.orr_value*r.orr_wcount) as ingresoTotal\n" + 
+        "  from orders o, orders_rates r,rates t\n" + 
+        " where o.ord_id =r.orders_ord_id\n" + 
+        "  and r.rates_rat_id=t.rat_id";
+        
+        if (params.get("mesId") != null && params.get("mesId").toString().length() > 0){
+            query +=" and to_char(o.ord_finish_date,'MMyyyy')=#mesId##anioId#";
+        }      
+        else if (params.get("anioId") != null && params.get("anioId").toString().length() > 0){
+            query +=" and to_char(o.ord_finish_date,'yyyy')=#anioId#";
+        }              
+        query +=" group by t.currency_cur_id,  to_date(o.ord_finish_date,'dd/mm/rrrr')\n" + 
+                " order by 2";
+                
+        for (Iterator i = params.keySet().iterator();i.hasNext();){
+            String param = (String)i.next();
+            query = query.replaceAll("#"+param+"#",params.get(param).toString());
+        }
+        try {
+            con = ds.getConnection();
+            stm = con.createStatement();
+            System.out.println(query);
+            rs = stm.executeQuery(query);
+            while(rs.next()){
+                List results = new ArrayList();         
+                results.add(rs.getString("curId"));                         
+                results.add(rs.getString("finishDate"));            
+                results.add(rs.getString("ingresoTotal"));                    
+                salida.add(results);
+            }
+            
+            } catch (SQLException e) {
+            e.printStackTrace();
+            }finally{
+            try {
+            rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try{
+            stm.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try{
+            con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            }
+            return salida;
+        
+    }
 }

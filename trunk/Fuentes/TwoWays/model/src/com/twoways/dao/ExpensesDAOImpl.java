@@ -189,7 +189,7 @@ public class ExpensesDAOImpl extends AbstractDAO  implements ExpenseDAO {
         return ret;
         }
         
-    public List <ItemsExpensesTO>findExpenses(Map expensesParameters) throws Exception{
+    public List <ItemsExpensesTO>findExpenses(Map expensesParameters, Map itemsParameters) throws Exception{
         List results = new ArrayList();
         DataSource ds = this.getDataSource(); 
         Connection con = null;
@@ -206,7 +206,23 @@ public class ExpensesDAOImpl extends AbstractDAO  implements ExpenseDAO {
         }      
         if (expensesParameters.get("anioId") != null && expensesParameters.get("anioId").toString().length() > 0){
             query +=" and to_char(e.exp_date,'yyyy')=#anioId#";
-        }              
+        }    
+
+        //Quitar de la consulta los items de extracciones,cambios de divisas y transferencias
+        if (itemsParameters != null && itemsParameters.size()>0){
+            if (itemsParameters.get("Extracciones") != null && itemsParameters.get("Extracciones").toString().length() > 0){
+                query +=" and i.items_itm_id not in (64,65)";
+            }                       
+            if (itemsParameters.get("Cambio") != null && itemsParameters.get("Cambio").toString().length() > 0){
+                query +=" and i.items_itm_id=104";
+            }               
+            if (itemsParameters.get("Transferencia") != null && itemsParameters.get("Transferencia").toString().length() > 0){
+                query +=" and i.items_itm_id =107";
+            }               
+            if (itemsParameters.get("Sueldo") != null && itemsParameters.get("Sueldo").toString().length() > 0){
+                query +=" and i.items_itm_id <> 9999";
+            }                    
+        }             
         query +=" group by m.itm_id, m.itm_name, i.currency_cur_id , e.exp_date \n"+
                 " order by 1,5";
                 
@@ -263,7 +279,7 @@ public class ExpensesDAOImpl extends AbstractDAO  implements ExpenseDAO {
         return results;
     }
 
-    public List findIncomes(Map invoiceParameters) throws Exception{
+    public List findIncomes(Map invoiceParameters, String itemType, Map itemsParameters) throws Exception{
 
         List salida = new ArrayList();
         DataSource ds = this.getDataSource(); 
@@ -360,14 +376,28 @@ public class ExpensesDAOImpl extends AbstractDAO  implements ExpenseDAO {
         "          from items_expenses i, currency y, items s\n" + 
         "         where i.currency_cur_id = y.cur_id\n" + 
         "         and i.items_itm_id = s.itm_id\n" + 
-        "         and s.itm_type='Ingresos'";        
+        "         and s.itm_type='"+itemType+"'";        
       
         if (invoiceParameters.get("mesId") != null && invoiceParameters.get("mesId").toString().length() > 0){
             query +=" and to_char(i.ite_date,'mmyyyy')=#mesId##anioId#";
         }      
         if (invoiceParameters.get("anioId") != null && invoiceParameters.get("anioId").toString().length() > 0){
             query +=" and to_char(i.ite_date,'yyyy')=#anioId#";
-        }              
+        }    
+        //Quitar de la consulta los items de extracciones, cambios de divisas y transferencias
+        if (itemsParameters != null && itemsParameters.size()>0){
+            if (itemsParameters.get("Extracciones") != null && itemsParameters.get("Extracciones").toString().length() > 0){
+                query +=" and i.items_itm_id not in (64,65)";
+            }                       
+            if (itemsParameters.get("Cambio") != null && itemsParameters.get("Cambio").toString().length() > 0){
+                query +=" and i.items_itm_id not in (104,105)";
+            }               
+            if (itemsParameters.get("Transferencia") != null && itemsParameters.get("Transferencia").toString().length() > 0){
+                query +=" and i.items_itm_id not in (107,108)";
+            }          
+            
+        }        
+        
         query +="    group by y.cur_id,y.cur_name)";
                 
         for (Iterator i = invoiceParameters.keySet().iterator();i.hasNext();){
@@ -458,5 +488,69 @@ public class ExpensesDAOImpl extends AbstractDAO  implements ExpenseDAO {
     
     public void erasePaymentExpense(Long payId) throws Exception{
         getSqlMapClientTemplate().delete("erasePaymentExpense",payId);
+    }
+    
+    public List findFutureExpenses(Map expensesParameters){
+        List salida = new ArrayList();
+        DataSource ds = this.getDataSource(); 
+        Connection con = null;
+        Statement stm = null;
+        ResultSet rs= null ;
+        String query ="select i.currency_cur_id as curId, e.exp_date as expDate, sum(i.ite_value) as total  \n" + 
+        "         from items_expenses i, expenses e, items m \n" + 
+        "         where i.expenses_exp_id=e.exp_id \n" + 
+        "         and i.items_itm_id=m.itm_id \n" + 
+        "         and m.itm_type = 'Egresos'\n" + 
+        "         and i.items_itm_id not in (64,65,104,107)";
+        
+        
+        if (expensesParameters.get("mesId") != null && expensesParameters.get("mesId").toString().length() > 0){
+            query +=" and to_char(i.ite_date,'mmyyyy')=#mesId##anioId#";
+        }      
+        if (expensesParameters.get("anioId") != null && expensesParameters.get("anioId").toString().length() > 0){
+            query +=" and to_char(i.ite_date,'yyyy')=#anioId#";
+        }           
+        
+        query +=" group by i.currency_cur_id,e.exp_date order by 2";
+                
+        for (Iterator i = expensesParameters.keySet().iterator();i.hasNext();){
+            String param = (String)i.next();
+            query = query.replaceAll("#"+param+"#",expensesParameters.get(param).toString());
+        }
+        try {
+            con = ds.getConnection();
+            stm = con.createStatement();
+            System.out.println(query);
+            rs = stm.executeQuery(query);
+            while(rs.next()){
+                List results = new ArrayList();
+                results.add(rs.getString("curId"));
+                results.add(rs.getString("expDate"));
+                results.add(rs.getString("total"));
+                salida.add(results);
+                
+            }
+            
+            } catch (SQLException e) {
+            e.printStackTrace();
+            }finally{
+            try {
+            rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try{
+            stm.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try{
+            con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            }
+            return salida;       
+        
     }
 }

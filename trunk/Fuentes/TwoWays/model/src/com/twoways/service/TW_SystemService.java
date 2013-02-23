@@ -274,10 +274,12 @@ public interface TW_SystemService {
     public List <ProjectsTO> findProjects(Map projParameters);
     
     public List <InvoicesTO> findIncomesByClient(Map invoiceParameters) throws Exception;
- 
-    public List findIncomes(Map invoiceParameters) throws Exception;   
+
+    //public List findOpeningBalance(Map invoiceParameters) throws Exception;
     
-    public List <ItemsExpensesTO>findExpenses(Map expensesParameters) throws Exception;  
+    public List findIncomes(Map invoiceParameters, String itemType, Map itemsParameters) throws Exception;   
+    
+    public List <ItemsExpensesTO>findExpenses(Map expensesParameters, Map itemsParameters) throws Exception;  
     
     public void eliminarOrden(OrdersTO ordersTO) throws Exception;
     
@@ -298,4 +300,8 @@ public interface TW_SystemService {
     public List findFuturePayments(Map params) throws Exception;
     
     public Long getTotalPalabrasxProyecto(Long proId) throws Exception;
+
+    public List findFutureIncomes(Map params) throws Exception;
+    
+    public List findFutureExpenses(Map expensesParameters) throws Exception;
 }

@@ -40,6 +40,7 @@
         <li><a href="listaPagos">Pagos realizados</a></li>        
         <li><a href="ingresosxcliente">Ingresos por cliente</a></li>
         <li><a href="balance">Ingresos/Egresos</a></li>  
+       <li><a href="ganancias">Ganancias</a></li>          
     </ul>
 </li> 
 <li><a href="#" >Predicciones</a>
