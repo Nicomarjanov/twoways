@@ -109,6 +109,7 @@
             <hash>
                <url n="content-folder-url" path="src/servlets/"/>
                <list n="pattern-filters">
+                  <string v="+GananciasServlet.java"/>
                   <string v="+ResourcesServlet.java"/>
                </list>
                <list n="url-path">

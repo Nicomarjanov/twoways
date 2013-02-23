@@ -43,15 +43,23 @@
                     <c:if test="${item.itmType == 'Egresos'}">
                         <option value="Egresos" style="background-color:#A4BAC7;" selected="selected">Egresos</option> 
                         <option value="Ingresos" style="background-color:#A4BAC7;">Ingresos</option>
+                        <option value="Saldo inicial" style="background-color:#A4BAC7;">Saldo inicial</option>
                     </c:if>
                     <c:if test="${item.itmType == 'Ingresos'}">
                         <option value="Egresos" style="background-color:#A4BAC7;" >Egresos</option> 
                         <option value="Ingresos" style="background-color:#A4BAC7;" selected="selected">Ingresos</option>
+                        <option value="Saldo inicial" style="background-color:#A4BAC7;">Saldo inicial</option>                        
                     </c:if>
+                    <c:if test="${item.itmType == 'Saldo inicial'}">
+                        <option value="Egresos" style="background-color:#A4BAC7;" >Egresos</option> 
+                        <option value="Ingresos" style="background-color:#A4BAC7;">Ingresos</option>
+                        <option value="Saldo inicial" style="background-color:#A4BAC7;" selected="selected">Saldo inicial</option>
+                    </c:if>                    
                 </c:when>
                 <c:otherwise>
                         <option value="Egresos" style="background-color:#A4BAC7;" >Egresos</option> 
-                        <option value="Ingresos" style="background-color:#A4BAC7;">Ingresos</option>                
+                        <option value="Ingresos" style="background-color:#A4BAC7;">Ingresos</option>     
+                        <option value="Saldo inicial" style="background-color:#A4BAC7;">Saldo inicial</option>                        
                 </c:otherwise>
             </c:choose>
        </select> 

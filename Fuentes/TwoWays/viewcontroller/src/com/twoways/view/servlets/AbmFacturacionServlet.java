@@ -306,6 +306,7 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
                         invId = twoWaysBDL.getServiceTwoWays().insertarFactura(factura); 
                         request.setAttribute("invId",invId);
                         //Registro el cobro en la tabla de ingresos(gastos)
+                        /*
                         ItemsExpensesTO itmExpTO = new ItemsExpensesTO();
                         itmExpTO.setAccountsTO(factura.getAccountsTO());
                         itmExpTO.setCurrencyTO(factura.getCurrencyTO());
@@ -342,7 +343,7 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
                         expTO.setExpDate(timest);
                         
                         twoWaysBDL.getServiceTwoWays().insertarExpenseExtra(expTO);
-                         
+                         */
                     }
                    List<ItemsInvoicesTO> itemsFactura =  twoWaysBDL.getServiceTwoWays().obtenerItemsFactura(invId);
 

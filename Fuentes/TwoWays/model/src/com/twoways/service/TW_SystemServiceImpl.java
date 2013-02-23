@@ -946,13 +946,21 @@ public class TW_SystemServiceImpl implements TW_SystemService {
     public List <InvoicesTO> findIncomesByClient(Map invoiceParameters) throws Exception{
         return this.invoiceDao.findIncomesByClient(invoiceParameters);
     }
+
+   /* public List findOpeningBalance(Map invoiceParameters) throws Exception{
+        return this.expensesDao.findOpeningBalance(invoiceParameters);
+    }  */  
     
-    public List findIncomes(Map invoiceParameters) throws Exception{
-        return this.expensesDao.findIncomes(invoiceParameters);
+    public List findIncomes(Map invoiceParameters, String itemType, Map itemsParameters) throws Exception{
+        return this.expensesDao.findIncomes(invoiceParameters, itemType, itemsParameters);
     }    
     
-    public List <ItemsExpensesTO>findExpenses(Map expensesParameters) throws Exception{
-        return this.expensesDao.findExpenses(expensesParameters);
+    public List <ItemsExpensesTO>findExpenses(Map expensesParameters, Map itemsParameters) throws Exception{
+        return this.expensesDao.findExpenses(expensesParameters,itemsParameters);
+    }
+    
+    public List findFutureExpenses(Map expensesParameters) throws Exception{
+        return this.expensesDao.findFutureExpenses(expensesParameters);
     }
     
     public List<EmployeesTO> getEditorByDocId(Long praId,Long docId) throws Exception{
@@ -1092,6 +1100,10 @@ public class TW_SystemServiceImpl implements TW_SystemService {
     
     public List findFutureIncomesByClient(Map params) throws Exception{
         return this.paymentDao.findFutureIncomesByClient(params);
+    }
+    
+    public List findFutureIncomes(Map params) throws Exception{
+        return this.ordersDao.findFutureIncomes(params);
     }
     
     public List findFuturePayments(Map params) throws Exception{

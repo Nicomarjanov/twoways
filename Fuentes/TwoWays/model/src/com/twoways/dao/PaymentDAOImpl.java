@@ -263,16 +263,23 @@ public class PaymentDAOImpl extends AbstractDAO  implements PaymentDAO{
     "  from clients c, orders o, orders_rates r,rates t\n" + 
     " where o.ord_id =r.orders_ord_id\n" + 
     " and o.clients_cli_id = c.cli_id\n" + 
-    " and r.rates_rat_id=t.rat_id\n" +
-    " and r.orr_pay_date is null";
+    " and r.rates_rat_id=t.rat_id\n";
+    
+    if (params.get("notPay") != null && params.get("notPay").toString().equalsIgnoreCase("1") ){
+        //No cobrados todavía
+        query += " and r.orr_pay_date is null";
+    }/*else {
+        //Cobrados (Ganancias)
+        query += " and r.orr_pay_date is not null";
+    }*/
     
     if (params.get("cliId") != null && params.get("cliId").toString().length() > 0){
         query +=" and c.cli_Id= #cliId#";
     }        
     if (params.get("mesId") != null && params.get("mesId").toString().length() > 0){
-        query +=" and to_char(o.ord_finish_date,'mmyyyy')=#mesId##anioId#";
+        query +=" and to_char(o.ord_finish_date,'MMyyyy')=#mesId##anioId#";
     }      
-    if (params.get("anioId") != null && params.get("anioId").toString().length() > 0){
+    else if (params.get("anioId") != null && params.get("anioId").toString().length() > 0){
         query +=" and to_char(o.ord_finish_date,'yyyy')=#anioId#";
     }              
     query +=" group by c.cli_id, c.cli_name, t.currency_cur_id, o.ord_finish_date\n" + 

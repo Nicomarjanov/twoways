@@ -140,6 +140,10 @@
         <servlet-name>imprimirFacturaServlet</servlet-name>
         <servlet-class>com.twoways.view.servlets.imprimirFacturaServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GananciasServlet</servlet-name>
+        <servlet-class>com.twoways.view.servlets.GananciasServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -252,6 +256,10 @@
     <servlet-mapping>
         <servlet-name>imprimirFacturaServlet</servlet-name>
         <url-pattern>/imprimirFactura</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GananciasServlet</servlet-name>
+        <url-pattern>/ganancias</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>-1</session-timeout>

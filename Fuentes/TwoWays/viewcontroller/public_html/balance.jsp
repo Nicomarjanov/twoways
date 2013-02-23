@@ -130,6 +130,55 @@
                             </c:if>
                         </td>
                      </tr>
+                                  <tr>
+              <td nowrap="nowrap">Opciones de búsqueda</td>
+              <td colspan="2" nowrap="nowrap">
+               <table style="border-left-style:solid; border-left-width:1px; font-size:9px;">
+                <tr>
+                 <td>Extracciones</td>
+                 <td>
+                  <c:choose>
+                   <c:when test="${not empty Extracciones}">
+                    <input type="checkbox" name="Extracciones" value="Extracciones" id="Extracciones"
+                           checked="checked"></input>
+                   </c:when>
+                   <c:otherwise>
+                    <input type="checkbox" name="Extracciones" value="Extracciones" id="Extracciones"></input>
+                   </c:otherwise>
+                  </c:choose>
+                 </td>
+                </tr>
+                <tr>
+                 <td>Cambio de divisas</td>
+                 <td>
+                  <c:choose>
+                   <c:when test="${not empty Cambio}">
+                    <input type="checkbox" name="Cambio" value="Cambio" id="Cambio"
+                           checked="checked"></input>
+                   </c:when>
+                   <c:otherwise>
+                    <input type="checkbox" name="Cambio" value="Cambio" id="Cambio"></input>
+                   </c:otherwise>
+                  </c:choose>
+                 </td>
+                </tr>
+                <tr>
+                 <td>Transferencia bancaria</td>
+                 <td>
+                  <c:choose>
+                   <c:when test="${not empty Transferencia}">
+                    <input type="checkbox" name="Transferencia" value="Transferencia" id="Transferencia"
+                           checked="checked"></input>
+                   </c:when>
+                   <c:otherwise>
+                    <input type="checkbox" name="Transferencia" value="Transferencia" id="Transferencia"></input>
+                   </c:otherwise>
+                  </c:choose>
+                 </td>
+                </tr>
+               </table>
+              </td>
+             </tr>
                      <tr>
                      <c:choose>
                            <c:when test="${not empty listaIngresos or not empty listaEgresos or not empty totalBeneficios}">
@@ -171,6 +220,47 @@
                  <tbody align="center" style="height:100%;">
                  <c:choose >
                    <c:when test="${not empty listaIngresos or not empty listaEgresos or not empty totalBeneficios}">
+                    <tr>
+                        <td bgcolor="#FFFFF">Saldo inicial</td>
+                        <td colspan="13" bgcolor="#FFFFF">&nbsp;</td>
+                     </tr>                   
+                     <c:forEach items="${listaSaldo}" var="item" varStatus="status">
+                     <tr  >
+                       <c:choose>
+                           <c:when test="${not status.last}">
+                              <c:forEach items="${item}" var="celda" varStatus="status" >
+                                <c:choose>
+                                    <c:when test="${status.first}">
+                                        <td width="7%" bgcolor="#8c8686"><c:out value="${celda}" /></td> 
+                                    </c:when>
+                                    <c:when test="${status.last}" >
+                                        <td width="7%" bgcolor="#8c8686"><c:out value="${celda}" /></td> 
+                                    </c:when>
+                                    <c:otherwise>
+                                        <td nowrap width="7%" bgcolor="#FFFFFF"><c:out value="${celda}" /></td> 
+                                    </c:otherwise>
+                                </c:choose>
+                             </c:forEach>
+                           </c:when>
+                           <c:otherwise>
+                              <c:forEach items="${item}" var="celda" varStatus="status" >
+                                <c:choose>
+                                    <c:when test="${status.last}">
+                                        <td width="7%" bgcolor="#9a9a9a"><c:out value="${celda}" /></td> 
+                                    </c:when>
+                                    <c:otherwise>
+                                        <td width="7%" bgcolor="#cccccc"><c:out value="${celda}" /></td> 
+                                    </c:otherwise>
+                                </c:choose>
+                             </c:forEach>
+                            </c:otherwise>
+                        </c:choose>
+                  </tr>    
+                  </c:forEach>
+                  <tr>
+                    <td colspan="14">&nbsp;</td>
+                  </tr> 
+ 
                      <tr>
                         <td bgcolor="#FFFFF">Ingresos</td>
                         <td colspan="13" bgcolor="#FFFFF">&nbsp;</td>

@@ -402,10 +402,10 @@
   
    <statement  id="getCurrencyValue" resultClass="java.lang.Double"  parameterClass="java.util.Map" >
     select cuc_value from (
-        select cuc_value,to_Date(#curDate#,'dd/MM/yyyy hh24:mi')-cuc_date as diferencia
+        select cuc_value,to_Date(#curDate#,'dd/MM/yyyy hh24:mi')- to_date(cuc_date,'dd/MM/yyyy hh24:mi') as diferencia
         from currency_cotizations 
         where currency_cur_id = #curId# 
-        and to_Date(#curDate#,'dd/MM/yyyy hh24:mi') >= cuc_date 
+        and to_Date(#curDate#,'dd/MM/yyyy hh24:mi') >= to_date(cuc_date,'dd/MM/yyyy hh24:mi') 
         and cuc_erase_date is null
         order by diferencia )
    </statement>     

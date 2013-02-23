@@ -87,7 +87,9 @@ public class ACobrarxClienteServlet extends AutorizacionServlet {
               params.put("anioId",request.getParameter("listaAnio"));
               request.setAttribute("anioId",request.getParameter("listaAnio")); 
             }         
-          
+            
+           params.put("notPay","1");
+            
             Long curId=null;
             if( request.getParameter("curId")!= null ){ 
               curId = Long.parseLong(request.getParameter("curId"));
@@ -102,7 +104,6 @@ public class ACobrarxClienteServlet extends AutorizacionServlet {
             
                if (ingresosxCliente.size()>0){
                    request.setAttribute("ingresosxCliente",ingresosxCliente);
-                   SimpleDateFormat mf = new SimpleDateFormat("MMyyyy"); 
                    BigDecimal totalEne = new BigDecimal("0");
                    BigDecimal totalFeb = new BigDecimal("0");
                    BigDecimal totalMar = new BigDecimal("0");
@@ -168,113 +169,89 @@ public class ACobrarxClienteServlet extends AutorizacionServlet {
                    }
                    
                    totalIngresosCli.add("Total en Pesos");
-                   totalIngresosCli.add(totalEne);
-                   totalIngresosCli.add(totalFeb);
-                   totalIngresosCli.add(totalMar);
-                   totalIngresosCli.add(totalAbr);
-                   totalIngresosCli.add(totalMay);
-                   totalIngresosCli.add(totalJun);
-                   totalIngresosCli.add(totalJul);
-                   totalIngresosCli.add(totalAgo);
-                   totalIngresosCli.add(totalSep);
-                   totalIngresosCli.add(totalOct);
-                   totalIngresosCli.add(totalNov);
-                   totalIngresosCli.add(totalDic);
-                   totalIngresosCli.add(total);
-                   ingresosxCliente.add(totalIngresosCli);
-                   request.setAttribute("ingresosxCliente",ingresosxCliente);
+                       for (int j=0;j<13;j++){
+                        totalIngresosCli.add(0D); 
+                       }             
+                  
+
+                   Set <String> grillaKey = grillaIngresos.keySet();
+                   
+                       for(String key:grillaKey){
+                           totalIngresosCli = new ArrayList();
+
+                           for (int j=0;j<13;j++){
+                                totalIngresosCli.add(0D); 
+                           }
+                           BigDecimal totalCli = new BigDecimal("0");
+                           for(int i=0;i<((List)grillaIngresos.get(key)).size();i++){
+                              totalCli = totalCli.add(BigDecimal.valueOf(Double.valueOf(((List)grillaIngresos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));                            
+                              totalIngresosCli.remove(i+1);
+                               switch(i){
+                               case 0:
+                                   totalEne = totalEne.add(BigDecimal.valueOf(Double.valueOf(((List)grillaIngresos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
+                                   totalIngresosCli.add(i+1,totalEne);
+                                   break;
+                               case 1:
+                                   totalFeb = totalFeb.add(BigDecimal.valueOf(Double.valueOf(((List)grillaIngresos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
+                                   totalIngresosCli.add(i+1,totalFeb);
+                                   break;
+                               case 2:
+                                   totalMar = totalMar.add(BigDecimal.valueOf(Double.valueOf(((List)grillaIngresos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
+                                   totalIngresosCli.add(i+1,totalMar);
+                                   break;
+                               case 3:
+                                   totalAbr = totalAbr.add(BigDecimal.valueOf(Double.valueOf(((List)grillaIngresos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
+                                   totalIngresosCli.add(i+1,totalAbr);
+                                   break;
+                               case 4:
+                                   totalMay = totalMay.add(BigDecimal.valueOf(Double.valueOf(((List)grillaIngresos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
+                                   totalIngresosCli.add(i+1,totalMay);
+                                   break;
+                               case 5:
+                                   totalJun = totalJun.add(BigDecimal.valueOf(Double.valueOf(((List)grillaIngresos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
+                                   totalIngresosCli.add(i+1,totalJun);
+                                   break;
+                               case 6:
+                                   totalJul = totalJul.add(BigDecimal.valueOf(Double.valueOf(((List)grillaIngresos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
+                                   totalIngresosCli.add(i+1,totalJul);
+                                   break;
+                               case 7:
+                                   totalAgo = totalAgo.add(BigDecimal.valueOf(Double.valueOf(((List)grillaIngresos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
+                                   totalIngresosCli.add(i+1,totalAgo);
+                                   break;
+                               case 8:
+                                   totalSep = totalSep.add(BigDecimal.valueOf(Double.valueOf(((List)grillaIngresos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
+                                   totalIngresosCli.add(i+1,totalSep);
+                                   break;
+                               case 9:
+                                   totalOct = totalOct.add(BigDecimal.valueOf(Double.valueOf(((List)grillaIngresos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
+                                   totalIngresosCli.add(i+1,totalOct);
+                                   break;
+                               case 10:
+                                   totalNov = totalNov.add(BigDecimal.valueOf(Double.valueOf(((List)grillaIngresos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
+                                   totalIngresosCli.add(i+1,totalNov);
+                                   break;
+                               case 11:
+                                   totalDic = totalDic.add(BigDecimal.valueOf(Double.valueOf(((List)grillaIngresos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
+                                   totalIngresosCli.add(i+1,totalDic);
+                                   break;                
+                               }
+                           }
+                           total = total.add(totalCli.setScale(2,BigDecimal.ROUND_UP)); 
+                           ((List)grillaIngresos.get(key)).add(totalCli);
+                       }
+                       totalIngresosCli.remove(0); 
+                       totalIngresosCli.add(0,"Total a cobrar");     
+                       totalIngresosCli.add(total);               
                    }else{
                        for (int j=0;j<14;j++){
                         totalIngresosCli.add(0D); 
                        }
                    }
                 
-
-               Set <String> grillaKey = grillaIngresos.keySet();
-               BigDecimal totalEnero = new BigDecimal("0");
-               BigDecimal totalFeb = new BigDecimal("0");
-               BigDecimal totalMar = new BigDecimal("0");     
-               BigDecimal totalAbr = new BigDecimal("0");               
-               BigDecimal totalMay = new BigDecimal("0");
-               BigDecimal totalJun = new BigDecimal("0");
-               BigDecimal totalJul = new BigDecimal("0");     
-               BigDecimal totalAgo = new BigDecimal("0");               
-               BigDecimal totalSep = new BigDecimal("0");
-               BigDecimal totalOct = new BigDecimal("0");     
-               BigDecimal totalNov = new BigDecimal("0");  
-               BigDecimal totalDic = new BigDecimal("0");  
-               BigDecimal totalTotal = new BigDecimal("0");     
-               
-               for(String key:grillaKey){
-                   totalIngresosCli = new ArrayList();
-
-                   for (int j=0;j<13;j++){
-                        totalIngresosCli.add(0D); 
-                   }
-                   BigDecimal totalCli = new BigDecimal("0");
-                   for(int i=0;i<((List)grillaIngresos.get(key)).size();i++){
-                      totalCli = totalCli.add(BigDecimal.valueOf(Double.valueOf(((List)grillaIngresos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));                            
-                      totalIngresosCli.remove(i+1);
-                       switch(i){
-                       case 0:
-                           totalEnero = totalEnero.add(BigDecimal.valueOf(Double.valueOf(((List)grillaIngresos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
-                           totalIngresosCli.add(i+1,totalEnero);
-                           break;
-                       case 1:
-                           totalFeb = totalFeb.add(BigDecimal.valueOf(Double.valueOf(((List)grillaIngresos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
-                           totalIngresosCli.add(i+1,totalFeb);
-                           break;
-                       case 2:
-                           totalMar = totalMar.add(BigDecimal.valueOf(Double.valueOf(((List)grillaIngresos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
-                           totalIngresosCli.add(i+1,totalMar);
-                           break;
-                       case 3:
-                           totalAbr = totalAbr.add(BigDecimal.valueOf(Double.valueOf(((List)grillaIngresos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
-                           totalIngresosCli.add(i+1,totalAbr);
-                           break;
-                       case 4:
-                           totalMay = totalMay.add(BigDecimal.valueOf(Double.valueOf(((List)grillaIngresos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
-                           totalIngresosCli.add(i+1,totalMay);
-                           break;
-                       case 5:
-                           totalJun = totalJun.add(BigDecimal.valueOf(Double.valueOf(((List)grillaIngresos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
-                           totalIngresosCli.add(i+1,totalJun);
-                           break;
-                       case 6:
-                           totalJul = totalJul.add(BigDecimal.valueOf(Double.valueOf(((List)grillaIngresos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
-                           totalIngresosCli.add(i+1,totalJul);
-                           break;
-                       case 7:
-                           totalAgo = totalAgo.add(BigDecimal.valueOf(Double.valueOf(((List)grillaIngresos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
-                           totalIngresosCli.add(i+1,totalAgo);
-                           break;
-                       case 8:
-                           totalSep = totalSep.add(BigDecimal.valueOf(Double.valueOf(((List)grillaIngresos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
-                           totalIngresosCli.add(i+1,totalSep);
-                           break;
-                       case 9:
-                           totalOct = totalOct.add(BigDecimal.valueOf(Double.valueOf(((List)grillaIngresos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
-                           totalIngresosCli.add(i+1,totalOct);
-                           break;
-                       case 10:
-                           totalNov = totalNov.add(BigDecimal.valueOf(Double.valueOf(((List)grillaIngresos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
-                           totalIngresosCli.add(i+1,totalNov);
-                           break;
-                       case 11:
-                           totalDic = totalDic.add(BigDecimal.valueOf(Double.valueOf(((List)grillaIngresos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
-                           totalIngresosCli.add(i+1,totalDic);
-                           break;                
-                       }
-                   }
-                   totalTotal = totalTotal.add(totalCli.setScale(2,BigDecimal.ROUND_UP)); 
-                   ((List)grillaIngresos.get(key)).add(totalCli);
-               }
-               totalIngresosCli.remove(0); 
-               totalIngresosCli.add(0,"Total a cobrar");     
-               totalIngresosCli.add(totalTotal);               
                request.setAttribute("ingresosxCliente",grillaIngresos);   
                request.setAttribute("totalIngresosCliente",totalIngresosCli);                                  
-             
+            
                }catch(Exception e){
                    e.printStackTrace(); 
                 }
