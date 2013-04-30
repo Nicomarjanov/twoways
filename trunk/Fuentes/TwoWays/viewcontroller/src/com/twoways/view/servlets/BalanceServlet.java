@@ -41,16 +41,14 @@ public class BalanceServlet extends AutorizacionServlet {
                                                            IOException {
         super.doGet(request,response);
         TwoWaysBDL twoWaysBDL=null;
-        String accion = request.getParameter("accion");
-        String mesId = request.getParameter("mesId");  
+        String accion = request.getParameter("accion"); 
         String anioId = request.getParameter("anioId");        
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
         request.setAttribute("anioId",sdf.format(cal.getTime())); 
                 
         if(accion !=null && accion.equalsIgnoreCase("buscar")){
-            request.setAttribute("accion",accion);
-            SimpleDateFormat sdfsh = new SimpleDateFormat("dd/MM/yyyy");            
+            request.setAttribute("accion",accion);       
             Map params= new  HashMap();          
             Map params2= new  HashMap();
             Map paramsNull= new  HashMap();
@@ -92,24 +90,25 @@ public class BalanceServlet extends AutorizacionServlet {
                 ArrayList totalSaldos = new ArrayList();                  
                 ArrayList beneficioAcum = new ArrayList();                 
                 paramsNull=null;
+                BigDecimal totalEne = new BigDecimal("0");
+                BigDecimal totalFeb = new BigDecimal("0");
+                BigDecimal totalMar = new BigDecimal("0");
+                BigDecimal totalAbr = new BigDecimal("0");
+                BigDecimal totalMay = new BigDecimal("0");
+                BigDecimal totalJun = new BigDecimal("0");
+                BigDecimal totalJul = new BigDecimal("0");
+                BigDecimal totalAgo = new BigDecimal("0");
+                BigDecimal totalSep = new BigDecimal("0");
+                BigDecimal totalOct = new BigDecimal("0");
+                BigDecimal totalNov = new BigDecimal("0");
+                BigDecimal totalDic = new BigDecimal("0");  
+                BigDecimal total =  new BigDecimal("0");
                 
                List <List>saldoList =  twoWaysBDL.getServiceTwoWays().findIncomes(params,"Saldo inicial",paramsNull);
                 if (saldoList.size() > 0){
                     request.setAttribute("listaSaldo",saldoList);
                     SimpleDateFormat mf = new SimpleDateFormat("MMyyyy"); 
-                    BigDecimal totalEne = new BigDecimal("0");
-                    BigDecimal totalFeb = new BigDecimal("0");
-                    BigDecimal totalMar = new BigDecimal("0");
-                    BigDecimal totalAbr = new BigDecimal("0");
-                    BigDecimal totalMay = new BigDecimal("0");
-                    BigDecimal totalJun = new BigDecimal("0");
-                    BigDecimal totalJul = new BigDecimal("0");
-                    BigDecimal totalAgo = new BigDecimal("0");
-                    BigDecimal totalSep = new BigDecimal("0");
-                    BigDecimal totalOct = new BigDecimal("0");
-                    BigDecimal totalNov = new BigDecimal("0");
-                    BigDecimal totalDic = new BigDecimal("0");  
-                    BigDecimal total =  new BigDecimal("0");
+
                     //Iterator iterator = ingresosList.iterator();
                     Long curId = null;
                     for(int i=0;i<saldoList.size();i++){
@@ -243,19 +242,19 @@ public class BalanceServlet extends AutorizacionServlet {
                if (ingresosList.size() > 0){
                    request.setAttribute("listaIngresos",ingresosList);
                    SimpleDateFormat mf = new SimpleDateFormat("MMyyyy"); 
-                   BigDecimal totalEne = new BigDecimal("0");
-                   BigDecimal totalFeb = new BigDecimal("0");
-                   BigDecimal totalMar = new BigDecimal("0");
-                   BigDecimal totalAbr = new BigDecimal("0");
-                   BigDecimal totalMay = new BigDecimal("0");
-                   BigDecimal totalJun = new BigDecimal("0");
-                   BigDecimal totalJul = new BigDecimal("0");
-                   BigDecimal totalAgo = new BigDecimal("0");
-                   BigDecimal totalSep = new BigDecimal("0");
-                   BigDecimal totalOct = new BigDecimal("0");
-                   BigDecimal totalNov = new BigDecimal("0");
-                   BigDecimal totalDic = new BigDecimal("0");  
-                   BigDecimal total =  new BigDecimal("0");
+                   totalEne = new BigDecimal("0");
+                   totalFeb = new BigDecimal("0");
+                   totalMar = new BigDecimal("0");
+                   totalAbr = new BigDecimal("0");
+                   totalMay = new BigDecimal("0");
+                   totalJun = new BigDecimal("0");
+                   totalJul = new BigDecimal("0");
+                   totalAgo = new BigDecimal("0");
+                   totalSep = new BigDecimal("0");
+                   totalOct = new BigDecimal("0");
+                   totalNov = new BigDecimal("0");
+                   totalDic = new BigDecimal("0");  
+                   total =  new BigDecimal("0");
                    //Iterator iterator = ingresosList.iterator();
                    Long curId = null;
                    for(int i=0;i<ingresosList.size();i++){
@@ -405,7 +404,7 @@ public class BalanceServlet extends AutorizacionServlet {
                         mesCelda = Integer.parseInt(mf.format(fechaGasto));                    
                         Timestamp timestamp = new Timestamp(fechaGasto.getTime());
                         monto = twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, egresosTO.getCurrencyTO().getCurId() , 4L, egresosTO.getExpensesTO().getExpTotal());
-                        if (itmId != anteriorItmId){
+                        if (!itmId.equals(anteriorItmId)){
                            meses = new ArrayList<Double>();
                            montoTotal = new BigDecimal("0");
                            for (int i=0;i<12;i++){
@@ -431,19 +430,19 @@ public class BalanceServlet extends AutorizacionServlet {
      
                    Set <String> grillaKey = grillaEgresos.keySet();
                    BigDecimal totalItem = new BigDecimal("0");
-                   BigDecimal totalEnero = new BigDecimal("0");
-                   BigDecimal totalFeb = new BigDecimal("0");
-                   BigDecimal totalMar = new BigDecimal("0");     
-                   BigDecimal totalAbr = new BigDecimal("0");               
-                   BigDecimal totalMay = new BigDecimal("0");
-                   BigDecimal totalJun = new BigDecimal("0");
-                   BigDecimal totalJul = new BigDecimal("0");     
-                   BigDecimal totalAgo = new BigDecimal("0");               
-                   BigDecimal totalSep = new BigDecimal("0");
-                   BigDecimal totalOct = new BigDecimal("0");     
-                   BigDecimal totalNov = new BigDecimal("0");  
-                   BigDecimal totalDic = new BigDecimal("0");  
-                   BigDecimal totalTotal = new BigDecimal("0");                   
+                   totalEne = new BigDecimal("0");
+                   totalFeb = new BigDecimal("0");
+                   totalMar = new BigDecimal("0");     
+                   totalAbr = new BigDecimal("0");               
+                   totalMay = new BigDecimal("0");
+                   totalJun = new BigDecimal("0");
+                   totalJul = new BigDecimal("0");     
+                   totalAgo = new BigDecimal("0");               
+                   totalSep = new BigDecimal("0");
+                   totalOct = new BigDecimal("0");     
+                   totalNov = new BigDecimal("0");  
+                   totalDic = new BigDecimal("0");  
+                   total = new BigDecimal("0");                   
                    
                    for(String key:grillaKey){
                       
@@ -459,8 +458,8 @@ public class BalanceServlet extends AutorizacionServlet {
                            totalEgresos.remove(i+1);
                            switch(i){
                            case 0:
-                               totalEnero = totalEnero.add(BigDecimal.valueOf(Double.valueOf(((List)grillaEgresos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
-                               totalEgresos.add(i+1,totalEnero);
+                               totalEne = totalEne.add(BigDecimal.valueOf(Double.valueOf(((List)grillaEgresos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
+                               totalEgresos.add(i+1,totalEne);
                                break;
                            case 1:
                                totalFeb = totalFeb.add(BigDecimal.valueOf(Double.valueOf(((List)grillaEgresos.get(key)).get(i).toString())).setScale(2,BigDecimal.ROUND_UP));
@@ -508,12 +507,12 @@ public class BalanceServlet extends AutorizacionServlet {
                                break;                
                            }
                        }
-                       totalTotal = totalTotal.add(totalItem.setScale(2,BigDecimal.ROUND_UP)); 
+                       total = total.add(totalItem.setScale(2,BigDecimal.ROUND_UP)); 
                        ((List)grillaEgresos.get(key)).add(totalItem);
                    }
                    totalEgresos.remove(0); 
                    totalEgresos.add(0,"Total Egresos");     
-                   totalEgresos.add(totalTotal);
+                   totalEgresos.add(total);
                    request.setAttribute("listaEgresos",grillaEgresos);   
                    request.setAttribute("totalEgresos",totalEgresos);
                

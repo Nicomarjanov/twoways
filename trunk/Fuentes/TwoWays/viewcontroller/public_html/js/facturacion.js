@@ -177,8 +177,16 @@ function eliminarOrden (rowId, ordTotal, curIdDesde, fecha, ordName){
    
    tabla.deleteRow(row.rowIndex);
    if (ordTotal > 0){
-        orderName=ordName;
-        towaysDWR.cotizar(fecha, curIdDesde, curIdHasta[0], ordTotal, postEliminar);        
+      
+       var aux='subT+' + ordName;
+       document.getElementById(aux).value = (document.getElementById(aux).value - ordTotal).toFixed(3);
+       if (document.getElementById(aux).value <= 0){
+    
+            var row = document.getElementById('row'+aux);          
+            tabla.deleteRow(row.rowIndex);
+       }
+        towaysDWR.cotizar(fecha, curIdDesde, curIdHasta[0], ordTotal,postEliminar);        
+        
    }
 }
 
@@ -186,10 +194,9 @@ function postEliminar (data){
 
    var total = document.getElementById("invTotal").value;
    total = total.replace(",",".");
-   
+     
    document.getElementById("invTotal").value= (total - data).toFixed(2);
-   var aux='subT' + orderName;
-   document.getElementById(aux).value = total - document.getElementById(aux).value;
+   if (document.getElementById("invTotal").value <= 0)document.getElementById("invTotal").value=0;
 }
 
 function guardarValor(valor){

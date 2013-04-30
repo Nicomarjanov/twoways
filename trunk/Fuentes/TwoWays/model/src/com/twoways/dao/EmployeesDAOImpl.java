@@ -314,7 +314,7 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
         "               p.pro_name               as projName,\n" + 
         "               p.states_sta_id          as projState,\n" + 
         "               p.pro_start_date         as projStartDate,\n" +
-        "               p.pro_finish_date        as proEndDate\n" +
+        "               p.pro_finish_date        as projEndDate\n" +
         "        from (select e.emp_id           as empId,\n" + 
         "               e.emp_first_name         as empFirstName,\n" + 
         "               e.emp_last_name          as empLastName,\n" + 
@@ -426,6 +426,10 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
                 if(rs.getTime("projStartDate") !=null ){ 
                        java.sql.Timestamp timest = rs.getTimestamp("projStartDate"); 
                         project.setProStartDate(timest);                                     
+                }
+                if(rs.getTime("projEndDate") !=null ){ 
+                       java.sql.Timestamp timest = rs.getTimestamp("projEndDate"); 
+                        project.setProFinishDate(timest);                                     
                 }
                 projAss.setProjectsTO(project);
                 employee.setProjectAssignmentsTO(projAss);

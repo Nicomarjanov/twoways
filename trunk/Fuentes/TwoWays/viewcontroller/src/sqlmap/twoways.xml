@@ -1588,10 +1588,12 @@
          and pd.project_assignments_employees_ = pa.employees_emp_id
          and pd.project_assignments_projects_p = pa.projects_pro_id
          and r.rat_id = pd.employees_rates_rates_rat_id
-         and pa.pra_finish_date between add_months(to_date(#mesId#||'00:00','ddMMyyyy hh24:mi')+1,-1) and to_date(#mesId#||'23:59','ddMMyyyy hh24:mi')
+         and to_char(pa.pra_finish_date,'dd/mm/rrrr') between add_months(to_date(#mesId#||'00:01','dd/MM/rrrr hh24:mi'),-1) and to_date(#mesId#,'dd/MM/rrrr')
          and r.currency_cur_id=c.cur_id
          and pd.pad_pay_date is null
          and r.rat_type = y.rty_name
+         and pd.pad_wcount > 0
+         and pd.pad_rate > 0
          order by pa.pra_assign_date
   </select>
 
@@ -1671,14 +1673,14 @@
         where o.ord_id = r.orders_ord_id
         and o.client_responsable_cre_id=cr.cre_id
         and o.ord_id = os.orders_ord_id
+        and os.rate_types_rty_name=p.rty_name        
         and o.clients_cli_id = #cliId#
         and r.rates_rat_id = t.rat_id
         and t.currency_cur_id = y.cur_id
-        and os.rate_types_rty_name = t.rat_type
-        and os.rate_types_rty_name=p.rty_name
-        and r.orr_pay_date is null
+        and r.orr_pay_date is null 
         and r.orr_wcount > 0
-        and to_date(o.ord_finish_date,'dd/MM/rrrr') between to_date(#mesId#,'MMyyyy') and last_day(to_date(#mesId#,'MMyyyy'))
+        and r.orr_value > 0
+        and to_char(o.ord_finish_date,'MMyyyy')=#mesId#
         order by o.ord_name
   </select>
 

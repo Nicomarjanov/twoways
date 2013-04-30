@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import java.util.TreeMap;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 
@@ -44,7 +46,6 @@ public class ACobrarxClienteServlet extends AutorizacionServlet {
         String accion = request.getParameter("accion");    
         List<CurrencyTO> monedas = null;
         List<ClientsTO> clientes = null;
-        String anioId = request.getParameter("anioId");  
             
         try{
             twoWaysBDL = new TwoWaysBDL();                
@@ -87,8 +88,12 @@ public class ACobrarxClienteServlet extends AutorizacionServlet {
               params.put("anioId",request.getParameter("listaAnio"));
               request.setAttribute("anioId",request.getParameter("listaAnio")); 
             }         
+
+            if(request.getParameter("cobrado") != null &&  request.getParameter("cobrado").equalsIgnoreCase("cobrado")){ 
+              params.put("getIt",request.getParameter("cobrado"));
+              request.setAttribute("cobrado",request.getParameter("cobrado"));              
+            }                
             
-           params.put("notPay","1");
             
             Long curId=null;
             if( request.getParameter("curId")!= null ){ 
@@ -99,7 +104,7 @@ public class ACobrarxClienteServlet extends AutorizacionServlet {
                 
             try{
                List <List> ingresosxCliente =  twoWaysBDL.getServiceTwoWays().findFutureIncomesByClient(params);
-               HashMap grillaIngresos = new HashMap<Integer,ArrayList>();
+               Map grillaIngresos = new TreeMap<Integer,ArrayList>();
                ArrayList totalIngresosCli = new ArrayList(); 
             
                if (ingresosxCliente.size()>0){
@@ -131,47 +136,43 @@ public class ACobrarxClienteServlet extends AutorizacionServlet {
                    SimpleDateFormat formatoDeFecha = new SimpleDateFormat("yyyy-MM-dd");
                    
                    for(int i=0;i<ingresosxCliente.size();i++){                                   
-                       Iterator aux = ingresosxCliente.get(i).iterator();
-                       while(aux.hasNext()){
+                       Iterator aux = ingresosxCliente.get(i).iterator();                  
+                       cliId = Long.parseLong(aux.next().toString());
+                       cliName = aux.next().toString();
+                       Double montoACob = Double.parseDouble(aux.next().toString());                        
+                       Long curIdDesde = Long.parseLong(aux.next().toString());
+                       Date fecha = formatoDeFecha.parse(aux.next().toString());
+                       mesCelda = Integer.parseInt(mesf.format(fecha));                    
+                       Timestamp timestamp = new Timestamp(fecha.getTime());
+                       monto = twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, curIdDesde , curId,montoACob );
                        
-                           cliId = Long.parseLong(aux.next().toString());
-                           cliName = aux.next().toString();
-                           Double montoACob = Double.parseDouble(aux.next().toString());                        
-                           Long curIdDesde = Long.parseLong(aux.next().toString());
-                           Date fecha = formatoDeFecha.parse(aux.next().toString());
-                           mesCelda = Integer.parseInt(mesf.format(fecha));                    
-                           Timestamp timestamp = new Timestamp(fecha.getTime());
-                           monto = twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, curIdDesde , curId,montoACob );
-                           
-                           if (cliId != anteriorCliId){
-                              meses = new ArrayList<Double>();
-                              montoTotal = new BigDecimal("0");
-                              for (int j=0;j<12;j++){
-                                   meses.add(0L);                                
-                              }
-                           }
-    
-                           if (cliId == anteriorCliId && anteriorMes == mesCelda){
-                               montoTotal = montoTotal.add(BigDecimal.valueOf(monto)).setScale(2,BigDecimal.ROUND_UP);
-                               meses.remove(mesCelda-1);
-                               meses.add(mesCelda-1,montoTotal);
-                           }else {
-                               meses.remove(mesCelda-1);
-                               meses.add(mesCelda-1,BigDecimal.valueOf(monto).setScale(2,BigDecimal.ROUND_UP));
-                               montoTotal = BigDecimal.valueOf(monto);
-                           }
-    
-                           grillaIngresos.put(cliName,meses);
-                           anteriorCliId = cliId;
-                           anteriorMes = mesCelda;
+                       if (!cliId.equals(anteriorCliId)){
+                          meses = new ArrayList<Double>();
+                          montoTotal = new BigDecimal("0");
+                          for (int j=0;j<12;j++){
+                               meses.add(0L);                                
+                          }
+                       }
+
+                       if (cliId.equals(anteriorCliId) && anteriorMes == mesCelda){
+                           montoTotal = montoTotal.add(BigDecimal.valueOf(monto)).setScale(2,BigDecimal.ROUND_UP);
+                           meses.remove(mesCelda-1);
+                           meses.add(mesCelda-1,montoTotal);
+                       }else {
+                           meses.remove(mesCelda-1);
+                           meses.add(mesCelda-1,BigDecimal.valueOf(monto).setScale(2,BigDecimal.ROUND_UP));
+                           montoTotal = BigDecimal.valueOf(monto);
+                       }
+
+                       grillaIngresos.put(cliName,meses);
+                       anteriorCliId = cliId;
+                       anteriorMes = mesCelda;
                             
-                        }
                    }
                    
-                   totalIngresosCli.add("Total en Pesos");
-                       for (int j=0;j<13;j++){
-                        totalIngresosCli.add(0D); 
-                       }             
+                   for (int j=0;j<13;j++){
+                    totalIngresosCli.add(0D); 
+                   }             
                   
 
                    Set <String> grillaKey = grillaIngresos.keySet();

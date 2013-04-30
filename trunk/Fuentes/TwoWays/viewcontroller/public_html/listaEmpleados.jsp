@@ -66,10 +66,10 @@
                         <td>
                             <c:choose>
                                 <c:when test="${not empty Traductor}">
-                                    <input type="checkbox" name="Traductor" value="Traductor" checked></input>
+                                    <input type="checkbox" id="Traductor" name="Traductor" value="Traductor" checked></input>
                                 </c:when>
                                 <c:otherwise>
-                                    <input type="checkbox" name="Traductor" value="Traductor"></input>
+                                    <input type="checkbox" id="Traductor" name="Traductor" value="Traductor"></input>
                                 </c:otherwise>
                             </c:choose>
                         </td>
@@ -77,10 +77,10 @@
                         <td>
                             <c:choose>
                                 <c:when test="${not empty Editor}">
-                                    <input type="checkbox" name="Editor" value="Editor" checked></input>
+                                    <input type="checkbox" id="Editor" name="Editor" value="Editor" checked></input>
                                 </c:when>
                                 <c:otherwise>
-                                    <input type="checkbox" name="Editor" value="Editor"></input>
+                                    <input type="checkbox" id="Editor" name="Editor" value="Editor"></input>
                                 </c:otherwise>
                             </c:choose>                        
                         </td>
@@ -90,10 +90,10 @@
                         <td>
                              <c:choose>
                                 <c:when test="${not empty Revisor}">
-                                    <input type="checkbox" name="Revisor" value="Revisor" checked></input>
+                                    <input type="checkbox" id="Revisor" name="Revisor" value="Revisor" checked></input>
                                 </c:when>
                                 <c:otherwise>
-                                    <input type="checkbox" name="Revisor" value="Revisor"></input>
+                                    <input type="checkbox"  id="Revisor" name="Revisor" value="Revisor"></input>
                                 </c:otherwise>
                             </c:choose>                                     
                         </td>
@@ -101,10 +101,10 @@
                         <td>
                              <c:choose>
                                 <c:when test="${not empty Maquetador}">
-                                     <input type="checkbox" name="Maquetador" value="Maquetador" checked></input>
+                                     <input type="checkbox" id="Maquetador" name="Maquetador" value="Maquetador" checked></input>
                                 </c:when>
                                 <c:otherwise>
-                                    <input type="checkbox" name="Maquetador" value="Maquetador"></input>
+                                    <input type="checkbox" id="Maquetador" name="Maquetador" value="Maquetador"></input>
                                 </c:otherwise>
                             </c:choose>
                         </td>
@@ -114,10 +114,10 @@
                         <td>
                              <c:choose>
                                 <c:when test="${not empty PDTP}">
-                                    <input type="checkbox" name="PDTP" value="PDTP" checked></input>
+                                    <input type="checkbox" id="PDTP" name="PDTP" value="PDTP" checked></input>
                                 </c:when>
                                 <c:otherwise>
-                                    <input type="checkbox" name="PDTP" value="PDTP" ></input>                                
+                                    <input type="checkbox" id="PDTP" name="PDTP" value="PDTP" ></input>                                
                                 </c:otherwise>
                             </c:choose>
                         </td>
@@ -125,10 +125,10 @@
                         <td>
                            <c:choose>
                                 <c:when test="${not empty Proofer}">
-                                    <input type="checkbox" name="Proofer" value="Proofer" checked></input>
+                                    <input type="checkbox" id="Proofer" name="Proofer" value="Proofer" checked></input>
                                 </c:when>
                                 <c:otherwise>
-                                    <input type="checkbox" name="Proofer" value="Proofer"></input>
+                                    <input type="checkbox" id="Proofer" name="Proofer" value="Proofer"></input>
                                 </c:otherwise>
                             </c:choose>                        
                         </td>
@@ -198,7 +198,19 @@
                </table>
                </td>
           </tr>
-           
+          <tr>
+          <td width="100%" colspan="9">
+            <br>
+              <hr class="tw_hr">
+              <table width="25%" align="center">
+                  <tr>
+                      <c:if test="${not empty listaEmpleados}">
+                          <td align="center" ><input type="button" id="export" value="Exportar" OnClick="exportarCSV()"/></td>   
+                      </c:if>
+                  </tr>
+              </table>
+             </td> 
+           </tr>
            </tbody>
           </c:when>
           <c:otherwise>

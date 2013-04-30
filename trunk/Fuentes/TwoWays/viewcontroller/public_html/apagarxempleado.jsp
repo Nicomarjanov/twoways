@@ -24,7 +24,7 @@
   <table width="100%" align="center">
       <thead>
       <tr>
-        <th colspan="2" class="tw_form">Tabla de pagos a realizar por Empleado</th>
+        <th colspan="2" class="tw_form">Predicciones: Tabla de pagos por empleado</th>
       </tr>
       </thead>
       <tbody>

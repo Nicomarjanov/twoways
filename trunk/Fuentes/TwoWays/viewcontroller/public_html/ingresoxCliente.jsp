@@ -26,6 +26,9 @@
       <tr>
         <th colspan="2" class="tw_form">Tabla de ingresos por Cliente</th>
       </tr>
+         <tr>
+           <td colspan="2" align="center">**Las fechas corresponden al momento en que se realizó la factura**</td>
+      </tr>
       </thead>
       <tbody>
       <tr>

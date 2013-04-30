@@ -1,6 +1,7 @@
 package com.twoways.view.servlets;
 
 import com.twoways.core.bdl.TwoWaysBDL;
+import com.twoways.to.EmployeesTO;
 import com.twoways.to.OrdersDocsTO;
 import com.twoways.to.ProjectsTO;
 
@@ -59,6 +60,105 @@ public class DownloadFileServlet extends AutorizacionServlet {
                     System.out.println(e);
                     e.printStackTrace();
                 }
+        }
+        else if(docType.equalsIgnoreCase("listaEmpleadosEnProyectosDoc")) {
+            try{
+                twoWaysBDL = new TwoWaysBDL();
+                Map params= new  HashMap();
+                
+                if (request.getParameter("empFirstName") != null && request.getParameter("empFirstName").length() > 0) {
+                    params.put("empFirstName",request.getParameter("empFirstName")); 
+                    request.setAttribute("empFirstName",request.getParameter("empFirstName")) ;
+                }
+                if (request.getParameter("empLastName") != null && request.getParameter("empLastName").length() > 0) {
+                    params.put("empLastName",request.getParameter("empLastName")); 
+                    request.setAttribute("empLastName",request.getParameter("empLastName"));
+                }
+                if (request.getParameter("ProName") != null && request.getParameter("ProName").length() > 0) {
+                    params.put("ProName",request.getParameter("ProName"));
+                    request.setAttribute("proName",request.getParameter("ProName"));
+                }
+                if (request.getParameter("Traductor") != null && request.getParameter("Traductor").length() > 0) {
+                    params.put("Traductor",request.getParameter("Traductor"));
+                    request.setAttribute("Traductor",request.getParameter("Traductor"));
+                }
+                if (request.getParameter("Editor") != null) {
+                    params.put("Editor",request.getParameter("Editor"));
+                    request.setAttribute("Editor",request.getParameter("Editor"));
+                }
+                if (request.getParameter("Revisor") != null) {
+                    params.put("Revisor",request.getParameter("Revisor")+" Final");
+                    request.setAttribute("Revisor",request.getParameter("Revisor"));
+                }
+                if (request.getParameter("Maquetador") != null) {
+                    params.put("Maquetador",request.getParameter("Maquetador"));
+                    request.setAttribute("Maquetador",request.getParameter("Maquetador"));
+                }
+                if (request.getParameter("PDTP") != null) {
+                    params.put("PDTP",request.getParameter("PDTP"));
+                    request.setAttribute("PDTP",request.getParameter("PDTP"));
+                }
+                if (request.getParameter("Proofer") != null) {
+                    params.put("Proofer",request.getParameter("Proofer"));
+                    request.setAttribute("Proofer",request.getParameter("Proofer"));
+                }
+                
+                List<EmployeesTO> empleados =  twoWaysBDL.getServiceTwoWays().findEmployees(params);
+                
+                //String itmGastosHidden[]=request.getParameterValues("item-gasto-hidden");
+                StringBuffer writer = new StringBuffer();
+                nomArchivo=docId;                
+                
+                if (empleados.size() > 0){
+                    writer.append("Nombre");
+                    writer.append(',');
+                    writer.append("Apellido");
+                    writer.append(',');
+                    writer.append("Especialidad");
+                    writer.append(',');
+                    writer.append("Estado asignacion");
+                    writer.append(',');      
+                    writer.append("Inicio asignacion");
+                    writer.append(',');   
+                    writer.append("Fin asignacion");
+                    writer.append(',');      
+                    writer.append("Proyecto");          
+                    writer.append(',');      
+                    writer.append("Estado proyecto");
+                    writer.append(',');      
+                    writer.append("Fin proyecto");                    
+                    writer.append(','); 
+                    writer.append('\n');
+                
+                    for (EmployeesTO e:empleados){
+                     
+                        writer.append((e.getEmpFirstName() != null && e.getEmpFirstName().length() > 0)?e.getEmpFirstName().toString():"");
+                        writer.append(',');
+                        writer.append((e.getEmpLastName() != null && e.getEmpLastName().length() > 0)?e.getEmpLastName().toString():"");
+                        writer.append(',');
+                        writer.append((e.getEmployeeTypeTO().getEtyName()!= null && e.getEmployeeTypeTO().getEtyName().length() > 0)?e.getEmployeeTypeTO().getEtyName().toString():"");
+                        writer.append(',');
+                        writer.append((e.getProjectAssignmentsTO().getStatesTO().getStaName() != null && e.getProjectAssignmentsTO().getStatesTO().getStaName().length() > 0 )?e.getProjectAssignmentsTO().getStatesTO().getStaName().toString():"");
+                        writer.append(',');      
+                        writer.append((e.getProjectAssignmentsTO().getPraAssignDate() != null && e.getProjectAssignmentsTO().getPraAssignDate().toString().length() > 0)?e.getProjectAssignmentsTO().getPraAssignDate().toString():"");
+                        writer.append(',');   
+                        writer.append((e.getProjectAssignmentsTO().getPraFinishDate() != null && e.getProjectAssignmentsTO().getPraFinishDate().toString().length() > 0)?e.getProjectAssignmentsTO().getPraFinishDate().toString():"");
+                        writer.append(',');      
+                        writer.append((e.getProjectAssignmentsTO().getProjectsTO().getProName() != null && e.getProjectAssignmentsTO().getProjectsTO().getProName().toString().length() > 0)?e.getProjectAssignmentsTO().getProjectsTO().getProName().toString():"");                
+                        writer.append(',');   
+                        writer.append((e.getProjectAssignmentsTO().getProjectsTO().getProStartDate() != null && e.getProjectAssignmentsTO().getProjectsTO().getProStartDate().toString().length() > 0)?e.getProjectAssignmentsTO().getProjectsTO().getProStartDate().toString():"");
+                        writer.append(',');      
+                        writer.append((e.getProjectAssignmentsTO().getProjectsTO().getProFinishDate() != null && e.getProjectAssignmentsTO().getProjectsTO().getProFinishDate().toString().length() > 0)?e.getProjectAssignmentsTO().getProjectsTO().getProFinishDate().toString():"");                
+                        writer.append(','); 
+                        writer.append('\n');
+                    }
+                    ouputStream.write(writer.toString().getBytes());
+
+                }
+                }catch(Exception e){
+                    System.out.println(e);
+                    e.printStackTrace();
+                }                        
         }
         else if(docType.equalsIgnoreCase("gastosDoc")) {
         try{
@@ -207,7 +307,8 @@ public class DownloadFileServlet extends AutorizacionServlet {
         }
         
         try {
-                response.setContentType("application/octet-stream");
+               // response.setContentType("application/octet-stream");
+                response.setContentType("text/comma-separated-values");
                 response.setHeader("Content-Disposition","attachment;filename="+nomArchivo);
                 
                 ouputStream.flush();

@@ -183,7 +183,7 @@ public class PaymentDAOImpl extends AbstractDAO  implements PaymentDAO{
     "               e.emp_last_name as lastName,\n" + 
     "               sum(decode(pd.pad_wcount,1,pd.pad_rate,null,0,(pd.pad_rate * pd.pad_wcount))) as praTotal,\n" + 
     "               c.cur_id as curId,\n" + 
-    "               pa.pra_assign_date as assignDate\n" + 
+    "               pa.pra_finish_date as finishDate\n" + 
     "          from project_assignments pa , projects p, proj_assignments_details pd, rates r, currency c, employees e\n" + 
     "         where pa.projects_pro_id = p.pro_id\n" + 
     "         and pd.project_assignments_pra_id = pa.pra_id\n" + 
@@ -192,19 +192,21 @@ public class PaymentDAOImpl extends AbstractDAO  implements PaymentDAO{
     "         and r.rat_id = pd.employees_rates_rates_rat_id\n" + 
     "         and pa.employees_emp_id=e.emp_id\n" + 
     "         and r.currency_cur_id=c.cur_id\n" +
+    "         and pd.pad_wcount > 0\n" + 
+    "         and pd.pad_rate > 0\n" +
     "         and pd.pad_pay_date is null";
     
     if (params.get("empId") != null && params.get("empId").toString().length() > 0){
         query +=" and e.emp_Id= #empId#";
     }        
     if (params.get("mesId") != null && params.get("mesId").toString().length() > 0){
-        query +=" and to_char(pa.pra_assign_date,'mmyyyy')=#mesId##anioId#";
-         //query +=" and to_char(pa.pra_assign_date,'ddmmyyyy') between add_months(to_date('25'||'#mesId##anioId#'||' 00:00','ddMMyyyy hh24:mi')+1,-1) and to_date('25'||'#mesId##anioId#'||' 23:59','ddMMyyyy hh24:mi')";
+        //query +=" and to_char(pa.pra_assign_date,'mmyyyy')=#mesId##anioId#";
+         query +=" and to_char(pa.pra_finish_date,'dd/mm/rrrr') between add_months(to_date('26'||'#mesId##anioId#'||' 00:01','dd/MM/rrrr hh24:mi')+1,-1) and to_date('26'||'#mesId##anioId#','dd/MM/rrrr')";
     }      
     if (params.get("anioId") != null && params.get("anioId").toString().length() > 0){
-        query +=" and to_char(pa.pra_assign_date,'yyyy')=#anioId#";
+        query +=" and to_char(pa.pra_finish_date,'yyyy')=#anioId#";
     }              
-    query +=" group by pa.employees_emp_id,e.emp_first_name,e.emp_last_name,c.cur_id,pa.pra_assign_date\n" + 
+    query +=" group by pa.employees_emp_id,e.emp_first_name,e.emp_last_name,c.cur_id,pa.pra_finish_date\n" + 
             " order by 1,6";
             
     for (Iterator i = params.keySet().iterator();i.hasNext();){
@@ -223,7 +225,7 @@ public class PaymentDAOImpl extends AbstractDAO  implements PaymentDAO{
             results.add(rs.getString("LastName"));     
             results.add(rs.getString("praTotal"));        
             results.add(rs.getString("curId"));                         
-            results.add(rs.getString("assignDate"));            
+            results.add(rs.getString("finishDate"));            
             salida.add(results);
         }
         
@@ -263,11 +265,13 @@ public class PaymentDAOImpl extends AbstractDAO  implements PaymentDAO{
     "  from clients c, orders o, orders_rates r,rates t\n" + 
     " where o.ord_id =r.orders_ord_id\n" + 
     " and o.clients_cli_id = c.cli_id\n" + 
+    " and r.orr_value > 0\n" + 
+    " and r.orr_wcount > 0\n" +
     " and r.rates_rat_id=t.rat_id\n";
     
-    if (params.get("notPay") != null && params.get("notPay").toString().equalsIgnoreCase("1") ){
-        //No cobrados todavía
-        query += " and r.orr_pay_date is null";
+    if (params.get("getIt") != null && params.get("getIt").toString().equalsIgnoreCase("cobrado") ){
+        //Cobrados
+        query += " and r.orr_pay_date is not null";
     }/*else {
         //Cobrados (Ganancias)
         query += " and r.orr_pay_date is not null";

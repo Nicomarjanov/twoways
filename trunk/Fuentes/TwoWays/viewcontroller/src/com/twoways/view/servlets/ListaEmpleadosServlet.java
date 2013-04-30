@@ -85,7 +85,7 @@ public class ListaEmpleadosServlet extends AutorizacionServlet {
            List<EmployeesTO> empleados =  twoWaysBDL.getServiceTwoWays().findEmployees(params);
            int  pageTop=(page+1)*10 ;
            int  minPage=(page)*10 ;
-            List subempleados = null;
+           List subempleados = null;
             
             
            if(empleados.size() > pageTop){ 
