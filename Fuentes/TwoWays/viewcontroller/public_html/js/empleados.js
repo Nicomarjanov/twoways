@@ -375,16 +375,6 @@ function validarCampos()
         }
     }
     
-    if( document.getElementById("empMsn").value != '')
-    {
-        if (!(validarEmail(document.getElementById("empMsn").value)))
-        {
-        document.getElementById("empMsn").style.background='Red';
-        mensajeFaltanteAlert+= ' * La dirección MSN es incorrecta \n';
-        banderaMensajeFaltante=true;
-        }
-    }
-
     if( document.getElementById("empMobileNumber").value != '')
     {
         if (!(isNumber(document.getElementById("empMobileNumber").value)))

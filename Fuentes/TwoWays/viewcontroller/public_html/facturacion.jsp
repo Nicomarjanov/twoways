@@ -193,16 +193,19 @@
                    <c:when test="${not empty finishedOrders}">
                  <tbody align="center">
                   <c:set var="bandera1" value="1"/>
+                   <c:set var="subtotal" value="0.0"/>
                    <c:forEach items="${finishedOrders}" var="item">                                           
 
                        <c:if test="${(bandera != item[\'ORDID\']) && (bandera1 == 0)}">
-                          <tr>
+                          <tr id="rowsubT+<c:out value="${bandNom}"/>">
                             <td colspan="9" bgcolor="#CCCCCC" style="text-align:right;">Subtotal <c:out value="${bandNom}"/>:</td>
-                            <td bgcolor="#CCCCCC" style="text-align:right;"><fmt:formatNumber type="number" value="${subtotal}" pattern="#.###"/></td>
+                            <td bgcolor="#CCCCCC" style="text-align:right;">
+                               <input type="text" id="subT+<c:out value="${bandNom}"/>" value="<c:out value="${subtotal}"/>" readonly="readonly" /></td>
+                            
                             <c:set var="subtotal" value="0.0"/>
                             <c:set var="bandera1" value="1"/>                            
                           </tr>
-                        </c:if>
+                        </c:if>                          
                            <c:set var="subtotal" value="${subtotal + item[\'ORDTOTAL\']}"/>
                            <c:set var="bandera" value="${item[\'ORDID\']}"/>  
                            <c:set var="bandNom" value="${item[\'ORDNAME\']}"/>
@@ -230,12 +233,12 @@
 
                     
                   </c:forEach>
-                  <tr>
+                  <tr id="rowsubT+<c:out value="${bandNom}"/>">
                     <td colspan="9" bgcolor="#CCCCCC" style="text-align:right;">Subtotal <c:out value="${bandNom}"/>:</td>
                     
-                    <td bgcolor="#CCCCCC" style="text-align:right;"><!--<fmt:formatNumber type="number" value="${subtotal}" pattern="#.###"/>-->
+                    <td bgcolor="#CCCCCC" style="text-align:right;">
                         
-                        <input type="text" id="subT+${bandNom}" value="${subtotal}" readonly="readonly" /></td>
+                        <input type="text" id="subT+<c:out value="${bandNom}"/>" value="<c:out value="${subtotal}"/>" readonly="readonly" /></td>
                   </tr>
                   </tbody>
                     </c:when>
@@ -359,6 +362,16 @@
              <input type="hidden" name="curIdOrigen" id="curIdOrigen" value="<c:out value="${curIdOrigen}" />">
         </td>
       </tr>
+      <c:if test="${accion =='imprimir'}">
+          <tr>
+            <td colspan="8" width="100%" align="center">
+                <textarea rows="5" cols="50" name="datosAdicionales">
+                    CUIT:24-25613979-6
+                    CUIT:27-26555803-3
+                </textarea>
+            </td>
+         </tr>
+      </c:if>
   </table>
   <hr class="tw_hr">
       <table width="20%" align="center">

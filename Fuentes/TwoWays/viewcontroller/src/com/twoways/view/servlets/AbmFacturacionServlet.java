@@ -362,9 +362,11 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
             try {
                 
                 Long invId= Long.parseLong(request.getParameter("invId"));
+                String datosAdicionales = request.getParameter("datosAdicionales");
+                
                 List<ItemsInvoicesTO> itemsFacturaList =  twoWaysBDL.getServiceTwoWays().obtenerItemsFactura(invId);
 
-                ListaCobrosServlet.createPdf(request,response,itemsFacturaList,invId,cliId);
+                ListaCobrosServlet.createPdf(request,response,itemsFacturaList,invId,cliId, datosAdicionales);
                                                   
             }
              catch (Exception e) {

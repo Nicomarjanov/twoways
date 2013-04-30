@@ -23,6 +23,8 @@ import java.util.Map;
 
 import java.util.Set;
 
+import java.util.TreeMap;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -98,7 +100,7 @@ public class IngresosxClienteServlet extends AutorizacionServlet {
                 
             try{
                List <InvoicesTO> ingresosxCliente =  twoWaysBDL.getServiceTwoWays().findIncomesByClient(params);
-               HashMap grillaIngresos = new HashMap<Integer,ArrayList>();
+               Map grillaIngresos = new TreeMap<Integer,ArrayList>();
                ArrayList totalIngresosCli = new ArrayList(); 
                    
                if (ingresosxCliente.size()>0){
@@ -121,7 +123,7 @@ public class IngresosxClienteServlet extends AutorizacionServlet {
                         mesCelda = Integer.parseInt(mf.format(fechaInv));                    
                         Timestamp timestamp = new Timestamp(fechaInv.getTime());
                         monto = twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, ingresosTO.getCurrencyTO().getCurId() , curId, ingresosTO.getInvTotal());
-                        if (cliId != anteriorCliId){
+                        if (!cliId.equals(anteriorCliId)){
                            meses = new ArrayList<Double>();
                            montoTotal = new BigDecimal("0");
                            for (int i=0;i<12;i++){
@@ -129,7 +131,7 @@ public class IngresosxClienteServlet extends AutorizacionServlet {
                            }
                         }
 
-                        if (cliId == anteriorCliId && anteriorMes == mesCelda){
+                        if (cliId.equals(anteriorCliId) && anteriorMes == mesCelda){
                             montoTotal = montoTotal.add(BigDecimal.valueOf(monto)).setScale(2,BigDecimal.ROUND_UP);
                             meses.remove(mesCelda-1);
                             meses.add(mesCelda-1,montoTotal);
@@ -227,7 +229,7 @@ public class IngresosxClienteServlet extends AutorizacionServlet {
                }
                if (totalIngresosCli.size()>0){
                    totalIngresosCli.remove(0); 
-                   totalIngresosCli.add(0,"Total Egresos");     
+                   totalIngresosCli.add(0,"Total Ingresos");     
                    totalIngresosCli.add(totalTotal); 
                }
                request.setAttribute("ingresosxCliente",grillaIngresos);   

@@ -76,3 +76,53 @@ function next(){
   pageId.value = parseInt(pageId.value) +1;
   buscarEmpleados();
 }
+
+
+function exportarCSV()
+{
+    if(confirm('¿Desea exportar la tabla a un archivo?'))
+    
+    {var today = new Date();
+     var dd = today.getDate();
+     var mm = today.getMonth()+1; //January is 0!
+        
+     var yyyy = today.getFullYear();
+     if(dd<10){dd='0'+dd} 
+     if(mm<10){mm='0'+mm} 
+     today = yyyy+mm+dd;
+     var url = "/twoways/downloadfile?docId=Lista_Empleados_"+today+".csv";
+    
+    
+        if( document.getElementById("empFirstName").value != '' ){
+            url = url + "&empFirstName=" + document.getElementById("empFirstName").value;
+        }
+        if( document.getElementById("empLastName").value != '' ){
+            url = url + "&empLastName=" + document.getElementById("empLastName").value;
+        }
+        if( document.getElementById("ProName").value != '' ){
+            url = url + "&ProName=" + document.getElementById("ProName").value;
+        }
+        if( document.getElementById("Traductor").checked ){
+            url = url + "&Traductor=" + document.getElementById("Traductor").value;
+        }        
+        if( document.getElementById("Editor").checked ){
+            url = url + "&Editor=" + document.getElementById("Editor").value;
+        }        
+        if( document.getElementById("Revisor").checked ){
+            url = url + "&Revisor=" + document.getElementById("Revisor").value;
+        }
+        if( document.getElementById("Maquetador").checked ){
+            url = url + "&Maquetador=" + document.getElementById("Maquetador").value;
+        }
+        if( document.getElementById("PDTP").checked ){
+            url = url + "&PDTP=" + document.getElementById("PDTP").value;
+        }        
+        if( document.getElementById("Proofer").checked ){
+            url = url + "&Proofer=" + document.getElementById("Proofer").value;
+        }
+        
+        url = url + "&docType=listaEmpleadosEnProyectosDoc";
+
+        window.open(url);
+    }
+}

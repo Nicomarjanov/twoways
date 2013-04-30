@@ -214,13 +214,13 @@ public class ExpensesDAOImpl extends AbstractDAO  implements ExpenseDAO {
                 query +=" and i.items_itm_id not in (64,65)";
             }                       
             if (itemsParameters.get("Cambio") != null && itemsParameters.get("Cambio").toString().length() > 0){
-                query +=" and i.items_itm_id=104";
+                query +=" and i.items_itm_id != 104";
             }               
             if (itemsParameters.get("Transferencia") != null && itemsParameters.get("Transferencia").toString().length() > 0){
-                query +=" and i.items_itm_id =107";
+                query +=" and i.items_itm_id != 107";
             }               
             if (itemsParameters.get("Sueldo") != null && itemsParameters.get("Sueldo").toString().length() > 0){
-                query +=" and i.items_itm_id <> 9999";
+                query +=" and i.items_itm_id != 9999";
             }                    
         }             
         query +=" group by m.itm_id, m.itm_name, i.currency_cur_id , e.exp_date \n"+
@@ -496,23 +496,54 @@ public class ExpensesDAOImpl extends AbstractDAO  implements ExpenseDAO {
         Connection con = null;
         Statement stm = null;
         ResultSet rs= null ;
-        String query ="select i.currency_cur_id as curId, e.exp_date as expDate, sum(i.ite_value) as total  \n" + 
-        "         from items_expenses i, expenses e, items m \n" + 
-        "         where i.expenses_exp_id=e.exp_id \n" + 
-        "         and i.items_itm_id=m.itm_id \n" + 
-        "         and m.itm_type = 'Egresos'\n" + 
-        "         and i.items_itm_id not in (64,65,104,107)";
+        String query ="select curid, fecha, sum(total) as total from ( \n" + 
+        "( \n" + 
+        "select r.currency_cur_id as curId, \n" + 
+        "      to_date(p.pro_finish_date,'dd/mm/rrrr') as fecha, \n" + 
+        "      sum(decode(pd.pad_wcount,1,pd.pad_rate,null,0,(pd.pad_rate * pd.pad_wcount))) as total \n" + 
+        "from project_assignments pa , projects p, proj_assignments_details pd, rates r \n" + 
+        "where pa.projects_pro_id = p.pro_id \n" + 
+        "     and pd.project_assignments_pra_id = pa.pra_id \n" + 
+        "     and pd.project_assignments_employees_ = pa.employees_emp_id \n" + 
+        "     and pd.project_assignments_projects_p = pa.projects_pro_id \n" + 
+        "     and r.rat_id = pd.employees_rates_rates_rat_id \n" + 
+        "     and pd.pad_wcount > 0 \n" + 
+        "     and pd.pad_rate > 0 \n" + 
+        "     and pd.pad_pay_date is null";
         
         
         if (expensesParameters.get("mesId") != null && expensesParameters.get("mesId").toString().length() > 0){
-            query +=" and to_char(i.ite_date,'mmyyyy')=#mesId##anioId#";
+            query +=" and to_char(p.pro_finish_date,'mmyyyy')=#mesId##anioId# \n";
         }      
         if (expensesParameters.get("anioId") != null && expensesParameters.get("anioId").toString().length() > 0){
-            query +=" and to_char(i.ite_date,'yyyy')=#anioId#";
+            query +=" and to_char(p.pro_finish_date,'yyyy')=#anioId# \n";
         }           
         
-        query +=" group by i.currency_cur_id,e.exp_date order by 2";
-                
+        query +=" group by r.currency_cur_id,to_date(p.pro_finish_date,'dd/mm/rrrr') \n" + 
+        ") \n" + 
+        "union all \n" + 
+        "( \n" + 
+        "select i.currency_cur_id as curId, \n" + 
+        "       e.exp_date as fecha, \n" + 
+        "       sum(i.ite_value) as total   \n" + 
+        "from items_expenses i, expenses e, items m  \n" + 
+        "where i.expenses_exp_id=e.exp_id  \n" + 
+        "  and i.items_itm_id=m.itm_id  \n" + 
+        "  and m.itm_type = 'Egresos' \n" + 
+        "  and i.items_itm_id not in (64,65,104,107,9999)";
+
+        if (expensesParameters.get("mesId") != null && expensesParameters.get("mesId").toString().length() > 0){
+            query +=" and to_char(i.ite_date,'mmyyyy')=#mesId##anioId# \n";
+        }      
+        if (expensesParameters.get("anioId") != null && expensesParameters.get("anioId").toString().length() > 0){
+            query +=" and to_char(i.ite_date,'yyyy')=#anioId# \n";
+        }       
+        
+        query += "group by i.currency_cur_id,e.exp_date \n" + 
+        ")) \n" + 
+        " group by curid, fecha \n" + 
+        " order by 2";
+        
         for (Iterator i = expensesParameters.keySet().iterator();i.hasNext();){
             String param = (String)i.next();
             query = query.replaceAll("#"+param+"#",expensesParameters.get(param).toString());
@@ -525,7 +556,7 @@ public class ExpensesDAOImpl extends AbstractDAO  implements ExpenseDAO {
             while(rs.next()){
                 List results = new ArrayList();
                 results.add(rs.getString("curId"));
-                results.add(rs.getString("expDate"));
+                results.add(rs.getString("fecha"));
                 results.add(rs.getString("total"));
                 salida.add(results);
                 

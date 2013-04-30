@@ -91,7 +91,7 @@ public class InvoicesDAOImpl extends AbstractDAO implements InvoiceDAO {
             query +=" and t.inv_date "+ invoiceParameters.get("invDateOpt").toString()+"  to_date('#searchDate#','dd/mm/yyyy')";
         }
         
-        query +=" order by t.inv_id desc";
+        query +=" order by t.inv_date desc";
 
         for (Iterator i = invoiceParameters.keySet().iterator();i.hasNext();){
             String param = (String)i.next();

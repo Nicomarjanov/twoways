@@ -29,8 +29,9 @@ function exportarCSV()
         //document.forms[0].submit();
         var mesId=document.getElementById("mesId").value;
         var anioId=document.getElementById("anioId").value;
+        var docType='gastosDoc';
 
-        window.open("/twoways/downloadfile?docId=Ingresos_Egresos_"+anioId+"_"+mesId+".csv&anioId="+anioId+"&mesId="+mesId+"&docType='gastosDoc'");
+        window.open("/twoways/downloadfile?docId=Ingresos_Egresos_"+anioId+"_"+mesId+".csv&anioId="+anioId+"&mesId="+mesId+"&docType="+docType);
     }
 }
 

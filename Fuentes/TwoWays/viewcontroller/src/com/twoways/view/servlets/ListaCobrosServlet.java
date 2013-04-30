@@ -159,7 +159,8 @@ public class ListaCobrosServlet extends AutorizacionServlet {
                     twoWaysBDL = new TwoWaysBDL();
                     String cliId= request.getParameter("cliId");
                     List<ItemsInvoicesTO> itemsFacturaList =  twoWaysBDL.getServiceTwoWays().obtenerItemsFactura(invId);
-                    ListaCobrosServlet.createPdf(request,response,itemsFacturaList,invId,cliId);
+                    //Datos Adicionales, ver como agregarlos en la re-impresion
+                    ListaCobrosServlet.createPdf(request,response,itemsFacturaList,invId,cliId,"");
                     
                 }catch(Exception e){
                    e.printStackTrace(); 
@@ -169,7 +170,7 @@ public class ListaCobrosServlet extends AutorizacionServlet {
         request.getRequestDispatcher("listaFacturas.jsp").forward(request,response);
         }
         
-    public static void createPdf(HttpServletRequest request,HttpServletResponse response, List itemsFacturaList,Long invId,String cliId)
+    public static void createPdf(HttpServletRequest request,HttpServletResponse response, List itemsFacturaList,Long invId,String cliId, String datosAdicionales)
        throws IOException, DocumentException {
        // step 1
         Document document = new Document(PageSize.A4.rotate());
@@ -197,13 +198,13 @@ public class ListaCobrosServlet extends AutorizacionServlet {
        // step 3
        document.open();
        // step 4
-       document.add(createTableEncabezado(request,invId,cliente));
+       document.add(createTableEncabezado(request,invId,cliente,datosAdicionales));
        document.add(createTable(request, itemsFacturaList));
        // step 5
        document.close();
     }
     
-    public static PdfPTable createTableEncabezado(HttpServletRequest request, Long invId,ClientsTO cliente) throws IOException, DocumentException{
+    public static PdfPTable createTableEncabezado(HttpServletRequest request, Long invId,ClientsTO cliente, String datosAdicionales) throws IOException, DocumentException{
       
     String invDate = request.getParameter("invDate");   
     String accId =request.getParameter("accId");
@@ -217,18 +218,15 @@ public class ListaCobrosServlet extends AutorizacionServlet {
     table.setWidthPercentage(100f);
     cell = new PdfPCell(Image.getInstance(RESOURCE),true);
     cell.setBorder(PdfPCell.NO_BORDER);
-    //  cell.setColspan(1);
-    //cell.setPadding(20);
-    table.addCell(cell);
+    
+    //table.addCell(cell);
     cell = new PdfPCell(new Phrase(""));
     cell.setBorder(PdfPCell.NO_BORDER);
     cell.setColspan(3);
-    //cell.setPadding(20);
     table.addCell(cell);      
     
     //fecha de pago
     cell = new PdfPCell(new Phrase("Date: "+invDate,ft));    
-    //cell = new PdfPCell();
     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
     cell.setVerticalAlignment(Element.ALIGN_TOP);
     cell.setColspan(2);
@@ -239,7 +237,6 @@ public class ListaCobrosServlet extends AutorizacionServlet {
     
     //Numero de factura
     cell = new PdfPCell(new Phrase("Invoice #: "+invId,ft));    
-    //cell = new PdfPCell();
     cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
     cell.setVerticalAlignment(Element.ALIGN_TOP);
     cell.setColspan(2);
@@ -255,7 +252,7 @@ public class ListaCobrosServlet extends AutorizacionServlet {
      try {
          twoWaysBDL = new TwoWaysBDL();
          cuenta = twoWaysBDL.getServiceTwoWays().getAccountById(accId);
-        // cliente = twoWaysBDL.getServiceTwoWays().getClientById(cliId);
+
         } catch (Exception e) {
             e.printStackTrace();
         } 
@@ -337,7 +334,13 @@ public class ListaCobrosServlet extends AutorizacionServlet {
         cell.setColspan(4);
         cell.setBorder(PdfPCell.NO_BORDER);
         table.addCell(cell);
+        
     }
+    cell = new PdfPCell(new Phrase((datosAdicionales !=null)?datosAdicionales:""));
+    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+    cell.setColspan(4);    
+    cell.setBorder(PdfPCell.NO_BORDER);
+    table.addCell(cell);
     /*Fila en blanco
     cell = new PdfPCell(new Phrase(""));
     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
