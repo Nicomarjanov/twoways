@@ -64,7 +64,7 @@
                    <tbody>
                        <tr>
                         <td nowrap align="left" width="25%">Cliente</td>
-                        <td align="left" width="25%">
+                        <td align="left" width="25%" colspan="2">
                         <c:choose>
                             <c:when test="${not empty ingresosxCliente}">
                                 <select disabled="disabled" name="listaClientes" id="listaClientes" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">            
@@ -93,7 +93,7 @@
                       </tr>
                       <tr>
                         <td nowrap align="left" width="25%">Mes</td>
-                        <td align="left" width="25%">
+                        <td align="left" width="25%" colspan="2">
                         <c:choose>
                             <c:when test="${not empty ingresosxCliente}">                        
                                 <select disabled="disabled" name="listaMes" id="listaMes" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';"> 
@@ -129,7 +129,7 @@
                       </tr>
                       <tr>
                         <td nowrap align="left" width="25%">Año</td>
-                        <td>
+                        <td colspan="2">
                         <c:choose>
                             <c:when test="${not empty ingresosxCliente}">                                             
                                 <select disabled="disabled" name="listaAnio" id="listaAnio" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';"> 
@@ -163,7 +163,7 @@
                      </tr>
                      <tr>
                         <td nowrap align="left" width="10%">Moneda</td>
-                        <td width="20%" align="leftx">
+                        <td width="20%" align="leftx" colspan="2">
                             <c:choose>
                                 <c:when test="${not empty ingresosxCliente}">
                                    <select name="listaMoneda" id="listaMoneda" style="border:solid 1px #005C8D;" >                                                        
@@ -200,17 +200,27 @@
                         </td>
                      </tr>
                      <tr>
-                        <td nowrap align="left" width="10%">¿Cobrado?</td>
+                        <td nowrap align="left" width="10%">¿Facturado?</td>
                         <td width="20%" align="leftx">
                             <c:choose>
                                 <c:when test="${not empty cobrado}">
-                                    <input type="checkbox" name="cobrado" value="cobrado" id="cobrado" checked="checked"></input>
+                                    <input type="checkbox" name="cobrado" value="cobrado" id="cobrado" checked="checked">Si</input>
                                </c:when>
                                <c:otherwise>
-                                    <input type="checkbox" name="cobrado" value="cobrado" id="cobrado"></input>
+                                    <input type="checkbox" name="cobrado" value="cobrado" id="cobrado">Si</input>
                                </c:otherwise>
                               </c:choose>
                         </td>
+                        <td width="20%" align="leftx">
+                            <c:choose>
+                                <c:when test="${not empty noCobrado}">
+                                    <input type="checkbox" name="noCobrado" value="noCobrado" id="noCobrado" checked="checked">No</input>
+                               </c:when>
+                               <c:otherwise>
+                                    <input type="checkbox" name="noCobrado" value="noCobrado" id="noCobrado">No</input>
+                               </c:otherwise>
+                              </c:choose>
+                        </td>                        
                      </tr>
                      <tr>
                      <c:choose>

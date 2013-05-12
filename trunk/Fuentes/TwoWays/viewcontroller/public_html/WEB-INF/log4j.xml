@@ -191,18 +191,18 @@
     </logger>
         
     <!-- Logs de la aplicacion -->
-    <!--logger name="com.twoways">
+    <logger name="com.twoways">
        <level value="debug,info,error,fatal"/>
        <appender-ref ref="stdout"/>
        <appender-ref ref="rolling"/>
         
-    </logger-->
+    </logger>
     
-    <!--logger name="java.sql.Connection">    
+    <logger name="java.sql.Connection">    
        <level value="debug,info,error,fatal"/>
        <appender-ref ref="sqls"/> 
        <appender-ref ref="stdout"/>
-    </logger>  
+    </logger><!--  
     <logger name="java.sql.PreparedStatement"> 
       <level value="debug,info,error,fatal"/>
        <appender-ref ref="stdout"/>

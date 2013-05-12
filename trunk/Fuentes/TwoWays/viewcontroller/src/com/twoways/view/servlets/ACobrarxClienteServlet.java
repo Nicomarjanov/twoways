@@ -89,12 +89,20 @@ public class ACobrarxClienteServlet extends AutorizacionServlet {
               request.setAttribute("anioId",request.getParameter("listaAnio")); 
             }         
 
-            if(request.getParameter("cobrado") != null &&  request.getParameter("cobrado").equalsIgnoreCase("cobrado")){ 
-              params.put("getIt",request.getParameter("cobrado"));
-              request.setAttribute("cobrado",request.getParameter("cobrado"));              
-            }                
-            
-            
+            if(request.getParameter("cobrado") != null &&  request.getParameter("noCobrado") != null){
+                  params.put("getIt","sino");
+                  request.setAttribute("noCobrado",request.getParameter("noCobrado"));              
+                  request.setAttribute("cobrado",request.getParameter("cobrado"));
+            } else {if(request.getParameter("cobrado") != null){
+                    params.put("getIt","si");
+                    request.setAttribute("cobrado",request.getParameter("cobrado"));
+                   }else if(request.getParameter("noCobrado") != null){
+                        params.put("getIt","no");    
+                        request.setAttribute("noCobrado",request.getParameter("noCobrado"));              
+                    }
+            }
+        
+        
             Long curId=null;
             if( request.getParameter("curId")!= null ){ 
               curId = Long.parseLong(request.getParameter("curId"));
