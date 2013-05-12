@@ -45,11 +45,11 @@ import javax.servlet.http.*;
 
 public class ListaPagosServlet extends AutorizacionServlet {
     private static final String CONTENT_TYPE = "text/html; charset=windows-1252";
-    /*public static final String RESOURCE = "C:\\apache-tomcat-7.0.5\\webapps\\img\\print_img.png";    
-    public static final String EURO = "C:\\apache-tomcat-7.0.5\\webapps\\img\\euro.png";*/
+   // public static final String RESOURCE = "C:\\apache-tomcat-7.0.5\\webapps\\twoways\\img\\print_img.png";    
+   // public static final String EURO = "C:\\apache-tomcat-7.0.5\\webapps\\img\\euro.png";
     public static final String RESOURCE = "/home/resources/img/print_img.png";    
     public static final String EURO = "/home/resources/img/euro.png";
-    //public static final String POUND = "/home/resources/img/money_pound.png";
+    public static final String POUND = "/home/resources/img/money_pound.png";
     
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
@@ -205,6 +205,8 @@ public class ListaPagosServlet extends AutorizacionServlet {
         // step 3
         document.open();
         // step 4
+        Image image = Image.getInstance(RESOURCE);
+        document.add(image);        
         document.add(createTable(request,itemsPagoList));
         // step 5
         document.close();
@@ -235,21 +237,21 @@ public class ListaPagosServlet extends AutorizacionServlet {
         PdfPCell cell; 
         BaseFont bf = BaseFont.createFont();   
         Font ft = new Font(bf,15,Font.BOLD);  
-        Font cf = new Font(bf,12); 
-        //imagen
+
+        /*imagen
         table.setWidthPercentage(100f);
         cell = new PdfPCell(Image.getInstance(RESOURCE),true);
         cell.setBorder(PdfPCell.NO_BORDER);
-        cell.setColspan(2);
+        cell.setColspan(1);
         cell.setPadding(20);
         table.addCell(cell);
-        
+        */
         //fecha de pago
         cell = new PdfPCell(new Phrase("Fecha de pago: "+sdf.format(cal.getTime()),ft));    
         //cell = new PdfPCell();
         cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
         cell.setVerticalAlignment(Element.ALIGN_BOTTOM);
-        cell.setColspan(4);
+        cell.setColspan(6);
         cell.setBorder(PdfPCell.NO_BORDER);
         table.addCell(cell);
         

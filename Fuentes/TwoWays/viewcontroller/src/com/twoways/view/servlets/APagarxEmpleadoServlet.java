@@ -129,6 +129,7 @@ public class APagarxEmpleadoServlet extends AutorizacionServlet {
 
                    ArrayList meses = new ArrayList<Double>();
                    SimpleDateFormat mesf = new SimpleDateFormat("MM");
+                   SimpleDateFormat dayf = new SimpleDateFormat("dd");
                    SimpleDateFormat formatoDeFecha = new SimpleDateFormat("yyyy-MM-dd");
                    
                    for(int i=0;i<pagosxEmpleado.size();i++){                                   
@@ -138,7 +139,9 @@ public class APagarxEmpleadoServlet extends AutorizacionServlet {
                        double montoAPag = Double.parseDouble(aux.next().toString()); 
                        Long curIdDesde = Long.parseLong(aux.next().toString());
                        Date fecha = formatoDeFecha.parse(aux.next().toString());
-                       mesCelda = Integer.parseInt(mesf.format(fecha));     
+                       mesCelda = Integer.parseInt(mesf.format(fecha));
+                       if (Integer.parseInt(dayf.format(fecha)) > 25){mesCelda++;}
+                                                    
                        Timestamp timestamp = new Timestamp(fecha.getTime());
                        monto = twoWaysBDL.getServiceTwoWays().getCurrencyCotizationValue(timestamp, curIdDesde , curId,montoAPag);
                        

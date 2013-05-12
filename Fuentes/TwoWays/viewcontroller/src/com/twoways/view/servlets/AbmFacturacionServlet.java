@@ -39,8 +39,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public class AbmFacturacionServlet extends AutorizacionServlet {
     private static final String CONTENT_TYPE = "text/html; charset=windows-1252";
-    //public static final String RESULT = "C:\\WINDOWS\\Temp\\pagos.pdf";
-     public static final String RESOURCE = "/home/resources/img/print_img.png";    
+    //public static final String RESOURCE = "C:\\apache-tomcat-7.0.5\\webapps\\twoways\\img\\print_img.png";
+    // public static final String RESOURCE = "/home/resources/img/print_img.png";    
 
 
     public void init(ServletConfig config) throws ServletException {
@@ -112,13 +112,12 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
                     String curIdOrigen = null;
 
                     Double auxAmount= 0.0;
-                    Double auxSubTotal= 0.0;
+                    
                     SimpleDateFormat formatoDeFecha = new SimpleDateFormat("yyyy-MM-dd");
                     Map auxMap = new HashMap();
-                    Map auxMap1 = new HashMap();
+                    
                     Iterator iterador = ordersEmpId.listIterator();
-                    String ban="0";
-                    String auxId= null;
+                
                     while( iterador.hasNext() ) {
                         auxMap =(HashMap)iterador.next();
                         if (Double.parseDouble(auxMap.get("ORDTOTAL").toString()) > 0.0){    

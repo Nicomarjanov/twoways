@@ -18,18 +18,20 @@ import com.twoways.to.AccountsTO;
 import com.twoways.to.ClientsTO;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 
 public class imprimirFacturaServlet extends AutorizacionServlet {
     private static final String CONTENT_TYPE = "text/html; charset=windows-1252";
-   /* public static final String RESOURCE = "C:\\apache-tomcat-7.0.5\\webapps\\img\\print_img.png";
-    public static final String EURO = "C:\\apache-tomcat-7.0.5\\webapps\\img\\euro.png";   */ 
+  // public static final String RESOURCE = "C:\\apache-tomcat-7.0.5\\webapps\\twoways\\img\\print_img.png";
+  /*   public static final String EURO = "C:\\apache-tomcat-7.0.5\\webapps\\img\\euro.png";   */ 
     public static final String RESOURCE = "/home/resources/img/print_img.png";    
     public static final String EURO = "/home/resources/img/euro.png";
 
@@ -69,6 +71,8 @@ public class imprimirFacturaServlet extends AutorizacionServlet {
        // step 3
        document.open();
        // step 4
+       Image image = Image.getInstance(RESOURCE);
+       document.add(image);       
        document.add(createTableEncabezado(request,cliente));
        document.add(createTable(request));
        // step 5
@@ -88,7 +92,7 @@ public class imprimirFacturaServlet extends AutorizacionServlet {
     BaseFont bf = BaseFont.createFont();   
     Font ft = new Font(bf,15,Font.BOLD);         
     
-    //imagen
+    /*imagen
     table.setWidthPercentage(100f);
     cell = new PdfPCell(Image.getInstance(RESOURCE),true);
     cell.setBorder(PdfPCell.NO_BORDER);
@@ -100,13 +104,13 @@ public class imprimirFacturaServlet extends AutorizacionServlet {
     cell.setColspan(3);
     //cell.setPadding(20);
     table.addCell(cell);      
-    
+    */
     //fecha de pago
     cell = new PdfPCell(new Phrase("Date: "+invDate,ft));    
     //cell = new PdfPCell();
     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
     cell.setVerticalAlignment(Element.ALIGN_TOP);
-    cell.setColspan(2);
+    cell.setColspan(3);
     cell.setBorder(PdfPCell.NO_BORDER);
     cell.setPaddingBottom(20);       
     cell.setPaddingTop(15);        

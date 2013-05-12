@@ -201,7 +201,7 @@ public class PaymentDAOImpl extends AbstractDAO  implements PaymentDAO{
     }        
     if (params.get("mesId") != null && params.get("mesId").toString().length() > 0){
         //query +=" and to_char(pa.pra_assign_date,'mmyyyy')=#mesId##anioId#";
-         query +=" and to_char(pa.pra_finish_date,'dd/mm/rrrr') between add_months(to_date('26'||'#mesId##anioId#'||' 00:01','dd/MM/rrrr hh24:mi')+1,-1) and to_date('26'||'#mesId##anioId#','dd/MM/rrrr')";
+         query +=" and pa.pra_finish_date between add_months(to_date('26'||'#mesId##anioId# 00:01','dd/MM/rrrr hh24:mi'),-1) and to_date('25'||'#mesId##anioId# 23:59','dd/MM/rrrr hh24:mi')";
     }      
     if (params.get("anioId") != null && params.get("anioId").toString().length() > 0){
         query +=" and to_char(pa.pra_finish_date,'yyyy')=#anioId#";
@@ -269,13 +269,15 @@ public class PaymentDAOImpl extends AbstractDAO  implements PaymentDAO{
     " and r.orr_wcount > 0\n" +
     " and r.rates_rat_id=t.rat_id\n";
     
-    if (params.get("getIt") != null && params.get("getIt").toString().equalsIgnoreCase("cobrado") ){
-        //Cobrados
-        query += " and r.orr_pay_date is not null";
-    }/*else {
-        //Cobrados (Ganancias)
-        query += " and r.orr_pay_date is not null";
-    }*/
+    if (params.get("getIt") != null){
+        if (params.get("getIt").toString().equalsIgnoreCase("si") ){
+            //Cobrados
+            query += " and r.orr_pay_date is not null";
+        }else if (params.get("getIt").toString().equalsIgnoreCase("no") ){
+            //Cobrados (Ganancias)
+            query += " and r.orr_pay_date is null";
+        }
+    }
     
     if (params.get("cliId") != null && params.get("cliId").toString().length() > 0){
         query +=" and c.cli_Id= #cliId#";
