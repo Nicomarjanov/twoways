@@ -96,9 +96,9 @@ public class GestionarProyectoServlet extends AutorizacionServlet {
                 params.put("Iniciado",request.getParameter("Iniciado"));
                 request.setAttribute("Iniciado",request.getParameter("Iniciado"));
             }
-            if (request.getParameter("Finalizado") != null && request.getParameter("Finalizado").length() > 0) {
-                params.put("Finalizado",request.getParameter("Finalizado"));
-                request.setAttribute("Finalizado",request.getParameter("Finalizado"));
+            if (request.getParameter("Entregado") != null && request.getParameter("Entregado").length() > 0) {
+                params.put("Entregado",request.getParameter("Entregado"));
+                request.setAttribute("Entregado",request.getParameter("Entregado"));
             }
             /*if (request.getParameter("POPendiente") != null && request.getParameter("POPendiente").length() > 0) {
                 params.put("POPendiente",request.getParameter("POPendiente"));

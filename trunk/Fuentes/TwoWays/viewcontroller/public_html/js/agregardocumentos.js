@@ -15,12 +15,19 @@ function agregarDocumento(){
 
    var nameDoc=document.getElementById('doc_name');
    var idDoc= nameDoc.value.substring( nameDoc.value.lastIndexOf("\\")+1) ;
-   
+   var letters = /^([A-z_0-9\.]+)+\.(txt|pdf|doc|docx|xls|xlsx|csv|zip|rar)/;   
+   var id = letters.test(idDoc);
+
    if( nameDoc.value == ''){ 
       alert('Ingrese un nombre para el documento');  
       nameDoc.focus();
      return;
+   }else if(!(id)){
+         alert("Ingrese un nombre válido para el documento que NO contengan caracteres especiales tales como espacios, @, #, $, %, &, ? o !");  
+         nameDoc.focus();
+         return;
    }
+
    
    if(document.getElementById("listaDocTypes").selectedIndex==0)
     {

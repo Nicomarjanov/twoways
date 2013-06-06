@@ -92,9 +92,19 @@ function exportarListaCSV()
         var listaClientes=document.getElementById('listaClientes').options[document.getElementById('listaClientes').selectedIndex].value;        
         var projName=document.getElementById('projName').value;
         var ordName=document.getElementById("ordName").value;
-        var Iniciado=document.getElementById("Iniciado").value;
-        var Entregado=document.getElementById("Entregado").value;
-        var POEnviado=document.getElementById("POEnviado").value;
+        var Iniciado = 'no';
+        var Entregado = 'no';
+        var POEnviado = 'no';
+        
+        if (document.getElementById("Iniciado").checked){
+            var Iniciado = document.getElementById("Iniciado").value;
+        }
+        if (document.getElementById("Entregado").checked){
+            var Entregado=document.getElementById("Entregado").value;
+        }
+        if (document.getElementById("POEnviado").checked){
+            var POEnviado=document.getElementById("POEnviado").value;
+        }
         var projFinishDate=document.getElementById("projFinishDate").value;
         var projFinishDateOpt=document.getElementById("projFinishDateOpt").value;
         var projDate=document.getElementById("projDate").value;

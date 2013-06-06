@@ -146,7 +146,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                 empleado.setEmpMsn((request.getParameter("empMsn")!= null )?request.getParameter("empMsn"):"");               
                 empleado.setEmpAddress((request.getParameter("empAddress")!= null )?request.getParameter("empAddress"):"");
                 empleado.setEmpLocation((request.getParameter("empLocation")!= null )?request.getParameter("empLocation"):"");                
-                empleado.setEmpLocation((request.getParameter("empObservations")!= null )?request.getParameter("empObservations"):"");    
+                empleado.setEmpObservations((request.getParameter("empObservations")!= null )?request.getParameter("empObservations"):"");    
                 empleado.setEmployeesRatesTOList(employeesRatesTOList);
                 empleado.setEmployeesTypesTOList(employeesTypesTOList);
                 try{
