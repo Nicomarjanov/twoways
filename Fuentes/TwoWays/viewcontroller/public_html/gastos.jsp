@@ -273,7 +273,7 @@
   <table width="25%" align="center">
       <tr>
           <c:if test="${itemsExpense != null}">
-              <td align="right"><input type="button" id="aceptar" value="Aceptar" onclick="agregar()"/></td>   
+              <!--<td align="right"><input type="button" id="aceptar" value="Aceptar" onclick="agregar()"/></td>   -->
               <td align="center"><input type="button" id="export" value="Exportar" OnClick="exportarCSV()"/></td>   
               <td align="left"><input type="button" id="cancel" value="Limpiar" OnClick="cancelar()"/></td> 
           </c:if>

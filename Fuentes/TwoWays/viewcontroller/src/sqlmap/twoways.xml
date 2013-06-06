@@ -1651,7 +1651,7 @@
   </delete> 
 
   <select id="getOrdersByCliId" parameterClass="java.util.Map" resultClass="java.util.HashMap" >
-          select o.ord_id as ordId,
+          select distinct o.ord_id as ordId,
                o.ord_name as ordName,
                o.ord_description as ordDescription,
                o.ord_finish_date as ordFinishDate,
@@ -1672,8 +1672,7 @@
         from orders o, orders_rates r, client_responsable cr, rates t, currency y, order_services os, rate_types p
         where o.ord_id = r.orders_ord_id
         and o.client_responsable_cre_id=cr.cre_id
-        and o.ord_id = os.orders_ord_id
-        and os.rate_types_rty_name=p.rty_name  
+        and o.ord_id = os.orders_ord_id          
         and p.rty_name=t.rat_type            
         and o.clients_cli_id = #cliId#
         and r.rates_rat_id = t.rat_id

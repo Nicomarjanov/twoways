@@ -244,13 +244,13 @@ public class DownloadFileServlet extends AutorizacionServlet {
                 params.put("ordName",request.getParameter("ordName"));
             }
             
-            if (request.getParameter("Iniciado") != null && request.getParameter("Iniciado").length() > 0) {
+            if (request.getParameter("Iniciado") != null && request.getParameter("Iniciado").equalsIgnoreCase("Iniciado")) {
                 params.put("Iniciado",request.getParameter("Iniciado"));
             }
-            if (request.getParameter("Finalizado") != null && request.getParameter("Finalizado").length() > 0) {
-                params.put("Finalizado",request.getParameter("Finalizado"));
+            if (request.getParameter("Entregado") != null && request.getParameter("Entregado").equalsIgnoreCase("Entregado")) {
+                params.put("Entregado",request.getParameter("Entregado"));
             }
-            if (request.getParameter("POEnviado") != null && request.getParameter("POEnviado").length() > 0) {
+            if (request.getParameter("POEnviado") != null && request.getParameter("POEnviado").equalsIgnoreCase("POEnviado")) {
                 params.put("POEnviado",request.getParameter("POEnviado"));
             }
             
@@ -308,7 +308,7 @@ public class DownloadFileServlet extends AutorizacionServlet {
         
         try {
                // response.setContentType("application/octet-stream");
-                response.setContentType("text/comma-separated-values");
+                response.setContentType("text/csv");
                 response.setHeader("Content-Disposition","attachment;filename="+nomArchivo);
                 
                 ouputStream.flush();
