@@ -147,7 +147,7 @@ public class GestionarProyectoServlet extends AutorizacionServlet {
              
             request.setAttribute("project",projectTO); 
             try{
-               List<ProjectsTO> projects =  twoWaysBDL.getServiceTwoWays().findProjects(params);
+               List projects =  twoWaysBDL.getServiceTwoWays().findProjects(params);
                int  pageTop=(page+1)*10 ;
                int  minPage=(page)*10 ;
                List<ProjectsTO> subprojects = null;

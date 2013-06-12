@@ -272,6 +272,8 @@ public interface TW_SystemService {
     public List obtenerResponsables() throws Exception;
     
     public List <ProjectsTO> findProjects(Map projParameters);
+
+    public List findProjectsyPalabras(Map projParameters);
     
     public List <InvoicesTO> findIncomesByClient(Map invoiceParameters) throws Exception;
 
