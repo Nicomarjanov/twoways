@@ -15,7 +15,7 @@ function agregarDocumento(){
 
    var nameDoc=document.getElementById('doc_name');
    var idDoc= nameDoc.value.substring( nameDoc.value.lastIndexOf("\\")+1) ;
-   var letters = /^([A-z_0-9\.]+)+\.(txt|pdf|doc|docx|xls|xlsx|csv|zip|rar)/;   
+   var letters = /^([a-zA-Z0-9-_\.])/;   
    var id = letters.test(idDoc);
 
    if( nameDoc.value == ''){ 
@@ -24,6 +24,7 @@ function agregarDocumento(){
      return;
    }else if(!(id)){
          alert("Ingrese un nombre válido para el documento que NO contengan caracteres especiales tales como espacios, @, #, $, %, &, ? o !");  
+         nameDoc.value='';
          nameDoc.focus();
          return;
    }

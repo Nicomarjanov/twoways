@@ -942,6 +942,10 @@ public class TW_SystemServiceImpl implements TW_SystemService {
     public List <ProjectsTO> findProjects(Map projParameters){
         return this.projectDao.findProjects(projParameters);
     }
+
+    public List findProjectsyPalabras(Map projParameters){
+        return this.projectDao.findProjectsyPalabras(projParameters);
+    }
     
     public List <InvoicesTO> findIncomesByClient(Map invoiceParameters) throws Exception{
         return this.invoiceDao.findIncomesByClient(invoiceParameters);

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -230,13 +231,12 @@ public class DownloadFileServlet extends AutorizacionServlet {
             java.util.Date date;            
             SimpleDateFormat sdfch = new SimpleDateFormat("dd/MM/yyyy HH:mm");
             SimpleDateFormat sdfsh = new SimpleDateFormat("dd/MM/yyyy");            
-            
-            String listaClientes =  request.getParameter("listaClientes");
+
             if(request.getParameter("listaClientes") != null && request.getParameter("listaClientes").length() > 0  ){            
               long cliId= Long.parseLong(request.getParameter("listaClientes"));
               params.put("cliId",cliId);
             }
-            String projName =  request.getParameter("projName");  
+           
             if (request.getParameter("projName") != null && request.getParameter("projName").length() > 0) {
                 params.put("projName",request.getParameter("projName"));
             }
@@ -275,7 +275,7 @@ public class DownloadFileServlet extends AutorizacionServlet {
              }
             try{
                twoWaysBDL = new TwoWaysBDL();
-               List<ProjectsTO> projects =  twoWaysBDL.getServiceTwoWays().findProjects(params);
+               List <List>projects = twoWaysBDL.getServiceTwoWays().findProjectsyPalabras(params);
                if (projects.size()> 0){
                    writer.append("Nombre del proyecto");
                    writer.append(',');
@@ -286,16 +286,20 @@ public class DownloadFileServlet extends AutorizacionServlet {
                    writer.append('\n');
                                 
                
-                   for(ProjectsTO p : projects){
+                  for (int i = 0;i<projects.size();i++){
+                        Iterator aux = projects.get(i).iterator();
+                        while(aux.hasNext()){
+                        
     
-                        writer.append((p.getProName().toString() != null && p.getProName().toString().length() > 0)?p.getProName().toString():"");
+                        writer.append(aux.next().toString());
                         writer.append(',');
-                        Long palabras = twoWaysBDL.getServiceTwoWays().getTotalPalabrasxProyecto(p.getProId());
-                        writer.append((palabras.toString() != null && palabras.toString().length() > 0)?palabras.toString():"");                                       
+                        //Long palabras = twoWaysBDL.getServiceTwoWays().getTotalPalabrasxProyecto(p.getProId());
+                        writer.append(aux.next().toString());                                       
                         writer.append(',');
-                        writer.append((p.getProFinishDate().toString() != null && p.getProFinishDate().toString().length() > 0)?p.getProFinishDate().toString():"");                     
+                        writer.append(aux.next().toString());  
                         writer.append(',');
                         writer.append('\n');
+                        }
                     }
                     ouputStream.write(writer.toString().getBytes());
                }
@@ -308,8 +312,8 @@ public class DownloadFileServlet extends AutorizacionServlet {
         
         try {
                // response.setContentType("application/octet-stream");
-                response.setContentType("text/csv");
-                response.setHeader("Content-Disposition","attachment;filename="+nomArchivo);
+                response.setContentType("application/vnd.ms-excel");
+                response.setHeader("Content-Disposition","inline; filename="+nomArchivo);
                 
                 ouputStream.flush();
                 ouputStream.close();

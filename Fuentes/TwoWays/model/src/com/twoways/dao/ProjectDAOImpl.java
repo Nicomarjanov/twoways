@@ -471,6 +471,123 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
     public void deleteProjectByOrdId(Long ordId)throws Exception{
         getSqlMapClientTemplate().delete("deleteProjectByOrdId",ordId);
     }
+    
+    public List findProjectsyPalabras(Map projParameters){
+        List salida = new ArrayList();
+        DataSource ds = this.getDataSource(); 
+        Connection con = null;
+        Statement stm = null;
+        ResultSet rs= null ;
+        String query =  "select t.pro_name, t.pro_finish_date, sum(d.pad_wcount) total, o.ord_start_date \n" + 
+                        "from projects t, orders o, proj_assignments_details d, clients c \n" + 
+                        "where o.ord_id=t.orders_ord_id \n" +
+                        "and c.cli_id = o.clients_cli_id \n" +
+                        "and t.pro_id = d.project_assignments_projects_p \n";
+
+        if (projParameters.get("cliId") != null && projParameters.get("cliId").toString().length() > 0){
+            query += " and c.cli_id =#cliId# \n";  
+        }
+
+        if (projParameters.get("projName") != null && projParameters.get("projName").toString().length() > 0){
+            query += " and t.pro_name  like '%'||'#projName#'||'%' \n";  
+        }
+
+        if (projParameters.get("ordName") != null && projParameters.get("ordName").toString().length() > 0){
+            query += " and o.ord_name  like '%'||'#ordName#'||'%' \n";  
+        }
+        
+        if(projParameters.get("projDate") != null && projParameters.get("projDate").toString().length() > 0){
+        
+           String formato = "dd/MM/yyyy hh24:mi";
+           if (projParameters.get("projDate").toString().length() == 10){
+               if(!projParameters.get("projDateOpt").toString().equals("=")){ 
+                   formato = "dd/MM/yyyy";
+                   query += " and t.pro_start_date "+ projParameters.get("projDateOpt").toString()+"  to_date ('#projDate#','"+formato+"')";
+               }else{
+                   query += " and t.pro_start_date >= to_date ('#projDate# 00:00','"+formato+"') and t.pro_start_date <= to_date ('#projDate# 23:59','"+formato+"') ";
+               }
+           }else{        
+             query += " and t.pro_start_date "+ projParameters.get("projDateOpt").toString()+"  to_date ('#projDate#','"+formato+"')";
+           }  
+        }
+        
+         if(projParameters.get("projFinishDate") != null && projParameters.get("projFinishDate").toString().length() > 0){
+         
+            String formato = "dd/MM/yyyy hh24:mi";
+            if (projParameters.get("projFinishDate").toString().length() == 10){
+                if(!projParameters.get("projFinishDateOpt").toString().equals("=")){ 
+                    formato = "dd/MM/yyyy";
+                    query += " and t.pro_finish_date"+ projParameters.get("projFinishDateOpt").toString()+"  to_date ('#projFinishDate#','"+formato+"')";
+                }else{
+                    query += " and t.pro_finish_date >= to_date ('#projFinishDate# 00:00','"+formato+"') and t.pro_finish_date <= to_date ('#projFinishDate# 23:59','"+formato+"') ";
+                }
+            }else{        
+              query += " and t.pro_finish_date "+ projParameters.get("projFinishDateOpt").toString()+"  to_date ('#projFinishDate#','"+formato+"')";
+            }  
+         }
+        
+        if ((projParameters.get("Iniciado") != null && projParameters.get("Iniciado").toString().length() > 0) ||
+            (projParameters.get("Entregado") != null && projParameters.get("Entregado").toString().length() > 0) ||
+            (projParameters.get("POEnviado") != null && projParameters.get("POEnviado").toString().length() > 0)){
+                 query += " and t.states_sta_id in (";
+            if (projParameters.get("Iniciado") != null && projParameters.get("Iniciado").toString().length() > 0) {
+                 query += "'#Iniciado#',";
+             }
+            if (projParameters.get("Entregado") != null && projParameters.get("Entregado").toString().length() > 0) {
+                 query += "'#Entregado#',";
+             }
+            if (projParameters.get("POEnviado") != null && projParameters.get("POEnviado").toString().length() > 0) {
+                query += "'#POEnviado#',";
+            }
+
+            query += ")";
+            query = query.replace(",)",")");
+        }    
+                    
+        for (Iterator i = projParameters.keySet().iterator();i.hasNext();){
+            String param = (String)i.next();
+            query = query.replaceAll("#"+param+"#",projParameters.get(param).toString());
+        }
+        
+        query+= "group by t.pro_name, t.pro_finish_date, o.ord_start_date order by o.ord_start_date " ;
+         try {
+             con = ds.getConnection();
+             stm = con.createStatement();
+             //System.out.println(query);
+             rs = stm.executeQuery(query);
+             
+             while(rs.next()){
+                 List results = new ArrayList();
+                 results.add(rs.getString("pro_name"));
+                 results.add(rs.getLong("total"));
+                 results.add(rs.getString("pro_finish_date"));
+            
+                 salida.add(results);
+             }
+             
+         } catch (SQLException e) {
+              e.printStackTrace();
+         }finally{
+             try {
+             rs.close();
+             } catch (SQLException e) {
+                 e.printStackTrace();
+             }
+             try{
+             stm.close();
+             } catch (SQLException e) {
+                 e.printStackTrace();
+             }
+             try{
+             con.close();
+             } catch (SQLException e) {
+                 e.printStackTrace();
+             }                        
+         }              
+         return salida;        
+    }
+    
+    
     public Long getTotalPalabrasxProyecto(Long proId) throws Exception{
         DataSource ds = this.getDataSource(); 
         Connection con = null;
