@@ -144,6 +144,22 @@
         <servlet-name>GananciasServlet</servlet-name>
         <servlet-class>com.twoways.view.servlets.GananciasServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GraficoPalabrasxAnioServlet</servlet-name>
+        <servlet-class>com.twoways.view.servlets.GraficoPalabrasxAnioServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PalabrasxAnioServlet</servlet-name>
+        <servlet-class>com.twoways.view.servlets.PalabrasxAnioServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GraficoPalabrasxClienteServlet</servlet-name>
+        <servlet-class>com.twoways.view.servlets.GraficoPalabrasxClienteServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PalabrasxClienteServlet</servlet-name>
+        <servlet-class>com.twoways.view.servlets.PalabrasxClienteServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -260,6 +276,22 @@
     <servlet-mapping>
         <servlet-name>GananciasServlet</servlet-name>
         <url-pattern>/ganancias</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GraficoPalabrasxAnioServlet</servlet-name>
+        <url-pattern>/graficoPalabrasxAnio</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PalabrasxAnioServlet</servlet-name>
+        <url-pattern>/tablaPalabrasxAnio</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GraficoPalabrasxClienteServlet</servlet-name>
+        <url-pattern>/graficoPalabrasxCliente</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PalabrasxClienteServlet</servlet-name>
+        <url-pattern>/tablaPalabrasxCliente</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>-1</session-timeout>

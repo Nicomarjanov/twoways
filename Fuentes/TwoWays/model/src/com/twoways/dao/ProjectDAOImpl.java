@@ -613,4 +613,152 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
         }
         return res;
     }
+
+    public List obtenerPalabrasxMes(List anios) throws Exception{
+        List salida = new ArrayList();
+        DataSource ds = this.getDataSource(); 
+        Connection con = null;
+        Statement stm = null;
+        ResultSet rs= null ;
+
+        String query =  "select MonthName as mes, total \n" + 
+        "from (\n" + 
+        "select to_date(to_CHAR(t.pro_finish_date,'MON-RRRR'),'MON-RRRR') as mm, sum(d.pad_wcount) total \n" + 
+        "from projects t, orders o, proj_assignments_details d, clients c  \n" + 
+        "where o.ord_id=t.orders_ord_id \n" + 
+        "and c.cli_id = o.clients_cli_id \n" + 
+        "and t.pro_id = d.project_assignments_projects_p \n" + 
+        "and to_char(t.pro_finish_date,'rrrr') = #anio# \n" + 
+        "group by to_date(to_CHAR(t.pro_finish_date,'MON-RRRR'),'MON-RRRR') \n" + 
+        ")palabras,\n" + 
+        "(select add_months(to_date('01-Ene-#anio#','dd-MM-RRRR'),level -1) MonthName \n" + 
+        "from dual \n" + 
+        "connect by level <= 12\n" + 
+        ")ALLMONTHS \n" + 
+        "where mm (+) =MonthName \n" + 
+        "order by mes";
+        
+
+    try {
+        con = ds.getConnection();
+        stm = con.createStatement();
+        String aux=null;
+        for (int i=0; i<anios.size();i++){   
+        
+            aux = query.replace("#anio#",anios.get(i).toString());            
+            rs = stm.executeQuery(aux);
+            while(rs.next()){
+                List results = new ArrayList();
+                results.add(rs.getString("mes"));
+                results.add(rs.getLong("total"));
+          
+                salida.add(results);
+            }
+        }
+        
+    } catch (SQLException e) {
+         e.printStackTrace();
+    }finally{
+        try {
+        rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try{
+        stm.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try{
+        con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }                        
+    }              
+    return salida;
+    }
+
+    public List obtenerPalabrasxCliente(String anio) throws Exception{
+        DataSource ds = this.getDataSource(); 
+        Connection con = null;
+        Statement stm = null;
+        ResultSet rs= null ;
+        List salida = new ArrayList();
+        String query =  "select cliente,\n" + 
+        "       Enero,\n" + 
+        "       Febrero,\n" + 
+        "       Marzo,\n" + 
+        "       Abril,\n" + 
+        "       Mayo,\n" + 
+        "       Junio,\n" + 
+        "       Julio,\n" + 
+        "       Agosto,\n" + 
+        "       Septiembre,\n" + 
+        "       Octubre,\n" + 
+        "       Noviembre,\n" + 
+        "       Diciembre\n" + 
+        "from (\n" + 
+        "select to_date(to_CHAR(t.pro_finish_date,'MON-RRRR'),'MON-RRRR') as mm, c.cli_name as cliente, sum(d.pad_wcount) total \n" + 
+        "from projects t, orders o, proj_assignments_details d, clients c  \n" + 
+        "where o.ord_id=t.orders_ord_id \n" + 
+        "and c.cli_id = o.clients_cli_id \n" + 
+        "and t.pro_id = d.project_assignments_projects_p \n" + 
+        "and to_char(t.pro_finish_date,'rrrr') = #anio# \n" + 
+        "group by to_date(to_CHAR(t.pro_finish_date,'MON-RRRR'),'MON-RRRR'),c.cli_name \n" + 
+        ")\n" + 
+        "PIVOT (sum(total) FOR mm IN ('01/01/#anio#' Enero,'01/02/#anio#' Febrero,'01/03/#anio#' Marzo,'01/04/#anio#' Abril,'01/05/#anio#' Mayo,'01/06/#anio#' Junio,'01/07/#anio#' Julio,'01/08/#anio#' Agosto,'01/09/#anio#' Septiembre,'01/10/#anio#' Octubre,'01/11/#anio#' Noviembre,'01/12/#anio#' Diciembre)\n" + 
+        ")\n" + 
+        "order by cliente";
+
+        try {
+                con = ds.getConnection();
+                stm = con.createStatement();
+                String aux=null;
+                //for (int i=0; i<anios.size();i++){                   
+                    aux = query.replace("#anio#",anio);            
+                    rs = stm.executeQuery(aux);
+                    while(rs.next()){
+                        List results = new ArrayList();
+                      //  results.add(anios.get(i).toString());
+                        results.add(rs.getString("cliente"));
+                        results.add(rs.getLong("Enero"));
+                        results.add(rs.getLong("Febrero"));          
+                        results.add(rs.getLong("Marzo"));
+                        results.add(rs.getLong("Abril"));                       
+                        results.add(rs.getLong("Mayo"));
+                        results.add(rs.getLong("Junio"));          
+                        results.add(rs.getLong("Julio"));
+                        results.add(rs.getLong("Agosto"));   
+                        results.add(rs.getLong("Septiembre"));
+                        results.add(rs.getLong("Octubre"));          
+                        results.add(rs.getLong("Noviembre"));
+                        results.add(rs.getLong("Diciembre"));   
+                        
+                        salida.add(results);
+                    }
+               // }
+            
+            } catch (SQLException e) {
+            e.printStackTrace();
+            }finally{
+            try {
+            rs.close();
+            } catch (SQLException e) {
+            e.printStackTrace();
+            }
+            try{
+            stm.close();
+            } catch (SQLException e) {
+            e.printStackTrace();
+            }
+            try{
+            con.close();
+            } catch (SQLException e) {
+            e.printStackTrace();
+            }
+            }
+            return salida;
+            }
+
+
 }

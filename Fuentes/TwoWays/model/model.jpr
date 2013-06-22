@@ -337,10 +337,6 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Log4j-1.2.8.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
             <value n="id" v="Gdata-calendar-meta-2.0.jar1"/>
             <value n="isJDK" v="false"/>
          </hash>
@@ -438,6 +434,10 @@
          </hash>
          <hash>
             <value n="id" v="Gdata-client-meta-1.0.jar1"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Log4j-1.2.17.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
@@ -612,15 +612,6 @@
                <value n="deployedByDefault" v="true"/>
                <value n="description" v="Commons-io-1.4.jar1"/>
                <value n="id" v="Commons-io-1.4.jar1"/>
-               <value n="locked" v="true"/>
-            </hash>
-            <hash>
-               <list n="classPath">
-                  <url path="../viewcontroller/public_html/WEB-INF/lib/log4j-1.2.8.jar" jar-entry=""/>
-               </list>
-               <value n="deployedByDefault" v="true"/>
-               <value n="description" v="Log4j-1.2.8.jar"/>
-               <value n="id" v="Log4j-1.2.8.jar"/>
                <value n="locked" v="true"/>
             </hash>
             <hash>
@@ -848,6 +839,15 @@
                <value n="id" v="Gdata-client-meta-1.0.jar1"/>
                <value n="locked" v="true"/>
             </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="../viewcontroller/public_html/WEB-INF/lib/log4j-1.2.17.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Log4j-1.2.17.jar"/>
+               <value n="id" v="Log4j-1.2.17.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
          </list>
       </hash>
       <list n="libraryReferences">
@@ -929,10 +929,6 @@
          </hash>
          <hash>
             <value n="id" v="Commons-io-1.4.jar1"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="Log4j-1.2.8.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
@@ -1033,6 +1029,10 @@
          </hash>
          <hash>
             <value n="id" v="Gdata-client-meta-1.0.jar1"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Log4j-1.2.17.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
