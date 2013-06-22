@@ -306,4 +306,8 @@ public interface TW_SystemService {
     public List findFutureIncomes(Map params) throws Exception;
     
     public List findFutureExpenses(Map expensesParameters) throws Exception;
+
+    public List obtenerPalabrasxMes(List anios) throws Exception;
+    
+    public List obtenerPalabrasxCliente(String anio) throws Exception;
 }

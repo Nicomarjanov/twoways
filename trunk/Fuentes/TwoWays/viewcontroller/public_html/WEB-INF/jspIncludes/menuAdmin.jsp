@@ -49,4 +49,10 @@
         <li><a href="apagarxempleado">A pagar por empleado</a></li>
     </ul>
 </li>
+<li><a href="#" >Graficos</a>
+    <ul>
+        <li><a href="tablaPalabrasxAnio">Palabras por año</a></li>
+        <li><a href="tablaPalabrasxCliente">Palabras por cliente</a></li>        
+    </ul>
+</li>
  <li><a href="login?logout=true">Desconectar</a></li> 

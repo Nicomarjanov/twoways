@@ -1118,6 +1118,13 @@ public class TW_SystemServiceImpl implements TW_SystemService {
         return this.projectDao.getTotalPalabrasxProyecto(proId);
     }
 
+    public List obtenerPalabrasxMes(List anios) throws Exception{
+        return this.projectDao.obtenerPalabrasxMes(anios);
+    }
+
+    public List obtenerPalabrasxCliente(String anio) throws Exception{
+        return this.projectDao.obtenerPalabrasxCliente(anio);
+    }
 }
 
 

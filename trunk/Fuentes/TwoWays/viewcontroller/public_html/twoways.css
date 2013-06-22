@@ -258,6 +258,22 @@ tr.tw
 {
     background-color:#CE8785;
 }
+
+td.tw_subt
+{
+    font-size:17px;
+    text-align:center;
+    background-color:#cccccc;
+    padding-top: 7px ;
+}
+
+td.tw_pal
+{
+    font-size:12px;
+    color:#ffffff;
+    background-color:#80211D;
+}
+
 td.tw
 {
     border:solid 1px #005C8D;

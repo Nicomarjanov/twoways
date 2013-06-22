@@ -89,6 +89,8 @@
       <value n="j2eeWebContextRoot" v="twoways"/>
       <hash n="webContentSet">
          <list n="pattern-filters">
+            <string v="-bar.png"/>
+            <string v="-Nuevo documento de texto.txt"/>
             <string v="-WEB-INF/classes/part1/"/>
             <string v="-asignar_tarifa.jsp"/>
             <string v="-img/Language.png"/>
@@ -109,6 +111,7 @@
             <hash>
                <url n="content-folder-url" path="src/servlets/"/>
                <list n="pattern-filters">
+                  <string v="+GraficosServlet.java"/>
                   <string v="+GananciasServlet.java"/>
                   <string v="+ResourcesServlet.java"/>
                </list>
@@ -228,10 +231,6 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Log4j-1.2.8.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
             <value n="id" v="Saxpath.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
@@ -257,6 +256,18 @@
          </hash>
          <hash>
             <value n="id" v="IText-5.0.6.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Jfreechart-1.0.14.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Jcommon-1.0.17.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Log4j-1.2.17.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
@@ -363,15 +374,6 @@
             </hash>
             <hash>
                <list n="classPath">
-                  <url path="public_html/WEB-INF/lib/log4j-1.2.8.jar" jar-entry=""/>
-               </list>
-               <value n="deployedByDefault" v="true"/>
-               <value n="description" v="Log4j-1.2.8.jar"/>
-               <value n="id" v="Log4j-1.2.8.jar"/>
-               <value n="locked" v="true"/>
-            </hash>
-            <hash>
-               <list n="classPath">
                   <url path="public_html/WEB-INF/lib/saxpath.jar" jar-entry=""/>
                </list>
                <value n="deployedByDefault" v="true"/>
@@ -431,6 +433,33 @@
                <value n="deployedByDefault" v="true"/>
                <value n="description" v="Commons-fileupload-1.2.2.jar"/>
                <value n="id" v="Commons-fileupload-1.2.2.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="public_html/WEB-INF/lib/jfreechart-1.0.14.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Jfreechart-1.0.14.jar"/>
+               <value n="id" v="Jfreechart-1.0.14.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="public_html/WEB-INF/lib/jcommon-1.0.17.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Jcommon-1.0.17.jar"/>
+               <value n="id" v="Jcommon-1.0.17.jar"/>
+               <value n="locked" v="true"/>
+            </hash>
+            <hash>
+               <list n="classPath">
+                  <url path="public_html/WEB-INF/lib/log4j-1.2.17.jar" jar-entry=""/>
+               </list>
+               <value n="deployedByDefault" v="true"/>
+               <value n="description" v="Log4j-1.2.17.jar"/>
+               <value n="id" v="Log4j-1.2.17.jar"/>
                <value n="locked" v="true"/>
             </hash>
          </list>
@@ -505,10 +534,6 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Log4j-1.2.8.jar"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
             <value n="id" v="Saxpath.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
@@ -534,6 +559,18 @@
          </hash>
          <hash>
             <value n="id" v="IText-5.0.6.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Jfreechart-1.0.14.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Jcommon-1.0.17.jar"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Log4j-1.2.17.jar"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
