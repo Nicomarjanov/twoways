@@ -5,8 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252"/>
     <title>index</title>
-   <link rel="shortcut icon" href="img/twoways.ico">
-   <link rel="icon" type="image/gif" href="img/twoways.ico">
+
    <link href="./twoways.css" rel="stylesheet" type="text/css"/>
   </head>
   <body><jsp:include page="/WEB-INF/jspIncludes/menu.jsp" /></body>

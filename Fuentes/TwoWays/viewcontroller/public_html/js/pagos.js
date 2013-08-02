@@ -194,13 +194,10 @@ function valorCotizacioncallBack(data){
 
 function imprimirPago(payId,empId,payDate,curSymbol,payAmount){
    if(confirm("¿Desea imprimir el recibo de pago?")){
-     
-      document.getElementById('accion').value='imprimirPago';  
-      document.getElementById('payId').value=payId;
-      document.getElementById('empId').value=empId;
-      document.getElementById('payAmount').value=payAmount;
-      document.getElementById('payDate').value=payDate;  
-      document.getElementById('curSymbol').value=curSymbol; 
+      var currencyId= curSymbol.substring(0,1);
+      var currencySymbol= curSymbol.substring(2);
+      popupWindow = window.open('imprimirPagos?payId='+payId+'&empId='+empId+'&payAmount='+payAmount+'&currencyId='+currencyId+'&currencySymbol='+currencySymbol,'Imprimir pago: '+payId,'height=1400,width=1600,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes');
+
     }
-    document.forms[0].submit(); 
+    
 }

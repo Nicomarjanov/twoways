@@ -623,13 +623,13 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
 
         String query =  "select MonthName as mes, total \n" + 
         "from (\n" + 
-        "select to_date(to_CHAR(t.pro_finish_date,'MON-RRRR'),'MON-RRRR') as mm, sum(d.pad_wcount) total \n" + 
+        "select to_date(to_CHAR(o.ord_finish_date,'MON-RRRR'),'MON-RRRR') as mm, sum(d.pad_wcount) total \n" + 
         "from projects t, orders o, proj_assignments_details d, clients c  \n" + 
         "where o.ord_id=t.orders_ord_id \n" + 
         "and c.cli_id = o.clients_cli_id \n" + 
         "and t.pro_id = d.project_assignments_projects_p \n" + 
-        "and to_char(t.pro_finish_date,'rrrr') = #anio# \n" + 
-        "group by to_date(to_CHAR(t.pro_finish_date,'MON-RRRR'),'MON-RRRR') \n" + 
+        "and to_char(o.ord_finish_date,'rrrr') = #anio# \n" + 
+        "group by to_date(to_CHAR(o.ord_finish_date,'MON-RRRR'),'MON-RRRR') \n" + 
         ")palabras,\n" + 
         "(select add_months(to_date('01-Ene-#anio#','dd-MM-RRRR'),level -1) MonthName \n" + 
         "from dual \n" + 
@@ -698,13 +698,13 @@ public class ProjectDAOImpl extends AbstractDAO implements ProjectDAO {
         "       Noviembre,\n" + 
         "       Diciembre\n" + 
         "from (\n" + 
-        "select to_date(to_CHAR(t.pro_finish_date,'MON-RRRR'),'MON-RRRR') as mm, c.cli_name as cliente, sum(d.pad_wcount) total \n" + 
+        "select to_date(to_CHAR(o.ord_finish_date,'MON-RRRR'),'MON-RRRR') as mm, c.cli_name as cliente, sum(d.pad_wcount) total \n" + 
         "from projects t, orders o, proj_assignments_details d, clients c  \n" + 
         "where o.ord_id=t.orders_ord_id \n" + 
         "and c.cli_id = o.clients_cli_id \n" + 
         "and t.pro_id = d.project_assignments_projects_p \n" + 
-        "and to_char(t.pro_finish_date,'rrrr') = #anio# \n" + 
-        "group by to_date(to_CHAR(t.pro_finish_date,'MON-RRRR'),'MON-RRRR'),c.cli_name \n" + 
+        "and to_char(o.ord_finish_date,'rrrr') = #anio# \n" + 
+        "group by to_date(to_CHAR(o.ord_finish_date,'MON-RRRR'),'MON-RRRR'),c.cli_name \n" + 
         ")\n" + 
         "PIVOT (sum(total) FOR mm IN ('01/01/#anio#' Enero,'01/02/#anio#' Febrero,'01/03/#anio#' Marzo,'01/04/#anio#' Abril,'01/05/#anio#' Mayo,'01/06/#anio#' Junio,'01/07/#anio#' Julio,'01/08/#anio#' Agosto,'01/09/#anio#' Septiembre,'01/10/#anio#' Octubre,'01/11/#anio#' Noviembre,'01/12/#anio#' Diciembre)\n" + 
         ")\n" + 

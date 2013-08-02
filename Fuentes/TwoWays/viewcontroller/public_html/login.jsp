@@ -7,6 +7,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252"/>
     <title>Conectar a TWOWAYS</title>
     <link href="./twoways.css" rel="stylesheet" type="text/css"/>
+   <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+   <link rel="icon" type="image/x-icon" href="img/favicon.ico">    
  
     <script language="JavaScript">
         document.onkeydown = checkKeycode
@@ -44,28 +46,28 @@
      }
     </script>
   </head>
-  <body onLoad="cursor()">
-  <div style="width:100%;heigth:100%" >
-  <table width="100%" >
+  <body class="login" onLoad="cursor()">
+  <!--<div id="div_login">-->
+  <table width="100%" height="100%" >
 <tr>
-    <td align="center" ><img src="img/logo_centrado_rad_alt.jpg" alt="TwO WAYS" /> 
+    <td align="center"><img src="img/2ways_logo2.jpg" alt="TwO WAYS"  /> 
     </td>
 </tr>
 <tr>
-<td align="center" valign="middle" >
+<td align="center" valign="middle" style="padding-top:15px">
   <form method="POST" action="login"  id="loginForm" >
-  <table>
-  <tr><th colspan="2" class="tw_form">Conectar a TWO WAYS</th></tr>
+  <table class="login">
+  <tr><th colspan="2" class="tw_form_login">Conectar a TWO WAYS</th></tr>
   <tr><td colspan="2" id="mensajeError"  style="color:red"><c:out value="${requestScope.mensajeError}"/></td></tr>
-  <tr><td><b>Usuario: </b> </td><td><input class="tw_form" type="text" name="usuario" id="usuario"/></td></tr>
-  <tr><td><b>Contraseña: </b> </td><td><input class="tw_form" type="password" name="password" onkeypress="conectar"/></td></tr> 
-  <tr><td>&nbsp; </td><td align="right" ><input type="button" onclick="conectar()"  value="Conectar" /></td></tr>
+  <tr><td style="padding:10px"><b>Usuario: </b> </td><td style="padding:10px"><input class="tw_form" type="text" name="usuario" id="usuario"/></td></tr>
+  <tr><td  style="padding:10px"><b>Contraseña: </b> </td><td style="padding:10px"><input class="tw_form" type="password" name="password" onkeypress="conectar"/></td></tr> 
+  <tr><td colspan="2" align="right" style="padding:10px 15px 10px 0px; border-top:1px solid;" ><input type="button" onclick="conectar()"  value="Conectar" /></td></tr>
   </table >
   </form>
   </td>
   </tr>
   </table>
-  </div>
+ <!-- </div>-->
   </body>
  
 </html>

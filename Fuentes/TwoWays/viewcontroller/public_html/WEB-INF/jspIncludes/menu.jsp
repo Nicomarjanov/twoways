@@ -3,7 +3,8 @@
 <Html>
 <Head>
 <Title>Menu</title>
-
+   <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+   <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 <style type="text/css">
 
 
@@ -125,7 +126,7 @@ border:1px solid #000;
 <Body>
 <table width="100%">
 <tr>
-    <td align="center"><img src="img/logo_centrado_menu.jpg" alt="TwO WAYS" /> 
+    <td align="center"><img src="img/2ways_logo2_cent.jpg" alt="TwO WAYS" /> 
     </td>
 </tr>
 <tr>

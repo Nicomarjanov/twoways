@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252"/>
     <title>error</title>
-    <link href="./twoways.css" rel="stylesheet" type="text/css"/>
+    <link href="./twoways.css" rel="stylesheet" type="text/css"/>    <link href="./twoways.css" rel="stylesheet" type="text/css"/>    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">     <link rel="icon" type="image/x-icon" href="img/favicon.ico"> 
   </head>
   <body>
   <jsp:include page="/WEB-INF/jspIncludes/menu.jsp" />

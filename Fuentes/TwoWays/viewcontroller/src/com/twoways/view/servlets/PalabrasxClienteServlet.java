@@ -48,13 +48,13 @@ public class PalabrasxClienteServlet extends AutorizacionServlet {
                     anioInicial++;
                 }else break; 
             }
-            Map grillaTabla = new TreeMap<String,Map>();
+            Map grillaTabla = new HashMap<String,Map>();
             for(int j=0;j<anios.size();j++){
                 twoWaysBDL = new TwoWaysBDL();            
                 List <List>consultaList = twoWaysBDL.getServiceTwoWays().obtenerPalabrasxCliente(anios.get(j).toString());
                 
                 if (consultaList.size() > 0){
-                    Map cantClientes = new HashMap<String,Long>();
+                    Map cantClientes = new TreeMap<String,Long>();
                     for(int i=0;i<consultaList.size();i++){
                         List aux = consultaList.get(i);
                         

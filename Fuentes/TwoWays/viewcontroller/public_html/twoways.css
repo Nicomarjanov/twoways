@@ -7,10 +7,18 @@
 */
 
 /*Body*/
+body.login{
+    font-family:Verdana, Arial, Helvetica, sans-serif;
+    font-size:12px; 
+    background-color:White;
+  /*  background-color:#82ABC5;*/
+
+}
+
 body{
     font-family:Verdana, Arial, Helvetica, sans-serif;
     font-size:12px; 
-    background-color:#82ABC5;
+     background-color:#82ABC5;
 
 }
 
@@ -50,7 +58,18 @@ p.tw2{
 p.basico{
     font-size:10px;
 }
-
+/*div*/
+#div_login
+{
+    top: 50%;
+    left: 50%;
+    width:30em;
+    height:18em;
+    margin-top: -9em; /*set to a negative number 1/2 of your height*/
+    margin-left: -15em; /*set to a negative number 1/2 of your width*/
+    position:fixed;
+    }
+    
 /*Tablas*/
 #list-tarifas
 {
@@ -233,12 +252,25 @@ table.tw_form
   border:solid 1px #005C8D;
 }
 
-
+table.login
+{
+    border-collapse: collapse;
+    border: 1px solid #80211D;
+    padding: 15px
+}
 table.tw_in
 {
     border-collapse:collapse;
     border-style:inset;
     border-color:#80211D;
+}
+
+th.tw_form_login
+{
+    font-size:20px;
+    color:#80211F;
+    padding: 10px;
+    border-bottom: 1px solid;
 }
 
 th.tw_form
@@ -253,6 +285,7 @@ th.tw
 {
     background-color:#80211F;
 }
+
 
 tr.tw
 {
@@ -284,6 +317,11 @@ td.tw_form
     text-align:center;
 }
 
+td.tw_form_login
+{
+    padding: 10px;
+  
+}
 /*Lineas*/
 hr.tw
 {

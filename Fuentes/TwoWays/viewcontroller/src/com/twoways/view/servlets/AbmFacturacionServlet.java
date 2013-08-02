@@ -4,11 +4,8 @@ import com.twoways.core.bdl.TwoWaysBDL;
 import com.twoways.to.AccountsTO;
 import com.twoways.to.ClientsTO;
 import com.twoways.to.CurrencyTO;
-import com.twoways.to.ExpensesTO;
 import com.twoways.to.InvoicesTO;
-import com.twoways.to.ItemsExpensesTO;
 import com.twoways.to.ItemsInvoicesTO;
-import com.twoways.to.ItemsTO;
 import com.twoways.to.OrdersRatesTO;
 import com.twoways.to.OrdersTO;
 import com.twoways.to.RatesTO;
@@ -39,9 +36,6 @@ import javax.servlet.http.HttpServletResponse;
 
 public class AbmFacturacionServlet extends AutorizacionServlet {
     private static final String CONTENT_TYPE = "text/html; charset=windows-1252";
-    //public static final String RESOURCE = "C:\\apache-tomcat-7.0.5\\webapps\\twoways\\img\\print_img.png";
-    // public static final String RESOURCE = "/home/resources/img/print_img.png";    
-
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
@@ -59,7 +53,7 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
         List<CurrencyTO> monedas = null;
         List<AccountsTO> cuentas = null;          
         List<ClientsTO> clientes = null;
-        List<ItemsTO> items = null;
+        //List<ItemsTO> items = null;
         
         String cliId = request.getParameter("cliId");
         String invoiceId = request.getParameter("invoiceId");
@@ -365,7 +359,7 @@ public class AbmFacturacionServlet extends AutorizacionServlet {
                 
                 List<ItemsInvoicesTO> itemsFacturaList =  twoWaysBDL.getServiceTwoWays().obtenerItemsFactura(invId);
 
-                ListaCobrosServlet.createPdf(request,response,itemsFacturaList,invId,cliId, datosAdicionales);
+               // ListaCobrosServlet.createPdf(request,response,itemsFacturaList,invId,cliId, datosAdicionales);
                                                   
             }
              catch (Exception e) {

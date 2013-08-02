@@ -11,7 +11,9 @@
 <html>
   <head>
    <meta http-equiv="Content-Type" content="multipart/form-data"/>
-    <link href="./twoways.css" rel="stylesheet" type="text/css"/>
+    <link href="./twoways.css" rel="stylesheet" type="text/css"/>    
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">     
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico"> 
     <script type='text/javascript' src="./js/proyectos.js"></script>
     <script type='text/javascript' src="./js/agregartarifa.js"></script>
     <script type='text/javascript' src="./js/agregardocumentos.js"></script>
