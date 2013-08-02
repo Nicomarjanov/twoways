@@ -14,6 +14,12 @@ return false;
 }
 
 function imprimirFactura(invId,cliId,invDate,accId,curSymbol,invTotal){
+
+  var currencyId= curSymbol.substring(0,1);
+  var currencySymbol= curSymbol.substring(2);
+  var datosAdicionales="";
+  popupWindow = window.open('imprimirFacturas?cliId='+cliId+'&invId='+invId+'&invDate='+invDate+'&accId='+accId+'&invTotal='+invTotal+'&curId='+currencyId+'&curSymbol='+currencySymbol+'&datos='+datosAdicionales,'Imprimir factura: '+invId,'height=400,width=400,left=10,top=10,resizable=no,scrollbars=no,toolbar=no,menubar=no,location=no,directories=no,status=yes');
+
   document.getElementById('accion').value='imprimir';  
   document.getElementById('invId').value=invId;
   document.getElementById('cliId').value=cliId;
@@ -21,8 +27,8 @@ function imprimirFactura(invId,cliId,invDate,accId,curSymbol,invTotal){
   document.getElementById('invDate').value=invDate;  
   document.getElementById('accId').value=accId;  
   document.getElementById('curSymbol').value=curSymbol;  
-  var frmlistFacturas = document.getElementById('frmlistFacturas');
-  frmlistFacturas.submit();
+  //var frmlistFacturas = document.getElementById('frmlistFacturas');
+  //frmlistFacturas.submit();
 }
 
 function buscarFacturas(){

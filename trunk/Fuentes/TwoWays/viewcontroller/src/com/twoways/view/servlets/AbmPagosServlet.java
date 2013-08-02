@@ -52,9 +52,6 @@ import javax.servlet.http.HttpServletResponse;
 
 public class AbmPagosServlet extends AutorizacionServlet {
     private static final String CONTENT_TYPE = "text/html; charset=windows-1252";
-   // public static final String EURO = "C:\\apache-tomcat-7.0.5\\webapps\\img\\euro.png";
-    //public static final String RESOURCE = getServletContext().getRealPath("WEB-INF/static/img/print_img.png");
-    //public static final String POUND = "C:\\apache-tomcat-7.0.5\\webapps\\img\\money_pound.png";
     
     public AbmPagosServlet(){
     
@@ -290,7 +287,7 @@ public class AbmPagosServlet extends AutorizacionServlet {
             } 
 
         }
-            else if (accion!=null && accion.equalsIgnoreCase("imprimirPago") && empId != null){
+          /*  else if (accion!=null && accion.equalsIgnoreCase("imprimirPago") && empId != null){
                     
                 try {
                     Long payId= Long.parseLong(request.getParameter("payId"));
@@ -301,7 +298,7 @@ public class AbmPagosServlet extends AutorizacionServlet {
                         e.printStackTrace();
                    }               
 
-                }
+                }*/
         request.setAttribute("accion",accion);
         request.getRequestDispatcher("pagos.jsp").forward(request,response);
        
@@ -311,8 +308,8 @@ public class AbmPagosServlet extends AutorizacionServlet {
             response.setContentType(CONTENT_TYPE);
             doGet(request,response); 
             }
-            
-    public void createPdf(HttpServletRequest request,HttpServletResponse response, Long payId)
+}            
+   /* public void createPdf(HttpServletRequest request,HttpServletResponse response, Long payId)
            throws IOException, DocumentException {
            // step 1
             Document document = new Document(PageSize.A4.rotate());
@@ -446,7 +443,7 @@ public class AbmPagosServlet extends AutorizacionServlet {
                     pound.scalePercent(55f);
                     cell = new PdfPCell();
                     cell.addElement(pound);
-                }*/
+                }
                 else cell = new PdfPCell(new Phrase(curSymbol[1],ft));
                 cell.setBorder(PdfPCell.NO_BORDER);
                 cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
@@ -462,4 +459,4 @@ public class AbmPagosServlet extends AutorizacionServlet {
         return table;
             
     }
-}
+}*/

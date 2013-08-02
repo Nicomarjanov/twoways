@@ -15,7 +15,10 @@ return false;
 
 
 function imprimirPago(payId,empId,payDate,accId,curSymbol,payAmount){
-  document.getElementById('accion').value='imprimir';  
+  var currencyId= curSymbol.substring(0,1);
+  var currencySymbol= curSymbol.substring(2);
+  popupWindow = window.open('imprimirPagos?payId='+payId+'&empId='+empId+'&payAmount='+payAmount+'&currencyId='+currencyId+'&currencySymbol='+currencySymbol,'Imprimir pago: '+payId,'height=1400,width=1600,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes');
+
   document.getElementById('payId').value=payId;
   document.getElementById('empId').value=empId;
   document.getElementById('payAmount').value=payAmount;
@@ -24,8 +27,7 @@ function imprimirPago(payId,empId,payDate,accId,curSymbol,payAmount){
   document.getElementById('anioId').value=payDate.substring(6);
   document.getElementById('accId').value=accId;  
   document.getElementById('curSymbol').value=curSymbol;  
-  var frmlistPagos = document.getElementById('frmlistPagos');
-  frmlistPagos.submit();
+
 }
 
 function buscarPagos(){

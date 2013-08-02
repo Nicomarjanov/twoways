@@ -160,6 +160,14 @@
         <servlet-name>PalabrasxClienteServlet</servlet-name>
         <servlet-class>com.twoways.view.servlets.PalabrasxClienteServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ImprimirPagosServlet</servlet-name>
+        <servlet-class>com.twoways.view.servlets.ImprimirPagosServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ImprimirFacturasServlet</servlet-name>
+        <servlet-class>com.twoways.view.servlets.ImprimirFacturasServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -292,6 +300,14 @@
     <servlet-mapping>
         <servlet-name>PalabrasxClienteServlet</servlet-name>
         <url-pattern>/tablaPalabrasxCliente</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ImprimirPagosServlet</servlet-name>
+        <url-pattern>/imprimirPagos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ImprimirFacturasServlet</servlet-name>
+        <url-pattern>/imprimirFacturas</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>-1</session-timeout>

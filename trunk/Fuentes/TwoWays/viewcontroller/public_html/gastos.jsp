@@ -6,7 +6,9 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252"/>
-    <link href="./twoways.css" rel="stylesheet" type="text/css"/>
+    <link href="./twoways.css" rel="stylesheet" type="text/css"/>    
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">     
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico"> 
     <script type='text/javascript' src="./js/gastos.js"></script>
     <script type='text/javascript' src="./js/utils.js"></script>    
     <script type='text/javascript' src='/twoways/dwr/interface/towaysDWR.js'></script>
@@ -175,7 +177,7 @@
                </select> 
             </td>
             <td width="15%" align="center"  style ="background-color:#F8E0E0;color:#585858;align:left">
-                <input type="text" size="7" id="expMonto" name="expMonto" class="tw_form" onfocus="javascript:this.style.background='#FFFFFF';" style="text-align:right;"></input>
+                <input type="text" size="7" id="expMonto" name="expMonto" class="tw_form" onfocus="javascript:this.style.background='#FFFFFF';" style="text-align:right;"  autocomplete='off' onKeyPress="return(currencyFormat(this,'.',event))"></input>
             </td>
             <td width="13%" align="center"  style ="background-color:#F8E0E0;color:#585858;align:left">
                <select name="listaCuentas" id="listaCuentas" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">                

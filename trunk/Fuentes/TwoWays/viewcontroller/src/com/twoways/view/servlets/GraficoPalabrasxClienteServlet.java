@@ -64,10 +64,10 @@ public class GraficoPalabrasxClienteServlet extends AutorizacionServlet {
     }
     
     
-    private static JFreeChart generarGrafico(DefaultCategoryDataset setDatos) {
+    private static JFreeChart generarGrafico(DefaultCategoryDataset setDatos,String anio) {
         
      JFreeChart jfreechart =  ChartFactory.createBarChart(
-     "Palabras por cliente", "Meses", "Cantidad de palabras",
+     "Palabras por cliente - "+anio, "Meses", "Cantidad de palabras",
      setDatos, PlotOrientation.VERTICAL,
      true, true, false);
 
@@ -112,7 +112,7 @@ public class GraficoPalabrasxClienteServlet extends AutorizacionServlet {
         // Creamos y rellenamos el modelo de datos
         DefaultCategoryDataset setDatos = generarDatos(anio);
         if(setDatos != null){
-            JFreeChart grafico = generarGrafico(setDatos);
+            JFreeChart grafico = generarGrafico(setDatos,anio);
            // String fileName = "bar.png";
             
             //String file = getServletContext().getRealPath("/") + fileName;

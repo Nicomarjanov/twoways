@@ -137,14 +137,14 @@ public class GestionarProyectoServlet extends AutorizacionServlet {
                  }
              }
              
-            if (request.getParameter("pageIr") != null && request.getParameter("pageIr").length() > 0) {
+           /* if (request.getParameter("pageIr") != null && request.getParameter("pageIr").length() > 0) {
                 int pageIr = Integer.parseInt(request.getParameter("pageIr"));
                 //if ( pageIr > 1 &&  pageIr > (page +1) ){
-                    page = pageIr -1;
+                    page = pageIr;
                 //}
                request.setAttribute("pageIr",pageIr);
             }
-             
+             */
             request.setAttribute("project",projectTO); 
             try{
                List projects =  twoWaysBDL.getServiceTwoWays().findProjects(params);
@@ -178,7 +178,7 @@ public class GestionarProyectoServlet extends AutorizacionServlet {
                request.setAttribute("maxPage",maxPage);
                request.setAttribute("page",page);
                request.setAttribute("pageId",page);
-               request.setAttribute("pageIr",page+1);
+               //request.setAttribute("pageIr",page+1);
                
             }catch(Exception e){
                e.printStackTrace(); 

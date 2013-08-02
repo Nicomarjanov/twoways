@@ -124,7 +124,6 @@
             <string v="-com/twoways/view/servlet/"/>
             <string v="-com/twoways/vew/"/>
             <string v="-com/twoways/view/servlets/ProyectoServlet.java"/>
-            <string v="-com/twoways/view/servlets/ImprimirPagosServlet.java"/>
             <string v="-com/twoways/view/servlets/HelloWorld.java"/>
             <string v="-servlets/"/>
             <string v="-com/twoways/view/servlets/AbmTraductoresServlet.java"/>

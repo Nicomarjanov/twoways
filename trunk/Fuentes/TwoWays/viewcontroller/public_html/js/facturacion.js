@@ -158,7 +158,13 @@ function grabar(existe)
 
 function imprimirFactura(invId,cliId,invDate,accId,curSymbol,invTotal){
     if(confirm("¿Desea imprimir la factura ahora?")){
-      document.getElementById('accion').value='imprimirFactura';  
+      var currencyId= curSymbol.substring(0,1);
+      var currencySymbol= curSymbol.substring(2);
+      var datosAdicionales=document.getElementById("datosAdicionales").value;
+      popupWindow = window.open('imprimirFacturas?cliId='+cliId+'&invId='+invId+'&accId='+accId+'&invDate='+invDate+'&invTotal='+invTotal+'&curId='+currencyId+'&curSymbol='+currencySymbol+'&datos='+datosAdicionales,'Imprimir factura: '+invId,'height=400,width=400,left=10,top=10,resizable=no,scrollbars=no,toolbar=no,menubar=no,location=no,directories=no,status=yes');
+
+    
+     // document.getElementById('accion').value='imprimirFactura';  
       document.getElementById('invId').value=invId;
       document.getElementById('cliId').value=cliId;
       document.getElementById('invTotal').value=invTotal;
@@ -166,7 +172,7 @@ function imprimirFactura(invId,cliId,invDate,accId,curSymbol,invTotal){
       document.getElementById('accId').value=accId;  
       document.getElementById('curSymbol').value=curSymbol; 
     }
-    document.forms[0].submit(); 
+   // document.forms[0].submit(); 
 }
 
 function eliminarOrden (rowId, ordTotal, curIdDesde, fecha, ordName){

@@ -30,9 +30,9 @@ import javax.servlet.http.HttpServletResponse;
 
 public class imprimirFacturaServlet extends AutorizacionServlet {
     private static final String CONTENT_TYPE = "text/html; charset=windows-1252";
-  // public static final String RESOURCE = "C:\\apache-tomcat-7.0.5\\webapps\\twoways\\img\\print_img.png";
+  // public static final String RESOURCE = "C:\\apache-tomcat-7.0.5\\webapps\\twoways\\img\\two-ways_print.jpg";
   /*   public static final String EURO = "C:\\apache-tomcat-7.0.5\\webapps\\img\\euro.png";   */ 
-    public static final String RESOURCE = "/home/resources/img/print_img.png";    
+    public static final String RESOURCE = "/home/resources/img/two-ways_print.jpg";    
     public static final String EURO = "/home/resources/img/euro.png";
 
     public void init(ServletConfig config) throws ServletException {

@@ -12,7 +12,7 @@ function buscarProyectos(){
   
     var projFinishDate = document.getElementById('projFinishDate');
     var projDate =document.getElementById('projDate');
-    var pageIr = document.getElementById('pageIr');
+    //var pageId = document.getElementById('pageId');
     var banderaMensajeFaltante=false;
     var mensajeCampoAlert='';
     var mensajeFaltanteAlert = 'Se tiene que completar los siguientes campos: \n';
@@ -63,12 +63,20 @@ function next(){
 }
 
 function IrHasta(){
-  var pageIr = document.getElementById('pageIr'); 
+  var pageIr = document.getElementById('pageIr').value; 
+  var maxPage =document.getElementById('maxPage').value;
+  if (isNumber(pageIr)){
+      if(parseInt(pageIr) <= parseInt(maxPage)){
+        pageId.value = parseInt(pageIr)-1;
+  
+        buscarProyectos(); 
+        }
+      else{
 
-  if (isNumber(pageId.value)){
-      pageId.value = parseInt(pageIr.value);
-
-      buscarProyectos();    
+        alert("Debe ingresar un número menor que el máximo de páginas encontradas ("+maxPage+")");
+        document.getElementById('pageIr').style.background='red';
+        return;
+      }
   }else {
     alert("Debe ingresar un número entero");
     document.getElementById('pageIr').style.background='red';

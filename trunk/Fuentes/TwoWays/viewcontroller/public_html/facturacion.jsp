@@ -7,7 +7,8 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252"/>
-    <link href="./twoways.css" rel="stylesheet" type="text/css"/>
+    <link href="./twoways.css" rel="stylesheet" type="text/css"/>   <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">     <link rel="icon" type="image/x-icon" href="img/favicon.ico"> 
+    
     <script  type='text/javascript' src="./js/facturacion.js"></script>
     <script type='text/javascript' src="./js/utils.js"></script>    
     <script type='text/javascript' src='/twoways/dwr/interface/towaysDWR.js'></script>
@@ -365,9 +366,9 @@
       <c:if test="${accion =='imprimir'}">
           <tr>
             <td colspan="8" width="100%" align="center">
-                <textarea rows="5" cols="50" name="datosAdicionales">
-                    CUIT:24-25613979-6
-                    CUIT:27-26555803-3
+                <textarea rows="5" cols="50" name="datosAdicionales" id="datosAdicionales">
+                    CUIT: 27-25613979-6
+                    CUIT: 27-26555803-3
                 </textarea>
             </td>
          </tr>

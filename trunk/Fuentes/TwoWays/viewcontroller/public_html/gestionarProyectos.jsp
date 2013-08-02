@@ -9,6 +9,9 @@
  <head>
   <meta http-equiv="Content-Type" content="text/html; charset=windows-1252"/>
   <link href="./twoways.css" rel="stylesheet" type="text/css"/>
+  <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico"> 
+  <link rel="icon" type="image/x-icon" href="img/favicon.ico">   
+  
   <title>Buscar Proyecto</title>
   <script type='text/javascript' src="./js/gestionarProyecto.js"></script>
   <script type='text/javascript' src="./js/utils.js"></script>
@@ -40,6 +43,8 @@
    <input type="hidden" name="accion" id="accion" value=""/>
    <input type="hidden" name="pageId" id="pageId"
           value='<c:out value="${pageId}" />'></input>
+   <input type="hidden" name="maxPage" id="maxPage"
+          value='<c:out value="${maxPage + 1 }" />'></input>          
    <table width="100%">
     <thead>
      <tr>
@@ -364,16 +369,16 @@
               <tr>
                <td>Ir a la página:</td>
                <td>
-                <input type="text" class="tw_form" name="pageIr" id="pageIr"
-                       value='<c:out value="${pageIr}" />' size="3"
+               <input type="text" class="tw_form" name="pageIr" id="pageIr"
+                       value='<c:out value="${pageId + 1}" />' size="3"
                        maxlength="4"
                        onfocus="javascript:this.style.background='#FFFFFF';"/>
                </td>
                <td>
-               <c:if test="${page < maxPage}">
+               
                 <img src="img/player_fwd.png" height="20" width="20"
                      onclick="IrHasta()" alt=">>"/>
-               </c:if>
+
                </td>
               </tr>
               <tr>
