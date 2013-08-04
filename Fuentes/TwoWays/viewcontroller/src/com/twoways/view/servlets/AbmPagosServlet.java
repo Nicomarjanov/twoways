@@ -249,6 +249,7 @@ public class AbmPagosServlet extends AutorizacionServlet {
                     itmExpTO.setItemsTO(itmTO);//Sueldo Empleados
                     itmExpTO.setIteValue(pago.getPayAmount());                   
                     itmExpTO.setUsersTO(pago.getUserTO());
+                    itmExpTO.setIteComment(empName);
                     
                     itmExpTO.setPaymentsTO(pago);
                     

@@ -1459,7 +1459,8 @@
        i.accounts_acc_id as acc_id,
        s.itm_type as itm_type,
        i.ite_date as ite_date,
-       i.ite_comment as ite_comment
+       i.ite_comment as ite_comment,
+       i.payments_pay_id as pay_id
        from items_expenses i, accounts a, users u, currency c, expenses e, items s
        where i.expenses_exp_id=e.exp_id
        and i.items_itm_id=s.itm_id
@@ -1486,7 +1487,8 @@
        i.accounts_acc_id as acc_id,
        s.itm_type as itm_type,
        i.ite_date as ite_date,
-       i.ite_comment as ite_comment
+       i.ite_comment as ite_comment,
+       i.payments_pay_id as pay_id
        from items_expenses i, accounts a, users u, currency c, expenses e, items s
        where i.expenses_exp_id=e.exp_id
        and i.items_itm_id=s.itm_id
