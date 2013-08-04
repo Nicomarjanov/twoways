@@ -249,7 +249,7 @@
                                 <td width="15%" align="right"><c:out value="${item[\'ITE_COMMENT\']}" /></td>
                                 <td width="10%" ><c:out value="${item[\'USR_ID\']}" /></td>                                   
                                 <td width="2%">
-                                    <c:if test="${(item[\'ITM_ID\'] != '20') && (item[\'ITM_ID\'] != '8')}"> 
+                                    <c:if test="${(item[\'PAY_ID\'] == null)}"> 
                                         <img  src="img/del2.png" height="15" width="15"  alt="Eliminar" onclick="eliminarItemExp('<c:out value="${item[\'ITE_ID\']}" />')" onmouseover="this.style.cursor='hand';" />    <img  src="img/Edit2.png" height="15" width="15"  alt="Editar Item de Gasto" onclick="editarItemExp('<c:out value="${item[\'ITM_ID\']}"/>#<c:out value="${item[\'ITM_NAME\']}"/>*#<c:out value="${item[\'CUR_ID\']}"/>#<c:out value="${item[\'CUR_NAME\']}"/>*#<c:out value="${item[\'ITE_VALUE\']}"/>*#<c:out value="${item[\'ACC_ID\']}"/>#<c:out value="${item[\'ACC_NAME\']}"/>*#<c:out value="${item[\'USR_ID\']}"/>*#<c:out value="${item[\'ITE_ID\']}" />*#<c:out value="${item[\'ITM_TYPE\']}" />*#<fmt:formatDate value="${item[\'ITE_DATE\']}" pattern="dd/MM/yyyy"/>*#<c:out value="${item[\'ITE_COMMENT\']}" />')" onmouseover="this.style.cursor='hand';" />
                                     </c:if>
                                 </td>

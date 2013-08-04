@@ -1,14 +1,14 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <TABLE class="oracle.javatools.db.Table" xmlns="http://xmlns.oracle.com/jdeveloper/10130/offlinedb">
    <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID" id="0">
-      <ID>a51321a2-012d-1000-82c7-0a0003033f63</ID>
+      <ID>443fb58e-0140-1000-84f0-7f000001b469</ID>
       <parent/>
       <type>TABLE</type>
    </ID>
    <columns>
       <Item id="4">
          <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-            <ID>a51321a2-012d-1000-82c8-0a0003033f63</ID>
+            <ID>443fb58e-0140-1000-84f1-7f000001b469</ID>
             <parent idref="0"/>
             <type>COLUMN</type>
          </ID>
@@ -41,7 +41,7 @@
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
                      <connectionName>XE</connectionName>
-                     <databaseID>13682</databaseID>
+                     <databaseID>24340</databaseID>
                      <name>PROJECTS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -55,7 +55,7 @@
       </Item>
       <Item>
          <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-            <ID>a51321a2-012d-1000-82c9-0a0003033f63</ID>
+            <ID>443fb58e-0140-1000-84f2-7f000001b469</ID>
             <parent idref="0"/>
             <type>COLUMN</type>
          </ID>
@@ -88,7 +88,7 @@
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
                      <connectionName>XE</connectionName>
-                     <databaseID>13682</databaseID>
+                     <databaseID>24340</databaseID>
                      <name>PROJECTS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -102,7 +102,7 @@
       </Item>
       <Item>
          <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-            <ID>a51321a2-012d-1000-82ca-0a0003033f63</ID>
+            <ID>443fb58e-0140-1000-84f3-7f000001b469</ID>
             <parent idref="0"/>
             <type>COLUMN</type>
          </ID>
@@ -131,7 +131,7 @@
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
                      <connectionName>XE</connectionName>
-                     <databaseID>13682</databaseID>
+                     <databaseID>24340</databaseID>
                      <name>PROJECTS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -145,50 +145,7 @@
       </Item>
       <Item>
          <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-            <ID>a51321a2-012d-1000-82cb-0a0003033f63</ID>
-            <parent idref="0"/>
-            <type>COLUMN</type>
-         </ID>
-         <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
-            <attributeValues class="java.util.HashMap">
-               <Item>
-                  <Key>size</Key>
-                  <Value class="java.lang.Long">20</Value>
-               </Item>
-               <Item>
-                  <Key>unit</Key>
-                  <Value/>
-               </Item>
-            </attributeValues>
-            <dataTypeID idref="1"/>
-         </dataTypeUsage>
-         <default/>
-         <name>PRO_STATUS</name>
-         <notNull>false</notNull>
-         <properties class="java.util.HashMap">
-            <Item>
-               <Key>OfflineDBConstants.IMPORT_SOURCE_ID</Key>
-               <Value class="oracle.jdeveloper.offlinedb.marshal.GenericDBReferenceID">
-                  <ID/>
-                  <name>PRO_STATUS</name>
-                  <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
-                     <ID/>
-                     <connectionName>XE</connectionName>
-                     <databaseID>13682</databaseID>
-                     <name>PROJECTS</name>
-                     <parent/>
-                     <schemaName>TWOWAYS</schemaName>
-                     <type>TABLE</type>
-                  </parent>
-                  <schemaName/>
-                  <type>COLUMN</type>
-               </Value>
-            </Item>
-         </properties>
-      </Item>
-      <Item>
-         <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-            <ID>a51321a2-012d-1000-82cc-0a0003033f63</ID>
+            <ID>443fb58e-0140-1000-84f4-7f000001b469</ID>
             <parent idref="0"/>
             <type>COLUMN</type>
          </ID>
@@ -217,7 +174,7 @@
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
                      <connectionName>XE</connectionName>
-                     <databaseID>13682</databaseID>
+                     <databaseID>24340</databaseID>
                      <name>PROJECTS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -231,7 +188,7 @@
       </Item>
       <Item>
          <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-            <ID>a51321a2-012d-1000-82cd-0a0003033f63</ID>
+            <ID>443fb58e-0140-1000-84f5-7f000001b469</ID>
             <parent idref="0"/>
             <type>COLUMN</type>
          </ID>
@@ -260,7 +217,7 @@
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
                      <connectionName>XE</connectionName>
-                     <databaseID>13682</databaseID>
+                     <databaseID>24340</databaseID>
                      <name>PROJECTS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -274,7 +231,7 @@
       </Item>
       <Item>
          <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-            <ID>a51321a2-012d-1000-82ce-0a0003033f63</ID>
+            <ID>443fb58e-0140-1000-84f6-7f000001b469</ID>
             <parent idref="0"/>
             <type>COLUMN</type>
          </ID>
@@ -303,7 +260,7 @@
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
                      <connectionName>XE</connectionName>
-                     <databaseID>13682</databaseID>
+                     <databaseID>24340</databaseID>
                      <name>PROJECTS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -317,7 +274,7 @@
       </Item>
       <Item>
          <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-            <ID>a51321a2-012d-1000-82cf-0a0003033f63</ID>
+            <ID>443fb58e-0140-1000-84f7-7f000001b469</ID>
             <parent idref="0"/>
             <type>COLUMN</type>
          </ID>
@@ -346,7 +303,7 @@
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
                      <connectionName>XE</connectionName>
-                     <databaseID>13682</databaseID>
+                     <databaseID>24340</databaseID>
                      <name>PROJECTS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -360,7 +317,7 @@
       </Item>
       <Item>
          <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-            <ID>a51321a2-012d-1000-82d0-0a0003033f63</ID>
+            <ID>443fb58e-0140-1000-84f8-7f000001b469</ID>
             <parent idref="0"/>
             <type>COLUMN</type>
          </ID>
@@ -384,7 +341,7 @@
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
                      <connectionName>XE</connectionName>
-                     <databaseID>13682</databaseID>
+                     <databaseID>24340</databaseID>
                      <name>PROJECTS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -398,7 +355,7 @@
       </Item>
       <Item>
          <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-            <ID>a51321a2-012d-1000-82d1-0a0003033f63</ID>
+            <ID>443fb58e-0140-1000-84f9-7f000001b469</ID>
             <parent idref="0"/>
             <type>COLUMN</type>
          </ID>
@@ -418,7 +375,7 @@
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
                      <connectionName>XE</connectionName>
-                     <databaseID>13682</databaseID>
+                     <databaseID>24340</databaseID>
                      <name>PROJECTS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -432,7 +389,7 @@
       </Item>
       <Item>
          <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-            <ID>a51321a2-012d-1000-82d2-0a0003033f63</ID>
+            <ID>443fb58e-0140-1000-84fa-7f000001b469</ID>
             <parent idref="0"/>
             <type>COLUMN</type>
          </ID>
@@ -461,7 +418,7 @@
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
                      <connectionName>XE</connectionName>
-                     <databaseID>13682</databaseID>
+                     <databaseID>24340</databaseID>
                      <name>PROJECTS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -475,7 +432,7 @@
       </Item>
       <Item>
          <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-            <ID>a51321a2-012d-1000-82d3-0a0003033f63</ID>
+            <ID>443fb58e-0140-1000-84fb-7f000001b469</ID>
             <parent idref="0"/>
             <type>COLUMN</type>
          </ID>
@@ -504,7 +461,7 @@
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
                      <connectionName>XE</connectionName>
-                     <databaseID>13682</databaseID>
+                     <databaseID>24340</databaseID>
                      <name>PROJECTS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -516,9 +473,9 @@
             </Item>
          </properties>
       </Item>
-      <Item id="5">
+      <Item id="6">
          <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-            <ID>a51321a2-012d-1000-82d4-0a0003033f63</ID>
+            <ID>443fb58e-0140-1000-84fc-7f000001b469</ID>
             <parent idref="0"/>
             <type>COLUMN</type>
          </ID>
@@ -547,7 +504,7 @@
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
                      <connectionName>XE</connectionName>
-                     <databaseID>13682</databaseID>
+                     <databaseID>24340</databaseID>
                      <name>PROJECTS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -561,7 +518,7 @@
       </Item>
       <Item>
          <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-            <ID>a51321a2-012d-1000-82d5-0a0003033f63</ID>
+            <ID>443fb58e-0140-1000-84fd-7f000001b469</ID>
             <parent idref="0"/>
             <type>COLUMN</type>
          </ID>
@@ -590,7 +547,7 @@
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
                      <connectionName>XE</connectionName>
-                     <databaseID>13682</databaseID>
+                     <databaseID>24340</databaseID>
                      <name>PROJECTS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -604,7 +561,7 @@
       </Item>
       <Item>
          <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-            <ID>a51321a2-012d-1000-82d6-0a0003033f63</ID>
+            <ID>443fb58e-0140-1000-84fe-7f000001b469</ID>
             <parent idref="0"/>
             <type>COLUMN</type>
          </ID>
@@ -624,7 +581,50 @@
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
                      <connectionName>XE</connectionName>
-                     <databaseID>13682</databaseID>
+                     <databaseID>24340</databaseID>
+                     <name>PROJECTS</name>
+                     <parent/>
+                     <schemaName>TWOWAYS</schemaName>
+                     <type>TABLE</type>
+                  </parent>
+                  <schemaName/>
+                  <type>COLUMN</type>
+               </Value>
+            </Item>
+         </properties>
+      </Item>
+      <Item id="5">
+         <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
+            <ID>443fb58e-0140-1000-84ff-7f000001b469</ID>
+            <parent idref="0"/>
+            <type>COLUMN</type>
+         </ID>
+         <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+            <attributeValues class="java.util.HashMap">
+               <Item>
+                  <Key>size</Key>
+                  <Value class="java.lang.Long">4000</Value>
+               </Item>
+               <Item>
+                  <Key>unit</Key>
+                  <Value/>
+               </Item>
+            </attributeValues>
+            <dataTypeID idref="1"/>
+         </dataTypeUsage>
+         <default/>
+         <name>STATES_STA_ID</name>
+         <notNull>false</notNull>
+         <properties class="java.util.HashMap">
+            <Item>
+               <Key>OfflineDBConstants.IMPORT_SOURCE_ID</Key>
+               <Value class="oracle.jdeveloper.offlinedb.marshal.GenericDBReferenceID">
+                  <ID/>
+                  <name>STATES_STA_ID</name>
+                  <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
+                     <ID/>
+                     <connectionName>XE</connectionName>
+                     <databaseID>24340</databaseID>
                      <name>PROJECTS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -640,7 +640,7 @@
    <constraints>
       <Item class="oracle.javatools.db.PKConstraint">
          <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-            <ID>a51321a2-012d-1000-82d7-0a0003033f63</ID>
+            <ID>443fb58e-0140-1000-8500-7f000001b469</ID>
             <parent idref="0"/>
             <type>CONSTRAINT</type>
          </ID>
@@ -658,7 +658,7 @@
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
                      <connectionName>XE</connectionName>
-                     <databaseID>13682</databaseID>
+                     <databaseID>24340</databaseID>
                      <name>PROJECTS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -672,12 +672,54 @@
       </Item>
       <Item class="oracle.javatools.db.FKConstraint">
          <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-            <ID>a51321a2-012d-1000-82d8-0a0003033f63</ID>
+            <ID>443fb58e-0140-1000-8501-7f000001b469</ID>
             <parent idref="0"/>
             <type>CONSTRAINT</type>
          </ID>
          <columns>
             <Item idref="5"/>
+         </columns>
+         <deleteMode>0</deleteMode>
+         <enabled>true</enabled>
+         <name>PROJECTS_STATES_FK</name>
+         <properties class="java.util.HashMap">
+            <Item>
+               <Key>OfflineDBConstants.IMPORT_SOURCE_ID</Key>
+               <Value class="oracle.jdeveloper.offlinedb.marshal.GenericDBReferenceID">
+                  <ID/>
+                  <name>PROJECTS_STATES_FK</name>
+                  <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
+                     <ID/>
+                     <connectionName>XE</connectionName>
+                     <databaseID>24340</databaseID>
+                     <name>PROJECTS</name>
+                     <parent/>
+                     <schemaName>TWOWAYS</schemaName>
+                     <type>TABLE</type>
+                  </parent>
+                  <schemaName/>
+                  <type>CONSTRAINT</type>
+               </Value>
+            </Item>
+         </properties>
+         <referenceID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
+            <ID>443fb58d-0140-1000-8495-7f000001b469</ID>
+            <parent class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
+               <ID>443fb58d-0140-1000-8490-7f000001b469</ID>
+               <parent/>
+               <type>TABLE</type>
+            </parent>
+            <type>CONSTRAINT</type>
+         </referenceID>
+      </Item>
+      <Item class="oracle.javatools.db.FKConstraint">
+         <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
+            <ID>443fb58e-0140-1000-8502-7f000001b469</ID>
+            <parent idref="0"/>
+            <type>CONSTRAINT</type>
+         </ID>
+         <columns>
+            <Item idref="6"/>
          </columns>
          <deleteMode>0</deleteMode>
          <enabled>true</enabled>
@@ -691,7 +733,7 @@
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
                      <connectionName>XE</connectionName>
-                     <databaseID>13682</databaseID>
+                     <databaseID>24340</databaseID>
                      <name>PROJECTS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -703,9 +745,9 @@
             </Item>
          </properties>
          <referenceID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-            <ID>a51321a1-012d-1000-8236-0a0003033f63</ID>
+            <ID>443e5627-0140-1000-83b9-7f000001b469</ID>
             <parent class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-               <ID>a51321a1-012d-1000-8232-0a0003033f63</ID>
+               <ID>443e5627-0140-1000-83b4-7f000001b469</ID>
                <parent/>
                <type>TABLE</type>
             </parent>
@@ -725,7 +767,7 @@
          <Value class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
             <ID/>
             <connectionName>XE</connectionName>
-            <databaseID>13682</databaseID>
+            <databaseID>24340</databaseID>
             <name>PROJECTS</name>
             <parent/>
             <schemaName>TWOWAYS</schemaName>
@@ -746,13 +788,13 @@
             <bufferMode>0</bufferMode>
             <freelistGroups/>
             <freelists/>
-            <initialExtent>65536</initialExtent>
+            <initialExtent>327680</initialExtent>
             <initrans>1</initrans>
             <logging>true</logging>
             <maxExtent>2147483645</maxExtent>
             <maxtrans>255</maxtrans>
             <minExtent>1</minExtent>
-            <nextExtent/>
+            <nextExtent>1048576</nextExtent>
             <percentFree/>
             <percentIncrease/>
             <percentUsed/>
@@ -766,20 +808,11 @@
    </properties>
    <schema>
       <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-         <ID>a5132160-012d-1000-820e-0a0003033f63</ID>
+         <ID>41805fba-0140-1000-8001-7f0000017654</ID>
          <parent/>
          <type>SCHEMA</type>
       </ID>
       <name>TWOWAYS</name>
-      <properties class="java.util.HashMap">
-         <Item>
-            <Key>OfflineDBConstants.IMPORT_SOURCE_CONNECTION</Key>
-            <Value>XE</Value>
-         </Item>
-         <Item>
-            <Key>OfflineDBConstants.IMPORT_SOURCE_SCHEMA</Key>
-            <Value>TWOWAYS</Value>
-         </Item>
-      </properties>
+      <properties/>
    </schema>
 </TABLE>

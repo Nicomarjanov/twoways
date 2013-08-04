@@ -1,14 +1,14 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <TABLE class="oracle.javatools.db.Table" xmlns="http://xmlns.oracle.com/jdeveloper/10130/offlinedb">
    <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID" id="0">
-      <ID>c068b91f-012d-1000-8003-c0a801652890</ID>
+      <ID>443f568a-0140-1000-8463-7f000001b469</ID>
       <parent/>
       <type>TABLE</type>
    </ID>
    <columns>
       <Item id="2">
          <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-            <ID>c068b91f-012d-1000-8004-c0a801652890</ID>
+            <ID>443f568a-0140-1000-8464-7f000001b469</ID>
             <parent idref="0"/>
             <type>COLUMN</type>
          </ID>
@@ -40,8 +40,8 @@
                   <name>LANGUAGUES_LAN_ID</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>twoways</connectionName>
-                     <databaseID>15474</databaseID>
+                     <connectionName>XE</connectionName>
+                     <databaseID>24332</databaseID>
                      <name>LANGUAGUES_ACRONYMS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -55,7 +55,7 @@
       </Item>
       <Item id="3">
          <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-            <ID>c068b91f-012d-1000-8005-c0a801652890</ID>
+            <ID>443f568a-0140-1000-8465-7f000001b469</ID>
             <parent idref="0"/>
             <type>COLUMN</type>
          </ID>
@@ -87,8 +87,8 @@
                   <name>LAA_ACRONYM</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>twoways</connectionName>
-                     <databaseID>15474</databaseID>
+                     <connectionName>XE</connectionName>
+                     <databaseID>24332</databaseID>
                      <name>LANGUAGUES_ACRONYMS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -102,7 +102,7 @@
       </Item>
       <Item>
          <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-            <ID>c068b91f-012d-1000-8006-c0a801652890</ID>
+            <ID>443f568a-0140-1000-8466-7f000001b469</ID>
             <parent idref="0"/>
             <type>COLUMN</type>
          </ID>
@@ -130,8 +130,8 @@
                   <name>LAA_DESCRIPTION</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>twoways</connectionName>
-                     <databaseID>15474</databaseID>
+                     <connectionName>XE</connectionName>
+                     <databaseID>24332</databaseID>
                      <name>LANGUAGUES_ACRONYMS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -147,7 +147,7 @@
    <constraints>
       <Item class="oracle.javatools.db.FKConstraint">
          <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-            <ID>c068b91f-012d-1000-8007-c0a801652890</ID>
+            <ID>443f568a-0140-1000-8467-7f000001b469</ID>
             <parent idref="0"/>
             <type>CONSTRAINT</type>
          </ID>
@@ -165,8 +165,8 @@
                   <name>LANGUAGUES_ACRONYMS_FK</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>twoways</connectionName>
-                     <databaseID>15474</databaseID>
+                     <connectionName>XE</connectionName>
+                     <databaseID>24332</databaseID>
                      <name>LANGUAGUES_ACRONYMS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -178,9 +178,9 @@
             </Item>
          </properties>
          <referenceID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-            <ID>c068b91f-012d-1000-80d7-c0a801652890</ID>
+            <ID>443f568a-0140-1000-8477-7f000001b469</ID>
             <parent class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-               <ID>c068b91f-012d-1000-80d3-c0a801652890</ID>
+               <ID>443f568a-0140-1000-8472-7f000001b469</ID>
                <parent/>
                <type>TABLE</type>
             </parent>
@@ -189,7 +189,7 @@
       </Item>
       <Item class="oracle.javatools.db.PKConstraint">
          <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-            <ID>c068b91f-012d-1000-8008-c0a801652890</ID>
+            <ID>443f568a-0140-1000-8468-7f000001b469</ID>
             <parent idref="0"/>
             <type>CONSTRAINT</type>
          </ID>
@@ -207,8 +207,8 @@
                   <name>LANGUAGUES_ACRONYMS_PK</name>
                   <parent class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
                      <ID/>
-                     <connectionName>twoways</connectionName>
-                     <databaseID>15474</databaseID>
+                     <connectionName>XE</connectionName>
+                     <databaseID>24332</databaseID>
                      <name>LANGUAGUES_ACRONYMS</name>
                      <parent/>
                      <schemaName>TWOWAYS</schemaName>
@@ -226,14 +226,14 @@
    <properties class="java.util.HashMap">
       <Item>
          <Key>OfflineDBConstants.IMPORT_SOURCE_CONNECTION</Key>
-         <Value>twoways</Value>
+         <Value>XE</Value>
       </Item>
       <Item>
          <Key>OfflineDBConstants.IMPORT_SOURCE_ID</Key>
          <Value class="oracle.jdeveloper.offlinedb.marshal.OracleDBReferenceID">
             <ID/>
-            <connectionName>twoways</connectionName>
-            <databaseID>15474</databaseID>
+            <connectionName>XE</connectionName>
+            <databaseID>24332</databaseID>
             <name>LANGUAGUES_ACRONYMS</name>
             <parent/>
             <schemaName>TWOWAYS</schemaName>
@@ -260,7 +260,7 @@
             <maxExtent>2147483645</maxExtent>
             <maxtrans>255</maxtrans>
             <minExtent>1</minExtent>
-            <nextExtent/>
+            <nextExtent>1048576</nextExtent>
             <percentFree/>
             <percentIncrease/>
             <percentUsed/>
@@ -274,20 +274,11 @@
    </properties>
    <schema>
       <ID class="oracle.jdeveloper.offlinedb.OfflineDBObjectID">
-         <ID>054c6faa-012c-1000-8001-0a0000059754</ID>
+         <ID>41805fba-0140-1000-8001-7f0000017654</ID>
          <parent/>
          <type>SCHEMA</type>
       </ID>
       <name>TWOWAYS</name>
-      <properties class="java.util.HashMap">
-         <Item>
-            <Key>OfflineDBConstants.GENERATE_TARGET_CONECTION</Key>
-            <Value>twoways</Value>
-         </Item>
-         <Item>
-            <Key>OfflineDBConstants.GENERATE_TARGET_SCHEMA</Key>
-            <Value>TWOWAYS</Value>
-         </Item>
-      </properties>
+      <properties/>
    </schema>
 </TABLE>

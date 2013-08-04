@@ -19,8 +19,6 @@ function cancelar()
     }
 }
 
-
-
 function exportarCSV()
 {
     if(confirm('¿Desea exportar la tabla a un archivo?'))
@@ -182,7 +180,7 @@ function editarItemExp(string){
 
        var listaArray = string.split('*#');
 
-       document.getElementById('listaItemsAux').options.value=listaArray[0];
+       document.getElementById('listaItems').options.value=listaArray[0];
        document.getElementById('listaMoneda').value=listaArray[1];
        document.getElementById('expMonto').value=listaArray[2];
        document.getElementById('listaCuentas').value=listaArray[3];
@@ -193,7 +191,7 @@ function editarItemExp(string){
        document.getElementById('expFecha').value=listaArray[7];
        document.getElementById('expComentario').value=listaArray[8];
 
-       createDynamicDropdown('tipoItem', 'listaItemsAux','listaItems');        
+       createDynamicDropdown('tipoItem', 'listaItemsAux','listaItems',listaArray[0]);        
        eliminarItemExpEdicion(itmExpId);
 }
 
@@ -235,7 +233,7 @@ function eliminarGasto(expId)
     }
 }
 
-function createDynamicDropdown(dropDown1, dropDown2, dropDown3) {
+function createDynamicDropdown(dropDown1, dropDown2, dropDown3, selec) {
 
 /*  dropdown1 = lists all the countries 
     dropdown2 = this drop down is not used by users. Think of it as just a struture that holds ALL the cities for ALL countries from dropdown1. 
@@ -284,7 +282,7 @@ function createDynamicDropdown(dropDown1, dropDown2, dropDown3) {
         if (navigator.userAgent.indexOf('Chrome') !=-1){
  
             for (var i=0; i < dropDown3.length; i++) {
-                if(dropDown3[i].value == dropDown2.value) {
+                if(dropDown3[i].value == selec) {
                     dropDown3[i].selected = true;
                 }
             } 

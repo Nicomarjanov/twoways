@@ -86,7 +86,7 @@ public class ListaPagosServlet extends AutorizacionServlet {
                      date = sdfsh.parse(request.getParameter("fecha"));
                      java.sql.Timestamp timest = new java.sql.Timestamp(date.getTime()); 
                      pago.setPayDate(timest);
-                     params.put("fecha",request.getParameter("fecha"));
+                     params.put("payDate",request.getParameter("fecha"));
                      params.put("payDateOpt",request.getParameter("payDateOpt"));
                      request.setAttribute("fecha",request.getParameter("fecha")); 
                      request.setAttribute("payDateOpt",request.getParameter("payDateOpt")); 
