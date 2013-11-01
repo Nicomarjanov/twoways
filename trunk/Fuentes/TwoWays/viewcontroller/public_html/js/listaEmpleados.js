@@ -6,7 +6,7 @@ function buscarEmpleados(){
 
 }
 
-function buscarEmpleadosCallBack(data){
+/*function buscarEmpleadosCallBack(data){
   
   if (data != null && data.length > 0) {
       document.getElementById('div-empleados').style.display='';
@@ -63,7 +63,7 @@ function cargarDatosColumna(row,data){
    }
 
 }
-
+*/
 function back(){
   
   var pageId = document.getElementById('pageId')   
@@ -91,13 +91,16 @@ function exportarCSV()
      if(mm<10){mm='0'+mm} 
      today = yyyy+mm+dd;
      var url = "/twoways/downloadfile?docId=Lista_Empleados_"+today+".csv";
+     var empId=document.getElementById('listaEmpleadosSelect').options[document.getElementById('listaEmpleadosSelect').selectedIndex].value;
     
-    
-        if( document.getElementById("empFirstName").value != '' ){
+       /* if( document.getElementById("empFirstName").value != '' ){
             url = url + "&empFirstName=" + document.getElementById("empFirstName").value;
         }
         if( document.getElementById("empLastName").value != '' ){
             url = url + "&empLastName=" + document.getElementById("empLastName").value;
+        }*/
+        if( empId != '' ){
+            url = url + "&empId=" + empId;
         }
         if( document.getElementById("ProName").value != '' ){
             url = url + "&ProName=" + document.getElementById("ProName").value;
@@ -120,7 +123,11 @@ function exportarCSV()
         if( document.getElementById("Proofer").checked ){
             url = url + "&Proofer=" + document.getElementById("Proofer").value;
         }
-        
+
+        if( document.getElementById("proFinishDate").value != null ){
+            url = url + "&proFinishDate=" + document.getElementById("proFinishDate").value;
+            url = url + "&proFinishDateOpt=" + document.getElementById('proFinishDateOpt').options[document.getElementById('proFinishDateOpt').selectedIndex].value;
+        }        
         url = url + "&docType=listaEmpleadosEnProyectosDoc";
 
         window.open(url);

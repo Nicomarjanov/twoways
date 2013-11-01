@@ -18,4 +18,7 @@ public interface OrdersDAO {
    public List getOrdersByCliIdInvId(Long cliId,Long invoiceId)throws Exception;
    public void deleteOrderByOrdId(Long ordId)throws Exception;
    public List findFutureIncomes(Map params) throws Exception;
+   public List obtenerPalabrasxCliente(String anio) throws Exception;
+   public List obtenerPalabrasxMes(List anios) throws Exception;
+   public List findOrdenesyPalabras(Map projParameters) throws Exception;   
 }

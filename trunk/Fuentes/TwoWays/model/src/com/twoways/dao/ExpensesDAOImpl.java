@@ -499,7 +499,7 @@ public class ExpensesDAOImpl extends AbstractDAO  implements ExpenseDAO {
         String query ="select curid, fecha, sum(total) as total from ( \n" + 
         "( \n" + 
         "select r.currency_cur_id as curId, \n" + 
-        "      to_date(p.pro_finish_date,'dd/mm/rrrr') as fecha, \n" + 
+        "      to_date(p.pro_finish_date,'dd/MM/yyyy') as fecha, \n" + 
         "      sum(decode(pd.pad_wcount,1,pd.pad_rate,null,0,(pd.pad_rate * pd.pad_wcount))) as total \n" + 
         "from project_assignments pa , projects p, proj_assignments_details pd, rates r \n" + 
         "where pa.projects_pro_id = p.pro_id \n" + 
@@ -513,33 +513,33 @@ public class ExpensesDAOImpl extends AbstractDAO  implements ExpenseDAO {
         
         
         if (expensesParameters.get("mesId") != null && expensesParameters.get("mesId").toString().length() > 0){
-            query +=" and to_char(p.pro_finish_date,'mmyyyy')=#mesId##anioId# \n";
+            query +=" and to_char(p.pro_finish_date,'MMyyyy')=#mesId##anioId# \n";
         }      
         if (expensesParameters.get("anioId") != null && expensesParameters.get("anioId").toString().length() > 0){
             query +=" and to_char(p.pro_finish_date,'yyyy')=#anioId# \n";
         }           
         
-        query +=" group by r.currency_cur_id,to_date(p.pro_finish_date,'dd/mm/rrrr') \n" + 
+        query +=" group by r.currency_cur_id,to_date(p.pro_finish_date,'dd/MM/yyyy') \n" + 
         ") \n" + 
         "union all \n" + 
         "( \n" + 
         "select i.currency_cur_id as curId, \n" + 
-        "       e.exp_date as fecha, \n" + 
+        "       i.ite_date as fecha, \n" + 
         "       sum(i.ite_value) as total   \n" + 
         "from items_expenses i, expenses e, items m  \n" + 
         "where i.expenses_exp_id=e.exp_id  \n" + 
         "  and i.items_itm_id=m.itm_id  \n" + 
         "  and m.itm_type = 'Egresos' \n" + 
-        "  and i.items_itm_id not in (64,65,104,107,9999)";
+        "  and i.items_itm_id not in (64,65,104,107,20)";
 
         if (expensesParameters.get("mesId") != null && expensesParameters.get("mesId").toString().length() > 0){
-            query +=" and to_char(i.ite_date,'mmyyyy')=#mesId##anioId# \n";
+            query +=" and to_char(i.ite_date,'MMyyyy')=#mesId##anioId# \n";
         }      
         if (expensesParameters.get("anioId") != null && expensesParameters.get("anioId").toString().length() > 0){
             query +=" and to_char(i.ite_date,'yyyy')=#anioId# \n";
         }       
         
-        query += "group by i.currency_cur_id,e.exp_date \n" + 
+        query += "group by i.currency_cur_id,i.ite_date \n" + 
         ")) \n" + 
         " group by curid, fecha \n" + 
         " order by 2";

@@ -1,10 +1,6 @@
 package com.twoways.view.servlets;
 
 import com.twoways.core.bdl.TwoWaysBDL;
-import com.twoways.to.ClientResponsableTO;
-import com.twoways.to.ClientsRatesTO;
-import com.twoways.to.ClientsTO;
-import com.twoways.to.CurrencyTO;
 import com.twoways.to.EmployeesTO;
 import com.twoways.to.OrdersDocsTO;
 import com.twoways.to.OrdersTO;
@@ -12,12 +8,7 @@ import com.twoways.to.ProAssigmentsDetailsTO;
 import com.twoways.to.ProjectAssignmentsTO;
 import com.twoways.to.ProjectsTO;
 import com.twoways.to.RateTypesTO;
-import com.twoways.to.RatesTO;
-
-import com.twoways.to.ServicesTO;
-
 import com.twoways.to.TranslatorsLanguaguesTO;
-
 import com.twoways.to.TranslatorsTO;
 
 import java.io.IOException;
@@ -32,6 +23,7 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 public class AsignacionesServlet extends AutorizacionServlet {
     public AsignacionesServlet() {

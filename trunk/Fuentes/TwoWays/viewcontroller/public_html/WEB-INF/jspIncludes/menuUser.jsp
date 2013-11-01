@@ -23,4 +23,10 @@
         <li><a href="listaEmpleados">Empleados</a></li>    
     </ul>
 </li> 
+<li><a href="#" >Gráficos</a>
+    <ul>
+        <li><a href="tablaPalabrasxAnio">Palabras por año</a></li>
+        <li><a href="tablaPalabrasxCliente">Palabras por cliente</a></li>        
+    </ul>
+</li>
  <li><a href="login?logout=true">Desconectar</a></li> 

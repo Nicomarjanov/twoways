@@ -7,6 +7,11 @@ import com.twoways.to.OrdersTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import java.math.BigDecimal;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,10 +38,20 @@ public class ListaEmpleadosServlet extends AutorizacionServlet {
         super.doGet(request,response);
         TwoWaysBDL twoWaysBDL=null;
         String accion = request.getParameter("accion");
+        List <EmployeesTO> empleadosList = null;
         int page =(request.getParameter("pageId")  != null && request.getParameter("pageId").length() >0  )?Integer.parseInt(request.getParameter("pageId")): 0 ;  
+        List optionList= new ArrayList();
+        
+        optionList.add("=");
+        optionList.add("<=");
+        optionList.add(">=");           
         
         try{
-            twoWaysBDL = new TwoWaysBDL();    
+            twoWaysBDL = new TwoWaysBDL();  
+            request.setAttribute("optionList",optionList);
+            empleadosList =  twoWaysBDL.getServiceTwoWays().obtenerEmpleados();
+            request.setAttribute("listaEmpleadosSelect",empleadosList);
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -45,24 +60,28 @@ public class ListaEmpleadosServlet extends AutorizacionServlet {
             request.setAttribute("accion",accion);
            // EmployeesTO employeeTO = new EmployeesTO();            
             Map params= new  HashMap();          
-            if (request.getParameter("empFirstName") != null && request.getParameter("empFirstName").length() > 0) {
+            /*if (request.getParameter("empFirstName") != null && request.getParameter("empFirstName").length() > 0) {
                 params.put("empFirstName",request.getParameter("empFirstName")); 
                 request.setAttribute("empFirstName",request.getParameter("empFirstName")) ;
             }
             if (request.getParameter("empLastName") != null && request.getParameter("empLastName").length() > 0) {
                 params.put("empLastName",request.getParameter("empLastName")); 
                 request.setAttribute("empLastName",request.getParameter("empLastName"));
-            }
+            }*/
+             if (request.getParameter("listaEmpleadosSelect") != null && request.getParameter("listaEmpleadosSelect").length() > 0) {
+                 params.put("empId",request.getParameter("listaEmpleadosSelect")); 
+                 request.setAttribute("empId",request.getParameter("listaEmpleadosSelect"));
+             }            
             if (request.getParameter("ProName") != null && request.getParameter("ProName").length() > 0) {
                 params.put("ProName",request.getParameter("ProName"));
                 request.setAttribute("proName",request.getParameter("ProName"));
             }
             if (request.getParameter("Traductor") != null && request.getParameter("Traductor").length() > 0) {
-                params.put("Traductor",request.getParameter("Traductor"));
+                params.put("Traducción",request.getParameter("Traductor"));
                 request.setAttribute("Traductor",request.getParameter("Traductor"));
             }
             if (request.getParameter("Editor") != null) {
-                params.put("Editor",request.getParameter("Editor"));
+                params.put("Edición",request.getParameter("Editor"));
                 request.setAttribute("Editor",request.getParameter("Editor"));
             }
             if (request.getParameter("Revisor") != null) {
@@ -70,7 +89,7 @@ public class ListaEmpleadosServlet extends AutorizacionServlet {
                 request.setAttribute("Revisor",request.getParameter("Revisor"));
             }
             if (request.getParameter("Maquetador") != null) {
-                params.put("Maquetador",request.getParameter("Maquetador"));
+                params.put("Maquetación",request.getParameter("Maquetador"));
                 request.setAttribute("Maquetador",request.getParameter("Maquetador"));
             }
             if (request.getParameter("PDTP") != null) {
@@ -81,8 +100,30 @@ public class ListaEmpleadosServlet extends AutorizacionServlet {
                 params.put("Proofer",request.getParameter("Proofer"));
                 request.setAttribute("Proofer",request.getParameter("Proofer"));
             }   
+            if(request.getParameter("proFinishDate") !=null &&( request.getParameter("proFinishDate").length() == 10 || request.getParameter("proFinishDate").length() == 16)){ 
+                try {
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    SimpleDateFormat sdfch = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                    java.util.Date date;
+                    date = (request.getParameter("proFinishDate").length() ==10 )?sdf.parse(request.getParameter("proFinishDate")):sdfch.parse(request.getParameter("proFinishDate"));
+                    //java.sql.Timestamp timest = new java.sql.Timestamp(date.getTime());                         
+                    params.put("proFinishDate",request.getParameter("proFinishDate"));
+                    params.put("proFinishDateOpt",request.getParameter("proFinishDateOpt"));
+                    request.setAttribute("proFinishDate",request.getParameter("proFinishDate")); 
+                    request.setAttribute("proFinishDateOpt",request.getParameter("proFinishDateOpt"));
+                    
+                } catch (ParseException e) {
+                   e.printStackTrace();
+                }
+            }
         try{
            List<EmployeesTO> empleados =  twoWaysBDL.getServiceTwoWays().findEmployees(params);
+           BigDecimal totalPalabras = new BigDecimal("0");
+           for(EmployeesTO empleado:empleados){
+               totalPalabras = totalPalabras.add(BigDecimal.valueOf((empleado.getProjectAssignmentsTO().getProAssigmentDetailsTO().getPadWCount()!=null)?empleado.getProjectAssignmentsTO().getProAssigmentDetailsTO().getPadWCount():0));
+           }
+           request.setAttribute("totalPalabras",totalPalabras);
+           
            int  pageTop=(page+1)*10 ;
            int  minPage=(page)*10 ;
            List subempleados = null;

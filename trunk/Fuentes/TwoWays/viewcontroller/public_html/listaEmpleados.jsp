@@ -14,6 +14,7 @@
     <script type='text/javascript' src='/twoways/dwr/interface/towaysDWR.js'></script>
     <script type='text/javascript' src='/twoways/dwr/engine.js'></script>    
     <script type='text/javascript' src='/twoways/dwr/util.js'></script>
+    <script type='text/javascript' src="./js/CalendarPopup.js"></script>    
     <script>
         document.onkeydown = checkKeycode
         function checkKeycode(e) {
@@ -53,36 +54,58 @@
        <tr ><td colspan="100%" style="font-size:1.1em;padding-top:5px;padding-bottom:4px;background-color:#80211D;color:#ffffff;" >Filtros de búsqueda</td><td style="font-size:1.1em;padding-top:5px;padding-bottom:4px;background-color:#80211D;color:#ffffff;" ><div style="background-color:Gray;width:20;height:20" onclick="document.getElementById('table-filtros').style.display='none';document.getElementById('mostrar-filtro').style.display='block'" onmouseover="this.style.cursor='hand';" >X</div></td> </tr>
        </thead>
        <tbody>
-       <tr>
+       <!--tr>
         <td nowrap>Nombre</td><td colspan="2" ><input type="text" class="tw_form" name="empFirstName"  id="empFirstName" style="width:100%"  value="<c:out value="${empFirstName}"/>"/></td>
        </tr>
        <tr>
         <td nowrap>Apellido</td><td colspan="2" ><input type="text" class="tw_form" name="empLastName"  id="empLastName" style="width:100%" value="<c:out value="${empLastName}"/>" /></td>
-       </tr>   
+       </tr-->
+        <tr>
+        <td nowrap align="left" width="25%">Empleado</td>
+        <td align="left" width="25%">
+            <select name="listaEmpleadosSelect" id="listaEmpleadosSelect" style="border:solid 1px #005C8D;" onfocus="javascript:this.style.background='#FFFFFF';">            
+                <option value="" selected="selected">Seleccionar</option>
+                <c:forEach items="${listaEmpleadosSelect}" var="item">
+                   <c:choose>
+                    <c:when test="${empId == item.empId}">
+                       <option value="<c:out value="${item.empId}" />" style="background-color:#A4BAC7;" selected="selected">
+                        <c:out value="${item.empFirstName}" /> <c:out value="${item.empLastName}" />
+                      </option> 
+                    </c:when>
+                    <c:otherwise>
+                    <option value="<c:out value="${item.empId}" />" style="background-color:#A4BAC7;">
+                        <c:out value="${item.empFirstName}" /> <c:out value="${item.empLastName}" />
+                    </option>
+                    </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+           </select>
+        </td>   
+      </tr>
        <tr>
         <td >Especialidades</td> 
             <td colspan="2" nowrap>
                <table style="border-left-style:solid; border-left-width:1px; font-size:9px;">
                     <tr>
-                        <td>Traductor</td>
+                        <td>Traducción</td>
                         <td>
                             <c:choose>
                                 <c:when test="${not empty Traductor}">
-                                    <input type="checkbox" id="Traductor" name="Traductor" value="Traductor" checked></input>
+                                    <input type="checkbox" id="Traductor" name="Traductor" value="Traducción" checked></input>
                                 </c:when>
                                 <c:otherwise>
-                                    <input type="checkbox" id="Traductor" name="Traductor" value="Traductor"></input>
+                                    <input type="checkbox" id="Traductor" name="Traductor" value="Traducción"></input>
                                 </c:otherwise>
                             </c:choose>
                         </td>
-                        <td>Editor</td>
+                        <td>Edición</td>
                         <td>
                             <c:choose>
                                 <c:when test="${not empty Editor}">
-                                    <input type="checkbox" id="Editor" name="Editor" value="Editor" checked></input>
+                                    <input type="checkbox" id="Editor" name="Editor" value="Edición" checked></input>
                                 </c:when>
                                 <c:otherwise>
-                                    <input type="checkbox" id="Editor" name="Editor" value="Editor"></input>
+                                    <input type="checkbox" id="Editor" name="Editor" value="Edición"></input>
                                 </c:otherwise>
                             </c:choose>                        
                         </td>
@@ -99,14 +122,14 @@
                                 </c:otherwise>
                             </c:choose>                                     
                         </td>
-                        <td>Maquetador</td>
+                        <td>Maquetación</td>
                         <td>
                              <c:choose>
                                 <c:when test="${not empty Maquetador}">
-                                     <input type="checkbox" id="Maquetador" name="Maquetador" value="Maquetador" checked></input>
+                                     <input type="checkbox" id="Maquetador" name="Maquetador" value="Maquetación" checked></input>
                                 </c:when>
                                 <c:otherwise>
-                                    <input type="checkbox" id="Maquetador" name="Maquetador" value="Maquetador"></input>
+                                    <input type="checkbox" id="Maquetador" name="Maquetador" value="Maquetación"></input>
                                 </c:otherwise>
                             </c:choose>
                         </td>
@@ -142,6 +165,30 @@
        <td nowrap >Proyecto</td>
        <td colspan="2" ><input type="text" class="tw_form" name="ProName"  id="ProName" style="width:100%" value="<c:out value="${proName}"/>" /></td> 
        </tr>
+       <tr>
+        <td nowrap >Fecha de Entrega </td><td  colspan="2"  nowrap>
+        <select id="proFinishDateOpt" name="proFinishDateOpt" >
+            
+            <c:forEach items="${optionList}" var="item">
+              <c:choose>
+                <c:when test="${proFinishDateOpt == item}">
+                   <option value="<c:out value="${item}" />" style="background-color:#A4BAC7;" selected="selected">
+                    <c:out value="${item}" />
+                  </option> 
+                </c:when>
+                <c:otherwise>
+                <option value="<c:out value="${item}" />" style="background-color:#A4BAC7;">
+                    <c:out value="${item}" />
+                </option>
+                </c:otherwise>
+                </c:choose>
+            </c:forEach>
+        
+        </select>
+        <input type="text" class="tw_form" name="proFinishDate"  id="proFinishDate" value="<c:out value="${proFinishDate}" />" style="width:200"  /><div id="divHasta" style="background:#FFFFFF;position:absolute"  ></div> <img  onclick="cal1Hasta.select(document.forms[0].proFinishDate,'selHasta','dd/MM/yyyy'); return false;" NAME="selHasta" ID="selHasta"  height="20" width="20" alt="seleccion" src="img/cal.png" onmouseover="this.style.cursor='hand';"></img>
+        </td>
+        
+        </tr>
        <tr  >
        <td colspan="100%"  valign="top" align="right" ><input type="button" value="Buscar" onclick="buscarEmpleados()"  /></td>
        </tr>
@@ -153,7 +200,7 @@
        </td><td align="left" width="100%" valign="top" >
         <table id ="tabla-busqueda">
             <thead>
-            <tr><th>Nombre</th><th>Apellido</th><th>Especialidad</th><th>Estado asignación</th><th>Fecha asignación</th><th>Fin asignación</th><th>Proyecto</th><th>Estado proyecto</th><th>Fin proyecto</th></tr>
+            <tr><th>Nombre</th><th>Apellido</th><th>Especialidad</th><th>Conteo palabras</th><th>Fecha asignación</th><th>Fin asignación</th><th>Proyecto</th><th>Estado proyecto</th><th>Fin proyecto</th></tr>
             </thead>
           <c:choose   >
           <c:when test="${not empty listaEmpleados}">
@@ -166,7 +213,7 @@
                 <td nowrap ><a href="empleados?empId=<c:out value="${empleado.empId}" />"><c:out value="${empleado.empFirstName}" /></a></td>
                 <td nowrap ><c:out value="${empleado.empLastName}" /></td>
                 <td nowrap ><c:out value="${empleado.employeeTypeTO.etyName}" /></td>
-                <td nowrap ><c:out value="${empleado.projectAssignmentsTO.statesTO.staId}" /></td>
+                <td nowrap ><c:out value="${empleado.projectAssignmentsTO.proAssigmentDetailsTO.padWCount}" /></td>
                 <td nowrap ><fmt:formatDate value="${empleado.projectAssignmentsTO.praAssignDate}"    pattern="dd/MM/yyyy HH:mm" /></td>
                 <td nowrap ><fmt:formatDate value="${empleado.projectAssignmentsTO.praFinishDate}"    pattern="dd/MM/yyyy HH:mm" /></td>
                 <td nowrap ><a href="proyectos?ordId=<c:out value="${empleado.projectAssignmentsTO.projectsTO.ordersTO.ordId}" />"><c:out value="${empleado.projectAssignmentsTO.projectsTO.proName}" /></a></td>
@@ -183,8 +230,12 @@
             </c:choose>
             
            </c:forEach>
+           <tr>
+              <td colspan="3" style="text-align:right;font-size:15px;font-weight:bold;" >Total:</td>
+              <td colspan="8" style="text-align:left;font-size:15px;font-weight:bold;" ><c:out value="${totalPalabras}"/></td>
+           </tr>
            <tr bgcolor="<c:out value="${color_row}"/>" >
-              <td colspan="11" align="center" >
+              <td colspan="100%" align="center" >
                <table align="center">
                     <tr><td>
                         <c:if test="${page != 0}">
@@ -201,13 +252,13 @@
                </td>
           </tr>
           <tr>
-          <td width="100%" colspan="9">
+          <td width="100%" colspan="100%">
             <br>
               <hr class="tw_hr">
-              <table width="25%" align="center">
+              <table width="100%" align="center">
                   <tr>
                       <c:if test="${not empty listaEmpleados}">
-                          <td align="center" ><input type="button" id="export" value="Exportar" OnClick="exportarCSV()"/></td>   
+                          <td style="text-align:center;" ><input type="button" id="export" value="Exportar" OnClick="exportarCSV()"/></td>   
                       </c:if>
                   </tr>
               </table>

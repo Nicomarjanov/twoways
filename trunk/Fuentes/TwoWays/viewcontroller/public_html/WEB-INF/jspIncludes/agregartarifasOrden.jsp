@@ -3,6 +3,7 @@
 <%@ page contentType="text/html;charset=windows-1252"%>
 <%@ page isELIgnored="true" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 <table  id="aTar" >
     <tr>
         <td><a href="javascript:vistaTarifas()" ><img id="tarifa+"  style="border:0;" title="Mostrar tarifa del cliente" src="img/currency_dollar green.png" alt="Tarifas" width="25" height="25" onmouseover="this.style.cursor='hand';"/></a></td>
@@ -71,7 +72,7 @@
          <tr id="totalOrdenRow" name="totalOrdenRow">
               <td align="right"><div align = 'right'>Total:</div></td>
               <td align="left" colspan=2><div align = 'left'>
-                <input type="text" name="totalOrden" id="totalOrden" size="15" maxlength="15" style="font-size:10px;font-family:verdana;" readonly value="<c:out value="${totalOrden}"/>"/></div></td>
+                <input type="text" name="totalOrden" id="totalOrden" size="15" maxlength="15" style="font-size:10px;font-family:verdana;" readonly value="<fmt:formatNumber value='${totalOrden}' type='number' pattern='########.###' />"/></div></td>
          </tr>
          </tbody>
         </table>

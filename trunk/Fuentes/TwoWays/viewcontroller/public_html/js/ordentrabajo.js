@@ -140,7 +140,7 @@ function agregar()
     document.getElementById('ordStartDate').value     = trim(document.getElementById('ordStartDate').value);
     document.getElementById('ordDescription').value    = trim(document.getElementById('ordDescription').value);
     
-    
+    document.getElementById('totalOrden').value    = trim(document.getElementById('totalOrden').value.replace(',','.'));
     if(validarCampos())
     {
         alert(mensajeCampoAlert);
@@ -451,5 +451,21 @@ function sumarMonto(){
             monto = monto + montoAux;
         }
     }
-    document.getElementById("totalOrden").value = monto;
+    document.getElementById("totalOrden").value = monto.toFixed(3);
+}
+
+
+function exportarListaCSV(){
+    if(confirm('¿Desea exportar la tabla a un archivo?'))
+    {   
+        var listaClientes=document.getElementById("listaClientes").options[document.getElementById('listaClientes').selectedIndex].value;        
+        //var ordProjId=document.getElementById("ordProjId").value;
+        var ordName=document.getElementById("ordName").value;
+        var ordFinishDate=document.getElementById("ordFinishDate").value;
+        var ordFinishDateOpt=document.getElementById("ordFinishDateOpt").value;
+        var ordStartDate=document.getElementById("ordStartDate").value;
+        var ordDateOpt=document.getElementById("ordDateOpt").value;    
+        
+        window.open("/twoways/downloadfile?docId=Lista_PalabrasXOrden.csv&listaClientes="+listaClientes+"&ordName="+ordName+"&ordFinishDate="+ordFinishDate+"&ordFinishDateOpt="+ordFinishDateOpt+"&ordStartDate="+ordStartDate+"&ordDateOpt="+ordDateOpt+"&docType=palabrasOrdenesDoc");
+    }
 }

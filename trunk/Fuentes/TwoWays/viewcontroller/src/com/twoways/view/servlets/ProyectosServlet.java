@@ -195,7 +195,7 @@ public class ProyectosServlet extends AutorizacionServlet {
                               Long id= 0L; 
                               if(arrayAux.length > 1) {
                                  id=Long.parseLong(arrayAux[1]);
-                                 Double parametroValue = (request.getParameter(paramName)!=null)?Double.parseDouble(request.getParameter(paramName).replaceAll(",",".")):null; 
+                                 
                               
                               ProAssigmentsDetailsTO proAssigmentsDetailsTO =proAssigmentsDetailsTOMap.get(id);
                                
@@ -206,10 +206,10 @@ public class ProyectosServlet extends AutorizacionServlet {
                               }
                               
                                  if(arrayAux[0].equals("padRate")){ 
-                              
-                                    proAssigmentsDetailsTO.setPadRate(parametroValue);
+                                    Double parametroValueD = (request.getParameter(paramName)!=null)?Double.parseDouble(request.getParameter(paramName).replaceAll(",",".")):null; 
+                                    proAssigmentsDetailsTO.setPadRate(parametroValueD);
                                  }else  if(arrayAux[0].equals("padWCount")){ 
-                              
+                                    Double parametroValue = (request.getParameter(paramName)!=null)?Long.parseLong(request.getParameter(paramName).replaceAll(",",".")):0D; 
                                     proAssigmentsDetailsTO.setPadWCount(parametroValue);
                                  }
                               

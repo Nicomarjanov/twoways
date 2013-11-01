@@ -43,7 +43,7 @@ function vistaTraductor(){
         
         for(var i=0;i<listaEmp.options.length;i++)
         {
-            if(listaEmp.options[i].value == 'Traductor')
+            if(listaEmp.options[i].value == 'Traducción')
             {  bandera = 1;         
                var tabla=document.getElementById('tabla-traductor');    
                if(tabla.style.display =='none'){
@@ -65,7 +65,7 @@ function vistaTraductor(){
          bandera = 0;        
    }
     if (bandera == 0){
-        alert('Debe seleccionar la especialidad Traductor en la lista de especialidades disponibles');
+        alert('Debe seleccionar la especialidad Traducción en la lista de especialidades disponibles');
         document.getElementById("listaTipoEmp").focus();
     }
 }
@@ -399,7 +399,7 @@ function validarCampos()
     
         for(var i=0;i<listaEmp.options.length;i++)
         {
-            if(listaEmp.options[i].value == 'Traductor'){
+            if(listaEmp.options[i].value == 'Traducción'){
                 var banTraductor=true;
             }
         }
@@ -470,7 +470,7 @@ function asignar()
 
             quitar = quitar+document.getElementById("listaTipoEmp").options[i].value+'-'; 
             createDynamicDropdown('listaTipoEmpTar', 'listaTarifa', 'dropDown3');
-            if(document.getElementById("listaTipoEmp").options[i].value == 'Traductor'){                
+            if(document.getElementById("listaTipoEmp").options[i].value == 'Traducción'){                
                 document.getElementById('traductor+').src="img/lang+.png";
                 //document.getElementById("traductor").disabled=false;
             }            
@@ -501,9 +501,9 @@ function desAsignar()
             var option =  new Option(document.getElementById("listaItemsSelect").options[i].text,document.getElementById("listaItemsSelect").options[i].value);
             
             
-            if(document.getElementById("listaItemsSelect").options[i].value == 'Traductor'){
+            if(document.getElementById("listaItemsSelect").options[i].value == 'Traducción'){
                
-                if (confirm('Al desasignar la especialidad Traductor del empleado eliminará los datos cargados del traductor')){
+                if (confirm('Al desasignar la especialidad Traducción del empleado eliminará los datos cargados del traductor')){
 
                     quitar = quitar+document.getElementById("listaItemsSelect").options[i].value+'-';
                     document.getElementById('traductor+').src="img/lang.png";

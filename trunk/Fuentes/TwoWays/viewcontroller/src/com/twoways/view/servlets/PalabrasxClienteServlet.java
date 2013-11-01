@@ -27,6 +27,7 @@ public class PalabrasxClienteServlet extends AutorizacionServlet {
         super.init(config);
         List roles= new ArrayList();
         roles.add("Administrador");
+        roles.add("Usuario");
         this.setRolesValidos(roles);
     }
 
