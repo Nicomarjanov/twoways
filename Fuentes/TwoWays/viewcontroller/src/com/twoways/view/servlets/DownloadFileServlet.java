@@ -67,24 +67,28 @@ public class DownloadFileServlet extends AutorizacionServlet {
                 twoWaysBDL = new TwoWaysBDL();
                 Map params= new  HashMap();
                 
-                if (request.getParameter("empFirstName") != null && request.getParameter("empFirstName").length() > 0) {
+                /*if (request.getParameter("empFirstName") != null && request.getParameter("empFirstName").length() > 0) {
                     params.put("empFirstName",request.getParameter("empFirstName")); 
                     request.setAttribute("empFirstName",request.getParameter("empFirstName")) ;
                 }
                 if (request.getParameter("empLastName") != null && request.getParameter("empLastName").length() > 0) {
                     params.put("empLastName",request.getParameter("empLastName")); 
                     request.setAttribute("empLastName",request.getParameter("empLastName"));
-                }
+                }*/
+                 if (request.getParameter("empId") != null && request.getParameter("empId").length() > 0) {
+                     params.put("empId",request.getParameter("empId")); 
+                     request.setAttribute("empId",request.getParameter("empId"));
+                 }
                 if (request.getParameter("ProName") != null && request.getParameter("ProName").length() > 0) {
                     params.put("ProName",request.getParameter("ProName"));
                     request.setAttribute("proName",request.getParameter("ProName"));
                 }
                 if (request.getParameter("Traductor") != null && request.getParameter("Traductor").length() > 0) {
-                    params.put("Traductor",request.getParameter("Traductor"));
+                    params.put("Traducción",request.getParameter("Traductor"));
                     request.setAttribute("Traductor",request.getParameter("Traductor"));
                 }
                 if (request.getParameter("Editor") != null) {
-                    params.put("Editor",request.getParameter("Editor"));
+                    params.put("Edición",request.getParameter("Editor"));
                     request.setAttribute("Editor",request.getParameter("Editor"));
                 }
                 if (request.getParameter("Revisor") != null) {
@@ -92,7 +96,7 @@ public class DownloadFileServlet extends AutorizacionServlet {
                     request.setAttribute("Revisor",request.getParameter("Revisor"));
                 }
                 if (request.getParameter("Maquetador") != null) {
-                    params.put("Maquetador",request.getParameter("Maquetador"));
+                    params.put("Maquetación",request.getParameter("Maquetador"));
                     request.setAttribute("Maquetador",request.getParameter("Maquetador"));
                 }
                 if (request.getParameter("PDTP") != null) {
@@ -102,8 +106,23 @@ public class DownloadFileServlet extends AutorizacionServlet {
                 if (request.getParameter("Proofer") != null) {
                     params.put("Proofer",request.getParameter("Proofer"));
                     request.setAttribute("Proofer",request.getParameter("Proofer"));
+                }   
+                if(request.getParameter("proFinishDate") !=null &&( request.getParameter("proFinishDate").length() == 10 || request.getParameter("proFinishDate").length() == 16)){ 
+                    try {
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                        SimpleDateFormat sdfch = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                        java.util.Date date;
+                        date = (request.getParameter("proFinishDate").length() ==10 )?sdf.parse(request.getParameter("proFinishDate")):sdfch.parse(request.getParameter("proFinishDate"));
+                        //java.sql.Timestamp timest = new java.sql.Timestamp(date.getTime());                         
+                        params.put("proFinishDate",request.getParameter("proFinishDate"));
+                        params.put("proFinishDateOpt",request.getParameter("proFinishDateOpt"));
+                        request.setAttribute("proFinishDate",request.getParameter("proFinishDate")); 
+                        request.setAttribute("proFinishDateOpt",request.getParameter("proFinishDateOpt"));
+                        
+                    } catch (ParseException e) {
+                       e.printStackTrace();
+                    }
                 }
-                
                 List<EmployeesTO> empleados =  twoWaysBDL.getServiceTwoWays().findEmployees(params);
                 
                 //String itmGastosHidden[]=request.getParameterValues("item-gasto-hidden");
@@ -117,7 +136,7 @@ public class DownloadFileServlet extends AutorizacionServlet {
                     writer.append(',');
                     writer.append("Especialidad");
                     writer.append(',');
-                    writer.append("Estado asignacion");
+                    writer.append("Conteo palabras");
                     writer.append(',');      
                     writer.append("Inicio asignacion");
                     writer.append(',');   
@@ -139,7 +158,7 @@ public class DownloadFileServlet extends AutorizacionServlet {
                         writer.append(',');
                         writer.append((e.getEmployeeTypeTO().getEtyName()!= null && e.getEmployeeTypeTO().getEtyName().length() > 0)?e.getEmployeeTypeTO().getEtyName().toString():"");
                         writer.append(',');
-                        writer.append((e.getProjectAssignmentsTO().getStatesTO().getStaName() != null && e.getProjectAssignmentsTO().getStatesTO().getStaName().length() > 0 )?e.getProjectAssignmentsTO().getStatesTO().getStaName().toString():"");
+                        writer.append((e.getProjectAssignmentsTO().getProAssigmentDetailsTO().getPadWCount() != null )?e.getProjectAssignmentsTO().getProAssigmentDetailsTO().getPadWCount().toString():"");
                         writer.append(',');      
                         writer.append((e.getProjectAssignmentsTO().getPraAssignDate() != null && e.getProjectAssignmentsTO().getPraAssignDate().toString().length() > 0)?e.getProjectAssignmentsTO().getPraAssignDate().toString():"");
                         writer.append(',');   
@@ -222,6 +241,74 @@ public class DownloadFileServlet extends AutorizacionServlet {
                 e.printStackTrace();
             }
         }
+        else if(docType.equalsIgnoreCase("palabrasOrdenesDoc")){
+            Map params= new  HashMap(); 
+            auxMap = new HashMap();
+            StringBuffer writer = new StringBuffer();         
+            nomArchivo=docId;
+            java.util.Date date;            
+            SimpleDateFormat sdfch = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            SimpleDateFormat sdfsh = new SimpleDateFormat("dd/MM/yyyy");            
+
+            if(request.getParameter("listaClientes") != null && request.getParameter("listaClientes").length() > 0  ){            
+              long cliId= Long.parseLong(request.getParameter("listaClientes"));
+              params.put("cliId",cliId);
+            }                       
+            if (request.getParameter("ordName") != null && request.getParameter("ordName").length() > 0) {
+                params.put("ordName",request.getParameter("ordName"));
+            }            
+            if(request.getParameter("ordFinishDate") !=null &&( request.getParameter("ordFinishDate").length() == 10 || request.getParameter("ordFinishDate").length() == 16)){ 
+                try {
+                    
+                    date = (request.getParameter("ordFinishDate").length() ==10 )?sdfsh.parse(request.getParameter("ordFinishDate")):sdfch.parse(request.getParameter("ordFinishDate"));
+                    params.put("ordFinishDate",request.getParameter("ordFinishDate"));
+                    params.put("ordFinishDateOpt",request.getParameter("ordFinishDateOpt"));
+               } catch (ParseException e) {
+                   e.printStackTrace();
+                }
+            }  
+            if(request.getParameter("ordStartDate") !=null &&( request.getParameter("ordStartDate").length() == 10 || request.getParameter("ordStartDate").length() == 16)){ 
+                 try {
+                     date = (request.getParameter("ordStartDate").length() ==10 )?sdfsh.parse(request.getParameter("ordStartDate")):sdfch.parse(request.getParameter("ordStartDate"));                    
+                     params.put("ordStartDate",request.getParameter("ordStartDate"));
+                     params.put("ordDateOpt",request.getParameter("ordDateOpt"));
+                 } catch (ParseException e) {
+                     e.printStackTrace();
+                 }
+             }
+            try{
+               twoWaysBDL = new TwoWaysBDL();
+               List <List>ordenes = twoWaysBDL.getServiceTwoWays().findOrdenesyPalabras(params);
+               if (ordenes.size()> 0){
+                   writer.append("Nombre de la orden");
+                   writer.append(',');
+                   writer.append("Cantidad de palabras");
+                   writer.append(',');
+                   writer.append("Fecha y hora de entrega");
+                   writer.append(',');
+                   writer.append('\n');                                
+               
+                  for (int i = 0;i<ordenes.size();i++){
+                        Iterator aux = ordenes.get(i).iterator();
+                        while(aux.hasNext()){                            
+                        writer.append(aux.next().toString());
+                        writer.append(',');
+                        //Long palabras = twoWaysBDL.getServiceTwoWays().getTotalPalabrasxProyecto(p.getProId());
+                        writer.append(aux.next().toString());                                       
+                        writer.append(',');
+                        writer.append(aux.next().toString());  
+                        writer.append(',');
+                        writer.append('\n');
+                        }
+                    }
+                    ouputStream.write(writer.toString().getBytes());
+               }
+
+            }catch(Exception e){
+               e.printStackTrace(); 
+            }                        
+        }
+               
         else {
         
             Map params= new  HashMap(); 
@@ -242,8 +329,7 @@ public class DownloadFileServlet extends AutorizacionServlet {
             }
             if (request.getParameter("ordName") != null && request.getParameter("ordName").length() > 0) {
                 params.put("ordName",request.getParameter("ordName"));
-            }
-            
+            }            
             if (request.getParameter("Iniciado") != null && request.getParameter("Iniciado").equalsIgnoreCase("Iniciado")) {
                 params.put("Iniciado",request.getParameter("Iniciado"));
             }

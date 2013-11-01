@@ -56,8 +56,6 @@ public interface ProjectDAO {
     public void deleteProjectByOrdId(Long ordId)throws Exception ;
     
     public Long getTotalPalabrasxProyecto(Long proId) throws Exception;
+      
     
-    public List obtenerPalabrasxMes(List anios) throws Exception;
-    
-    public List obtenerPalabrasxCliente(String anio) throws Exception;
 }

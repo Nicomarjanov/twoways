@@ -11,6 +11,7 @@ import java.util.Map;
 
 public interface EmployeeDAO {
     public List obtenerEmpleados() throws Exception;
+    public List obtenerEmpleadosTodos() throws Exception;
     public EmployeesTO getEmpById(String empId)  throws Exception;
     public EmployeesTO insertarEmployee(EmployeesTO employeesTO) throws Exception;
     public EmployeesTO updateEmpleado(EmployeesTO employeesTO) throws Exception;

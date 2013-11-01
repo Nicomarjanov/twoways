@@ -166,7 +166,7 @@
       <th><c:out value="${assi.serviceTO.rtyName}" /><input type="hidden" id ="servicio-<c:out value="${assi.praId}" />" value="<c:out value="${assi.serviceTO.rtyName}" />"  /> </th>
       <th align="center" >
           <c:choose>
-          <c:when  test="${assi.serviceTO.rtyName == 'Traductor'}">
+          <c:when  test="${assi.serviceTO.rtyName == 'Traducción'}">
             <input type="text"  style="WIDTH: 70px;text-align:right;"  name="praTotalAmount-<c:out value="${assi.praId}" />"  id="praTotalAmount-<c:out value="${assi.praId}" />" readonly value="<fmt:formatNumber maxFractionDigits="0"  pattern="##########"  value="${assi.praTotalAmount}" />" />
           </c:when>
           <c:otherwise>&nbsp;</c:otherwise>
@@ -220,7 +220,7 @@
           <c:when test="${isSource=='true' || isSource}">
           <td align="center" >
           <c:choose>
-             <c:when  test="${assi.serviceTO.rtyName == 'Traductor'}">
+             <c:when  test="${assi.serviceTO.rtyName == 'Traducción'}">
                    <input type="text" title="Unidades"  onblur="calcularTotalDetalle('<c:out value="${assiDet.padId}" />','<c:out value="${assi.praId}" />');calcularTotalPalabras('<c:out value="${assi.praId}" />');" style="WIDTH: 70px;text-align:right;"  name="padWCount-<c:out value="${assi.praId}" />" id="padWCount-<c:out value="${assiDet.padId}" />"  value="<fmt:formatNumber maxFractionDigits="2"  pattern="##########.##"  value="${assiDet.padWCount}"   />"  />
              </c:when>
              <c:otherwise>

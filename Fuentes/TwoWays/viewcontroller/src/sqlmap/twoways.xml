@@ -203,6 +203,13 @@
 
   </select>
   
+  <select id="obtenerEmpleadosTodos"  resultMap="select-Employee" parameterClass="java.lang.String">
+     select *      
+     from 
+     Employees     
+     order by emp_first_name
+
+  </select>
   
   <select id="obtenerTiposDocumentos"  resultClass="com.twoways.to.DocTypes" parameterClass="java.lang.String">
      select dot_id as dotId, dot_name as dotName, dot_description as dotDescription  
@@ -466,7 +473,7 @@
         RTY_ALTERNATIVE_NAME as rtyAlternativeName
      from 
      Rate_Types
-     
+     order by rty_name
   </select>
   
     <select id="obtenerServicios"  parameterClass="java.lang.String" resultClass="com.twoways.to.RateTypesTO">
@@ -477,7 +484,7 @@
      from 
      Rate_Types
      where upper(RTY_NAME) <![CDATA[ <> ]]> 'CLIENTE'
-     
+     order by rty_name
   </select>
   
   
@@ -1879,7 +1886,7 @@
         and e.emp_id=a.employees_emp_id
         and a.projects_pro_id=t.project_assignments_projects_p
         and a.pra_id != #praId#
-        and a.services_ser_id = 'Editor'
+        and a.services_ser_id like 'Edi%'
         and t.project_assignments_pra_id != #praId#
         and t.orders_docs_odo_id = #docId#
     </select>

@@ -116,6 +116,10 @@ public class TW_SystemServiceImpl implements TW_SystemService {
         return this.employeeDao.obtenerEmpleados();
     }
 
+    public List obtenerEmpleadosTodos() throws Exception {
+        return this.employeeDao.obtenerEmpleadosTodos();
+    }
+    
     public EmployeesTO insertarEmpleado(EmployeesTO employeesTO) throws Exception {
         return this.employeeDao.insertarEmployee(employeesTO);
     }
@@ -655,7 +659,7 @@ public class TW_SystemServiceImpl implements TW_SystemService {
                         texto += df.format(Double.parseDouble((proAssigmentsDetailsTO.getPadWCount()!=null)?proAssigmentsDetailsTO.getPadWCount().toString():"0"))+"/"+proAssigmentsDetailsTO.getEmployeesRatesTO().getRatesTO().getRatName()+" ";
                         
                         prevFileName= proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName();    
-                         if (!projectAssignmentsTO.getServiceTO().getRtyName().equalsIgnoreCase("Maquetador") ) {
+                         if (!projectAssignmentsTO.getServiceTO().getRtyName().startsWith("Maqueta") ) {
                              
                             // if(enviados.get(proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName().toString())!=null){ 
                              
@@ -696,10 +700,10 @@ public class TW_SystemServiceImpl implements TW_SystemService {
         ((user.getUsrOfficeNumber() != null ) ?"<TR><TD>Tel: "+user.getUsrOfficeNumber() +"</TD></TR>":"")+        
         ((user.getUsrMobileNumber() != null ) ?"<TR><TD>Mobile: "+user.getUsrMobileNumber() +"</TD></TR>":"")+
         "<TR><TD><A HREF='http://www.twoways.net/'>www.twoways.net</A></TD></TR></TABLE>"+
-        "<BR><P STYLE='font-family:verdana;font-size:12px;color:green;font-weight:bold;'><I>Our business hours are Monday through Friday, from 08:00 AM to 09:00 PM local time (-03:00 GMT) / 7:00 AM to 8:00 PM EST</I></P>"; 
+        "<BR><P STYLE='font-family:verdana;font-size:12px;color:green;font-weight:bold;'><I>Our business hours are Monday through Friday, from 08:30 AM to 08:00 PM local time (-03:00 GMT) / 7:30 AM to 7:00 PM EST</I></P>"; 
         texto+=firma;    
         //Si es traductor busco si tiene un editor para enviar copia del mail
-        if (projectAssignmentsTO.getServiceTO().getRtyName().equalsIgnoreCase("Traductor") ) {
+        if (projectAssignmentsTO.getServiceTO().getRtyName().startsWith("Trad") ) {
             for(OrdersDocsTO ordDoc : ordDocList){
                 empList = this.getEditorByDocId(projectAssignmentsTO.getPraId(),ordDoc.getOdoId());
             }
@@ -1022,7 +1026,7 @@ public class TW_SystemServiceImpl implements TW_SystemService {
                         texto += df.format(Double.parseDouble((proAssigmentsDetailsTO.getPadWCount()!=null)?proAssigmentsDetailsTO.getPadWCount().toString():"0"))+"/"+proAssigmentsDetailsTO.getEmployeesRatesTO().getRatesTO().getRatName()+" ";
                         
                         prevFileName= proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName();    
-                         if (!projectAssignmentsTO.getServiceTO().getRtyName().equalsIgnoreCase("Maquetador") ) {
+                         if (!projectAssignmentsTO.getServiceTO().getRtyName().startsWith("Maqueta") ) {
                              
                             // if(enviados.get(proAssigmentsDetailsTO.getOrdersDocsTO().getOdoName().toString())!=null){ 
                              
@@ -1056,10 +1060,10 @@ public class TW_SystemServiceImpl implements TW_SystemService {
         ((user.getUsrOfficeNumber() != null ) ?"<TR><TD>Tel: "+user.getUsrOfficeNumber() +"</TD></TR>":"")+        
         ((user.getUsrMobileNumber() != null ) ?"<TR><TD>Mobile: "+user.getUsrMobileNumber() +"</TD></TR>":"")+
         "<TR><TD><A HREF='http://www.twoways.net/'>www.twoways.net</A></TD></TR></TABLE>"+
-        "<BR><P STYLE='font-family:verdana;font-size:12px;color:green;font-weight:bold;'><I>Our business hours are Monday through Friday, from 08:00 AM to 09:00 PM local time (-03:00 GMT) / 7:00 AM to 8:00 PM EST</I></P>"; 
+        "<BR><P STYLE='font-family:verdana;font-size:12px;color:green;font-weight:bold;'><I>Our business hours are Monday through Friday, from 08:30 AM to 08:00 PM local time (-03:00 GMT) / 7:30 AM to 7:00 PM EST</I></P>"; 
         texto+=firma;    
         //Si es traductor busco si tiene un editor para enviar copia del mail
-        if (projectAssignmentsTO.getServiceTO().getRtyName().equalsIgnoreCase("Traductor") ) {
+        if (projectAssignmentsTO.getServiceTO().getRtyName().startsWith("Trad") ) {
             for(OrdersDocsTO ordDoc : ordDocList){
                 empList = this.getEditorByDocId(projectAssignmentsTO.getPraId(),ordDoc.getOdoId());
             }
@@ -1119,11 +1123,15 @@ public class TW_SystemServiceImpl implements TW_SystemService {
     }
 
     public List obtenerPalabrasxMes(List anios) throws Exception{
-        return this.projectDao.obtenerPalabrasxMes(anios);
+        return this.ordersDao.obtenerPalabrasxMes(anios);
     }
 
     public List obtenerPalabrasxCliente(String anio) throws Exception{
-        return this.projectDao.obtenerPalabrasxCliente(anio);
+        return this.ordersDao.obtenerPalabrasxCliente(anio);
+    }
+
+    public List findOrdenesyPalabras(Map projParameters) throws Exception{
+        return this.ordersDao.findOrdenesyPalabras(projParameters);
     }
 }
 

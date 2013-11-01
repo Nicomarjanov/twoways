@@ -19,8 +19,8 @@ public class ProjectAssignmentsTO {
     private List <ProAssigmentsDetailsTO> proAssigmentsDetailsTO;
     private Double costAmount; 
     private StatesTO statesTO;
-
-
+    private ProAssigmentsDetailsTO proAssigmentDetailsTO;
+    
     public ProjectAssignmentsTO(){
         
     }
@@ -110,4 +110,11 @@ public class ProjectAssignmentsTO {
         return statesTO;
     }
 
+    public void setProAssigmentDetailsTO(ProAssigmentsDetailsTO proAssigmentDetailsTO) {
+        this.proAssigmentDetailsTO = proAssigmentDetailsTO;
+    }
+
+    public ProAssigmentsDetailsTO getProAssigmentDetailsTO() {
+        return proAssigmentDetailsTO;
+    }
 }

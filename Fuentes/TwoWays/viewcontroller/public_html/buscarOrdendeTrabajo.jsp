@@ -198,6 +198,9 @@
                      <img src="img/player_next.png" height="20" width="20" onclick="next()" alt=">" />
                     </c:if> 
                  </td></tr>
+                <tr>
+                    <td align="center" colspan="3"><input type="button" id="export" value="Exportar conteo de palabras" OnClick="exportarListaCSV()"/></td>
+              </tr>
            </table>
            </td>
       </tr>

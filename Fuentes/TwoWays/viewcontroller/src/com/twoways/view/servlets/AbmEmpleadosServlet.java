@@ -235,7 +235,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                 if( empleadosTipos  != null){ 
   
                     for(String aux:empleadosTipos){                                                                
-                       if (aux.equalsIgnoreCase("Traductor")){
+                       if (aux.equalsIgnoreCase("Traducción")){
                             String traId = request.getParameter("traId");
                             String spezialHidden[]=request.getParameterValues("listaSpecialTradSelect");
                             List<TranslatorsSpecializationsTO> transSpezialTOList = new ArrayList<TranslatorsSpecializationsTO>();
@@ -322,7 +322,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                         etTO.setEtyName(aux);
                         employeesTypesTO.setEmployeeTypeTO(etTO);              
                         employeesTypesTOList.add(employeesTypesTO);    
-                        if (aux.equalsIgnoreCase("Traductor")){
+                        if (aux.equalsIgnoreCase("Traducción")){
                             try{
                                traductor = twoWaysBDL.getServiceTwoWays().getTraByEmpId(empId);  
                                twoWaysBDL.getServiceTwoWays().deleteTraductor(traductor);
@@ -361,7 +361,7 @@ public class AbmEmpleadosServlet extends AutorizacionServlet {
                             for(Object employeesTypesTO: empTypes.toArray() ){ 
                                 EmployeesTypesTO empType = (EmployeesTypesTO)employeesTypesTO;
                                 EmployeeTypeTO etTO = empType.getEmployeeTypeTO();
-                                if (etTO.getEtyName().equalsIgnoreCase("Traductor")){                            
+                                if (etTO.getEtyName().equalsIgnoreCase("Traducción")){                            
                                      traductor = twoWaysBDL.getServiceTwoWays().getTraByEmpId(empId);
                                      if (traductor != null){
                                          request.setAttribute("traductor",traductor);

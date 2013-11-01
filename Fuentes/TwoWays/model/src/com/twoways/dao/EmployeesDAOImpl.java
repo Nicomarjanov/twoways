@@ -5,12 +5,15 @@ import com.twoways.to.EmployeesRatesTO;
 import com.twoways.to.EmployeesTO;
 import com.twoways.to.EmployeesTypesTO;
 import com.twoways.to.OrdersTO;
+import com.twoways.to.ProAssigmentsDetailsTO;
 import com.twoways.to.ProjectAssignmentsTO;
 import com.twoways.to.ProjectsTO;
 import com.twoways.to.RateTypesTO;
 import com.twoways.to.RatesTO;
 import com.twoways.to.StatesTO;
 import com.twoways.to.TranslatorsLanguaguesTO;
+
+import java.math.BigDecimal;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -36,6 +39,18 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
         try {
             ret = 
             getSqlMapClientTemplate().queryForList("obtenerEmpleados","");
+        } catch (DataAccessException dae) {
+
+           dae.printStackTrace();
+        }
+        return ret;        
+    }
+
+    public List obtenerEmpleadosTodos() {    
+        List ret= null;
+        try {
+            ret = 
+            getSqlMapClientTemplate().queryForList("obtenerEmpleadosTodos","");
         } catch (DataAccessException dae) {
 
            dae.printStackTrace();
@@ -307,9 +322,9 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
         "               empMail,\n" + 
         "               empMobile,\n" + 
         "               empType,\n" + 
-        "               pa.states_sta_id         as empState,\n" + 
         "               pa.pra_assign_date       as empAssDate,\n" + 
         "               pa.pra_finish_date       as empFinDate,\n" + 
+        "               sum(pd.pad_wcount)       as palabras,\n" +
         "               p.orders_ord_id          as ordId,\n" + 
         "               p.pro_name               as projName,\n" + 
         "               p.states_sta_id          as projState,\n" + 
@@ -324,24 +339,24 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
         "               from employees e, employees_types t \n" +
         "               where e.emp_id = t.employees_emp_id";
         
-        if ((employParameters.get("Traductor") != null && employParameters.get("Traductor").toString().length() > 0) ||
-            (employParameters.get("Editor") != null && employParameters.get("Editor").toString().length() > 0) ||
+        if ((employParameters.get("Traducción") != null && employParameters.get("Traducción").toString().length() > 0) ||
+            (employParameters.get("Edición") != null && employParameters.get("Edición").toString().length() > 0) ||
             (employParameters.get("Revisor") != null && employParameters.get("Revisor").toString().length() > 0) ||
-            (employParameters.get("Maquetador") != null && employParameters.get("Maquetador").toString().length() > 0) ||
+            (employParameters.get("Maquetación") != null && employParameters.get("Maquetación").toString().length() > 0) ||
             (employParameters.get("PDTP") != null && employParameters.get("PDTP").toString().length() > 0) ||
             (employParameters.get("Proofer") != null && employParameters.get("Proofer").toString().length() > 0)){
                  query += " and t.employee_type_ety_name in (";
-            if (employParameters.get("Traductor") != null && employParameters.get("Traductor").toString().length() > 0) {
-                 query += "'#Traductor#',";
+            if (employParameters.get("Traducción") != null && employParameters.get("Traducción").toString().length() > 0) {
+                 query += "'#Traducción#',";
              }
-            if (employParameters.get("Editor") != null && employParameters.get("Editor").toString().length() > 0) {
-                 query += "'#Editor#',";
+            if (employParameters.get("Edición") != null && employParameters.get("Edición").toString().length() > 0) {
+                 query += "'#Edición#',";
              }
             if (employParameters.get("Revisor") != null && employParameters.get("Revisor").toString().length() > 0) {
                  query += "'#Revisor#',";
              }
-            if (employParameters.get("Maquetador") != null && employParameters.get("Maquetador").toString().length() > 0) {
-                query += "'#Maquetador#',";
+            if (employParameters.get("Maquetación") != null && employParameters.get("Maquetación").toString().length() > 0) {
+                query += "'#Maquetación#',";
             }
             if (employParameters.get("PDTP") != null && employParameters.get("PDTP").toString().length() > 0) {
                 query += "'#PDTP#',";
@@ -351,9 +366,9 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
             }
             query += ")";
             query = query.replace(",)",")");
-        }                                    
+        }                                     
                             
-        if(employParameters.get("empFirstName") != null && employParameters.get("empFirstName").toString().length() > 0){
+        /*if(employParameters.get("empFirstName") != null && employParameters.get("empFirstName").toString().length() > 0){
             if(employParameters.get("empLastName") != null && employParameters.get("empLastName").toString().length() > 0){
                 query += " and ((upper(EMP_FIRST_NAME) like '%' || upper('#empFirstName#') || '%') or (upper(EMP_LAST_NAME) like '%' || upper('#empLastName#') || '%'))";
             }else {
@@ -361,11 +376,30 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
             }
         }else if(employParameters.get("empLastName") != null && employParameters.get("empLastName").toString().length() > 0){
                 query += " and (upper(EMP_LAST_NAME) like '%' || upper('#empLastName#') || '%')";
-        }
+        }*/
+         if(employParameters.get("empId") != null && employParameters.get("empId").toString().length() > 0){
+             query += " and e.emp_Id = #empId#";
+         }
         query +=" ) q left outer join \n" + 
-        "project_assignments pa \n" + 
+        "project_assignments pa join proj_assignments_details pd on(pd.project_assignments_pra_id=pa.pra_id) \n" + 
         "on q.empid = pa.employees_emp_id \n" + 
         "and q.empType = pa.services_ser_id \n";
+
+        if(employParameters.get("proFinishDate") != null && employParameters.get("proFinishDate").toString().length() > 0){
+        
+           String formato = "dd/MM/yyyy hh24:mi";
+           if (employParameters.get("proFinishDate").toString().length() == 10){
+               if(!employParameters.get("proFinishDateOpt").toString().equals("=")){ 
+                   formato = "dd/MM/yyyy";
+                   query += " and pa.pra_finish_date "+ employParameters.get("proFinishDateOpt").toString()+"  to_date ('#proFinishDate#','"+formato+"')";
+               }else{
+                   query += " and pa.pra_finish_date>= to_date ('#proFinishDate# 00:00','"+formato+"') and  pa.pra_finish_date <= to_date ('#proFinishDate# 23:59','"+formato+"') ";
+               }
+           }else{        
+             query += " and pa.pra_finish_date "+ employParameters.get("proFinishDateOpt").toString()+"  to_date ('#proFinishDate#','"+formato+"')";
+           }  
+        }        
+ 
         
         if (employParameters.get("ProName") != null && employParameters.get("ProName").toString().length() > 0){
             query += "join projects p \n" + 
@@ -376,7 +410,21 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
             "on pa.projects_pro_id = p.pro_id \n";                        
         }
         
-        query += " order by empfirstname desc";
+/*        if(employParameters.get("proFinishDate") != null && employParameters.get("proFinishDate").toString().length() > 0){
+        
+           String formato = "dd/MM/yyyy hh24:mi";
+           if (employParameters.get("proFinishDate").toString().length() == 10){
+               if(!employParameters.get("proFinishDateOpt").toString().equals("=")){ 
+                   formato = "dd/MM/yyyy";
+                   query += " and p.pro_finish_date "+ employParameters.get("proFinishDateOpt").toString()+"  to_date ('#proFinishDate#','"+formato+"')";
+               }else{
+                   query += " and p.pro_finish_date>= to_date ('#proFinishDate# 00:00','"+formato+"') and  p.pro_finish_date <= to_date ('#proFinishDate# 23:59','"+formato+"') ";
+               }
+           }else{        
+             query += " and p.pro_finish_date "+ employParameters.get("proFinishDateOpt").toString()+"  to_date ('#proFinishDate#','"+formato+"')";
+           }  
+        }        */
+        query += " group by empId, empFirstName, empLastName, empMail, empMobile, empType, pa.pra_assign_date, pa.pra_finish_date, p.orders_ord_id, p.pro_name,  p.states_sta_id, p.pro_start_date,  p.pro_finish_date order by empfirstname desc";
         
         for (Iterator i = employParameters.keySet().iterator();i.hasNext();){
             String param = (String)i.next();
@@ -402,9 +450,10 @@ public class EmployeesDAOImpl  extends AbstractDAO  implements EmployeeDAO{
                 employee.setEmployeeTypeTO(empType);
                 
                 ProjectAssignmentsTO projAss = new ProjectAssignmentsTO();
-                StatesTO state = new StatesTO();
-                state.setStaId(rs.getString("empState"));
-                projAss.setStatesTO(state);
+                ProAssigmentsDetailsTO proAssDet = new ProAssigmentsDetailsTO();
+                proAssDet.setPadWCount((rs.getDouble("palabras")>0D )?rs.getDouble("palabras"):0D);
+                projAss.setProAssigmentDetailsTO(proAssDet);
+                
                 if(rs.getTime("empAssDate") !=null ){ 
                        java.sql.Timestamp timest = rs.getTimestamp("empAssDate"); 
                        projAss.setPraAssignDate(timest);                                     

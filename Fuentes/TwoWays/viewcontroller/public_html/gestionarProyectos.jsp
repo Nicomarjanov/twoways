@@ -381,9 +381,9 @@
 
                </td>
               </tr>
-              <tr>
+              <!--tr>
                 <td align="center" colspan="3"><input type="button" id="export" value="Exportar" OnClick="exportarListaCSV()"/></td>
-              </tr>
+              </tr-->
              </table>
             </td>
            </tr>

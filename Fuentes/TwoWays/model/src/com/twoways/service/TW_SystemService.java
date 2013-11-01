@@ -52,6 +52,8 @@ public interface TW_SystemService {
     public boolean  deleteClients(ClientsTO client)  throws Exception;
     
     public List obtenerEmpleados() throws Exception;
+
+    public List obtenerEmpleadosTodos() throws Exception;    
     
     public EmployeesTO insertarEmpleado(EmployeesTO employeesTO) throws Exception;
     
@@ -310,4 +312,7 @@ public interface TW_SystemService {
     public List obtenerPalabrasxMes(List anios) throws Exception;
     
     public List obtenerPalabrasxCliente(String anio) throws Exception;
+
+    public List findOrdenesyPalabras(Map projParameters) throws Exception;
+
 }
